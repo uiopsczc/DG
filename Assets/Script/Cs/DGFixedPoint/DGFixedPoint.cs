@@ -10,22 +10,23 @@
 *************************************************************************************/
 
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 
-public struct DGFixedPoint
+public partial struct DGFixedPoint
 {
 	public static readonly DGFixedPoint Precision = new DGFixedPoint(DGFixedPointConstInternal.PRECISION);
-	public static readonly DGFixedPoint One = new DGFixedPoint(DGFixedPointConstInternal.SCALED_ONE);
-	public static readonly DGFixedPoint Zero = new DGFixedPoint();
 	public static readonly DGFixedPoint MaxValue = new DGFixedPoint(DGFixedPointConstInternal.MAX_VALUE);
 	public static readonly DGFixedPoint MinValue = new DGFixedPoint(DGFixedPointConstInternal.MIN_VALUE);
+	public static readonly DGFixedPoint One = new DGFixedPoint(DGFixedPointConstInternal.SCALED_ONE);
+	public static readonly DGFixedPoint Zero = new DGFixedPoint();
 	public static readonly DGFixedPoint Pi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_PI);
 	public static readonly DGFixedPoint HalfPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_HALF_PI);
 	public static readonly DGFixedPoint TwoPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_TWO_PI);
 	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);
 	public static readonly DGFixedPoint Log2Max = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MAX);
 	public static readonly DGFixedPoint Log2Min = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MIN);
-	static readonly DGFixedPoint LutInterval = (DGFixedPoint)(DGFixedPointConstInternal.LUT_SIZE - 1) / HalfPi;
+	static readonly DGFixedPoint LutInterval = (DGFixedPoint) (DGFixedPointConstInternal.LUT_SIZE - 1) / HalfPi;
 
 
 	public long scaledValue { get; }
@@ -88,6 +89,7 @@ public struct DGFixedPoint
 			return integralPart;
 		if (fractionalPart > DGFixedPointConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
 			return integralPart + One;
+		// 小数部分等于0.5时， System.Math.Round()的处理方式是四舍五入到最近的偶整数
 		return (integralPart.scaledValue & DGFixedPointConstInternal.SCALED_ONE) == 0
 			? integralPart
 			: integralPart + One;
@@ -133,6 +135,10 @@ public struct DGFixedPoint
 
 	public static DGFixedPoint FastSub(DGFixedPoint value1, DGFixedPoint value2)
 	{
+		long x = 0;
+		long y = 1;
+		long sum = x + y;
+		var t = (x ^ y ^ sum);
 		return new DGFixedPoint(value1.scaledValue - value2.scaledValue);
 	}
 
@@ -285,7 +291,7 @@ public struct DGFixedPoint
 			quotient += div << bitPos;
 
 			// Detect overflow
-			if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0)
+			if ((div & ~(DGFixedPointConstInternal.ALL_ONE >> bitPos)) != 0)
 				return ((scaledValue1 ^ scaledValue2) & DGFixedPointConstInternal.MIN_VALUE) == 0 ? MaxValue : MinValue;
 
 			remainder <<= 1;
@@ -316,7 +322,9 @@ public struct DGFixedPoint
 
 	public static DGFixedPoint operator -(DGFixedPoint value)
 	{
-		return value.scaledValue == DGFixedPointConstInternal.MIN_VALUE ? MaxValue : new DGFixedPoint(-value.scaledValue);
+		return value.scaledValue == DGFixedPointConstInternal.MIN_VALUE
+			? MaxValue
+			: new DGFixedPoint(-value.scaledValue);
 	}
 
 	public static bool operator ==(DGFixedPoint value1, DGFixedPoint value2)
@@ -373,7 +381,7 @@ public struct DGFixedPoint
 		 * When the sum term drops to zero, we can stop summing.
 		 */
 
-		int integerPart = (int)Floor(power);
+		int integerPart = (int) Floor(power);
 		// Take fractional part of exponent
 		power = new DGFixedPoint(power.scaledValue & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK);
 
@@ -382,7 +390,7 @@ public struct DGFixedPoint
 		int i = 1;
 		while (term.scaledValue != 0)
 		{
-			term = FastMul(FastMul(power, term), Ln2) / (DGFixedPoint)i;
+			term = FastMul(FastMul(power, term), Ln2) / (DGFixedPoint) i;
 			result += term;
 			i++;
 		}
@@ -429,6 +437,7 @@ public struct DGFixedPoint
 				z = new DGFixedPoint(z.scaledValue >> 1);
 				y += b;
 			}
+
 			b >>= 1;
 		}
 
@@ -468,7 +477,7 @@ public struct DGFixedPoint
 			throw new ArgumentOutOfRangeException("Negative value passed to Sqrt", "x");
 		}
 
-		var num = (ulong)scaledValue1;
+		var num = (ulong) scaledValue1;
 		var result = 0UL;
 
 		// second-to-top bit
@@ -507,8 +516,10 @@ public struct DGFixedPoint
 					//       = num + result^2 - (result + 0.5)^2
 					//       = num - result - 0.5
 					num -= result;
-					num = (num << (DGFixedPointConstInternal.NUM_BIT_COUNT / 2)) - DGFixedPointConstInternal.SCALED_HALF_ONE;
-					result = (result << (DGFixedPointConstInternal.NUM_BIT_COUNT / 2)) + DGFixedPointConstInternal.SCALED_HALF_ONE;
+					num = (num << (DGFixedPointConstInternal.NUM_BIT_COUNT / 2)) -
+					      DGFixedPointConstInternal.SCALED_HALF_ONE;
+					result = (result << (DGFixedPointConstInternal.NUM_BIT_COUNT / 2)) +
+					         DGFixedPointConstInternal.SCALED_HALF_ONE;
 				}
 				else
 				{
@@ -519,10 +530,11 @@ public struct DGFixedPoint
 				bit = 1UL << (DGFixedPointConstInternal.NUM_BIT_COUNT / 2 - 2);
 			}
 		}
+
 		// Finally, if next bit would have been 1, round the result upwards.
 		if (num > result)
 			++result;
-		return new DGFixedPoint((long)result);
+		return new DGFixedPoint((long) result);
 	}
 
 	/// <summary>
@@ -531,8 +543,8 @@ public struct DGFixedPoint
 	/// </summary>
 	public static DGFixedPoint Sin(DGFixedPoint value)
 	{
-		var clampedL = ClampSinValue(value.scaledValue, out var flipHorizontal, out var flipVertical);
-		var clamped = new DGFixedPoint(clampedL);
+		var clampedScaledSinValue = _ClampSinValue(value.scaledValue, out var flipHorizontal, out var flipVertical);
+		var clamped = new DGFixedPoint(clampedScaledSinValue);
 
 		// Find the two closest values in the LUT and perform linear interpolation
 		// This is what kills the performance of this function on x86 - x64 is fine though
@@ -540,12 +552,12 @@ public struct DGFixedPoint
 		var roundedIndex = Round(rawIndex);
 		var indexError = FastSub(rawIndex, roundedIndex);
 
-		var nearestValue = new DGFixedPoint(SinLut[flipHorizontal ?
-			SinLut.Length - 1 - (int)roundedIndex :
-			(int)roundedIndex]);
-		var secondNearestValue = new Fix64(DGFixedPoint[flipHorizontal ?
-			SinLut.Length - 1 - (int)roundedIndex - Sign(indexError) :
-			(int)roundedIndex + Sign(indexError)]);
+		var nearestValue = new DGFixedPoint(DGFixedPointSinLut.SinLut[
+			flipHorizontal ? DGFixedPointSinLut.SinLut.Length - 1 - (int) roundedIndex : (int) roundedIndex]);
+		var secondNearestValue = new DGFixedPoint(DGFixedPointSinLut.SinLut[
+			flipHorizontal
+				? DGFixedPointSinLut.SinLut.Length - 1 - (int) roundedIndex - Sign(indexError)
+				: (int) roundedIndex + Sign(indexError)]);
 
 		var delta = FastMul(indexError, FastAbs(FastSub(nearestValue, secondNearestValue))).scaledValue;
 		var interpolatedValue = nearestValue.scaledValue + (flipHorizontal ? -delta : delta);
@@ -553,54 +565,243 @@ public struct DGFixedPoint
 		return new DGFixedPoint(finalValue);
 	}
 
-	public static DGFixedPoint FastSin(DGFixedPoint x)
+	public static DGFixedPoint FastSin(DGFixedPoint value)
 	{
-		var clampedL = ClampSinValue(x.m_rawValue, out bool flipHorizontal, out bool flipVertical);
+		var clampedScaledSinValue = _ClampSinValue(value.scaledValue, out bool flipHorizontal, out bool flipVertical);
 
 		// Here we use the fact that the SinLut table has a number of entries
 		// equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
-		var rawIndex = (uint)(clampedL >> 15);
-		if (rawIndex >= LUT_SIZE)
-		{
-			rawIndex = LUT_SIZE - 1;
-		}
-		var nearestValue = SinLut[flipHorizontal ?
-			SinLut.Length - 1 - (int)rawIndex :
-			(int)rawIndex];
+		var rawIndex = (uint) (clampedScaledSinValue >> 15);
+		if (rawIndex >= DGFixedPointConstInternal.LUT_SIZE)
+			rawIndex = DGFixedPointConstInternal.LUT_SIZE - 1;
+		var nearestValue =
+			DGFixedPointSinLut.SinLut[
+				flipHorizontal ? DGFixedPointSinLut.SinLut.Length - 1 - (int) rawIndex : (int) rawIndex];
 		return new DGFixedPoint(flipVertical ? -nearestValue : nearestValue);
 	}
+
+	static long _ClampSinValue(long angle, out bool flipHorizontal, out bool flipVertical)
+	{
+		var largePI = DGFixedPointConstInternal.SCALED_LARGE_PI;
+		// Obtained from ((Fix64)1686629713.065252369824872831112M).m_rawValue
+		// This is (2^29)*PI, where 29 is the largest N such that (2^N)*PI < MaxValue.
+		// The idea is that this number contains way more precision than PI_TIMES_2,
+		// and (((x % (2^29*PI)) % (2^28*PI)) % ... (2^1*PI) = x % (2 * PI)
+		// In practice this gives us an error of about 1,25e-9 in the worst case scenario (Sin(MaxValue))
+		// Whereas simply doing x % PI_TIMES_2 is the 2e-3 range.
+
+		var clamped2Pi = angle;
+		for (int i = 0; i < 29; ++i)
+			clamped2Pi %= (largePI >> i);
+
+		if (angle < 0)
+			clamped2Pi += DGFixedPointConstInternal.SCALED_TWO_PI;
+
+		// The LUT contains values for 0 - PiOver2; every other value must be obtained by
+		// vertical or horizontal mirroring
+		flipVertical = clamped2Pi >= DGFixedPointConstInternal.SCALED_PI;
+		// obtain (angle % PI) from (angle % 2PI) - much faster than doing another modulo
+		var clampedPi = clamped2Pi;
+		while (clampedPi >= DGFixedPointConstInternal.SCALED_PI)
+			clampedPi -= DGFixedPointConstInternal.SCALED_PI;
+
+		flipHorizontal = clampedPi >= DGFixedPointConstInternal.SCALED_HALF_PI;
+		// obtain (angle % PI_OVER_2) from (angle % PI) - much faster than doing another modulo
+		var clampedPiOver2 = clampedPi;
+		if (clampedPiOver2 >= DGFixedPointConstInternal.SCALED_HALF_PI)
+			clampedPiOver2 -= DGFixedPointConstInternal.SCALED_HALF_PI;
+		return clampedPiOver2;
+	}
+
+	public static DGFixedPoint Cos(DGFixedPoint value)
+	{
+		var scaledValue = value.scaledValue;
+		var scaledAngle = scaledValue + (scaledValue > 0
+			                  ? -DGFixedPointConstInternal.SCALED_PI - DGFixedPointConstInternal.SCALED_HALF_PI
+			                  : DGFixedPointConstInternal.SCALED_HALF_PI);
+		return Sin(new DGFixedPoint(scaledAngle));
+	}
+
+	public static DGFixedPoint FastCos(DGFixedPoint value)
+	{
+		var scaledValue = value.scaledValue;
+		var scaledAngle = scaledValue + (scaledValue > 0
+			                  ? -DGFixedPointConstInternal.SCALED_PI - DGFixedPointConstInternal.SCALED_HALF_PI
+			                  : DGFixedPointConstInternal.SCALED_HALF_PI);
+		return FastSin(new DGFixedPoint(scaledAngle));
+	}
+
+	public static DGFixedPoint Tan(DGFixedPoint value)
+	{
+		var clampedScaledPI = value.scaledValue % DGFixedPointConstInternal.SCALED_PI;
+		var flip = false;
+		if (clampedScaledPI < 0)
+		{
+			clampedScaledPI = -clampedScaledPI;
+			flip = true;
+		}
+
+		if (clampedScaledPI > DGFixedPointConstInternal.SCALED_HALF_PI)
+		{
+			flip = !flip;
+			clampedScaledPI = DGFixedPointConstInternal.SCALED_HALF_PI -
+			                  (clampedScaledPI - DGFixedPointConstInternal.SCALED_HALF_PI);
+		}
+
+		var clamped = new DGFixedPoint(clampedScaledPI);
+
+		// Find the two closest values in the LUT and perform linear interpolation
+		var rawIndex = FastMul(clamped, LutInterval);
+		var roundedIndex = Round(rawIndex);
+		var indexError = FastSub(rawIndex, roundedIndex);
+
+		var nearestValue = new DGFixedPoint(DGFixedPointTanLut.TanLut[(int) roundedIndex]);
+		var secondNearestValue = new DGFixedPoint(DGFixedPointTanLut.TanLut[(int) roundedIndex + Sign(indexError)]);
+
+		var delta = FastMul(indexError, FastAbs(FastSub(nearestValue, secondNearestValue))).scaledValue;
+		var interpolatedValue = nearestValue.scaledValue + delta;
+		var finalValue = flip ? -interpolatedValue : interpolatedValue;
+		return new DGFixedPoint(finalValue);
+	}
+
+	public static DGFixedPoint Acos(DGFixedPoint value)
+	{
+		if (value < -One || value > One)
+			throw new ArgumentOutOfRangeException(nameof(value));
+
+		if (value.scaledValue == 0) return HalfPi;
+
+		var result = Atan(Sqrt(One - value * value) / value);
+		return value.scaledValue < 0 ? result + Pi : result;
+	}
+
+	public static DGFixedPoint Atan(DGFixedPoint z)
+	{
+		if (z.scaledValue == 0) return Zero;
+
+		// Force positive values for argument
+		// Atan(-z) = -Atan(z).
+		var neg = z.scaledValue < 0;
+		if (neg)
+			z = -z;
+
+		DGFixedPoint result;
+		var two = (DGFixedPoint) 2;
+		var three = (DGFixedPoint) 3;
+
+		bool invert = z > One;
+		if (invert) z = One / z;
+
+		result = One;
+		var term = One;
+
+		var zSq = z * z;
+		var zSq2 = zSq * two;
+		var zSqPlusOne = zSq + One;
+		var zSq12 = zSqPlusOne * two;
+		var dividend = zSq2;
+		var divisor = zSqPlusOne * three;
+
+		for (var i = 2; i < 30; ++i)
+		{
+			term *= dividend / divisor;
+			result += term;
+
+			dividend += zSq2;
+			divisor += zSq12;
+
+			if (term.scaledValue == 0) break;
+		}
+
+		result = result * z / zSqPlusOne;
+
+		if (invert)
+			result = HalfPi - result;
+
+		if (neg)
+			result = -result;
+		return result;
+	}
+
+	public static DGFixedPoint Atan2(DGFixedPoint y, DGFixedPoint x)
+	{
+		var scaledY = y.scaledValue;
+		var scaledX = x.scaledValue;
+		if (scaledX == 0)
+		{
+			if (scaledY > 0)
+				return HalfPi;
+			if (scaledY == 0)
+				return Zero;
+			return -HalfPi;
+		}
+
+		DGFixedPoint atan;
+		var z = y / x;
+
+		// Deal with overflow
+		if (One + (DGFixedPoint) 0.28M * z * z == MaxValue)
+			return y < Zero ? -HalfPi : HalfPi;
+
+		if (Abs(z) < One)
+		{
+			atan = z / (One + (DGFixedPoint) 0.28M * z * z);
+			if (scaledX < 0)
+			{
+				if (scaledY < 0)
+					return atan - Pi;
+				return atan + Pi;
+			}
+		}
+		else
+		{
+			atan = HalfPi - z / (z * z + (DGFixedPoint) 0.28M);
+			if (scaledY < 0)
+				return atan - Pi;
+		}
+
+		return atan;
+	}
+
 
 	public static explicit operator DGFixedPoint(long value)
 	{
 		return new DGFixedPoint(value * DGFixedPointConstInternal.SCALED_ONE);
 	}
+
 	public static explicit operator long(DGFixedPoint value)
 	{
 		return value.scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
 	}
+
 	public static explicit operator DGFixedPoint(float value)
 	{
-		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
 	}
+
 	public static explicit operator float(DGFixedPoint value)
 	{
-		return (float)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+		return (float) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
 	}
+
 	public static explicit operator DGFixedPoint(double value)
 	{
-		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
 	}
+
 	public static explicit operator double(DGFixedPoint value)
 	{
-		return (double)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+		return (double) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
 	}
+
 	public static explicit operator DGFixedPoint(decimal value)
 	{
-		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
 	}
+
 	public static explicit operator decimal(DGFixedPoint value)
 	{
-		return (decimal)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+		return (decimal) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
 	}
 
 	public override bool Equals(object obj)
@@ -625,7 +826,7 @@ public struct DGFixedPoint
 
 	public override string ToString()
 	{
-		return ((decimal)this).ToString("0.##########");
+		return ((decimal) this).ToString("0.##########");
 	}
 
 	public static DGFixedPoint CreateByScaledValue(long scaledValue)
@@ -633,4 +834,65 @@ public struct DGFixedPoint
 		return new DGFixedPoint(scaledValue);
 	}
 
+	internal static void GenerateSinLut()
+	{
+		using (var writer = new StreamWriter("Lut/DGFixedPointSinLut.cs"))
+		{
+			writer.Write(
+@"partial struct DGFixedPointSinLut 
+{
+     public static readonly long[] SinLut = new[] 
+     {");
+			int lineCounter = 0;
+			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
+			{
+				var angle = i * Math.PI * 0.5 / (DGFixedPointConstInternal.LUT_SIZE - 1);
+				if (lineCounter++ % 8 == 0)
+				{
+					writer.WriteLine();
+					writer.Write("        ");
+				}
+				var sin = Math.Sin(angle);
+				var scaledValue = ((DGFixedPoint)sin).scaledValue;
+				writer.Write(string.Format("0x{0:X}L, ", scaledValue));
+			}
+			writer.Write(
+@"
+    };
+}
+");
+		}
+	}
+
+	internal static void GenerateTanLut()
+	{
+		using (var writer = new StreamWriter("Lut/DGFixedPointTanLut.cs"))
+		{
+			writer.Write(
+@"partial struct Fix64 
+{
+     public static readonly long[] TanLut = new[] 
+     {");
+			int lineCounter = 0;
+			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
+			{
+				var angle = i * Math.PI * 0.5 / (DGFixedPointConstInternal.LUT_SIZE - 1);
+				if (lineCounter++ % 8 == 0)
+				{
+					writer.WriteLine();
+					writer.Write("        ");
+				}
+				var tan = Math.Tan(angle);
+				if (tan > (double) MaxValue || tan < 0.0)
+					tan = (double) MaxValue;
+				var scaledValue = (((decimal)tan > (decimal)MaxValue || tan < 0.0) ? MaxValue : (DGFixedPoint)tan).scaledValue;
+				writer.Write(string.Format("0x{0:X}L, ", scaledValue));
+			}
+			writer.Write(
+@"
+    };
+}
+");
+		}
+	}
 }
