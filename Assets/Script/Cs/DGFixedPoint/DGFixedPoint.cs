@@ -10,6 +10,7 @@
 *************************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFixedPoint>
@@ -26,7 +27,23 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);
 	public static readonly DGFixedPoint Log2Max = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MAX);
 	public static readonly DGFixedPoint Log2Min = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MIN);
+	public static readonly DGFixedPoint E = new DGFixedPoint(DGFixedPointConstInternal.SCALED_E);
+	public static readonly DGFixedPoint Deg2Rad = new DGFixedPoint(DGFixedPointConstInternal.SCALED_DEG2RAD);
+	public static readonly DGFixedPoint Rad2Deg = new DGFixedPoint(DGFixedPointConstInternal.SCALED_RAD2DEG);
+
 	static readonly DGFixedPoint LutInterval = (DGFixedPoint) (DGFixedPointConstInternal.LUT_SIZE - 1) / HalfPi;
+
+	public static readonly Dictionary<int, DGFixedPoint> Cache = new Dictionary<int, DGFixedPoint>
+	{
+		{0, Zero},
+		{1, One},
+		{2, new DGFixedPoint(2)},
+		{10, new DGFixedPoint(10)},
+		{360, new DGFixedPoint(360)},
+		{180, new DGFixedPoint(180)},
+
+		{-1, new DGFixedPoint(-1)},
+	};
 
 	public long scaledValue { get; }
 
@@ -408,6 +425,14 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 		return new DGFixedPoint((value.scaledValue + mask) ^ mask);
 	}
 
+	public static DGFixedPoint Truncate(DGFixedPoint value)
+	{
+		var scaledValue = value.scaledValue;
+		if (scaledValue < 0)
+			return CreateByScaledValue(-(-scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT << DGFixedPointConstInternal.MOVE_BIT_COUNT));
+		return CreateByScaledValue(scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT << DGFixedPointConstInternal.MOVE_BIT_COUNT);
+	}
+
 	public static DGFixedPoint Floor(DGFixedPoint value)
 	{
 		return new DGFixedPoint(
@@ -741,6 +766,11 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 		var interpolatedValue = nearestValue.scaledValue + delta;
 		var finalValue = flip ? -interpolatedValue : interpolatedValue;
 		return new DGFixedPoint(finalValue);
+	}
+
+	public static DGFixedPoint Asin(DGFixedPoint value)
+	{
+		return FastSub(HalfPi, Acos(value));
 	}
 
 	public static DGFixedPoint Acos(DGFixedPoint value)
