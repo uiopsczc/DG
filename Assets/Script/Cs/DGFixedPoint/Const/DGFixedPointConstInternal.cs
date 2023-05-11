@@ -10,27 +10,25 @@
 *************************************************************************************/
 
 using System;
+using UnityEngine;
 
 internal static class DGFixedPointConstInternal
 {
 	internal const long MAX_VALUE = long.MaxValue;
 	internal const long MIN_VALUE = long.MinValue;
-	internal const int MOVE_BIT_COUNT = 32;
 	internal const int NUM_BIT_COUNT = 64;
+	internal const int MOVE_BIT_COUNT = 32;
 	internal const long PRECISION = 1L;
 
 	internal const long SCALED_ONE = 1L << MOVE_BIT_COUNT;
 	internal const ulong SCALED_HALF_ONE = 0x80000000;
 	internal const long SCALED_PI = (long) (Math.PI * SCALED_ONE);
-	internal const long SCALED_HALF_PI = (long) (Math.PI * SCALED_ONE / 2);
-	internal const long SCALED_TWO_PI = (long) (Math.PI * SCALED_ONE * 2);
-	// SCALED_LARGE_PI
-	// This is (2^29)*PI, where 29 is the largest N such that (2^N)*PI < MaxValue.
-	// The idea is that this number contains way more precision than PI_TIMES_2,
-	// and (((x % (2^29*PI)) % (2^28*PI)) % ... (2^1*PI) = x % (2 * PI)
-	// In practice this gives us an error of about 1,25e-9 in the worst case scenario (Sin(MaxValue))
-	// Whereas simply doing x % PI_TIMES_2 is the 2e-3 range.
-	internal const long SCALED_LARGE_PI = SCALED_PI * (1L << (NUM_BIT_COUNT - MOVE_BIT_COUNT - 3));
+	internal const long SCALED_TWO_PI = (long)(Math.PI * (1L << (MOVE_BIT_COUNT + 1)));
+	internal const long SCALED_HALF_PI = (long) (Math.PI * (1L << (MOVE_BIT_COUNT - 1)));
+	internal const long SCALED_QUARTER_PI = (long)(Math.PI * (1L << (MOVE_BIT_COUNT - 2)));
+	
+	
+	internal const long SCALED_LARGE_PI = 7244019458077122842;//跟这个差不多(long)(Math.PI * (1L << (NUM_BIT_COUNT - MOVE_BIT_COUNT - 3 + MOVE_BIT_COUNT))) == 7244019458077122560; 但是还是最后三位有区别，不然有误差
 	internal const long SCALED_LN2 = 0xB17217F7; //(long)(Math.Log(2) * SCALED_ONE)
 	internal const long SCALED_LOG2MAX = 0x1F00000000;
 	internal const long SCALED_LOG2MIN = -0x2000000000;

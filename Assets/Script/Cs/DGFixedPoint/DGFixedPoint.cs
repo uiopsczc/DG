@@ -1,5 +1,5 @@
 /*************************************************************************************
- * 描    述:  
+ * 描    述:  抄自https://github.com/asik/FixedMath.Net，里面还有fix16，fix8的实现
  * 创 建 者:  czq
  * 创建时间:  2023/5/8
  * ======================================
@@ -10,12 +10,11 @@
 *************************************************************************************/
 
 using System;
-using System.IO;
 using System.Runtime.CompilerServices;
 
-public partial struct DGFixedPoint
+public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFixedPoint>
 {
-	public static readonly DGFixedPoint Precision = new DGFixedPoint(DGFixedPointConstInternal.PRECISION);
+	public static readonly decimal Precision = (decimal) new DGFixedPoint(DGFixedPointConstInternal.PRECISION);
 	public static readonly DGFixedPoint MaxValue = new DGFixedPoint(DGFixedPointConstInternal.MAX_VALUE);
 	public static readonly DGFixedPoint MinValue = new DGFixedPoint(DGFixedPointConstInternal.MIN_VALUE);
 	public static readonly DGFixedPoint One = new DGFixedPoint(DGFixedPointConstInternal.SCALED_ONE);
@@ -23,11 +22,11 @@ public partial struct DGFixedPoint
 	public static readonly DGFixedPoint Pi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_PI);
 	public static readonly DGFixedPoint HalfPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_HALF_PI);
 	public static readonly DGFixedPoint TwoPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_TWO_PI);
+	public static readonly DGFixedPoint QuarterPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_QUARTER_PI);
 	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);
 	public static readonly DGFixedPoint Log2Max = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MAX);
 	public static readonly DGFixedPoint Log2Min = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MIN);
 	static readonly DGFixedPoint LutInterval = (DGFixedPoint) (DGFixedPointConstInternal.LUT_SIZE - 1) / HalfPi;
-
 
 	public long scaledValue { get; }
 
@@ -41,60 +40,41 @@ public partial struct DGFixedPoint
 		scaledValue = value * DGFixedPointConstInternal.SCALED_ONE;
 	}
 
+	public static DGFixedPoint CreateByScaledValue(long scaledValue)
+	{
+		return new DGFixedPoint(scaledValue);
+	}
+
 	/*************************************************************************************
-	* 模块描述:StaticUtil
+	* 模块描述:Equals ToString
 	*************************************************************************************/
-	public static int Sign(DGFixedPoint value)
+	public override bool Equals(object obj)
 	{
-		return
-			value.scaledValue < 0 ? -1 :
-			value.scaledValue > 0 ? 1 :
-			0;
+		return obj is DGFixedPoint fixedPoint && fixedPoint.scaledValue == scaledValue;
 	}
 
-	public static DGFixedPoint Abs(DGFixedPoint value)
+	public bool Equals(DGFixedPoint other)
 	{
-		if (value.scaledValue == DGFixedPointConstInternal.MIN_VALUE)
-			return MaxValue;
-
-		// branchless implementation, see http://www.strchr.com/optimized_abs_function
-		var mask = value.scaledValue >> (DGFixedPointConstInternal.NUM_BIT_COUNT - 1);
-		return new DGFixedPoint((value.scaledValue + mask) ^ mask);
+		return scaledValue == other.scaledValue;
 	}
 
-	public static DGFixedPoint FastAbs(DGFixedPoint value)
+	public override int GetHashCode()
 	{
-		// branchless implementation, see http://www.strchr.com/optimized_abs_function
-		var mask = value.scaledValue >> (DGFixedPointConstInternal.NUM_BIT_COUNT - 1);
-		return new DGFixedPoint((value.scaledValue + mask) ^ mask);
+		return scaledValue.GetHashCode();
 	}
 
-	public static DGFixedPoint Floor(DGFixedPoint value)
+	public int CompareTo(DGFixedPoint other)
 	{
-		return new DGFixedPoint(
-			(long) ((ulong) value.scaledValue & DGFixedPointConstInternal.SCALED_INTEGRAL_PART_MASK));
+		return scaledValue.CompareTo(other.scaledValue);
 	}
 
-	public static DGFixedPoint Ceiling(DGFixedPoint value)
+	public override string ToString()
 	{
-		var hasFractionalPart = (value.scaledValue & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK) != 0;
-		return hasFractionalPart ? Floor(value) + One : value;
+		return ((decimal) this).ToString("0.##########");
 	}
-
-	public static DGFixedPoint Round(DGFixedPoint value)
-	{
-		var fractionalPart = value.scaledValue & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK;
-		var integralPart = Floor(value);
-		if (fractionalPart < DGFixedPointConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
-			return integralPart;
-		if (fractionalPart > DGFixedPointConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
-			return integralPart + One;
-		// 小数部分等于0.5时， System.Math.Round()的处理方式是四舍五入到最近的偶整数
-		return (integralPart.scaledValue & DGFixedPointConstInternal.SCALED_ONE) == 0
-			? integralPart
-			: integralPart + One;
-	}
-
+	/*************************************************************************************
+	* 模块描述:算术运算符
+	*************************************************************************************/
 	public static DGFixedPoint operator +(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		var scaledValue1 = value1.scaledValue;
@@ -109,19 +89,6 @@ public partial struct DGFixedPoint
 		return new DGFixedPoint(scaledValueSum);
 	}
 
-	public static DGFixedPoint FastAdd(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return new DGFixedPoint(value1.scaledValue + value2.scaledValue);
-	}
-
-	static long _AddOverflowHelper(long scaledValue1, long scaledValue2, ref bool overflow)
-	{
-		var sum = scaledValue1 + scaledValue2;
-		// x + y overflows if sign(x) ^ sign(y) != sign(sum)
-		overflow |= ((scaledValue1 ^ scaledValue2 ^ sum) & DGFixedPointConstInternal.MIN_VALUE) != 0;
-		return sum;
-	}
-
 	public static DGFixedPoint operator -(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		var scaledValue1 = value1.scaledValue;
@@ -131,15 +98,6 @@ public partial struct DGFixedPoint
 		if ((((scaledValue1 ^ scaleValue2) & (scaledValue1 ^ scaledDiff)) & DGFixedPointConstInternal.MIN_VALUE) != 0)
 			scaledDiff = scaledValue1 < 0 ? DGFixedPointConstInternal.MIN_VALUE : DGFixedPointConstInternal.MAX_VALUE;
 		return new DGFixedPoint(scaledDiff);
-	}
-
-	public static DGFixedPoint FastSub(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		long x = 0;
-		long y = 1;
-		long sum = x + y;
-		var t = (x ^ y ^ sum);
-		return new DGFixedPoint(value1.scaledValue - value2.scaledValue);
 	}
 
 	public static DGFixedPoint operator *(DGFixedPoint value1, DGFixedPoint value2)
@@ -214,49 +172,6 @@ public partial struct DGFixedPoint
 		return new DGFixedPoint(scaledSum);
 	}
 
-	public static DGFixedPoint FastMul(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		var scaleValue1 = value1.scaledValue;
-		var scaleValue2 = value2.scaledValue;
-
-		var low1 = (ulong) (scaleValue1 & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK);
-		var high1 = scaleValue1 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
-		var low2 = (ulong) (scaleValue2 & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK);
-		var high2 = scaleValue2 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
-
-		var low1Low2 = low1 * low2;
-		var low1High2 = (long) low1 * high2;
-		var high1Low2 = high1 * (long) low2;
-		var high1High2 = high1 * high2;
-
-		var scaleLowResult = low1Low2 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
-		var scaledMidResult1 = low1High2;
-		var scaledMidResult2 = high1Low2;
-		var scaledHighResult = high1High2 << DGFixedPointConstInternal.MOVE_BIT_COUNT;
-
-		var scaledSum = (long) scaleLowResult + scaledMidResult1 + scaledMidResult2 + scaledHighResult;
-		return new DGFixedPoint(scaledSum);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	static int CountLeadingZeroes(ulong x)
-	{
-		int result = 0;
-		while ((x & DGFixedPointConstInternal.COUNT_LEADING_ZERO_ROUGH_Mask) == 0)
-		{
-			result += 4;
-			x <<= 4;
-		}
-
-		while ((x & DGFixedPointConstInternal.COUNT_LEADING_ZERO_MASK) == 0)
-		{
-			result += 1;
-			x <<= 1;
-		}
-
-		return result;
-	}
-
 	public static DGFixedPoint operator /(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		var scaledValue1 = value1.scaledValue;
@@ -280,7 +195,7 @@ public partial struct DGFixedPoint
 
 		while (remainder != 0 && bitPos >= 0)
 		{
-			int shift = CountLeadingZeroes(remainder);
+			int shift = _CountLeadingZeroes(remainder);
 			if (shift > bitPos)
 				shift = bitPos;
 			remainder <<= shift;
@@ -315,18 +230,15 @@ public partial struct DGFixedPoint
 				: value1.scaledValue % value2.scaledValue);
 	}
 
-	public static DGFixedPoint FastMod(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return new DGFixedPoint(value1.scaledValue % value2.scaledValue);
-	}
-
 	public static DGFixedPoint operator -(DGFixedPoint value)
 	{
 		return value.scaledValue == DGFixedPointConstInternal.MIN_VALUE
 			? MaxValue
 			: new DGFixedPoint(-value.scaledValue);
 	}
-
+	/*************************************************************************************
+	* 模块描述:关系运算符
+	*************************************************************************************/
 	public static bool operator ==(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		return value1.scaledValue == value2.scaledValue;
@@ -355,6 +267,198 @@ public partial struct DGFixedPoint
 	public static bool operator <=(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		return value1.scaledValue <= value2.scaledValue;
+	}
+	/*************************************************************************************
+	* 模块描述:强制转换
+	*************************************************************************************/
+	public static explicit operator DGFixedPoint(long value)
+	{
+		return new DGFixedPoint(value << DGFixedPointConstInternal.MOVE_BIT_COUNT);
+	}
+
+	public static explicit operator long(DGFixedPoint value)
+	{
+		return value.scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
+	}
+
+	public static explicit operator DGFixedPoint(float value)
+	{
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator float(DGFixedPoint value)
+	{
+		return (float) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+
+	public static explicit operator DGFixedPoint(double value)
+	{
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator double(DGFixedPoint value)
+	{
+		return (double) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+
+	public static explicit operator DGFixedPoint(decimal value)
+	{
+		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator decimal(DGFixedPoint value)
+	{
+		return (decimal) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+	/*************************************************************************************
+	* 模块描述:Fast 运算(但不安全)
+	*************************************************************************************/
+	public static DGFixedPoint FastAdd(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return new DGFixedPoint(value1.scaledValue + value2.scaledValue);
+	}
+
+	public static DGFixedPoint FastSub(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		long x = 0;
+		long y = 1;
+		long sum = x + y;
+		var t = (x ^ y ^ sum);
+		return new DGFixedPoint(value1.scaledValue - value2.scaledValue);
+	}
+
+	public static DGFixedPoint FastMul(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		var scaleValue1 = value1.scaledValue;
+		var scaleValue2 = value2.scaledValue;
+
+		var low1 = (ulong) (scaleValue1 & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK);
+		var high1 = scaleValue1 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
+		var low2 = (ulong) (scaleValue2 & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK);
+		var high2 = scaleValue2 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
+
+		var low1Low2 = low1 * low2;
+		var low1High2 = (long) low1 * high2;
+		var high1Low2 = high1 * (long) low2;
+		var high1High2 = high1 * high2;
+
+		var scaleLowResult = low1Low2 >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
+		var scaledMidResult1 = low1High2;
+		var scaledMidResult2 = high1Low2;
+		var scaledHighResult = high1High2 << DGFixedPointConstInternal.MOVE_BIT_COUNT;
+
+		var scaledSum = (long) scaleLowResult + scaledMidResult1 + scaledMidResult2 + scaledHighResult;
+		return new DGFixedPoint(scaledSum);
+	}
+
+	public static DGFixedPoint FastMod(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return new DGFixedPoint(value1.scaledValue % value2.scaledValue);
+	}
+
+	public static DGFixedPoint FastAbs(DGFixedPoint value)
+	{
+		// branchless implementation, see http://www.strchr.com/optimized_abs_function
+		var mask = value.scaledValue >> (DGFixedPointConstInternal.NUM_BIT_COUNT - 1);
+		return new DGFixedPoint((value.scaledValue + mask) ^ mask);
+	}
+
+	public static DGFixedPoint FastSin(DGFixedPoint value)
+	{
+		var clampedScaledSinValue = _ClampSinValue(value.scaledValue, out bool flipHorizontal, out bool flipVertical);
+
+		// Here we use the fact that the SinLut table has a number of entries
+		// equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
+		var rawIndex = (uint) (clampedScaledSinValue >> 15);
+		if (rawIndex >= DGFixedPointConstInternal.LUT_SIZE)
+			rawIndex = DGFixedPointConstInternal.LUT_SIZE - 1;
+		var nearestValue =
+			DGFixedPointSinLut.SinLut[
+				flipHorizontal ? DGFixedPointSinLut.SinLut.Length - 1 - (int) rawIndex : (int) rawIndex];
+		return new DGFixedPoint(flipVertical ? -nearestValue : nearestValue);
+	}
+
+	public static DGFixedPoint FastCos(DGFixedPoint value)
+	{
+		var scaledValue = value.scaledValue;
+		var scaledAngle = scaledValue + (scaledValue > 0
+			                  ? -DGFixedPointConstInternal.SCALED_PI - DGFixedPointConstInternal.SCALED_HALF_PI
+			                  : DGFixedPointConstInternal.SCALED_HALF_PI);
+		return FastSin(new DGFixedPoint(scaledAngle));
+	}
+
+	/*************************************************************************************
+	* 模块描述:StaticUtil
+	*************************************************************************************/
+	public static int Sign(DGFixedPoint value)
+	{
+		return
+			value.scaledValue < 0 ? -1 :
+			value.scaledValue > 0 ? 1 :
+			0;
+	}
+
+	public static DGFixedPoint Abs(DGFixedPoint value)
+	{
+		if (value.scaledValue == DGFixedPointConstInternal.MIN_VALUE)
+			return MaxValue;
+
+		// branchless implementation, see http://www.strchr.com/optimized_abs_function
+		var mask = value.scaledValue >> (DGFixedPointConstInternal.NUM_BIT_COUNT - 1);
+		return new DGFixedPoint((value.scaledValue + mask) ^ mask);
+	}
+
+	public static DGFixedPoint Floor(DGFixedPoint value)
+	{
+		return new DGFixedPoint(
+			(long) ((ulong) value.scaledValue & DGFixedPointConstInternal.SCALED_INTEGRAL_PART_MASK));
+	}
+
+	public static DGFixedPoint Ceiling(DGFixedPoint value)
+	{
+		var hasFractionalPart = (value.scaledValue & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK) != 0;
+		return hasFractionalPart ? Floor(value) + One : value;
+	}
+
+	public static DGFixedPoint Round(DGFixedPoint value)
+	{
+		var fractionalPart = value.scaledValue & DGFixedPointConstInternal.SCALED_FRACTIONAL_PART_MASK;
+		var integralPart = Floor(value);
+		if (fractionalPart < DGFixedPointConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
+			return integralPart;
+		if (fractionalPart > DGFixedPointConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
+			return integralPart + One;
+		// 小数部分等于0.5时， System.Math.Round()的处理方式是四舍五入到最近的偶整数
+		return (integralPart.scaledValue & DGFixedPointConstInternal.SCALED_ONE) == 0
+			? integralPart
+			: integralPart + One;
+	}
+
+	static long _AddOverflowHelper(long scaledValue1, long scaledValue2, ref bool overflow)
+	{
+		var sum = scaledValue1 + scaledValue2;
+		// x + y overflows if sign(x) ^ sign(y) != sign(sum)
+		overflow |= ((scaledValue1 ^ scaledValue2 ^ sum) & DGFixedPointConstInternal.MIN_VALUE) != 0;
+		return sum;
+	}
+
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	static int _CountLeadingZeroes(ulong x)
+	{
+		int result = 0;
+		while ((x & DGFixedPointConstInternal.COUNT_LEADING_ZERO_ROUGH_Mask) == 0)
+		{
+			result += 4;
+			x <<= 4;
+		}
+
+		while ((x & DGFixedPointConstInternal.COUNT_LEADING_ZERO_MASK) == 0)
+		{
+			result += 1;
+			x <<= 1;
+		}
+
+		return result;
 	}
 
 	internal static DGFixedPoint Pow2(DGFixedPoint power)
@@ -443,7 +547,6 @@ public partial struct DGFixedPoint
 
 		return new DGFixedPoint(y);
 	}
-
 
 	public static DGFixedPoint Ln(DGFixedPoint x)
 	{
@@ -565,30 +668,15 @@ public partial struct DGFixedPoint
 		return new DGFixedPoint(finalValue);
 	}
 
-	public static DGFixedPoint FastSin(DGFixedPoint value)
-	{
-		var clampedScaledSinValue = _ClampSinValue(value.scaledValue, out bool flipHorizontal, out bool flipVertical);
-
-		// Here we use the fact that the SinLut table has a number of entries
-		// equal to (PI_OVER_2 >> 15) to use the angle to index directly into it
-		var rawIndex = (uint) (clampedScaledSinValue >> 15);
-		if (rawIndex >= DGFixedPointConstInternal.LUT_SIZE)
-			rawIndex = DGFixedPointConstInternal.LUT_SIZE - 1;
-		var nearestValue =
-			DGFixedPointSinLut.SinLut[
-				flipHorizontal ? DGFixedPointSinLut.SinLut.Length - 1 - (int) rawIndex : (int) rawIndex];
-		return new DGFixedPoint(flipVertical ? -nearestValue : nearestValue);
-	}
-
 	static long _ClampSinValue(long angle, out bool flipHorizontal, out bool flipVertical)
 	{
-		var largePI = DGFixedPointConstInternal.SCALED_LARGE_PI;
-		// Obtained from ((Fix64)1686629713.065252369824872831112M).m_rawValue
+		// SCALED_LARGE_PI
 		// This is (2^29)*PI, where 29 is the largest N such that (2^N)*PI < MaxValue.
 		// The idea is that this number contains way more precision than PI_TIMES_2,
 		// and (((x % (2^29*PI)) % (2^28*PI)) % ... (2^1*PI) = x % (2 * PI)
 		// In practice this gives us an error of about 1,25e-9 in the worst case scenario (Sin(MaxValue))
 		// Whereas simply doing x % PI_TIMES_2 is the 2e-3 range.
+		var largePI = DGFixedPointConstInternal.SCALED_LARGE_PI;
 
 		var clamped2Pi = angle;
 		for (int i = 0; i < 29; ++i)
@@ -620,15 +708,6 @@ public partial struct DGFixedPoint
 			                  ? -DGFixedPointConstInternal.SCALED_PI - DGFixedPointConstInternal.SCALED_HALF_PI
 			                  : DGFixedPointConstInternal.SCALED_HALF_PI);
 		return Sin(new DGFixedPoint(scaledAngle));
-	}
-
-	public static DGFixedPoint FastCos(DGFixedPoint value)
-	{
-		var scaledValue = value.scaledValue;
-		var scaledAngle = scaledValue + (scaledValue > 0
-			                  ? -DGFixedPointConstInternal.SCALED_PI - DGFixedPointConstInternal.SCALED_HALF_PI
-			                  : DGFixedPointConstInternal.SCALED_HALF_PI);
-		return FastSin(new DGFixedPoint(scaledAngle));
 	}
 
 	public static DGFixedPoint Tan(DGFixedPoint value)
@@ -685,14 +764,13 @@ public partial struct DGFixedPoint
 		if (neg)
 			z = -z;
 
-		DGFixedPoint result;
 		var two = (DGFixedPoint) 2;
 		var three = (DGFixedPoint) 3;
 
 		bool invert = z > One;
 		if (invert) z = One / z;
 
-		result = One;
+		var result = One;
 		var term = One;
 
 		var zSq = z * z;
@@ -761,138 +839,5 @@ public partial struct DGFixedPoint
 		}
 
 		return atan;
-	}
-
-
-	public static explicit operator DGFixedPoint(long value)
-	{
-		return new DGFixedPoint(value * DGFixedPointConstInternal.SCALED_ONE);
-	}
-
-	public static explicit operator long(DGFixedPoint value)
-	{
-		return value.scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
-	}
-
-	public static explicit operator DGFixedPoint(float value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator float(DGFixedPoint value)
-	{
-		return (float) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-
-	public static explicit operator DGFixedPoint(double value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator double(DGFixedPoint value)
-	{
-		return (double) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-
-	public static explicit operator DGFixedPoint(decimal value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator decimal(DGFixedPoint value)
-	{
-		return (decimal) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-
-	public override bool Equals(object obj)
-	{
-		return obj is DGFixedPoint fixedPoint && fixedPoint.scaledValue == scaledValue;
-	}
-
-	public override int GetHashCode()
-	{
-		return scaledValue.GetHashCode();
-	}
-
-	public bool Equals(DGFixedPoint other)
-	{
-		return scaledValue == other.scaledValue;
-	}
-
-	public int CompareTo(DGFixedPoint other)
-	{
-		return scaledValue.CompareTo(other.scaledValue);
-	}
-
-	public override string ToString()
-	{
-		return ((decimal) this).ToString("0.##########");
-	}
-
-	public static DGFixedPoint CreateByScaledValue(long scaledValue)
-	{
-		return new DGFixedPoint(scaledValue);
-	}
-
-	internal static void GenerateSinLut()
-	{
-		using (var writer = new StreamWriter("Lut/DGFixedPointSinLut.cs"))
-		{
-			writer.Write(
-@"partial struct DGFixedPointSinLut 
-{
-     public static readonly long[] SinLut = new[] 
-     {");
-			int lineCounter = 0;
-			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
-			{
-				var angle = i * Math.PI * 0.5 / (DGFixedPointConstInternal.LUT_SIZE - 1);
-				if (lineCounter++ % 8 == 0)
-				{
-					writer.WriteLine();
-					writer.Write("        ");
-				}
-				var sin = Math.Sin(angle);
-				var scaledValue = ((DGFixedPoint)sin).scaledValue;
-				writer.Write(string.Format("0x{0:X}L, ", scaledValue));
-			}
-			writer.Write(
-@"
-    };
-}
-");
-		}
-	}
-
-	internal static void GenerateTanLut()
-	{
-		using (var writer = new StreamWriter("Lut/DGFixedPointTanLut.cs"))
-		{
-			writer.Write(
-@"partial struct Fix64 
-{
-     public static readonly long[] TanLut = new[] 
-     {");
-			int lineCounter = 0;
-			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
-			{
-				var angle = i * Math.PI * 0.5 / (DGFixedPointConstInternal.LUT_SIZE - 1);
-				if (lineCounter++ % 8 == 0)
-				{
-					writer.WriteLine();
-					writer.Write("        ");
-				}
-				var tan = Math.Tan(angle);
-				if (tan > (double) MaxValue || tan < 0.0)
-					tan = (double) MaxValue;
-				var scaledValue = (((decimal)tan > (decimal)MaxValue || tan < 0.0) ? MaxValue : (DGFixedPoint)tan).scaledValue;
-				writer.Write(string.Format("0x{0:X}L, ", scaledValue));
-			}
-			writer.Write(
-@"
-    };
-}
-");
-		}
 	}
 }
