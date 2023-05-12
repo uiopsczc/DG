@@ -16,15 +16,19 @@ using System.Runtime.CompilerServices;
 public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFixedPoint>
 {
 	public static readonly decimal Precision = (decimal) new DGFixedPoint(DGFixedPointConstInternal.PRECISION);
+	public static readonly DGFixedPoint Epsilon = new DGFixedPoint(DGFixedPointConstInternal.SCALED_EPSILON);
 	public static readonly DGFixedPoint MaxValue = new DGFixedPoint(DGFixedPointConstInternal.MAX_VALUE);
 	public static readonly DGFixedPoint MinValue = new DGFixedPoint(DGFixedPointConstInternal.MIN_VALUE);
 	public static readonly DGFixedPoint One = new DGFixedPoint(DGFixedPointConstInternal.SCALED_ONE);
+	public static readonly DGFixedPoint NegativeOne = new DGFixedPoint(DGFixedPointConstInternal.SCALED_NEGATIVE_ONE);
+	public static readonly DGFixedPoint Half = new DGFixedPoint((long)DGFixedPointConstInternal.SCALED_HALF_ONE);
+	public static readonly DGFixedPoint Quarter = new DGFixedPoint((long)DGFixedPointConstInternal.SCALED_HALF_QUARTER);
 	public static readonly DGFixedPoint Zero = new DGFixedPoint();
 	public static readonly DGFixedPoint Pi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_PI);
 	public static readonly DGFixedPoint HalfPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_HALF_PI);
 	public static readonly DGFixedPoint TwoPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_TWO_PI);
 	public static readonly DGFixedPoint QuarterPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_QUARTER_PI);
-	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);
+	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);//以E为底的2的对数
 	public static readonly DGFixedPoint Log2Max = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MAX);
 	public static readonly DGFixedPoint Log2Min = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MIN);
 	public static readonly DGFixedPoint E = new DGFixedPoint(DGFixedPointConstInternal.SCALED_E);
@@ -88,6 +92,80 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 	public override string ToString()
 	{
 		return ((decimal) this).ToString("0.##########");
+	}
+	/*************************************************************************************
+	* 模块描述:转换
+	*************************************************************************************/
+	public static explicit operator DGFixedPoint(long value)
+	{
+		return new DGFixedPoint(value << DGFixedPointConstInternal.MOVE_BIT_COUNT);
+	}
+
+	public static explicit operator long(DGFixedPoint value)
+	{
+		return value.scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
+	}
+
+	public static explicit operator DGFixedPoint(float value)
+	{
+		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator float(DGFixedPoint value)
+	{
+		return (float)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+
+	public static explicit operator DGFixedPoint(double value)
+	{
+		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator double(DGFixedPoint value)
+	{
+		return (double)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+
+	public static explicit operator DGFixedPoint(decimal value)
+	{
+		return new DGFixedPoint((long)(value * DGFixedPointConstInternal.SCALED_ONE));
+	}
+
+	public static explicit operator decimal(DGFixedPoint value)
+	{
+		return (decimal)value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
+	}
+	/*************************************************************************************
+	* 模块描述:关系运算符
+	*************************************************************************************/
+	public static bool operator ==(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue == value2.scaledValue;
+	}
+
+	public static bool operator !=(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue != value2.scaledValue;
+	}
+
+	public static bool operator >(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue > value2.scaledValue;
+	}
+
+	public static bool operator <(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue < value2.scaledValue;
+	}
+
+	public static bool operator >=(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue >= value2.scaledValue;
+	}
+
+	public static bool operator <=(DGFixedPoint value1, DGFixedPoint value2)
+	{
+		return value1.scaledValue <= value2.scaledValue;
 	}
 	/*************************************************************************************
 	* 模块描述:算术运算符
@@ -254,80 +332,6 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 			: new DGFixedPoint(-value.scaledValue);
 	}
 	/*************************************************************************************
-	* 模块描述:关系运算符
-	*************************************************************************************/
-	public static bool operator ==(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue == value2.scaledValue;
-	}
-
-	public static bool operator !=(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue != value2.scaledValue;
-	}
-
-	public static bool operator >(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue > value2.scaledValue;
-	}
-
-	public static bool operator <(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue < value2.scaledValue;
-	}
-
-	public static bool operator >=(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue >= value2.scaledValue;
-	}
-
-	public static bool operator <=(DGFixedPoint value1, DGFixedPoint value2)
-	{
-		return value1.scaledValue <= value2.scaledValue;
-	}
-	/*************************************************************************************
-	* 模块描述:强制转换
-	*************************************************************************************/
-	public static explicit operator DGFixedPoint(long value)
-	{
-		return new DGFixedPoint(value << DGFixedPointConstInternal.MOVE_BIT_COUNT);
-	}
-
-	public static explicit operator long(DGFixedPoint value)
-	{
-		return value.scaledValue >> DGFixedPointConstInternal.MOVE_BIT_COUNT;
-	}
-
-	public static explicit operator DGFixedPoint(float value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator float(DGFixedPoint value)
-	{
-		return (float) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-
-	public static explicit operator DGFixedPoint(double value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator double(DGFixedPoint value)
-	{
-		return (double) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-
-	public static explicit operator DGFixedPoint(decimal value)
-	{
-		return new DGFixedPoint((long) (value * DGFixedPointConstInternal.SCALED_ONE));
-	}
-
-	public static explicit operator decimal(DGFixedPoint value)
-	{
-		return (decimal) value.scaledValue / DGFixedPointConstInternal.SCALED_ONE;
-	}
-	/*************************************************************************************
 	* 模块描述:Fast 运算(但不安全)
 	*************************************************************************************/
 	public static DGFixedPoint FastAdd(DGFixedPoint value1, DGFixedPoint value2)
@@ -414,6 +418,16 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 			value.scaledValue > 0 ? 1 :
 			0;
 	}
+
+	public static DGFixedPoint CopySign(DGFixedPoint x, DGFixedPoint y)
+	{
+		if ((x.scaledValue >= 0 && y.scaledValue >= 0) 
+		    || (x.scaledValue <= 0 && y.scaledValue <= 0))
+			return x;
+		return -x;
+	}
+
+	
 
 	public static DGFixedPoint Abs(DGFixedPoint value)
 	{

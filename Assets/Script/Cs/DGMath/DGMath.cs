@@ -13,13 +13,25 @@
 using System;
 using UnityEngine;
 using FP = DGFixedPoint;
+using FPVector2 = DGVector2;
 
-public static class DGFixedPointMath
+public static class DGMath
 {
-	public static readonly FP E = (FP)DGFixedPoint.E;
-	public static readonly FP PI = (FP)DGFixedPoint.Pi;
-	public static readonly FP Deg2Rad = (FP)DGFixedPoint.Deg2Rad;
-	public static readonly FP Rad2Deg = (FP)DGFixedPoint.Rad2Deg;
+	public static readonly FP E = FP.E;
+	public static readonly FP PI = FP.Pi;
+	public static readonly FP HalfPi = FP.HalfPi;
+	public static readonly FP Deg2Rad = FP.Deg2Rad;
+	public static readonly FP Rad2Deg = FP.Rad2Deg;
+	public static readonly FP Epsilon = FP.Epsilon;
+	public static readonly FP Half = FP.Half;
+	public static readonly FP Quarter = FP.Quarter;
+	
+
+	public static bool IsApproximatelyZero(FP value)
+	{
+		return Abs(value)< Epsilon;
+	}
+
 
 	public static FP Abs(FP value)
 	{
@@ -68,6 +80,11 @@ public static class DGFixedPointMath
 		return maxValue;
 	}
 
+	public static FP Sqrt(FP value)
+	{
+		return FP.Sqrt(value);
+	}
+
 	public static FP Pow(FP value, FP power)
 	{
 		return FP.Pow(value, power);
@@ -101,6 +118,11 @@ public static class DGFixedPointMath
 	public static int Sign(FP value)
 	{
 		return FP.Sign(value);
+	}
+
+	public static FP CopySign(FP x, FP y)
+	{
+		return FP.CopySign(x, y);
 	}
 
 	public static FP Clamp(FP value, FP min, FP max)
@@ -142,7 +164,7 @@ public static class DGFixedPointMath
 		return current + (FP)Sign(target - current) * maxDelta;
 	}
 
-	public static DGFixedPoint MoveTowardsAngle(FP current, FP target, FP maxDelta)
+	public static FP MoveTowardsAngle(FP current, FP target, FP maxDelta)
 	{
 		FP num = DeltaAngle(current, target);
 		if (-maxDelta < num && num < maxDelta)
@@ -160,12 +182,12 @@ public static class DGFixedPointMath
 
 	public static FP Gamma(FP value, FP absmax, FP gamma)
 	{
-		bool flag = value < (FP)0;
-		FP num1 = Abs(value);
-		if (num1 > absmax)
-			return flag ? -num1 : num1;
-		FP num2 = Pow(num1 / absmax, gamma) * absmax;
-		return flag ? -num2 : num2;
+		bool negative = value < (FP)0;
+		FP absval = Abs(value);
+		if (absval > absmax)
+			return negative ? -absval : absval;
+		FP result = Pow(absval / absmax, gamma) * absmax;
+		return negative ? -result : result;
 	}
 
 #if UNITY_5_3_OR_NEWER
@@ -180,26 +202,32 @@ public static class DGFixedPointMath
 	public static FP SmoothDamp(FP current, FP target, ref FP currentVelocity,
 		FP smoothTime, FP maxSpeed, FP deltaTime)
 	{
-		smoothTime = Max((FP)0.0001f, smoothTime);
-		FP num1 = (FP)2f / smoothTime;
-		FP num2 = num1 * deltaTime;
-		FP num3 = ((FP)1 / ((FP)1 + num2 + (FP)0.479999989271164 * num2 * num2 +
-								  (FP)0.234999999403954 * num2 * num2 * num2));
-		FP num4 = current - target;
-		FP num5 = target;
-		FP max = maxSpeed * smoothTime;
-		FP num6 = Clamp(num4, -max, max);
-		target = current - num6;
-		FP num7 = (currentVelocity + num1 * num6) * deltaTime;
-		currentVelocity = (currentVelocity - num1 * num7) * num3;
-		FP num8 = target + (num6 + num7) * num3;
-		if (num5 - current > FP.Zero == num8 > num5)
+		// Based on Game Programming Gems 4 Chapter 1.10
+		smoothTime = Max((FP)0.0001F, smoothTime);
+		FP omega = (FP)2F / smoothTime;
+
+		FP x = omega * deltaTime;
+		FP exp = (FP)1F / ((FP)1F + x + (FP)0.48F * x * x + (FP)0.235F * x * x * x);
+		FP change = current - target;
+		FP originalTo = target;
+
+		// Clamp maximum speed
+		FP maxChange = maxSpeed * smoothTime;
+		change = Clamp(change, -maxChange, maxChange);
+		target = current - change;
+
+		FP temp = (currentVelocity + omega * change) * deltaTime;
+		currentVelocity = (currentVelocity - omega * temp) * exp;
+		FP output = target + (change + temp) * exp;
+
+		// Prevent overshooting
+		if (originalTo - current >  (FP)0.0F == output > originalTo)
 		{
-			num8 = num5;
-			currentVelocity = (num8 - num5) / deltaTime;
+			output = originalTo;
+			currentVelocity = (output - originalTo) / deltaTime;
 		}
 
-		return num8;
+		return output;
 	}
 
 	public static FP SmoothDampAngle(FP current, FP target,
@@ -289,5 +317,63 @@ public static class DGFixedPointMath
 	public static FP Tan(FP value)
 	{
 		return FP.Tan(value);
+	}
+
+	public static FP Log(FP value)
+	{
+		return FP.Ln(value);
+	}
+
+	public static FP Log(FP value, FP newBase)
+	{
+		return Log(value)/Log(newBase);
+	}
+
+	public static FP Log10(FP value)
+	{
+		return Log(value) / Log((FP)(10));
+	}
+
+	// Infinite Line Intersection (line1 is p1-p2 and line2 is p3-p4)
+	public static bool LineIntersection(FPVector2 p1, FPVector2 p2, FPVector2 p3, FPVector2 p4, ref FPVector2 result)
+	{
+		FP bx = p2.x - p1.x;
+		FP by = p2.y - p1.y;
+		FP dx = p4.x - p3.x;
+		FP dy = p4.y - p3.y;
+		FP bDotDPerp = bx * dy - by * dx;
+		if (bDotDPerp == (FP)0)
+			return false;
+		FP cx = p3.x - p1.x;
+		FP cy = p3.y - p1.y;
+		FP t = (cx * dy - cy * dx) / bDotDPerp;
+
+		result.x = p1.x + t * bx;
+		result.y = p1.y + t * by;
+		return true;
+	}
+
+	// Line Segment Intersection (line1 is p1-p2 and line2 is p3-p4)
+	public static bool LineSegmentIntersection(FPVector2 p1, FPVector2 p2, FPVector2 p3, FPVector2 p4, ref FPVector2 result)
+	{
+		FP bx = p2.x - p1.x;
+		FP by = p2.y - p1.y;
+		FP dx = p4.x - p3.x;
+		FP dy = p4.y - p3.y;
+		FP bDotDPerp = bx * dy - by * dx;
+		if (bDotDPerp == (FP)0)
+			return false;
+		FP cx = p3.x - p1.x;
+		FP cy = p3.y - p1.y;
+		FP t = (cx * dy - cy * dx) / bDotDPerp;
+		if (t < (FP)0 || t > (FP)1)
+			return false;
+		FP u = (cx * by - cy * bx) / bDotDPerp;
+		if (u < (FP)0 || u > (FP)1)
+			return false;
+
+		result.x = p1.x + t * bx;
+		result.y = p1.y + t * by;
+		return true;
 	}
 }

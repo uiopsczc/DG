@@ -19,16 +19,20 @@ internal static class DGFixedPointConstInternal
 	internal const int NUM_BIT_COUNT = 64;
 	internal const int MOVE_BIT_COUNT = 32;
 	internal const long PRECISION = 1L;
+	internal const long SCALED_EPSILON = (long)(1.17549435E-38f * SCALED_ONE);//UnityEngine.Mathf.Epsilon
 
 	internal const long SCALED_ONE = 1L << MOVE_BIT_COUNT;
+	internal const long SCALED_NEGATIVE_ONE = -1L << MOVE_BIT_COUNT;
+	
 	internal const ulong SCALED_HALF_ONE = 0x80000000;
+	internal const ulong SCALED_HALF_QUARTER = 0x40000000;
 	internal const long SCALED_PI = (long) (Math.PI * SCALED_ONE);
 	internal const long SCALED_TWO_PI = (long)(Math.PI * (1L << (MOVE_BIT_COUNT + 1)));
 	internal const long SCALED_HALF_PI = (long) (Math.PI * (1L << (MOVE_BIT_COUNT - 1)));
 	internal const long SCALED_QUARTER_PI = (long)(Math.PI * (1L << (MOVE_BIT_COUNT - 2)));
 	public static readonly long SCALED_E = (long)(Math.E * SCALED_ONE);
-	public static readonly long SCALED_DEG2RAD = (long)(0.01745329f * SCALED_ONE);//Mathf.Deg2Rad
-	public static readonly long SCALED_RAD2DEG = (long)(57.29578f*SCALED_ONE);//Mathf.Rad2Deg
+	public static readonly long SCALED_DEG2RAD = (long)(0.01745329f * SCALED_ONE);//Mathf.Deg2Rad == PI * 2F / 360F
+	public static readonly long SCALED_RAD2DEG = (long)(57.29578f*SCALED_ONE);//Mathf.Rad2Deg == 1F / Deg2Rad
 
 
 	internal const long SCALED_LARGE_PI = 7244019458077122842;//跟这个差不多(long)(Math.PI * (1L << (NUM_BIT_COUNT - MOVE_BIT_COUNT - 3 + MOVE_BIT_COUNT))) == 7244019458077122560; 但是还是最后三位有区别，不然有误差

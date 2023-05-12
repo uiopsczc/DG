@@ -1,7 +1,9 @@
 {
-    "name": "DGFixedPointMath",
+    "name": "DGMath",
+    "rootNamespace": "",
     "references": [
-        "GUID:ec33d620be107b542934f21d316d0a18"
+        "GUID:ec33d620be107b542934f21d316d0a18",
+        "GUID:4e0a2b6ad76ae0b428e3ccf26bd6525a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
