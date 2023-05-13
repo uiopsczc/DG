@@ -70,6 +70,22 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		}
 	}
 
+	public FPVector3 xyz
+	{
+		set
+		{
+			x = value.x;
+			y = value.y;
+			z = value.z;
+		}
+		get => new FPVector3(x, y, z);
+	}
+
+	public FPVector3 eulerAngles
+	{
+		get => Internal_ToEulerRad(this) * DGMath.Rad2Deg;
+		set => this = Internal_FromEulerRad(value * DGMath.Rad2Deg);
+	}
 
 	public DGQuaternion normalized => Normalize(this);
 	public FP sqrMagnitude => SqrMagnitude();
@@ -417,14 +433,14 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		return euler;
 	}
 
-	//	public static FPQuaternion RotateTowards(FPQuaternion from, FPQuaternion to,
-	//		FP maxDegreesDelta)
-	//	{
-	//		FP angle = Angle(from, to);
-	//		if (angle == FP.zero)
-	//			return to;
-	//		return SlerpUnclamped(from, to, DGMath.Min(1, maxDegreesDelta / angle));
-	//	}
+		public static DGQuaternion RotateTowards(DGQuaternion from, DGQuaternion to,
+			FP maxDegreesDelta)
+		{
+			FP angle = Angle(from, to);
+			if (angle == FP.Zero)
+				return to;
+			return SlerpUnclamped(from, to, DGMath.Min((FP)1, maxDegreesDelta / angle));
+		}
 
 	public static DGQuaternion CreateFromAxisAngle(FPVector3 axis, FP angle)
 	{
@@ -436,6 +452,146 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		var z = axis.z * sin;
 		var w = cos;
 		return new DGQuaternion(x, y, z, w);
+	}
+
+	/// <summary>
+	///   <para>Creates a rotation which rotates /angle/ degrees around /axis/.</para>
+	/// </summary>
+	/// <param name="angle"></param>
+	/// <param name="axis"></param>
+	public static DGQuaternion AngleAxis(FP angle, FPVector3 axis)
+	{
+		return INTERNAL_CALL_AngleAxis(angle, ref axis);
+	}
+	private static DGQuaternion INTERNAL_CALL_AngleAxis(FP degress, ref FPVector3 axis)
+	{
+		if (axis.sqrMagnitude == (FP)0.0f)
+			return identity;
+
+		DGQuaternion result = identity;
+		var radians = degress * DGMath.Deg2Rad;
+		radians *= (FP)0.5f;
+		axis.Normalize();
+		axis = axis * DGMath.Sin(radians);
+		result.x = axis.x;
+		result.y = axis.y;
+		result.z = axis.z;
+		result.w = DGMath.Cos(radians);
+
+		return Normalize(result);
+	}
+	public void ToAngleAxis(out FP angle, out FPVector3 axis)
+	{
+		Internal_ToAxisAngleRad(this, out axis, out angle);
+		angle *= DGMath.Rad2Deg;
+	}
+
+	/// <summary>
+	///   <para>Creates a rotation which rotates from /fromDirection/ to /toDirection/.</para>
+	/// </summary>
+	/// <param name="fromDirection"></param>
+	/// <param name="toDirection"></param>
+	public static DGQuaternion FromToRotation(FPVector3 fromDirection, FPVector3 toDirection)
+	{
+		return RotateTowards(LookRotation(fromDirection), LookRotation(toDirection), FP.MaxValue);
+	}
+	/// <summary>
+	///   <para>Creates a rotation which rotates from /fromDirection/ to /toDirection/.</para>
+	/// </summary>
+	/// <param name="fromDirection"></param>
+	/// <param name="toDirection"></param>
+	public void SetFromToRotation(FPVector3 fromDirection, FPVector3 toDirection)
+	{
+		this = FromToRotation(fromDirection, toDirection);
+	}
+	/// <summary>
+	///   <para>Creates a rotation with the specified /forward/ and /upwards/ directions.</para>
+	/// </summary>
+	/// <param name="forward">The direction to look in.</param>
+	/// <param name="upwards">The vector that defines in which direction up is.</param>
+	public static DGQuaternion LookRotation(FPVector3 forward, FPVector3 upwards)
+	{
+		return INTERNAL_CALL_LookRotation(ref forward, ref upwards);
+	}
+	
+	public static DGQuaternion LookRotation(FPVector3 forward)
+	{
+		FPVector3 up = FPVector3.up;
+		return INTERNAL_CALL_LookRotation(ref forward, ref up);
+	}
+
+	// from http://answers.unity3d.com/questions/467614/what-is-the-source-code-of-quaternionlookrotation.html
+	private static DGQuaternion INTERNAL_CALL_LookRotation(ref FPVector3 forward, ref FPVector3 up)
+	{
+
+		forward = FPVector3.Normalize(forward);
+		FPVector3 right = FPVector3.Normalize(FPVector3.Cross(up, forward));
+		up = FPVector3.Cross(forward, right);
+		var m00 = right.x;
+		var m01 = right.y;
+		var m02 = right.z;
+		var m10 = up.x;
+		var m11 = up.y;
+		var m12 = up.z;
+		var m20 = forward.x;
+		var m21 = forward.y;
+		var m22 = forward.z;
+
+
+		FP num8 = (m00 + m11) + m22;
+		var quaternion = new DGQuaternion();
+		if (num8 > (FP)0f)
+		{
+			var num = DGMath.Sqrt(num8 + (FP)1f);
+			quaternion.w = num * (FP)0.5f;
+			num = (FP)0.5f / num;
+			quaternion.x = (m12 - m21) * num;
+			quaternion.y = (m20 - m02) * num;
+			quaternion.z = (m01 - m10) * num;
+			return quaternion;
+		}
+		if ((m00 >= m11) && (m00 >= m22))
+		{
+			var num7 = DGMath.Sqrt((((FP)1f + m00) - m11) - m22);
+			var num4 = (FP)0.5f / num7;
+			quaternion.x = (FP)0.5f * num7;
+			quaternion.y = (m01 + m10) * num4;
+			quaternion.z = (m02 + m20) * num4;
+			quaternion.w = (m12 - m21) * num4;
+			return quaternion;
+		}
+		if (m11 > m22)
+		{
+			var num6 = DGMath.Sqrt((((FP)1f + m11) - m00) - m22);
+			var num3 = (FP)0.5f / num6;
+			quaternion.x = (m10 + m01) * num3;
+			quaternion.y = (FP)0.5f * num6;
+			quaternion.z = (m21 + m12) * num3;
+			quaternion.w = (m20 - m02) * num3;
+			return quaternion;
+		}
+		var num5 = DGMath.Sqrt((((FP)1f + m22) - m00) - m11);
+		var num2 = (FP)0.5f / num5;
+		quaternion.x = (m20 + m02) * num2;
+		quaternion.y = (m21 + m12) * num2;
+		quaternion.z = (FP)0.5f * num5;
+		quaternion.w = (m01 - m10) * num2;
+		return quaternion;
+	}
+	
+	public void SetLookRotation(FPVector3 view)
+	{
+		FPVector3 up = FPVector3.up;
+		this.SetLookRotation(view, up);
+	}
+	/// <summary>
+	///   <para>Creates a rotation with the specified /forward/ and /upwards/ directions.</para>
+	/// </summary>
+	/// <param name="view">The direction to look in.</param>
+	/// <param name="up">The vector that defines in which direction up is.</param>
+	public void SetLookRotation(FPVector3 view, FPVector3 up)
+	{
+		this = LookRotation(view, up);
 	}
 
 	public static DGQuaternion CreateFromYawPitchRoll(FP yaw, FP pitch, FP roll)
@@ -617,6 +773,17 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		return new DGQuaternion(x, y, z, w);
 	}
 
+	public static DGQuaternion LerpUnclamped(DGQuaternion from, DGQuaternion to, FP t)
+	{
+		var remaining = (FP)1 - t;
+		var x = (remaining * from.x) + (t * to.x);
+		var y = (remaining * from.y) + (t * to.y);
+		var z = (remaining * from.z) + (t * to.z);
+		var w = (remaining * from.w) + (t * to.w);
+		return new DGQuaternion(x, y, z, w);
+	}
+
+
 	// http://en.wikipedia.org/wiki/Slerp
 	public static DGQuaternion Slerp(DGQuaternion from, DGQuaternion to, FP t)
 	{
@@ -624,6 +791,35 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		var remaining = (FP) 1 - t;
 		var angle = Dot(from, to);
 		if (angle < (FP) 0)
+		{
+			from = -from;
+			angle = -angle;
+		}
+
+		var theta = DGMath.Acos(angle);
+		var f = remaining;
+		var a = t;
+		if (theta > kEpsilon)
+		{
+			var x = DGMath.Sin(remaining * theta);
+			var y = DGMath.Sin(t * theta);
+			var z = DGMath.Sin(theta);
+			f = x / z;
+			a = y / z;
+		}
+
+		var resultX = (f * from.x) + (a * to.x);
+		var resultY = (f * from.y) + (a * to.y);
+		var resultZ = (f * from.z) + (a * to.z);
+		var resultW = (f * from.w) + (a * to.w);
+		return new DGQuaternion(resultX, resultY, resultZ, resultW);
+	}
+
+	public static DGQuaternion SlerpUnclamped(DGQuaternion from, DGQuaternion to, FP t)
+	{
+		var remaining = (FP)1 - t;
+		var angle = Dot(from, to);
+		if (angle < (FP)0)
 		{
 			from = -from;
 			angle = -angle;
@@ -693,6 +889,102 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 
 		return new DGQuaternion(x, y, z, w);
 	}
+
+	public static DGQuaternion Euler(float x, float y, float z)
+	{
+		return Internal_FromEulerRad(new FPVector3(x, y, z) * DGMath.Deg2Rad);
+	}
+
+	// from http://stackoverflow.com/questions/12088610/conversion-between-euler-quaternion-like-in-unity3d-engine
+	private static FPVector3 Internal_ToEulerRad(DGQuaternion rotation)
+	{
+		FP sqw = rotation.w * rotation.w;
+		FP sqx = rotation.x * rotation.x;
+		FP sqy = rotation.y * rotation.y;
+		FP sqz = rotation.z * rotation.z;
+		FP unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+		FP test = rotation.x * rotation.w - rotation.y * rotation.z;
+		FPVector3 v;
+
+		if (test > (FP)0.4995f * unit)
+		{ // singularity at north pole
+			v.y = (FP)2f * DGMath.Atan2(rotation.y, rotation.x);
+			v.x = DGMath.HalfPi;
+			v.z = (FP)0;
+			return NormalizeAngles(v * DGMath.Rad2Deg);
+		}
+		if (test < (FP)(-0.4995f) * unit)
+		{ // singularity at south pole
+			v.y = (FP)(- 2f) * DGMath.Atan2(rotation.y, rotation.x);
+			v.x = -DGMath.HalfPi;
+			v.z = (FP)0;
+			return NormalizeAngles(v * DGMath.Rad2Deg);
+		}
+		DGQuaternion q = new DGQuaternion(rotation.w, rotation.z, rotation.x, rotation.y);
+		v.y = (FP)DGMath.Atan2((FP)2f * q.x * q.w + (FP)2f * q.y * q.z, (FP)1 - (FP)2f * (q.z * q.z + q.w * q.w));     // Yaw
+		v.x = (FP)DGMath.Asin((FP)2f * (q.x * q.z - q.w * q.y));                             // Pitch
+		v.z = (FP)DGMath.Atan2((FP)2f * q.x * q.y + (FP)2f * q.z * q.w, (FP)1 - (FP)2f * (q.y * q.y + q.z * q.z));      // Roll
+		return NormalizeAngles(v * DGMath.Rad2Deg);
+	}
+
+	private static FPVector3 NormalizeAngles(FPVector3 angles)
+	{
+		angles.x = NormalizeAngle(angles.x);
+		angles.y = NormalizeAngle(angles.y);
+		angles.z = NormalizeAngle(angles.z);
+		return angles;
+	}
+
+	private static FP NormalizeAngle(FP angle)
+	{
+		FP modAngle = angle % (FP)360.0f;
+
+		if (modAngle < (FP)0.0f)
+			return modAngle + (FP)360.0f;
+		return modAngle;
+	}
+
+
+
+	// from http://stackoverflow.com/questions/11492299/quaternion-to-euler-angles-algorithm-how-to-convert-to-y-up-and-between-ha
+	private static DGQuaternion Internal_FromEulerRad(FPVector3 euler)
+	{
+		var yaw = euler.x;
+		var pitch = euler.y;
+		var roll = euler.z;
+		FP rollOver2 = roll * (FP)0.5f;
+		FP sinRollOver2 = DGMath.Sin(rollOver2);
+		FP cosRollOver2 = DGMath.Cos(rollOver2);
+		FP pitchOver2 = pitch * (FP)0.5f;
+		FP sinPitchOver2 = DGMath.Sin(pitchOver2);
+		FP cosPitchOver2 = DGMath.Cos(pitchOver2);
+		FP yawOver2 = yaw * (FP)0.5f;
+		FP sinYawOver2 = DGMath.Sin(yawOver2);
+		FP cosYawOver2 = DGMath.Cos(yawOver2);
+		DGQuaternion result;
+		result.x = cosYawOver2 * cosPitchOver2 * cosRollOver2 + sinYawOver2 * sinPitchOver2 * sinRollOver2;
+		result.y = cosYawOver2 * cosPitchOver2 * sinRollOver2 - sinYawOver2 * sinPitchOver2 * cosRollOver2;
+		result.z = cosYawOver2 * sinPitchOver2 * cosRollOver2 + sinYawOver2 * cosPitchOver2 * sinRollOver2;
+		result.w = sinYawOver2 * cosPitchOver2 * cosRollOver2 - cosYawOver2 * sinPitchOver2 * sinRollOver2;
+		return result;
+
+	}
+	private static void Internal_ToAxisAngleRad(DGQuaternion q, out FPVector3 axis, out FP angle)
+	{
+		if (DGMath.Abs(q.w) > (FP)1.0f)
+			q.Normalize();
+
+
+		angle = (FP)2.0f * DGMath.Acos(q.w); // angle
+		FP den = DGMath.Sqrt((FP)1.0 - q.w * q.w);
+		if (den > (FP)0.0001f)
+			axis = q.xyz / den;
+		else
+			// This occurs when the angle is zero. 
+			// Not a problem: just set an arbitrary normalized axis.
+			axis = new FPVector3(1, 0, 0);
+	}
+
 
 
 	/*************************************************************************************
