@@ -71,6 +71,22 @@ public struct DGMatrix2x3
 		M23 = m23;
 	}
 
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ToString
+	*************************************************************************************/
+	/// <summary>
+	/// Creates a string representation of the matrix.
+	/// </summary>
+	/// <returns>A string representation of the matrix.</returns>
+	public override string ToString()
+	{
+		return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
+		       "{" + M21 + ", " + M22 + ", " + M23 + "}";
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	/// <summary>
 	/// Adds the two matrices together on a per-element basis.
 	/// </summary>
@@ -261,16 +277,5 @@ public struct DGMatrix2x3
 		result.M32 = matrix.M23;
 
 		return result;
-	}
-
-
-	/// <summary>
-	/// Creates a string representation of the matrix.
-	/// </summary>
-	/// <returns>A string representation of the matrix.</returns>
-	public override string ToString()
-	{
-		return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
-			   "{" + M21 + ", " + M22 + ", " + M23 + "}";
 	}
 }

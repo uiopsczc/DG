@@ -98,48 +98,34 @@ public struct DGMatrix4x4
 	public FP M44;
 
 	/// <summary>
-	/// Constructs a new 4 row, 4 column matrix.
+	/// Gets the 4x4 identity matrix.
 	/// </summary>
-	/// <param name="m11">Value at row 1, column 1 of the matrix.</param>
-	/// <param name="m12">Value at row 1, column 2 of the matrix.</param>
-	/// <param name="m13">Value at row 1, column 3 of the matrix.</param>
-	/// <param name="m14">Value at row 1, column 4 of the matrix.</param>
-	/// <param name="m21">Value at row 2, column 1 of the matrix.</param>
-	/// <param name="m22">Value at row 2, column 2 of the matrix.</param>
-	/// <param name="m23">Value at row 2, column 3 of the matrix.</param>
-	/// <param name="m24">Value at row 2, column 4 of the matrix.</param>
-	/// <param name="m31">Value at row 3, column 1 of the matrix.</param>
-	/// <param name="m32">Value at row 3, column 2 of the matrix.</param>
-	/// <param name="m33">Value at row 3, column 3 of the matrix.</param>
-	/// <param name="m34">Value at row 3, column 4 of the matrix.</param>
-	/// <param name="m41">Value at row 4, column 1 of the matrix.</param>
-	/// <param name="m42">Value at row 4, column 2 of the matrix.</param>
-	/// <param name="m43">Value at row 4, column 3 of the matrix.</param>
-	/// <param name="m44">Value at row 4, column 4 of the matrix.</param>
-	public DGMatrix4x4(FP m11, FP m12, FP m13, FP m14,
-		FP m21, FP m22, FP m23, FP m24,
-		FP m31, FP m32, FP m33, FP m34,
-		FP m41, FP m42, FP m43, FP m44)
+	public static DGMatrix4x4 Identity
 	{
-		this.M11 = m11;
-		this.M12 = m12;
-		this.M13 = m13;
-		this.M14 = m14;
+		get
+		{
+			DGMatrix4x4 toReturn = default;
+			toReturn.M11 = (FP) 1;
+			toReturn.M12 = (FP) 0;
+			toReturn.M13 = (FP) 0;
+			toReturn.M14 = (FP) 0;
 
-		this.M21 = m21;
-		this.M22 = m22;
-		this.M23 = m23;
-		this.M24 = m24;
+			toReturn.M21 = (FP) 0;
+			toReturn.M22 = (FP) 1;
+			toReturn.M23 = (FP) 0;
+			toReturn.M24 = (FP) 0;
 
-		this.M31 = m31;
-		this.M32 = m32;
-		this.M33 = m33;
-		this.M34 = m34;
+			toReturn.M31 = (FP) 0;
+			toReturn.M32 = (FP) 0;
+			toReturn.M33 = (FP) 1;
+			toReturn.M34 = (FP) 0;
 
-		this.M41 = m41;
-		this.M42 = m42;
-		this.M43 = m43;
-		this.M44 = m44;
+			toReturn.M41 = (FP) 0;
+			toReturn.M42 = (FP) 0;
+			toReturn.M43 = (FP) 0;
+			toReturn.M44 = (FP) 1;
+			return toReturn;
+		}
 	}
 
 	/// <summary>
@@ -281,63 +267,111 @@ public struct DGMatrix4x4
 		}
 	}
 
-
 	/// <summary>
-	/// Computes the determinant of the matrix.
+	/// Constructs a new 4 row, 4 column matrix.
 	/// </summary>
-	/// <returns></returns>
-	public FP Determinant()
+	/// <param name="m11">Value at row 1, column 1 of the matrix.</param>
+	/// <param name="m12">Value at row 1, column 2 of the matrix.</param>
+	/// <param name="m13">Value at row 1, column 3 of the matrix.</param>
+	/// <param name="m14">Value at row 1, column 4 of the matrix.</param>
+	/// <param name="m21">Value at row 2, column 1 of the matrix.</param>
+	/// <param name="m22">Value at row 2, column 2 of the matrix.</param>
+	/// <param name="m23">Value at row 2, column 3 of the matrix.</param>
+	/// <param name="m24">Value at row 2, column 4 of the matrix.</param>
+	/// <param name="m31">Value at row 3, column 1 of the matrix.</param>
+	/// <param name="m32">Value at row 3, column 2 of the matrix.</param>
+	/// <param name="m33">Value at row 3, column 3 of the matrix.</param>
+	/// <param name="m34">Value at row 3, column 4 of the matrix.</param>
+	/// <param name="m41">Value at row 4, column 1 of the matrix.</param>
+	/// <param name="m42">Value at row 4, column 2 of the matrix.</param>
+	/// <param name="m43">Value at row 4, column 3 of the matrix.</param>
+	/// <param name="m44">Value at row 4, column 4 of the matrix.</param>
+	public DGMatrix4x4(FP m11, FP m12, FP m13, FP m14,
+		FP m21, FP m22, FP m23, FP m24,
+		FP m31, FP m32, FP m33, FP m34,
+		FP m41, FP m42, FP m43, FP m44)
 	{
-		//Compute the re-used 2x2 determinants.
-		FP det1 = M33 * M44 - M34 * M43;
-		FP det2 = M32 * M44 - M34 * M42;
-		FP det3 = M32 * M43 - M33 * M42;
-		FP det4 = M31 * M44 - M34 * M41;
-		FP det5 = M31 * M43 - M33 * M41;
-		FP det6 = M31 * M42 - M32 * M41;
-		return
-			(M11 * ((M22 * det1 - M23 * det2) + M24 * det3)) -
-			(M12 * ((M21 * det1 - M23 * det4) + M24 * det5)) +
-			(M13 * ((M21 * det2 - M22 * det4) + M24 * det6)) -
-			(M14 * ((M21 * det3 - M22 * det5) + M23 * det6));
+		this.M11 = m11;
+		this.M12 = m12;
+		this.M13 = m13;
+		this.M14 = m14;
+
+		this.M21 = m21;
+		this.M22 = m22;
+		this.M23 = m23;
+		this.M24 = m24;
+
+		this.M31 = m31;
+		this.M32 = m32;
+		this.M33 = m33;
+		this.M34 = m34;
+
+		this.M41 = m41;
+		this.M42 = m42;
+		this.M43 = m43;
+		this.M44 = m44;
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ToString
+	*************************************************************************************/
+	/// <summary>
+	/// Creates a string representation of the matrix.
+	/// </summary>
+	/// <returns>A string representation of the matrix.</returns>
+	public override string ToString()
+	{
+		return "{" + M11 + ", " + M12 + ", " + M13 + ", " + M14 + "} " +
+		       "{" + M21 + ", " + M22 + ", " + M23 + ", " + M24 + "} " +
+		       "{" + M31 + ", " + M32 + ", " + M33 + ", " + M34 + "} " +
+		       "{" + M41 + ", " + M42 + ", " + M43 + ", " + M44 + "}";
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ËãÊýÔËËã·û
+	*************************************************************************************/
+	/// <summary>
+	/// Multiplies two matrices together.
+	/// </summary>
+	/// <param name="a">First matrix to multiply.</param>
+	/// <param name="b">Second matrix to multiply.</param>
+	/// <returns>Combined transformation.</returns>
+	public static DGMatrix4x4 operator *(DGMatrix4x4 a, DGMatrix4x4 b)
+	{
+		return Multiply(a, b);
 	}
 
 	/// <summary>
-	/// Transposes the matrix in-place.
+	/// Scales all components of the matrix by the given value.
 	/// </summary>
-	public void Transpose()
+	/// <param name="m">First matrix to multiply.</param>
+	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
+	/// <returns>Product of the multiplication.</returns>
+	public static DGMatrix4x4 operator *(DGMatrix4x4 m, FP f)
 	{
-		FP intermediate = M12;
-		M12 = M21;
-		M21 = intermediate;
-
-		intermediate = M13;
-		M13 = M31;
-		M31 = intermediate;
-
-		intermediate = M14;
-		M14 = M41;
-		M41 = intermediate;
-
-		intermediate = M23;
-		M23 = M32;
-		M32 = intermediate;
-
-		intermediate = M24;
-		M24 = M42;
-		M42 = intermediate;
-
-		intermediate = M34;
-		M34 = M43;
-		M43 = intermediate;
+		return Multiply(m, f);
 	}
 
+	/// <summary>
+	/// Scales all components of the matrix by the given value.
+	/// </summary>
+	/// <param name="m">First matrix to multiply.</param>
+	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
+	/// <returns>Product of the multiplication.</returns>
+	public static DGMatrix4x4 operator *(FP f, DGMatrix4x4 m)
+	{
+		return Multiply(m, f);
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	/// <summary>
 	/// Creates a matrix representing the given axis and angle rotation.
 	/// </summary>
 	/// <param name="axis">Axis around which to rotate.</param>
 	/// <param name="angle">Angle to rotate around the axis.</param>
-	/// <param name="result">Matrix created from the axis and angle.</param>
+	/// <param name="result">Matrix created from the axis and angle.</param>MultiplyPoint3x4
 	public static DGMatrix4x4 CreateFromAxisAngle(FPVector3 axis, FP angle)
 	{
 		FP xx = axis.x * axis.x;
@@ -504,38 +538,6 @@ public struct DGMatrix4x4
 		return result;
 	}
 
-	/// <summary>
-	/// Multiplies two matrices together.
-	/// </summary>
-	/// <param name="a">First matrix to multiply.</param>
-	/// <param name="b">Second matrix to multiply.</param>
-	/// <returns>Combined transformation.</returns>
-	public static DGMatrix4x4 operator *(DGMatrix4x4 a, DGMatrix4x4 b)
-	{
-		return Multiply(a, b);
-	}
-
-	/// <summary>
-	/// Scales all components of the matrix by the given value.
-	/// </summary>
-	/// <param name="m">First matrix to multiply.</param>
-	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
-	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix4x4 operator *(DGMatrix4x4 m, FP f)
-	{
-		return Multiply(m, f);
-	}
-
-	/// <summary>
-	/// Scales all components of the matrix by the given value.
-	/// </summary>
-	/// <param name="m">First matrix to multiply.</param>
-	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
-	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix4x4 operator *(FP f, DGMatrix4x4 m)
-	{
-		return Multiply(m, f);
-	}
 
 	/// <summary>
 	/// Transforms a vector using a matrix.
@@ -744,37 +746,6 @@ public struct DGMatrix4x4
 		inverted.M44 = (FP) 1;
 
 		return inverted;
-	}
-
-	/// <summary>
-	/// Gets the 4x4 identity matrix.
-	/// </summary>
-	public static DGMatrix4x4 Identity
-	{
-		get
-		{
-			DGMatrix4x4 toReturn = default;
-			toReturn.M11 = (FP) 1;
-			toReturn.M12 = (FP) 0;
-			toReturn.M13 = (FP) 0;
-			toReturn.M14 = (FP) 0;
-
-			toReturn.M21 = (FP) 0;
-			toReturn.M22 = (FP) 1;
-			toReturn.M23 = (FP) 0;
-			toReturn.M24 = (FP) 0;
-
-			toReturn.M31 = (FP) 0;
-			toReturn.M32 = (FP) 0;
-			toReturn.M33 = (FP) 1;
-			toReturn.M34 = (FP) 0;
-
-			toReturn.M41 = (FP) 0;
-			toReturn.M42 = (FP) 0;
-			toReturn.M43 = (FP) 0;
-			toReturn.M44 = (FP) 1;
-			return toReturn;
-		}
 	}
 
 	public static DGMatrix4x4 CreateRotationX(FP radians)
@@ -1106,15 +1077,160 @@ public struct DGMatrix4x4
 		return scaleMatrix;
 	}
 
-	/// <summary>
-	/// Creates a string representation of the matrix.
-	/// </summary>
-	/// <returns>A string representation of the matrix.</returns>
-	public override string ToString()
+	public static DGMatrix4x4 Translate(FPVector3 vector)
 	{
-		return "{" + M11 + ", " + M12 + ", " + M13 + ", " + M14 + "} " +
-		       "{" + M21 + ", " + M22 + ", " + M23 + ", " + M24 + "} " +
-		       "{" + M31 + ", " + M32 + ", " + M33 + ", " + M34 + "} " +
-		       "{" + M41 + ", " + M42 + ", " + M43 + ", " + M44 + "}";
+		DGMatrix4x4 m = default;
+		m.M11 = (FP) 1F;
+		m.M21 = (FP) 0F;
+		m.M31 = (FP) 0F;
+		m.M41 = (FP) vector.x;
+		m.M12 = (FP) 0F;
+		m.M22 = (FP) 1F;
+		m.M32 = (FP) 0F;
+		m.M42 = (FP) vector.y;
+		m.M13 = (FP) 0F;
+		m.M23 = (FP) 0F;
+		m.M33 = (FP) 1F;
+		m.M43 = (FP) vector.z;
+		m.M14 = (FP) 0F;
+		m.M24 = (FP) 0F;
+		m.M34 = (FP) 0F;
+		m.M44 = (FP) 1F;
+		return m;
+	}
+
+
+	// Creates a rotation matrix. Note: Assumes unit quaternion
+	public static DGMatrix4x4 Rotate(FPQuaternion q)
+	{
+		// Precalculate coordinate products
+		FP x = q.x * (FP) 2.0F;
+		FP y = q.y * (FP) 2.0F;
+		FP z = q.z * (FP) 2.0F;
+		FP xx = q.x * x;
+		FP yy = q.y * y;
+		FP zz = q.z * z;
+		FP xy = q.x * y;
+		FP xz = q.x * z;
+		FP yz = q.y * z;
+		FP wx = q.w * x;
+		FP wy = q.w * y;
+		FP wz = q.w * z;
+
+		// Calculate 3x3 matrix from orthonormal basis
+		DGMatrix4x4 m = default;
+		m.M11 = (FP) 1.0f - (yy + zz);
+		m.M12 = xy + wz;
+		m.M13 = xz - wy;
+		m.M14 = (FP) 0.0F;
+		m.M21 = xy - wz;
+		m.M22 = (FP) 1.0f - (xx + zz);
+		m.M23 = yz + wx;
+		m.M24 = (FP) 0.0F;
+		m.M31 = xz + wy;
+		m.M32 = yz - wx;
+		m.M33 = (FP) 1.0f - (xx + yy);
+		m.M34 = (FP) 0.0F;
+		m.M41 = (FP) 0.0F;
+		m.M42 = (FP) 0.0F;
+		m.M43 = (FP) 0.0F;
+		m.M44 = (FP) 1.0F;
+		return m;
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:Util
+	*************************************************************************************/
+	/// <summary>
+	/// Computes the determinant of the matrix.
+	/// </summary>
+	/// <returns></returns>
+	public FP Determinant()
+	{
+		//Compute the re-used 2x2 determinants.
+		FP det1 = M33 * M44 - M34 * M43;
+		FP det2 = M32 * M44 - M34 * M42;
+		FP det3 = M32 * M43 - M33 * M42;
+		FP det4 = M31 * M44 - M34 * M41;
+		FP det5 = M31 * M43 - M33 * M41;
+		FP det6 = M31 * M42 - M32 * M41;
+		return
+			(M11 * ((M22 * det1 - M23 * det2) + M24 * det3)) -
+			(M12 * ((M21 * det1 - M23 * det4) + M24 * det5)) +
+			(M13 * ((M21 * det2 - M22 * det4) + M24 * det6)) -
+			(M14 * ((M21 * det3 - M22 * det5) + M23 * det6));
+	}
+
+	/// <summary>
+	/// Transposes the matrix in-place.
+	/// </summary>
+	public void Transpose()
+	{
+		FP intermediate = M12;
+		M12 = M21;
+		M21 = intermediate;
+
+		intermediate = M13;
+		M13 = M31;
+		M31 = intermediate;
+
+		intermediate = M14;
+		M14 = M41;
+		M41 = intermediate;
+
+		intermediate = M23;
+		M23 = M32;
+		M32 = intermediate;
+
+		intermediate = M24;
+		M24 = M42;
+		M42 = intermediate;
+
+		intermediate = M34;
+		M34 = M43;
+		M43 = intermediate;
+	}
+
+	public FPVector3 GetPosition()
+	{
+		return new FPVector3(M41, M42, M43);
+	}
+
+
+	// Transforms a position by this matrix, with a perspective divide. (generic)
+	public FPVector3 MultiplyPoint(FPVector3 point)
+	{
+		FPVector3 res;
+		FP w;
+		res.x = this.M11 * point.x + this.M21 * point.y + this.M31 * point.z + this.M41;
+		res.y = this.M12 * point.x + this.M22 * point.y + this.M32 * point.z + this.M42;
+		res.z = this.M13 * point.x + this.M23 * point.y + this.M33 * point.z + this.M43;
+		w = this.M14 * point.x + this.M24 * point.y + this.M34 * point.z + this.M44;
+
+		w = (FP) 1F / w;
+		res.x *= w;
+		res.y *= w;
+		res.z *= w;
+		return res;
+	}
+
+	// Transforms a position by this matrix, without a perspective divide. (fast)
+	public FPVector3 MultiplyPoint3x4(FPVector3 point)
+	{
+		FPVector3 res;
+		res.x = this.M11 * point.x + this.M21 * point.y + this.M31 * point.z + this.M41;
+		res.y = this.M12 * point.x + this.M22 * point.y + this.M32 * point.z + this.M42;
+		res.z = this.M13 * point.x + this.M23 * point.y + this.M33 * point.z + this.M43;
+		return res;
+	}
+
+	// Transforms a direction by this matrix.
+	public FPVector3 MultiplyVector(FPVector3 vector)
+	{
+		FPVector3 res;
+		res.x = this.M11 * vector.x + this.M21 * vector.y + this.M31 * vector.z;
+		res.y = this.M12 * vector.x + this.M22 * vector.y + this.M32 * vector.z;
+		res.z = this.M13 * vector.x + this.M23 * vector.y + this.M33 * vector.z;
+		return res;
 	}
 }

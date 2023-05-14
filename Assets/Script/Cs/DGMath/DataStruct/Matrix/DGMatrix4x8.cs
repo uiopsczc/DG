@@ -17,6 +17,9 @@ static class DGMatrix4x8
 {
 	[ThreadStatic] private static FP[,] Matrix;
 
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	public static bool Invert(FPMatrix4x4 m, out FPMatrix4x4 r)
 	{
 		if (Matrix == null)

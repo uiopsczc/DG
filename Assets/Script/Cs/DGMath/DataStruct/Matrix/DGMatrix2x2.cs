@@ -40,6 +40,10 @@ public struct DGMatrix2x2
 	/// </summary>
 	public FP M22;
 
+	/// <summary>
+	/// Gets the 2x2 identity matrix.
+	/// </summary>
+	public static DGMatrix2x2 Identity => new DGMatrix2x2((FP) 1, (FP) 0, (FP) 0, (FP) 1);
 
 	/// <summary>
 	/// Constructs a new 2 row, 2 column matrix.
@@ -56,11 +60,22 @@ public struct DGMatrix2x2
 		M22 = m22;
 	}
 
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ToString
+	*************************************************************************************/
 	/// <summary>
-	/// Gets the 2x2 identity matrix.
+	/// Creates a string representation of the matrix.
 	/// </summary>
-	public static DGMatrix2x2 Identity => new DGMatrix2x2((FP) 1, (FP) 0, (FP) 0, (FP) 1);
+	/// <returns>A string representation of the matrix.</returns>
+	public override string ToString()
+	{
+		return "{" + M11 + ", " + M12 + "} " +
+		       "{" + M21 + ", " + M22 + "}";
+	}
 
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	/// <summary>
 	/// Adds the two matrices together on a per-element basis.
 	/// </summary>
@@ -371,6 +386,10 @@ public struct DGMatrix2x2
 
 		return result;
 	}
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:Util
+	*************************************************************************************/
+
 
 	/// <summary>
 	/// Transposes the matrix in-place.
@@ -382,15 +401,6 @@ public struct DGMatrix2x2
 		M12 = m21;
 	}
 
-	/// <summary>
-	/// Creates a string representation of the matrix.
-	/// </summary>
-	/// <returns>A string representation of the matrix.</returns>
-	public override string ToString()
-	{
-		return "{" + M11 + ", " + M12 + "} " +
-		       "{" + M21 + ", " + M22 + "}";
-	}
 
 	/// <summary>
 	/// Calculates the determinant of the matrix.

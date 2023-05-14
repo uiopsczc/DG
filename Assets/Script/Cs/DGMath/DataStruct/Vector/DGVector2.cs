@@ -224,7 +224,7 @@ public struct DGVector2 : IEquatable<DGVector2>
 	*************************************************************************************/
 	public static bool IsUnit(DGVector2 vector)
 	{
-		return DGMath.IsApproximatelyZero((FP)1 - vector.x * vector.x - vector.y * vector.y);
+		return DGMath.IsApproximatelyZero((FP) 1 - vector.x * vector.x - vector.y * vector.y);
 	}
 
 	/// <summary>
@@ -472,8 +472,6 @@ public struct DGVector2 : IEquatable<DGVector2>
 	public static DGVector2 Hermite(DGVector2 v1, DGVector2 tangent1, DGVector2 v2, DGVector2 tangent2, FP amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		bool tangent1IsUnit = IsUnit(tangent1);
-		bool tangent2IsUnit = IsUnit(tangent2);
 		FP squared = amount * amount;
 		FP cubed = amount * squared;
 		FP a = ((cubed * (FP) 2) - (squared * (FP) 3)) + (FP) 1;

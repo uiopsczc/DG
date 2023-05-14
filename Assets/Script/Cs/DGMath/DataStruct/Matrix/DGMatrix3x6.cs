@@ -17,6 +17,9 @@ static class Matrix3x6
 {
 	[ThreadStatic] private static FP[,] Matrix;
 
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	public static bool Gauss(FP[,] M, int m, int n)
 	{
 		// Perform Gauss-Jordan elimination

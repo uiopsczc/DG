@@ -65,31 +65,6 @@ public struct DGMatrix3x3
 	public FP M33;
 
 	/// <summary>
-	/// Constructs a new 3 row, 3 column matrix.
-	/// </summary>
-	/// <param name="m11">Value at row 1, column 1 of the matrix.</param>
-	/// <param name="m12">Value at row 1, column 2 of the matrix.</param>
-	/// <param name="m13">Value at row 1, column 3 of the matrix.</param>
-	/// <param name="m21">Value at row 2, column 1 of the matrix.</param>
-	/// <param name="m22">Value at row 2, column 2 of the matrix.</param>
-	/// <param name="m23">Value at row 2, column 3 of the matrix.</param>
-	/// <param name="m31">Value at row 3, column 1 of the matrix.</param>
-	/// <param name="m32">Value at row 3, column 2 of the matrix.</param>
-	/// <param name="m33">Value at row 3, column 3 of the matrix.</param>
-	public DGMatrix3x3(FP m11, FP m12, FP m13, FP m21, FP m22, FP m23, FP m31, FP m32, FP m33)
-	{
-		M11 = m11;
-		M12 = m12;
-		M13 = m13;
-		M21 = m21;
-		M22 = m22;
-		M23 = m23;
-		M31 = m31;
-		M32 = m32;
-		M33 = m33;
-	}
-
-	/// <summary>
 	/// Gets the 3x3 identity matrix.
 	/// </summary>
 	public static DGMatrix3x3 Identity =>
@@ -216,6 +191,88 @@ public struct DGMatrix3x3
 		}
 	}
 
+	/// <summary>
+	/// Constructs a new 3 row, 3 column matrix.
+	/// </summary>
+	/// <param name="m11">Value at row 1, column 1 of the matrix.</param>
+	/// <param name="m12">Value at row 1, column 2 of the matrix.</param>
+	/// <param name="m13">Value at row 1, column 3 of the matrix.</param>
+	/// <param name="m21">Value at row 2, column 1 of the matrix.</param>
+	/// <param name="m22">Value at row 2, column 2 of the matrix.</param>
+	/// <param name="m23">Value at row 2, column 3 of the matrix.</param>
+	/// <param name="m31">Value at row 3, column 1 of the matrix.</param>
+	/// <param name="m32">Value at row 3, column 2 of the matrix.</param>
+	/// <param name="m33">Value at row 3, column 3 of the matrix.</param>
+	public DGMatrix3x3(FP m11, FP m12, FP m13, FP m21, FP m22, FP m23, FP m31, FP m32, FP m33)
+	{
+		M11 = m11;
+		M12 = m12;
+		M13 = m13;
+		M21 = m21;
+		M22 = m22;
+		M23 = m23;
+		M31 = m31;
+		M32 = m32;
+		M33 = m33;
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ToString
+	*************************************************************************************/
+	/// <summary>
+	/// Creates a string representation of the matrix.
+	/// </summary>
+	/// <returns>A string representation of the matrix.</returns>
+	public override string ToString()
+	{
+		return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
+		       "{" + M21 + ", " + M22 + ", " + M23 + "} " +
+		       "{" + M31 + ", " + M32 + ", " + M33 + "}";
+	}
+
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:ËãÊý²Ù×÷·û
+	*************************************************************************************/
+	/// <summary>
+	/// Multiplies the two matrices.
+	/// </summary>
+	/// <param name="a">First matrix to multiply.</param>
+	/// <param name="b">Second matrix to multiply.</param>
+	/// <returns>Product of the multiplication.</returns>
+	public static DGMatrix3x3 operator *(DGMatrix3x3 a, DGMatrix3x3 b)
+	{
+		DGMatrix3x3 result = Multiply(a, b);
+		return result;
+	}
+
+	/// <summary>
+	/// Scales all components of the matrix by the given value.
+	/// </summary>
+	/// <param name="m">First matrix to multiply.</param>
+	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
+	/// <returns>Product of the multiplication.</returns>
+	public static DGMatrix3x3 operator *(DGMatrix3x3 m, FP f)
+	{
+		DGMatrix3x3 result = Multiply(m, f);
+		return result;
+	}
+
+	/// <summary>
+	/// Scales all components of the matrix by the given value.
+	/// </summary>
+	/// <param name="m">First matrix to multiply.</param>
+	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
+	/// <returns>Product of the multiplication.</returns>
+	public static DGMatrix3x3 operator *(FP f, DGMatrix3x3 m)
+	{
+		DGMatrix3x3 result = Multiply(m, f);
+		return result;
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:StaticUtil
+	*************************************************************************************/
 	/// <summary>
 	/// Adds the two matrices together on a per-element basis.
 	/// </summary>
@@ -639,41 +696,6 @@ public struct DGMatrix3x3
 		return result;
 	}
 
-	/// <summary>
-	/// Multiplies the two matrices.
-	/// </summary>
-	/// <param name="a">First matrix to multiply.</param>
-	/// <param name="b">Second matrix to multiply.</param>
-	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix3x3 operator *(DGMatrix3x3 a, DGMatrix3x3 b)
-	{
-		DGMatrix3x3 result = Multiply(a, b);
-		return result;
-	}
-
-	/// <summary>
-	/// Scales all components of the matrix by the given value.
-	/// </summary>
-	/// <param name="m">First matrix to multiply.</param>
-	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
-	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix3x3 operator *(DGMatrix3x3 m, FP f)
-	{
-		DGMatrix3x3 result = Multiply(m, f);
-		return result;
-	}
-
-	/// <summary>
-	/// Scales all components of the matrix by the given value.
-	/// </summary>
-	/// <param name="m">First matrix to multiply.</param>
-	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
-	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix3x3 operator *(FP f, DGMatrix3x3 m)
-	{
-		DGMatrix3x3 result = Multiply(m, f);
-		return result;
-	}
 
 	/// <summary>
 	/// Multiplies the two matrices.
@@ -1036,99 +1058,6 @@ public struct DGMatrix3x3
 		return result;
 	}
 
-
-	/// <summary>
-	/// Transposes the matrix in-place.
-	/// </summary>
-	public void Transpose()
-	{
-		FP intermediate = M12;
-		M12 = M21;
-		M21 = intermediate;
-
-		intermediate = M13;
-		M13 = M31;
-		M31 = intermediate;
-
-		intermediate = M23;
-		M23 = M32;
-		M32 = intermediate;
-	}
-
-
-	/// <summary>
-	/// Creates a string representation of the matrix.
-	/// </summary>
-	/// <returns>A string representation of the matrix.</returns>
-	public override string ToString()
-	{
-		return "{" + M11 + ", " + M12 + ", " + M13 + "} " +
-		       "{" + M21 + ", " + M22 + ", " + M23 + "} " +
-		       "{" + M31 + ", " + M32 + ", " + M33 + "}";
-	}
-
-	/// <summary>
-	/// Calculates the determinant of largest nonsingular submatrix, excluding 2x2's that involve M13 or M31, and excluding all 1x1's that involve nondiagonal elements.
-	/// </summary>
-	/// <param name="subMatrixCode">Represents the submatrix that was used to compute the determinant.
-	/// 0 is the full 3x3.  1 is the upper left 2x2.  2 is the lower right 2x2.  3 is the four corners.
-	/// 4 is M11.  5 is M22.  6 is M33.</param>
-	/// <returns>The matrix's determinant.</returns>
-	internal FP AdaptiveDeterminant(out int subMatrixCode)
-	{
-		// We do not try the full matrix. This is handled by the AdaptiveInverse.
-
-		// We'll play it fast and loose here and assume the following won't overflow
-		//Try m11, m12, m21, m22.
-		FP determinant = M11 * M22 - M12 * M21;
-		if (determinant != (FP) 0)
-		{
-			subMatrixCode = 1;
-			return determinant;
-		}
-
-		//Try m22, m23, m32, m33.
-		determinant = M22 * M33 - M23 * M32;
-		if (determinant != (FP) 0)
-		{
-			subMatrixCode = 2;
-			return determinant;
-		}
-
-		//Try m11, m13, m31, m33.
-		determinant = M11 * M33 - M13 * M12;
-		if (determinant != (FP) 0)
-		{
-			subMatrixCode = 3;
-			return determinant;
-		}
-
-		//Try m11.
-		if (M11 != (FP) 0)
-		{
-			subMatrixCode = 4;
-			return M11;
-		}
-
-		//Try m22.
-		if (M22 != (FP) 0)
-		{
-			subMatrixCode = 5;
-			return M22;
-		}
-
-		//Try m33.
-		if (M33 != (FP) 0)
-		{
-			subMatrixCode = 6;
-			return M33;
-		}
-
-		//It's completely singular!
-		subMatrixCode = -1;
-		return (FP) 0;
-	}
-
 	/// <summary>
 	/// Creates a 3x3 matrix representing the orientation stored in the quaternion.
 	/// </summary>
@@ -1222,5 +1151,92 @@ public struct DGMatrix3x3
 		result.M33 = (FP) 1 + oneMinusCosAngle * (zz - (FP) 1);
 
 		return result;
+	}
+
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:Util
+	*************************************************************************************/
+
+
+	/// <summary>
+	/// Transposes the matrix in-place.
+	/// </summary>
+	public void Transpose()
+	{
+		FP intermediate = M12;
+		M12 = M21;
+		M21 = intermediate;
+
+		intermediate = M13;
+		M13 = M31;
+		M31 = intermediate;
+
+		intermediate = M23;
+		M23 = M32;
+		M32 = intermediate;
+	}
+
+
+	/// <summary>
+	/// Calculates the determinant of largest nonsingular submatrix, excluding 2x2's that involve M13 or M31, and excluding all 1x1's that involve nondiagonal elements.
+	/// </summary>
+	/// <param name="subMatrixCode">Represents the submatrix that was used to compute the determinant.
+	/// 0 is the full 3x3.  1 is the upper left 2x2.  2 is the lower right 2x2.  3 is the four corners.
+	/// 4 is M11.  5 is M22.  6 is M33.</param>
+	/// <returns>The matrix's determinant.</returns>
+	internal FP AdaptiveDeterminant(out int subMatrixCode)
+	{
+		// We do not try the full matrix. This is handled by the AdaptiveInverse.
+
+		// We'll play it fast and loose here and assume the following won't overflow
+		//Try m11, m12, m21, m22.
+		FP determinant = M11 * M22 - M12 * M21;
+		if (determinant != (FP) 0)
+		{
+			subMatrixCode = 1;
+			return determinant;
+		}
+
+		//Try m22, m23, m32, m33.
+		determinant = M22 * M33 - M23 * M32;
+		if (determinant != (FP) 0)
+		{
+			subMatrixCode = 2;
+			return determinant;
+		}
+
+		//Try m11, m13, m31, m33.
+		determinant = M11 * M33 - M13 * M12;
+		if (determinant != (FP) 0)
+		{
+			subMatrixCode = 3;
+			return determinant;
+		}
+
+		//Try m11.
+		if (M11 != (FP) 0)
+		{
+			subMatrixCode = 4;
+			return M11;
+		}
+
+		//Try m22.
+		if (M22 != (FP) 0)
+		{
+			subMatrixCode = 5;
+			return M22;
+		}
+
+		//Try m33.
+		if (M33 != (FP) 0)
+		{
+			subMatrixCode = 6;
+			return M33;
+		}
+
+		//It's completely singular!
+		subMatrixCode = -1;
+		return (FP) 0;
 	}
 }
