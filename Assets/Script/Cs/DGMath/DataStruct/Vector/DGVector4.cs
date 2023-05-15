@@ -230,7 +230,7 @@ public struct DGVector4 : IEquatable<DGVector4>
 		FP x = value.x * multiply;
 		FP y = value.y * multiply;
 		FP z = value.z * multiply;
-		FP w = value.z * multiply;
+		FP w = value.w * multiply;
 		return new DGVector4(x, y, z, w);
 	}
 
@@ -359,7 +359,7 @@ public struct DGVector4 : IEquatable<DGVector4>
 
 	public static DGVector4 Project(DGVector4 vector, DGVector4 onNormal)
 	{
-		return onNormal * (Dot(vector, onNormal) / Dot(vector, onNormal));
+				return onNormal * (Dot(vector, onNormal) / Dot(onNormal, onNormal));
 	}
 
 

@@ -283,65 +283,40 @@ public struct DGVector3 : IEquatable<DGVector3>
 		return DGMath.Sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
 	}
 
-	//https://stackoverflow.com/questions/67919193/how-does-unity-implements-vector3-slerp-exactly
-	public static DGVector3 Slerp(DGVector3 start, DGVector3 end, FP percent)
-	{
-		// Dot product - the cosine of the angle between 2 vectors.
-		FP dot = Dot(start, end);
+//	Slerp跟Unity的Slerp的值不一样，所以注释掉
+	//https://en.wikipedia.org/wiki/Slerp
+//	public static DGVector3 Slerp(DGVector3 start, DGVector3 end, FP percent)
+//	{
+//		FP dot = Dot(start.normalized, end.normalized);
+//		dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
+//		percent = DGMath.Clamp01(percent);
+//		FP rad = DGMath.Acos(dot);
+//		return start * DGMath.Sin(((FP) 1 - percent) * rad) / DGMath.Sin(rad) +
+//		       end * DGMath.Sin(percent * rad) / DGMath.Sin(rad);
+//	}
 
-		// Clamp it to be in the range of Acos()
-		// This may be unnecessary, but floating point
-		// precision can be a fickle mistress.
-		dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
-
-		// Acos(dot) returns the angle between start and end,
-		// And multiplying that by percent returns the angle between
-		// start and the final result.
-		percent = DGMath.Clamp(dot, (FP) 0, FP.One);
-		FP theta = DGMath.Acos(dot) * percent;
-		DGVector3 relativeVec = end - start * dot;
-		relativeVec.Normalize();
-
-		// Orthonormal basis
-		// The final result.
-		return ((start * DGMath.Cos(theta)) + (relativeVec * DGMath.Sin(theta)));
-	}
-
-	//https://stackoverflow.com/questions/67919193/how-does-unity-implements-vector3-slerp-exactly
-	public static DGVector3 SlerpUnclamped(DGVector3 start, DGVector3 end, FP percent)
-	{
-		// Dot product - the cosine of the angle between 2 vectors.
-		FP dot = Dot(start, end);
-
-		// Clamp it to be in the range of Acos()
-		// This may be unnecessary, but floating point
-		// precision can be a fickle mistress.
-		dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
-
-		// Acos(dot) returns the angle between start and end,
-		// And multiplying that by percent returns the angle between
-		// start and the final result.
-		FP theta = DGMath.Acos(dot) * percent;
-		DGVector3 relativeVec = end - start * dot;
-		relativeVec.Normalize();
-
-		// Orthonormal basis
-		// The final result.
-		return ((start * DGMath.Cos(theta)) + (relativeVec * DGMath.Sin(theta)));
-	}
+	//https://en.wikipedia.org/wiki/Slerp
+//	public static DGVector3 SlerpUnclamped(DGVector3 start, DGVector3 end, FP percent)
+//	{
+//				FP dot = Dot(start.normalized, end.normalized);
+//				dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
+//				FP rad = DGMath.Acos(dot);
+//				return start * DGMath.Sin(((FP) 1 - percent) * rad) / DGMath.Sin(rad) +
+//				       end * DGMath.Sin(percent * rad) / DGMath.Sin(rad);
+//	}
 
 
-	public static DGVector3 RotateTowards(DGVector3 current, DGVector3 target, FP maxRadiansDelta, FP maxMagnitudeDelta)
-	{
-		// replicates Unity Vector3.RotateTowards
-		FP delta = Angle(current, target) * DGMath.Deg2Rad;
-		FP magDiff = target.magnitude - current.magnitude;
-		FP sign = (FP) DGMath.Sign(magDiff);
-		FP maxMagDelta = DGMath.Min(maxMagnitudeDelta, DGMath.Abs(magDiff));
-		FP diff = DGMath.Min((FP) 1, maxRadiansDelta / delta);
-		return SlerpUnclamped(current.normalized, target.normalized, diff) *
-		       (current.magnitude + maxMagDelta * sign);
-	}
+//	public static DGVector3 RotateTowards(DGVector3 current, DGVector3 target, FP maxRadiansDelta, FP maxMagnitudeDelta)
+//	{
+//		// replicates Unity Vector3.RotateTowards
+//		FP delta = Angle(current, target) * DGMath.Deg2Rad;
+//		FP magDiff = target.magnitude - current.magnitude;
+//		FP sign = (FP) DGMath.Sign(magDiff);
+//		FP maxMagDelta = DGMath.Min(maxMagnitudeDelta, DGMath.Abs(magDiff));
+//		FP diff = DGMath.Min((FP) 1, maxRadiansDelta / delta);
+//		return SlerpUnclamped(current.normalized, target.normalized, diff) *
+//		       (current.magnitude + maxMagDelta * sign);
+//	}
 
 	public static DGVector3 Lerp(DGVector3 a, DGVector3 b, FP t)
 	{

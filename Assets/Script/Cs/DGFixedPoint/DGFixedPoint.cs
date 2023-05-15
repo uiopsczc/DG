@@ -789,13 +789,13 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 
 	public static DGFixedPoint Acos(DGFixedPoint value)
 	{
-		if (value < -One || value > One)
-			throw new ArgumentOutOfRangeException(nameof(value));
-
-		if (value.scaledValue == 0) return HalfPi;
-
-		var result = Atan(Sqrt(One - value * value) / value);
-		return value.scaledValue < 0 ? result + Pi : result;
+				if (value < -One || value > One)
+					throw new ArgumentOutOfRangeException(nameof(value));
+		
+				if (value.scaledValue == 0) return HalfPi;
+		
+				var result = Atan(Sqrt(One - value * value) / value);
+				return value.scaledValue < 0 ? result + Pi : result;
 	}
 
 	public static DGFixedPoint Atan(DGFixedPoint z)
