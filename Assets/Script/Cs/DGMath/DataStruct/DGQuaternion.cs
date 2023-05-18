@@ -482,7 +482,6 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		return Normalize(result);
 	}
 
-	
 
 	/// <summary>
 	///   <para>Creates a rotation which rotates from /fromDirection/ to /toDirection/.</para>
@@ -496,7 +495,6 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		return AngleAxis(angle, axis.normalized);
 	}
 
-	
 
 	/// <summary>
 	///   <para>Creates a rotation with the specified /forward/ and /upwards/ directions.</para>
@@ -575,7 +573,6 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		return quaternion;
 	}
 
-	
 
 	public static DGQuaternion CreateFromYawPitchRoll(FP yaw, FP pitch, FP roll)
 	{
@@ -745,73 +742,44 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	}
 
 
-	public static DGQuaternion Slerp(DGQuaternion from, DGQuaternion to, FP t)
+	public static DGQuaternion Slerp(DGQuaternion start, DGQuaternion end, FP pct)
 	{
-		DGQuaternion result = default;
-		FP cosHalfTheta = from.w * to.w + from.x * to.x + from.y * to.y + from.z * to.z;
-		if (cosHalfTheta < (FP) 0)
-		{
-			//Negating a quaternion results in the same orientation, 
-			//but we need cosHalfTheta to be positive to get the shortest path.
-			to.x = -to.x;
-			to.y = -to.y;
-			to.z = -to.z;
-			to.w = -to.w;
-			cosHalfTheta = -cosHalfTheta;
-		}
-
-		// If the orientations are similar enough, then just pick one of the inputs.
-		if (cosHalfTheta <= DGMath.Epsilon)
-		{
-			result.w = from.w;
-			result.x = from.x;
-			result.y = from.y;
-			result.z = from.z;
-			return result;
-		}
-
-		// Calculate temporary values.
-		FP halfTheta = DGMath.Acos(cosHalfTheta);
-		FP sinHalfTheta = DGMath.Sqrt((FP) 1 - cosHalfTheta * cosHalfTheta);
-
-		FP aFraction = DGMath.Sin(((FP) 1 - t) * halfTheta) / sinHalfTheta;
-		FP bFraction = DGMath.Sin(t * halfTheta) / sinHalfTheta;
-
-		//Blend the two quaternions to get the result!
-		result.x = from.x * aFraction + to.x * bFraction;
-		result.y = from.y * aFraction + to.y * bFraction;
-		result.z = from.z * aFraction + to.z * bFraction;
-		result.w = from.w * aFraction + to.w * bFraction;
-		return result;
+		pct = DGMath.Clamp01(pct);
+		return SlerpUnclamped(start, end, pct);
 	}
 
-	public static DGQuaternion SlerpUnclamped(DGQuaternion from, DGQuaternion to, FP t)
+	public static DGQuaternion SlerpUnclamped(DGQuaternion start, DGQuaternion end, FP pct)
 	{
-		var remaining = (FP) 1 - t;
-		var angle = Dot(from, to);
-		if (angle < (FP) 0)
+		var dot = start.x * end.x + start.y * end.y + start.z * end.z + start.w * end.w;
+
+
+		if (dot < (FP)0)
 		{
-			from = -from;
-			angle = -angle;
+			dot = -dot;
+			end = new DGQuaternion(-end.x, -end.y, -end.z, -end.w);
 		}
 
-		var theta = DGMath.Acos(angle);
-		var f = remaining;
-		var a = t;
-		if (theta > kEpsilon)
+
+		if (dot < (FP)0.95)
 		{
-			var x = DGMath.Sin(remaining * theta);
-			var y = DGMath.Sin(t * theta);
-			var z = DGMath.Sin(theta);
-			f = x / z;
-			a = y / z;
+			var angle = DGMath.Acos(dot);
+
+			var invSinAngle = (FP)1 / DGMath.Sin(angle);
+
+			var t1 = DGMath.Sin(((FP)1 - pct) * angle) * invSinAngle;
+
+			var t2 = DGMath.Sin(pct * angle) * invSinAngle;
+
+			return new DGQuaternion(start.x * t1 + end.x * t2, start.y * t1 + end.y * t2, start.z * t1 + end.z * t2,
+				start.w * t1 + end.w * t2);
+			;
 		}
 
-		var resultX = (f * from.x) + (a * to.x);
-		var resultY = (f * from.y) + (a * to.y);
-		var resultZ = (f * from.z) + (a * to.z);
-		var resultW = (f * from.w) + (a * to.w);
-		return new DGQuaternion(resultX, resultY, resultZ, resultW);
+		var x = start.x + pct * (end.x - start.x);
+		var y = start.y + pct * (end.y - start.y);
+		var z = start.z + pct * (end.z - start.z);
+		var w = start.w + pct * (end.w - start.w);
+		return new DGQuaternion(x, y, z, w).normalized;
 	}
 
 	public static FP SqrMagnitude(DGQuaternion value)
@@ -999,6 +967,7 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	{
 		this = FromToRotation(fromDirection, toDirection);
 	}
+
 	public void SetLookRotation(FPVector3 view)
 	{
 		FPVector3 up = FPVector3.up;
@@ -1013,5 +982,13 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	public void SetLookRotation(FPVector3 view, FPVector3 up)
 	{
 		this = LookRotation(view, up);
+	}
+
+	public void SetIdentity()
+	{
+		this.x = (FP) 0;
+		this.y = (FP) 0;
+		this.z = (FP) 0;
+		this.w = (FP) 1;
 	}
 }

@@ -25,7 +25,8 @@ public static class DGMath
 	public static readonly FP Epsilon = FP.Epsilon;
 	public static readonly FP Half = FP.Half;
 	public static readonly FP Quarter = FP.Quarter;
-	
+	public static readonly FP HalfSqrt2 = (FP)0.7071067811865475244008443621048490f;
+
 
 	public static bool IsApproximatelyZero(FP value)
 	{
@@ -375,5 +376,20 @@ public static class DGMath
 		result.x = p1.x + t * bx;
 		result.y = p1.y + t * by;
 		return true;
+	}
+
+	public static FP ClampedMove(FP lhs, FP rhs, FP clampedDelta)
+	{
+		var delta = rhs - lhs;
+		if (delta > (FP)0)
+			return lhs + Min(delta, clampedDelta);
+		return lhs - Min(-delta, clampedDelta);
+	}
+
+
+	public static FP HorizontalAngle(FPVector2 dir)
+	{
+		var v = Atan2(dir.x, dir.y);
+		return Rad2Deg * v;
 	}
 }

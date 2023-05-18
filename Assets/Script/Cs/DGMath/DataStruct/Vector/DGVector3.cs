@@ -283,40 +283,139 @@ public struct DGVector3 : IEquatable<DGVector3>
 		return DGMath.Sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
 	}
 
-//	Slerp跟Unity的Slerp的值不一样，所以注释掉
-	//https://en.wikipedia.org/wiki/Slerp
-//	public static DGVector3 Slerp(DGVector3 start, DGVector3 end, FP percent)
-//	{
-//		FP dot = Dot(start.normalized, end.normalized);
-//		dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
-//		percent = DGMath.Clamp01(percent);
-//		FP rad = DGMath.Acos(dot);
-//		return start * DGMath.Sin(((FP) 1 - percent) * rad) / DGMath.Sin(rad) +
-//		       end * DGMath.Sin(percent * rad) / DGMath.Sin(rad);
-//	}
+	public static (DGVector3, DGVector3) OrthoNormalize(DGVector3 va, DGVector3 vb)
+	{
+		va.Normalize();
+		vb = vb - Project(vb, va);
+		vb.Normalize();
+		return (va, vb);
+	}
 
-	//https://en.wikipedia.org/wiki/Slerp
-//	public static DGVector3 SlerpUnclamped(DGVector3 start, DGVector3 end, FP percent)
-//	{
-//				FP dot = Dot(start.normalized, end.normalized);
-//				dot = DGMath.Clamp(dot, FP.NegativeOne, FP.One);
-//				FP rad = DGMath.Acos(dot);
-//				return start * DGMath.Sin(((FP) 1 - percent) * rad) / DGMath.Sin(rad) +
-//				       end * DGMath.Sin(percent * rad) / DGMath.Sin(rad);
-//	}
+	public static (DGVector3, DGVector3, DGVector3) OrthoNormalize(DGVector3 va, DGVector3 vb, DGVector3 vc)
+	{
+		va.Normalize();
+		vb = vb - Project(vb, va);
+		vb.Normalize();
+		vc = vc - Project(vc, va);
+		vc = vc - Project(vc, vb);
+		vc.Normalize();
+		return (va, vb, vc);
+	}
+
+	public static DGVector3 OrthoNormalVector(DGVector3 vec)
+	{
+		FP a = default;
+		FP k = default;
+		FP x = default;
+		FP y = default;
+		FP z = default;
+		if (DGMath.Abs(vec.z) > DGMath.HalfSqrt2)
+		{
+			a = vec.y * vec.y + vec.z * vec.z;
+			k = (FP) 1 / DGMath.Sqrt(a);
+			x = (FP) 0;
+			y = -vec.z * k;
+			z = vec.y * k;
+			return new DGVector3(x, y, z);
+		}
+
+		a = vec.x * vec.x + vec.y * vec.y;
+		k = (FP) 1 / DGMath.Sqrt(a);
+		x = -vec.y * k;
+		y = vec.x * k;
+		z = (FP) 0;
 
 
-//	public static DGVector3 RotateTowards(DGVector3 current, DGVector3 target, FP maxRadiansDelta, FP maxMagnitudeDelta)
-//	{
-//		// replicates Unity Vector3.RotateTowards
-//		FP delta = Angle(current, target) * DGMath.Deg2Rad;
-//		FP magDiff = target.magnitude - current.magnitude;
-//		FP sign = (FP) DGMath.Sign(magDiff);
-//		FP maxMagDelta = DGMath.Min(maxMagnitudeDelta, DGMath.Abs(magDiff));
-//		FP diff = DGMath.Min((FP) 1, maxRadiansDelta / delta);
-//		return SlerpUnclamped(current.normalized, target.normalized, diff) *
-//		       (current.magnitude + maxMagDelta * sign);
-//	}
+		return new DGVector3(x, y, z);
+	}
+
+
+	public static DGVector3 Slerp(DGVector3 from, DGVector3 to, FP t)
+	{
+		FP omega, sinom, scale0, scale1;
+
+		if (t <= (FP) 0)
+			return from;
+		if (t >= (FP) 1)
+			return to;
+
+		var v2 = new DGVector3(to.x, to.y, to.z);
+		var v1 = new DGVector3(from.x, from.y, from.z);
+		var len2 = to.magnitude;
+		var len1 = from.magnitude;
+		v2 = v2 / len2;
+		v1 = v1 / len1;
+
+		var len = (len2 - len1) * t + len1;
+		var cosom = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+
+
+		if (cosom > (FP) 1 - DGMath.Epsilon)
+		{
+			scale0 = (FP) 1 - t;
+			scale1 = t;
+		}
+		else if (cosom < (FP) (-1) + DGMath.Epsilon)
+		{
+			var axis = OrthoNormalVector(from);
+			var q = DGQuaternion.AngleAxis((FP) 180 * t, axis);
+			var v = q * from;
+			v = v * len;
+			return v;
+		}
+		else
+		{
+			omega = DGMath.Acos(cosom);
+			sinom = DGMath.Sin(omega);
+			scale0 = DGMath.Sin(((FP) 1 - t) * omega) / sinom;
+			scale1 = DGMath.Sin(t * omega) / sinom;
+		}
+
+
+		v1 = v1 * scale0;
+		v2 = v2 * scale1;
+		v2 = v2 + v1;
+		v2 = v2 * len;
+		return v2;
+	}
+
+
+	public static DGVector3 RotateTowards(DGVector3 current, DGVector3 target, FP maxRadiansDelta, FP maxMagnitudeDelta)
+	{
+		var len1 = current.magnitude;
+		var len2 = target.magnitude;
+
+		if (len1 > DGMath.Epsilon && len2 > DGMath.Epsilon)
+		{
+			var from = current / len1;
+			var to = target / len2;
+			var cosom = Dot(from, to);
+			if (cosom > (FP) 1 - DGMath.Epsilon)
+				return MoveTowards(current, target, maxMagnitudeDelta);
+			if (cosom < (FP) (-1) + DGMath.Epsilon)
+			{
+				var axis = OrthoNormalVector(@from);
+				var q = DGQuaternion.AngleAxis(maxRadiansDelta * DGMath.Rad2Deg, axis);
+				var rotated = q * @from;
+				var delta = DGMath.ClampedMove(len1, len2, maxMagnitudeDelta);
+				rotated = rotated * delta;
+				return rotated;
+			}
+
+			{
+				var angle = DGMath.Acos(cosom);
+				var axis = Cross(@from, to);
+				axis.Normalize();
+				var q = DGQuaternion.AngleAxis(DGMath.Min(maxRadiansDelta, angle) * DGMath.Rad2Deg, axis);
+				var rotated = q * @from;
+				var delta = DGMath.ClampedMove(len1, len2, maxMagnitudeDelta);
+				rotated = rotated * delta;
+				return rotated;
+			}
+		}
+
+		return MoveTowards(current, target, maxMagnitudeDelta);
+	}
 
 	public static DGVector3 Lerp(DGVector3 a, DGVector3 b, FP t)
 	{
@@ -602,6 +701,14 @@ public struct DGVector3 : IEquatable<DGVector3>
 		FP z = value1.z * value1Blend + value2.z * value2Blend + tangent1.z * tangent1Blend +
 		       tangent2.z * tangent2Blend;
 		return new DGVector3(x, y, z);
+	}
+
+	public static FP AngleAroundAxis(DGVector3 from, DGVector3 to, DGVector3 axis)
+	{
+		from = from - Project(from, axis);
+		to = to - Project(to, axis);
+		var angle = Angle(from, to);
+		return angle * (Dot(axis, Cross(from, to)) < (FP) 0 ? (FP) (-1) : (FP) 1);
 	}
 
 	/*************************************************************************************

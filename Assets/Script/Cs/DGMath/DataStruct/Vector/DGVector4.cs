@@ -257,7 +257,8 @@ public struct DGVector4 : IEquatable<DGVector4>
 	*************************************************************************************/
 	public static bool IsUnit(DGVector4 vector)
 	{
-		return DGMath.IsApproximatelyZero((FP)1 - vector.x * vector.x - vector.y * vector.y - vector.z * vector.z - vector.w * vector.w);
+		return DGMath.IsApproximatelyZero((FP) 1 - vector.x * vector.x - vector.y * vector.y - vector.z * vector.z -
+		                                  vector.w * vector.w);
 	}
 
 	/// <summary>
@@ -359,7 +360,7 @@ public struct DGVector4 : IEquatable<DGVector4>
 
 	public static DGVector4 Project(DGVector4 vector, DGVector4 onNormal)
 	{
-				return onNormal * (Dot(vector, onNormal) / Dot(onNormal, onNormal));
+		return onNormal * (Dot(vector, onNormal) / Dot(onNormal, onNormal));
 	}
 
 
