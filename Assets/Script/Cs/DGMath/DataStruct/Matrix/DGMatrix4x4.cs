@@ -9,11 +9,16 @@
  * ======================================
 *************************************************************************************/
 
+using System;
+using System.Runtime.CompilerServices;
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
 using FPVector4 = DGVector4;
 using FPMatrix4x8 = DGMatrix4x8;
 using FPQuaternion = DGQuaternion;
+#if UNITY_5_3_OR_NEWER
+using UnityEngine;
+#endif
 
 public struct DGMatrix4x4
 {
@@ -312,6 +317,31 @@ public struct DGMatrix4x4
 		this.M44 = m44;
 	}
 
+#if UNITY_5_3_OR_NEWER
+	public DGMatrix4x4(Matrix4x4 matrix)
+	{
+		this.M11 = (FP)matrix.m00;
+		this.M12 = (FP)matrix.m01;
+		this.M13 = (FP)matrix.m02;
+		this.M14 = (FP)matrix.m03;
+
+		this.M21 = (FP)matrix.m10;
+		this.M22 = (FP)matrix.m11;
+		this.M23 = (FP)matrix.m12;
+		this.M24 = (FP)matrix.m13;
+
+		this.M31 = (FP)matrix.m20;
+		this.M32 = (FP)matrix.m21;
+		this.M33 = (FP)matrix.m22;
+		this.M34 = (FP)matrix.m23;
+
+		this.M41 = (FP)matrix.m30;
+		this.M42 = (FP)matrix.m31;
+		this.M43 = (FP)matrix.m32;
+		this.M44 = (FP)matrix.m33;
+	}
+#endif
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:ToString
 	*************************************************************************************/
@@ -321,10 +351,10 @@ public struct DGMatrix4x4
 	/// <returns>A string representation of the matrix.</returns>
 	public override string ToString()
 	{
-		return "{" + M11 + ", " + M12 + ", " + M13 + ", " + M14 + "} " +
-		       "{" + M21 + ", " + M22 + ", " + M23 + ", " + M24 + "} " +
-		       "{" + M31 + ", " + M32 + ", " + M33 + ", " + M34 + "} " +
-		       "{" + M41 + ", " + M42 + ", " + M43 + ", " + M44 + "}";
+		return "{" + M11 + ", " + M12 + ", " + M13 + ", " + M14 + "} \n" +
+		       "{" + M21 + ", " + M22 + ", " + M23 + ", " + M24 + "} \n" +
+		       "{" + M31 + ", " + M32 + ", " + M33 + ", " + M34 + "} \n" +
+		       "{" + M41 + ", " + M42 + ", " + M43 + ", " + M44 + "} \n";
 	}
 
 	/*************************************************************************************
@@ -363,9 +393,21 @@ public struct DGMatrix4x4
 		return Multiply(m, f);
 	}
 
+	public static FPVector4 operator *(DGMatrix4x4 lhs, FPVector4 vector)
+	{
+		FPVector4 res;
+		res.x = lhs.M11 * vector.x + lhs.M12 * vector.y + lhs.M13 * vector.z + lhs.M14 * vector.w;
+		res.y = lhs.M21 * vector.x + lhs.M22 * vector.y + lhs.M23 * vector.z + lhs.M24 * vector.w;
+		res.z = lhs.M31 * vector.x + lhs.M32 * vector.y + lhs.M33 * vector.z + lhs.M34 * vector.w;
+		res.w = lhs.M41 * vector.x + lhs.M42 * vector.y + lhs.M43 * vector.z + lhs.M44 * vector.w;
+		return res;
+	}
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
+
+
 	/// <summary>
 	/// Creates a matrix representing the given axis and angle rotation.
 	/// </summary>
@@ -1057,7 +1099,6 @@ public struct DGMatrix4x4
 		return scaleMatrix;
 	}
 
-
 	/// <summary>
 	/// Creates a matrix representing the given axis aligned scale.
 	/// </summary>
@@ -1077,24 +1118,29 @@ public struct DGMatrix4x4
 		return scaleMatrix;
 	}
 
+	public static DGMatrix4x4 Scale(FPVector3 scale)
+	{
+		return CreateScale(scale);
+	}
+
 	public static DGMatrix4x4 Translate(FPVector3 vector)
 	{
 		DGMatrix4x4 m = default;
 		m.M11 = (FP) 1F;
-		m.M21 = (FP) 0F;
-		m.M31 = (FP) 0F;
-		m.M41 = (FP) vector.x;
 		m.M12 = (FP) 0F;
-		m.M22 = (FP) 1F;
-		m.M32 = (FP) 0F;
-		m.M42 = (FP) vector.y;
 		m.M13 = (FP) 0F;
+		m.M14 = (FP) vector.x;
+		m.M21 = (FP) 0F;
+		m.M22 = (FP) 1F;
 		m.M23 = (FP) 0F;
+		m.M24 = (FP) vector.y;
+		m.M31 = (FP) 0F;
+		m.M32 = (FP) 0F;
 		m.M33 = (FP) 1F;
-		m.M43 = (FP) vector.z;
-		m.M14 = (FP) 0F;
-		m.M24 = (FP) 0F;
-		m.M34 = (FP) 0F;
+		m.M34 = (FP) vector.z;
+		m.M41 = (FP) 0F;
+		m.M42 = (FP) 0F;
+		m.M43 = (FP) 0F;
 		m.M44 = (FP) 1F;
 		return m;
 	}
@@ -1120,20 +1166,20 @@ public struct DGMatrix4x4
 		// Calculate 3x3 matrix from orthonormal basis
 		DGMatrix4x4 m = default;
 		m.M11 = (FP) 1.0f - (yy + zz);
-		m.M12 = xy + wz;
-		m.M13 = xz - wy;
-		m.M14 = (FP) 0.0F;
-		m.M21 = xy - wz;
-		m.M22 = (FP) 1.0f - (xx + zz);
-		m.M23 = yz + wx;
-		m.M24 = (FP) 0.0F;
-		m.M31 = xz + wy;
-		m.M32 = yz - wx;
-		m.M33 = (FP) 1.0f - (xx + yy);
-		m.M34 = (FP) 0.0F;
+		m.M21 = xy + wz;
+		m.M31 = xz - wy;
 		m.M41 = (FP) 0.0F;
+		m.M12 = xy - wz;
+		m.M22 = (FP) 1.0f - (xx + zz);
+		m.M32 = yz + wx;
 		m.M42 = (FP) 0.0F;
+		m.M13 = xz + wy;
+		m.M23 = yz - wx;
+		m.M33 = (FP) 1.0f - (xx + yy);
 		m.M43 = (FP) 0.0F;
+		m.M14 = (FP) 0.0F;
+		m.M24 = (FP) 0.0F;
+		m.M34 = (FP) 0.0F;
 		m.M44 = (FP) 1.0F;
 		return m;
 	}
@@ -1141,6 +1187,23 @@ public struct DGMatrix4x4
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Util
 	*************************************************************************************/
+	// Transforms a position by this matrix, with a perspective divide. (generic)
+	public FPVector3 MultiplyPoint(FPVector3 point)
+	{
+		FPVector3 res;
+		FP w;
+		res.x = this.M11 * point.x + this.M12 * point.y + this.M13 * point.z + this.M14;
+		res.y = this.M21 * point.x + this.M22 * point.y + this.M23 * point.z + this.M24;
+		res.z = this.M31 * point.x + this.M32 * point.y + this.M33 * point.z + this.M34;
+		w = this.M41 * point.x + this.M42 * point.y + this.M43 * point.z + this.M44;
+
+		w = (FP)1F / w;
+		res.x *= w;
+		res.y *= w;
+		res.z *= w;
+		return res;
+	}
+
 	/// <summary>
 	/// Computes the determinant of the matrix.
 	/// </summary>
@@ -1196,31 +1259,15 @@ public struct DGMatrix4x4
 		return new FPVector3(M41, M42, M43);
 	}
 
-
-	// Transforms a position by this matrix, with a perspective divide. (generic)
-	public FPVector3 MultiplyPoint(FPVector3 point)
-	{
-		FPVector3 res;
-		FP w;
-		res.x = this.M11 * point.x + this.M21 * point.y + this.M31 * point.z + this.M41;
-		res.y = this.M12 * point.x + this.M22 * point.y + this.M32 * point.z + this.M42;
-		res.z = this.M13 * point.x + this.M23 * point.y + this.M33 * point.z + this.M43;
-		w = this.M14 * point.x + this.M24 * point.y + this.M34 * point.z + this.M44;
-
-		w = (FP) 1F / w;
-		res.x *= w;
-		res.y *= w;
-		res.z *= w;
-		return res;
-	}
+	
 
 	// Transforms a position by this matrix, without a perspective divide. (fast)
 	public FPVector3 MultiplyPoint3x4(FPVector3 point)
 	{
 		FPVector3 res;
-		res.x = this.M11 * point.x + this.M21 * point.y + this.M31 * point.z + this.M41;
-		res.y = this.M12 * point.x + this.M22 * point.y + this.M32 * point.z + this.M42;
-		res.z = this.M13 * point.x + this.M23 * point.y + this.M33 * point.z + this.M43;
+		res.x = this.M11 * point.x + this.M12 * point.y + this.M13 * point.z + this.M14;
+		res.y = this.M21 * point.x + this.M22 * point.y + this.M23 * point.z + this.M24;
+		res.z = this.M31 * point.x + this.M32 * point.y + this.M33 * point.z + this.M34;
 		return res;
 	}
 
@@ -1228,9 +1275,9 @@ public struct DGMatrix4x4
 	public FPVector3 MultiplyVector(FPVector3 vector)
 	{
 		FPVector3 res;
-		res.x = this.M11 * vector.x + this.M21 * vector.y + this.M31 * vector.z;
-		res.y = this.M12 * vector.x + this.M22 * vector.y + this.M32 * vector.z;
-		res.z = this.M13 * vector.x + this.M23 * vector.y + this.M33 * vector.z;
+		res.x = this.M11 * vector.x + this.M12 * vector.y + this.M13 * vector.z;
+		res.y = this.M21 * vector.x + this.M22 * vector.y + this.M23 * vector.z;
+		res.z = this.M31 * vector.x + this.M32 * vector.y + this.M33 * vector.z;
 		return res;
 	}
 }
