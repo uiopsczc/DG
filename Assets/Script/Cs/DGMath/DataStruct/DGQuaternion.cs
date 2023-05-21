@@ -126,6 +126,14 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		this.w = (FP) quaternion.w;
 	}
 #endif
+
+	public DGQuaternion(System.Numerics.Quaternion quaternion)
+	{
+		this.x = (FP)quaternion.X;
+		this.y = (FP)quaternion.Y;
+		this.z = (FP)quaternion.Z;
+		this.w = (FP)quaternion.W;
+	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Equals ToString
 	*************************************************************************************/

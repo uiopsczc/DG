@@ -16,6 +16,7 @@ using FPVector3 = DGVector3;
 using FPVector4 = DGVector4;
 using FPMatrix4x8 = DGMatrix4x8;
 using FPQuaternion = DGQuaternion;
+using FPPlane = DGPlane;
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
 #endif
@@ -272,6 +273,9 @@ public struct DGMatrix4x4
 		}
 	}
 
+	public DGMatrix4x4 inverse => Invert(this);
+	public FP determinant => this.Determinant();
+
 	/// <summary>
 	/// Constructs a new 4 row, 4 column matrix.
 	/// </summary>
@@ -342,6 +346,29 @@ public struct DGMatrix4x4
 	}
 #endif
 
+	public DGMatrix4x4(System.Numerics.Matrix4x4 matrix)
+	{
+		this.M11 = (FP)matrix.M11;
+		this.M12 = (FP)matrix.M12;
+		this.M13 = (FP)matrix.M13;
+		this.M14 = (FP)matrix.M14;
+
+		this.M21 = (FP)matrix.M21;
+		this.M22 = (FP)matrix.M22;
+		this.M23 = (FP)matrix.M23;
+		this.M24 = (FP)matrix.M24;
+
+		this.M31 = (FP)matrix.M31;
+		this.M32 = (FP)matrix.M32;
+		this.M33 = (FP)matrix.M33;
+		this.M34 = (FP)matrix.M34;
+
+		this.M41 = (FP)matrix.M41;
+		this.M42 = (FP)matrix.M42;
+		this.M43 = (FP)matrix.M43;
+		this.M44 = (FP)matrix.M44;
+	}
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:ToString
 	*************************************************************************************/
@@ -406,15 +433,18 @@ public struct DGMatrix4x4
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-
+	public static DGMatrix4x4 TRS(FPVector3 pos, FPQuaternion rotation, FPVector3 scale)
+	{
+		return Translate(pos) * Rotate(rotation) * Scale(scale);
+	}
 
 	/// <summary>
-	/// Creates a matrix representing the given axis and angle rotation.
-	/// </summary>
-	/// <param name="axis">Axis around which to rotate.</param>
-	/// <param name="angle">Angle to rotate around the axis.</param>
-	/// <param name="result">Matrix created from the axis and angle.</param>MultiplyPoint3x4
-	public static DGMatrix4x4 CreateFromAxisAngle(FPVector3 axis, FP angle)
+		/// Creates a matrix representing the given axis and angle rotation.
+		/// </summary>
+		/// <param name="axis">Axis around which to rotate.</param>
+		/// <param name="angle">Angle to rotate around the axis.</param>
+		/// <param name="result">Matrix created from the axis and angle.</param>MultiplyPoint3x4
+		public static DGMatrix4x4 CreateFromAxisAngle(FPVector3 axis, FP angle)
 	{
 		FP xx = axis.x * axis.x;
 		FP yy = axis.y * axis.y;
@@ -894,6 +924,34 @@ public struct DGMatrix4x4
 	}
 
 	/// <summary>
+	/// Creates an orthographic perspective matrix from the given view volume dimensions.
+	/// </summary>
+	/// <param name="width">Width of the view volume.</param>
+	/// <param name="height">Height of the view volume.</param>
+	/// <param name="zNearPlane">Minimum Z-value of the view volume.</param>
+	/// <param name="zFarPlane">Maximum Z-value of the view volume.</param>
+	/// <returns>The orthographic projection matrix.</returns>
+	public static DGMatrix4x4 CreateOrthographic(FP width, FP height, FP zNearPlane, FP zFarPlane)
+	{
+		DGMatrix4x4 result;
+
+		result.M11 = (FP)2.0f / width;
+		result.M12 = result.M13 = result.M14 = (FP)0.0f;
+
+		result.M22 = (FP)2.0f / height;
+		result.M21 = result.M23 = result.M24 = (FP)0.0f;
+
+		result.M33 = (FP)1.0f / (zNearPlane - zFarPlane);
+		result.M31 = result.M32 = result.M34 = (FP)0.0f;
+
+		result.M41 = result.M42 = (FP)0.0f;
+		result.M43 = zNearPlane / (zNearPlane - zFarPlane);
+		result.M44 = (FP)1.0f;
+
+		return result;
+	}
+
+	/// <summary>
 	/// Creates a right handed orthographic projection.
 	/// </summary>
 	/// <param name="left">Leftmost coordinate of the projected area.</param>
@@ -903,7 +961,7 @@ public struct DGMatrix4x4
 	/// <param name="zNear">Near plane of the projection.</param>
 	/// <param name="zFar">Far plane of the projection.</param>
 	/// <param name="projection">The resulting orthographic projection matrix.</param>
-	public static DGMatrix4x4 CreateOrthographicRH(FP left, FP right, FP bottom, FP top, FP zNear, FP zFar)
+	public static DGMatrix4x4 CreateOrthographicOffCenter(FP left, FP right, FP bottom, FP top, FP zNear, FP zFar)
 	{
 		DGMatrix4x4 projection = default;
 		FP width = right - left;
@@ -933,6 +991,43 @@ public struct DGMatrix4x4
 	}
 
 	/// <summary>
+	/// Creates a perspective projection matrix from the given view volume dimensions.
+	/// </summary>
+	/// <param name="width">Width of the view volume at the near view plane.</param>
+	/// <param name="height">Height of the view volume at the near view plane.</param>
+	/// <param name="nearPlaneDistance">Distance to the near view plane.</param>
+	/// <param name="farPlaneDistance">Distance to the far view plane.</param>
+	/// <returns>The perspective projection matrix.</returns>
+	public static DGMatrix4x4 CreatePerspective(FP width, FP height, FP nearPlaneDistance, FP farPlaneDistance)
+	{
+		if (nearPlaneDistance <= (FP)0.0f)
+			throw new ArgumentOutOfRangeException("nearPlaneDistance");
+
+		if (farPlaneDistance <= (FP)0.0f)
+			throw new ArgumentOutOfRangeException("farPlaneDistance");
+
+		if (nearPlaneDistance >= farPlaneDistance)
+			throw new ArgumentOutOfRangeException("nearPlaneDistance");
+
+		DGMatrix4x4 result;
+
+		result.M11 = (FP)2.0f * nearPlaneDistance / width;
+		result.M12 = result.M13 = result.M14 = (FP)0.0f;
+
+		result.M22 = (FP)2.0f * nearPlaneDistance / height;
+		result.M21 = result.M23 = result.M24 = (FP)0.0f;
+
+		result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+		result.M31 = result.M32 = (FP)0.0f;
+		result.M34 = (FP) (- 1.0f);
+
+		result.M41 = result.M42 = result.M44 = (FP)0.0f;
+		result.M43 = nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+
+		return result;
+	}
+
+	/// <summary>
 	/// Creates a right-handed perspective matrix.
 	/// </summary>
 	/// <param name="fieldOfView">Field of view of the perspective in radians.</param>
@@ -940,7 +1035,7 @@ public struct DGMatrix4x4
 	/// <param name="nearClip">Near clip plane of the perspective.</param>
 	/// <param name="farClip">Far clip plane of the perspective.</param>
 	/// <param name="perspective">Resulting perspective matrix.</param>
-	public static DGMatrix4x4 CreatePerspectiveFieldOfViewRH(FP fieldOfView, FP aspectRatio, FP nearClip, FP farClip)
+	public static DGMatrix4x4 CreatePerspectiveFieldOfView(FP fieldOfView, FP aspectRatio, FP nearClip, FP farClip)
 	{
 		DGMatrix4x4 perspective = default;
 		FP h = (FP) 1 / DGMath.Tan(fieldOfView / (FP) 2);
@@ -968,6 +1063,170 @@ public struct DGMatrix4x4
 		return perspective;
 	}
 
+	/// <summary>
+	/// Linearly interpolates between the corresponding values of two matrices.
+	/// </summary>
+	/// <param name="matrix1">The first source matrix.</param>
+	/// <param name="matrix2">The second source matrix.</param>
+	/// <param name="amount">The relative weight of the second source matrix.</param>
+	/// <returns>The interpolated matrix.</returns>
+	public static DGMatrix4x4 Lerp(DGMatrix4x4 matrix1, DGMatrix4x4 matrix2, FP amount)
+	{
+		DGMatrix4x4 result;
+
+		// First row
+		result.M11 = matrix1.M11 + (matrix2.M11 - matrix1.M11) * amount;
+		result.M12 = matrix1.M12 + (matrix2.M12 - matrix1.M12) * amount;
+		result.M13 = matrix1.M13 + (matrix2.M13 - matrix1.M13) * amount;
+		result.M14 = matrix1.M14 + (matrix2.M14 - matrix1.M14) * amount;
+
+		// Second row
+		result.M21 = matrix1.M21 + (matrix2.M21 - matrix1.M21) * amount;
+		result.M22 = matrix1.M22 + (matrix2.M22 - matrix1.M22) * amount;
+		result.M23 = matrix1.M23 + (matrix2.M23 - matrix1.M23) * amount;
+		result.M24 = matrix1.M24 + (matrix2.M24 - matrix1.M24) * amount;
+
+		// Third row
+		result.M31 = matrix1.M31 + (matrix2.M31 - matrix1.M31) * amount;
+		result.M32 = matrix1.M32 + (matrix2.M32 - matrix1.M32) * amount;
+		result.M33 = matrix1.M33 + (matrix2.M33 - matrix1.M33) * amount;
+		result.M34 = matrix1.M34 + (matrix2.M34 - matrix1.M34) * amount;
+
+		// Fourth row
+		result.M41 = matrix1.M41 + (matrix2.M41 - matrix1.M41) * amount;
+		result.M42 = matrix1.M42 + (matrix2.M42 - matrix1.M42) * amount;
+		result.M43 = matrix1.M43 + (matrix2.M43 - matrix1.M43) * amount;
+		result.M44 = matrix1.M44 + (matrix2.M44 - matrix1.M44) * amount;
+
+		return result;
+	}
+
+	/// <summary>
+	/// Creates a customized, perspective projection matrix.
+	/// </summary>
+	/// <param name="left">Minimum x-value of the view volume at the near view plane.</param>
+	/// <param name="right">Maximum x-value of the view volume at the near view plane.</param>
+	/// <param name="bottom">Minimum y-value of the view volume at the near view plane.</param>
+	/// <param name="top">Maximum y-value of the view volume at the near view plane.</param>
+	/// <param name="nearPlaneDistance">Distance to the near view plane.</param>
+	/// <param name="farPlaneDistance">Distance to of the far view plane.</param>
+	/// <returns>The perspective projection matrix.</returns>
+	public static DGMatrix4x4 CreatePerspectiveOffCenter(FP left, FP right, FP bottom, FP top, FP nearPlaneDistance, FP farPlaneDistance)
+	{
+		if (nearPlaneDistance <= (FP)0.0f)
+			throw new ArgumentOutOfRangeException("nearPlaneDistance");
+
+		if (farPlaneDistance <= (FP)0.0f)
+			throw new ArgumentOutOfRangeException("farPlaneDistance");
+
+		if (nearPlaneDistance >= (FP)farPlaneDistance)
+			throw new ArgumentOutOfRangeException("nearPlaneDistance");
+
+		DGMatrix4x4 result;
+
+		result.M11 = (FP)2.0f * nearPlaneDistance / (right - left);
+		result.M12 = result.M13 = result.M14 = (FP)0.0f;
+
+		result.M22 = (FP)2.0f * nearPlaneDistance / (top - bottom);
+		result.M21 = result.M23 = result.M24 = (FP)0.0f;
+
+		result.M31 = (left + right) / (right - left);
+		result.M32 = (top + bottom) / (top - bottom);
+		result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+		result.M34 = (FP) (- 1.0f);
+
+		result.M43 = nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+		result.M41 = result.M42 = result.M44 = (FP)0.0f;
+
+		return result;
+	}
+
+	/// <summary>
+	/// Creates a Matrix that reflects the coordinate system about a specified Plane.
+	/// </summary>
+	/// <param name="value">The Plane about which to create a reflection.</param>
+	/// <returns>A new matrix expressing the reflection.</returns>
+	public static DGMatrix4x4 CreateReflection(FPPlane value)
+	{
+		value = FPPlane.Normalize(value);
+
+		FP a = value.normal.x;
+		FP b = value.normal.y;
+		FP c = value.normal.z;
+
+		FP fa = (FP) (- 2.0f) * a;
+		FP fb = (FP) (- 2.0f) * b;
+		FP fc = (FP)(- 2.0f) * c;
+
+		DGMatrix4x4 result;
+
+		result.M11 = fa * a + (FP)1.0f;
+		result.M12 = fb * a;
+		result.M13 = fc * a;
+		result.M14 = (FP)0.0f;
+
+		result.M21 = fa * b;
+		result.M22 = fb * b + (FP)1.0f;
+		result.M23 = fc * b;
+		result.M24 = (FP)0.0f;
+
+		result.M31 = fa * c;
+		result.M32 = fb * c;
+		result.M33 = fc * c + (FP)1.0f;
+		result.M34 = (FP)0.0f;
+
+		result.M41 = fa * value.distance;
+		result.M42 = fb * value.distance;
+		result.M43 = fc * value.distance;
+		result.M44 = (FP)1.0f;
+
+		return result;
+	}
+
+	/// <summary>
+	/// Creates a Matrix that flattens geometry into a specified Plane as if casting a shadow from a specified light source.
+	/// </summary>
+	/// <param name="lightDirection">The direction from which the light that will cast the shadow is coming.</param>
+	/// <param name="plane">The Plane onto which the new matrix should flatten geometry so as to cast a shadow.</param>
+	/// <returns>A new Matrix that can be used to flatten geometry onto the specified plane from the specified direction.</returns>
+	public static DGMatrix4x4 CreateShadow(FPVector3 lightDirection, FPPlane plane)
+	{
+		FPPlane p = FPPlane.Normalize(plane);
+
+		FP dot = p.normal.x * lightDirection.x + p.normal.y * lightDirection.y + p.normal.z * lightDirection.z;
+		FP a = -p.normal.x;
+		FP b = -p.normal.y;
+		FP c = -p.normal.z;
+		FP d = -p.distance;
+
+		DGMatrix4x4 result;
+
+		result.M11 = a * lightDirection.x + dot;
+		result.M21 = b * lightDirection.x;
+		result.M31 = c * lightDirection.x;
+		result.M41 = d * lightDirection.x;
+
+		result.M12 = a * lightDirection.y;
+		result.M22 = b * lightDirection.y + dot;
+		result.M32 = c * lightDirection.y;
+		result.M42 = d * lightDirection.y;
+
+		result.M13 = a * lightDirection.z;
+		result.M23 = b * lightDirection.z;
+		result.M33 = c * lightDirection.z + dot;
+		result.M43 = d * lightDirection.z;
+
+		result.M14 = (FP)0.0f;
+		result.M24 = (FP)0.0f;
+		result.M34 = (FP)0.0f;
+		result.M44 = dot;
+
+		return result;
+	}
+
+	
+
+
 
 	/// <summary>
 	/// Creates a view matrix pointing from a position to a target with the given up vector.
@@ -976,7 +1235,7 @@ public struct DGMatrix4x4
 	/// <param name="target">Target of the camera.</param>
 	/// <param name="upVector">Up vector of the camera.</param>
 	/// <param name="viewMatrix">Look at matrix.</param>
-	public static DGMatrix4x4 CreateLookAtRH(FPVector3 position, FPVector3 target, FPVector3 upVector)
+	public static DGMatrix4x4 CreateLookAt(FPVector3 position, FPVector3 target, FPVector3 upVector)
 	{
 		FPVector3 forward = target - position;
 		return CreateViewRH(position, forward, upVector);
@@ -1028,7 +1287,7 @@ public struct DGMatrix4x4
 	/// <param name="forward">Forward direction of the transformation.</param>
 	/// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
 	/// <param name="worldMatrix">World matrix.</param>
-	public static DGMatrix4x4 CreateWorldRH(FPVector3 position, FPVector3 forward, FPVector3 upVector)
+	public static DGMatrix4x4 CreateWorld(FPVector3 position, FPVector3 forward, FPVector3 upVector)
 	{
 		DGMatrix4x4 worldMatrix = default;
 
@@ -1187,6 +1446,133 @@ public struct DGMatrix4x4
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Util
 	*************************************************************************************/
+	/// <summary>
+	/// Creates a spherical billboard that rotates around a specified object position.
+	/// </summary>
+	/// <param name="objectPosition">Position of the object the billboard will rotate around.</param>
+	/// <param name="cameraPosition">Position of the camera.</param>
+	/// <param name="cameraUpVector">The up vector of the camera.</param>
+	/// <param name="cameraForwardVector">The forward vector of the camera.</param>
+	/// <returns>The created billboard matrix</returns>
+	public static DGMatrix4x4 CreateBillboard(FPVector3 objectPosition, FPVector3 cameraPosition, FPVector3 cameraUpVector, FPVector3 cameraForwardVector)
+	{
+
+		FPVector3 zaxis = new FPVector3(
+			objectPosition.x - cameraPosition.x,
+			objectPosition.y - cameraPosition.y,
+			objectPosition.z - cameraPosition.z);
+
+		FP norm = zaxis.sqrMagnitude;
+
+		if (norm < DGMath.Epsilon)
+			zaxis = -cameraForwardVector;
+		else
+			zaxis = zaxis * (FP)1.0f / DGMath.Sqrt(norm);
+
+		FPVector3 xaxis = FPVector3.Normalize(FPVector3.Cross(cameraUpVector, zaxis));
+
+		FPVector3 yaxis = FPVector3.Cross(zaxis, xaxis);
+
+		DGMatrix4x4 result;
+
+		result.M11 = xaxis.x;
+		result.M12 = xaxis.y;
+		result.M13 = xaxis.z;
+		result.M14 = (FP)0.0f;
+		result.M21 = yaxis.x;
+		result.M22 = yaxis.y;
+		result.M23 = yaxis.z;
+		result.M24 = (FP)0.0f;
+		result.M31 = zaxis.x;
+		result.M32 = zaxis.y;
+		result.M33 = zaxis.z;
+		result.M34 = (FP)0.0f;
+
+		result.M41 = objectPosition.x;
+		result.M42 = objectPosition.y;
+		result.M43 = objectPosition.z;
+		result.M44 = (FP)1.0f;
+
+		return result;
+	}
+
+	/// <summary>
+	/// Creates a cylindrical billboard that rotates around a specified axis.
+	/// </summary>
+	/// <param name="objectPosition">Position of the object the billboard will rotate around.</param>
+	/// <param name="cameraPosition">Position of the camera.</param>
+	/// <param name="rotateAxis">Axis to rotate the billboard around.</param>
+	/// <param name="cameraForwardVector">Forward vector of the camera.</param>
+	/// <param name="objectForwardVector">Forward vector of the object.</param>
+	/// <returns>The created billboard matrix.</returns>
+	public static DGMatrix4x4 CreateConstrainedBillboard(FPVector3 objectPosition, FPVector3 cameraPosition, FPVector3 rotateAxis, FPVector3 cameraForwardVector, FPVector3 objectForwardVector)
+	{
+		FP minAngle = (FP)1.0f - ((FP)0.1f * (DGMath.PI / (FP)180.0f)); // 0.1 degrees
+
+		// Treat the case when object and camera positions are too close.
+		FPVector3 faceDir = new FPVector3(
+			objectPosition.x - cameraPosition.x,
+			objectPosition.y - cameraPosition.y,
+			objectPosition.z - cameraPosition.z);
+
+		FP norm = faceDir.sqrMagnitude;
+
+		if (norm < DGMath.Epsilon)
+			faceDir = -cameraForwardVector;
+		else
+			faceDir = faceDir * ((FP)1.0f / DGMath.Sqrt(norm));
+
+		FPVector3 yaxis = rotateAxis;
+		FPVector3 xaxis;
+		FPVector3 zaxis;
+
+		// Treat the case when angle between faceDir and rotateAxis is too close to 0.
+		FP dot = FPVector3.Dot(rotateAxis, faceDir);
+
+		if (DGMath.Abs(dot) > minAngle)
+		{
+			zaxis = objectForwardVector;
+
+			// Make sure passed values are useful for compute.
+			dot = FPVector3.Dot(rotateAxis, zaxis);
+
+			if (DGMath.Abs(dot) > minAngle)
+			{
+				zaxis = (DGMath.Abs(rotateAxis.z) > minAngle) ? new FPVector3(1, 0, 0) : new FPVector3(0, 0, -1);
+			}
+
+			xaxis = FPVector3.Normalize(FPVector3.Cross(rotateAxis, zaxis));
+			zaxis = FPVector3.Normalize(FPVector3.Cross(xaxis, rotateAxis));
+		}
+		else
+		{
+			xaxis = FPVector3.Normalize(FPVector3.Cross(rotateAxis, faceDir));
+			zaxis = FPVector3.Normalize(FPVector3.Cross(xaxis, yaxis));
+		}
+
+		DGMatrix4x4 result;
+
+		result.M11 = xaxis.x;
+		result.M12 = xaxis.y;
+		result.M13 = xaxis.z;
+		result.M14 = (FP)0.0f;
+		result.M21 = yaxis.x;
+		result.M22 = yaxis.y;
+		result.M23 = yaxis.z;
+		result.M24 = (FP)0.0f;
+		result.M31 = zaxis.x;
+		result.M32 = zaxis.y;
+		result.M33 = zaxis.z;
+		result.M34 = (FP)0.0f;
+
+		result.M41 = objectPosition.x;
+		result.M42 = objectPosition.y;
+		result.M43 = objectPosition.z;
+		result.M44 = (FP)1.0f;
+
+		return result;
+	}
+
 	// Transforms a position by this matrix, with a perspective divide. (generic)
 	public FPVector3 MultiplyPoint(FPVector3 point)
 	{

@@ -117,6 +117,12 @@ public struct DGVector3 : IEquatable<DGVector3>
 		this.z = (FP) vector.z;
 	}
 #endif
+	public DGVector3(System.Numerics.Vector3 vector)
+	{
+		this.x = (FP)vector.X;
+		this.y = (FP)vector.Y;
+		this.z = (FP)vector.Z;
+	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Equals ToString
 	*************************************************************************************/

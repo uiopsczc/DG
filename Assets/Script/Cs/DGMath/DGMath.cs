@@ -392,4 +392,42 @@ public static class DGMath
 		var v = Atan2(dir.x, dir.y);
 		return Rad2Deg * v;
 	}
+
+	public static FP IEEERemainder(FP x, FP y)
+	{
+//		if (Double.IsNaN(x))
+//		{
+//			return x; // IEEE 754-2008: NaN payload must be preserved
+//		}
+//		if (Double.IsNaN(y))
+//		{
+//			return y; // IEEE 754-2008: NaN payload must be preserved
+//		}
+
+		FP regularMod = x % y;
+//		if (Double.IsNaN(regularMod))
+//		{
+//			return Double.NaN;
+//		}
+//		if (regularMod == 0)
+//		{
+//			if (Double.IsNegative(x))
+//			{
+//				return Double.NegativeZero;
+//			}
+//		}
+		FP alternativeResult = regularMod - (Abs(y) * (FP)Sign(x));
+		if (Abs(alternativeResult) == Abs(regularMod))
+		{
+			FP divisionResult = x / y;
+			FP roundedResult = Round(divisionResult);
+			if (Abs(roundedResult) > Abs(divisionResult))
+				return alternativeResult;
+			return regularMod;
+		}
+
+		if (Abs(alternativeResult) < Abs(regularMod))
+			return alternativeResult;
+		return regularMod;
+	}
 }

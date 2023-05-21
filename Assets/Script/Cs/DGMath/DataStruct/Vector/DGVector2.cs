@@ -105,6 +105,11 @@ public struct DGVector2 : IEquatable<DGVector2>
 		this.y = (FP) vector.y;
 	}
 #endif
+	public DGVector2(System.Numerics.Vector2 vector)
+	{
+		this.x = (FP)vector.X;
+		this.y = (FP)vector.Y;
+	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Equals ToString
 	*************************************************************************************/

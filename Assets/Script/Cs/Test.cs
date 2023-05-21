@@ -1,72 +1,38 @@
 using System;
+using System.Numerics;
 using UnityEngine;
+using Matrix4x4 = UnityEngine.Matrix4x4;
+using Plane = UnityEngine.Plane;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class Test : MonoBehaviour
 {
 	// Start is called before the first frame update
 	void Start()
-	{
-		Transform tf = this.gameObject.transform;
-		tf.position = new Vector3(1, 4, 5);
-		tf.eulerAngles = new Vector3(20, 32, 321);
-		tf.localScale = new Vector3(2, 7, 8);
+	{	
+		Matrix3x2 a1 = new Matrix3x2(21,12, 34,56,345,123);
+		Matrix3x2 a2 = new Matrix3x2(211, 332, 4, 26, 65, 23);
+		System.Numerics.Vector2 a3 = new System.Numerics.Vector2(2.5f, 129.4f);
+		System.Numerics.Vector2 a4 = new System.Numerics.Vector2(62.5f, 657.4f);
+		System.Numerics.Matrix4x4 a5 = new System.Numerics.Matrix4x4(12f,23.3f, 23.5f,23f, 
+			233, 56,78,90,
+			45,23,45,32,
+			12, 67,9,7);
+		//		//
+		//		//
+		DGMatrix3x2 b1 = new DGMatrix3x2(a1);
+		DGMatrix3x2 b2 = new DGMatrix3x2(a2);
+		DGVector2 b3 = new DGVector2(a3);
+		DGVector2 b4 = new DGVector2(a4);
+		DGMatrix4x4 b5 = new DGMatrix4x4(a5);
 
-		Transform tf2 = new GameObject().transform;
-		tf2.position = new Vector3(45, 54, 125);
-		tf2.eulerAngles = new Vector3(120, 32, 221);
-		tf2.localScale = new Vector3(25, 78, 148);
+		var a =a1.GetDeterminant();
+		var b = b1.GetDeterminant();
 
-		
-		
-//		Matrix4x4 a1 = tf.localToWorldMatrix;
-//		Matrix4x4 a2 = tf2.localToWorldMatrix;
-//		//
-//		//
-//		DGMatrix4x4 b1 = new DGMatrix4x4(a1);
-//		DGMatrix4x4 b2 = new DGMatrix4x4(a2);
-//		//
-//		System.Numerics.Matrix4x4 m = new System.Numerics.Matrix4x4((float)b1.M11, (float)b1.M12, (float)b1.M13, (float)b1.M14, (float)b1.M21, (float)b1.M22, (float)b1.M23, (float)b1.M24, (float)b1.M31, (float)b1.M32, (float)b1.M33, (float)b1.M34, (float)b1.M41, (float)b1.M42, (float)b1.M43, (float)b1.M44);
-//		m * 
-//
-//		//	    var c = Slerp(a1, a2, 1.7f);
-//		//		//			    var b = DGVector3.Lerp(b1, b2, (DGFixedPoint)0.3f);
-//		var a = a1;
-//		var b = b1;
-
-		//	    var b = Slerp(a1, a2, 0.7f);
-
-
-		//	    var a = Vector2.ClampMagnitude(a2, 10);
-		//	    var b = DGVector2.ClampMagnitude(b2, (DGFixedPoint)10);
-
-//		Debug.LogWarning(a1.ToString2());
-//		Debug.LogWarning(m.ToString2());
-//	    Debug.LogWarning(c.ToString2());
-
-		//		Debug.LogWarning(a);
-		//	    	    Debug.LogWarning(b);
+		Debug.LogWarning(a);
+		Debug.LogWarning(b);
 	}
-
-
-	public static Matrix4x4 Mul(Matrix4x4 lhs, Matrix4x4 rhs)
-	{
-		Matrix4x4 matrix4x4;
-		matrix4x4.m00 = (float)((double)lhs.m00 * (double)rhs.m00 + (double)lhs.m01 * (double)rhs.m10 + (double)lhs.m02 * (double)rhs.m20 + (double)lhs.m03 * (double)rhs.m30);
-		matrix4x4.m01 = (float)((double)lhs.m00 * (double)rhs.m01 + (double)lhs.m01 * (double)rhs.m11 + (double)lhs.m02 * (double)rhs.m21 + (double)lhs.m03 * (double)rhs.m31);
-		matrix4x4.m02 = (float)((double)lhs.m00 * (double)rhs.m02 + (double)lhs.m01 * (double)rhs.m12 + (double)lhs.m02 * (double)rhs.m22 + (double)lhs.m03 * (double)rhs.m32);
-		matrix4x4.m03 = (float)((double)lhs.m00 * (double)rhs.m03 + (double)lhs.m01 * (double)rhs.m13 + (double)lhs.m02 * (double)rhs.m23 + (double)lhs.m03 * (double)rhs.m33);
-		matrix4x4.m10 = (float)((double)lhs.m10 * (double)rhs.m00 + (double)lhs.m11 * (double)rhs.m10 + (double)lhs.m12 * (double)rhs.m20 + (double)lhs.m13 * (double)rhs.m30);
-		matrix4x4.m11 = (float)((double)lhs.m10 * (double)rhs.m01 + (double)lhs.m11 * (double)rhs.m11 + (double)lhs.m12 * (double)rhs.m21 + (double)lhs.m13 * (double)rhs.m31);
-		matrix4x4.m12 = (float)((double)lhs.m10 * (double)rhs.m02 + (double)lhs.m11 * (double)rhs.m12 + (double)lhs.m12 * (double)rhs.m22 + (double)lhs.m13 * (double)rhs.m32);
-		matrix4x4.m13 = (float)((double)lhs.m10 * (double)rhs.m03 + (double)lhs.m11 * (double)rhs.m13 + (double)lhs.m12 * (double)rhs.m23 + (double)lhs.m13 * (double)rhs.m33);
-		matrix4x4.m20 = (float)((double)lhs.m20 * (double)rhs.m00 + (double)lhs.m21 * (double)rhs.m10 + (double)lhs.m22 * (double)rhs.m20 + (double)lhs.m23 * (double)rhs.m30);
-		matrix4x4.m21 = (float)((double)lhs.m20 * (double)rhs.m01 + (double)lhs.m21 * (double)rhs.m11 + (double)lhs.m22 * (double)rhs.m21 + (double)lhs.m23 * (double)rhs.m31);
-		matrix4x4.m22 = (float)((double)lhs.m20 * (double)rhs.m02 + (double)lhs.m21 * (double)rhs.m12 + (double)lhs.m22 * (double)rhs.m22 + (double)lhs.m23 * (double)rhs.m32);
-		matrix4x4.m23 = (float)((double)lhs.m20 * (double)rhs.m03 + (double)lhs.m21 * (double)rhs.m13 + (double)lhs.m22 * (double)rhs.m23 + (double)lhs.m23 * (double)rhs.m33);
-		matrix4x4.m30 = (float)((double)lhs.m30 * (double)rhs.m00 + (double)lhs.m31 * (double)rhs.m10 + (double)lhs.m32 * (double)rhs.m20 + (double)lhs.m33 * (double)rhs.m30);
-		matrix4x4.m31 = (float)((double)lhs.m30 * (double)rhs.m01 + (double)lhs.m31 * (double)rhs.m11 + (double)lhs.m32 * (double)rhs.m21 + (double)lhs.m33 * (double)rhs.m31);
-		matrix4x4.m32 = (float)((double)lhs.m30 * (double)rhs.m02 + (double)lhs.m31 * (double)rhs.m12 + (double)lhs.m32 * (double)rhs.m22 + (double)lhs.m33 * (double)rhs.m32);
-		matrix4x4.m33 = (float)((double)lhs.m30 * (double)rhs.m03 + (double)lhs.m31 * (double)rhs.m13 + (double)lhs.m32 * (double)rhs.m23 + (double)lhs.m33 * (double)rhs.m33);
-		return matrix4x4;
-	}
+	
 }
