@@ -13,9 +13,9 @@ using System;
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
 using FPVector4 = DGVector4;
+
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
-
 #endif
 
 public struct DGVector2 : IEquatable<DGVector2>

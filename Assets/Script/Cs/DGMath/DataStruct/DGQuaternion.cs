@@ -13,9 +13,9 @@ using System;
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
 using FPMatrix4x4 = DGMatrix4x4;
+
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
-
 #endif
 
 //https://github.com/sungiant/abacus/blob/master/source/abacus/gen/main/Quaternion.t4

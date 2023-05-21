@@ -19,10 +19,6 @@ using FPVector4 = DGVector4;
 using FPMatrix4x4 = DGMatrix4x4;
 using FPRay = DGRay;
 
-#if UNITY_5_3_OR_NEWER
-
-#endif
-
 public struct DGPlane : IEquatable<DGPlane>
 {
 	/// <summary>

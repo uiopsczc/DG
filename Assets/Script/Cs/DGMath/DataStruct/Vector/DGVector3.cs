@@ -13,6 +13,7 @@ using System;
 using FP = DGFixedPoint;
 using FPVector2 = DGVector2;
 using FPVector4 = DGVector4;
+
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
 

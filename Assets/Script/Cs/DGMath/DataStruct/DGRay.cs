@@ -11,7 +11,9 @@
 
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
+
 #if UNITY_5_3_OR_NEWER
+using UnityEngine;
 #endif
 
 public struct DGRay 
@@ -41,6 +43,15 @@ public struct DGRay
 		this.origin = origin;
 		this._direction = direction.normalized;
 	}
+
+#if UNITY_5_3_OR_NEWER
+	public DGRay(Ray ray)
+	{
+		this.origin = new FPVector3(ray.origin);
+		this._direction = new FPVector3(ray.direction);
+	}
+#endif
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:ToString
 	*************************************************************************************/

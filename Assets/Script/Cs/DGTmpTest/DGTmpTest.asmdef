@@ -1,0 +1,16 @@
+{
+    "name": "DGTmpTest",
+    "references": [
+        "GUID:c72c02969dae7324e865b209cc5cc47c",
+        "GUID:ec33d620be107b542934f21d316d0a18"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

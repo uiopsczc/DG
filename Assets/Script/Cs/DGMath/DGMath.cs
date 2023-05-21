@@ -10,10 +10,12 @@
 *************************************************************************************/
 
 
-using System;
-using UnityEngine;
 using FP = DGFixedPoint;
 using FPVector2 = DGVector2;
+
+#if UNITY_5_3_OR_NEWER
+using UnityEngine;
+#endif
 
 public static class DGMath
 {
@@ -26,6 +28,8 @@ public static class DGMath
 	public static readonly FP Half = FP.Half;
 	public static readonly FP Quarter = FP.Quarter;
 	public static readonly FP HalfSqrt2 = (FP)0.7071067811865475244008443621048490f;
+	public static readonly FP MaxValue = FP.MaxValue;
+	public static readonly FP MinValue = FP.MinValue;
 
 
 	public static bool IsApproximatelyZero(FP value)
@@ -230,7 +234,7 @@ public static class DGMath
 
 		return output;
 	}
-
+#if UNITY_5_3_OR_NEWER
 	public static FP SmoothDampAngle(FP current, FP target,
 		ref FP currentVelocity, FP smoothTime, FP maxSpeed)
 	{
@@ -245,6 +249,7 @@ public static class DGMath
 		FP maxSpeed = FP.MaxValue;
 		return SmoothDampAngle(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
+#endif
 
 	public static FP SmoothDampAngle(FP current, FP target,
 		ref FP currentVelocity, FP smoothTime, FP maxSpeed, FP deltaTime)

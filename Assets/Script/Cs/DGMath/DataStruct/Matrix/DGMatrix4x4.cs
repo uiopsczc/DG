@@ -17,6 +17,7 @@ using FPVector4 = DGVector4;
 using FPMatrix4x8 = DGMatrix4x8;
 using FPQuaternion = DGQuaternion;
 using FPPlane = DGPlane;
+
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
 #endif
