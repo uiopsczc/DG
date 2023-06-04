@@ -16,49 +16,40 @@ using UnityEngine;
 
 #endif
 
-public struct DGRay
+
+public partial struct DGRay
 {
-	private FPVector3 _direction;
-
-	/// <summary>
-	///   <para>The origin point of the ray.</para>
-	/// </summary>
-	public FPVector3 origin { get; set; }
-
-	/// <summary>
-	///   <para>The direction of the ray.</para>
-	/// </summary>
-	public FPVector3 direction
-	{
-		get => this._direction;
-		set => this._direction = value.normalized;
-	}
-
-	/// <summary>
-	///   <para>Creates a ray starting at origin along direction.</para>
-	/// </summary>
-	/// <param name="origin"></param>
-	/// <param name="direction"></param>
-	public DGRay(FPVector3 origin, FPVector3 direction)
-	{
-		this.origin = origin;
-		this._direction = direction.normalized;
-	}
-
 #if UNITY_5_3_OR_NEWER
 	public DGRay(Ray ray)
 	{
 		this.origin = new FPVector3(ray.origin);
-		this._direction = new FPVector3(ray.direction);
+		this.direction = new FPVector3(ray.direction);
 	}
 #endif
 
 	/*************************************************************************************
-	* Ä£¿éÃèÊö:ToString
+	* Ä£¿éÃèÊö:Equals ToString
 	*************************************************************************************/
-	public override string ToString()
+	public override bool Equals(object obj)
 	{
-		return "{origin:" + origin + ", direction:" + direction + "}";
+		if (obj == null)
+			return false;
+		var other = (DGRay) obj;
+		return Equals(other);
+	}
+
+	public bool Equals(DGRay other)
+	{
+		return other.origin == origin && other.direction == direction;
+	}
+
+	public override int GetHashCode()
+	{
+		int prime = 73;
+		int result = 1;
+		result = prime * result + this.direction.GetHashCode();
+		result = prime * result + this.origin.GetHashCode();
+		return result;
 	}
 
 	/*************************************************************************************

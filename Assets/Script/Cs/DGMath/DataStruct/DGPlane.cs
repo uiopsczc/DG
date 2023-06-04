@@ -10,31 +10,21 @@
 *************************************************************************************/
 
 
-using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
 using FPVector4 = DGVector4;
+using FPQuaternion = DGQuaternion;
 using FPMatrix4x4 = DGMatrix4x4;
 using FPRay = DGRay;
 
-public struct DGPlane : IEquatable<DGPlane>
+public partial struct DGPlane
 {
-	/// <summary>
-	/// The normal vector of the Plane.
-	/// </summary>
-	public FPVector3 normal;
-
-	/// <summary>
-	/// The distance of the Plane along its normal from the origin.
-	/// </summary>
-	public FP distance;
-
 	/// <summary>
 	///   <para>Returns a copy of the plane that faces in the opposite direction.</para>
 	/// </summary>
-	public DGPlane flipped => new DGPlane(-this.normal, -this.distance);
+	public DGPlane flipped => new DGPlane(-this.normal, -this.d);
 
 	/// <summary>
 	/// Constructs a Plane from the X, Y, and Z components of its normal, and its distance from the origin on that normal.
@@ -46,32 +36,9 @@ public struct DGPlane : IEquatable<DGPlane>
 	public DGPlane(FP x, FP y, FP z, FP d)
 	{
 		normal = new FPVector3(x, y, z);
-		this.distance = d;
+		this.d = d;
 	}
 
-	/// <summary>
-	/// Constructs a Plane from the given normal and distance along the normal from the origin.
-	/// </summary>
-	/// <param name="normal">The Plane's normal vector.</param>
-	/// <param name="d">The Plane's distance from the origin along its normal vector.</param>
-	public DGPlane(FPVector3 normal, FP d)
-	{
-		this.normal = normal;
-		this.distance = d;
-	}
-
-	public DGPlane(FPVector3 inNormal, FPVector3 inPoint)
-	{
-		this.normal = FPVector3.Normalize(inNormal);
-		this.distance = -FPVector3.Dot(this.normal, inPoint);
-	}
-
-
-	public DGPlane(FPVector3 a, FPVector3 b, FPVector3 c)
-	{
-		this.normal = FPVector3.Normalize(FPVector3.Cross(b - a, c - a));
-		this.distance = -FPVector3.Dot(this.normal, a);
-	}
 
 	/// <summary>
 	/// Constructs a Plane from the given Vector4.
@@ -81,14 +48,14 @@ public struct DGPlane : IEquatable<DGPlane>
 	public DGPlane(FPVector4 value)
 	{
 		normal = new FPVector3(value.x, value.y, value.z);
-		distance = value.w;
+		d = value.w;
 	}
 
 #if UNITY_5_3_OR_NEWER
 	public DGPlane(UnityEngine.Plane value)
 	{
 		normal = new FPVector3(value.normal);
-		distance = (FP) value.distance;
+		d = (FP) value.distance;
 	}
 #endif
 	/*************************************************************************************
@@ -103,12 +70,12 @@ public struct DGPlane : IEquatable<DGPlane>
 	public bool Equals(DGPlane other)
 	{
 		if (Vector.IsHardwareAccelerated)
-			return this.normal.Equals(other.normal) && this.distance == other.distance;
+			return this.normal.Equals(other.normal) && this.d == other.d;
 
 		return (normal.x == other.normal.x &&
 		        normal.y == other.normal.y &&
 		        normal.z == other.normal.z &&
-		        distance == other.distance);
+		        d == other.d);
 	}
 
 	/// <summary>
@@ -127,12 +94,7 @@ public struct DGPlane : IEquatable<DGPlane>
 
 	public override int GetHashCode()
 	{
-		return normal.GetHashCode() + distance.GetHashCode();
-	}
-
-	public override string ToString()
-	{
-		return "{normal:" + normal + ", distance:" + distance + "}";
+		return normal.GetHashCode() + d.GetHashCode();
 	}
 
 	/*************************************************************************************
@@ -150,7 +112,7 @@ public struct DGPlane : IEquatable<DGPlane>
 		return (value1.normal.x == value2.normal.x &&
 		        value1.normal.y == value2.normal.y &&
 		        value1.normal.z == value2.normal.z &&
-		        value1.distance == value2.distance);
+		        value1.d == value2.d);
 	}
 
 	/// <summary>
@@ -165,7 +127,7 @@ public struct DGPlane : IEquatable<DGPlane>
 		return (value1.normal.x != value2.normal.x ||
 		        value1.normal.y != value2.normal.y ||
 		        value1.normal.z != value2.normal.z ||
-		        value1.distance != value2.distance);
+		        value1.d != value2.d);
 	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
@@ -245,7 +207,7 @@ public struct DGPlane : IEquatable<DGPlane>
 			FP normalLength = DGMath.Sqrt(normalLengthSquared);
 			return new DGPlane(
 				value.normal / normalLength,
-				value.distance / normalLength);
+				value.d / normalLength);
 		}
 
 		FP f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
@@ -262,7 +224,7 @@ public struct DGPlane : IEquatable<DGPlane>
 			value.normal.x * fInv,
 			value.normal.y * fInv,
 			value.normal.z * fInv,
-			value.distance * fInv);
+			value.d * fInv);
 	}
 
 	/// <summary>
@@ -277,7 +239,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	{
 		FPMatrix4x4 m = FPMatrix4x4.Invert(matrix);
 
-		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.distance;
+		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.d;
 
 		return new DGPlane(
 			x * m.SM11 + y * m.SM12 + z * m.SM13 + w * m.SM14,
@@ -294,7 +256,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="rotation">The Quaternion rotation to apply to the Plane.</param>
 	/// <returns>A new Plane that results from applying the rotation.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static DGPlane Transform(DGPlane plane, DGQuaternion rotation)
+	public static DGPlane Transform(DGPlane plane, FPQuaternion rotation)
 	{
 		// Compute rotation matrix.
 		FP x2 = rotation.x + rotation.x;
@@ -329,7 +291,7 @@ public struct DGPlane : IEquatable<DGPlane>
 			x * m11 + y * m21 + z * m31,
 			x * m12 + y * m22 + z * m32,
 			x * m13 + y * m23 + z * m33,
-			plane.distance);
+			plane.d);
 	}
 
 	/// <summary>
@@ -344,7 +306,7 @@ public struct DGPlane : IEquatable<DGPlane>
 		return plane.normal.x * value.x +
 		       plane.normal.y * value.y +
 		       plane.normal.z * value.z +
-		       plane.distance * value.w;
+		       plane.d * value.w;
 	}
 
 	/// <summary>
@@ -354,17 +316,17 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="value">The Vector3.</param>
 	/// <returns>The resulting value.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static FP DotCoordinate(DGPlane plane, DGVector3 value)
+	public static FP DotCoordinate(DGPlane plane, FPVector3 value)
 	{
 		if (Vector.IsHardwareAccelerated)
 		{
-			return FPVector3.Dot(plane.normal, value) + plane.distance;
+			return FPVector3.Dot(plane.normal, value) + plane.d;
 		}
 
 		return plane.normal.x * value.x +
 		       plane.normal.y * value.y +
 		       plane.normal.z * value.z +
-		       plane.distance;
+		       plane.d;
 	}
 
 	/// <summary>
@@ -396,7 +358,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// </returns>
 	public static DGPlane Translate(DGPlane plane, FPVector3 translation)
 	{
-		return new DGPlane(plane.normal, plane.distance += FPVector3.Dot(plane.normal, translation));
+		return new DGPlane(plane.normal, plane.d += FPVector3.Dot(plane.normal, translation));
 	}
 
 	/*************************************************************************************
@@ -410,7 +372,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	public void SetNormalAndPosition(FPVector3 inNormal, FPVector3 inPoint)
 	{
 		this.normal = FPVector3.Normalize(inNormal);
-		this.distance = -FPVector3.Dot(inNormal, inPoint);
+		this.d = -FPVector3.Dot(inNormal, inPoint);
 	}
 
 	/// <summary>
@@ -422,13 +384,13 @@ public struct DGPlane : IEquatable<DGPlane>
 	public void Set3Points(FPVector3 a, FPVector3 b, FPVector3 c)
 	{
 		this.normal = FPVector3.Normalize(FPVector3.Cross(b - a, c - a));
-		this.distance = -FPVector3.Dot(this.normal, a);
+		this.d = -FPVector3.Dot(this.normal, a);
 	}
 
 	public void Flip()
 	{
 		this.normal = -this.normal;
-		this.distance = -this.distance;
+		this.d = -this.d;
 	}
 
 	/// <summary>
@@ -437,7 +399,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="translation">The offset in space to move the plane with.</param>
 	public void Translate(FPVector3 translation)
 	{
-		this.distance += FPVector3.Dot(this.normal, translation);
+		this.d += FPVector3.Dot(this.normal, translation);
 	}
 
 	/// <summary>
@@ -449,7 +411,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// </returns>
 	public FPVector3 ClosestPointOnPlane(FPVector3 point)
 	{
-		FP num = FPVector3.Dot(this.normal, point) + this.distance;
+		FP num = FPVector3.Dot(this.normal, point) + this.d;
 		return point - this.normal * num;
 	}
 
@@ -459,7 +421,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="point"></param>
 	public FP GetDistanceToPoint(FPVector3 point)
 	{
-		return FPVector3.Dot(this.normal, point) + this.distance;
+		return FPVector3.Dot(this.normal, point) + this.d;
 	}
 
 	/// <summary>
@@ -468,7 +430,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="point"></param>
 	public bool GetSide(FPVector3 point)
 	{
-		return FPVector3.Dot(this.normal, point) + this.distance > (FP) 0.0f;
+		return FPVector3.Dot(this.normal, point) + this.d > (FP) 0.0f;
 	}
 
 	/// <summary>
@@ -487,7 +449,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	public bool Raycast(FPRay ray, out FP enter)
 	{
 		FP a = FPVector3.Dot(ray.direction, this.normal);
-		FP num = -FPVector3.Dot(ray.origin, this.normal) - this.distance;
+		FP num = -FPVector3.Dot(ray.origin, this.normal) - this.d;
 		if (DGMath.IsApproximatelyZero(a))
 		{
 			enter = (FP) 0.0f;

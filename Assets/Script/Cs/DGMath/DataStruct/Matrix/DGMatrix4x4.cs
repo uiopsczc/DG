@@ -1213,9 +1213,9 @@ public partial struct DGMatrix4x4
 			result.SM33 = fc * c + (FP)1.0f;
 			result.SM34 = (FP)0.0f;
 	
-			result.SM41 = fa * value.distance;
-			result.SM42 = fb * value.distance;
-			result.SM43 = fc * value.distance;
+			result.SM41 = fa * value.d;
+			result.SM42 = fb * value.d;
+			result.SM43 = fc * value.d;
 			result.SM44 = (FP)1.0f;
 	
 			return result;
@@ -1235,7 +1235,7 @@ public partial struct DGMatrix4x4
 			FP a = -p.normal.x;
 			FP b = -p.normal.y;
 			FP c = -p.normal.z;
-			FP d = -p.distance;
+			FP d = -p.d;
 	
 			DGMatrix4x4 result = default;
 	
