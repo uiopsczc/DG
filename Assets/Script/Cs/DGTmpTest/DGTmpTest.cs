@@ -9,15 +9,14 @@ using Vector3 = UnityEngine.Vector3;
 
 public class DGTmpTest : MonoBehaviour
 {
+	public Transform tf1;
+
+	public Transform tf2;
+
+	public Transform tf3;
 	// Start is called before the first frame update
 	void Start()
 	{
-		var a1 = new Vector3(1, 2, 3);
-
-		var b1 = new DGVector3((DGFixedPoint)1, (DGFixedPoint)2, (DGFixedPoint)3);
-
-		Debug.LogWarning(a1);
-		Debug.LogWarning(b1);
 	}
 	
 }

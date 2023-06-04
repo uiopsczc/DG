@@ -13,12 +13,12 @@ using System;
 using FP = DGFixedPoint;
 using FPVector2 = DGVector2;
 using FPVector4 = DGVector4;
-
+using FPQuaternion = DGQuaternion;
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
 
 #endif
-public struct DGVector3 : IEquatable<DGVector3>
+public partial struct DGVector3
 {
 	public static readonly FP kEpsilon = (FP) 0.00001F;
 	public static readonly FP kEpsilonNormalSqrt = (FP) 1e-15F;
@@ -33,10 +33,6 @@ public struct DGVector3 : IEquatable<DGVector3>
 	public static DGVector3 down => new DGVector3(0, -1, 0);
 	public static DGVector3 max => new DGVector3(float.MaxValue, float.MaxValue, float.MaxValue);
 	public static DGVector3 min => new DGVector3(float.MinValue, float.MinValue, float.MinValue);
-
-	public FP x;
-	public FP y;
-	public FP z;
 
 
 	public FP this[int index]
@@ -80,21 +76,15 @@ public struct DGVector3 : IEquatable<DGVector3>
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public FP sqrMagnitude => x * x + y * y + z * z;
+	public FP sqrMagnitude => len2();
 
-	public FP magnitude => DGMath.Sqrt(sqrMagnitude);
+	public FP magnitude => len();
 
 	/// <summary>
 	/// 返回该向量的单位向量
 	/// </summary>
-	public DGVector3 normalized => Normalize(this);
+	public DGVector3 normalized => this.nor();
 
-	public DGVector3(FP x, FP y, FP z)
-	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
 
 	public DGVector3(float x, float y, float z)
 	{
@@ -110,6 +100,7 @@ public struct DGVector3 : IEquatable<DGVector3>
 		this.z = (FP) z;
 	}
 
+
 #if UNITY_5_3_OR_NEWER
 	public DGVector3(Vector3 vector)
 	{
@@ -120,10 +111,11 @@ public struct DGVector3 : IEquatable<DGVector3>
 #endif
 	public DGVector3(System.Numerics.Vector3 vector)
 	{
-		this.x = (FP)vector.X;
-		this.y = (FP)vector.Y;
-		this.z = (FP)vector.Z;
+		this.x = (FP) vector.X;
+		this.y = (FP) vector.Y;
+		this.z = (FP) vector.Z;
 	}
+
 	/*************************************************************************************
 	* 模块描述:Equals ToString
 	*************************************************************************************/
@@ -145,10 +137,6 @@ public struct DGVector3 : IEquatable<DGVector3>
 		return x.GetHashCode() ^ (y.GetHashCode() << 2) ^ (z.GetHashCode() >> 2);
 	}
 
-	public override string ToString()
-	{
-		return string.Format("x:{0},y:{1},z:{2}", x, y, z);
-	}
 
 	/*************************************************************************************
 	* 模块描述:转换
@@ -249,22 +237,18 @@ public struct DGVector3 : IEquatable<DGVector3>
 	/*************************************************************************************
 	* 模块描述:StaticUtil
 	*************************************************************************************/
-	public static bool IsUnit(DGVector3 vector)
-	{
-		return DGMath.IsApproximatelyZero((FP) 1 - vector.x * vector.x - vector.y * vector.y - vector.z * vector.z);
-	}
 
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
 	public static FP SqrMagnitude(DGVector3 v)
 	{
-		return v.sqrMagnitude;
+		return v.len2();
 	}
 
 	public static FP Magnitude(DGVector3 vector)
 	{
-		return DGMath.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+		return vector.len();
 	}
 
 	public static DGVector3 ClampMagnitude(DGVector3 vector, FP maxLength)
@@ -284,10 +268,7 @@ public struct DGVector3 : IEquatable<DGVector3>
 
 	public static FP Distance(DGVector3 a, DGVector3 b)
 	{
-		FP diffX = a.x - b.x;
-		FP diffY = a.y - b.y;
-		FP diffZ = a.z - b.z;
-		return DGMath.Sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+		return a.dst(b);
 	}
 
 	public static (DGVector3, DGVector3) OrthoNormalize(DGVector3 va, DGVector3 vb)
@@ -337,56 +318,6 @@ public struct DGVector3 : IEquatable<DGVector3>
 	}
 
 
-	public static DGVector3 Slerp(DGVector3 from, DGVector3 to, FP t)
-	{
-		FP omega, sinom, scale0, scale1;
-
-		if (t <= (FP) 0)
-			return from;
-		if (t >= (FP) 1)
-			return to;
-
-		var v2 = new DGVector3(to.x, to.y, to.z);
-		var v1 = new DGVector3(from.x, from.y, from.z);
-		var len2 = to.magnitude;
-		var len1 = from.magnitude;
-		v2 = v2 / len2;
-		v1 = v1 / len1;
-
-		var len = (len2 - len1) * t + len1;
-		var cosom = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-
-
-		if (cosom > (FP) 1 - DGMath.Epsilon)
-		{
-			scale0 = (FP) 1 - t;
-			scale1 = t;
-		}
-		else if (cosom < (FP) (-1) + DGMath.Epsilon)
-		{
-			var axis = OrthoNormalVector(from);
-			var q = DGQuaternion.AngleAxis((FP) 180 * t, axis);
-			var v = q * from;
-			v = v * len;
-			return v;
-		}
-		else
-		{
-			omega = DGMath.Acos(cosom);
-			sinom = DGMath.Sin(omega);
-			scale0 = DGMath.Sin(((FP) 1 - t) * omega) / sinom;
-			scale1 = DGMath.Sin(t * omega) / sinom;
-		}
-
-
-		v1 = v1 * scale0;
-		v2 = v2 * scale1;
-		v2 = v2 + v1;
-		v2 = v2 * len;
-		return v2;
-	}
-
-
 	public static DGVector3 RotateTowards(DGVector3 current, DGVector3 target, FP maxRadiansDelta, FP maxMagnitudeDelta)
 	{
 		var len1 = current.magnitude;
@@ -402,7 +333,7 @@ public struct DGVector3 : IEquatable<DGVector3>
 			if (cosom < (FP) (-1) + DGMath.Epsilon)
 			{
 				var axis = OrthoNormalVector(@from);
-				var q = DGQuaternion.AngleAxis(maxRadiansDelta * DGMath.Rad2Deg, axis);
+				var q = FPQuaternion.AngleAxis(maxRadiansDelta * DGMath.Rad2Deg, axis);
 				var rotated = q * @from;
 				var delta = DGMath.ClampedMove(len1, len2, maxMagnitudeDelta);
 				rotated = rotated * delta;
@@ -413,7 +344,7 @@ public struct DGVector3 : IEquatable<DGVector3>
 				var angle = DGMath.Acos(cosom);
 				var axis = Cross(@from, to);
 				axis.Normalize();
-				var q = DGQuaternion.AngleAxis(DGMath.Min(maxRadiansDelta, angle) * DGMath.Rad2Deg, axis);
+				var q = FPQuaternion.AngleAxis(DGMath.Min(maxRadiansDelta, angle) * DGMath.Rad2Deg, axis);
 				var rotated = q * @from;
 				var delta = DGMath.ClampedMove(len1, len2, maxMagnitudeDelta);
 				rotated = rotated * delta;
@@ -754,10 +685,5 @@ public struct DGVector3 : IEquatable<DGVector3>
 		x = abs.x;
 		y = abs.y;
 		z = abs.z;
-	}
-
-	public bool IsUnit()
-	{
-		return IsUnit(this);
 	}
 }

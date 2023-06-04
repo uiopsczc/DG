@@ -13,12 +13,11 @@ using System;
 using FP = DGFixedPoint;
 using FPVector2 = DGVector2;
 using FPVector3 = DGVector3;
-
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
 
 #endif
-public struct DGVector4 : IEquatable<DGVector4>
+public struct DGVector4
 {
 	public static readonly FP kEpsilon = (FP) 0.00001F;
 	public static readonly FP kEpsilonNormalSqrt = (FP) 1e-15F;

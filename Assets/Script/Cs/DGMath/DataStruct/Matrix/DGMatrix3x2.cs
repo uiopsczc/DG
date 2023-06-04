@@ -25,32 +25,32 @@ public struct DGMatrix3x2
 	/// <summary>
 	/// Value at row 1, column 1 of the matrix.
 	/// </summary>
-	public FP M11;
+	public FP SM11;
 
 	/// <summary>
 	/// Value at row 1, column 2 of the matrix.
 	/// </summary>
-	public FP M12;
+	public FP SM12;
 
 	/// <summary>
 	/// Value at row 2, column 1 of the matrix.
 	/// </summary>
-	public FP M21;
+	public FP SM21;
 
 	/// <summary>
 	/// Value at row 2, column 2 of the matrix.
 	/// </summary>
-	public FP M22;
+	public FP SM22;
 
 	/// <summary>
 	/// Value at row 3, column 1 of the matrix.
 	/// </summary>
-	public FP M31;
+	public FP SM31;
 
 	/// <summary>
 	/// Value at row 3, column 2 of the matrix.
 	/// </summary>
-	public FP M32;
+	public FP SM32;
 
 	private static readonly DGMatrix3x2 _identity = new DGMatrix3x2
 	(
@@ -67,22 +67,22 @@ public struct DGMatrix3x2
 	/// <summary>
 	/// Returns whether the matrix is the identity matrix.
 	/// </summary>
-	public bool isIdentity => M11 == (FP) 1f && M22 == (FP) 1f && // Check diagonal element first for early out.
-	                          M12 == (FP) 0f &&
-	                          M21 == (FP) 0f &&
-	                          M31 == (FP) 0f && M32 == (FP) 0f;
+	public bool isIdentity => SM11 == (FP) 1f && SM22 == (FP) 1f && // Check diagonal element first for early out.
+	                          SM12 == (FP) 0f &&
+	                          SM21 == (FP) 0f &&
+	                          SM31 == (FP) 0f && SM32 == (FP) 0f;
 
 	/// <summary>
 	/// Gets or sets the translation component of this matrix.
 	/// </summary>
 	public FPVector2 translation
 	{
-		get => new FPVector2(M31, M32);
+		get => new FPVector2(SM31, SM32);
 
 		set
 		{
-			M31 = value.x;
-			M32 = value.y;
+			SM31 = value.x;
+			SM32 = value.y;
 		}
 	}
 
@@ -90,30 +90,30 @@ public struct DGMatrix3x2
 	/// <summary>
 	/// Constructs a new 3 row, 2 column matrix.
 	/// </summary>
-	/// <param name="m11">Value at row 1, column 1 of the matrix.</param>
-	/// <param name="m12">Value at row 1, column 2 of the matrix.</param>
-	/// <param name="m21">Value at row 2, column 1 of the matrix.</param>
-	/// <param name="m22">Value at row 2, column 2 of the matrix.</param>
-	/// <param name="m31">Value at row 2, column 1 of the matrix.</param>
-	/// <param name="m32">Value at row 2, column 2 of the matrix.</param>
-	public DGMatrix3x2(FP m11, FP m12, FP m21, FP m22, FP m31, FP m32)
+	/// <param name="sm11">Value at row 1, column 1 of the matrix.</param>
+	/// <param name="sm12">Value at row 1, column 2 of the matrix.</param>
+	/// <param name="sm21">Value at row 2, column 1 of the matrix.</param>
+	/// <param name="sm22">Value at row 2, column 2 of the matrix.</param>
+	/// <param name="sm31">Value at row 2, column 1 of the matrix.</param>
+	/// <param name="sm32">Value at row 2, column 2 of the matrix.</param>
+	public DGMatrix3x2(FP sm11, FP sm12, FP sm21, FP sm22, FP sm31, FP sm32)
 	{
-		M11 = m11;
-		M12 = m12;
-		M21 = m21;
-		M22 = m22;
-		M31 = m31;
-		M32 = m32;
+		SM11 = sm11;
+		SM12 = sm12;
+		SM21 = sm21;
+		SM22 = sm22;
+		SM31 = sm31;
+		SM32 = sm32;
 	}
 
 	public DGMatrix3x2(Matrix3x2 matrix)
 	{
-		M11 = (FP)matrix.M11;
-		M12 = (FP)matrix.M12;
-		M21 = (FP)matrix.M21;
-		M22 = (FP)matrix.M22;
-		M31 = (FP)matrix.M31;
-		M32 = (FP)matrix.M32;
+		SM11 = (FP) matrix.M11;
+		SM12 = (FP) matrix.M12;
+		SM21 = (FP) matrix.M21;
+		SM22 = (FP) matrix.M22;
+		SM31 = (FP) matrix.M31;
+		SM32 = (FP) matrix.M32;
 	}
 
 	/*************************************************************************************
@@ -126,10 +126,10 @@ public struct DGMatrix3x2
 	/// <returns>True if this matrix is equal to other; False otherwise.</returns>
 	public bool Equals(DGMatrix3x2 other)
 	{
-		return (M11 == other.M11 && M22 == other.M22 && // Check diagonal element first for early out.
-		        M12 == other.M12 &&
-		        M21 == other.M21 &&
-		        M31 == other.M31 && M32 == other.M32);
+		return (SM11 == other.SM11 && SM22 == other.SM22 && // Check diagonal element first for early out.
+		        SM12 == other.SM12 &&
+		        SM21 == other.SM21 &&
+		        SM31 == other.SM31 && SM32 == other.SM32);
 	}
 
 	/// <summary>
@@ -151,9 +151,9 @@ public struct DGMatrix3x2
 	/// <returns>The hash code.</returns>
 	public override int GetHashCode()
 	{
-		return M11.GetHashCode() + M12.GetHashCode() +
-		       M21.GetHashCode() + M22.GetHashCode() +
-		       M31.GetHashCode() + M32.GetHashCode();
+		return SM11.GetHashCode() + SM12.GetHashCode() +
+		       SM21.GetHashCode() + SM22.GetHashCode() +
+		       SM31.GetHashCode() + SM32.GetHashCode();
 	}
 
 	/// <summary>
@@ -162,9 +162,9 @@ public struct DGMatrix3x2
 	/// <returns>A string representation of the matrix.</returns>
 	public override string ToString()
 	{
-		return "{" + M11 + ", " + M12 + "} \n" +
-		       "{" + M21 + ", " + M22 + "} \n" +
-		       "{" + M31 + ", " + M32 + "}\n";
+		return "{" + SM11 + ", " + SM12 + "} \n" +
+		       "{" + SM21 + ", " + SM22 + "} \n" +
+		       "{" + SM31 + ", " + SM32 + "}\n";
 	}
 
 	/*************************************************************************************
@@ -178,10 +178,11 @@ public struct DGMatrix3x2
 	/// <returns>True if the matrices are equal; False otherwise.</returns>
 	public static bool operator ==(DGMatrix3x2 value1, DGMatrix3x2 value2)
 	{
-		return (value1.M11 == value2.M11 && value1.M22 == value2.M22 && // Check diagonal element first for early out.
-		        value1.M12 == value2.M12 &&
-		        value1.M21 == value2.M21 &&
-		        value1.M31 == value2.M31 && value1.M32 == value2.M32);
+		return (value1.SM11 == value2.SM11 &&
+		        value1.SM22 == value2.SM22 && // Check diagonal element first for early out.
+		        value1.SM12 == value2.SM12 &&
+		        value1.SM21 == value2.SM21 &&
+		        value1.SM31 == value2.SM31 && value1.SM32 == value2.SM32);
 	}
 
 	/// <summary>
@@ -192,9 +193,9 @@ public struct DGMatrix3x2
 	/// <returns>True if the matrices are not equal; False if they are equal.</returns>
 	public static bool operator !=(DGMatrix3x2 value1, DGMatrix3x2 value2)
 	{
-		return (value1.M11 != value2.M11 || value1.M12 != value2.M12 ||
-		        value1.M21 != value2.M21 || value1.M22 != value2.M22 ||
-		        value1.M31 != value2.M31 || value1.M32 != value2.M32);
+		return (value1.SM11 != value2.SM11 || value1.SM12 != value2.SM12 ||
+		        value1.SM21 != value2.SM21 || value1.SM22 != value2.SM22 ||
+		        value1.SM31 != value2.SM31 || value1.SM32 != value2.SM32);
 	}
 
 	/*************************************************************************************
@@ -209,12 +210,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 m;
 
-		m.M11 = -value.M11;
-		m.M12 = -value.M12;
-		m.M21 = -value.M21;
-		m.M22 = -value.M22;
-		m.M31 = -value.M31;
-		m.M32 = -value.M32;
+		m.SM11 = -value.SM11;
+		m.SM12 = -value.SM12;
+		m.SM21 = -value.SM21;
+		m.SM22 = -value.SM22;
+		m.SM31 = -value.SM31;
+		m.SM32 = -value.SM32;
 
 		return m;
 	}
@@ -229,12 +230,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 m;
 
-		m.M11 = value1.M11 + value2.M11;
-		m.M12 = value1.M12 + value2.M12;
-		m.M21 = value1.M21 + value2.M21;
-		m.M22 = value1.M22 + value2.M22;
-		m.M31 = value1.M31 + value2.M31;
-		m.M32 = value1.M32 + value2.M32;
+		m.SM11 = value1.SM11 + value2.SM11;
+		m.SM12 = value1.SM12 + value2.SM12;
+		m.SM21 = value1.SM21 + value2.SM21;
+		m.SM22 = value1.SM22 + value2.SM22;
+		m.SM31 = value1.SM31 + value2.SM31;
+		m.SM32 = value1.SM32 + value2.SM32;
 
 		return m;
 	}
@@ -249,12 +250,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 m;
 
-		m.M11 = value1.M11 - value2.M11;
-		m.M12 = value1.M12 - value2.M12;
-		m.M21 = value1.M21 - value2.M21;
-		m.M22 = value1.M22 - value2.M22;
-		m.M31 = value1.M31 - value2.M31;
-		m.M32 = value1.M32 - value2.M32;
+		m.SM11 = value1.SM11 - value2.SM11;
+		m.SM12 = value1.SM12 - value2.SM12;
+		m.SM21 = value1.SM21 - value2.SM21;
+		m.SM22 = value1.SM22 - value2.SM22;
+		m.SM31 = value1.SM31 - value2.SM31;
+		m.SM32 = value1.SM32 - value2.SM32;
 
 		return m;
 	}
@@ -270,16 +271,16 @@ public struct DGMatrix3x2
 		DGMatrix3x2 m;
 
 		// First row
-		m.M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21;
-		m.M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22;
+		m.SM11 = value1.SM11 * value2.SM11 + value1.SM12 * value2.SM21;
+		m.SM12 = value1.SM11 * value2.SM12 + value1.SM12 * value2.SM22;
 
 		// Second row
-		m.M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21;
-		m.M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22;
+		m.SM21 = value1.SM21 * value2.SM11 + value1.SM22 * value2.SM21;
+		m.SM22 = value1.SM21 * value2.SM12 + value1.SM22 * value2.SM22;
 
 		// Third row
-		m.M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value2.M31;
-		m.M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value2.M32;
+		m.SM31 = value1.SM31 * value2.SM11 + value1.SM32 * value2.SM21 + value2.SM31;
+		m.SM32 = value1.SM31 * value2.SM12 + value1.SM32 * value2.SM22 + value2.SM32;
 
 		return m;
 	}
@@ -294,12 +295,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 m;
 
-		m.M11 = value1.M11 * value2;
-		m.M12 = value1.M12 * value2;
-		m.M21 = value1.M21 * value2;
-		m.M22 = value1.M22 * value2;
-		m.M31 = value1.M31 * value2;
-		m.M32 = value1.M32 * value2;
+		m.SM11 = value1.SM11 * value2;
+		m.SM12 = value1.SM12 * value2;
+		m.SM21 = value1.SM21 * value2;
+		m.SM22 = value1.SM22 * value2;
+		m.SM31 = value1.SM31 * value2;
+		m.SM32 = value1.SM32 * value2;
 
 		return m;
 	}
@@ -316,13 +317,13 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = (FP) 1.0f;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) 1.0f;
+		result.SM11 = (FP) 1.0f;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) 1.0f;
 
-		result.M31 = position.x;
-		result.M32 = position.y;
+		result.SM31 = position.x;
+		result.SM32 = position.y;
 
 		return result;
 	}
@@ -337,13 +338,13 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = (FP) 1.0f;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) 1.0f;
+		result.SM11 = (FP) 1.0f;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) 1.0f;
 
-		result.M31 = xPosition;
-		result.M32 = yPosition;
+		result.SM31 = xPosition;
+		result.SM32 = yPosition;
 
 		return result;
 	}
@@ -358,12 +359,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = xScale;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) yScale;
-		result.M31 = (FP) 0.0f;
-		result.M32 = (FP) 0.0f;
+		result.SM11 = xScale;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) yScale;
+		result.SM31 = (FP) 0.0f;
+		result.SM32 = (FP) 0.0f;
 
 		return result;
 	}
@@ -382,12 +383,12 @@ public struct DGMatrix3x2
 		FP tx = centerPoint.x * ((FP) 1 - xScale);
 		FP ty = centerPoint.y * ((FP) 1 - yScale);
 
-		result.M11 = xScale;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = yScale;
-		result.M31 = tx;
-		result.M32 = ty;
+		result.SM11 = xScale;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = yScale;
+		result.SM31 = tx;
+		result.SM32 = ty;
 
 		return result;
 	}
@@ -401,12 +402,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = (FP) scales.x;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) scales.y;
-		result.M31 = (FP) 0.0f;
-		result.M32 = (FP) 0.0f;
+		result.SM11 = (FP) scales.x;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) scales.y;
+		result.SM31 = (FP) 0.0f;
+		result.SM32 = (FP) 0.0f;
 
 		return result;
 	}
@@ -424,12 +425,12 @@ public struct DGMatrix3x2
 		FP tx = centerPoint.x * ((FP) 1 - scales.x);
 		FP ty = centerPoint.y * ((FP) 1 - scales.y);
 
-		result.M11 = (FP) scales.x;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) scales.y;
-		result.M31 = (FP) tx;
-		result.M32 = (FP) ty;
+		result.SM11 = (FP) scales.x;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) scales.y;
+		result.SM31 = (FP) tx;
+		result.SM32 = (FP) ty;
 
 		return result;
 	}
@@ -443,12 +444,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = (FP) scale;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) scale;
-		result.M31 = (FP) 0.0f;
-		result.M32 = (FP) 0.0f;
+		result.SM11 = (FP) scale;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) scale;
+		result.SM31 = (FP) 0.0f;
+		result.SM32 = (FP) 0.0f;
 
 		return result;
 	}
@@ -466,12 +467,12 @@ public struct DGMatrix3x2
 		FP tx = centerPoint.x * ((FP) 1 - scale);
 		FP ty = centerPoint.y * ((FP) 1 - scale);
 
-		result.M11 = (FP) scale;
-		result.M12 = (FP) 0.0f;
-		result.M21 = (FP) 0.0f;
-		result.M22 = (FP) scale;
-		result.M31 = (FP) tx;
-		result.M32 = (FP) ty;
+		result.SM11 = (FP) scale;
+		result.SM12 = (FP) 0.0f;
+		result.SM21 = (FP) 0.0f;
+		result.SM22 = (FP) scale;
+		result.SM31 = (FP) tx;
+		result.SM32 = (FP) ty;
 
 		return result;
 	}
@@ -489,12 +490,12 @@ public struct DGMatrix3x2
 		FP xTan = DGMath.Tan(radiansX);
 		FP yTan = DGMath.Tan(radiansY);
 
-		result.M11 = (FP) 1.0f;
-		result.M12 = (FP) yTan;
-		result.M21 = (FP) xTan;
-		result.M22 = (FP) 1.0f;
-		result.M31 = (FP) 0.0f;
-		result.M32 = (FP) 0.0f;
+		result.SM11 = (FP) 1.0f;
+		result.SM12 = (FP) yTan;
+		result.SM21 = (FP) xTan;
+		result.SM22 = (FP) 1.0f;
+		result.SM31 = (FP) 0.0f;
+		result.SM32 = (FP) 0.0f;
 
 		return result;
 	}
@@ -516,12 +517,12 @@ public struct DGMatrix3x2
 		FP tx = -centerPoint.y * xTan;
 		FP ty = -centerPoint.x * yTan;
 
-		result.M11 = (FP) 1.0f;
-		result.M12 = (FP) yTan;
-		result.M21 = (FP) xTan;
-		result.M22 = (FP) 1.0f;
-		result.M31 = (FP) tx;
-		result.M32 = (FP) ty;
+		result.SM11 = (FP) 1.0f;
+		result.SM12 = (FP) yTan;
+		result.SM21 = (FP) xTan;
+		result.SM22 = (FP) 1.0f;
+		result.SM31 = (FP) tx;
+		result.SM32 = (FP) ty;
 
 		return result;
 	}
@@ -575,12 +576,12 @@ public struct DGMatrix3x2
 		// [  c  s ]
 		// [ -s  c ]
 		// [  0  0 ]
-		result.M11 = c;
-		result.M12 = s;
-		result.M21 = -s;
-		result.M22 = c;
-		result.M31 = (FP) 0.0f;
-		result.M32 = (FP) 0.0f;
+		result.SM11 = c;
+		result.SM12 = s;
+		result.SM21 = -s;
+		result.SM22 = c;
+		result.SM31 = (FP) 0.0f;
+		result.SM32 = (FP) 0.0f;
 
 		return result;
 	}
@@ -638,12 +639,12 @@ public struct DGMatrix3x2
 		// [  c  s ]
 		// [ -s  c ]
 		// [  x  y ]
-		result.M11 = c;
-		result.M12 = s;
-		result.M21 = -s;
-		result.M22 = c;
-		result.M31 = x;
-		result.M32 = y;
+		result.SM11 = c;
+		result.SM12 = s;
+		result.SM21 = -s;
+		result.SM22 = c;
+		result.SM31 = x;
+		result.SM32 = y;
 
 		return result;
 	}
@@ -657,7 +658,7 @@ public struct DGMatrix3x2
 	/// <returns>True if the operation succeeded, False otherwise.</returns>
 	public static bool Invert(DGMatrix3x2 matrix, out DGMatrix3x2 result)
 	{
-		FP det = (matrix.M11 * matrix.M22) - (matrix.M21 * matrix.M12);
+		FP det = (matrix.SM11 * matrix.SM22) - (matrix.SM21 * matrix.SM12);
 
 		if (DGMath.Abs(det) < DGMath.Epsilon)
 		{
@@ -667,12 +668,12 @@ public struct DGMatrix3x2
 
 		FP invDet = (FP) 1.0f / det;
 
-		result.M11 = matrix.M22 * invDet;
-		result.M12 = -matrix.M12 * invDet;
-		result.M21 = -matrix.M21 * invDet;
-		result.M22 = matrix.M11 * invDet;
-		result.M31 = (matrix.M21 * matrix.M32 - matrix.M31 * matrix.M22) * invDet;
-		result.M32 = (matrix.M31 * matrix.M12 - matrix.M11 * matrix.M32) * invDet;
+		result.SM11 = matrix.SM22 * invDet;
+		result.SM12 = -matrix.SM12 * invDet;
+		result.SM21 = -matrix.SM21 * invDet;
+		result.SM22 = matrix.SM11 * invDet;
+		result.SM31 = (matrix.SM21 * matrix.SM32 - matrix.SM31 * matrix.SM22) * invDet;
+		result.SM32 = (matrix.SM31 * matrix.SM12 - matrix.SM11 * matrix.SM32) * invDet;
 
 		return true;
 	}
@@ -689,16 +690,16 @@ public struct DGMatrix3x2
 		DGMatrix3x2 result;
 
 		// First row
-		result.M11 = matrix1.M11 + (matrix2.M11 - matrix1.M11) * amount;
-		result.M12 = matrix1.M12 + (matrix2.M12 - matrix1.M12) * amount;
+		result.SM11 = matrix1.SM11 + (matrix2.SM11 - matrix1.SM11) * amount;
+		result.SM12 = matrix1.SM12 + (matrix2.SM12 - matrix1.SM12) * amount;
 
 		// Second row
-		result.M21 = matrix1.M21 + (matrix2.M21 - matrix1.M21) * amount;
-		result.M22 = matrix1.M22 + (matrix2.M22 - matrix1.M22) * amount;
+		result.SM21 = matrix1.SM21 + (matrix2.SM21 - matrix1.SM21) * amount;
+		result.SM22 = matrix1.SM22 + (matrix2.SM22 - matrix1.SM22) * amount;
 
 		// Third row
-		result.M31 = matrix1.M31 + (matrix2.M31 - matrix1.M31) * amount;
-		result.M32 = matrix1.M32 + (matrix2.M32 - matrix1.M32) * amount;
+		result.SM31 = matrix1.SM31 + (matrix2.SM31 - matrix1.SM31) * amount;
+		result.SM32 = matrix1.SM32 + (matrix2.SM32 - matrix1.SM32) * amount;
 
 		return result;
 	}
@@ -715,16 +716,16 @@ public struct DGMatrix3x2
 		DGMatrix3x2 result;
 
 		// First row
-		result.M11 = value1.M11 * value2.M11 + value1.M12 * value2.M21;
-		result.M12 = value1.M11 * value2.M12 + value1.M12 * value2.M22;
+		result.SM11 = value1.SM11 * value2.SM11 + value1.SM12 * value2.SM21;
+		result.SM12 = value1.SM11 * value2.SM12 + value1.SM12 * value2.SM22;
 
 		// Second row
-		result.M21 = value1.M21 * value2.M11 + value1.M22 * value2.M21;
-		result.M22 = value1.M21 * value2.M12 + value1.M22 * value2.M22;
+		result.SM21 = value1.SM21 * value2.SM11 + value1.SM22 * value2.SM21;
+		result.SM22 = value1.SM21 * value2.SM12 + value1.SM22 * value2.SM22;
 
 		// Third row
-		result.M31 = value1.M31 * value2.M11 + value1.M32 * value2.M21 + value2.M31;
-		result.M32 = value1.M31 * value2.M12 + value1.M32 * value2.M22 + value2.M32;
+		result.SM31 = value1.SM31 * value2.SM11 + value1.SM32 * value2.SM21 + value2.SM31;
+		result.SM32 = value1.SM31 * value2.SM12 + value1.SM32 * value2.SM22 + value2.SM32;
 
 		return result;
 	}
@@ -739,12 +740,12 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.M11 = value1.M11 * value2;
-		result.M12 = value1.M12 * value2;
-		result.M21 = value1.M21 * value2;
-		result.M22 = value1.M22 * value2;
-		result.M31 = value1.M31 * value2;
-		result.M32 = value1.M32 * value2;
+		result.SM11 = value1.SM11 * value2;
+		result.SM12 = value1.SM12 * value2;
+		result.SM21 = value1.SM21 * value2;
+		result.SM22 = value1.SM22 * value2;
+		result.SM31 = value1.SM31 * value2;
+		result.SM32 = value1.SM32 * value2;
 
 		return result;
 	}
@@ -759,23 +760,23 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Add(DGMatrix3x2 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = a.M11 + b.M11;
-		FP m12 = a.M12 + b.M12;
+		FP m11 = a.SM11 + b.SM11;
+		FP m12 = a.SM12 + b.SM12;
 
-		FP m21 = a.M21 + b.M21;
-		FP m22 = a.M22 + b.M22;
+		FP m21 = a.SM21 + b.SM21;
+		FP m22 = a.SM22 + b.SM22;
 
-		FP m31 = a.M31 + b.M31;
-		FP m32 = a.M32 + b.M32;
+		FP m31 = a.SM31 + b.SM31;
+		FP m32 = a.SM32 + b.SM32;
 
-		result.M11 = m11;
-		result.M12 = m12;
+		result.SM11 = m11;
+		result.SM12 = m12;
 
-		result.M21 = m21;
-		result.M22 = m22;
+		result.SM21 = m21;
+		result.SM22 = m22;
 
-		result.M31 = m31;
-		result.M32 = m32;
+		result.SM31 = m31;
+		result.SM32 = m32;
 
 		return result;
 	}
@@ -789,23 +790,23 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Multiply(FPMatrix3x3 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-		FP resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
+		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 
-		FP resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-		FP resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+		FP resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
+		FP resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
 
-		FP resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-		FP resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+		FP resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
+		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 
-		result.M11 = resultM11;
-		result.M12 = resultM12;
+		result.SM11 = resultM11;
+		result.SM12 = resultM12;
 
-		result.M21 = resultM21;
-		result.M22 = resultM22;
+		result.SM21 = resultM21;
+		result.SM22 = resultM22;
 
-		result.M31 = resultM31;
-		result.M32 = resultM32;
+		result.SM31 = resultM31;
+		result.SM32 = resultM32;
 
 		return result;
 	}
@@ -819,23 +820,23 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Multiply(FPMatrix4x4 a, ref DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP resultM11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-		FP resultM12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
+		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 
-		FP resultM21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-		FP resultM22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+		FP resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
+		FP resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
 
-		FP resultM31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-		FP resultM32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+		FP resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
+		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 
-		result.M11 = resultM11;
-		result.M12 = resultM12;
+		result.SM11 = resultM11;
+		result.SM12 = resultM12;
 
-		result.M21 = resultM21;
-		result.M22 = resultM22;
+		result.SM21 = resultM21;
+		result.SM22 = resultM22;
 
-		result.M31 = resultM31;
-		result.M32 = resultM32;
+		result.SM31 = resultM31;
+		result.SM32 = resultM32;
 
 		return result;
 	}
@@ -848,23 +849,23 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Negate(DGMatrix3x2 matrix)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = -matrix.M11;
-		FP m12 = -matrix.M12;
+		FP m11 = -matrix.SM11;
+		FP m12 = -matrix.SM12;
 
-		FP m21 = -matrix.M21;
-		FP m22 = -matrix.M22;
+		FP m21 = -matrix.SM21;
+		FP m22 = -matrix.SM22;
 
-		FP m31 = -matrix.M31;
-		FP m32 = -matrix.M32;
+		FP m31 = -matrix.SM31;
+		FP m32 = -matrix.SM32;
 
-		result.M11 = m11;
-		result.M12 = m12;
+		result.SM11 = m11;
+		result.SM12 = m12;
 
-		result.M21 = m21;
-		result.M22 = m22;
+		result.SM21 = m21;
+		result.SM22 = m22;
 
-		result.M31 = m31;
-		result.M32 = m32;
+		result.SM31 = m31;
+		result.SM32 = m32;
 
 		return result;
 	}
@@ -878,23 +879,23 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Subtract(DGMatrix3x2 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = a.M11 - b.M11;
-		FP m12 = a.M12 - b.M12;
+		FP m11 = a.SM11 - b.SM11;
+		FP m12 = a.SM12 - b.SM12;
 
-		FP m21 = a.M21 - b.M21;
-		FP m22 = a.M22 - b.M22;
+		FP m21 = a.SM21 - b.SM21;
+		FP m22 = a.SM22 - b.SM22;
 
-		FP m31 = a.M31 - b.M31;
-		FP m32 = a.M32 - b.M32;
+		FP m31 = a.SM31 - b.SM31;
+		FP m32 = a.SM32 - b.SM32;
 
-		result.M11 = m11;
-		result.M12 = m12;
+		result.SM11 = m11;
+		result.SM12 = m12;
 
-		result.M21 = m21;
-		result.M22 = m22;
+		result.SM21 = m21;
+		result.SM22 = m22;
 
-		result.M31 = m31;
-		result.M32 = m32;
+		result.SM31 = m31;
+		result.SM32 = m32;
 
 		return result;
 	}
@@ -908,9 +909,9 @@ public struct DGMatrix3x2
 	public static FPVector3 Transform(FPVector2 v, DGMatrix3x2 matrix)
 	{
 		FPVector3 result = default;
-		result.x = matrix.M11 * v.x + matrix.M12 * v.y;
-		result.y = matrix.M21 * v.x + matrix.M22 * v.y;
-		result.z = matrix.M31 * v.x + matrix.M32 * v.y;
+		result.x = matrix.SM11 * v.x + matrix.SM12 * v.y;
+		result.y = matrix.SM21 * v.x + matrix.SM22 * v.y;
+		result.z = matrix.SM31 * v.x + matrix.SM32 * v.y;
 		return result;
 	}
 
@@ -923,8 +924,8 @@ public struct DGMatrix3x2
 	public static FPVector2 Transform(FPVector3 v, DGMatrix3x2 matrix)
 	{
 		FPVector2 result = default;
-		result.x = v.x * matrix.M11 + v.y * matrix.M21 + v.z * matrix.M31;
-		result.y = v.x * matrix.M12 + v.y * matrix.M22 + v.z * matrix.M32;
+		result.x = v.x * matrix.SM11 + v.y * matrix.SM21 + v.z * matrix.SM31;
+		result.y = v.x * matrix.SM12 + v.y * matrix.SM22 + v.z * matrix.SM32;
 		return result;
 	}
 
@@ -937,13 +938,13 @@ public struct DGMatrix3x2
 	public static FPMatrix2x3 Transpose(DGMatrix3x2 matrix)
 	{
 		FPMatrix2x3 result = default;
-		result.M11 = matrix.M11;
-		result.M12 = matrix.M21;
-		result.M13 = matrix.M31;
+		result.SM11 = matrix.SM11;
+		result.SM12 = matrix.SM21;
+		result.SM13 = matrix.SM31;
 
-		result.M21 = matrix.M12;
-		result.M22 = matrix.M22;
-		result.M23 = matrix.M32;
+		result.SM21 = matrix.SM12;
+		result.SM22 = matrix.SM22;
+		result.SM23 = matrix.SM32;
 		return result;
 	}
 
@@ -973,6 +974,6 @@ public struct DGMatrix3x2
 		//
 		// Collapse out the constants and oh look, this is just a 2x2 determinant!
 
-		return (M11 * M22) - (M21 * M12);
+		return (SM11 * SM22) - (SM21 * SM12);
 	}
 }

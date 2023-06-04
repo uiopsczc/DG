@@ -124,10 +124,12 @@ public struct DGPlane : IEquatable<DGPlane>
 
 		return false;
 	}
+
 	public override int GetHashCode()
 	{
 		return normal.GetHashCode() + distance.GetHashCode();
 	}
+
 	public override string ToString()
 	{
 		return "{normal:" + normal + ", distance:" + distance + "}";
@@ -234,7 +236,7 @@ public struct DGPlane : IEquatable<DGPlane>
 		if (Vector.IsHardwareAccelerated)
 		{
 			FP normalLengthSquared = value.normal.sqrMagnitude;
-			if (DGMath.Abs(normalLengthSquared - (FP)1.0f) < DGMath.Epsilon)
+			if (DGMath.Abs(normalLengthSquared - (FP) 1.0f) < DGMath.Epsilon)
 			{
 				// It already normalized, so we don't need to farther process.
 				return value;
@@ -249,12 +251,12 @@ public struct DGPlane : IEquatable<DGPlane>
 		FP f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
 		       value.normal.z * value.normal.z;
 
-		if (DGMath.Abs(f - (FP)1.0f) < DGMath.Epsilon)
+		if (DGMath.Abs(f - (FP) 1.0f) < DGMath.Epsilon)
 		{
 			return value; // It already normalized, so we don't need to further process.
 		}
 
-		FP fInv = (FP)1.0f / DGMath.Sqrt(f);
+		FP fInv = (FP) 1.0f / DGMath.Sqrt(f);
 
 		return new DGPlane(
 			value.normal.x * fInv,
@@ -278,10 +280,10 @@ public struct DGPlane : IEquatable<DGPlane>
 		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.distance;
 
 		return new DGPlane(
-			x * m.M11 + y * m.M12 + z * m.M13 + w * m.M14,
-			x * m.M21 + y * m.M22 + z * m.M23 + w * m.M24,
-			x * m.M31 + y * m.M32 + z * m.M33 + w * m.M34,
-			x * m.M41 + y * m.M42 + z * m.M43 + w * m.M44);
+			x * m.SM11 + y * m.SM12 + z * m.SM13 + w * m.SM14,
+			x * m.SM21 + y * m.SM22 + z * m.SM23 + w * m.SM24,
+			x * m.SM31 + y * m.SM32 + z * m.SM33 + w * m.SM34,
+			x * m.SM41 + y * m.SM42 + z * m.SM43 + w * m.SM44);
 	}
 
 	/// <summary>
@@ -309,17 +311,17 @@ public struct DGPlane : IEquatable<DGPlane>
 		FP yz2 = rotation.y * z2;
 		FP zz2 = rotation.z * z2;
 
-		FP m11 = (FP)1.0f - yy2 - zz2;
+		FP m11 = (FP) 1.0f - yy2 - zz2;
 		FP m21 = xy2 - wz2;
 		FP m31 = xz2 + wy2;
 
 		FP m12 = xy2 + wz2;
-		FP m22 = (FP)1.0f - xx2 - zz2;
+		FP m22 = (FP) 1.0f - xx2 - zz2;
 		FP m32 = yz2 - wx2;
 
 		FP m13 = xz2 - wy2;
 		FP m23 = yz2 + wx2;
-		FP m33 = (FP)1.0f - xx2 - yy2;
+		FP m33 = (FP) 1.0f - xx2 - yy2;
 
 		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z;
 
@@ -396,6 +398,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	{
 		return new DGPlane(plane.normal, plane.distance += FPVector3.Dot(plane.normal, translation));
 	}
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Member Util
 	*************************************************************************************/
@@ -465,7 +468,7 @@ public struct DGPlane : IEquatable<DGPlane>
 	/// <param name="point"></param>
 	public bool GetSide(FPVector3 point)
 	{
-		return FPVector3.Dot(this.normal, point) + this.distance > (FP)0.0f;
+		return FPVector3.Dot(this.normal, point) + this.distance > (FP) 0.0f;
 	}
 
 	/// <summary>
@@ -477,7 +480,8 @@ public struct DGPlane : IEquatable<DGPlane>
 	{
 		FP distanceToPoint1 = this.GetDistanceToPoint(inPt0);
 		FP distanceToPoint2 = this.GetDistanceToPoint(inPt1);
-		return distanceToPoint1 > (FP)0.0 && distanceToPoint2 > (FP)0.0 || distanceToPoint1 <= (FP)0.0 && distanceToPoint2 <= (FP)0.0;
+		return distanceToPoint1 > (FP) 0.0 && distanceToPoint2 > (FP) 0.0 ||
+		       distanceToPoint1 <= (FP) 0.0 && distanceToPoint2 <= (FP) 0.0;
 	}
 
 	public bool Raycast(FPRay ray, out FP enter)
@@ -486,10 +490,11 @@ public struct DGPlane : IEquatable<DGPlane>
 		FP num = -FPVector3.Dot(ray.origin, this.normal) - this.distance;
 		if (DGMath.IsApproximatelyZero(a))
 		{
-			enter = (FP)0.0f;
+			enter = (FP) 0.0f;
 			return false;
 		}
+
 		enter = num / a;
-		return (double)enter > 0.0;
+		return (double) enter > 0.0;
 	}
 }

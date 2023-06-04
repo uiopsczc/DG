@@ -17,10 +17,12 @@ using FPVector2 = DGVector2;
 using UnityEngine;
 #endif
 
-public static class DGMath
+public static partial class DGMath
 {
+	public static readonly FP One = FP.One;
 	public static readonly FP E = FP.E;
 	public static readonly FP PI = FP.Pi;
+	public static readonly FP TwoPI = FP.TwoPi;
 	public static readonly FP HalfPi = FP.HalfPi;
 	public static readonly FP Deg2Rad = FP.Deg2Rad;
 	public static readonly FP Rad2Deg = FP.Rad2Deg;
@@ -434,5 +436,33 @@ public static class DGMath
 		if (Abs(alternativeResult) < Abs(regularMod))
 			return alternativeResult;
 		return regularMod;
+	}
+
+	//https://stackoverflow.com/questions/23402414/implementing-an-accurate-cbrt-function-without-extra-precision
+	public static FP Cbrt(FP x)
+	{
+		if (x == (FP)0) return (FP)0;
+		if (x < (FP)0) return -Cbrt(-x);
+
+		var r = x;
+		var ex = (FP)0;
+
+		while (r < (FP)0.125) { r *= (FP)8; ex = ex - (FP)1; }
+		while (r > (FP)1.0) { r *= (FP)0.125; ex = ex + (FP)1; }
+
+		r = ((FP)(-0.46946116) * r + (FP)1.072302) * r + (FP)0.3812513;
+
+		while (ex < (FP)0) { r *= (FP)0.5; ex= ex + (FP)1; }
+		while (ex > (FP)0) { r *= (FP)2; ex = ex - (FP)1; }
+
+		var a = (FP)0.66666666666667;// 2/3
+		var b = (FP)0.33333333333333;// 1/3
+
+		r = a * r + b * x / (r * r);
+		r = a * r + b * x / (r * r);
+		r = a * r + b * x / (r * r);
+		r = a * r + b * x / (r * r);
+
+		return r;
 	}
 }

@@ -19,15 +19,11 @@ using UnityEngine;
 #endif
 
 //https://github.com/sungiant/abacus/blob/master/source/abacus/gen/main/Quaternion.t4
-public struct DGQuaternion : IEquatable<DGQuaternion>
+public partial struct DGQuaternion 
 {
 	public static readonly FP kEpsilon = (FP) 0.000001F;
 	public static DGQuaternion identity = new DGQuaternion(0, 0, 0, 1);
 
-	public FP x;
-	public FP y;
-	public FP z;
-	public FP w;
 
 
 	public FP this[int index]
@@ -92,21 +88,7 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	public FP magnitude => Magnitude();
 
 
-	public DGQuaternion(FP x, FP y, FP z, FP w)
-	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.w = w;
-	}
-
-	public DGQuaternion(float x, float y, float z, float w)
-	{
-		this.x = (FP) x;
-		this.y = (FP) y;
-		this.z = (FP) z;
-		this.w = (FP) w;
-	}
+	
 
 	public DGQuaternion(int x, int y, int z, int w)
 	{
@@ -153,11 +135,6 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	public override int GetHashCode()
 	{
 		return x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2 ^ w.GetHashCode() >> 1;
-	}
-
-	public override string ToString()
-	{
-		return string.Format("x:{0},y:{1},z:{2},w:{3}", x, y, z, w);
 	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:×ª»»
@@ -538,7 +515,7 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 
 
 		FP num8 = (m00 + m11) + m22;
-		var quaternion = new DGQuaternion();
+		var quaternion = new DGQuaternion(false);
 		if (num8 > (FP) 0f)
 		{
 			var num = DGMath.Sqrt(num8 + (FP) 1f);
@@ -601,45 +578,45 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 	}
 
 	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
-	public static DGQuaternion CreateFromRotationMatrix(FPMatrix4x4 m)
-	{
-		DGQuaternion r = default;
-		FP tr = m.M11 + m.M22 + m.M33; //Vector3
-		if (tr > (FP) 0)
-		{
-			FP s = DGMath.Sqrt(tr + (FP) 1) * (FP) 2;
-			r.w = DGMath.Quarter * s;
-			r.x = (m.M23 - m.M32) / s;
-			r.y = (m.M31 - m.M13) / s;
-			r.z = (m.M12 - m.M21) / s;
-		}
-		else if ((m.M11 >= m.M22) && (m.M11 >= m.M33))
-		{
-			FP s = DGMath.Sqrt((FP) 1 + m.M11 - m.M22 - m.M33) * (FP) 2;
-			r.w = (m.M23 - m.M32) / s;
-			r.x = DGMath.Quarter * s;
-			r.y = (m.M12 + m.M21) / s;
-			r.z = (m.M13 + m.M31) / s;
-		}
-		else if (m.M22 > m.M33)
-		{
-			FP s = DGMath.Sqrt((FP) 1 + m.M22 - m.M11 - m.M33) * (FP) 2;
-			r.w = (m.M31 - m.M13) / s;
-			r.x = (m.M21 + m.M12) / s;
-			r.y = DGMath.Quarter * s;
-			r.z = (m.M32 + m.M23) / s;
-		}
-		else
-		{
-			FP s = DGMath.Sqrt((FP) 1 + m.M33 - m.M11 - m.M22) * (FP) 2;
-			r.w = (m.M12 - m.M21) / s;
-			r.x = (m.M31 + m.M13) / s;
-			r.y = (m.M32 + m.M23) / s;
-			r.z = DGMath.Quarter * s;
-		}
-
-		return r;
-	}
+//	public static DGQuaternion CreateFromRotationMatrix(FPMatrix4x4 m)
+//	{
+//		DGQuaternion r = default;
+//		FP tr = m.M11 + m.M22 + m.M33; //Vector3
+//		if (tr > (FP) 0)
+//		{
+//			FP s = DGMath.Sqrt(tr + (FP) 1) * (FP) 2;
+//			r.w = DGMath.Quarter * s;
+//			r.x = (m.M23 - m.M32) / s;
+//			r.y = (m.M31 - m.M13) / s;
+//			r.z = (m.M12 - m.M21) / s;
+//		}
+//		else if ((m.M11 >= m.M22) && (m.M11 >= m.M33))
+//		{
+//			FP s = DGMath.Sqrt((FP) 1 + m.M11 - m.M22 - m.M33) * (FP) 2;
+//			r.w = (m.M23 - m.M32) / s;
+//			r.x = DGMath.Quarter * s;
+//			r.y = (m.M12 + m.M21) / s;
+//			r.z = (m.M13 + m.M31) / s;
+//		}
+//		else if (m.M22 > m.M33)
+//		{
+//			FP s = DGMath.Sqrt((FP) 1 + m.M22 - m.M11 - m.M33) * (FP) 2;
+//			r.w = (m.M31 - m.M13) / s;
+//			r.x = (m.M21 + m.M12) / s;
+//			r.y = DGMath.Quarter * s;
+//			r.z = (m.M32 + m.M23) / s;
+//		}
+//		else
+//		{
+//			FP s = DGMath.Sqrt((FP) 1 + m.M33 - m.M11 - m.M22) * (FP) 2;
+//			r.w = (m.M12 - m.M21) / s;
+//			r.x = (m.M31 + m.M13) / s;
+//			r.y = (m.M32 + m.M23) / s;
+//			r.z = DGMath.Quarter * s;
+//		}
+//
+//		return r;
+//	}
 
 	/// <summary>
 	/// Computes the axis angle representation of a normalized quaternion.
@@ -999,4 +976,36 @@ public struct DGQuaternion : IEquatable<DGQuaternion>
 		this.z = (FP) 0;
 		this.w = (FP) 1;
 	}
+
+//	public FPMatrix4x4 ToMatrix()
+//	{
+//		var xx = x * x;
+//		var xy = x * y;
+//		var xz = x * z;
+//		var xw = x * w;
+//		var yy = y * y;
+//		var yz = y * z;
+//		var yw = y * w;
+//		var zz = z * z;
+//		var zw = z * w;
+//		FPMatrix4x4 matrix = default;
+//		// Set matrix from quaternion
+//		matrix.M11 = (FP)1 - (FP)2 * (yy + zz);
+//		matrix.M12 = (FP)2 * (xy - zw);
+//		matrix.M13 = (FP)2 * (xz + yw);
+//		matrix.M14 = (FP)0;
+//		matrix.M21 = (FP)2 * (xy + zw);
+//		matrix.M22 = (FP)1 - (FP)2 * (xx + zz);
+//		matrix.M23 = (FP)2 * (yz - xw);
+//		matrix.M24 = (FP)0;
+//		matrix.M31 = (FP)2 * (xz - yw);
+//		matrix.M32 = (FP)2 * (yz + xw);
+//		matrix.M33 = (FP)1 - (FP)2 * (xx + yy);
+//		matrix.M34 = (FP)0;
+//		matrix.M41 = (FP)0;
+//		matrix.M42 = (FP)0;
+//		matrix.M43 = (FP)0;
+//		matrix.M44 = (FP)1;
+//		return matrix;
+//	}
 }

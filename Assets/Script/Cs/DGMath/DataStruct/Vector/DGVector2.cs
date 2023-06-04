@@ -13,12 +13,12 @@ using System;
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
 using FPVector4 = DGVector4;
-
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
+
 #endif
 
-public struct DGVector2 : IEquatable<DGVector2>
+public partial struct DGVector2 : IEquatable<DGVector2>
 {
 	public static readonly FP kEpsilon = (FP) 0.00001F;
 	public static readonly FP kEpsilonNormalSqrt = (FP) 1e-15f;
@@ -32,8 +32,6 @@ public struct DGVector2 : IEquatable<DGVector2>
 	public static DGVector2 max => new DGVector2(float.MaxValue, float.MaxValue);
 	public static DGVector2 min => new DGVector2(float.MinValue, float.MinValue);
 
-	public FP x;
-	public FP y;
 
 	public FP this[int index]
 	{
@@ -65,25 +63,18 @@ public struct DGVector2 : IEquatable<DGVector2>
 		}
 	}
 
-	public long[] scaledValue => new long[] {x.scaledValue, y.scaledValue};
-
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public FP sqrMagnitude => x * x + y * y;
+	public FP sqrMagnitude => len2();
 
-	public FP magnitude => DGMath.Sqrt(sqrMagnitude);
+	public FP magnitude => len();
 
 	/// <summary>
 	/// 返回该向量的单位向量
 	/// </summary>
-	public DGVector2 normalized => Normalize(this);
+	public DGVector2 normalized => nor();
 
-	public DGVector2(FP x, FP y)
-	{
-		this.x = x;
-		this.y = y;
-	}
 
 	public DGVector2(float x, float y)
 	{
@@ -107,9 +98,10 @@ public struct DGVector2 : IEquatable<DGVector2>
 #endif
 	public DGVector2(System.Numerics.Vector2 vector)
 	{
-		this.x = (FP)vector.X;
-		this.y = (FP)vector.Y;
+		this.x = (FP) vector.X;
+		this.y = (FP) vector.Y;
 	}
+
 	/*************************************************************************************
 	* 模块描述:Equals ToString
 	*************************************************************************************/
@@ -129,11 +121,6 @@ public struct DGVector2 : IEquatable<DGVector2>
 	public override int GetHashCode()
 	{
 		return x.GetHashCode() ^ (y.GetHashCode() << 2);
-	}
-
-	public override string ToString()
-	{
-		return string.Format("x:{0},y:{1}", x, y);
 	}
 
 	/*************************************************************************************
@@ -224,20 +211,16 @@ public struct DGVector2 : IEquatable<DGVector2>
 		return new DGVector2(x, y);
 	}
 
+
 	/*************************************************************************************
 	* 模块描述:StaticUtil
 	*************************************************************************************/
-	public static bool IsUnit(DGVector2 vector)
-	{
-		return DGMath.IsApproximatelyZero((FP) 1 - vector.x * vector.x - vector.y * vector.y);
-	}
-
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
 	public static FP SqrMagnitude(DGVector2 v)
 	{
-		return v.sqrMagnitude;
+		return v.len2();
 	}
 
 	public static DGVector2 Lerp(DGVector2 a, DGVector2 b, FP t)
@@ -497,26 +480,11 @@ public struct DGVector2 : IEquatable<DGVector2>
 	/// <param name="v"></param>
 	public void Normalize()
 	{
-		if (magnitude <= kEpsilon)
-		{
-			x = (FP) 0;
-			y = (FP) 0;
-			return;
-		}
-
-		FP rate = FP.One / magnitude;
-		x *= rate;
-		y *= rate;
+		nor();
 	}
 
 	public void Scale(DGVector2 scale)
 	{
-		this.x *= scale.x;
-		this.y *= scale.y;
-	}
-
-	public bool IsUnit()
-	{
-		return IsUnit(this);
+		scl(scale);
 	}
 }

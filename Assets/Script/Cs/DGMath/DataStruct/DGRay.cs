@@ -11,14 +11,15 @@
 
 using FP = DGFixedPoint;
 using FPVector3 = DGVector3;
-
 #if UNITY_5_3_OR_NEWER
 using UnityEngine;
+
 #endif
 
-public struct DGRay 
+public struct DGRay
 {
 	private FPVector3 _direction;
+
 	/// <summary>
 	///   <para>The origin point of the ray.</para>
 	/// </summary>
@@ -63,14 +64,12 @@ public struct DGRay
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Member Util
 	*************************************************************************************/
-		/// <summary>
-		///   <para>Returns a point at distance units along the ray.</para>
-		/// </summary>
-		/// <param name="distance"></param>
+	/// <summary>
+	///   <para>Returns a point at distance units along the ray.</para>
+	/// </summary>
+	/// <param name="distance"></param>
 	public FPVector3 GetPoint(FP distance)
 	{
 		return this.origin + this.direction * distance;
 	}
-	
-	
 }

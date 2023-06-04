@@ -141,6 +141,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	{
 		return bounds.IntersectRay(ray, out distance);
 	}
+
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:MemberUtil
 	*************************************************************************************/
@@ -275,6 +276,7 @@ public struct DGBounds : IEquatable<DGBounds>
 		var (closestPoint, distance) = this.ClosestPoint(point);
 		return distance;
 	}
+
 	/// <summary>
 	///   <para>The closest point on the bounding box.</para>
 	/// </summary>

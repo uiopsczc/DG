@@ -36,7 +36,8 @@ static class Matrix3x6
 					iMax = i;
 				}
 			}
-			if (maxValue == (FP)0)
+
+			if (maxValue == (FP) 0)
 				return false;
 			// Swap rows k, iMax
 			if (k != iMax)
@@ -50,9 +51,9 @@ static class Matrix3x6
 			}
 
 			// Divide row by pivot
-			FP pivotInverse = (FP)1 / M[k, k];
+			FP pivotInverse = (FP) 1 / M[k, k];
 
-			M[k, k] = (FP)1;
+			M[k, k] = (FP) 1;
 			for (int j = k + 1; j < n; j++)
 			{
 				M[k, j] *= pivotInverse;
@@ -68,9 +69,11 @@ static class Matrix3x6
 				{
 					M[i, j] = M[i, j] - M[k, j] * f;
 				}
-				M[i, k] = (FP)0;
+
+				M[i, k] = (FP) 0;
 			}
 		}
+
 		return true;
 	}
 
@@ -81,31 +84,32 @@ static class Matrix3x6
 		FP[,] M = Matrix;
 
 		// Initialize temporary matrix
-		M[0, 0] = m.M11;
-		M[0, 1] = m.M12;
-		M[0, 2] = m.M13;
-		M[1, 0] = m.M21;
-		M[1, 1] = m.M22;
-		M[1, 2] = m.M23;
-		M[2, 0] = m.M31;
-		M[2, 1] = m.M32;
-		M[2, 2] = m.M33;
+		M[0, 0] = m.SM11;
+		M[0, 1] = m.SM12;
+		M[0, 2] = m.SM13;
+		M[1, 0] = m.SM21;
+		M[1, 1] = m.SM22;
+		M[1, 2] = m.SM23;
+		M[2, 0] = m.SM31;
+		M[2, 1] = m.SM32;
+		M[2, 2] = m.SM33;
 
-		M[0, 3] = (FP)1;
-		M[0, 4] = (FP)0;
-		M[0, 5] = (FP)0;
-		M[1, 3] = (FP)0;
-		M[1, 4] = (FP)1;
-		M[1, 5] = (FP)0;
-		M[2, 3] = (FP)0;
-		M[2, 4] = (FP)0;
-		M[2, 5] = (FP)1;
+		M[0, 3] = (FP) 1;
+		M[0, 4] = (FP) 0;
+		M[0, 5] = (FP) 0;
+		M[1, 3] = (FP) 0;
+		M[1, 4] = (FP) 1;
+		M[1, 5] = (FP) 0;
+		M[2, 3] = (FP) 0;
+		M[2, 4] = (FP) 0;
+		M[2, 5] = (FP) 1;
 
 		if (!Gauss(M, 3, 6))
 		{
-			r = new FPMatrix3x3();
+			r = default;
 			return false;
 		}
+
 		r = new FPMatrix3x3(
 			// m11...m13
 			M[0, 3],
@@ -121,7 +125,7 @@ static class Matrix3x6
 			M[2, 3],
 			M[2, 4],
 			M[2, 5]
-			);
+		);
 		return true;
 	}
 }
