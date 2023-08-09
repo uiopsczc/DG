@@ -2,6 +2,8 @@
     "name": "DGTmpTest",
     "references": [
         "GUID:c72c02969dae7324e865b209cc5cc47c",
+        "GUID:2c9f1fb842ef28645b036585750816c2",
+        "GUID:ebce2e8a7234f2249ade403a9c0be51a",
         "GUID:ec33d620be107b542934f21d316d0a18"
     ],
     "includePlatforms": [],

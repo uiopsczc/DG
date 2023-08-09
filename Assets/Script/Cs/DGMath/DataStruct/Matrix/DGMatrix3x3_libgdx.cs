@@ -33,27 +33,28 @@ public partial struct DGMatrix3x3
 	private const int Count = 9;
 	public FP[] val;
 
-	private FP[] tmp
-	{
-		get
-		{
-			var result = new FP[Count];
-			tmp[M22] = (FP) 1;
-			return tmp;
-		}
-	}
 
-	public static DGMatrix3x3 New()
+	public FP[] NewTmp()
 	{
-		DGMatrix3x3 result = new DGMatrix3x3();
-		result.idt();
+		var result = new FP[Count];
+		result[M22] = (FP) 1;
 		return result;
 	}
 
-/** Constructs a matrix from the given float array. The array must have at least 9 elements; the first 9 will be copied.
- * @param values The float array to copy. Remember that this matrix is in
- *           <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> order. (The float array
- *           is not modified.) */
+
+	public DGMatrix3x3(bool isNotLibgdx)
+	{
+		val = new FP[Count];
+		val[M00] = (FP) 1f;
+		val[M11] = (FP) 1f;
+		val[M22] = (FP) 1f;
+	}
+
+
+	/** Constructs a matrix from the given float array. The array must have at least 9 elements; the first 9 will be copied.
+	 * @param values The float array to copy. Remember that this matrix is in
+	 *           <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> order. (The float array
+	 *           is not modified.) */
 	public DGMatrix3x3(FP[] values)
 	{
 		val = new FP[Count];
@@ -155,9 +156,9 @@ public partial struct DGMatrix3x3
 		return setToRotationRad(DGMath.Deg2Rad * degrees);
 	}
 
-/** Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
- * @param radians the angle in radians.
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
+	 * @param radians the angle in radians.
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToRotationRad(FP radians)
 	{
 		FP cos = DGMath.Cos(radians);
@@ -178,11 +179,24 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="axis">Axis around which to rotate. need nomalized</param>
+	/// <param name="degrees"></param>
+	/// <returns></returns>
 	public DGMatrix3x3 setToRotation(FPVector3 axis, FP degrees)
 	{
 		return setToRotation(axis, DGMath.CosDeg(degrees), DGMath.SinDeg(degrees));
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="axis">Axis around which to rotate. need nomalized</param>
+	/// <param name="cos"></param>
+	/// <param name="sin"></param>
+	/// <returns></returns>
 	public DGMatrix3x3 setToRotation(FPVector3 axis, FP cos, FP sin)
 	{
 		FP oc = (FP) 1.0f - cos;
@@ -418,6 +432,7 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(FP x, FP y)
 	{
+		var tmp = NewTmp();
 		tmp[M00] = (FP) 1;
 		tmp[M10] = (FP) 0;
 		// tmp[M20] = 0;
@@ -439,6 +454,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(FPVector2 translation)
 	{
+		var tmp = NewTmp();
+
 		tmp[M00] = (FP) 1;
 		tmp[M10] = (FP) 0;
 		// tmp[M20] = 0;
@@ -473,6 +490,7 @@ public partial struct DGMatrix3x3
 		FP cos = DGMath.Cos(radians);
 		FP sin = DGMath.Sin(radians);
 
+		var tmp = NewTmp();
 
 		tmp[M00] = cos;
 		tmp[M10] = sin;
@@ -497,6 +515,7 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(FP scaleX, FP scaleY)
 	{
+		var tmp = NewTmp();
 		tmp[M00] = scaleX;
 		tmp[M10] = (FP) 0;
 		// tmp[M20] = 0;
@@ -519,6 +538,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(FPVector2 scale)
 	{
+		var tmp = NewTmp();
+
 		tmp[M00] = scale.x;
 		tmp[M10] = (FP) 0;
 		// tmp[M20] = 0;

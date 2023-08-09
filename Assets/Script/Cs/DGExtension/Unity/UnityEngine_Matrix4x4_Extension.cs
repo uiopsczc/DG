@@ -10,7 +10,7 @@ public static class UnityEngine_Matrix4x4_Extension
 		       "{" + v.m30 + ", " + v.m31 + ", " + v.m32 + ", " + v.m33 + "} \n";
 	}
 
-	public static System.Numerics.Matrix4x4 ToSystemNumericsMatrix4x4(this Matrix4x4 matrix)
+	public static System.Numerics.Matrix4x4 To_System_Numerics_Matrix4x4(this Matrix4x4 matrix)
 	{
 		return new System.Numerics.Matrix4x4(matrix.m00,
 			matrix.m01,

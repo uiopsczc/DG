@@ -429,7 +429,12 @@ public partial struct DGQuaternion
 
 	public static DGQuaternion CreateFromAxisAngle(FPVector3 axis, FP angle)
 	{
-		var theta = angle * DGMath.Half;
+		return CreateFromAxisAngleRad(axis, angle * DGMath.Deg2Rad);
+	}
+
+	public static DGQuaternion CreateFromAxisAngleRad(FPVector3 axis, FP radians)
+	{
+		var theta = radians * DGMath.Half;
 		var sin = DGMath.Sin(theta);
 		var cos = DGMath.Cos(theta);
 		var x = axis.x * sin;
@@ -977,35 +982,35 @@ public partial struct DGQuaternion
 		this.w = (FP) 1;
 	}
 
-//	public FPMatrix4x4 ToMatrix()
-//	{
-//		var xx = x * x;
-//		var xy = x * y;
-//		var xz = x * z;
-//		var xw = x * w;
-//		var yy = y * y;
-//		var yz = y * z;
-//		var yw = y * w;
-//		var zz = z * z;
-//		var zw = z * w;
-//		FPMatrix4x4 matrix = default;
-//		// Set matrix from quaternion
-//		matrix.M11 = (FP)1 - (FP)2 * (yy + zz);
-//		matrix.M12 = (FP)2 * (xy - zw);
-//		matrix.M13 = (FP)2 * (xz + yw);
-//		matrix.M14 = (FP)0;
-//		matrix.M21 = (FP)2 * (xy + zw);
-//		matrix.M22 = (FP)1 - (FP)2 * (xx + zz);
-//		matrix.M23 = (FP)2 * (yz - xw);
-//		matrix.M24 = (FP)0;
-//		matrix.M31 = (FP)2 * (xz - yw);
-//		matrix.M32 = (FP)2 * (yz + xw);
-//		matrix.M33 = (FP)1 - (FP)2 * (xx + yy);
-//		matrix.M34 = (FP)0;
-//		matrix.M41 = (FP)0;
-//		matrix.M42 = (FP)0;
-//		matrix.M43 = (FP)0;
-//		matrix.M44 = (FP)1;
-//		return matrix;
-//	}
+	//	public FPMatrix4x4 ToMatrix()
+	//	{
+	//		var xx = x * x;
+	//		var xy = x * y;
+	//		var xz = x * z;
+	//		var xw = x * w;
+	//		var yy = y * y;
+	//		var yz = y * z;
+	//		var yw = y * w;
+	//		var zz = z * z;
+	//		var zw = z * w;
+	//		FPMatrix4x4 matrix = default;
+	//		// Set matrix from quaternion
+	//		matrix.M11 = (FP)1 - (FP)2 * (yy + zz);
+	//		matrix.M12 = (FP)2 * (xy - zw);
+	//		matrix.M13 = (FP)2 * (xz + yw);
+	//		matrix.M14 = (FP)0;
+	//		matrix.M21 = (FP)2 * (xy + zw);
+	//		matrix.M22 = (FP)1 - (FP)2 * (xx + zz);
+	//		matrix.M23 = (FP)2 * (yz - xw);
+	//		matrix.M24 = (FP)0;
+	//		matrix.M31 = (FP)2 * (xz - yw);
+	//		matrix.M32 = (FP)2 * (yz + xw);
+	//		matrix.M33 = (FP)1 - (FP)2 * (xx + yy);
+	//		matrix.M34 = (FP)0;
+	//		matrix.M41 = (FP)0;
+	//		matrix.M42 = (FP)0;
+	//		matrix.M43 = (FP)0;
+	//		matrix.M44 = (FP)1;
+	//		return matrix;
+	//	}
 }

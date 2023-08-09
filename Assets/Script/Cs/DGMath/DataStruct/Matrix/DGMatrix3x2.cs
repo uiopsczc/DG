@@ -162,9 +162,9 @@ public struct DGMatrix3x2
 	/// <returns>A string representation of the matrix.</returns>
 	public override string ToString()
 	{
-		return "{" + SM11 + ", " + SM12 + "} \n" +
-		       "{" + SM21 + ", " + SM22 + "} \n" +
-		       "{" + SM31 + ", " + SM32 + "}\n";
+		return "[" + SM11 + ", " + SM12 + "] \n" +
+		       "[" + SM21 + ", " + SM22 + "] \n" +
+		       "[" + SM31 + ", " + SM32 + "]\n";
 	}
 
 	/*************************************************************************************

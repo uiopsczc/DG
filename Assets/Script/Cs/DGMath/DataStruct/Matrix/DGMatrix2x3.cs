@@ -80,7 +80,7 @@ public struct DGMatrix2x3
 	/// <returns>A string representation of the matrix.</returns>
 	public override string ToString()
 	{
-		return "{" + SM11 + ", " + SM12 + ", " + SM13 + "} " +
+		return "{" + SM11 + ", " + SM12 + ", " + SM13 + "} \n" +
 		       "{" + SM21 + ", " + SM22 + ", " + SM23 + "}";
 	}
 

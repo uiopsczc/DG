@@ -43,6 +43,16 @@ public partial struct DGAffine2
 		m12 = (FP) 0;
 	}
 
+	public DGAffine2(FP m00, FP m01, FP m02, FP m10, FP m11, FP m12)
+	{
+		this.m00 = m00;
+		this.m01 = m01;
+		this.m02 = m02;
+		this.m10 = m10;
+		this.m11 = m11;
+		this.m12 = m12;
+	}
+
 	/** Constructs a matrix from the given affine matrix.
 	 *
 	 * @param other The affine matrix to copy. This matrix will not be modified. */
@@ -717,7 +727,7 @@ public partial struct DGAffine2
 	}
 
 	/** Applies the affine transformation on a vector. */
-	public void applyTo(FPVector2 point)
+	public void applyTo(ref FPVector2 point)
 	{
 		FP x = point.x;
 		FP y = point.y;
@@ -727,6 +737,6 @@ public partial struct DGAffine2
 
 	public override string ToString()
 	{
-		return "[" + m00 + "|" + m01 + "|" + m02 + "]\n[" + m10 + "|" + m11 + "|" + m12 + "]\n[0.0|0.0|0.1]";
+		return "[" + m00 + "|" + m01 + "|" + m02 + "]\n[" + m10 + "|" + m11 + "|" + m12 + "]\n[0|0|1]";
 	}
 }

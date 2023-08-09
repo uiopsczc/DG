@@ -33,19 +33,22 @@ public partial struct DGMatrix4x4
 
 	/** XY: Typically the negative sine of the angle when rotated on the Z axis. On Vector3 multiplication this value is multiplied
 	 * with the source Y component and added to the target X component. */
-	public const int M01 = 4;
+	public const int M10 = 1;
+
 
 	/** XZ: Typically the sine of the angle when rotated on the Y axis. On Vector3 multiplication this value is multiplied with the
 	 * source Z component and added to the target X component. */
-	public const int M02 = 8;
+	public const int M20 = 2;
+
 
 	/** XW: Typically the translation of the X component. On Vector3 multiplication this value is added to the target X
 	 * component. */
-	public const int M03 = 12;
+	public const int M30 = 3;
+	
 
 	/** YX: Typically the sine of the angle when rotated on the Z axis. On Vector3 multiplication this value is multiplied with the
 	 * source X component and added to the target Y component. */
-	public const int M10 = 1;
+	public const int M01 = 4;
 
 	/** YY: Typically the unrotated Y component for scaling, also the cosine of the angle when rotated on the X and/or Z axis. On
 	 * Vector3 multiplication this value is multiplied with the source Y component and added to the target Y component. */
@@ -53,19 +56,21 @@ public partial struct DGMatrix4x4
 
 	/** YZ: Typically the negative sine of the angle when rotated on the X axis. On Vector3 multiplication this value is multiplied
 	 * with the source Z component and added to the target Y component. */
-	public const int M12 = 9;
+	public const int M21 = 6;
+
 
 	/** YW: Typically the translation of the Y component. On Vector3 multiplication this value is added to the target Y
 	 * component. */
-	public const int M13 = 13;
+	public const int M31 = 7;
+	
 
 	/** ZX: Typically the negative sine of the angle when rotated on the Y axis. On Vector3 multiplication this value is multiplied
 	 * with the source X component and added to the target Z component. */
-	public const int M20 = 2;
+	public const int M02 = 8;
 
 	/** ZY: Typical the sine of the angle when rotated on the X axis. On Vector3 multiplication this value is multiplied with the
 	 * source Y component and added to the target Z component. */
-	public const int M21 = 6;
+	public const int M12 = 9;
 
 	/** ZZ: Typically the unrotated Z component for scaling, also the cosine of the angle when rotated on the X and/or Y axis. On
 	 * Vector3 multiplication this value is multiplied with the source Z component and added to the target Z component. */
@@ -73,16 +78,17 @@ public partial struct DGMatrix4x4
 
 	/** ZW: Typically the translation of the Z component. On Vector3 multiplication this value is added to the target Z
 	 * component. */
-	public const int M23 = 14;
+	public const int M32 = 11;
+	
 
 	/** WX: Typically the value zero. On Vector3 multiplication this value is ignored. */
-	public const int M30 = 3;
+	public const int M03 = 12;
 
 	/** WY: Typically the value zero. On Vector3 multiplication this value is ignored. */
-	public const int M31 = 7;
+	public const int M13 = 13;
 
 	/** WZ: Typically the value zero. On Vector3 multiplication this value is ignored. */
-	public const int M32 = 11;
+	public const int M23 = 14;
 
 	/** WW: Typically the value one. On Vector3 multiplication this value is ignored. */
 	public const int M33 = 15;
@@ -102,7 +108,7 @@ public partial struct DGMatrix4x4
 	public FP[] val;
 
 	/** Constructs an identity matrix */
-	public DGMatrix4x4(bool isNotLibgdx = false)
+	public DGMatrix4x4(bool isNotLibdx = false)
 	{
 		val = new FP[Count];
 		val[M00] = (FP) 1f;
@@ -365,13 +371,13 @@ public partial struct DGMatrix4x4
 	public DGMatrix4x4 set(FPVector3 xAxis, FPVector3 yAxis, FPVector3 zAxis, FPVector3 pos)
 	{
 		val[M00] = xAxis.x;
-		val[M01] = xAxis.y;
-		val[M02] = xAxis.z;
-		val[M10] = yAxis.x;
+		val[M10] = xAxis.y;
+		val[M20] = xAxis.z;
+		val[M01] = yAxis.x;
 		val[M11] = yAxis.y;
-		val[M12] = yAxis.z;
-		val[M20] = zAxis.x;
-		val[M21] = zAxis.y;
+		val[M21] = yAxis.z;
+		val[M02] = zAxis.x;
+		val[M12] = zAxis.y;
 		val[M22] = zAxis.z;
 		val[M03] = pos.x;
 		val[M13] = pos.y;
@@ -1239,19 +1245,21 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix4x4 setToLookAt(FPVector3 direction, FPVector3 up)
 	{
-		l_vez.set(direction).nor();
-		l_vex.set(direction).crs(up).nor();
-		l_vey.set(l_vex).crs(l_vez).nor();
+		//UnityEngine.Debug.LogWarning($"direction:{direction.x}  {direction.y}  {direction.z}");
+		l_vez = l_vez.set(direction).nor().scl((FP)(-1));
+		l_vex = l_vex.set(l_vez).crs(up).nor();
+		l_vey = l_vey.set(l_vex).crs(l_vez).nor();
+		l_vez = l_vez.scl((FP) (-1));
 		idt();
 		val[M00] = l_vex.x;
-		val[M01] = l_vex.y;
-		val[M02] = l_vex.z;
-		val[M10] = l_vey.x;
+		val[M10] = l_vex.y;
+		val[M20] = l_vex.z;
+		val[M01] = l_vey.x;
 		val[M11] = l_vey.y;
-		val[M12] = l_vey.z;
-		val[M20] = -l_vez.x;
-		val[M21] = -l_vez.y;
-		val[M22] = -l_vez.z;
+		val[M21] = l_vey.z;
+		val[M02] = l_vez.x;
+		val[M12] = l_vez.y;
+		val[M22] = l_vez.z;
 		return this;
 	}
 
@@ -1262,18 +1270,23 @@ public partial struct DGMatrix4x4
 	 * @return This matrix */
 	public DGMatrix4x4 setToLookAt(FPVector3 position, FPVector3 target, FPVector3 up)
 	{
-		tmpVec.set(target).sub(position);
+		tmpVec = tmpVec.set(target).sub(position);
 		setToLookAt(tmpVec, up);
-		mul(tmpMat.setToTranslation(-position.x, -position.y, -position.z));
+		mulLeft(tmpMat.setToTranslation(position.x, position.y, position.z));
 		return this;
 	}
 
 	public DGMatrix4x4 setToWorld(FPVector3 position, FPVector3 forward, FPVector3 up)
 	{
-		tmpForward.set(forward).nor();
-		right.set(tmpForward).crs(up).nor();
-		tmpUp.set(right).crs(tmpForward).nor();
-		set(right, tmpUp, tmpForward.scl(-(FP) 1), position);
+//		UnityEngine.Debug.LogWarning($"forword:{forward.x}  {forward.y}  {forward.z} position:{position.x} {position.y} {position.z}");
+		tmpForward = tmpForward.set(forward).nor().scl((FP)(-1f));
+//		UnityEngine.Debug.LogWarning(tmpForward);
+		right = right.set(tmpForward).crs(up).nor();
+//		UnityEngine.Debug.LogWarning(right);
+		tmpUp = tmpUp.set(right).crs(tmpForward).nor();
+//		UnityEngine.Debug.LogWarning($"right:{right.x}  {right.y}  {right.z} tmpUp:{tmpUp.x}  {tmpUp.y}  {tmpUp.z} tmpForward:{tmpForward.x}  {tmpForward.y}  {tmpForward.z}");
+		//		set(right, tmpUp, tmpForward.scl(-(FP) 1), position);
+		set(right, tmpUp, tmpForward.scl((FP)(-1f)), position);
 		return this;
 	}
 
@@ -1295,14 +1308,14 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for chaining */
 	public DGMatrix4x4 avg(DGMatrix4x4 other, FP w)
 	{
-		getScale(tmpVec);
-		other.getScale(tmpForward);
+		getScale(ref tmpVec);
+		other.getScale(ref tmpForward);
 
-		getRotation(quat);
-		other.getRotation(quat2);
+		getRotation(ref quat);
+		other.getRotation(ref quat2);
 
-		getTranslation(tmpUp);
-		other.getTranslation(right);
+		getTranslation(ref tmpUp);
+		other.getTranslation(ref right);
 
 		setToScaling(tmpVec.scl(w).add(tmpForward.scl((FP) 1 - w)));
 		rotate(quat.slerp(quat2, (FP) 1 - w));
@@ -1318,15 +1331,15 @@ public partial struct DGMatrix4x4
 	{
 		FP w = (FP) 1.0f / (FP) t.Length;
 
-		tmpVec.set(t[0].getScale(tmpUp).scl(w));
-		quat.set(t[0].getRotation(quat2).exp(w));
-		tmpForward.set(t[0].getTranslation(tmpUp).scl(w));
+		tmpVec.set(t[0].getScale(ref tmpUp).scl(w));
+		quat.set(t[0].getRotation(ref quat2).exp(w));
+		tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w));
 
 		for (int i = 1; i < t.Length; i++)
 		{
-			tmpVec.add(t[i].getScale(tmpUp).scl(w));
-			quat.mul(t[i].getRotation(quat2).exp(w));
-			tmpForward.add(t[i].getTranslation(tmpUp).scl(w));
+			tmpVec.add(t[i].getScale(ref tmpUp).scl(w));
+			quat.mul(t[i].getRotation(ref quat2).exp(w));
+			tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w));
 		}
 
 		quat.nor();
@@ -1345,15 +1358,15 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for chaining */
 	public DGMatrix4x4 avg(DGMatrix4x4[] t, FP[] w)
 	{
-		tmpVec.set(t[0].getScale(tmpUp).scl(w[0]));
-		quat.set(t[0].getRotation(quat2).exp(w[0]));
-		tmpForward.set(t[0].getTranslation(tmpUp).scl(w[0]));
+		tmpVec.set(t[0].getScale(ref tmpUp).scl(w[0]));
+		quat.set(t[0].getRotation(ref quat2).exp(w[0]));
+		tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w[0]));
 
 		for (int i = 1; i < t.Length; i++)
 		{
-			tmpVec.add(t[i].getScale(tmpUp).scl(w[i]));
-			quat.mul(t[i].getRotation(quat2).exp(w[i]));
-			tmpForward.add(t[i].getTranslation(tmpUp).scl(w[i]));
+			tmpVec.add(t[i].getScale(ref tmpUp).scl(w[i]));
+			quat.mul(t[i].getRotation(ref quat2).exp(w[i]));
+			tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w[i]));
 		}
 
 		quat.nor();
@@ -1488,7 +1501,7 @@ public partial struct DGMatrix4x4
 		return this;
 	}
 
-	public FPVector3 getTranslation(FPVector3 position)
+	public FPVector3 getTranslation(ref FPVector3 position)
 	{
 		position.x = val[M03];
 		position.y = val[M13];
@@ -1500,7 +1513,7 @@ public partial struct DGMatrix4x4
 	 * @param rotation The {@link Quaternion} to receive the rotation
 	 * @param normalizeAxes True to normalize the axes, necessary when the matrix might also include scaling.
 	 * @return The provided {@link Quaternion} for chaining. */
-	public FPQuaternion getRotation(FPQuaternion rotation, bool normalizeAxes)
+	public FPQuaternion getRotation(ref FPQuaternion rotation, bool normalizeAxes)
 	{
 		return rotation.setFromMatrix(normalizeAxes, this);
 	}
@@ -1508,7 +1521,7 @@ public partial struct DGMatrix4x4
 	/** Gets the rotation of this matrix.
 	 * @param rotation The {@link Quaternion} to receive the rotation
 	 * @return The provided {@link Quaternion} for chaining. */
-	public FPQuaternion getRotation(FPQuaternion rotation)
+	public FPQuaternion getRotation(ref FPQuaternion rotation)
 	{
 		return rotation.setFromMatrix(this);
 	}
@@ -1516,25 +1529,28 @@ public partial struct DGMatrix4x4
 	/** @return the squared scale factor on the X axis */
 	public FP getScaleXSquared()
 	{
-		return val[M00] * val[M00] + val[M01] * val[M01] + val[M02] * val[M02];
+		return val[M00] * val[M00] + val[M10] * val[M10] + val[M20] * val[M20];
 	}
 
 	/** @return the squared scale factor on the Y axis */
 	public FP getScaleYSquared()
 	{
-		return val[M10] * val[M10] + val[M11] * val[M11] + val[M12] * val[M12];
+		return val[M01] * val[M01] + val[M11] * val[M11] + val[M21] * val[M21];
 	}
 
 	/** @return the squared scale factor on the Z axis */
 	public FP getScaleZSquared()
 	{
-		return val[M20] * val[M20] + val[M21] * val[M21] + val[M22] * val[M22];
+		return val[M02] * val[M02] + val[M12] * val[M12] + val[M22] * val[M22];
 	}
 
 	/** @return the scale factor on the X axis (non-negative) */
 	public FP getScaleX()
 	{
-		return (DGMath.IsZero(val[M01]) && DGMath.IsZero(val[M02]))
+//		UnityEngine.Debug.LogWarning((DGMath.IsZero(val[M01]) && DGMath.IsZero(val[M02]))
+//			? DGMath.Abs(val[M00])
+//			: DGMath.Sqrt(getScaleXSquared()));
+		return (DGMath.IsZero(val[M10]) && DGMath.IsZero(val[M20]))
 			? DGMath.Abs(val[M00])
 			: DGMath.Sqrt(getScaleXSquared());
 	}
@@ -1542,7 +1558,7 @@ public partial struct DGMatrix4x4
 	/** @return the scale factor on the Y axis (non-negative) */
 	public FP getScaleY()
 	{
-		return (DGMath.IsZero(val[M10]) && DGMath.IsZero(val[M12]))
+		return (DGMath.IsZero(val[M01]) && DGMath.IsZero(val[M21]))
 			? DGMath.Abs(val[M11])
 			: DGMath.Sqrt(getScaleYSquared());
 	}
@@ -1550,14 +1566,14 @@ public partial struct DGMatrix4x4
 	/** @return the scale factor on the X axis (non-negative) */
 	public FP getScaleZ()
 	{
-		return (DGMath.IsZero(val[M20]) && DGMath.IsZero(val[M21]))
+		return (DGMath.IsZero(val[M02]) && DGMath.IsZero(val[M12]))
 			? DGMath.Abs(val[M22])
 			: DGMath.Sqrt(getScaleZSquared());
 	}
 
 	/** @param scale The vector which will receive the (non-negative) scale components on each axis.
 	 * @return The provided vector for chaining. */
-	public FPVector3 getScale(FPVector3 scale)
+	public FPVector3 getScale(ref FPVector3 scale)
 	{
 		return scale.set(getScaleX(), getScaleY(), getScaleZ());
 	}
@@ -2105,7 +2121,7 @@ public partial struct DGMatrix4x4
 
 	/** Postmultiplies this matrix with a (counter-clockwise) rotation matrix. Postmultiplication is also used by OpenGL ES' 1.x
 	 * glTranslate/glRotate/glScale.
-	 * @param axis The vector axis to rotate around.
+	 * @param axis The vector axis to rotate around.rotateTowardDirection
 	 * @param radians The angle in radians.
 	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix4x4 rotateRad(FPVector3 axis, FP radians)
@@ -2214,21 +2230,24 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for chaining */
 	public DGMatrix4x4 rotateTowardDirection(FPVector3 direction, FPVector3 up)
 	{
-		l_vez.set(direction).nor();
-		l_vex.set(direction).crs(up).nor();
-		l_vey.set(l_vex).crs(l_vez).nor();
+		l_vez = l_vez.set(direction).nor().scl((FP)(-1));
+		l_vex = l_vex.set(l_vez).crs(up).nor();
+		l_vey = l_vey.set(l_vex).crs(l_vez).nor();
+		l_vez = l_vez.scl((FP)(-1));
+		l_vez = l_vez.set(direction).nor();
+
 		FP m00 = val[M00] * l_vex.x + val[M01] * l_vex.y + val[M02] * l_vex.z;
 		FP m01 = val[M00] * l_vey.x + val[M01] * l_vey.y + val[M02] * l_vey.z;
-		FP m02 = val[M00] * -l_vez.x + val[M01] * -l_vez.y + val[M02] * -l_vez.z;
+		FP m02 = val[M00] * l_vez.x + val[M01] * l_vez.y + val[M02] * l_vez.z;
 		FP m10 = val[M10] * l_vex.x + val[M11] * l_vex.y + val[M12] * l_vex.z;
 		FP m11 = val[M10] * l_vey.x + val[M11] * l_vey.y + val[M12] * l_vey.z;
-		FP m12 = val[M10] * -l_vez.x + val[M11] * -l_vez.y + val[M12] * -l_vez.z;
+		FP m12 = val[M10] * l_vez.x + val[M11] * l_vez.y + val[M12] * l_vez.z;
 		FP m20 = val[M20] * l_vex.x + val[M21] * l_vex.y + val[M22] * l_vex.z;
 		FP m21 = val[M20] * l_vey.x + val[M21] * l_vey.y + val[M22] * l_vey.z;
-		FP m22 = val[M20] * -l_vez.x + val[M21] * -l_vez.y + val[M22] * -l_vez.z;
+		FP m22 = val[M20] * l_vez.x + val[M21] * l_vez.y + val[M22] * l_vez.z;
 		FP m30 = val[M30] * l_vex.x + val[M31] * l_vex.y + val[M32] * l_vex.z;
 		FP m31 = val[M30] * l_vey.x + val[M31] * l_vey.y + val[M32] * l_vey.z;
-		FP m32 = val[M30] * -l_vez.x + val[M31] * -l_vez.y + val[M32] * -l_vez.z;
+		FP m32 = val[M30] * l_vez.x + val[M31] * l_vez.y + val[M32] * l_vez.z;
 		val[M00] = m00;
 		val[M10] = m10;
 		val[M20] = m20;

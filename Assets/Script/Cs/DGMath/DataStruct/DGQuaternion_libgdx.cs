@@ -509,11 +509,13 @@ public partial struct DGQuaternion
 	/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
 	public DGQuaternion setFromMatrix(bool normalizeAxes, FPMatrix4x4 matrix)
 	{
-		return setFromAxes(normalizeAxes, matrix.val[FPMatrix4x4.M00], matrix.val[FPMatrix4x4.M01],
-			matrix.val[FPMatrix4x4.M02],
-			matrix.val[FPMatrix4x4.M10], matrix.val[FPMatrix4x4.M11], matrix.val[FPMatrix4x4.M12],
-			matrix.val[FPMatrix4x4.M20],
-			matrix.val[FPMatrix4x4.M21], matrix.val[FPMatrix4x4.M22]);
+		FPVector3 scale = default;
+		matrix.getScale(ref scale);
+		return setFromAxes(normalizeAxes, matrix.val[FPMatrix4x4.M00]/ scale.x, matrix.val[FPMatrix4x4.M01] / scale.y,
+			matrix.val[FPMatrix4x4.M02] / scale.z,
+			matrix.val[FPMatrix4x4.M10] / scale.x, matrix.val[FPMatrix4x4.M11]/ scale.y, matrix.val[FPMatrix4x4.M12] / scale.z,
+			matrix.val[FPMatrix4x4.M20] / scale.x,
+			matrix.val[FPMatrix4x4.M21] / scale.y, matrix.val[FPMatrix4x4.M22]/ scale.z);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
@@ -840,9 +842,9 @@ public partial struct DGQuaternion
 	 * @return the angle in degrees
 	 * @see <a href="http://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation">wikipedia</a>
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle">calculation</a> */
-	public FP getAxisAngle(FPVector3 axis)
+	public FP getAxisAngle(out FPVector3 axis)
 	{
-		return getAxisAngleRad(axis) * DGMath.Rad2Deg;
+		return getAxisAngleRad(out axis) * DGMath.Rad2Deg;
 	}
 
 	/** Get the axis-angle representation of the rotation in radians. The supplied vector will receive the axis (x, y and z values)
@@ -856,7 +858,7 @@ public partial struct DGQuaternion
 	 * @return the angle in radians
 	 * @see <a href="http://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation">wikipedia</a>
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle">calculation</a> */
-	public FP getAxisAngleRad(FPVector3 axis)
+	public FP getAxisAngleRad(out FPVector3 axis)
 	{
 		if (this.w > (FP) 1)
 			this.nor(); // if w>1 acos and sqrt will produce errors, this cant happen if quaternion is normalised

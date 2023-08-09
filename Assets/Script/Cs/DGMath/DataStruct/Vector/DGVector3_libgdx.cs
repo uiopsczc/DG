@@ -383,6 +383,7 @@ public partial struct DGVector3
 			l_mat[FPMatrix4x4.M32]);
 	}
 
+
 	/** Left-multiplies the vector by the given matrix.
 	 * @param matrix The matrix
 	 * @return This vector for chaining */

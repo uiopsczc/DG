@@ -15,6 +15,7 @@ using FPQuaternion = DGQuaternion;
 using FPMatrix4x4 = DGMatrix4x4;
 
 /// <summary>
+/// github:Bepu
 /// 3 row, 3 column matrix.
 /// </summary>
 public partial struct DGMatrix3x3
@@ -114,16 +115,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = SM31;
-			var y = SM32;
-			var z = SM33;
+			var x = -SM13;
+			var y = -SM23;
+			var z = -SM33;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
-			SM31 = value.x;
-			SM32 = value.y;
-			SM33 = value.z;
+			SM13 = -value.x;
+			SM23 = -value.y;
+			SM33 = -value.z;
 		}
 	}
 
@@ -134,16 +135,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = -SM21;
+			var x = -SM12;
 			var y = -SM22;
-			var z = -SM23;
+			var z = -SM32;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
-			SM21 = -value.x;
+			SM12 = -value.x;
 			SM22 = -value.y;
-			SM23 = -value.z;
+			SM32 = -value.z;
 		}
 	}
 
@@ -154,16 +155,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = -SM31;
-			var y = -SM32;
-			var z = -SM33;
+			var x = SM13;
+			var y = SM23;
+			var z = SM33;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
-			SM31 = -value.x;
-			SM32 = -value.y;
-			SM33 = -value.z;
+			SM13 = value.x;
+			SM23 = value.y;
+			SM33 = value.z;
 		}
 	}
 
@@ -175,15 +176,15 @@ public partial struct DGMatrix3x3
 		get
 		{
 			var x = -SM11;
-			var y = -SM12;
-			var z = -SM13;
+			var y = -SM21;
+			var z = -SM31;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
 			SM11 = -value.x;
-			SM12 = -value.y;
-			SM13 = -value.z;
+			SM21 = -value.y;
+			SM31 = -value.z;
 		}
 	}
 
@@ -195,15 +196,15 @@ public partial struct DGMatrix3x3
 		get
 		{
 			var x = SM11;
-			var y = SM12;
-			var z = SM13;
+			var y = SM21;
+			var z = SM31;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
 			SM11 = value.x;
-			SM12 = value.y;
-			SM13 = value.z;
+			SM21 = value.y;
+			SM31 = value.z;
 		}
 	}
 
@@ -214,16 +215,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = SM21;
+			var x = SM12;
 			var y = SM22;
-			var z = SM23;
+			var z = SM32;
 			return new FPVector3(x, y, z);
 		}
 		set
 		{
-			SM21 = value.x;
+			SM12 = value.x;
 			SM22 = value.y;
-			SM23 = value.z;
+			SM32 = value.z;
 		}
 	}
 
@@ -303,7 +304,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = a.SM11 + b.SM11;
 		FP m12 = a.SM12 + b.SM12;
 		FP m13 = a.SM13 + b.SM13;
@@ -339,7 +340,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(FPMatrix4x4 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = a.SM11 + b.SM11;
 		FP m12 = a.SM12 + b.SM12;
 		FP m13 = a.SM13 + b.SM13;
@@ -375,7 +376,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, FPMatrix4x4 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = a.SM11 + b.SM11;
 		FP m12 = a.SM12 + b.SM12;
 		FP m13 = a.SM13 + b.SM13;
@@ -411,7 +412,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(FPMatrix4x4 a, FPMatrix4x4 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = a.SM11 + b.SM11;
 		FP m12 = a.SM12 + b.SM12;
 		FP m13 = a.SM13 + b.SM13;
@@ -444,9 +445,9 @@ public partial struct DGMatrix3x3
 	/// </summary>
 	/// <param name="v">Vector to base the matrix on.</param>
 	/// <param name="result">Skew-symmetric matrix result.</param>
-	public static DGMatrix3x3 CreateCrossProduct(FPVector3 v)
+	public static DGMatrix3x3 CreateCromosProduct(FPVector3 v)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = (FP) 0;
 		result.SM12 = -v.z;
 		result.SM13 = v.y;
@@ -467,7 +468,7 @@ public partial struct DGMatrix3x3
 	/// <param name="matrix3X3">Upper 3x3 matrix extracted from the XNA matrix.</param>
 	public static DGMatrix3x3 CreateFromMatrix(FPMatrix4x4 matrix4x4)
 	{
-		DGMatrix3x3 matrix3X3 = default;
+		DGMatrix3x3 matrix3X3 = new DGMatrix3x3(false);
 		matrix3X3.SM11 = matrix4x4.SM11;
 		matrix3X3.SM12 = matrix4x4.SM12;
 		matrix3X3.SM13 = matrix4x4.SM13;
@@ -538,7 +539,7 @@ public partial struct DGMatrix3x3
 	/// <returns>Inverted matrix.</returns>
 	public static DGMatrix3x3 Invert(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 toReturn = default;
+		DGMatrix3x3 toReturn = new DGMatrix3x3(false);
 		Invert(matrix, out toReturn);
 		return toReturn;
 	}
@@ -550,7 +551,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Inverted matrix.</param>
 	public static DGMatrix3x3 AdaptiveInvert(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		// Perform full Gauss-invert and return if successful
 		if (Invert(matrix, out result))
 			return result;
@@ -689,7 +690,7 @@ public partial struct DGMatrix3x3
 		//1) transpose(invert(M)) == invert(transpose(M)), and
 		//2) det(M) == det(transpose(M))
 		//This organization makes it clearer that the invert's usual division by determinant drops out.
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = (matrix.SM22 * matrix.SM33 - matrix.SM23 * matrix.SM32);
 		FP m12 = (matrix.SM13 * matrix.SM32 - matrix.SM33 * matrix.SM12);
 		FP m13 = (matrix.SM12 * matrix.SM23 - matrix.SM22 * matrix.SM13);
@@ -739,7 +740,7 @@ public partial struct DGMatrix3x3
 		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 		FP resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
 
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
 		result.SM13 = resultM13;
@@ -775,7 +776,7 @@ public partial struct DGMatrix3x3
 		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 		FP resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
 
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
 		result.SM13 = resultM13;
@@ -799,7 +800,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 Multiply(FPMatrix4x4 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
 		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 		FP resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
@@ -836,7 +837,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 MultiplyTransposed(DGMatrix3x3 transpose, DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP resultM11 = transpose.SM11 * matrix.SM11 + transpose.SM21 * matrix.SM21 + transpose.SM31 * matrix.SM31;
 		FP resultM12 = transpose.SM11 * matrix.SM12 + transpose.SM21 * matrix.SM22 + transpose.SM31 * matrix.SM32;
 		FP resultM13 = transpose.SM11 * matrix.SM13 + transpose.SM21 * matrix.SM23 + transpose.SM31 * matrix.SM33;
@@ -872,7 +873,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 MultiplyByTransposed(DGMatrix3x3 matrix, DGMatrix3x3 transpose)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP resultM11 = matrix.SM11 * transpose.SM11 + matrix.SM12 * transpose.SM12 + matrix.SM13 * transpose.SM13;
 		FP resultM12 = matrix.SM11 * transpose.SM21 + matrix.SM12 * transpose.SM22 + matrix.SM13 * transpose.SM23;
 		FP resultM13 = matrix.SM11 * transpose.SM31 + matrix.SM12 * transpose.SM32 + matrix.SM13 * transpose.SM33;
@@ -908,7 +909,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Scaled matrix.</param>
 	public static DGMatrix3x3 Multiply(DGMatrix3x3 matrix, FP scale)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = matrix.SM11 * scale;
 		result.SM12 = matrix.SM12 * scale;
 		result.SM13 = matrix.SM13 * scale;
@@ -930,7 +931,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Negated matrix.</param>
 	public static DGMatrix3x3 Negate(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = -matrix.SM11;
 		result.SM12 = -matrix.SM12;
 		result.SM13 = -matrix.SM13;
@@ -954,7 +955,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Difference of the two matrices.</param>
 	public static DGMatrix3x3 Subtract(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m11 = a.SM11 - b.SM11;
 		FP m12 = a.SM12 - b.SM12;
 		FP m13 = a.SM13 - b.SM13;
@@ -989,7 +990,7 @@ public partial struct DGMatrix3x3
 	/// <param name="b">Created 4x4 matrix.</param>
 	public static FPMatrix4x4 ToMatrix4X4(DGMatrix3x3 a)
 	{
-		FPMatrix4x4 b = default;
+		FPMatrix4x4 b = new FPMatrix4x4(false);
 		b.SM11 = a.SM11;
 		b.SM12 = a.SM12;
 		b.SM13 = a.SM13;
@@ -1059,7 +1060,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Transposed matrix.</param>
 	public static DGMatrix3x3 Transpose(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP m21 = matrix.SM12;
 		FP m31 = matrix.SM13;
 		FP m12 = matrix.SM21;
@@ -1087,7 +1088,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Matrix representing the quaternion's orientation.</param>
 	public static DGMatrix3x3 CreateFromQuaternion(FPQuaternion quaternion)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP qX2 = quaternion.x + quaternion.x;
 		FP qY2 = quaternion.y + quaternion.y;
 		FP qZ2 = quaternion.z + quaternion.z;
@@ -1125,7 +1126,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Outer product result.</param>
 	public static DGMatrix3x3 CreateOuterProduct(FPVector3 a, FPVector3 b)
 	{
-		DGMatrix3x3 result = default;
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		result.SM11 = a.x * b.x;
 		result.SM12 = a.x * b.y;
 		result.SM13 = a.x * b.z;
@@ -1144,12 +1145,23 @@ public partial struct DGMatrix3x3
 	/// <summary>
 	/// Creates a matrix representing a rotation of a given angle around a given axis.
 	/// </summary>
-	/// <param name="axis">Axis around which to rotate.</param>
+	/// <param name="axis">Axis around which to rotate. need nomalized</param>
 	/// <param name="angle">Amount to rotate.</param>
 	/// <param name="result">Matrix representing the rotation.</param>
 	public static DGMatrix3x3 CreateFromAxisAngle(FPVector3 axis, FP angle)
 	{
-		DGMatrix3x3 result = default;
+		return CreateFromAxisAngleRad(axis, angle * DGMath.Deg2Rad);
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="axis">Axis around which to rotate. need nomalized</param>
+	/// <param name="radians"></param>
+	/// <returns></returns>
+	public static DGMatrix3x3 CreateFromAxisAngleRad(FPVector3 axis, FP radians)
+	{
+		DGMatrix3x3 result = new DGMatrix3x3(false);
 		FP xx = axis.x * axis.x;
 		FP yy = axis.y * axis.y;
 		FP zz = axis.z * axis.z;
@@ -1157,20 +1169,22 @@ public partial struct DGMatrix3x3
 		FP xz = axis.x * axis.z;
 		FP yz = axis.y * axis.z;
 
-		FP sinAngle = DGMath.Sin(angle);
-		FP oneMinusCosAngle = (FP) 1 - DGMath.Cos(angle);
+		FP sin = DGMath.Sin(radians);
+		FP cos = DGMath.Cos(radians);
 
-		result.SM11 = (FP) 1 + oneMinusCosAngle * (xx - (FP) 1);
-		result.SM21 = -axis.z * sinAngle + oneMinusCosAngle * xy;
-		result.SM31 = axis.y * sinAngle + oneMinusCosAngle * xz;
+		FP oc = (FP)1 - cos;
 
-		result.SM12 = axis.z * sinAngle + oneMinusCosAngle * xy;
-		result.SM22 = (FP) 1 + oneMinusCosAngle * (yy - (FP) 1);
-		result.SM32 = -axis.x * sinAngle + oneMinusCosAngle * yz;
+		result.SM11 = oc * xx + cos;
+		result.SM21 = oc * xy + axis.z * sin;
+		result.SM31 = oc * xz - axis.y * sin;
 
-		result.SM13 = -axis.y * sinAngle + oneMinusCosAngle * xz;
-		result.SM23 = axis.x * sinAngle + oneMinusCosAngle * yz;
-		result.SM33 = (FP) 1 + oneMinusCosAngle * (zz - (FP) 1);
+		result.SM12 = oc * xy - axis.z * sin;
+		result.SM22 = oc * yy + cos;
+		result.SM32 = oc * yz + axis.x * sin;
+
+		result.SM13 = oc * xz + axis.y * sin;
+		result.SM23 = oc * yz - axis.x * sin;
+		result.SM33 = oc * zz + cos;
 
 		return result;
 	}

@@ -148,10 +148,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	*************************************************************************************/
 	public static bool operator ==(DGVector2 value1, DGVector2 value2)
 	{
-		// Returns false in the presence of NaN values.
-		FP diffX = value1.x - value2.x;
-		FP diffY = value1.y - value2.y;
-		return (diffX * diffX + diffY * diffY) < kEpsilon * kEpsilon;
+		return value1.x == value2.x && value1.y == value2.y;
 	}
 
 	public static bool operator !=(DGVector2 value1, DGVector2 value2)
