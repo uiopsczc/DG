@@ -8,13 +8,12 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationSmooth : DGInterpolation
 {
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		return a * a * ((FP)3 - (FP)2 * a);
+		return a * a * ((DGFixedPoint)3 - (DGFixedPoint)2 * a);
 	}
 
 }

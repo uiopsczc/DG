@@ -9,12 +9,11 @@
  * ======================================
 *************************************************************************************/
 
-using FP = DGFixedPoint;
 
 //libgdx
 public class DGInterpolationBounce : DGInterpolationBounceOut
 {
-	public DGInterpolationBounce(FP[] widths, FP[] heights) : base(widths, heights)
+	public DGInterpolationBounce(DGFixedPoint[] widths, DGFixedPoint[] heights) : base(widths, heights)
 	{
 	}
 
@@ -22,16 +21,16 @@ public class DGInterpolationBounce : DGInterpolationBounceOut
 	{
 	}
 
-	private FP Out(FP a)
+	private DGFixedPoint Out(DGFixedPoint a)
 	{
-		FP test = a + widths[0] / (FP) 2;
-		if (test < widths[0]) return test / (widths[0] / (FP) 2) - (FP) 1;
+		DGFixedPoint test = a + widths[0] / (DGFixedPoint) 2;
+		if (test < widths[0]) return test / (widths[0] / (DGFixedPoint) 2) - (DGFixedPoint) 1;
 		return base.Apply(a);
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a <= (FP) 0.5f) return ((FP) 1 - Out((FP) 1 - a * (FP) 2)) / (FP) 2;
-		return Out(a * (FP) 2 - (FP) 1) / (FP) 2 + (FP) 0.5f;
+		if (a <= (DGFixedPoint) 0.5f) return ((DGFixedPoint) 1 - Out((DGFixedPoint) 1 - a * (DGFixedPoint) 2)) / (DGFixedPoint) 2;
+		return Out(a * (DGFixedPoint) 2 - (DGFixedPoint) 1) / (DGFixedPoint) 2 + (DGFixedPoint) 0.5f;
 	}
 }

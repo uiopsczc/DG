@@ -10,13 +10,7 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPVector4 = DGVector4;
-using FPMatrix4x8 = DGMatrix4x8;
-using FPQuaternion = DGQuaternion;
-using FPPlane = DGPlane;
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 
 #endif
@@ -29,7 +23,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 1, column 1 of the matrix.
 	/// </summary>
-	public FP SM11
+	public DGFixedPoint SM11
 	{
 		get => val[M00];
 		set => val[M00] = value;
@@ -38,7 +32,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 1, column 2 of the matrix.
 	/// </summary>
-	public FP SM12
+	public DGFixedPoint SM12
 	{
 		get => val[M01];
 		set => val[M01] = value;
@@ -47,7 +41,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 1, column 3 of the matrix.
 	/// </summary>
-	public FP SM13
+	public DGFixedPoint SM13
 	{
 		get => val[M02];
 		set => val[M02] = value;
@@ -56,7 +50,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 1, column 4 of the matrix.
 	/// </summary>
-	public FP SM14
+	public DGFixedPoint SM14
 	{
 		get => val[M03];
 		set => val[M03] = value;
@@ -65,7 +59,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 2, column 1 of the matrix.
 	/// </summary>
-	public FP SM21
+	public DGFixedPoint SM21
 	{
 		get => val[M10];
 		set => val[M10] = value;
@@ -74,7 +68,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 2, column 2 of the matrix.
 	/// </summary>
-	public FP SM22
+	public DGFixedPoint SM22
 	{
 		get => val[M11];
 		set => val[M11] = value;
@@ -83,7 +77,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 2, column 3 of the matrix.
 	/// </summary>
-	public FP SM23
+	public DGFixedPoint SM23
 	{
 		get => val[M12];
 		set => val[M12] = value;
@@ -92,7 +86,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 2, column 4 of the matrix.
 	/// </summary>
-	public FP SM24
+	public DGFixedPoint SM24
 	{
 		get => val[M13];
 		set => val[M13] = value;
@@ -101,7 +95,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 3, column 1 of the matrix.
 	/// </summary>
-	public FP SM31
+	public DGFixedPoint SM31
 	{
 		get => val[M20];
 		set => val[M20] = value;
@@ -110,7 +104,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 3, column 2 of the matrix.
 	/// </summary>
-	public FP SM32
+	public DGFixedPoint SM32
 	{
 		get => val[M21];
 		set => val[M21] = value;
@@ -119,7 +113,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 3, column 3 of the matrix.
 	/// </summary>
-	public FP SM33
+	public DGFixedPoint SM33
 	{
 		get => val[M22];
 		set => val[M22] = value;
@@ -128,7 +122,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 3, column 4 of the matrix.
 	/// </summary>
-	public FP SM34
+	public DGFixedPoint SM34
 	{
 		get => val[M23];
 		set => val[M23] = value;
@@ -137,7 +131,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 4, column 1 of the matrix.
 	/// </summary>
-	public FP SM41
+	public DGFixedPoint SM41
 	{
 		get => val[M30];
 		set => val[M30] = value;
@@ -146,7 +140,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 4, column 2 of the matrix.
 	/// </summary>
-	public FP SM42
+	public DGFixedPoint SM42
 	{
 		get => val[M31];
 		set => val[M31] = value;
@@ -155,7 +149,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 4, column 3 of the matrix.
 	/// </summary>
-	public FP SM43
+	public DGFixedPoint SM43
 	{
 		get => val[M32];
 		set => val[M32] = value;
@@ -164,7 +158,7 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Value at row 4, column 4 of the matrix.
 	/// </summary>
-	public FP SM44
+	public DGFixedPoint SM44
 	{
 		get => val[M33];
 		set => val[M33] = value;
@@ -179,25 +173,25 @@ public partial struct DGMatrix4x4
 		get
 		{
 			DGMatrix4x4 toReturn = new DGMatrix4x4(false);
-			toReturn.SM11 = (FP) 1;
-			toReturn.SM12 = (FP) 0;
-			toReturn.SM13 = (FP) 0;
-			toReturn.SM14 = (FP) 0;
+			toReturn.SM11 = (DGFixedPoint) 1;
+			toReturn.SM12 = (DGFixedPoint) 0;
+			toReturn.SM13 = (DGFixedPoint) 0;
+			toReturn.SM14 = (DGFixedPoint) 0;
 
-			toReturn.SM21 = (FP) 0;
-			toReturn.SM22 = (FP) 1;
-			toReturn.SM23 = (FP) 0;
-			toReturn.SM24 = (FP) 0;
+			toReturn.SM21 = (DGFixedPoint) 0;
+			toReturn.SM22 = (DGFixedPoint) 1;
+			toReturn.SM23 = (DGFixedPoint) 0;
+			toReturn.SM24 = (DGFixedPoint) 0;
 
-			toReturn.SM31 = (FP) 0;
-			toReturn.SM32 = (FP) 0;
-			toReturn.SM33 = (FP) 1;
-			toReturn.SM34 = (FP) 0;
+			toReturn.SM31 = (DGFixedPoint) 0;
+			toReturn.SM32 = (DGFixedPoint) 0;
+			toReturn.SM33 = (DGFixedPoint) 1;
+			toReturn.SM34 = (DGFixedPoint) 0;
 
-			toReturn.SM41 = (FP) 0;
-			toReturn.SM42 = (FP) 0;
-			toReturn.SM43 = (FP) 0;
-			toReturn.SM44 = (FP) 1;
+			toReturn.SM41 = (DGFixedPoint) 0;
+			toReturn.SM42 = (DGFixedPoint) 0;
+			toReturn.SM43 = (DGFixedPoint) 0;
+			toReturn.SM44 = (DGFixedPoint) 1;
 			return toReturn;
 		}
 	}
@@ -205,9 +199,9 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the translation component of the transform.
 	/// </summary>
-	public FPVector3 Translation
+	public DGVector3 Translation
 	{
-		get => new FPVector3()
+		get => new DGVector3()
 		{
 			x = SM14,
 			y = SM24,
@@ -225,14 +219,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the backward vector of the matrix.
 	/// </summary>
-	public FPVector3 Backward
+	public DGVector3 Backward
 	{
 		get
 		{
 			var x = -SM13;
 			var y = -SM23;
 			var z = -SM33;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -245,14 +239,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the down vector of the matrix.
 	/// </summary>
-	public FPVector3 Down
+	public DGVector3 Down
 	{
 		get
 		{
 			var x = -SM12;
 			var y = -SM22;
 			var z = -SM32;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -265,14 +259,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the forward vector of the matrix.
 	/// </summary>
-	public FPVector3 Forward
+	public DGVector3 Forward
 	{
 		get
 		{
 			var x = SM13;
 			var y = SM23;
 			var z = SM33;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -285,14 +279,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the left vector of the matrix.
 	/// </summary>
-	public FPVector3 Left
+	public DGVector3 Left
 	{
 		get
 		{
 			var x = -SM11;
 			var y = -SM21;
 			var z = -SM31;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -305,14 +299,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the right vector of the matrix.
 	/// </summary>
-	public FPVector3 Right
+	public DGVector3 Right
 	{
 		get
 		{
 			var x = SM11;
 			var y = SM21;
 			var z = SM31;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -325,14 +319,14 @@ public partial struct DGMatrix4x4
 	/// <summary>
 	/// Gets or sets the up vector of the matrix.
 	/// </summary>
-	public FPVector3 Up
+	public DGVector3 Up
 	{
 		get
 		{
 			var x = SM12;
 			var y = SM22;
 			var z = SM32;
-			return new FPVector3(x, y, z);
+			return new DGVector3(x, y, z);
 		}
 		set
 		{
@@ -344,7 +338,7 @@ public partial struct DGMatrix4x4
 
 
 	public DGMatrix4x4 inverse => Invert(this);
-	public FP determinant => this.Determinant();
+	public DGFixedPoint determinant => this.Determinant();
 
 	/// <summary>
 	/// Constructs a new 4 row, 4 column matrix.
@@ -365,12 +359,12 @@ public partial struct DGMatrix4x4
 	/// <param name="sm42">Value at row 4, column 2 of the matrix.</param>
 	/// <param name="sm43">Value at row 4, column 3 of the matrix.</param>
 	/// <param name="sm44">Value at row 4, column 4 of the matrix.</param>
-	public DGMatrix4x4(FP sm11, FP sm12, FP sm13, FP sm14,
-		FP sm21, FP sm22, FP sm23, FP sm24,
-		FP sm31, FP sm32, FP sm33, FP sm34,
-		FP sm41, FP sm42, FP sm43, FP sm44)
+	public DGMatrix4x4(DGFixedPoint sm11, DGFixedPoint sm12, DGFixedPoint sm13, DGFixedPoint sm14,
+		DGFixedPoint sm21, DGFixedPoint sm22, DGFixedPoint sm23, DGFixedPoint sm24,
+		DGFixedPoint sm31, DGFixedPoint sm32, DGFixedPoint sm33, DGFixedPoint sm34,
+		DGFixedPoint sm41, DGFixedPoint sm42, DGFixedPoint sm43, DGFixedPoint sm44)
 	{
-		val = new FP[Count];
+		val = new DGFixedPoint[Count];
 
 		this.SM11 = sm11;
 		this.SM12 = sm12;
@@ -394,56 +388,56 @@ public partial struct DGMatrix4x4
 		this.SM44 = sm44;
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGMatrix4x4(Matrix4x4 matrix)
 	{
-		val = new FP[Count];
-		this.SM11 = (FP) matrix.m00;
-		this.SM12 = (FP) matrix.m01;
-		this.SM13 = (FP) matrix.m02;
-		this.SM14 = (FP) matrix.m03;
+		val = new DGFixedPoint[Count];
+		this.SM11 = (DGFixedPoint) matrix.m00;
+		this.SM12 = (DGFixedPoint) matrix.m01;
+		this.SM13 = (DGFixedPoint) matrix.m02;
+		this.SM14 = (DGFixedPoint) matrix.m03;
 
 
-		this.SM21 = (FP) matrix.m10;
-		this.SM22 = (FP) matrix.m11;
-		this.SM23 = (FP) matrix.m12;
-		this.SM24 = (FP) matrix.m13;
+		this.SM21 = (DGFixedPoint) matrix.m10;
+		this.SM22 = (DGFixedPoint) matrix.m11;
+		this.SM23 = (DGFixedPoint) matrix.m12;
+		this.SM24 = (DGFixedPoint) matrix.m13;
 
-		this.SM31 = (FP) matrix.m20;
-		this.SM32 = (FP) matrix.m21;
-		this.SM33 = (FP) matrix.m22;
-		this.SM34 = (FP) matrix.m23;
+		this.SM31 = (DGFixedPoint) matrix.m20;
+		this.SM32 = (DGFixedPoint) matrix.m21;
+		this.SM33 = (DGFixedPoint) matrix.m22;
+		this.SM34 = (DGFixedPoint) matrix.m23;
 
-		this.SM41 = (FP) matrix.m30;
-		this.SM42 = (FP) matrix.m31;
-		this.SM43 = (FP) matrix.m32;
-		this.SM44 = (FP) matrix.m33;
+		this.SM41 = (DGFixedPoint) matrix.m30;
+		this.SM42 = (DGFixedPoint) matrix.m31;
+		this.SM43 = (DGFixedPoint) matrix.m32;
+		this.SM44 = (DGFixedPoint) matrix.m33;
 	}
 #endif
 
 	public DGMatrix4x4(System.Numerics.Matrix4x4 matrix)
 	{
-		val = new FP[Count];
-		this.SM11 = (FP) matrix.M11;
-		this.SM12 = (FP) matrix.M12;
-		this.SM13 = (FP) matrix.M13;
-		this.SM14 = (FP) matrix.M14;
+		val = new DGFixedPoint[Count];
+		this.SM11 = (DGFixedPoint) matrix.M11;
+		this.SM12 = (DGFixedPoint) matrix.M12;
+		this.SM13 = (DGFixedPoint) matrix.M13;
+		this.SM14 = (DGFixedPoint) matrix.M14;
 
 
-		this.SM21 = (FP) matrix.M21;
-		this.SM22 = (FP) matrix.M22;
-		this.SM23 = (FP) matrix.M23;
-		this.SM24 = (FP) matrix.M24;
+		this.SM21 = (DGFixedPoint) matrix.M21;
+		this.SM22 = (DGFixedPoint) matrix.M22;
+		this.SM23 = (DGFixedPoint) matrix.M23;
+		this.SM24 = (DGFixedPoint) matrix.M24;
 
-		this.SM31 = (FP) matrix.M31;
-		this.SM32 = (FP) matrix.M32;
-		this.SM33 = (FP) matrix.M33;
-		this.SM34 = (FP) matrix.M34;
+		this.SM31 = (DGFixedPoint) matrix.M31;
+		this.SM32 = (DGFixedPoint) matrix.M32;
+		this.SM33 = (DGFixedPoint) matrix.M33;
+		this.SM34 = (DGFixedPoint) matrix.M34;
 
-		this.SM41 = (FP) matrix.M41;
-		this.SM42 = (FP) matrix.M42;
-		this.SM43 = (FP) matrix.M43;
-		this.SM44 = (FP) matrix.M44;
+		this.SM41 = (DGFixedPoint) matrix.M41;
+		this.SM42 = (DGFixedPoint) matrix.M42;
+		this.SM43 = (DGFixedPoint) matrix.M43;
+		this.SM44 = (DGFixedPoint) matrix.M44;
 	}
 
 	/*************************************************************************************
@@ -466,7 +460,7 @@ public partial struct DGMatrix4x4
 	/// <param name="m">First matrix to multiply.</param>
 	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
 	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix4x4 operator *(DGMatrix4x4 m, FP f)
+	public static DGMatrix4x4 operator *(DGMatrix4x4 m, DGFixedPoint f)
 	{
 		return Multiply(m, f);
 	}
@@ -477,14 +471,14 @@ public partial struct DGMatrix4x4
 	/// <param name="m">First matrix to multiply.</param>
 	/// <param name="f">Scaling value to apply to all components of the matrix.</param>
 	/// <returns>Product of the multiplication.</returns>
-	public static DGMatrix4x4 operator *(FP f, DGMatrix4x4 m)
+	public static DGMatrix4x4 operator *(DGFixedPoint f, DGMatrix4x4 m)
 	{
 		return Multiply(m, f);
 	}
 
-	public static FPVector4 operator *(DGMatrix4x4 lhs, FPVector4 vector)
+	public static DGVector4 operator *(DGMatrix4x4 lhs, DGVector4 vector)
 	{
-		FPVector4 res;
+		DGVector4 res;
 		res.x = lhs.SM11 * vector.x + lhs.SM12 * vector.y + lhs.SM13 * vector.z + lhs.SM14 * vector.w;
 		res.y = lhs.SM21 * vector.x + lhs.SM22 * vector.y + lhs.SM23 * vector.z + lhs.SM24 * vector.w;
 		res.z = lhs.SM31 * vector.x + lhs.SM32 * vector.y + lhs.SM33 * vector.z + lhs.SM34 * vector.w;
@@ -495,7 +489,7 @@ public partial struct DGMatrix4x4
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-	public static DGMatrix4x4 TRS(FPVector3 pos, FPQuaternion rotation, FPVector3 scale)
+	public static DGMatrix4x4 TRS(DGVector3 pos, DGQuaternion rotation, DGVector3 scale)
 	{
 		return Translate(pos) * Rotate(rotation) * Scale(scale);
 	}
@@ -507,7 +501,7 @@ public partial struct DGMatrix4x4
 	/// <param name="matrix2">The second source matrix.</param>
 	/// <param name="amount">The relative weight of the second source matrix.</param>
 	/// <returns>The interpolated matrix.</returns>
-	public static DGMatrix4x4 Lerp(DGMatrix4x4 matrix1, DGMatrix4x4 matrix2, FP amount)
+	public static DGMatrix4x4 Lerp(DGMatrix4x4 matrix1, DGMatrix4x4 matrix2, DGFixedPoint amount)
 	{
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
@@ -544,45 +538,45 @@ public partial struct DGMatrix4x4
 	/// <param name="axis">Axis around which to rotate. need nomalized</param>
 	/// <param name="angle">Angle to rotate around the axis.</param>
 	/// <param name="result">Matrix created from the axis and angle.</param>MultiplyPoint3x4
-	public static DGMatrix4x4 CreateFromAxisAngle(FPVector3 axis, FP angle)
+	public static DGMatrix4x4 CreateFromAxisAngle(DGVector3 axis, DGFixedPoint angle)
 	{
 		return CreateFromAxisAngleRad(axis, angle * DGMath.Deg2Rad);
 	}
 
-	public static DGMatrix4x4 CreateFromAxisAngleRad(FPVector3 axis, FP radians)
+	public static DGMatrix4x4 CreateFromAxisAngleRad(DGVector3 axis, DGFixedPoint radians)
 	{
-		FP xx = axis.x * axis.x;
-		FP yy = axis.y * axis.y;
-		FP zz = axis.z * axis.z;
-		FP xy = axis.x * axis.y;
-		FP xz = axis.x * axis.z;
-		FP yz = axis.y * axis.z;
+		DGFixedPoint xx = axis.x * axis.x;
+		DGFixedPoint yy = axis.y * axis.y;
+		DGFixedPoint zz = axis.z * axis.z;
+		DGFixedPoint xy = axis.x * axis.y;
+		DGFixedPoint xz = axis.x * axis.z;
+		DGFixedPoint yz = axis.y * axis.z;
 
-		FP sin = DGMath.Sin(radians);
-		FP cos = DGMath.Cos(radians);
+		DGFixedPoint sin = DGMath.Sin(radians);
+		DGFixedPoint cos = DGMath.Cos(radians);
 
-		FP oc = (FP)1 - cos;
+		DGFixedPoint oc = (DGFixedPoint)1 - cos;
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 		result.SM11 = oc * xx + cos;
 		result.SM21 = oc * xy + axis.z * sin;
 		result.SM31 = oc * xz - axis.y * sin;
-		result.SM41 = (FP)0;
+		result.SM41 = (DGFixedPoint)0;
 
 		result.SM12 = oc * xy - axis.z * sin;
 		result.SM22 = oc * yy + cos;
 		result.SM32 = oc * yz + axis.x * sin;
-		result.SM42 = (FP)0;
+		result.SM42 = (DGFixedPoint)0;
 
 		result.SM13 = oc * xz + axis.y * sin;
 		result.SM23 = oc * yz - axis.x * sin;
 		result.SM33 = oc * zz + cos;
-		result.SM43 = (FP)0;
+		result.SM43 = (DGFixedPoint)0;
 
-		result.SM14 = (FP)0;
-		result.SM24 = (FP)0;
-		result.SM34 = (FP)0;
-		result.SM44 = (FP)1;
+		result.SM14 = (DGFixedPoint)0;
+		result.SM24 = (DGFixedPoint)0;
+		result.SM34 = (DGFixedPoint)0;
+		result.SM44 = (DGFixedPoint)1;
 
 		return result;
 	}
@@ -592,44 +586,44 @@ public partial struct DGMatrix4x4
 	/// </summary>
 	/// <param name="quaternion">Quaternion to convert.</param>
 	/// <param name="result">Rotation matrix created from the quaternion.</param>
-	public static DGMatrix4x4 CreateFromQuaternion(FPQuaternion quaternion)
+	public static DGMatrix4x4 CreateFromQuaternion(DGQuaternion quaternion)
 	{
-		FP qX2 = quaternion.x + quaternion.x;
-		FP qY2 = quaternion.y + quaternion.y;
-		FP qZ2 = quaternion.z + quaternion.z;
-		FP XX = qX2 * quaternion.x;
-		FP YY = qY2 * quaternion.y;
-		FP ZZ = qZ2 * quaternion.z;
-		FP XY = qX2 * quaternion.y;
-		FP XZ = qX2 * quaternion.z;
-		FP XW = qX2 * quaternion.w;
-		FP YZ = qY2 * quaternion.z;
-		FP YW = qY2 * quaternion.w;
-		FP ZW = qZ2 * quaternion.w;
+		DGFixedPoint qX2 = quaternion.x + quaternion.x;
+		DGFixedPoint qY2 = quaternion.y + quaternion.y;
+		DGFixedPoint qZ2 = quaternion.z + quaternion.z;
+		DGFixedPoint XX = qX2 * quaternion.x;
+		DGFixedPoint YY = qY2 * quaternion.y;
+		DGFixedPoint ZZ = qZ2 * quaternion.z;
+		DGFixedPoint XY = qX2 * quaternion.y;
+		DGFixedPoint XZ = qX2 * quaternion.z;
+		DGFixedPoint XW = qX2 * quaternion.w;
+		DGFixedPoint YZ = qY2 * quaternion.z;
+		DGFixedPoint YW = qY2 * quaternion.w;
+		DGFixedPoint ZW = qZ2 * quaternion.w;
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
-		result.SM11 = (FP) 1 - YY - ZZ;
+		result.SM11 = (DGFixedPoint) 1 - YY - ZZ;
 		result.SM12 = XY - ZW;
 		result.SM13 = XZ + YW;
 		
 
 		result.SM21 = XY + ZW;
-		result.SM22 = (FP) 1 - XX - ZZ;
+		result.SM22 = (DGFixedPoint) 1 - XX - ZZ;
 		result.SM23 = YZ - XW;
 
 		result.SM31 = XZ - YW;
 		result.SM32 = YZ + XW;
-		result.SM33 = (FP) 1 - XX - YY;
+		result.SM33 = (DGFixedPoint) 1 - XX - YY;
 
-		result.SM14 = (FP) 0;
-		result.SM24 = (FP) 0;
-		result.SM34 = (FP) 0;
-		result.SM44 = (FP) 1;
+		result.SM14 = (DGFixedPoint) 0;
+		result.SM24 = (DGFixedPoint) 0;
+		result.SM34 = (DGFixedPoint) 0;
+		result.SM44 = (DGFixedPoint) 1;
 
-		result.SM41 = (FP)0;
-		result.SM42 = (FP)0;
-		result.SM43 = (FP)0;
+		result.SM41 = (DGFixedPoint)0;
+		result.SM42 = (DGFixedPoint)0;
+		result.SM43 = (DGFixedPoint)0;
 
 		return result;
 	}
@@ -642,25 +636,25 @@ public partial struct DGMatrix4x4
 	/// <param name="result">Combined transformation.</param>
 	public static DGMatrix4x4 Multiply(DGMatrix4x4 a, DGMatrix4x4 b)
 	{
-		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31 + a.SM14 * b.SM41;
-		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32 + a.SM14 * b.SM42;
-		FP resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33 + a.SM14 * b.SM43;
-		FP resultM14 = a.SM11 * b.SM14 + a.SM12 * b.SM24 + a.SM13 * b.SM34 + a.SM14 * b.SM44;
+		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31 + a.SM14 * b.SM41;
+		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32 + a.SM14 * b.SM42;
+		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33 + a.SM14 * b.SM43;
+		DGFixedPoint resultM14 = a.SM11 * b.SM14 + a.SM12 * b.SM24 + a.SM13 * b.SM34 + a.SM14 * b.SM44;
 
-		FP resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31 + a.SM24 * b.SM41;
-		FP resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32 + a.SM24 * b.SM42;
-		FP resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33 + a.SM24 * b.SM43;
-		FP resultM24 = a.SM21 * b.SM14 + a.SM22 * b.SM24 + a.SM23 * b.SM34 + a.SM24 * b.SM44;
+		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31 + a.SM24 * b.SM41;
+		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32 + a.SM24 * b.SM42;
+		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33 + a.SM24 * b.SM43;
+		DGFixedPoint resultM24 = a.SM21 * b.SM14 + a.SM22 * b.SM24 + a.SM23 * b.SM34 + a.SM24 * b.SM44;
 
-		FP resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31 + a.SM34 * b.SM41;
-		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32 + a.SM34 * b.SM42;
-		FP resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33 + a.SM34 * b.SM43;
-		FP resultM34 = a.SM31 * b.SM14 + a.SM32 * b.SM24 + a.SM33 * b.SM34 + a.SM34 * b.SM44;
+		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31 + a.SM34 * b.SM41;
+		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32 + a.SM34 * b.SM42;
+		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33 + a.SM34 * b.SM43;
+		DGFixedPoint resultM34 = a.SM31 * b.SM14 + a.SM32 * b.SM24 + a.SM33 * b.SM34 + a.SM34 * b.SM44;
 
-		FP resultM41 = a.SM41 * b.SM11 + a.SM42 * b.SM21 + a.SM43 * b.SM31 + a.SM44 * b.SM41;
-		FP resultM42 = a.SM41 * b.SM12 + a.SM42 * b.SM22 + a.SM43 * b.SM32 + a.SM44 * b.SM42;
-		FP resultM43 = a.SM41 * b.SM13 + a.SM42 * b.SM23 + a.SM43 * b.SM33 + a.SM44 * b.SM43;
-		FP resultM44 = a.SM41 * b.SM14 + a.SM42 * b.SM24 + a.SM43 * b.SM34 + a.SM44 * b.SM44;
+		DGFixedPoint resultM41 = a.SM41 * b.SM11 + a.SM42 * b.SM21 + a.SM43 * b.SM31 + a.SM44 * b.SM41;
+		DGFixedPoint resultM42 = a.SM41 * b.SM12 + a.SM42 * b.SM22 + a.SM43 * b.SM32 + a.SM44 * b.SM42;
+		DGFixedPoint resultM43 = a.SM41 * b.SM13 + a.SM42 * b.SM23 + a.SM43 * b.SM33 + a.SM44 * b.SM43;
+		DGFixedPoint resultM44 = a.SM41 * b.SM14 + a.SM42 * b.SM24 + a.SM43 * b.SM34 + a.SM44 * b.SM44;
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 		result.SM11 = resultM11;
@@ -692,7 +686,7 @@ public partial struct DGMatrix4x4
 	/// <param name="matrix">Matrix to scale.</param>
 	/// <param name="scale">Amount to scale.</param>
 	/// <param name="result">Scaled matrix.</param>
-	public static DGMatrix4x4 Multiply(DGMatrix4x4 matrix, FP scale)
+	public static DGMatrix4x4 Multiply(DGMatrix4x4 matrix, DGFixedPoint scale)
 	{
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
@@ -726,13 +720,13 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector4 Transform(FPVector4 v, ref DGMatrix4x4 matrix)
+	public static DGVector4 Transform(DGVector4 v, ref DGMatrix4x4 matrix)
 	{
-		FP vX = v.x;
-		FP vY = v.y;
-		FP vZ = v.z;
-		FP vW = v.w;
-		FPVector4 result = default;
+		DGFixedPoint vX = v.x;
+		DGFixedPoint vY = v.y;
+		DGFixedPoint vZ = v.z;
+		DGFixedPoint vW = v.w;
+		DGVector4 result = default;
 		result.x = vX * matrix.SM11 + vY * matrix.SM21 + vZ * matrix.SM31 + vW * matrix.SM41;
 		result.y = vX * matrix.SM12 + vY * matrix.SM22 + vZ * matrix.SM32 + vW * matrix.SM42;
 		result.z = vX * matrix.SM13 + vY * matrix.SM23 + vZ * matrix.SM33 + vW * matrix.SM43;
@@ -746,13 +740,13 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to tranpose and apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector4 TransformTranspose(FPVector4 v, DGMatrix4x4 matrix)
+	public static DGVector4 TransformTranspose(DGVector4 v, DGMatrix4x4 matrix)
 	{
-		FP vX = v.x;
-		FP vY = v.y;
-		FP vZ = v.z;
-		FP vW = v.w;
-		FPVector4 result = default;
+		DGFixedPoint vX = v.x;
+		DGFixedPoint vY = v.y;
+		DGFixedPoint vZ = v.z;
+		DGFixedPoint vW = v.w;
+		DGVector4 result = default;
 		result.x = vX * matrix.SM11 + vY * matrix.SM12 + vZ * matrix.SM13 + vW * matrix.SM14;
 		result.y = vX * matrix.SM21 + vY * matrix.SM22 + vZ * matrix.SM23 + vW * matrix.SM24;
 		result.z = vX * matrix.SM31 + vY * matrix.SM32 + vZ * matrix.SM33 + vW * matrix.SM34;
@@ -766,9 +760,9 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector4 Transform(FPVector3 v, DGMatrix4x4 matrix)
+	public static DGVector4 Transform(DGVector3 v, DGMatrix4x4 matrix)
 	{
-		FPVector4 result = default;
+		DGVector4 result = default;
 		result.x = v.x * matrix.SM11 + v.y * matrix.SM21 + v.z * matrix.SM31 + matrix.SM41;
 		result.y = v.x * matrix.SM12 + v.y * matrix.SM22 + v.z * matrix.SM32 + matrix.SM42;
 		result.z = v.x * matrix.SM13 + v.y * matrix.SM23 + v.z * matrix.SM33 + matrix.SM43;
@@ -783,12 +777,12 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to tranpose and apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformTranspose(FPVector3 v, DGMatrix4x4 matrix)
+	public static DGVector3 TransformTranspose(DGVector3 v, DGMatrix4x4 matrix)
 	{
-		FP vX = v.x;
-		FP vY = v.y;
-		FP vZ = v.z;
-		FPVector3 result = default;
+		DGFixedPoint vX = v.x;
+		DGFixedPoint vY = v.y;
+		DGFixedPoint vZ = v.z;
+		DGVector3 result = default;
 		result.x = vX * matrix.SM11 + vY * matrix.SM12 + vZ * matrix.SM13 + matrix.SM14;
 		result.y = vX * matrix.SM21 + vY * matrix.SM22 + vZ * matrix.SM23 + matrix.SM24;
 		result.z = vX * matrix.SM31 + vY * matrix.SM32 + vZ * matrix.SM33 + matrix.SM34;
@@ -801,12 +795,12 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformNormal(FPVector3 v, DGMatrix4x4 matrix)
+	public static DGVector3 TransformNormal(DGVector3 v, DGMatrix4x4 matrix)
 	{
-		FP vX = v.x;
-		FP vY = v.y;
-		FP vZ = v.z;
-		FPVector3 result = default;
+		DGFixedPoint vX = v.x;
+		DGFixedPoint vY = v.y;
+		DGFixedPoint vZ = v.z;
+		DGVector3 result = default;
 		result.x = vX * matrix.SM11 + vY * matrix.SM21 + vZ * matrix.SM31;
 		result.y = vX * matrix.SM12 + vY * matrix.SM22 + vZ * matrix.SM32;
 		result.z = vX * matrix.SM13 + vY * matrix.SM23 + vZ * matrix.SM33;
@@ -821,12 +815,12 @@ public partial struct DGMatrix4x4
 	/// <param name="v">Vector to transform.</param>
 	/// <param name="matrix">Transform to tranpose and apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformNormalTranspose(FPVector3 v, DGMatrix4x4 matrix)
+	public static DGVector3 TransformNormalTranspose(DGVector3 v, DGMatrix4x4 matrix)
 	{
-		FP vX = v.x;
-		FP vY = v.y;
-		FP vZ = v.z;
-		FPVector3 result = default;
+		DGFixedPoint vX = v.x;
+		DGFixedPoint vY = v.y;
+		DGFixedPoint vZ = v.z;
+		DGVector3 result = default;
 		result.x = vX * matrix.SM11 + vY * matrix.SM12 + vZ * matrix.SM13;
 		result.y = vX * matrix.SM21 + vY * matrix.SM22 + vZ * matrix.SM23;
 		result.z = vX * matrix.SM31 + vY * matrix.SM32 + vZ * matrix.SM33;
@@ -842,12 +836,12 @@ public partial struct DGMatrix4x4
 	public static DGMatrix4x4 Transpose(DGMatrix4x4 m)
 	{
 		DGMatrix4x4 transposed = new DGMatrix4x4(false);
-		FP m01 = m.SM12;
-		FP m02 = m.SM13;
-		FP m03 = m.SM14;
-		FP m12 = m.SM23;
-		FP m13 = m.SM24;
-		FP m23 = m.SM34;
+		DGFixedPoint m01 = m.SM12;
+		DGFixedPoint m02 = m.SM13;
+		DGFixedPoint m03 = m.SM14;
+		DGFixedPoint m12 = m.SM23;
+		DGFixedPoint m13 = m.SM24;
+		DGFixedPoint m23 = m.SM34;
 
 		transposed.SM11 = m.SM11;
 		transposed.SM12 = m.SM21;
@@ -880,7 +874,7 @@ public partial struct DGMatrix4x4
 	public static DGMatrix4x4 Invert(DGMatrix4x4 m)
 	{
 		DGMatrix4x4 inverted = new DGMatrix4x4(false);
-		FPMatrix4x8.Invert(m, out inverted);
+		DGMatrix4x8.Invert(m, out inverted);
 		return inverted;
 	}
 
@@ -894,7 +888,7 @@ public partial struct DGMatrix4x4
 	{
 		DGMatrix4x4 inverted = new DGMatrix4x4(false);
 		//Invert (transpose) the upper left 3x3 rotation.
-		FP intermediate = m.SM12;
+		DGFixedPoint intermediate = m.SM12;
 		inverted.SM12 = m.SM21;
 		inverted.SM21 = intermediate;
 
@@ -919,114 +913,114 @@ public partial struct DGMatrix4x4
 		inverted.SM43 = -(vX * inverted.SM13 + vY * inverted.SM23 + vZ * inverted.SM33);
 
 		//Last chunk.
-		inverted.SM14 = (FP) 0;
-		inverted.SM24 = (FP) 0;
-		inverted.SM34 = (FP) 0;
-		inverted.SM44 = (FP) 1;
+		inverted.SM14 = (DGFixedPoint) 0;
+		inverted.SM24 = (DGFixedPoint) 0;
+		inverted.SM34 = (DGFixedPoint) 0;
+		inverted.SM44 = (DGFixedPoint) 1;
 
 		return inverted;
 	}
 
-	public static DGMatrix4x4 CreateRotationX(FP radians)
+	public static DGMatrix4x4 CreateRotationX(DGFixedPoint radians)
 	{
 		DGMatrix4x4 r = new DGMatrix4x4(false);
-		FP cos = DGMath.Cos(radians);
-		FP sin = DGMath.Sin(radians);
-		r.SM11 = (FP) 1;
-		r.SM12 = (FP) 0;
-		r.SM13 = (FP) 0;
-		r.SM14 = (FP) 0;
-		r.SM21 = (FP) 0;
+		DGFixedPoint cos = DGMath.Cos(radians);
+		DGFixedPoint sin = DGMath.Sin(radians);
+		r.SM11 = (DGFixedPoint) 1;
+		r.SM12 = (DGFixedPoint) 0;
+		r.SM13 = (DGFixedPoint) 0;
+		r.SM14 = (DGFixedPoint) 0;
+		r.SM21 = (DGFixedPoint) 0;
 		r.SM22 = cos;
 		r.SM23 = sin;
-		r.SM24 = (FP) 0;
-		r.SM31 = (FP) 0;
+		r.SM24 = (DGFixedPoint) 0;
+		r.SM31 = (DGFixedPoint) 0;
 		r.SM32 = -sin;
 		r.SM33 = cos;
-		r.SM34 = (FP) 0;
-		r.SM41 = (FP) 0;
-		r.SM42 = (FP) 0;
-		r.SM43 = (FP) 0;
-		r.SM44 = (FP) 1;
+		r.SM34 = (DGFixedPoint) 0;
+		r.SM41 = (DGFixedPoint) 0;
+		r.SM42 = (DGFixedPoint) 0;
+		r.SM43 = (DGFixedPoint) 0;
+		r.SM44 = (DGFixedPoint) 1;
 		return r;
 	}
 
-	public static DGMatrix4x4 CreateRotationY(FP radians)
+	public static DGMatrix4x4 CreateRotationY(DGFixedPoint radians)
 	{
 		DGMatrix4x4 r = new DGMatrix4x4(false);
-		FP cos = DGMath.Cos(radians);
-		FP sin = DGMath.Sin(radians);
+		DGFixedPoint cos = DGMath.Cos(radians);
+		DGFixedPoint sin = DGMath.Sin(radians);
 		r.SM11 = cos;
-		r.SM12 = (FP) 0;
+		r.SM12 = (DGFixedPoint) 0;
 		r.SM13 = -sin;
-		r.SM14 = (FP) 0;
-		r.SM21 = (FP) 0;
-		r.SM22 = (FP) 1;
-		r.SM23 = (FP) 0;
-		r.SM24 = (FP) 0;
+		r.SM14 = (DGFixedPoint) 0;
+		r.SM21 = (DGFixedPoint) 0;
+		r.SM22 = (DGFixedPoint) 1;
+		r.SM23 = (DGFixedPoint) 0;
+		r.SM24 = (DGFixedPoint) 0;
 		r.SM31 = sin;
-		r.SM32 = (FP) 0;
+		r.SM32 = (DGFixedPoint) 0;
 		r.SM33 = cos;
-		r.SM34 = (FP) 0;
-		r.SM41 = (FP) 0;
-		r.SM42 = (FP) 0;
-		r.SM43 = (FP) 0;
-		r.SM44 = (FP) 1;
+		r.SM34 = (DGFixedPoint) 0;
+		r.SM41 = (DGFixedPoint) 0;
+		r.SM42 = (DGFixedPoint) 0;
+		r.SM43 = (DGFixedPoint) 0;
+		r.SM44 = (DGFixedPoint) 1;
 		return r;
 	}
 
-	public static DGMatrix4x4 CreateRotationZ(FP radians)
+	public static DGMatrix4x4 CreateRotationZ(DGFixedPoint radians)
 	{
 		DGMatrix4x4 r = new DGMatrix4x4(false);
-		FP cos = DGMath.Cos(radians);
-		FP sin = DGMath.Sin(radians);
+		DGFixedPoint cos = DGMath.Cos(radians);
+		DGFixedPoint sin = DGMath.Sin(radians);
 		r.SM11 = cos;
 		r.SM12 = sin;
-		r.SM13 = (FP) 0;
-		r.SM14 = (FP) 0;
+		r.SM13 = (DGFixedPoint) 0;
+		r.SM14 = (DGFixedPoint) 0;
 		r.SM21 = -sin;
 		r.SM22 = cos;
-		r.SM23 = (FP) 0;
-		r.SM24 = (FP) 0;
-		r.SM31 = (FP) 0;
-		r.SM32 = (FP) 0;
-		r.SM33 = (FP) 1;
-		r.SM34 = (FP) 0;
-		r.SM41 = (FP) 0;
-		r.SM42 = (FP) 0;
-		r.SM43 = (FP) 0;
-		r.SM44 = (FP) 1;
+		r.SM23 = (DGFixedPoint) 0;
+		r.SM24 = (DGFixedPoint) 0;
+		r.SM31 = (DGFixedPoint) 0;
+		r.SM32 = (DGFixedPoint) 0;
+		r.SM33 = (DGFixedPoint) 1;
+		r.SM34 = (DGFixedPoint) 0;
+		r.SM41 = (DGFixedPoint) 0;
+		r.SM42 = (DGFixedPoint) 0;
+		r.SM43 = (DGFixedPoint) 0;
+		r.SM44 = (DGFixedPoint) 1;
 		return r;
 	}
 
 	// Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
-	public static DGMatrix4x4 CreateFromYawPitchRoll(FP yaw, FP pitch, FP roll)
+	public static DGMatrix4x4 CreateFromYawPitchRoll(DGFixedPoint yaw, DGFixedPoint pitch, DGFixedPoint roll)
 	{
-		FPQuaternion quaternion = FPQuaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
+		DGQuaternion quaternion = DGQuaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
 		DGMatrix4x4 r = CreateFromQuaternion(quaternion);
 		return r;
 	}
 
 	// Axes must be pair-wise perpendicular and have unit length.
-	public static DGMatrix4x4 CreateFromCartesianAxes(FPVector3 right, FPVector3 up, FPVector3 backward)
+	public static DGMatrix4x4 CreateFromCartesianAxes(DGVector3 right, DGVector3 up, DGVector3 backward)
 	{
 		DGMatrix4x4 r = new DGMatrix4x4(false);
 		r.SM11 = right.x;
 		r.SM12 = right.y;
 		r.SM13 = right.z;
-		r.SM14 = (FP) 0;
+		r.SM14 = (DGFixedPoint) 0;
 		r.SM21 = up.x;
 		r.SM22 = up.y;
 		r.SM23 = up.z;
-		r.SM24 = (FP) 0;
+		r.SM24 = (DGFixedPoint) 0;
 		r.SM31 = backward.x;
 		r.SM32 = backward.y;
 		r.SM33 = backward.z;
-		r.SM34 = (FP) 0;
-		r.SM41 = (FP) 0;
-		r.SM42 = (FP) 0;
-		r.SM43 = (FP) 0;
-		r.SM44 = (FP) 1;
+		r.SM34 = (DGFixedPoint) 0;
+		r.SM41 = (DGFixedPoint) 0;
+		r.SM42 = (DGFixedPoint) 0;
+		r.SM43 = (DGFixedPoint) 0;
+		r.SM44 = (DGFixedPoint) 1;
 		return r;
 	}
 
@@ -1038,12 +1032,12 @@ public partial struct DGMatrix4x4
 	/// <param name="zNearPlane">Minimum Z-value of the view volume.</param>
 	/// <param name="zFarPlane">Maximum Z-value of the view volume.</param>
 	/// <returns>The orthographic projection matrix.</returns>
-	public static DGMatrix4x4 CreateOrthographic(FP width, FP height, FP zNearPlane, FP zFarPlane)
+	public static DGMatrix4x4 CreateOrthographic(DGFixedPoint width, DGFixedPoint height, DGFixedPoint zNearPlane, DGFixedPoint zFarPlane)
 	{
-		var left = -width / (FP) 2;
-		var right = width / (FP) 2;
-		var bottom = -height / (FP) 2;
-		var top = height / (FP) 2;
+		var left = -width / (DGFixedPoint) 2;
+		var right = width / (DGFixedPoint) 2;
+		var bottom = -height / (DGFixedPoint) 2;
+		var top = height / (DGFixedPoint) 2;
 
 		return CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane);
 	}
@@ -1058,33 +1052,33 @@ public partial struct DGMatrix4x4
 	/// <param name="zNear">Near plane of the projection.</param>
 	/// <param name="zFar">Far plane of the projection.</param>
 	/// <param name="projection">The resulting orthographic projection matrix.</param>
-	public static DGMatrix4x4 CreateOrthographicOffCenter(FP left, FP right, FP bottom, FP top, FP zNear, FP zFar)
+	public static DGMatrix4x4 CreateOrthographicOffCenter(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top, DGFixedPoint zNear, DGFixedPoint zFar)
 	{
 		DGMatrix4x4 projection = new DGMatrix4x4(false);
-		var xOrth = (FP) 2 / (right - left);
-		var yOrth = (FP) 2 / (top - bottom);
-		var zOrth = (FP) (-2) / (zFar - zNear);
+		var xOrth = (DGFixedPoint) 2 / (right - left);
+		var yOrth = (DGFixedPoint) 2 / (top - bottom);
+		var zOrth = (DGFixedPoint) (-2) / (zFar - zNear);
 
 		var tx = -(right + left) / (right - left);
 		var ty = -(top + bottom) / (top - bottom);
 		var tz = -(zFar + zNear) / (zFar - zNear);
 
 		projection.SM11 = xOrth;
-		projection.SM21 = (FP) 0;
-		projection.SM31 = (FP) 0;
-		projection.SM41 = (FP) 0;
-		projection.SM12 = (FP) 0;
+		projection.SM21 = (DGFixedPoint) 0;
+		projection.SM31 = (DGFixedPoint) 0;
+		projection.SM41 = (DGFixedPoint) 0;
+		projection.SM12 = (DGFixedPoint) 0;
 		projection.SM22 = yOrth;
-		projection.SM32 = (FP) 0;
-		projection.SM42 = (FP) 0;
-		projection.SM13 = (FP) 0;
-		projection.SM23 = (FP) 0;
+		projection.SM32 = (DGFixedPoint) 0;
+		projection.SM42 = (DGFixedPoint) 0;
+		projection.SM13 = (DGFixedPoint) 0;
+		projection.SM23 = (DGFixedPoint) 0;
 		projection.SM33 = zOrth;
-		projection.SM43 = (FP) 0;
+		projection.SM43 = (DGFixedPoint) 0;
 		projection.SM14 = tx;
 		projection.SM24 = ty;
 		projection.SM34 = tz;
-		projection.SM44 = (FP) 1;
+		projection.SM44 = (DGFixedPoint) 1;
 		return projection;
 	}
 
@@ -1096,12 +1090,12 @@ public partial struct DGMatrix4x4
 	/// <param name="nearPlaneDistance">Distance to the near view plane.</param>
 	/// <param name="farPlaneDistance">Distance to the far view plane.</param>
 	/// <returns>The perspective projection matrix.</returns>
-	public static DGMatrix4x4 CreatePerspective(FP width, FP height, FP nearPlaneDistance, FP farPlaneDistance)
+	public static DGMatrix4x4 CreatePerspective(DGFixedPoint width, DGFixedPoint height, DGFixedPoint nearPlaneDistance, DGFixedPoint farPlaneDistance)
 	{
-		var left = -width / (FP) 2;
-		var right = width / (FP) 2;
-		var bottom = -height / (FP) 2;
-		var top = height / (FP) 2;
+		var left = -width / (DGFixedPoint) 2;
+		var right = width / (DGFixedPoint) 2;
+		var bottom = -height / (DGFixedPoint) 2;
+		var top = height / (DGFixedPoint) 2;
 		return CreatePerspectiveOffCenter(left, right, bottom, top, nearPlaneDistance, farPlaneDistance);
 	}
 
@@ -1113,29 +1107,29 @@ public partial struct DGMatrix4x4
 	/// <param name="nearClip">Near clip plane of the perspective.</param>
 	/// <param name="farClip">Far clip plane of the perspective.</param>
 	/// <param name="perspective">Resulting perspective matrix.</param>
-	public static DGMatrix4x4 CreatePerspectiveFieldOfView(FP fieldOfView, FP aspectRatio, FP nearClip, FP farClip)
+	public static DGMatrix4x4 CreatePerspectiveFieldOfView(DGFixedPoint fieldOfView, DGFixedPoint aspectRatio, DGFixedPoint nearClip, DGFixedPoint farClip)
 	{
 		DGMatrix4x4 perspective = new DGMatrix4x4(false);
 		perspective.SetIdentity();
-		var fd = (FP) 1.0 / DGMath.Tan(fieldOfView / (FP) 2.0);
+		var fd = (DGFixedPoint) 1.0 / DGMath.Tan(fieldOfView / (DGFixedPoint) 2.0);
 		var a1 = (farClip + nearClip) / (nearClip - farClip);
-		var a2 = ((FP) 2 * farClip * nearClip) / (nearClip - farClip);
+		var a2 = ((DGFixedPoint) 2 * farClip * nearClip) / (nearClip - farClip);
 		perspective.SM11 = fd / aspectRatio;
-		perspective.SM21 = (FP) 0;
-		perspective.SM31 = (FP) 0;
-		perspective.SM41 = (FP) 0;
-		perspective.SM12 = (FP) 0;
+		perspective.SM21 = (DGFixedPoint) 0;
+		perspective.SM31 = (DGFixedPoint) 0;
+		perspective.SM41 = (DGFixedPoint) 0;
+		perspective.SM12 = (DGFixedPoint) 0;
 		perspective.SM22 = fd;
-		perspective.SM32 = (FP) 0;
-		perspective.SM42 = (FP) 0;
-		perspective.SM13 = (FP) 0;
-		perspective.SM23 = (FP) 0;
+		perspective.SM32 = (DGFixedPoint) 0;
+		perspective.SM42 = (DGFixedPoint) 0;
+		perspective.SM13 = (DGFixedPoint) 0;
+		perspective.SM23 = (DGFixedPoint) 0;
 		perspective.SM33 = a1;
-		perspective.SM43 = (FP) (-1);
-		perspective.SM14 = (FP) 0;
-		perspective.SM24 = (FP) 0;
+		perspective.SM43 = (DGFixedPoint) (-1);
+		perspective.SM14 = (DGFixedPoint) 0;
+		perspective.SM24 = (DGFixedPoint) 0;
 		perspective.SM34 = a2;
-		perspective.SM44 = (FP) 0;
+		perspective.SM44 = (DGFixedPoint) 0;
 		return perspective;
 	}
 
@@ -1149,42 +1143,42 @@ public partial struct DGMatrix4x4
 	/// <param name="nearPlaneDistance">Distance to the near view plane.</param>
 	/// <param name="farPlaneDistance">Distance to of the far view plane.</param>
 	/// <returns>The perspective projection matrix.</returns>
-	public static DGMatrix4x4 CreatePerspectiveOffCenter(FP left, FP right, FP bottom, FP top, FP nearPlaneDistance,
-		FP farPlaneDistance)
+	public static DGMatrix4x4 CreatePerspectiveOffCenter(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top, DGFixedPoint nearPlaneDistance,
+		DGFixedPoint farPlaneDistance)
 	{
-		if (nearPlaneDistance <= (FP) 0.0f)
+		if (nearPlaneDistance <= (DGFixedPoint) 0.0f)
 			throw new ArgumentOutOfRangeException("nearPlaneDistance");
 
-		if (farPlaneDistance <= (FP) 0.0f)
+		if (farPlaneDistance <= (DGFixedPoint) 0.0f)
 			throw new ArgumentOutOfRangeException("farPlaneDistance");
 
-		if (nearPlaneDistance >= (FP) farPlaneDistance)
+		if (nearPlaneDistance >= (DGFixedPoint) farPlaneDistance)
 			throw new ArgumentOutOfRangeException("nearPlaneDistance");
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
-		var x = (FP) 2.0f * nearPlaneDistance / (right - left);
-		var y = (FP) 2.0f * nearPlaneDistance / (top - bottom);
+		var x = (DGFixedPoint) 2.0f * nearPlaneDistance / (right - left);
+		var y = (DGFixedPoint) 2.0f * nearPlaneDistance / (top - bottom);
 		var a = (right + left) / (right - left);
 		var b = (top + bottom) / (top - bottom);
 		var a1 = (farPlaneDistance + nearPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-		var a2 = ((FP) 2 * farPlaneDistance * nearPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
+		var a2 = ((DGFixedPoint) 2 * farPlaneDistance * nearPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
 		result.SM11 = x;
-		result.SM21 = (FP) 0;
-		result.SM31 = (FP) 0;
-		result.SM41 = (FP) 0;
-		result.SM12 = (FP) 0;
+		result.SM21 = (DGFixedPoint) 0;
+		result.SM31 = (DGFixedPoint) 0;
+		result.SM41 = (DGFixedPoint) 0;
+		result.SM12 = (DGFixedPoint) 0;
 		result.SM22 = y;
-		result.SM32 = (FP) 0;
-		result.SM42 = (FP) 0;
+		result.SM32 = (DGFixedPoint) 0;
+		result.SM42 = (DGFixedPoint) 0;
 		result.SM13 = a;
 		result.SM23 = b;
 		result.SM33 = a1;
-		result.SM43 = (FP) (-1);
-		result.SM14 = (FP) 0;
-		result.SM24 = (FP) 0;
+		result.SM43 = (DGFixedPoint) (-1);
+		result.SM14 = (DGFixedPoint) 0;
+		result.SM24 = (DGFixedPoint) 0;
 		result.SM34 = a2;
-		result.SM44 = (FP) 0;
+		result.SM44 = (DGFixedPoint) 0;
 		return result;
 	}
 
@@ -1193,39 +1187,39 @@ public partial struct DGMatrix4x4
 	/// </summary>
 	/// <param name="value">The Plane about which to create a reflection.</param>
 	/// <returns>A new matrix expressing the reflection.</returns>
-	public static DGMatrix4x4 CreateReflection(FPPlane value)
+	public static DGMatrix4x4 CreateReflection(DGPlane value)
 	{
-		value = FPPlane.Normalize(value);
+		value = DGPlane.Normalize(value);
 
-		FP a = value.normal.x;
-		FP b = value.normal.y;
-		FP c = value.normal.z;
+		DGFixedPoint a = value.normal.x;
+		DGFixedPoint b = value.normal.y;
+		DGFixedPoint c = value.normal.z;
 
-		FP fa = (FP) (-2.0f) * a;
-		FP fb = (FP) (-2.0f) * b;
-		FP fc = (FP) (-2.0f) * c;
+		DGFixedPoint fa = (DGFixedPoint) (-2.0f) * a;
+		DGFixedPoint fb = (DGFixedPoint) (-2.0f) * b;
+		DGFixedPoint fc = (DGFixedPoint) (-2.0f) * c;
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
-		result.SM11 = fa * a + (FP) 1.0f;
+		result.SM11 = fa * a + (DGFixedPoint) 1.0f;
 		result.SM12 = fb * a;
 		result.SM13 = fc * a;
-		result.SM14 = (FP) 0.0f;
+		result.SM14 = (DGFixedPoint) 0.0f;
 
 		result.SM21 = fa * b;
-		result.SM22 = fb * b + (FP) 1.0f;
+		result.SM22 = fb * b + (DGFixedPoint) 1.0f;
 		result.SM23 = fc * b;
-		result.SM24 = (FP) 0.0f;
+		result.SM24 = (DGFixedPoint) 0.0f;
 
 		result.SM31 = fa * c;
 		result.SM32 = fb * c;
-		result.SM33 = fc * c + (FP) 1.0f;
-		result.SM34 = (FP) 0.0f;
+		result.SM33 = fc * c + (DGFixedPoint) 1.0f;
+		result.SM34 = (DGFixedPoint) 0.0f;
 
 		result.SM41 = fa * value.d;
 		result.SM42 = fb * value.d;
 		result.SM43 = fc * value.d;
-		result.SM44 = (FP) 1.0f;
+		result.SM44 = (DGFixedPoint) 1.0f;
 
 		return result;
 	}
@@ -1236,15 +1230,15 @@ public partial struct DGMatrix4x4
 	/// <param name="lightDirection">The direction from which the light that will cast the shadow is coming.</param>
 	/// <param name="plane">The Plane onto which the new matrix should flatten geometry so as to cast a shadow.</param>
 	/// <returns>A new Matrix that can be used to flatten geometry onto the specified plane from the specified direction.</returns>
-	public static DGMatrix4x4 CreateShadow(FPVector3 lightDirection, FPPlane plane)
+	public static DGMatrix4x4 CreateShadow(DGVector3 lightDirection, DGPlane plane)
 	{
-		FPPlane p = FPPlane.Normalize(plane);
+		DGPlane p = DGPlane.Normalize(plane);
 
-		FP dot = p.normal.x * lightDirection.x + p.normal.y * lightDirection.y + p.normal.z * lightDirection.z;
-		FP a = -p.normal.x;
-		FP b = -p.normal.y;
-		FP c = -p.normal.z;
-		FP d = -p.d;
+		DGFixedPoint dot = p.normal.x * lightDirection.x + p.normal.y * lightDirection.y + p.normal.z * lightDirection.z;
+		DGFixedPoint a = -p.normal.x;
+		DGFixedPoint b = -p.normal.y;
+		DGFixedPoint c = -p.normal.z;
+		DGFixedPoint d = -p.d;
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
@@ -1263,17 +1257,17 @@ public partial struct DGMatrix4x4
 		result.SM33 = c * lightDirection.z + dot;
 		result.SM43 = d * lightDirection.z;
 
-		result.SM14 = (FP) 0.0f;
-		result.SM24 = (FP) 0.0f;
-		result.SM34 = (FP) 0.0f;
+		result.SM14 = (DGFixedPoint) 0.0f;
+		result.SM24 = (DGFixedPoint) 0.0f;
+		result.SM34 = (DGFixedPoint) 0.0f;
 		result.SM44 = dot;
 
 		return result;
 	}
 
-	public static DGMatrix4x4 LookAt(FPVector3 position, FPVector3 target, FPVector3 upVector)
+	public static DGMatrix4x4 LookAt(DGVector3 position, DGVector3 target, DGVector3 upVector)
 	{
-		return TRS(position, FPQuaternion.LookRotation(target - position, upVector), FPVector3.one);
+		return TRS(position, DGQuaternion.LookRotation(target - position, upVector), DGVector3.one);
 	}
 
 	/// <summary>
@@ -1283,9 +1277,9 @@ public partial struct DGMatrix4x4
 	/// <param name="target">Target of the camera.</param>
 	/// <param name="upVector">Up vector of the camera.</param>
 	/// <param name="viewMatrix">Look at matrix.</param>
-	public static DGMatrix4x4 CreateLookAt(FPVector3 position, FPVector3 target, FPVector3 upVector)
+	public static DGMatrix4x4 CreateLookAt(DGVector3 position, DGVector3 target, DGVector3 upVector)
 	{
-		FPVector3 forward = target - position;
+		DGVector3 forward = target - position;
 		return CreateViewRH(position, forward, upVector);
 	}
 
@@ -1297,33 +1291,33 @@ public partial struct DGMatrix4x4
 	/// <param name="forward">Forward direction of the camera.</param>
 	/// <param name="upVector">Up vector of the camera.</param>
 	/// <param name="viewMatrix">Look at matrix.</param>
-	public static DGMatrix4x4 CreateViewRH(FPVector3 position, FPVector3 forward, FPVector3 upVector)
+	public static DGMatrix4x4 CreateViewRH(DGVector3 position, DGVector3 forward, DGVector3 upVector)
 	{
-		FP length = forward.magnitude;
-		FPVector3 z = forward / -length;
-		FPVector3 x = FPVector3.Cross(upVector, z);
+		DGFixedPoint length = forward.magnitude;
+		DGVector3 z = forward / -length;
+		DGVector3 x = DGVector3.Cross(upVector, z);
 		x.Normalize();
-		FPVector3 y = FPVector3.Cross(z, x);
+		DGVector3 y = DGVector3.Cross(z, x);
 		DGMatrix4x4 viewMatrix = new DGMatrix4x4(false);
 		viewMatrix.SM11 = x.x;
 		viewMatrix.SM12 = y.x;
 		viewMatrix.SM13 = z.x;
-		viewMatrix.SM14 = (FP) 0;
+		viewMatrix.SM14 = (DGFixedPoint) 0;
 		viewMatrix.SM21 = x.y;
 		viewMatrix.SM22 = y.y;
 		viewMatrix.SM23 = z.y;
-		viewMatrix.SM24 = (FP) 0;
+		viewMatrix.SM24 = (DGFixedPoint) 0;
 		viewMatrix.SM31 = x.z;
 		viewMatrix.SM32 = y.z;
 		viewMatrix.SM33 = z.z;
-		viewMatrix.SM34 = (FP) 0;
-		viewMatrix.SM41 = FPVector3.Dot(x, position);
-		viewMatrix.SM42 = FPVector3.Dot(y, position);
-		viewMatrix.SM43 = FPVector3.Dot(z, position);
+		viewMatrix.SM34 = (DGFixedPoint) 0;
+		viewMatrix.SM41 = DGVector3.Dot(x, position);
+		viewMatrix.SM42 = DGVector3.Dot(y, position);
+		viewMatrix.SM43 = DGVector3.Dot(z, position);
 		viewMatrix.SM41 = -viewMatrix.SM41;
 		viewMatrix.SM42 = -viewMatrix.SM42;
 		viewMatrix.SM43 = -viewMatrix.SM43;
-		viewMatrix.SM44 = (FP) 1;
+		viewMatrix.SM44 = (DGFixedPoint) 1;
 		return viewMatrix;
 	}
 
@@ -1335,33 +1329,33 @@ public partial struct DGMatrix4x4
 	/// <param name="forward">Forward direction of the transformation.</param>
 	/// <param name="upVector">Up vector which is crossed against the forward vector to compute the transform's basis.</param>
 	/// <param name="worldMatrix">World matrix.</param>
-	public static DGMatrix4x4 CreateWorld(FPVector3 position, FPVector3 forward, FPVector3 upVector)
+	public static DGMatrix4x4 CreateWorld(DGVector3 position, DGVector3 forward, DGVector3 upVector)
 	{
 		DGMatrix4x4 worldMatrix = new DGMatrix4x4(false);
 
-		FP length = forward.magnitude;
-		FPVector3 z = forward / -length;
-		FPVector3 x = FPVector3.Cross(upVector, z);
+		DGFixedPoint length = forward.magnitude;
+		DGVector3 z = forward / -length;
+		DGVector3 x = DGVector3.Cross(upVector, z);
 		x.Normalize();
-		FPVector3 y = FPVector3.Cross(z, x);
+		DGVector3 y = DGVector3.Cross(z, x);
 
 		worldMatrix.SM11 = x.x;
 		worldMatrix.SM12 = x.y;
 		worldMatrix.SM13 = x.z;
-		worldMatrix.SM14 = (FP) 0;
+		worldMatrix.SM14 = (DGFixedPoint) 0;
 		worldMatrix.SM21 = y.x;
 		worldMatrix.SM22 = y.y;
 		worldMatrix.SM23 = y.z;
-		worldMatrix.SM24 = (FP) 0;
+		worldMatrix.SM24 = (DGFixedPoint) 0;
 		worldMatrix.SM31 = z.x;
 		worldMatrix.SM32 = z.y;
 		worldMatrix.SM33 = z.z;
-		worldMatrix.SM34 = (FP) 0;
+		worldMatrix.SM34 = (DGFixedPoint) 0;
 
 		worldMatrix.SM41 = position.x;
 		worldMatrix.SM42 = position.y;
 		worldMatrix.SM43 = position.z;
-		worldMatrix.SM44 = (FP) 1;
+		worldMatrix.SM44 = (DGFixedPoint) 1;
 
 		return worldMatrix;
 	}
@@ -1372,13 +1366,13 @@ public partial struct DGMatrix4x4
 	/// </summary>
 	/// <param name="translation">Translation to be represented by the matrix.</param>
 	/// <param name="translationMatrix">Matrix representing the given translation.</param>
-	public static DGMatrix4x4 CreateTranslation(FPVector3 translation)
+	public static DGMatrix4x4 CreateTranslation(DGVector3 translation)
 	{
 		DGMatrix4x4 translationMatrix = new DGMatrix4x4(false);
-		translationMatrix.SM11 = (FP) 1;
-		translationMatrix.SM22 = (FP) 1;
-		translationMatrix.SM33 = (FP) 1;
-		translationMatrix.SM44 = (FP) 1;
+		translationMatrix.SM11 = (DGFixedPoint) 1;
+		translationMatrix.SM22 = (DGFixedPoint) 1;
+		translationMatrix.SM33 = (DGFixedPoint) 1;
+		translationMatrix.SM44 = (DGFixedPoint) 1;
 		translationMatrix.SM14 = translation.x;
 		translationMatrix.SM24 = translation.y;
 		translationMatrix.SM34 = translation.z;
@@ -1392,13 +1386,13 @@ public partial struct DGMatrix4x4
 	/// </summary>
 	/// <param name="scale">Scale to be represented by the matrix.</param>
 	/// <param name="scaleMatrix">Matrix representing the given scale.</param>
-	public static DGMatrix4x4 CreateScale(FPVector3 scale)
+	public static DGMatrix4x4 CreateScale(DGVector3 scale)
 	{
 		DGMatrix4x4 scaleMatrix = new DGMatrix4x4(false);
 		scaleMatrix.SM11 = scale.x;
 		scaleMatrix.SM22 = scale.y;
 		scaleMatrix.SM33 = scale.z;
-		scaleMatrix.SM44 = (FP) 1;
+		scaleMatrix.SM44 = (DGFixedPoint) 1;
 		return scaleMatrix;
 	}
 
@@ -1409,79 +1403,79 @@ public partial struct DGMatrix4x4
 	/// <param name="y">Scale along the y axis.</param>
 	/// <param name="z">Scale along the z axis.</param>
 	/// <param name="scaleMatrix">Matrix representing the given scale.</param>
-	public static DGMatrix4x4 CreateScale(FP x, FP y, FP z)
+	public static DGMatrix4x4 CreateScale(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
 		DGMatrix4x4 scaleMatrix = new DGMatrix4x4(false);
 		scaleMatrix.SM11 = x;
 		scaleMatrix.SM22 = y;
 		scaleMatrix.SM33 = z;
-		scaleMatrix.SM44 = (FP)1;
+		scaleMatrix.SM44 = (DGFixedPoint)1;
 		return scaleMatrix;
 	}
 
-	public static DGMatrix4x4 Scale(FPVector3 scale)
+	public static DGMatrix4x4 Scale(DGVector3 scale)
 	{
 		return CreateScale(scale);
 	}
 
-	public static DGMatrix4x4 Translate(FPVector3 vector)
+	public static DGMatrix4x4 Translate(DGVector3 vector)
 	{
 		DGMatrix4x4 m = new DGMatrix4x4(false);
-		m.SM11 = (FP) 1F;
-		m.SM12 = (FP) 0F;
-		m.SM13 = (FP) 0F;
-		m.SM14 = (FP) vector.x;
-		m.SM21 = (FP) 0F;
-		m.SM22 = (FP) 1F;
-		m.SM23 = (FP) 0F;
-		m.SM24 = (FP) vector.y;
-		m.SM31 = (FP) 0F;
-		m.SM32 = (FP) 0F;
-		m.SM33 = (FP) 1F;
-		m.SM34 = (FP) vector.z;
-		m.SM41 = (FP) 0F;
-		m.SM42 = (FP) 0F;
-		m.SM43 = (FP) 0F;
-		m.SM44 = (FP) 1F;
+		m.SM11 = (DGFixedPoint) 1F;
+		m.SM12 = (DGFixedPoint) 0F;
+		m.SM13 = (DGFixedPoint) 0F;
+		m.SM14 = (DGFixedPoint) vector.x;
+		m.SM21 = (DGFixedPoint) 0F;
+		m.SM22 = (DGFixedPoint) 1F;
+		m.SM23 = (DGFixedPoint) 0F;
+		m.SM24 = (DGFixedPoint) vector.y;
+		m.SM31 = (DGFixedPoint) 0F;
+		m.SM32 = (DGFixedPoint) 0F;
+		m.SM33 = (DGFixedPoint) 1F;
+		m.SM34 = (DGFixedPoint) vector.z;
+		m.SM41 = (DGFixedPoint) 0F;
+		m.SM42 = (DGFixedPoint) 0F;
+		m.SM43 = (DGFixedPoint) 0F;
+		m.SM44 = (DGFixedPoint) 1F;
 		return m;
 	}
 
 
 	// Creates a rotation matrix. Note: Assumes unit quaternion
-	public static DGMatrix4x4 Rotate(FPQuaternion q)
+	public static DGMatrix4x4 Rotate(DGQuaternion q)
 	{
 		// Precalculate coordinate products
-		FP x = q.x * (FP) 2.0F;
-		FP y = q.y * (FP) 2.0F;
-		FP z = q.z * (FP) 2.0F;
-		FP xx = q.x * x;
-		FP yy = q.y * y;
-		FP zz = q.z * z;
-		FP xy = q.x * y;
-		FP xz = q.x * z;
-		FP yz = q.y * z;
-		FP wx = q.w * x;
-		FP wy = q.w * y;
-		FP wz = q.w * z;
+		DGFixedPoint x = q.x * (DGFixedPoint) 2.0F;
+		DGFixedPoint y = q.y * (DGFixedPoint) 2.0F;
+		DGFixedPoint z = q.z * (DGFixedPoint) 2.0F;
+		DGFixedPoint xx = q.x * x;
+		DGFixedPoint yy = q.y * y;
+		DGFixedPoint zz = q.z * z;
+		DGFixedPoint xy = q.x * y;
+		DGFixedPoint xz = q.x * z;
+		DGFixedPoint yz = q.y * z;
+		DGFixedPoint wx = q.w * x;
+		DGFixedPoint wy = q.w * y;
+		DGFixedPoint wz = q.w * z;
 
 		// Calculate 3x3 matrix from orthonormal basis
 		DGMatrix4x4 m = new DGMatrix4x4(false);
-		m.SM11 = (FP) 1.0f - (yy + zz);
+		m.SM11 = (DGFixedPoint) 1.0f - (yy + zz);
 		m.SM21 = xy + wz;
 		m.SM31 = xz - wy;
-		m.SM41 = (FP) 0.0F;
+		m.SM41 = (DGFixedPoint) 0.0F;
 		m.SM12 = xy - wz;
-		m.SM22 = (FP) 1.0f - (xx + zz);
+		m.SM22 = (DGFixedPoint) 1.0f - (xx + zz);
 		m.SM32 = yz + wx;
-		m.SM42 = (FP) 0.0F;
+		m.SM42 = (DGFixedPoint) 0.0F;
 		m.SM13 = xz + wy;
 		m.SM23 = yz - wx;
-		m.SM33 = (FP) 1.0f - (xx + yy);
-		m.SM43 = (FP) 0.0F;
-		m.SM14 = (FP) 0.0F;
-		m.SM24 = (FP) 0.0F;
-		m.SM34 = (FP) 0.0F;
-		m.SM44 = (FP) 1.0F;
+		m.SM33 = (DGFixedPoint) 1.0f - (xx + yy);
+		m.SM43 = (DGFixedPoint) 0.0F;
+		m.SM14 = (DGFixedPoint) 0.0F;
+		m.SM24 = (DGFixedPoint) 0.0F;
+		m.SM34 = (DGFixedPoint) 0.0F;
+		m.SM44 = (DGFixedPoint) 1.0F;
 		return m;
 	}
 
@@ -1496,44 +1490,44 @@ public partial struct DGMatrix4x4
 	/// <param name="cameraUpVector">The up vector of the camera.</param>
 	/// <param name="cameraForwardVector">The forward vector of the camera.</param>
 	/// <returns>The created billboard matrix</returns>
-	public static DGMatrix4x4 CreateBillboard(FPVector3 objectPosition, FPVector3 cameraPosition,
-		FPVector3 cameraUpVector, FPVector3 cameraForwardVector)
+	public static DGMatrix4x4 CreateBillboard(DGVector3 objectPosition, DGVector3 cameraPosition,
+		DGVector3 cameraUpVector, DGVector3 cameraForwardVector)
 	{
-		FPVector3 zaxis = new FPVector3(
+		DGVector3 zaxis = new DGVector3(
 			objectPosition.x - cameraPosition.x,
 			objectPosition.y - cameraPosition.y,
 			objectPosition.z - cameraPosition.z);
 
-		FP norm = zaxis.sqrMagnitude;
+		DGFixedPoint norm = zaxis.sqrMagnitude;
 
 		if (norm < DGMath.Epsilon)
 			zaxis = -cameraForwardVector;
 		else
-			zaxis = zaxis * (FP) 1.0f / DGMath.Sqrt(norm);
+			zaxis = zaxis * (DGFixedPoint) 1.0f / DGMath.Sqrt(norm);
 
-		FPVector3 xaxis = FPVector3.Normalize(FPVector3.Cross(cameraUpVector, zaxis));
+		DGVector3 xaxis = DGVector3.Normalize(DGVector3.Cross(cameraUpVector, zaxis));
 
-		FPVector3 yaxis = FPVector3.Cross(zaxis, xaxis);
+		DGVector3 yaxis = DGVector3.Cross(zaxis, xaxis);
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
 
 		result.SM11 = xaxis.x;
 		result.SM12 = xaxis.y;
 		result.SM13 = xaxis.z;
-		result.SM14 = (FP) 0.0f;
+		result.SM14 = (DGFixedPoint) 0.0f;
 		result.SM21 = yaxis.x;
 		result.SM22 = yaxis.y;
 		result.SM23 = yaxis.z;
-		result.SM24 = (FP) 0.0f;
+		result.SM24 = (DGFixedPoint) 0.0f;
 		result.SM31 = zaxis.x;
 		result.SM32 = zaxis.y;
 		result.SM33 = zaxis.z;
-		result.SM34 = (FP) 0.0f;
+		result.SM34 = (DGFixedPoint) 0.0f;
 
 		result.SM41 = objectPosition.x;
 		result.SM42 = objectPosition.y;
 		result.SM43 = objectPosition.z;
-		result.SM44 = (FP) 1.0f;
+		result.SM44 = (DGFixedPoint) 1.0f;
 
 		return result;
 	}
@@ -1547,50 +1541,50 @@ public partial struct DGMatrix4x4
 	/// <param name="cameraForwardVector">Forward vector of the camera.</param>
 	/// <param name="objectForwardVector">Forward vector of the object.</param>
 	/// <returns>The created billboard matrix.</returns>
-	public static DGMatrix4x4 CreateConstrainedBillboard(FPVector3 objectPosition, FPVector3 cameraPosition,
-		FPVector3 rotateAxis, FPVector3 cameraForwardVector, FPVector3 objectForwardVector)
+	public static DGMatrix4x4 CreateConstrainedBillboard(DGVector3 objectPosition, DGVector3 cameraPosition,
+		DGVector3 rotateAxis, DGVector3 cameraForwardVector, DGVector3 objectForwardVector)
 	{
-		FP minAngle = (FP) 1.0f - ((FP) 0.1f * (DGMath.PI / (FP) 180.0f)); // 0.1 degrees
+		DGFixedPoint minAngle = (DGFixedPoint) 1.0f - ((DGFixedPoint) 0.1f * (DGMath.PI / (DGFixedPoint) 180.0f)); // 0.1 degrees
 
 		// Treat the case when object and camera positions are too close.
-		FPVector3 faceDir = new FPVector3(
+		DGVector3 faceDir = new DGVector3(
 			objectPosition.x - cameraPosition.x,
 			objectPosition.y - cameraPosition.y,
 			objectPosition.z - cameraPosition.z);
 
-		FP norm = faceDir.sqrMagnitude;
+		DGFixedPoint norm = faceDir.sqrMagnitude;
 
 		if (norm < DGMath.Epsilon)
 			faceDir = -cameraForwardVector;
 		else
-			faceDir = faceDir * ((FP) 1.0f / DGMath.Sqrt(norm));
+			faceDir = faceDir * ((DGFixedPoint) 1.0f / DGMath.Sqrt(norm));
 
-		FPVector3 yaxis = rotateAxis;
-		FPVector3 xaxis;
-		FPVector3 zaxis;
+		DGVector3 yaxis = rotateAxis;
+		DGVector3 xaxis;
+		DGVector3 zaxis;
 
 		// Treat the case when angle between faceDir and rotateAxis is too close to 0.
-		FP dot = FPVector3.Dot(rotateAxis, faceDir);
+		DGFixedPoint dot = DGVector3.Dot(rotateAxis, faceDir);
 
 		if (DGMath.Abs(dot) > minAngle)
 		{
 			zaxis = objectForwardVector;
 
 			// Make sure passed values are useful for compute.
-			dot = FPVector3.Dot(rotateAxis, zaxis);
+			dot = DGVector3.Dot(rotateAxis, zaxis);
 
 			if (DGMath.Abs(dot) > minAngle)
 			{
-				zaxis = (DGMath.Abs(rotateAxis.z) > minAngle) ? new FPVector3(1, 0, 0) : new FPVector3(0, 0, -1);
+				zaxis = (DGMath.Abs(rotateAxis.z) > minAngle) ? new DGVector3(1, 0, 0) : new DGVector3(0, 0, -1);
 			}
 
-			xaxis = FPVector3.Normalize(FPVector3.Cross(rotateAxis, zaxis));
-			zaxis = FPVector3.Normalize(FPVector3.Cross(xaxis, rotateAxis));
+			xaxis = DGVector3.Normalize(DGVector3.Cross(rotateAxis, zaxis));
+			zaxis = DGVector3.Normalize(DGVector3.Cross(xaxis, rotateAxis));
 		}
 		else
 		{
-			xaxis = FPVector3.Normalize(FPVector3.Cross(rotateAxis, faceDir));
-			zaxis = FPVector3.Normalize(FPVector3.Cross(xaxis, yaxis));
+			xaxis = DGVector3.Normalize(DGVector3.Cross(rotateAxis, faceDir));
+			zaxis = DGVector3.Normalize(DGVector3.Cross(xaxis, yaxis));
 		}
 
 		DGMatrix4x4 result = new DGMatrix4x4(false);
@@ -1598,35 +1592,35 @@ public partial struct DGMatrix4x4
 		result.SM11 = xaxis.x;
 		result.SM12 = xaxis.y;
 		result.SM13 = xaxis.z;
-		result.SM14 = (FP) 0.0f;
+		result.SM14 = (DGFixedPoint) 0.0f;
 		result.SM21 = yaxis.x;
 		result.SM22 = yaxis.y;
 		result.SM23 = yaxis.z;
-		result.SM24 = (FP) 0.0f;
+		result.SM24 = (DGFixedPoint) 0.0f;
 		result.SM31 = zaxis.x;
 		result.SM32 = zaxis.y;
 		result.SM33 = zaxis.z;
-		result.SM34 = (FP) 0.0f;
+		result.SM34 = (DGFixedPoint) 0.0f;
 
 		result.SM41 = objectPosition.x;
 		result.SM42 = objectPosition.y;
 		result.SM43 = objectPosition.z;
-		result.SM44 = (FP) 1.0f;
+		result.SM44 = (DGFixedPoint) 1.0f;
 
 		return result;
 	}
 
 	// Transforms a position by this matrix, with a perspective divide. (generic)
-	public FPVector3 MultiplyPoint(FPVector3 point)
+	public DGVector3 MultiplyPoint(DGVector3 point)
 	{
-		FPVector3 res;
-		FP w;
+		DGVector3 res;
+		DGFixedPoint w;
 		res.x = this.SM11 * point.x + this.SM12 * point.y + this.SM13 * point.z + this.SM14;
 		res.y = this.SM21 * point.x + this.SM22 * point.y + this.SM23 * point.z + this.SM24;
 		res.z = this.SM31 * point.x + this.SM32 * point.y + this.SM33 * point.z + this.SM34;
 		w = this.SM41 * point.x + this.SM42 * point.y + this.SM43 * point.z + this.SM44;
 
-		w = (FP) 1F / w;
+		w = (DGFixedPoint) 1F / w;
 		res.x *= w;
 		res.y *= w;
 		res.z *= w;
@@ -1637,15 +1631,15 @@ public partial struct DGMatrix4x4
 	/// Computes the determinant of the matrix.
 	/// </summary>
 	/// <returns></returns>
-	public FP Determinant()
+	public DGFixedPoint Determinant()
 	{
 		//Compute the re-used 2x2 determinants.
-		FP det1 = SM33 * SM44 - SM34 * SM43;
-		FP det2 = SM32 * SM44 - SM34 * SM42;
-		FP det3 = SM32 * SM43 - SM33 * SM42;
-		FP det4 = SM31 * SM44 - SM34 * SM41;
-		FP det5 = SM31 * SM43 - SM33 * SM41;
-		FP det6 = SM31 * SM42 - SM32 * SM41;
+		DGFixedPoint det1 = SM33 * SM44 - SM34 * SM43;
+		DGFixedPoint det2 = SM32 * SM44 - SM34 * SM42;
+		DGFixedPoint det3 = SM32 * SM43 - SM33 * SM42;
+		DGFixedPoint det4 = SM31 * SM44 - SM34 * SM41;
+		DGFixedPoint det5 = SM31 * SM43 - SM33 * SM41;
+		DGFixedPoint det6 = SM31 * SM42 - SM32 * SM41;
 		return
 			(SM11 * ((SM22 * det1 - SM23 * det2) + SM24 * det3)) -
 			(SM12 * ((SM21 * det1 - SM23 * det4) + SM24 * det5)) +
@@ -1658,7 +1652,7 @@ public partial struct DGMatrix4x4
 	/// </summary>
 	public void Transpose()
 	{
-		FP intermediate = SM12;
+		DGFixedPoint intermediate = SM12;
 		SM12 = SM21;
 		SM21 = intermediate;
 
@@ -1685,9 +1679,9 @@ public partial struct DGMatrix4x4
 
 
 	// Transforms a position by this matrix, without a perspective divide. (fast)
-	public FPVector3 MultiplyPoint3x4(FPVector3 point)
+	public DGVector3 MultiplyPoint3x4(DGVector3 point)
 	{
-		FPVector3 res = default;
+		DGVector3 res = default;
 		res.x = this.SM11 * point.x + this.SM12 * point.y + this.SM13 * point.z + this.SM14;
 		res.y = this.SM21 * point.x + this.SM22 * point.y + this.SM23 * point.z + this.SM24;
 		res.z = this.SM31 * point.x + this.SM32 * point.y + this.SM33 * point.z + this.SM34;
@@ -1697,9 +1691,9 @@ public partial struct DGMatrix4x4
 	}
 
 	// Transforms a direction by this matrix.
-	public FPVector3 MultiplyVector(FPVector3 vector)
+	public DGVector3 MultiplyVector(DGVector3 vector)
 	{
-		FPVector3 res = default;
+		DGVector3 res = default;
 		res.x = this.SM11 * vector.x + this.SM12 * vector.y + this.SM13 * vector.z;
 		res.y = this.SM21 * vector.x + this.SM22 * vector.y + this.SM23 * vector.z;
 		res.z = this.SM31 * vector.x + this.SM32 * vector.y + this.SM33 * vector.z;

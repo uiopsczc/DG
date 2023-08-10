@@ -10,68 +10,65 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
-using FPRectangle = DGRectangle;
 
 public class DGPolyline : IDGShape2D
 {
-	private FP[] localVertices;
-	private FP[] worldVertices;
-	private FP x, y;
-	private FP originX, originY;
-	private FP rotation;
-	private FP scaleX = (FP) 1, scaleY = (FP) 1;
-	private FP length;
-	private FP scaledLength;
+	private DGFixedPoint[] localVertices;
+	private DGFixedPoint[] worldVertices;
+	private DGFixedPoint x, y;
+	private DGFixedPoint originX, originY;
+	private DGFixedPoint rotation;
+	private DGFixedPoint scaleX = (DGFixedPoint) 1, scaleY = (DGFixedPoint) 1;
+	private DGFixedPoint length;
+	private DGFixedPoint scaledLength;
 	private bool _calculateScaledLength = true;
 	private bool _calculateLength = true;
 	private bool _dirty = true;
-	private FPRectangle bounds;
+	private DGRectangle bounds;
 
 	public DGPolyline()
 	{
-		this.localVertices = new FP[0];
+		this.localVertices = new DGFixedPoint[0];
 	}
 
-	public DGPolyline(FP[] vertices)
+	public DGPolyline(DGFixedPoint[] vertices)
 	{
 		if (vertices.Length < 4) throw new Exception("polylines must contain at least 2 points.");
 		this.localVertices = vertices;
 	}
 
 /** Returns vertices without scaling or rotation and without being offset by the polyline position. */
-	public FP[] getVertices()
+	public DGFixedPoint[] getVertices()
 	{
 		return localVertices;
 	}
 
 /** Returns vertices scaled, rotated, and offset by the polygon position. */
-	public FP[] getTransformedVertices()
+	public DGFixedPoint[] getTransformedVertices()
 	{
 		if (!_dirty) return this.worldVertices;
 		_dirty = false;
 
-		FP[] localVertices = this.localVertices;
+		DGFixedPoint[] localVertices = this.localVertices;
 		if (this.worldVertices == null || this.worldVertices.Length < localVertices.Length)
-			this.worldVertices = new FP[localVertices.Length];
+			this.worldVertices = new DGFixedPoint[localVertices.Length];
 
-		FP[] worldVertices = this.worldVertices;
-		FP positionX = x;
-		FP positionY = y;
-		FP originX = this.originX;
-		FP originY = this.originY;
-		FP scaleX = this.scaleX;
-		FP scaleY = this.scaleY;
-		bool scale = scaleX != (FP) 1 || scaleY != (FP) 1;
-		FP rotation = this.rotation;
-		FP cos = DGMath.CosDeg(rotation);
-		FP sin = DGMath.SinDeg(rotation);
+		DGFixedPoint[] worldVertices = this.worldVertices;
+		DGFixedPoint positionX = x;
+		DGFixedPoint positionY = y;
+		DGFixedPoint originX = this.originX;
+		DGFixedPoint originY = this.originY;
+		DGFixedPoint scaleX = this.scaleX;
+		DGFixedPoint scaleY = this.scaleY;
+		bool scale = scaleX != (DGFixedPoint) 1 || scaleY != (DGFixedPoint) 1;
+		DGFixedPoint rotation = this.rotation;
+		DGFixedPoint cos = DGMath.CosDeg(rotation);
+		DGFixedPoint sin = DGMath.SinDeg(rotation);
 
 		for (int i = 0, n = localVertices.Length; i < n; i += 2)
 		{
-			FP x = localVertices[i] - originX;
-			FP y = localVertices[i + 1] - originY;
+			DGFixedPoint x = localVertices[i] - originX;
+			DGFixedPoint y = localVertices[i + 1] - originY;
 
 			// scale if needed
 			if (scale)
@@ -81,9 +78,9 @@ public class DGPolyline : IDGShape2D
 			}
 
 			// rotate if needed
-			if (rotation != (FP) 0)
+			if (rotation != (DGFixedPoint) 0)
 			{
-				FP oldX = x;
+				DGFixedPoint oldX = x;
 				x = cos * x - sin * y;
 				y = sin * oldX + cos * y;
 			}
@@ -96,16 +93,16 @@ public class DGPolyline : IDGShape2D
 	}
 
 /** Returns the euclidean length of the polyline without scaling */
-	public FP getLength()
+	public DGFixedPoint getLength()
 	{
 		if (!_calculateLength) return length;
 		_calculateLength = false;
 
-		length = (FP) 0;
+		length = (DGFixedPoint) 0;
 		for (int i = 0, n = localVertices.Length - 2; i < n; i += 2)
 		{
-			FP x = localVertices[i + 2] - localVertices[i];
-			FP y = localVertices[i + 1] - localVertices[i + 3];
+			DGFixedPoint x = localVertices[i + 2] - localVertices[i];
+			DGFixedPoint y = localVertices[i + 1] - localVertices[i + 3];
 			length += DGMath.Sqrt(x * x + y * y);
 		}
 
@@ -113,91 +110,91 @@ public class DGPolyline : IDGShape2D
 	}
 
 /** Returns the euclidean length of the polyline */
-	public FP getScaledLength()
+	public DGFixedPoint getScaledLength()
 	{
 		if (!_calculateScaledLength) return scaledLength;
 		_calculateScaledLength = false;
 
-		scaledLength = (FP) 0;
+		scaledLength = (DGFixedPoint) 0;
 		for (int i = 0, n = localVertices.Length - 2; i < n; i += 2)
 		{
-			FP x = localVertices[i + 2] * scaleX - localVertices[i] * scaleX;
-			FP y = localVertices[i + 1] * scaleY - localVertices[i + 3] * scaleY;
+			DGFixedPoint x = localVertices[i + 2] * scaleX - localVertices[i] * scaleX;
+			DGFixedPoint y = localVertices[i + 1] * scaleY - localVertices[i + 3] * scaleY;
 			scaledLength += DGMath.Sqrt(x * x + y * y);
 		}
 
 		return scaledLength;
 	}
 
-	public FP getX()
+	public DGFixedPoint getX()
 	{
 		return x;
 	}
 
-	public FP getY()
+	public DGFixedPoint getY()
 	{
 		return y;
 	}
 
-	public FP getOriginX()
+	public DGFixedPoint getOriginX()
 	{
 		return originX;
 	}
 
-	public FP getOriginY()
+	public DGFixedPoint getOriginY()
 	{
 		return originY;
 	}
 
-	public FP getRotation()
+	public DGFixedPoint getRotation()
 	{
 		return rotation;
 	}
 
-	public FP getScaleX()
+	public DGFixedPoint getScaleX()
 	{
 		return scaleX;
 	}
 
-	public FP getScaleY()
+	public DGFixedPoint getScaleY()
 	{
 		return scaleY;
 	}
 
-	public void setOrigin(FP originX, FP originY)
+	public void setOrigin(DGFixedPoint originX, DGFixedPoint originY)
 	{
 		this.originX = originX;
 		this.originY = originY;
 		_dirty = true;
 	}
 
-	public void setPosition(FP x, FP y)
+	public void setPosition(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x = x;
 		this.y = y;
 		_dirty = true;
 	}
 
-	public void setVertices(FP[] vertices)
+	public void setVertices(DGFixedPoint[] vertices)
 	{
 		if (vertices.Length < 4) throw new Exception("polylines must contain at least 2 points.");
 		this.localVertices = vertices;
 		_dirty = true;
 	}
 
-	public void setRotation(FP degrees)
+	public void setRotation(DGFixedPoint degrees)
 	{
 		this.rotation = degrees;
 		_dirty = true;
 	}
 
-	public void rotate(FP degrees)
+	public void rotate(DGFixedPoint degrees)
 	{
 		rotation += degrees;
 		_dirty = true;
 	}
 
-	public void setScale(FP scaleX, FP scaleY)
+	public void setScale(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
@@ -205,7 +202,7 @@ public class DGPolyline : IDGShape2D
 		_calculateScaledLength = true;
 	}
 
-	public void scale(FP amount)
+	public void scale(DGFixedPoint amount)
 	{
 		this.scaleX += amount;
 		this.scaleY += amount;
@@ -228,7 +225,7 @@ public class DGPolyline : IDGShape2D
 		_dirty = true;
 	}
 
-	public void translate(FP x, FP y)
+	public void translate(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x += x;
 		this.y += y;
@@ -240,14 +237,14 @@ public class DGPolyline : IDGShape2D
  * Note the returned Rectangle is cached in this polyline, and will be reused if this Polyline is changed.
  *
  * @return this polyline's bounding box {@link Rectangle} */
-	public FPRectangle getBoundingRectangle()
+	public DGRectangle getBoundingRectangle()
 	{
-		FP[] vertices = getTransformedVertices();
+		DGFixedPoint[] vertices = getTransformedVertices();
 
-		FP minX = vertices[0];
-		FP minY = vertices[1];
-		FP maxX = vertices[0];
-		FP maxY = vertices[1];
+		DGFixedPoint minX = vertices[0];
+		DGFixedPoint minY = vertices[1];
+		DGFixedPoint maxX = vertices[0];
+		DGFixedPoint maxY = vertices[1];
 
 		int numFloats = vertices.Length;
 		for (int i = 2; i < numFloats; i += 2)
@@ -267,12 +264,12 @@ public class DGPolyline : IDGShape2D
 		return bounds;
 	}
 
-	public bool contains(FPVector2 point)
+	public bool contains(DGVector2 point)
 	{
 		return false;
 	}
 
-	public bool contains(FP x, FP y)
+	public bool contains(DGFixedPoint x, DGFixedPoint y)
 	{
 		return false;
 	}

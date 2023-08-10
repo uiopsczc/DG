@@ -10,14 +10,13 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationBounceOut : DGInterpolation
 {
 
-	protected FP[] widths, heights;
+	protected DGFixedPoint[] widths, heights;
 
-	public DGInterpolationBounceOut(FP[] widths, FP[] heights)
+	public DGInterpolationBounceOut(DGFixedPoint[] widths, DGFixedPoint[] heights)
 	{
 		if (widths.Length != heights.Length)
 			throw new ArgumentException("Must be the same number of widths and heights.");
@@ -28,52 +27,52 @@ public class DGInterpolationBounceOut : DGInterpolation
 	public DGInterpolationBounceOut(int bounces)
 	{
 		if (bounces < 2 || bounces > 5) throw new ArgumentException("bounces cannot be < 2 or > 5: " + bounces);
-		widths = new FP[bounces];
-		heights = new FP[bounces];
-		heights[0] = (FP)1;
+		widths = new DGFixedPoint[bounces];
+		heights = new DGFixedPoint[bounces];
+		heights[0] = (DGFixedPoint)1;
 		switch (bounces)
 		{
 			case 2:
-				widths[0] = (FP)0.6f;
-				widths[1] = (FP)0.4f;
-				heights[1] = (FP)0.33f;
+				widths[0] = (DGFixedPoint)0.6f;
+				widths[1] = (DGFixedPoint)0.4f;
+				heights[1] = (DGFixedPoint)0.33f;
 				break;
 			case 3:
-				widths[0] = (FP)0.4f;
-				widths[1] = (FP)0.4f;
-				widths[2] = (FP)0.2f;
-				heights[1] = (FP)0.33f;
-				heights[2] = (FP)0.1f;
+				widths[0] = (DGFixedPoint)0.4f;
+				widths[1] = (DGFixedPoint)0.4f;
+				widths[2] = (DGFixedPoint)0.2f;
+				heights[1] = (DGFixedPoint)0.33f;
+				heights[2] = (DGFixedPoint)0.1f;
 				break;
 			case 4:
-				widths[0] = (FP)0.34f;
-				widths[1] = (FP)0.34f;
-				widths[2] = (FP)0.2f;
-				widths[3] = (FP)0.15f;
-				heights[1] = (FP)0.26f;
-				heights[2] = (FP)0.11f;
-				heights[3] = (FP)0.03f;
+				widths[0] = (DGFixedPoint)0.34f;
+				widths[1] = (DGFixedPoint)0.34f;
+				widths[2] = (DGFixedPoint)0.2f;
+				widths[3] = (DGFixedPoint)0.15f;
+				heights[1] = (DGFixedPoint)0.26f;
+				heights[2] = (DGFixedPoint)0.11f;
+				heights[3] = (DGFixedPoint)0.03f;
 				break;
 			case 5:
-				widths[0] = (FP)0.3f;
-				widths[1] = (FP)0.3f;
-				widths[2] = (FP)0.2f;
-				widths[3] = (FP)0.1f;
-				widths[4] = (FP)0.1f;
-				heights[1] = (FP)0.45f;
-				heights[2] = (FP)0.3f;
-				heights[3] = (FP)0.15f;
-				heights[4] = (FP)0.06f;
+				widths[0] = (DGFixedPoint)0.3f;
+				widths[1] = (DGFixedPoint)0.3f;
+				widths[2] = (DGFixedPoint)0.2f;
+				widths[3] = (DGFixedPoint)0.1f;
+				widths[4] = (DGFixedPoint)0.1f;
+				heights[1] = (DGFixedPoint)0.45f;
+				heights[2] = (DGFixedPoint)0.3f;
+				heights[3] = (DGFixedPoint)0.15f;
+				heights[4] = (DGFixedPoint)0.06f;
 				break;
 		}
-		widths[0] *= (FP)2;
+		widths[0] *= (DGFixedPoint)2;
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a == (FP)1) return (FP)1;
-		a += widths[0] / (FP)2;
-		FP width = (FP)0, height = (FP)0;
+		if (a == (DGFixedPoint)1) return (DGFixedPoint)1;
+		a += widths[0] / (DGFixedPoint)2;
+		DGFixedPoint width = (DGFixedPoint)0, height = (DGFixedPoint)0;
 		for (int i = 0, n = widths.Length; i < n; i++)
 		{
 			width = widths[i];
@@ -85,8 +84,8 @@ public class DGInterpolationBounceOut : DGInterpolation
 			a -= width;
 		}
 		a /= width;
-		FP z = (FP)4 / width * height * a;
-		return (FP)1 - (z - z * a) * width;
+		DGFixedPoint z = (DGFixedPoint)4 / width * height * a;
+		return (DGFixedPoint)1 - (z - z * a) * width;
 	}
 
 }

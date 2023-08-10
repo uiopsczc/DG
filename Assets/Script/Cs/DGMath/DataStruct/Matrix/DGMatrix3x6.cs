@@ -10,26 +10,24 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPMatrix3x3 = DGMatrix3x3;
 
 static class Matrix3x6
 {
-	[ThreadStatic] private static FP[,] Matrix;
+	[ThreadStatic] private static DGFixedPoint[,] Matrix;
 
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-	public static bool Gauss(FP[,] M, int m, int n)
+	public static bool Gauss(DGFixedPoint[,] M, int m, int n)
 	{
 		// Perform Gauss-Jordan elimination
 		for (int k = 0; k < m; k++)
 		{
-			FP maxValue = DGMath.Abs(M[k, k]);
+			DGFixedPoint maxValue = DGMath.Abs(M[k, k]);
 			int iMax = k;
 			for (int i = k + 1; i < m; i++)
 			{
-				FP value = FP.Abs(M[i, k]);
+				DGFixedPoint value = DGFixedPoint.Abs(M[i, k]);
 				if (value >= maxValue)
 				{
 					maxValue = value;
@@ -37,23 +35,23 @@ static class Matrix3x6
 				}
 			}
 
-			if (maxValue == (FP) 0)
+			if (maxValue == (DGFixedPoint) 0)
 				return false;
 			// Swap rows k, iMax
 			if (k != iMax)
 			{
 				for (int j = 0; j < n; j++)
 				{
-					FP temp = M[k, j];
+					DGFixedPoint temp = M[k, j];
 					M[k, j] = M[iMax, j];
 					M[iMax, j] = temp;
 				}
 			}
 
 			// Divide row by pivot
-			FP pivotInverse = (FP) 1 / M[k, k];
+			DGFixedPoint pivotInverse = (DGFixedPoint) 1 / M[k, k];
 
-			M[k, k] = (FP) 1;
+			M[k, k] = (DGFixedPoint) 1;
 			for (int j = k + 1; j < n; j++)
 			{
 				M[k, j] *= pivotInverse;
@@ -64,24 +62,24 @@ static class Matrix3x6
 			{
 				if (i == k)
 					continue;
-				FP f = M[i, k];
+				DGFixedPoint f = M[i, k];
 				for (int j = k + 1; j < n; j++)
 				{
 					M[i, j] = M[i, j] - M[k, j] * f;
 				}
 
-				M[i, k] = (FP) 0;
+				M[i, k] = (DGFixedPoint) 0;
 			}
 		}
 
 		return true;
 	}
 
-	public static bool Invert(FPMatrix3x3 m, out FPMatrix3x3 r)
+	public static bool Invert(DGMatrix3x3 m, out DGMatrix3x3 r)
 	{
 		if (Matrix == null)
-			Matrix = new FP[3, 6];
-		FP[,] M = Matrix;
+			Matrix = new DGFixedPoint[3, 6];
+		DGFixedPoint[,] M = Matrix;
 
 		// Initialize temporary matrix
 		M[0, 0] = m.SM11;
@@ -94,15 +92,15 @@ static class Matrix3x6
 		M[2, 1] = m.SM32;
 		M[2, 2] = m.SM33;
 
-		M[0, 3] = (FP) 1;
-		M[0, 4] = (FP) 0;
-		M[0, 5] = (FP) 0;
-		M[1, 3] = (FP) 0;
-		M[1, 4] = (FP) 1;
-		M[1, 5] = (FP) 0;
-		M[2, 3] = (FP) 0;
-		M[2, 4] = (FP) 0;
-		M[2, 5] = (FP) 1;
+		M[0, 3] = (DGFixedPoint) 1;
+		M[0, 4] = (DGFixedPoint) 0;
+		M[0, 5] = (DGFixedPoint) 0;
+		M[1, 3] = (DGFixedPoint) 0;
+		M[1, 4] = (DGFixedPoint) 1;
+		M[1, 5] = (DGFixedPoint) 0;
+		M[2, 3] = (DGFixedPoint) 0;
+		M[2, 4] = (DGFixedPoint) 0;
+		M[2, 5] = (DGFixedPoint) 1;
 
 		if (!Gauss(M, 3, 6))
 		{
@@ -110,7 +108,7 @@ static class Matrix3x6
 			return false;
 		}
 
-		r = new FPMatrix3x3(
+		r = new DGMatrix3x3(
 			// m11...m13
 			M[0, 3],
 			M[0, 4],

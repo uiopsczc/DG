@@ -8,11 +8,10 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationPow3OutInverse : DGInterpolation
 {
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
 		return DGMath.Cbrt(a);
 	}

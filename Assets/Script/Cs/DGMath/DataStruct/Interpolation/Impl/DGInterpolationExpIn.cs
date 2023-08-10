@@ -8,19 +8,18 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationExpIn : DGInterpolationExp
 {
 
 
-	public DGInterpolationExpIn(FP value, FP power):base(value, power)
+	public DGInterpolationExpIn(DGFixedPoint value, DGFixedPoint power):base(value, power)
 	{
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		return (DGMath.Pow(value, power * (a - (FP)1)) - min) * scale;
+		return (DGMath.Pow(value, power * (a - (DGFixedPoint)1)) - min) * scale;
 	}
 
 }

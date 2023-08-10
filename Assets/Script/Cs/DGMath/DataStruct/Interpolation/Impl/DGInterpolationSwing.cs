@@ -8,28 +8,27 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationSwing : DGInterpolation
 {
 
-	protected FP scale;
+	protected DGFixedPoint scale;
 
-	public DGInterpolationSwing(FP scale)
+	public DGInterpolationSwing(DGFixedPoint scale)
 	{
 		this.scale = scale;
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a <= (FP)0.5f)
+		if (a <= (DGFixedPoint)0.5f)
 		{
-			a *= (FP)2;
-			return a * a * ((scale + (FP)1) * a - scale) / (FP)2;
+			a *= (DGFixedPoint)2;
+			return a * a * ((scale + (DGFixedPoint)1) * a - scale) / (DGFixedPoint)2;
 		}
-		a = a - (FP)1;
-		a *= (FP)2;
-		return a * a * ((scale + (FP)1) * a + scale) / (FP)2 + (FP)1;
+		a = a - (DGFixedPoint)1;
+		a *= (DGFixedPoint)2;
+		return a * a * ((scale + (DGFixedPoint)1) * a + scale) / (DGFixedPoint)2 + (DGFixedPoint)1;
 	}
 
 }

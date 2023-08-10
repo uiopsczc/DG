@@ -8,20 +8,19 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationSwingOut : DGInterpolationSwing
 {
 
-	public DGInterpolationSwingOut(FP scale):base(scale)
+	public DGInterpolationSwingOut(DGFixedPoint scale):base(scale)
 	{
 		this.scale = scale;
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		a = a - (FP)1;
-		return a * a * ((scale + (FP)1) * a + scale) + (FP)1;
+		a = a - (DGFixedPoint)1;
+		return a * a * ((scale + (DGFixedPoint)1) * a + scale) + (DGFixedPoint)1;
 	}
 
 }

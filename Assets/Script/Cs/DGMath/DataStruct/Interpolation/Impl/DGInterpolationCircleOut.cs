@@ -8,15 +8,14 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationCircleOut : DGInterpolation
 {
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		a = a -(FP)1;
-		return DGMath.Sqrt((FP)1 - a * a);
+		a = a -(DGFixedPoint)1;
+		return DGMath.Sqrt((DGFixedPoint)1 - a * a);
 	}
 
 }

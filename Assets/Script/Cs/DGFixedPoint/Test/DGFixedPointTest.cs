@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using Debug = UnityEngine.Debug;
 #endif
 
@@ -58,7 +58,7 @@ public class DGFixedPointTest
 
 	void Log(object msg)
 	{
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 		Debug.LogWarning(msg);
 #endif
 	}

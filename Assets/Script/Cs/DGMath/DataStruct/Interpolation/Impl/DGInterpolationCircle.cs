@@ -8,21 +8,20 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationCircle : DGInterpolation
 {
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a <= (FP)0.5f)
+		if (a <= (DGFixedPoint)0.5f)
 		{
-			a *= (FP)2;
-			return ((FP)1 - DGMath.Sqrt((FP)1 - a * a)) / (FP)2;
+			a *= (DGFixedPoint)2;
+			return ((DGFixedPoint)1 - DGMath.Sqrt((DGFixedPoint)1 - a * a)) / (DGFixedPoint)2;
 		}
-		a= a -(FP)1;
-		a *= (FP)2;
-		return (DGMath.Sqrt((FP)1 - a * a) + (FP)1) / (FP)2;
+		a= a -(DGFixedPoint)1;
+		a *= (DGFixedPoint)2;
+		return (DGMath.Sqrt((DGFixedPoint)1 - a * a) + (DGFixedPoint)1) / (DGFixedPoint)2;
 	}
 
 }

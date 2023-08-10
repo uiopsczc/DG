@@ -10,30 +10,27 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
-using FPVector3 = DGVector3;
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 
 #endif
 public struct DGVector4
 {
-	public static readonly FP kEpsilon = (FP) 0.00001F;
-	public static readonly FP kEpsilonNormalSqrt = (FP) 1e-15F;
+	public static readonly DGFixedPoint kEpsilon = (DGFixedPoint) 0.00001F;
+	public static readonly DGFixedPoint kEpsilonNormalSqrt = (DGFixedPoint) 1e-15F;
 
 	public static DGVector4 zero => new DGVector4(0, 0, 0, 0);
 	public static DGVector4 one => new DGVector4(1, 1, 1, 1);
 	public static DGVector4 max => new DGVector4(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue);
 	public static DGVector4 min => new DGVector4(float.MinValue, float.MinValue, float.MinValue, float.MinValue);
 
-	public FP x;
-	public FP y;
-	public FP z;
-	public FP w;
+	public DGFixedPoint x;
+	public DGFixedPoint y;
+	public DGFixedPoint z;
+	public DGFixedPoint w;
 
 
-	public FP this[int index]
+	public DGFixedPoint this[int index]
 	{
 		get
 		{
@@ -79,16 +76,16 @@ public struct DGVector4
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public FP sqrMagnitude => x * x + y * y + z * z + w * w;
+	public DGFixedPoint sqrMagnitude => x * x + y * y + z * z + w * w;
 
-	public FP magnitude => DGMath.Sqrt(sqrMagnitude);
+	public DGFixedPoint magnitude => DGMath.Sqrt(sqrMagnitude);
 
 	/// <summary>
 	/// 返回该向量的单位向量
 	/// </summary>
 	public DGVector4 normalized => Normalize(this);
 
-	public DGVector4(FP x, FP y, FP z, FP w)
+	public DGVector4(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		this.x = x;
 		this.y = y;
@@ -98,27 +95,27 @@ public struct DGVector4
 
 	public DGVector4(float x, float y, float z, float w)
 	{
-		this.x = (FP) x;
-		this.y = (FP) y;
-		this.z = (FP) z;
-		this.w = (FP) w;
+		this.x = (DGFixedPoint) x;
+		this.y = (DGFixedPoint) y;
+		this.z = (DGFixedPoint) z;
+		this.w = (DGFixedPoint) w;
 	}
 
 	public DGVector4(int x, int y, int z, int w)
 	{
-		this.x = (FP) x;
-		this.y = (FP) y;
-		this.z = (FP) z;
-		this.w = (FP) w;
+		this.x = (DGFixedPoint) x;
+		this.y = (DGFixedPoint) y;
+		this.z = (DGFixedPoint) z;
+		this.w = (DGFixedPoint) w;
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGVector4(Vector4 vector)
 	{
-		this.x = (FP) vector.x;
-		this.y = (FP) vector.y;
-		this.z = (FP) vector.z;
-		this.w = (FP) vector.w;
+		this.x = (DGFixedPoint) vector.x;
+		this.y = (DGFixedPoint) vector.y;
+		this.z = (DGFixedPoint) vector.z;
+		this.w = (DGFixedPoint) vector.w;
 	}
 #endif
 
@@ -151,16 +148,16 @@ public struct DGVector4
 	/*************************************************************************************
 	* 模块描述:转换
 	*************************************************************************************/
-	public static implicit operator DGVector4(FPVector2 v)
+	public static implicit operator DGVector4(DGVector2 v)
 	{
-		return new DGVector4(v.x, v.y, (FP) 0, (FP) 0);
+		return new DGVector4(v.x, v.y, (DGFixedPoint) 0, (DGFixedPoint) 0);
 	}
 
-	public static implicit operator DGVector4(FPVector3 v)
+	public static implicit operator DGVector4(DGVector3 v)
 	{
-		return new DGVector4(v.x, v.y, v.z, (FP) 0);
+		return new DGVector4(v.x, v.y, v.z, (DGFixedPoint) 0);
 	}
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	//转换为Unity的Vector4
 	public Vector4 ToVector4()
 	{
@@ -174,11 +171,11 @@ public struct DGVector4
 	public static bool operator ==(DGVector4 value1, DGVector4 value2)
 	{
 		// Returns false in the presence of NaN values.
-		FP diffX = value1.x - value2.x;
-		FP diffY = value1.y - value2.y;
-		FP diffZ = value1.z - value2.z;
-		FP diffW = value1.w - value2.w;
-		FP sqrmag = diffX * diffX + diffY * diffY + diffZ * diffZ + diffW * diffW;
+		DGFixedPoint diffX = value1.x - value2.x;
+		DGFixedPoint diffY = value1.y - value2.y;
+		DGFixedPoint diffZ = value1.z - value2.z;
+		DGFixedPoint diffW = value1.w - value2.w;
+		DGFixedPoint sqrmag = diffX * diffX + diffY * diffY + diffZ * diffZ + diffW * diffW;
 		return sqrmag <= kEpsilon * kEpsilon;
 	}
 
@@ -192,64 +189,64 @@ public struct DGVector4
 	*************************************************************************************/
 	public static DGVector4 operator +(DGVector4 value1, DGVector4 value2)
 	{
-		FP x = value1.x + value2.x;
-		FP y = value1.y + value2.y;
-		FP z = value1.z + value2.z;
-		FP w = value1.w + value2.w;
+		DGFixedPoint x = value1.x + value2.x;
+		DGFixedPoint y = value1.y + value2.y;
+		DGFixedPoint z = value1.z + value2.z;
+		DGFixedPoint w = value1.w + value2.w;
 		return new DGVector4(x, y, z, w);
 	}
 
 	public static DGVector4 operator -(DGVector4 value1, DGVector4 value2)
 	{
-		FP x = value1.x - value2.x;
-		FP y = value1.y - value2.y;
-		FP z = value1.z - value2.z;
-		FP w = value1.w - value2.w;
+		DGFixedPoint x = value1.x - value2.x;
+		DGFixedPoint y = value1.y - value2.y;
+		DGFixedPoint z = value1.z - value2.z;
+		DGFixedPoint w = value1.w - value2.w;
 		return new DGVector4(x, y, z, w);
 	}
 
 	public static DGVector4 operator -(DGVector4 value)
 	{
-		FP x = -value.x;
-		FP y = -value.y;
-		FP z = -value.z;
-		FP w = -value.w;
+		DGFixedPoint x = -value.x;
+		DGFixedPoint y = -value.y;
+		DGFixedPoint z = -value.z;
+		DGFixedPoint w = -value.w;
 		return new DGVector4(x, y, z, w);
 	}
 
 	public static DGVector4 operator *(DGVector4 value1, DGVector4 value2)
 	{
-		FP x = value1.x * value2.x;
-		FP y = value1.y * value2.y;
-		FP z = value1.z * value2.z;
-		FP w = value1.w * value2.w;
+		DGFixedPoint x = value1.x * value2.x;
+		DGFixedPoint y = value1.y * value2.y;
+		DGFixedPoint z = value1.z * value2.z;
+		DGFixedPoint w = value1.w * value2.w;
 		return new DGVector4(x, y, z, w);
 	}
 
-	public static DGVector4 operator *(DGVector4 value, FP multiply)
+	public static DGVector4 operator *(DGVector4 value, DGFixedPoint multiply)
 	{
-		FP x = value.x * multiply;
-		FP y = value.y * multiply;
-		FP z = value.z * multiply;
-		FP w = value.w * multiply;
+		DGFixedPoint x = value.x * multiply;
+		DGFixedPoint y = value.y * multiply;
+		DGFixedPoint z = value.z * multiply;
+		DGFixedPoint w = value.w * multiply;
 		return new DGVector4(x, y, z, w);
 	}
 
 	public static DGVector4 operator /(DGVector4 value1, DGVector4 value2)
 	{
-		FP x = value1.x / value2.x;
-		FP y = value1.y / value2.y;
-		FP z = value1.z / value2.z;
-		FP w = value1.w / value2.w;
+		DGFixedPoint x = value1.x / value2.x;
+		DGFixedPoint y = value1.y / value2.y;
+		DGFixedPoint z = value1.z / value2.z;
+		DGFixedPoint w = value1.w / value2.w;
 		return new DGVector4(x, y, z, w);
 	}
 
-	public static DGVector4 operator /(DGVector4 value1, FP div)
+	public static DGVector4 operator /(DGVector4 value1, DGFixedPoint div)
 	{
-		FP x = value1.x / div;
-		FP y = value1.y / div;
-		FP z = value1.z / div;
-		FP w = value1.w / div;
+		DGFixedPoint x = value1.x / div;
+		DGFixedPoint y = value1.y / div;
+		DGFixedPoint z = value1.z / div;
+		DGFixedPoint w = value1.w / div;
 		return new DGVector4(x, y, z, w);
 	}
 
@@ -258,73 +255,73 @@ public struct DGVector4
 	*************************************************************************************/
 	public static bool IsUnit(DGVector4 vector)
 	{
-		return DGMath.IsApproximatelyZero((FP) 1 - vector.x * vector.x - vector.y * vector.y - vector.z * vector.z -
+		return DGMath.IsApproximatelyZero((DGFixedPoint) 1 - vector.x * vector.x - vector.y * vector.y - vector.z * vector.z -
 		                                  vector.w * vector.w);
 	}
 
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public static FP SqrMagnitude(DGVector4 v)
+	public static DGFixedPoint SqrMagnitude(DGVector4 v)
 	{
 		return v.sqrMagnitude;
 	}
 
-	public static FP Magnitude(DGVector4 vector)
+	public static DGFixedPoint Magnitude(DGVector4 vector)
 	{
 		return DGMath.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z + vector.w * vector.w);
 	}
 
-	public static DGVector4 ClampMagnitude(DGVector4 vector, FP maxLength)
+	public static DGVector4 ClampMagnitude(DGVector4 vector, DGFixedPoint maxLength)
 	{
-		FP sqrMagnitude = vector.sqrMagnitude;
+		DGFixedPoint sqrMagnitude = vector.sqrMagnitude;
 		if (sqrMagnitude <= maxLength * maxLength)
 			return vector;
 		//these intermediate variables force the intermediate result to be
 		//of float precision. without this, the intermediate result can be of higher
 		//precision, which changes behavior.
-		FP mag = DGMath.Sqrt(sqrMagnitude);
-		FP normalizedX = vector.x / mag;
-		FP normalizedY = vector.y / mag;
-		FP normalizedZ = vector.z / mag;
-		FP normalizedW = vector.w / mag;
+		DGFixedPoint mag = DGMath.Sqrt(sqrMagnitude);
+		DGFixedPoint normalizedX = vector.x / mag;
+		DGFixedPoint normalizedY = vector.y / mag;
+		DGFixedPoint normalizedZ = vector.z / mag;
+		DGFixedPoint normalizedW = vector.w / mag;
 		return new DGVector4(normalizedX * maxLength, normalizedY * maxLength, normalizedZ * maxLength,
 			normalizedW * maxLength);
 	}
 
-	public static FP Distance(DGVector4 a, DGVector4 b)
+	public static DGFixedPoint Distance(DGVector4 a, DGVector4 b)
 	{
-		FP diffX = a.x - b.x;
-		FP diffY = a.y - b.y;
-		FP diffZ = a.z - b.z;
-		FP diffW = a.w - b.w;
+		DGFixedPoint diffX = a.x - b.x;
+		DGFixedPoint diffY = a.y - b.y;
+		DGFixedPoint diffZ = a.z - b.z;
+		DGFixedPoint diffW = a.w - b.w;
 		return DGMath.Sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ + diffW * diffW);
 	}
 
-	public static DGVector4 Lerp(DGVector4 a, DGVector4 b, FP t)
+	public static DGVector4 Lerp(DGVector4 a, DGVector4 b, DGFixedPoint t)
 	{
 		t = DGMath.Clamp01(t);
 		return new DGVector4(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t,
 			a.w + (b.w - a.w) * t);
 	}
 
-	public static DGVector4 LerpUnclamped(DGVector4 a, DGVector4 b, FP t)
+	public static DGVector4 LerpUnclamped(DGVector4 a, DGVector4 b, DGFixedPoint t)
 	{
 		return new DGVector4(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t,
 			a.w + (b.w - a.w) * t);
 	}
 
-	public static DGVector4 MoveTowards(DGVector4 current, DGVector4 target, FP maxDistanceDelta)
+	public static DGVector4 MoveTowards(DGVector4 current, DGVector4 target, DGFixedPoint maxDistanceDelta)
 	{
-		FP toVectorX = target.x - current.x;
-		FP toVectorY = target.y - current.y;
-		FP toVectorZ = target.z - current.z;
-		FP toVectorW = target.w - current.w;
-		FP sqrtDistance = toVectorX * toVectorX + toVectorY * toVectorY + toVectorZ * toVectorZ + toVectorW * toVectorW;
-		if (sqrtDistance == FP.Zero ||
-		    maxDistanceDelta >= FP.Zero && sqrtDistance <= maxDistanceDelta * maxDistanceDelta)
+		DGFixedPoint toVectorX = target.x - current.x;
+		DGFixedPoint toVectorY = target.y - current.y;
+		DGFixedPoint toVectorZ = target.z - current.z;
+		DGFixedPoint toVectorW = target.w - current.w;
+		DGFixedPoint sqrtDistance = toVectorX * toVectorX + toVectorY * toVectorY + toVectorZ * toVectorZ + toVectorW * toVectorW;
+		if (sqrtDistance == DGFixedPoint.Zero ||
+		    maxDistanceDelta >= DGFixedPoint.Zero && sqrtDistance <= maxDistanceDelta * maxDistanceDelta)
 			return target;
-		FP distance = DGMath.Sqrt(sqrtDistance);
+		DGFixedPoint distance = DGMath.Sqrt(sqrtDistance);
 		return new DGVector4(current.x + toVectorX / distance * maxDistanceDelta,
 			current.y + toVectorY / distance * maxDistanceDelta, current.z + toVectorZ / distance * maxDistanceDelta,
 			current.w + toVectorW / distance * maxDistanceDelta);
@@ -345,7 +342,7 @@ public struct DGVector4
 		if (magnitude <= kEpsilon)
 			return zero;
 
-		FP rate = FP.One / magnitude;
+		DGFixedPoint rate = DGFixedPoint.One / magnitude;
 		return value * rate;
 	}
 
@@ -354,7 +351,7 @@ public struct DGVector4
 	/// </summary>
 	/// <param name="v"></param>
 	/// <returns></returns>
-	public static FP Dot(DGVector4 v1, DGVector4 v2)
+	public static DGFixedPoint Dot(DGVector4 v1, DGVector4 v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 	}
@@ -383,29 +380,29 @@ public struct DGVector4
 	}
 
 	public static DGVector4 Hermite(DGVector4 value1, DGVector4 tangent1, DGVector4 value2, DGVector4 tangent2,
-		FP interpolationAmount)
+		DGFixedPoint interpolationAmount)
 	{
-		FP weightSquared = interpolationAmount * interpolationAmount;
-		FP weightCubed = interpolationAmount * weightSquared;
-		FP value1Blend = (FP) 2 * weightCubed - (FP) 3 * weightSquared + (FP) 1;
-		FP tangent1Blend = weightCubed - (FP) 2 * weightSquared + interpolationAmount;
-		FP value2Blend = (FP) (-2) * weightCubed + (FP) 3 * weightSquared;
-		FP tangent2Blend = weightCubed - weightSquared;
-		FP x = value1.x * value1Blend + value2.x * value2Blend + tangent1.x * tangent1Blend +
+		DGFixedPoint weightSquared = interpolationAmount * interpolationAmount;
+		DGFixedPoint weightCubed = interpolationAmount * weightSquared;
+		DGFixedPoint value1Blend = (DGFixedPoint) 2 * weightCubed - (DGFixedPoint) 3 * weightSquared + (DGFixedPoint) 1;
+		DGFixedPoint tangent1Blend = weightCubed - (DGFixedPoint) 2 * weightSquared + interpolationAmount;
+		DGFixedPoint value2Blend = (DGFixedPoint) (-2) * weightCubed + (DGFixedPoint) 3 * weightSquared;
+		DGFixedPoint tangent2Blend = weightCubed - weightSquared;
+		DGFixedPoint x = value1.x * value1Blend + value2.x * value2Blend + tangent1.x * tangent1Blend +
 		       tangent2.x * tangent2Blend;
-		FP y = value1.y * value1Blend + value2.y * value2Blend + tangent1.y * tangent1Blend +
+		DGFixedPoint y = value1.y * value1Blend + value2.y * value2Blend + tangent1.y * tangent1Blend +
 		       tangent2.y * tangent2Blend;
-		FP z = value1.z * value1Blend + value2.z * value2Blend + tangent1.z * tangent1Blend +
+		DGFixedPoint z = value1.z * value1Blend + value2.z * value2Blend + tangent1.z * tangent1Blend +
 		       tangent2.z * tangent2Blend;
-		FP w = value1.w * value1Blend + value2.w * value2Blend + tangent1.w * tangent1Blend +
+		DGFixedPoint w = value1.w * value1Blend + value2.w * value2Blend + tangent1.w * tangent1Blend +
 		       tangent2.w * tangent2Blend;
 		return new DGVector4(x, y, z, w);
 	}
 
-	public static DGVector4 SmoothStep(DGVector4 v1, DGVector4 v2, FP amount)
+	public static DGVector4 SmoothStep(DGVector4 v1, DGVector4 v2, DGFixedPoint amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		amount = (amount * amount) * ((FP) 3 - ((FP) 2 * amount));
+		amount = (amount * amount) * ((DGFixedPoint) 3 - ((DGFixedPoint) 2 * amount));
 		var x = v1.x + ((v2.x - v1.x) * amount);
 		var y = v1.y + ((v2.y - v1.y) * amount);
 		var z = v1.z + ((v2.z - v1.z) * amount);
@@ -413,31 +410,31 @@ public struct DGVector4
 		return new DGVector4(x, y, z, w);
 	}
 
-	public static DGVector4 CatmullRom(DGVector4 v1, DGVector4 v2, DGVector4 v3, DGVector4 v4, FP amount)
+	public static DGVector4 CatmullRom(DGVector4 v1, DGVector4 v2, DGVector4 v3, DGVector4 v4, DGFixedPoint amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		FP squared = amount * amount;
-		FP cubed = amount * squared;
+		DGFixedPoint squared = amount * amount;
+		DGFixedPoint cubed = amount * squared;
 		DGVector4 r = default;
-		r.x = (FP) 2 * v2.x;
+		r.x = (DGFixedPoint) 2 * v2.x;
 		r.x += (v3.x - v1.x) * amount;
-		r.x += (((FP) 2 * v1.x) + ((FP) 4 * v3.x) - ((FP) 5 * v2.x) - (v4.x)) * squared;
-		r.x += (((FP) 3 * v2.x) + (v4.x) - (v1.x) - ((FP) 3 * v3.x)) * cubed;
+		r.x += (((DGFixedPoint) 2 * v1.x) + ((DGFixedPoint) 4 * v3.x) - ((DGFixedPoint) 5 * v2.x) - (v4.x)) * squared;
+		r.x += (((DGFixedPoint) 3 * v2.x) + (v4.x) - (v1.x) - ((DGFixedPoint) 3 * v3.x)) * cubed;
 		r.x *= DGMath.Half;
-		r.y = (FP) 2 * v2.y;
+		r.y = (DGFixedPoint) 2 * v2.y;
 		r.y += (v3.y - v1.y) * amount;
-		r.y += (((FP) 2 * v1.y) + ((FP) 4 * v3.y) - ((FP) 5 * v2.y) - (v4.y)) * squared;
-		r.y += (((FP) 3 * v2.y) + (v4.y) - (v1.y) - ((FP) 3 * v3.y)) * cubed;
+		r.y += (((DGFixedPoint) 2 * v1.y) + ((DGFixedPoint) 4 * v3.y) - ((DGFixedPoint) 5 * v2.y) - (v4.y)) * squared;
+		r.y += (((DGFixedPoint) 3 * v2.y) + (v4.y) - (v1.y) - ((DGFixedPoint) 3 * v3.y)) * cubed;
 		r.y *= DGMath.Half;
-		r.z = (FP) 2 * v2.z;
+		r.z = (DGFixedPoint) 2 * v2.z;
 		r.z += (v3.z - v1.z) * amount;
-		r.z += (((FP) 2 * v1.z) + ((FP) 4 * v3.z) - ((FP) 5 * v2.z) - (v4.z)) * squared;
-		r.z += (((FP) 3 * v2.z) + (v4.z) - (v1.z) - ((FP) 3 * v3.z)) * cubed;
+		r.z += (((DGFixedPoint) 2 * v1.z) + ((DGFixedPoint) 4 * v3.z) - ((DGFixedPoint) 5 * v2.z) - (v4.z)) * squared;
+		r.z += (((DGFixedPoint) 3 * v2.z) + (v4.z) - (v1.z) - ((DGFixedPoint) 3 * v3.z)) * cubed;
 		r.z *= DGMath.Half;
-		r.w = (FP) 2 * v2.w;
+		r.w = (DGFixedPoint) 2 * v2.w;
 		r.w += (v3.w - v1.w) * amount;
-		r.w += (((FP) 2 * v1.w) + ((FP) 4 * v3.w) - ((FP) 5 * v2.w) - (v4.w)) * squared;
-		r.w += (((FP) 3 * v2.w) + (v4.w) - (v1.w) - ((FP) 3 * v3.w)) * cubed;
+		r.w += (((DGFixedPoint) 2 * v1.w) + ((DGFixedPoint) 4 * v3.w) - ((DGFixedPoint) 5 * v2.w) - (v4.w)) * squared;
+		r.w += (((DGFixedPoint) 3 * v2.w) + (v4.w) - (v1.w) - ((DGFixedPoint) 3 * v3.w)) * cubed;
 		r.w *= DGMath.Half;
 		return r;
 	}
@@ -453,14 +450,14 @@ public struct DGVector4
 	{
 		if (magnitude <= kEpsilon)
 		{
-			x = (FP) 0;
-			y = (FP) 0;
-			z = (FP) 0;
-			w = (FP) 0;
+			x = (DGFixedPoint) 0;
+			y = (DGFixedPoint) 0;
+			z = (DGFixedPoint) 0;
+			w = (DGFixedPoint) 0;
 			return;
 		}
 
-		FP rate = FP.One / magnitude;
+		DGFixedPoint rate = DGFixedPoint.One / magnitude;
 		x *= rate;
 		y *= rate;
 		z *= rate;

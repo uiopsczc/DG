@@ -9,14 +9,11 @@
  * ======================================
 *************************************************************************************/
 
-using System;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
 
 public struct DGCircle : IDGShape2D
 {
-	public FP x, y;
-	public FP radius;
+	public DGFixedPoint x, y;
+	public DGFixedPoint radius;
 
 
 	/** Constructs a new circle with the given X and Y coordinates and the given radius.
@@ -24,7 +21,7 @@ public struct DGCircle : IDGShape2D
 	 * @param x X coordinate
 	 * @param y Y coordinate
 	 * @param radius The radius of the circle */
-	public DGCircle(FP x, FP y, FP radius)
+	public DGCircle(DGFixedPoint x, DGFixedPoint y, DGFixedPoint radius)
 	{
 		this.x = x;
 		this.y = y;
@@ -35,7 +32,7 @@ public struct DGCircle : IDGShape2D
 	 * 
 	 * @param position The position {@link Vector2}.
 	 * @param radius The radius */
-	public DGCircle(FPVector2 position, FP radius)
+	public DGCircle(DGVector2 position, DGFixedPoint radius)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -56,11 +53,11 @@ public struct DGCircle : IDGShape2D
 	 * 
 	 * @param center The center of the new circle
 	 * @param edge Any point on the edge of the given circle */
-	public DGCircle(FPVector2 center, FPVector2 edge)
+	public DGCircle(DGVector2 center, DGVector2 edge)
 	{
 		this.x = center.x;
 		this.y = center.y;
-		this.radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
+		this.radius = DGVector2.len(center.x - edge.x, center.y - edge.y);
 	}
 
 	/** Sets a new location and radius for this circle.
@@ -68,7 +65,7 @@ public struct DGCircle : IDGShape2D
 	 * @param x X coordinate
 	 * @param y Y coordinate
 	 * @param radius Circle radius */
-	public void set(FP x, FP y, FP radius)
+	public void set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint radius)
 	{
 		this.x = x;
 		this.y = y;
@@ -79,7 +76,7 @@ public struct DGCircle : IDGShape2D
 	 * 
 	 * @param position Position {@link Vector2} for this circle.
 	 * @param radius Circle radius */
-	public void set(FPVector2 position, FP radius)
+	public void set(DGVector2 position, DGFixedPoint radius)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -100,16 +97,16 @@ public struct DGCircle : IDGShape2D
 	 * 
 	 * @param center The new center of the circle
 	 * @param edge Any point on the edge of the given circle */
-	public void set(FPVector2 center, FPVector2 edge)
+	public void set(DGVector2 center, DGVector2 edge)
 	{
 		this.x = center.x;
 		this.y = center.y;
-		this.radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
+		this.radius = DGVector2.len(center.x - edge.x, center.y - edge.y);
 	}
 
 	/** Sets the x and y-coordinates of circle center from vector
 	 * @param position The position vector */
-	public void setPosition(FPVector2 position)
+	public void setPosition(DGVector2 position)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -118,7 +115,7 @@ public struct DGCircle : IDGShape2D
 	/** Sets the x and y-coordinates of circle center
 	 * @param x The x-coordinate
 	 * @param y The y-coordinate */
-	public void setPosition(FP x, FP y)
+	public void setPosition(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x = x;
 		this.y = y;
@@ -126,21 +123,21 @@ public struct DGCircle : IDGShape2D
 
 	/** Sets the x-coordinate of circle center
 	 * @param x The x-coordinate */
-	public void setX(FP x)
+	public void setX(DGFixedPoint x)
 	{
 		this.x = x;
 	}
 
 	/** Sets the y-coordinate of circle center
 	 * @param y The y-coordinate */
-	public void setY(FP y)
+	public void setY(DGFixedPoint y)
 	{
 		this.y = y;
 	}
 
 	/** Sets the radius of circle
 	 * @param radius The radius */
-	public void setRadius(FP radius)
+	public void setRadius(DGFixedPoint radius)
 	{
 		this.radius = radius;
 	}
@@ -151,7 +148,7 @@ public struct DGCircle : IDGShape2D
 	 * @param y Y coordinate
 	 * 
 	 * @return true if this circle contains the given point. */
-	public bool contains(FP x, FP y)
+	public bool contains(DGFixedPoint x, DGFixedPoint y)
 	{
 		x = this.x - x;
 		y = this.y - y;
@@ -163,10 +160,10 @@ public struct DGCircle : IDGShape2D
 	 * @param point The {@link Vector2} that contains the point coordinates.
 	 * 
 	 * @return true if this circle contains this point; false otherwise. */
-	public bool contains(FPVector2 point)
+	public bool contains(DGVector2 point)
 	{
-		FP dx = x - point.x;
-		FP dy = y - point.y;
+		DGFixedPoint dx = x - point.x;
+		DGFixedPoint dy = y - point.y;
 		return dx * dx + dy * dy <= radius * radius;
 	}
 
@@ -174,12 +171,12 @@ public struct DGCircle : IDGShape2D
 	 * @return whether this circle contains the other circle. */
 	public bool contains(DGCircle c)
 	{
-		FP radiusDiff = radius - c.radius;
-		if (radiusDiff < (FP) 0f) return false; // Can't contain bigger circle
-		FP dx = x - c.x;
-		FP dy = y - c.y;
-		FP dst = dx * dx + dy * dy;
-		FP radiusSum = radius + c.radius;
+		DGFixedPoint radiusDiff = radius - c.radius;
+		if (radiusDiff < (DGFixedPoint) 0f) return false; // Can't contain bigger circle
+		DGFixedPoint dx = x - c.x;
+		DGFixedPoint dy = y - c.y;
+		DGFixedPoint dst = dx * dx + dy * dy;
+		DGFixedPoint radiusSum = radius + c.radius;
 		return (!(radiusDiff * radiusDiff < dst) && (dst < radiusSum * radiusSum));
 	}
 
@@ -187,10 +184,10 @@ public struct DGCircle : IDGShape2D
 	 * @return whether this circle overlaps the other circle. */
 	public bool overlaps(DGCircle c)
 	{
-		FP dx = x - c.x;
-		FP dy = y - c.y;
-		FP distance = dx * dx + dy * dy;
-		FP radiusSum = radius + c.radius;
+		DGFixedPoint dx = x - c.x;
+		DGFixedPoint dy = y - c.y;
+		DGFixedPoint distance = dx * dx + dy * dy;
+		DGFixedPoint radiusSum = radius + c.radius;
 		return distance < radiusSum * radiusSum;
 	}
 
@@ -201,13 +198,13 @@ public struct DGCircle : IDGShape2D
 	}
 
 	/** @return The circumference of this circle (as 2 * {@link MathUtils#PI2}) * {@code radius} */
-	public FP circumference()
+	public DGFixedPoint circumference()
 	{
 		return this.radius * DGMath.TwoPI;
 	}
 
 	/** @return The area of this circle (as {@link MathUtils#PI} * radius * radius). */
-	public FP area()
+	public DGFixedPoint area()
 	{
 		return this.radius * this.radius * DGMath.PI;
 	}

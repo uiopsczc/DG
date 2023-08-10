@@ -8,15 +8,14 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationPow2OutInverse : DGInterpolation
 {
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a < DGMath.Epsilon) return (FP)0;
-		if (a > (FP)1) return (FP)1;
-		return (FP)1 - DGMath.Sqrt(-(a - (FP)1));
+		if (a < DGMath.Epsilon) return (DGFixedPoint)0;
+		if (a > (DGFixedPoint)1) return (DGFixedPoint)1;
+		return (DGFixedPoint)1 - DGMath.Sqrt(-(a - (DGFixedPoint)1));
 	}
 
 }

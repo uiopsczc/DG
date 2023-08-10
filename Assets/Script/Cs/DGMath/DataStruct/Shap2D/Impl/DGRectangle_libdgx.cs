@@ -9,11 +9,6 @@
  * ======================================
 *************************************************************************************/
 
-using System;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
-using FPCircle = DGCircle;
-
 public struct DGRectangle : IDGShape2D
 {
 	/** Static temporary rectangle. Use with care! Use only when sure other code will not also use this. */
@@ -22,8 +17,8 @@ public struct DGRectangle : IDGShape2D
 	/** Static temporary rectangle. Use with care! Use only when sure other code will not also use this. */
 	static public DGRectangle tmp2 = default;
 
-	public FP x, y;
-	public FP width, height;
+	public DGFixedPoint x, y;
+	public DGFixedPoint width, height;
 
 
 	/** Constructs a new rectangle with the given corner point in the bottom left and dimensions.
@@ -31,7 +26,7 @@ public struct DGRectangle : IDGShape2D
 	 * @param y The corner point y-coordinate
 	 * @param width The width
 	 * @param height The height */
-	public DGRectangle(FP x, FP y, FP width, FP height)
+	public DGRectangle(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height)
 	{
 		this.x = x;
 		this.y = y;
@@ -54,7 +49,7 @@ public struct DGRectangle : IDGShape2D
 	 * @param width width
 	 * @param height height
 	 * @return this rectangle for chaining */
-	public DGRectangle set(FP x, FP y, FP width, FP height)
+	public DGRectangle set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height)
 	{
 		this.x = x;
 		this.y = y;
@@ -65,7 +60,7 @@ public struct DGRectangle : IDGShape2D
 	}
 
 	/** @return the x-coordinate of the bottom left corner */
-	public FP getX()
+	public DGFixedPoint getX()
 	{
 		return x;
 	}
@@ -73,7 +68,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the x-coordinate of the bottom left corner
 	 * @param x The x-coordinate
 	 * @return this rectangle for chaining */
-	public DGRectangle setX(FP x)
+	public DGRectangle setX(DGFixedPoint x)
 	{
 		this.x = x;
 
@@ -81,7 +76,7 @@ public struct DGRectangle : IDGShape2D
 	}
 
 	/** @return the y-coordinate of the bottom left corner */
-	public FP getY()
+	public DGFixedPoint getY()
 	{
 		return y;
 	}
@@ -89,7 +84,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the y-coordinate of the bottom left corner
 	 * @param y The y-coordinate
 	 * @return this rectangle for chaining */
-	public DGRectangle setY(FP y)
+	public DGRectangle setY(DGFixedPoint y)
 	{
 		this.y = y;
 
@@ -97,7 +92,7 @@ public struct DGRectangle : IDGShape2D
 	}
 
 	/** @return the width */
-	public FP getWidth()
+	public DGFixedPoint getWidth()
 	{
 		return width;
 	}
@@ -105,7 +100,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the width of this rectangle
 	 * @param width The width
 	 * @return this rectangle for chaining */
-	public DGRectangle setWidth(FP width)
+	public DGRectangle setWidth(DGFixedPoint width)
 	{
 		this.width = width;
 
@@ -113,7 +108,7 @@ public struct DGRectangle : IDGShape2D
 	}
 
 	/** @return the height */
-	public FP getHeight()
+	public DGFixedPoint getHeight()
 	{
 		return height;
 	}
@@ -121,7 +116,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the height of this rectangle
 	 * @param height The height
 	 * @return this rectangle for chaining */
-	public DGRectangle setHeight(FP height)
+	public DGRectangle setHeight(DGFixedPoint height)
 	{
 		this.height = height;
 
@@ -130,7 +125,7 @@ public struct DGRectangle : IDGShape2D
 
 	/** return the Vector2 with coordinates of this rectangle
 	 * @param position The Vector2 */
-	public FPVector2 getPosition(FPVector2 position)
+	public DGVector2 getPosition(DGVector2 position)
 	{
 		return position.set(x, y);
 	}
@@ -138,7 +133,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the x and y-coordinates of the bottom left corner from vector
 	 * @param position The position vector
 	 * @return this rectangle for chaining */
-	public DGRectangle setPosition(FPVector2 position)
+	public DGRectangle setPosition(DGVector2 position)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -150,7 +145,7 @@ public struct DGRectangle : IDGShape2D
 	 * @param x The x-coordinate
 	 * @param y The y-coordinate
 	 * @return this rectangle for chaining */
-	public DGRectangle setPosition(FP x, FP y)
+	public DGRectangle setPosition(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x = x;
 		this.y = y;
@@ -162,7 +157,7 @@ public struct DGRectangle : IDGShape2D
 	 * @param width The width
 	 * @param height The height
 	 * @return this rectangle for chaining */
-	public DGRectangle setSize(FP width, FP height)
+	public DGRectangle setSize(DGFixedPoint width, DGFixedPoint height)
 	{
 		this.width = width;
 		this.height = height;
@@ -173,7 +168,7 @@ public struct DGRectangle : IDGShape2D
 	/** Sets the squared size of this rectangle
 	 * @param sizeXY The size
 	 * @return this rectangle for chaining */
-	public DGRectangle setSize(FP sizeXY)
+	public DGRectangle setSize(DGFixedPoint sizeXY)
 	{
 		this.width = sizeXY;
 		this.height = sizeXY;
@@ -183,7 +178,7 @@ public struct DGRectangle : IDGShape2D
 
 	/** @return the Vector2 with size of this rectangle
 	 * @param size The Vector2 */
-	public FPVector2 getSize(FPVector2 size)
+	public DGVector2 getSize(DGVector2 size)
 	{
 		return size.set(width, height);
 	}
@@ -191,21 +186,21 @@ public struct DGRectangle : IDGShape2D
 	/** @param x point x coordinate
 	 * @param y point y coordinate
 	 * @return whether the point is contained in the rectangle */
-	public bool contains(FP x, FP y)
+	public bool contains(DGFixedPoint x, DGFixedPoint y)
 	{
 		return this.x <= x && this.x + this.width >= x && this.y <= y && this.y + this.height >= y;
 	}
 
 	/** @param point The coordinates vector
 	 * @return whether the point is contained in the rectangle */
-	public bool contains(FPVector2 point)
+	public bool contains(DGVector2 point)
 	{
 		return contains(point.x, point.y);
 	}
 
 	/** @param circle the circle
 	 * @return whether the circle is contained in the rectangle */
-	public bool contains(FPCircle circle)
+	public bool contains(DGCircle circle)
 	{
 		return (circle.x - circle.radius >= x) && (circle.x + circle.radius <= x + width) &&
 		       (circle.y - circle.radius >= y)
@@ -216,11 +211,11 @@ public struct DGRectangle : IDGShape2D
 	 * @return whether the other rectangle is contained in this rectangle. */
 	public bool contains(DGRectangle rectangle)
 	{
-		FP xmin = rectangle.x;
-		FP xmax = xmin + rectangle.width;
+		DGFixedPoint xmin = rectangle.x;
+		DGFixedPoint xmax = xmin + rectangle.width;
 
-		FP ymin = rectangle.y;
-		FP ymax = ymin + rectangle.height;
+		DGFixedPoint ymin = rectangle.y;
+		DGFixedPoint ymax = ymin + rectangle.height;
 
 		return ((xmin > x && xmin < x + width) && (xmax > x && xmax < x + width))
 		       && ((ymin > y && ymin < y + height) && (ymax > y && ymax < y + height));
@@ -251,13 +246,13 @@ public struct DGRectangle : IDGShape2D
 	 * @return this rectangle for chaining */
 	public DGRectangle merge(DGRectangle rect)
 	{
-		FP minX = DGMath.Min(x, rect.x);
-		FP maxX = DGMath.Max(x + width, rect.x + rect.width);
+		DGFixedPoint minX = DGMath.Min(x, rect.x);
+		DGFixedPoint maxX = DGMath.Max(x + width, rect.x + rect.width);
 		x = minX;
 		width = maxX - minX;
 
-		FP minY = DGMath.Min(y, rect.y);
-		FP maxY = DGMath.Max(y + height, rect.y + rect.height);
+		DGFixedPoint minY = DGMath.Min(y, rect.y);
+		DGFixedPoint maxY = DGMath.Max(y + height, rect.y + rect.height);
 		y = minY;
 		height = maxY - minY;
 
@@ -268,15 +263,15 @@ public struct DGRectangle : IDGShape2D
 	 * @param x the x coordinate of the point
 	 * @param y the y coordinate of the point
 	 * @return this rectangle for chaining */
-	public DGRectangle merge(FP x, FP y)
+	public DGRectangle merge(DGFixedPoint x, DGFixedPoint y)
 	{
-		FP minX = DGMath.Min(this.x, x);
-		FP maxX = DGMath.Max(this.x + width, x);
+		DGFixedPoint minX = DGMath.Min(this.x, x);
+		DGFixedPoint maxX = DGMath.Max(this.x + width, x);
 		this.x = minX;
 		this.width = maxX - minX;
 
-		FP minY = DGMath.Min(this.y, y);
-		FP maxY = DGMath.Max(this.y + height, y);
+		DGFixedPoint minY = DGMath.Min(this.y, y);
+		DGFixedPoint maxY = DGMath.Max(this.y + height, y);
 		this.y = minY;
 		this.height = maxY - minY;
 
@@ -286,7 +281,7 @@ public struct DGRectangle : IDGShape2D
 	/** Merges this rectangle with a point. The rectangle should not have negative width or negative height.
 	 * @param vec the vector describing the point
 	 * @return this rectangle for chaining */
-	public DGRectangle merge(FPVector2 vec)
+	public DGRectangle merge(DGVector2 vec)
 	{
 		return merge(vec.x, vec.y);
 	}
@@ -294,15 +289,15 @@ public struct DGRectangle : IDGShape2D
 	/** Merges this rectangle with a list of points. The rectangle should not have negative width or negative height.
 	 * @param vecs the vectors describing the points
 	 * @return this rectangle for chaining */
-	public DGRectangle merge(FPVector2[] vecs)
+	public DGRectangle merge(DGVector2[] vecs)
 	{
-		FP minX = x;
-		FP maxX = x + width;
-		FP minY = y;
-		FP maxY = y + height;
+		DGFixedPoint minX = x;
+		DGFixedPoint maxX = x + width;
+		DGFixedPoint minY = y;
+		DGFixedPoint maxY = y + height;
 		for (int i = 0; i < vecs.Length; ++i)
 		{
-			FPVector2 v = vecs[i];
+			DGVector2 v = vecs[i];
 			minX = DGMath.Min(minX, v.x);
 			maxX = DGMath.Max(maxX, v.x);
 			minY = DGMath.Min(minY, v.y);
@@ -318,7 +313,7 @@ public struct DGRectangle : IDGShape2D
 
 	/** Calculates the aspect ratio ( width / height ) of this rectangle
 	 * @return the aspect ratio of this rectangle. Returns Float.NaN if height is 0 to avoid ArithmeticException */
-	public FP getAspectRatio()
+	public DGFixedPoint getAspectRatio()
 	{
 		return width / height;
 	}
@@ -326,10 +321,10 @@ public struct DGRectangle : IDGShape2D
 	/** Calculates the center of the rectangle. Results are located in the given Vector2
 	 * @param vector the Vector2 to use
 	 * @return the given vector with results stored inside */
-	public FPVector2 getCenter(FPVector2 vector)
+	public DGVector2 getCenter(DGVector2 vector)
 	{
-		vector.x = x + width / (FP) 2;
-		vector.y = y + height / (FP) 2;
+		vector.x = x + width / (DGFixedPoint) 2;
+		vector.y = y + height / (DGFixedPoint) 2;
 		return vector;
 	}
 
@@ -337,18 +332,18 @@ public struct DGRectangle : IDGShape2D
 	 * @param x the position's x
 	 * @param y the position's y
 	 * @return this for chaining */
-	public DGRectangle setCenter(FP x, FP y)
+	public DGRectangle setCenter(DGFixedPoint x, DGFixedPoint y)
 	{
-		setPosition(x - width / (FP) 2, y - height / (FP) 2);
+		setPosition(x - width / (DGFixedPoint) 2, y - height / (DGFixedPoint) 2);
 		return this;
 	}
 
 	/** Moves this rectangle so that its center point is located at a given position
 	 * @param position the position
 	 * @return this for chaining */
-	public DGRectangle setCenter(FPVector2 position)
+	public DGRectangle setCenter(DGVector2 position)
 	{
-		setPosition(position.x - width / (FP) 2, position.y - height / (FP) 2);
+		setPosition(position.x - width / (DGFixedPoint) 2, position.y - height / (DGFixedPoint) 2);
 		return this;
 	}
 
@@ -359,7 +354,7 @@ public struct DGRectangle : IDGShape2D
 	 * @see Scaling */
 	public DGRectangle fitOutside(DGRectangle rect)
 	{
-		FP ratio = getAspectRatio();
+		DGFixedPoint ratio = getAspectRatio();
 
 		if (ratio > rect.getAspectRatio())
 		{
@@ -372,7 +367,7 @@ public struct DGRectangle : IDGShape2D
 			setSize(rect.width, rect.width / ratio);
 		}
 
-		setPosition((rect.x + rect.width / (FP) 2) - width / (FP) 2, (rect.y + rect.height / (FP) 2) - height / (FP) 2);
+		setPosition((rect.x + rect.width / (DGFixedPoint) 2) - width / (DGFixedPoint) 2, (rect.y + rect.height / (DGFixedPoint) 2) - height / (DGFixedPoint) 2);
 		return this;
 	}
 
@@ -383,7 +378,7 @@ public struct DGRectangle : IDGShape2D
 	 * @see Scaling */
 	public DGRectangle fitInside(DGRectangle rect)
 	{
-		FP ratio = getAspectRatio();
+		DGFixedPoint ratio = getAspectRatio();
 
 		if (ratio < rect.getAspectRatio())
 		{
@@ -396,7 +391,7 @@ public struct DGRectangle : IDGShape2D
 			setSize(rect.width, rect.width / ratio);
 		}
 
-		setPosition((rect.x + rect.width / (FP) 2) - width / (FP) 2, (rect.y + rect.height / (FP) 2) - height / (FP) 2);
+		setPosition((rect.x + rect.width / (DGFixedPoint) 2) - width / (DGFixedPoint) 2, (rect.y + rect.height / (DGFixedPoint) 2) - height / (DGFixedPoint) 2);
 		return this;
 	}
 
@@ -408,14 +403,14 @@ public struct DGRectangle : IDGShape2D
 	}
 
 
-	public FP area()
+	public DGFixedPoint area()
 	{
 		return this.width * this.height;
 	}
 
-	public FP perimeter()
+	public DGFixedPoint perimeter()
 	{
-		return (FP) 2 * (this.width + this.height);
+		return (DGFixedPoint) 2 * (this.width + this.height);
 	}
 
 	public override bool Equals(object obj)

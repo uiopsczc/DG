@@ -12,12 +12,6 @@
 
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPVector4 = DGVector4;
-using FPQuaternion = DGQuaternion;
-using FPMatrix4x4 = DGMatrix4x4;
-using FPRay = DGRay;
 
 public partial struct DGPlane
 {
@@ -33,9 +27,9 @@ public partial struct DGPlane
 	/// <param name="y">The Y-component of the normal.</param>
 	/// <param name="z">The Z-component of the normal.</param>
 	/// <param name="d">The distance of the Plane along its normal from the origin.</param>
-	public DGPlane(FP x, FP y, FP z, FP d)
+	public DGPlane(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint d)
 	{
-		normal = new FPVector3(x, y, z);
+		normal = new DGVector3(x, y, z);
 		this.d = d;
 	}
 
@@ -45,17 +39,17 @@ public partial struct DGPlane
 	/// </summary>
 	/// <param name="value">A vector whose first 3 elements describe the normal vector, 
 	/// and whose W component defines the distance along that normal from the origin.</param>
-	public DGPlane(FPVector4 value)
+	public DGPlane(DGVector4 value)
 	{
-		normal = new FPVector3(value.x, value.y, value.z);
+		normal = new DGVector3(value.x, value.y, value.z);
 		d = value.w;
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGPlane(UnityEngine.Plane value)
 	{
-		normal = new FPVector3(value.normal);
-		d = (FP) value.distance;
+		normal = new DGVector3(value.normal);
+		d = (DGFixedPoint) value.distance;
 	}
 #endif
 	/*************************************************************************************
@@ -141,42 +135,42 @@ public partial struct DGPlane
 	/// <param name="point3">The third point defining the Plane.</param>
 	/// <returns>The Plane containing the three points.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static DGPlane CreateFromVertices(FPVector3 point1, FPVector3 point2, FPVector3 point3)
+	public static DGPlane CreateFromVertices(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 	{
 		if (Vector.IsHardwareAccelerated)
 		{
-			FPVector3 a = point2 - point1;
-			FPVector3 b = point3 - point1;
+			DGVector3 a = point2 - point1;
+			DGVector3 b = point3 - point1;
 
 			// N = Cross(a, b)
-			FPVector3 n = FPVector3.Cross(a, b);
-			FPVector3 normal = FPVector3.Normalize(n);
+			DGVector3 n = DGVector3.Cross(a, b);
+			DGVector3 normal = DGVector3.Normalize(n);
 
 			// D = - Dot(N, point1)
-			FP d = -FPVector3.Dot(normal, point1);
+			DGFixedPoint d = -DGVector3.Dot(normal, point1);
 
 			return new DGPlane(normal, d);
 		}
 		else
 		{
-			FP ax = point2.x - point1.x;
-			FP ay = point2.y - point1.y;
-			FP az = point2.z - point1.z;
+			DGFixedPoint ax = point2.x - point1.x;
+			DGFixedPoint ay = point2.y - point1.y;
+			DGFixedPoint az = point2.z - point1.z;
 
-			FP bx = point3.x - point1.x;
-			FP by = point3.y - point1.y;
-			FP bz = point3.z - point1.z;
+			DGFixedPoint bx = point3.x - point1.x;
+			DGFixedPoint by = point3.y - point1.y;
+			DGFixedPoint bz = point3.z - point1.z;
 
 			// N=Cross(a,b)
-			FP nx = ay * bz - az * by;
-			FP ny = az * bx - ax * bz;
-			FP nz = ax * by - ay * bx;
+			DGFixedPoint nx = ay * bz - az * by;
+			DGFixedPoint ny = az * bx - ax * bz;
+			DGFixedPoint nz = ax * by - ay * bx;
 
 			// Normalize(N)
-			FP ls = nx * nx + ny * ny + nz * nz;
-			FP invNorm = (FP) 1.0f / DGMath.Sqrt(ls);
+			DGFixedPoint ls = nx * nx + ny * ny + nz * nz;
+			DGFixedPoint invNorm = (DGFixedPoint) 1.0f / DGMath.Sqrt(ls);
 
-			FPVector3 normal = new FPVector3(
+			DGVector3 normal = new DGVector3(
 				nx * invNorm,
 				ny * invNorm,
 				nz * invNorm);
@@ -197,28 +191,28 @@ public partial struct DGPlane
 	{
 		if (Vector.IsHardwareAccelerated)
 		{
-			FP normalLengthSquared = value.normal.sqrMagnitude;
-			if (DGMath.Abs(normalLengthSquared - (FP) 1.0f) < DGMath.Epsilon)
+			DGFixedPoint normalLengthSquared = value.normal.sqrMagnitude;
+			if (DGMath.Abs(normalLengthSquared - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
 			{
 				// It already normalized, so we don't need to farther process.
 				return value;
 			}
 
-			FP normalLength = DGMath.Sqrt(normalLengthSquared);
+			DGFixedPoint normalLength = DGMath.Sqrt(normalLengthSquared);
 			return new DGPlane(
 				value.normal / normalLength,
 				value.d / normalLength);
 		}
 
-		FP f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
+		DGFixedPoint f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
 		       value.normal.z * value.normal.z;
 
-		if (DGMath.Abs(f - (FP) 1.0f) < DGMath.Epsilon)
+		if (DGMath.Abs(f - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
 		{
 			return value; // It already normalized, so we don't need to further process.
 		}
 
-		FP fInv = (FP) 1.0f / DGMath.Sqrt(f);
+		DGFixedPoint fInv = (DGFixedPoint) 1.0f / DGMath.Sqrt(f);
 
 		return new DGPlane(
 			value.normal.x * fInv,
@@ -235,11 +229,11 @@ public partial struct DGPlane
 	/// <param name="matrix">The transformation matrix to apply to the Plane.</param>
 	/// <returns>The transformed Plane.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static DGPlane Transform(DGPlane plane, FPMatrix4x4 matrix)
+	public static DGPlane Transform(DGPlane plane, DGMatrix4x4 matrix)
 	{
-		FPMatrix4x4 m = FPMatrix4x4.Invert(matrix);
+		DGMatrix4x4 m = DGMatrix4x4.Invert(matrix);
 
-		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.d;
+		DGFixedPoint x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.d;
 
 		return new DGPlane(
 			x * m.SM11 + y * m.SM12 + z * m.SM13 + w * m.SM14,
@@ -256,36 +250,36 @@ public partial struct DGPlane
 	/// <param name="rotation">The Quaternion rotation to apply to the Plane.</param>
 	/// <returns>A new Plane that results from applying the rotation.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static DGPlane Transform(DGPlane plane, FPQuaternion rotation)
+	public static DGPlane Transform(DGPlane plane, DGQuaternion rotation)
 	{
 		// Compute rotation matrix.
-		FP x2 = rotation.x + rotation.x;
-		FP y2 = rotation.y + rotation.y;
-		FP z2 = rotation.z + rotation.z;
+		DGFixedPoint x2 = rotation.x + rotation.x;
+		DGFixedPoint y2 = rotation.y + rotation.y;
+		DGFixedPoint z2 = rotation.z + rotation.z;
 
-		FP wx2 = rotation.w * x2;
-		FP wy2 = rotation.w * y2;
-		FP wz2 = rotation.w * z2;
-		FP xx2 = rotation.x * x2;
-		FP xy2 = rotation.x * y2;
-		FP xz2 = rotation.x * z2;
-		FP yy2 = rotation.y * y2;
-		FP yz2 = rotation.y * z2;
-		FP zz2 = rotation.z * z2;
+		DGFixedPoint wx2 = rotation.w * x2;
+		DGFixedPoint wy2 = rotation.w * y2;
+		DGFixedPoint wz2 = rotation.w * z2;
+		DGFixedPoint xx2 = rotation.x * x2;
+		DGFixedPoint xy2 = rotation.x * y2;
+		DGFixedPoint xz2 = rotation.x * z2;
+		DGFixedPoint yy2 = rotation.y * y2;
+		DGFixedPoint yz2 = rotation.y * z2;
+		DGFixedPoint zz2 = rotation.z * z2;
 
-		FP m11 = (FP) 1.0f - yy2 - zz2;
-		FP m21 = xy2 - wz2;
-		FP m31 = xz2 + wy2;
+		DGFixedPoint m11 = (DGFixedPoint) 1.0f - yy2 - zz2;
+		DGFixedPoint m21 = xy2 - wz2;
+		DGFixedPoint m31 = xz2 + wy2;
 
-		FP m12 = xy2 + wz2;
-		FP m22 = (FP) 1.0f - xx2 - zz2;
-		FP m32 = yz2 - wx2;
+		DGFixedPoint m12 = xy2 + wz2;
+		DGFixedPoint m22 = (DGFixedPoint) 1.0f - xx2 - zz2;
+		DGFixedPoint m32 = yz2 - wx2;
 
-		FP m13 = xz2 - wy2;
-		FP m23 = yz2 + wx2;
-		FP m33 = (FP) 1.0f - xx2 - yy2;
+		DGFixedPoint m13 = xz2 - wy2;
+		DGFixedPoint m23 = yz2 + wx2;
+		DGFixedPoint m33 = (DGFixedPoint) 1.0f - xx2 - yy2;
 
-		FP x = plane.normal.x, y = plane.normal.y, z = plane.normal.z;
+		DGFixedPoint x = plane.normal.x, y = plane.normal.y, z = plane.normal.z;
 
 		return new DGPlane(
 			x * m11 + y * m21 + z * m31,
@@ -301,7 +295,7 @@ public partial struct DGPlane
 	/// <param name="value">The Vector4.</param>
 	/// <returns>The dot product.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static FP Dot(DGPlane plane, FPVector4 value)
+	public static DGFixedPoint Dot(DGPlane plane, DGVector4 value)
 	{
 		return plane.normal.x * value.x +
 		       plane.normal.y * value.y +
@@ -316,11 +310,11 @@ public partial struct DGPlane
 	/// <param name="value">The Vector3.</param>
 	/// <returns>The resulting value.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static FP DotCoordinate(DGPlane plane, FPVector3 value)
+	public static DGFixedPoint DotCoordinate(DGPlane plane, DGVector3 value)
 	{
 		if (Vector.IsHardwareAccelerated)
 		{
-			return FPVector3.Dot(plane.normal, value) + plane.d;
+			return DGVector3.Dot(plane.normal, value) + plane.d;
 		}
 
 		return plane.normal.x * value.x +
@@ -336,11 +330,11 @@ public partial struct DGPlane
 	/// <param name="value">The Vector3.</param>
 	/// <returns>The resulting dot product.</returns>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static FP DotNormal(DGPlane plane, FPVector3 value)
+	public static DGFixedPoint DotNormal(DGPlane plane, DGVector3 value)
 	{
 		if (Vector.IsHardwareAccelerated)
 		{
-			return FPVector3.Dot(plane.normal, value);
+			return DGVector3.Dot(plane.normal, value);
 		}
 
 		return plane.normal.x * value.x +
@@ -356,9 +350,9 @@ public partial struct DGPlane
 	/// <returns>
 	///   <para>The translated plane.</para>
 	/// </returns>
-	public static DGPlane Translate(DGPlane plane, FPVector3 translation)
+	public static DGPlane Translate(DGPlane plane, DGVector3 translation)
 	{
-		return new DGPlane(plane.normal, plane.d += FPVector3.Dot(plane.normal, translation));
+		return new DGPlane(plane.normal, plane.d += DGVector3.Dot(plane.normal, translation));
 	}
 
 	/*************************************************************************************
@@ -369,10 +363,10 @@ public partial struct DGPlane
 	/// </summary>
 	/// <param name="inNormal">The plane's normal vector.</param>
 	/// <param name="inPoint">A point that lies on the plane.</param>
-	public void SetNormalAndPosition(FPVector3 inNormal, FPVector3 inPoint)
+	public void SetNormalAndPosition(DGVector3 inNormal, DGVector3 inPoint)
 	{
-		this.normal = FPVector3.Normalize(inNormal);
-		this.d = -FPVector3.Dot(inNormal, inPoint);
+		this.normal = DGVector3.Normalize(inNormal);
+		this.d = -DGVector3.Dot(inNormal, inPoint);
 	}
 
 	/// <summary>
@@ -381,10 +375,10 @@ public partial struct DGPlane
 	/// <param name="a">First point in clockwise order.</param>
 	/// <param name="b">Second point in clockwise order.</param>
 	/// <param name="c">Third point in clockwise order.</param>
-	public void Set3Points(FPVector3 a, FPVector3 b, FPVector3 c)
+	public void Set3Points(DGVector3 a, DGVector3 b, DGVector3 c)
 	{
-		this.normal = FPVector3.Normalize(FPVector3.Cross(b - a, c - a));
-		this.d = -FPVector3.Dot(this.normal, a);
+		this.normal = DGVector3.Normalize(DGVector3.Cross(b - a, c - a));
+		this.d = -DGVector3.Dot(this.normal, a);
 	}
 
 	public void Flip()
@@ -397,9 +391,9 @@ public partial struct DGPlane
 	///   <para>Moves the plane in space by the translation vector.</para>
 	/// </summary>
 	/// <param name="translation">The offset in space to move the plane with.</param>
-	public void Translate(FPVector3 translation)
+	public void Translate(DGVector3 translation)
 	{
-		this.d += FPVector3.Dot(this.normal, translation);
+		this.d += DGVector3.Dot(this.normal, translation);
 	}
 
 	/// <summary>
@@ -409,9 +403,9 @@ public partial struct DGPlane
 	/// <returns>
 	///   <para>A point on the plane that is closest to point.</para>
 	/// </returns>
-	public FPVector3 ClosestPointOnPlane(FPVector3 point)
+	public DGVector3 ClosestPointOnPlane(DGVector3 point)
 	{
-		FP num = FPVector3.Dot(this.normal, point) + this.d;
+		DGFixedPoint num = DGVector3.Dot(this.normal, point) + this.d;
 		return point - this.normal * num;
 	}
 
@@ -419,18 +413,18 @@ public partial struct DGPlane
 	///   <para>Returns a signed distance from plane to point.</para>
 	/// </summary>
 	/// <param name="point"></param>
-	public FP GetDistanceToPoint(FPVector3 point)
+	public DGFixedPoint GetDistanceToPoint(DGVector3 point)
 	{
-		return FPVector3.Dot(this.normal, point) + this.d;
+		return DGVector3.Dot(this.normal, point) + this.d;
 	}
 
 	/// <summary>
 	///   <para>Is a point on the positive side of the plane?</para>
 	/// </summary>
 	/// <param name="point"></param>
-	public bool GetSide(FPVector3 point)
+	public bool GetSide(DGVector3 point)
 	{
-		return FPVector3.Dot(this.normal, point) + this.d > (FP) 0.0f;
+		return DGVector3.Dot(this.normal, point) + this.d > (DGFixedPoint) 0.0f;
 	}
 
 	/// <summary>
@@ -438,21 +432,21 @@ public partial struct DGPlane
 	/// </summary>
 	/// <param name="inPt0"></param>
 	/// <param name="inPt1"></param>
-	public bool SameSide(FPVector3 inPt0, FPVector3 inPt1)
+	public bool SameSide(DGVector3 inPt0, DGVector3 inPt1)
 	{
-		FP distanceToPoint1 = this.GetDistanceToPoint(inPt0);
-		FP distanceToPoint2 = this.GetDistanceToPoint(inPt1);
-		return distanceToPoint1 > (FP) 0.0 && distanceToPoint2 > (FP) 0.0 ||
-		       distanceToPoint1 <= (FP) 0.0 && distanceToPoint2 <= (FP) 0.0;
+		DGFixedPoint distanceToPoint1 = this.GetDistanceToPoint(inPt0);
+		DGFixedPoint distanceToPoint2 = this.GetDistanceToPoint(inPt1);
+		return distanceToPoint1 > (DGFixedPoint) 0.0 && distanceToPoint2 > (DGFixedPoint) 0.0 ||
+		       distanceToPoint1 <= (DGFixedPoint) 0.0 && distanceToPoint2 <= (DGFixedPoint) 0.0;
 	}
 
-	public bool Raycast(FPRay ray, out FP enter)
+	public bool Raycast(DGRay ray, out DGFixedPoint enter)
 	{
-		FP a = FPVector3.Dot(ray.direction, this.normal);
-		FP num = -FPVector3.Dot(ray.origin, this.normal) - this.d;
+		DGFixedPoint a = DGVector3.Dot(ray.direction, this.normal);
+		DGFixedPoint num = -DGVector3.Dot(ray.origin, this.normal) - this.d;
 		if (DGMath.IsApproximatelyZero(a))
 		{
-			enter = (FP) 0.0f;
+			enter = (DGFixedPoint) 0.0f;
 			return false;
 		}
 

@@ -10,51 +10,49 @@
 *************************************************************************************/
 
 
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 #endif
 
 public static partial class DGMath
 {
-	public static readonly FP One = FP.One;
-	public static readonly FP E = FP.E;
-	public static readonly FP PI = FP.Pi;
-	public static readonly FP TwoPI = FP.TwoPi;
-	public static readonly FP HalfPi = FP.HalfPi;
-	public static readonly FP Deg2Rad = FP.Deg2Rad;
-	public static readonly FP Rad2Deg = FP.Rad2Deg;
-	public static readonly FP Epsilon = FP.Epsilon;
-	public static readonly FP Half = FP.Half;
-	public static readonly FP Quarter = FP.Quarter;
-	public static readonly FP HalfSqrt2 = (FP)0.7071067811865475244008443621048490f;
-	public static readonly FP MaxValue = FP.MaxValue;
-	public static readonly FP MinValue = FP.MinValue;
+	public static readonly DGFixedPoint One = DGFixedPoint.One;
+	public static readonly DGFixedPoint E = DGFixedPoint.E;
+	public static readonly DGFixedPoint PI = DGFixedPoint.Pi;
+	public static readonly DGFixedPoint TwoPI = DGFixedPoint.TwoPi;
+	public static readonly DGFixedPoint HalfPi = DGFixedPoint.HalfPi;
+	public static readonly DGFixedPoint Deg2Rad = DGFixedPoint.Deg2Rad;
+	public static readonly DGFixedPoint Rad2Deg = DGFixedPoint.Rad2Deg;
+	public static readonly DGFixedPoint Epsilon = DGFixedPoint.Epsilon;
+	public static readonly DGFixedPoint Half = DGFixedPoint.Half;
+	public static readonly DGFixedPoint Quarter = DGFixedPoint.Quarter;
+	public static readonly DGFixedPoint HalfSqrt2 = (DGFixedPoint)0.7071067811865475244008443621048490f;
+	public static readonly DGFixedPoint MaxValue = DGFixedPoint.MaxValue;
+	public static readonly DGFixedPoint MinValue = DGFixedPoint.MinValue;
 
 
-	public static bool IsApproximatelyZero(FP value)
+	public static bool IsApproximatelyZero(DGFixedPoint value)
 	{
 		return Abs(value)< Epsilon;
 	}
 
 
-	public static FP Abs(FP value)
+	public static DGFixedPoint Abs(DGFixedPoint value)
 	{
-		return FP.Abs(value);
+		return DGFixedPoint.Abs(value);
 	}
 
-	public static FP Min(FP value1, FP value2)
+	public static DGFixedPoint Min(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		return value1.scaledValue < value2.scaledValue ? value1 : value2;
 	}
 
-	public static FP Min(FP[] values)
+	public static DGFixedPoint Min(DGFixedPoint[] values)
 	{
 		int length = values.Length;
 		if (length == 0)
-			return FP.Zero;
+			return DGFixedPoint.Zero;
 		var minValue = values[0];
 		for (int index = 1; index < length; ++index)
 		{
@@ -66,16 +64,16 @@ public static partial class DGMath
 		return minValue;
 	}
 
-	public static FP Max(FP value1, FP value2)
+	public static DGFixedPoint Max(DGFixedPoint value1, DGFixedPoint value2)
 	{
 		return value1.scaledValue > value2.scaledValue ? value1 : value2;
 	}
 
-	public static FP Max(FP[] values)
+	public static DGFixedPoint Max(DGFixedPoint[] values)
 	{
 		int length = values.Length;
 		if (length == 0)
-			return FP.Zero;
+			return DGFixedPoint.Zero;
 		var maxValue = values[0];
 		for (int index = 1; index < length; ++index)
 		{
@@ -87,52 +85,52 @@ public static partial class DGMath
 		return maxValue;
 	}
 
-	public static FP Sqrt(FP value)
+	public static DGFixedPoint Sqrt(DGFixedPoint value)
 	{
-		return FP.Sqrt(value);
+		return DGFixedPoint.Sqrt(value);
 	}
 
-	public static FP Pow(FP value, FP power)
+	public static DGFixedPoint Pow(DGFixedPoint value, DGFixedPoint power)
 	{
-		return FP.Pow(value, power);
+		return DGFixedPoint.Pow(value, power);
 	}
 
-	public static FP Exp(FP power)
+	public static DGFixedPoint Exp(DGFixedPoint power)
 	{
 		return Pow(E, power);
 	}
 
-	public static FP Ceiling(FP value)
+	public static DGFixedPoint Ceiling(DGFixedPoint value)
 	{
-		return FP.Ceiling(value);
+		return DGFixedPoint.Ceiling(value);
 	}
 
-	public static FP Floor(FP value)
+	public static DGFixedPoint Floor(DGFixedPoint value)
 	{
-		return FP.Floor(value);
+		return DGFixedPoint.Floor(value);
 	}
 
-	public static FP Round(FP value)
+	public static DGFixedPoint Round(DGFixedPoint value)
 	{
-		return FP.Round(value);
+		return DGFixedPoint.Round(value);
 	}
 
-	public static FP Truncate(FP value)
+	public static DGFixedPoint Truncate(DGFixedPoint value)
 	{
-		return FP.Truncate(value);
+		return DGFixedPoint.Truncate(value);
 	}
 
-	public static int Sign(FP value)
+	public static int Sign(DGFixedPoint value)
 	{
-		return FP.Sign(value);
+		return DGFixedPoint.Sign(value);
 	}
 
-	public static FP CopySign(FP x, FP y)
+	public static DGFixedPoint CopySign(DGFixedPoint x, DGFixedPoint y)
 	{
-		return FP.CopySign(x, y);
+		return DGFixedPoint.CopySign(x, y);
 	}
 
-	public static FP Clamp(FP value, FP min, FP max)
+	public static DGFixedPoint Clamp(DGFixedPoint value, DGFixedPoint min, DGFixedPoint max)
 	{
 		if (value < min)
 			return min;
@@ -141,94 +139,94 @@ public static partial class DGMath
 		return value;
 	}
 
-	public static FP Clamp01(FP value)
+	public static DGFixedPoint Clamp01(DGFixedPoint value)
 	{
-		return Clamp(value, FP.Zero, FP.One);
+		return Clamp(value, DGFixedPoint.Zero, DGFixedPoint.One);
 	}
 
-	public static FP Lerp(FP a, FP b, FP t)
+	public static DGFixedPoint Lerp(DGFixedPoint a, DGFixedPoint b, DGFixedPoint t)
 	{
 		return a + (b - a) * Clamp01(t);
 	}
 
-	public static FP LerpUnclamped(FP a, FP b, FP t)
+	public static DGFixedPoint LerpUnclamped(DGFixedPoint a, DGFixedPoint b, DGFixedPoint t)
 	{
 		return a + (b - a) * t;
 	}
 
-	public static FP LerpAngle(FP a, FP b, FP t)
+	public static DGFixedPoint LerpAngle(DGFixedPoint a, DGFixedPoint b, DGFixedPoint t)
 	{
-		FP num = Repeat(b - a, FP.Cache[360]);
-		if (num > FP.Cache[180])
-			num -= FP.Cache[360];
+		DGFixedPoint num = Repeat(b - a, DGFixedPoint.Cache[360]);
+		if (num > DGFixedPoint.Cache[180])
+			num -= DGFixedPoint.Cache[360];
 		return a + num * Clamp01(t);
 	}
 
-	public static FP MoveTowards(FP current, FP target, FP maxDelta)
+	public static DGFixedPoint MoveTowards(DGFixedPoint current, DGFixedPoint target, DGFixedPoint maxDelta)
 	{
 		if (Abs(target - current) <= maxDelta)
 			return target;
-		return current + (FP)Sign(target - current) * maxDelta;
+		return current + (DGFixedPoint)Sign(target - current) * maxDelta;
 	}
 
-	public static FP MoveTowardsAngle(FP current, FP target, FP maxDelta)
+	public static DGFixedPoint MoveTowardsAngle(DGFixedPoint current, DGFixedPoint target, DGFixedPoint maxDelta)
 	{
-		FP num = DeltaAngle(current, target);
+		DGFixedPoint num = DeltaAngle(current, target);
 		if (-maxDelta < num && num < maxDelta)
 			return target;
 		target = current + num;
 		return MoveTowards(current, target, maxDelta);
 	}
 
-	public static FP SmoothStep(FP from, FP to, FP t)
+	public static DGFixedPoint SmoothStep(DGFixedPoint from, DGFixedPoint to, DGFixedPoint t)
 	{
 		t = Clamp01(t);
-		t = (FP)(-2) * t * t * t + (FP)(3) * t * t;
-		return to * t + from * ((FP)1 - t);
+		t = (DGFixedPoint)(-2) * t * t * t + (DGFixedPoint)(3) * t * t;
+		return to * t + from * ((DGFixedPoint)1 - t);
 	}
 
-	public static FP Gamma(FP value, FP absmax, FP gamma)
+	public static DGFixedPoint Gamma(DGFixedPoint value, DGFixedPoint absmax, DGFixedPoint gamma)
 	{
-		bool negative = value < (FP)0;
-		FP absval = Abs(value);
+		bool negative = value < (DGFixedPoint)0;
+		DGFixedPoint absval = Abs(value);
 		if (absval > absmax)
 			return negative ? -absval : absval;
-		FP result = Pow(absval / absmax, gamma) * absmax;
+		DGFixedPoint result = Pow(absval / absmax, gamma) * absmax;
 		return negative ? -result : result;
 	}
 
-#if UNITY_5_3_OR_NEWER
-	public static FP SmoothDamp(FP current, FP target, ref FP currentVelocity,
-		FP smoothTime, FP maxSpeed)
+#if UNITY_STANDALONE
+	public static DGFixedPoint SmoothDamp(DGFixedPoint current, DGFixedPoint target, ref DGFixedPoint currentVelocity,
+		DGFixedPoint smoothTime, DGFixedPoint maxSpeed)
 	{
-		FP deltaTime = (FP)Time.deltaTime;
+		DGFixedPoint deltaTime = (DGFixedPoint)Time.deltaTime;
 		return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 #endif
 
-	public static FP SmoothDamp(FP current, FP target, ref FP currentVelocity,
-		FP smoothTime, FP maxSpeed, FP deltaTime)
+	public static DGFixedPoint SmoothDamp(DGFixedPoint current, DGFixedPoint target, ref DGFixedPoint currentVelocity,
+		DGFixedPoint smoothTime, DGFixedPoint maxSpeed, DGFixedPoint deltaTime)
 	{
 		// Based on Game Programming Gems 4 Chapter 1.10
-		smoothTime = Max((FP)0.0001F, smoothTime);
-		FP omega = (FP)2F / smoothTime;
+		smoothTime = Max((DGFixedPoint)0.0001F, smoothTime);
+		DGFixedPoint omega = (DGFixedPoint)2F / smoothTime;
 
-		FP x = omega * deltaTime;
-		FP exp = (FP)1F / ((FP)1F + x + (FP)0.48F * x * x + (FP)0.235F * x * x * x);
-		FP change = current - target;
-		FP originalTo = target;
+		DGFixedPoint x = omega * deltaTime;
+		DGFixedPoint exp = (DGFixedPoint)1F / ((DGFixedPoint)1F + x + (DGFixedPoint)0.48F * x * x + (DGFixedPoint)0.235F * x * x * x);
+		DGFixedPoint change = current - target;
+		DGFixedPoint originalTo = target;
 
 		// Clamp maximum speed
-		FP maxChange = maxSpeed * smoothTime;
+		DGFixedPoint maxChange = maxSpeed * smoothTime;
 		change = Clamp(change, -maxChange, maxChange);
 		target = current - change;
 
-		FP temp = (currentVelocity + omega * change) * deltaTime;
+		DGFixedPoint temp = (currentVelocity + omega * change) * deltaTime;
 		currentVelocity = (currentVelocity - omega * temp) * exp;
-		FP output = target + (change + temp) * exp;
+		DGFixedPoint output = target + (change + temp) * exp;
 
 		// Prevent overshooting
-		if (originalTo - current >  (FP)0.0F == output > originalTo)
+		if (originalTo - current >  (DGFixedPoint)0.0F == output > originalTo)
 		{
 			output = originalTo;
 			currentVelocity = (output - originalTo) / deltaTime;
@@ -236,59 +234,59 @@ public static partial class DGMath
 
 		return output;
 	}
-#if UNITY_5_3_OR_NEWER
-	public static FP SmoothDampAngle(FP current, FP target,
-		ref FP currentVelocity, FP smoothTime, FP maxSpeed)
+#if UNITY_STANDALONE
+	public static DGFixedPoint SmoothDampAngle(DGFixedPoint current, DGFixedPoint target,
+		ref DGFixedPoint currentVelocity, DGFixedPoint smoothTime, DGFixedPoint maxSpeed)
 	{
-		FP deltaTime = (FP)Time.deltaTime;
+		DGFixedPoint deltaTime = (DGFixedPoint)Time.deltaTime;
 		return SmoothDampAngle(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 
-	public static FP SmoothDampAngle(FP current, FP target,
-		ref FP currentVelocity, FP smoothTime)
+	public static DGFixedPoint SmoothDampAngle(DGFixedPoint current, DGFixedPoint target,
+		ref DGFixedPoint currentVelocity, DGFixedPoint smoothTime)
 	{
-		FP deltaTime = (FP)Time.deltaTime;
-		FP maxSpeed = FP.MaxValue;
+		DGFixedPoint deltaTime = (DGFixedPoint)Time.deltaTime;
+		DGFixedPoint maxSpeed = DGFixedPoint.MaxValue;
 		return SmoothDampAngle(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 #endif
 
-	public static FP SmoothDampAngle(FP current, FP target,
-		ref FP currentVelocity, FP smoothTime, FP maxSpeed, FP deltaTime)
+	public static DGFixedPoint SmoothDampAngle(DGFixedPoint current, DGFixedPoint target,
+		ref DGFixedPoint currentVelocity, DGFixedPoint smoothTime, DGFixedPoint maxSpeed, DGFixedPoint deltaTime)
 	{
 		target = current + DeltaAngle(current, target);
 		return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 
-	public static FP Repeat(FP t, FP length)
+	public static DGFixedPoint Repeat(DGFixedPoint t, DGFixedPoint length)
 	{
-		return Clamp(t - Floor(t / length) * length, FP.Zero, length);
+		return Clamp(t - Floor(t / length) * length, DGFixedPoint.Zero, length);
 	}
 
-	public static FP PingPong(FP t, FP length)
+	public static DGFixedPoint PingPong(DGFixedPoint t, DGFixedPoint length)
 	{
-		t = Repeat(t, (FP)2 * length);
+		t = Repeat(t, (DGFixedPoint)2 * length);
 		return length - Abs(t - length);
 	}
 
-	public static FP InverseLerp(FP a, FP b, FP value)
+	public static DGFixedPoint InverseLerp(DGFixedPoint a, DGFixedPoint b, DGFixedPoint value)
 	{
 		if (a != b)
 			return Clamp01((value - a) / (b - a));
-		return FP.Zero;
+		return DGFixedPoint.Zero;
 	}
 
-	public static FP DeltaAngle(FP current, FP target)
+	public static DGFixedPoint DeltaAngle(DGFixedPoint current, DGFixedPoint target)
 	{
-		FP num = Repeat(target - current, FP.Cache[360]);
-		if (num > FP.Cache[180])
-			num -= FP.Cache[360];
+		DGFixedPoint num = Repeat(target - current, DGFixedPoint.Cache[360]);
+		if (num > DGFixedPoint.Cache[180])
+			num -= DGFixedPoint.Cache[360];
 		return num;
 	}
 
-	public static FP Asin(FP value)
+	public static DGFixedPoint Asin(DGFixedPoint value)
 	{
-		return FP.Asin(value);
+		return DGFixedPoint.Asin(value);
 	}
 
 	/// <summary>
@@ -296,65 +294,65 @@ public static partial class DGMath
 	/// </summary>
 	/// <param name="value"></param>
 	/// <returns></returns>
-	public static FP Acos(FP value)
+	public static DGFixedPoint Acos(DGFixedPoint value)
 	{
-		return FP.Acos(value);
+		return DGFixedPoint.Acos(value);
 	}
 
-	public static FP Atan(FP value)
+	public static DGFixedPoint Atan(DGFixedPoint value)
 	{
-		return FP.Atan(value);
+		return DGFixedPoint.Atan(value);
 	}
 
-	public static FP Atan2(FP x, FP y)
+	public static DGFixedPoint Atan2(DGFixedPoint x, DGFixedPoint y)
 	{
-		return FP.Atan2(x,y);
+		return DGFixedPoint.Atan2(x,y);
 	}
 
 
-	public static FP Sin(FP value)
+	public static DGFixedPoint Sin(DGFixedPoint value)
 	{
-		return FP.Sin(value);
+		return DGFixedPoint.Sin(value);
 	}
 	
-	public static FP Cos(FP value)
+	public static DGFixedPoint Cos(DGFixedPoint value)
 	{
-		return FP.Cos(value);
+		return DGFixedPoint.Cos(value);
 	}
 
-	public static FP Tan(FP value)
+	public static DGFixedPoint Tan(DGFixedPoint value)
 	{
-		return FP.Tan(value);
+		return DGFixedPoint.Tan(value);
 	}
 
-	public static FP Log(FP value)
+	public static DGFixedPoint Log(DGFixedPoint value)
 	{
-		return FP.Ln(value);
+		return DGFixedPoint.Ln(value);
 	}
 
-	public static FP Log(FP value, FP newBase)
+	public static DGFixedPoint Log(DGFixedPoint value, DGFixedPoint newBase)
 	{
 		return Log(value)/Log(newBase);
 	}
 
-	public static FP Log10(FP value)
+	public static DGFixedPoint Log10(DGFixedPoint value)
 	{
-		return Log(value) / Log((FP)(10));
+		return Log(value) / Log((DGFixedPoint)(10));
 	}
 
 	// Infinite Line Intersection (line1 is p1-p2 and line2 is p3-p4)
-	public static bool LineIntersection(FPVector2 p1, FPVector2 p2, FPVector2 p3, FPVector2 p4, ref FPVector2 result)
+	public static bool LineIntersection(DGVector2 p1, DGVector2 p2, DGVector2 p3, DGVector2 p4, ref DGVector2 result)
 	{
-		FP bx = p2.x - p1.x;
-		FP by = p2.y - p1.y;
-		FP dx = p4.x - p3.x;
-		FP dy = p4.y - p3.y;
-		FP bDotDPerp = bx * dy - by * dx;
-		if (bDotDPerp == (FP)0)
+		DGFixedPoint bx = p2.x - p1.x;
+		DGFixedPoint by = p2.y - p1.y;
+		DGFixedPoint dx = p4.x - p3.x;
+		DGFixedPoint dy = p4.y - p3.y;
+		DGFixedPoint bDotDPerp = bx * dy - by * dx;
+		if (bDotDPerp == (DGFixedPoint)0)
 			return false;
-		FP cx = p3.x - p1.x;
-		FP cy = p3.y - p1.y;
-		FP t = (cx * dy - cy * dx) / bDotDPerp;
+		DGFixedPoint cx = p3.x - p1.x;
+		DGFixedPoint cy = p3.y - p1.y;
+		DGFixedPoint t = (cx * dy - cy * dx) / bDotDPerp;
 
 		result.x = p1.x + t * bx;
 		result.y = p1.y + t * by;
@@ -362,22 +360,22 @@ public static partial class DGMath
 	}
 
 	// Line Segment Intersection (line1 is p1-p2 and line2 is p3-p4)
-	public static bool LineSegmentIntersection(FPVector2 p1, FPVector2 p2, FPVector2 p3, FPVector2 p4, ref FPVector2 result)
+	public static bool LineSegmentIntersection(DGVector2 p1, DGVector2 p2, DGVector2 p3, DGVector2 p4, ref DGVector2 result)
 	{
-		FP bx = p2.x - p1.x;
-		FP by = p2.y - p1.y;
-		FP dx = p4.x - p3.x;
-		FP dy = p4.y - p3.y;
-		FP bDotDPerp = bx * dy - by * dx;
-		if (bDotDPerp == (FP)0)
+		DGFixedPoint bx = p2.x - p1.x;
+		DGFixedPoint by = p2.y - p1.y;
+		DGFixedPoint dx = p4.x - p3.x;
+		DGFixedPoint dy = p4.y - p3.y;
+		DGFixedPoint bDotDPerp = bx * dy - by * dx;
+		if (bDotDPerp == (DGFixedPoint)0)
 			return false;
-		FP cx = p3.x - p1.x;
-		FP cy = p3.y - p1.y;
-		FP t = (cx * dy - cy * dx) / bDotDPerp;
-		if (t < (FP)0 || t > (FP)1)
+		DGFixedPoint cx = p3.x - p1.x;
+		DGFixedPoint cy = p3.y - p1.y;
+		DGFixedPoint t = (cx * dy - cy * dx) / bDotDPerp;
+		if (t < (DGFixedPoint)0 || t > (DGFixedPoint)1)
 			return false;
-		FP u = (cx * by - cy * bx) / bDotDPerp;
-		if (u < (FP)0 || u > (FP)1)
+		DGFixedPoint u = (cx * by - cy * bx) / bDotDPerp;
+		if (u < (DGFixedPoint)0 || u > (DGFixedPoint)1)
 			return false;
 
 		result.x = p1.x + t * bx;
@@ -385,22 +383,22 @@ public static partial class DGMath
 		return true;
 	}
 
-	public static FP ClampedMove(FP lhs, FP rhs, FP clampedDelta)
+	public static DGFixedPoint ClampedMove(DGFixedPoint lhs, DGFixedPoint rhs, DGFixedPoint clampedDelta)
 	{
 		var delta = rhs - lhs;
-		if (delta > (FP)0)
+		if (delta > (DGFixedPoint)0)
 			return lhs + Min(delta, clampedDelta);
 		return lhs - Min(-delta, clampedDelta);
 	}
 
 
-	public static FP HorizontalAngle(FPVector2 dir)
+	public static DGFixedPoint HorizontalAngle(DGVector2 dir)
 	{
 		var v = Atan2(dir.x, dir.y);
 		return Rad2Deg * v;
 	}
 
-	public static FP IEEERemainder(FP x, FP y)
+	public static DGFixedPoint IEEERemainder(DGFixedPoint x, DGFixedPoint y)
 	{
 //		if (Double.IsNaN(x))
 //		{
@@ -411,7 +409,7 @@ public static partial class DGMath
 //			return y; // IEEE 754-2008: NaN payload must be preserved
 //		}
 
-		FP regularMod = x % y;
+		DGFixedPoint regularMod = x % y;
 //		if (Double.IsNaN(regularMod))
 //		{
 //			return Double.NaN;
@@ -423,11 +421,11 @@ public static partial class DGMath
 //				return Double.NegativeZero;
 //			}
 //		}
-		FP alternativeResult = regularMod - (Abs(y) * (FP)Sign(x));
+		DGFixedPoint alternativeResult = regularMod - (Abs(y) * (DGFixedPoint)Sign(x));
 		if (Abs(alternativeResult) == Abs(regularMod))
 		{
-			FP divisionResult = x / y;
-			FP roundedResult = Round(divisionResult);
+			DGFixedPoint divisionResult = x / y;
+			DGFixedPoint roundedResult = Round(divisionResult);
 			if (Abs(roundedResult) > Abs(divisionResult))
 				return alternativeResult;
 			return regularMod;
@@ -439,24 +437,24 @@ public static partial class DGMath
 	}
 
 	//https://stackoverflow.com/questions/23402414/implementing-an-accurate-cbrt-function-without-extra-precision
-	public static FP Cbrt(FP x)
+	public static DGFixedPoint Cbrt(DGFixedPoint x)
 	{
-		if (x == (FP)0) return (FP)0;
-		if (x < (FP)0) return -Cbrt(-x);
+		if (x == (DGFixedPoint)0) return (DGFixedPoint)0;
+		if (x < (DGFixedPoint)0) return -Cbrt(-x);
 
 		var r = x;
-		var ex = (FP)0;
+		var ex = (DGFixedPoint)0;
 
-		while (r < (FP)0.125) { r *= (FP)8; ex = ex - (FP)1; }
-		while (r > (FP)1.0) { r *= (FP)0.125; ex = ex + (FP)1; }
+		while (r < (DGFixedPoint)0.125) { r *= (DGFixedPoint)8; ex = ex - (DGFixedPoint)1; }
+		while (r > (DGFixedPoint)1.0) { r *= (DGFixedPoint)0.125; ex = ex + (DGFixedPoint)1; }
 
-		r = ((FP)(-0.46946116) * r + (FP)1.072302) * r + (FP)0.3812513;
+		r = ((DGFixedPoint)(-0.46946116) * r + (DGFixedPoint)1.072302) * r + (DGFixedPoint)0.3812513;
 
-		while (ex < (FP)0) { r *= (FP)0.5; ex= ex + (FP)1; }
-		while (ex > (FP)0) { r *= (FP)2; ex = ex - (FP)1; }
+		while (ex < (DGFixedPoint)0) { r *= (DGFixedPoint)0.5; ex= ex + (DGFixedPoint)1; }
+		while (ex > (DGFixedPoint)0) { r *= (DGFixedPoint)2; ex = ex - (DGFixedPoint)1; }
 
-		var a = (FP)0.66666666666667;// 2/3
-		var b = (FP)0.33333333333333;// 1/3
+		var a = (DGFixedPoint)0.66666666666667;// 2/3
+		var b = (DGFixedPoint)0.33333333333333;// 1/3
 
 		r = a * r + b * x / (r * r);
 		r = a * r + b * x / (r * r);

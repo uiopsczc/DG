@@ -10,12 +10,6 @@
 *************************************************************************************/
 
 using System.Numerics;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPMatrix4x4 = DGMatrix4x4;
-using FPMatrix3x3 = DGMatrix3x3;
-using FPMatrix2x3 = DGMatrix2x3;
-using FPVector2 = DGVector2;
 
 /// <summary>
 /// 3 row, 2 column matrix.
@@ -25,38 +19,38 @@ public struct DGMatrix3x2
 	/// <summary>
 	/// Value at row 1, column 1 of the matrix.
 	/// </summary>
-	public FP SM11;
+	public DGFixedPoint SM11;
 
 	/// <summary>
 	/// Value at row 1, column 2 of the matrix.
 	/// </summary>
-	public FP SM12;
+	public DGFixedPoint SM12;
 
 	/// <summary>
 	/// Value at row 2, column 1 of the matrix.
 	/// </summary>
-	public FP SM21;
+	public DGFixedPoint SM21;
 
 	/// <summary>
 	/// Value at row 2, column 2 of the matrix.
 	/// </summary>
-	public FP SM22;
+	public DGFixedPoint SM22;
 
 	/// <summary>
 	/// Value at row 3, column 1 of the matrix.
 	/// </summary>
-	public FP SM31;
+	public DGFixedPoint SM31;
 
 	/// <summary>
 	/// Value at row 3, column 2 of the matrix.
 	/// </summary>
-	public FP SM32;
+	public DGFixedPoint SM32;
 
 	private static readonly DGMatrix3x2 _identity = new DGMatrix3x2
 	(
-		(FP) 1f, (FP) 0f,
-		(FP) 0f, (FP) 1f,
-		(FP) 0f, (FP) 0f
+		(DGFixedPoint) 1f, (DGFixedPoint) 0f,
+		(DGFixedPoint) 0f, (DGFixedPoint) 1f,
+		(DGFixedPoint) 0f, (DGFixedPoint) 0f
 	);
 
 	/// <summary>
@@ -67,17 +61,17 @@ public struct DGMatrix3x2
 	/// <summary>
 	/// Returns whether the matrix is the identity matrix.
 	/// </summary>
-	public bool isIdentity => SM11 == (FP) 1f && SM22 == (FP) 1f && // Check diagonal element first for early out.
-	                          SM12 == (FP) 0f &&
-	                          SM21 == (FP) 0f &&
-	                          SM31 == (FP) 0f && SM32 == (FP) 0f;
+	public bool isIdentity => SM11 == (DGFixedPoint) 1f && SM22 == (DGFixedPoint) 1f && // Check diagonal element first for early out.
+	                          SM12 == (DGFixedPoint) 0f &&
+	                          SM21 == (DGFixedPoint) 0f &&
+	                          SM31 == (DGFixedPoint) 0f && SM32 == (DGFixedPoint) 0f;
 
 	/// <summary>
 	/// Gets or sets the translation component of this matrix.
 	/// </summary>
-	public FPVector2 translation
+	public DGVector2 translation
 	{
-		get => new FPVector2(SM31, SM32);
+		get => new DGVector2(SM31, SM32);
 
 		set
 		{
@@ -96,7 +90,7 @@ public struct DGMatrix3x2
 	/// <param name="sm22">Value at row 2, column 2 of the matrix.</param>
 	/// <param name="sm31">Value at row 2, column 1 of the matrix.</param>
 	/// <param name="sm32">Value at row 2, column 2 of the matrix.</param>
-	public DGMatrix3x2(FP sm11, FP sm12, FP sm21, FP sm22, FP sm31, FP sm32)
+	public DGMatrix3x2(DGFixedPoint sm11, DGFixedPoint sm12, DGFixedPoint sm21, DGFixedPoint sm22, DGFixedPoint sm31, DGFixedPoint sm32)
 	{
 		SM11 = sm11;
 		SM12 = sm12;
@@ -108,12 +102,12 @@ public struct DGMatrix3x2
 
 	public DGMatrix3x2(Matrix3x2 matrix)
 	{
-		SM11 = (FP) matrix.M11;
-		SM12 = (FP) matrix.M12;
-		SM21 = (FP) matrix.M21;
-		SM22 = (FP) matrix.M22;
-		SM31 = (FP) matrix.M31;
-		SM32 = (FP) matrix.M32;
+		SM11 = (DGFixedPoint) matrix.M11;
+		SM12 = (DGFixedPoint) matrix.M12;
+		SM21 = (DGFixedPoint) matrix.M21;
+		SM22 = (DGFixedPoint) matrix.M22;
+		SM31 = (DGFixedPoint) matrix.M31;
+		SM32 = (DGFixedPoint) matrix.M32;
 	}
 
 	/*************************************************************************************
@@ -291,7 +285,7 @@ public struct DGMatrix3x2
 	/// <param name="value1">The source matrix.</param>
 	/// <param name="value2">The scaling value to use.</param>
 	/// <returns>The resulting matrix.</returns>
-	public static DGMatrix3x2 operator *(DGMatrix3x2 value1, FP value2)
+	public static DGMatrix3x2 operator *(DGMatrix3x2 value1, DGFixedPoint value2)
 	{
 		DGMatrix3x2 m;
 
@@ -313,14 +307,14 @@ public struct DGMatrix3x2
 	/// </summary>
 	/// <param name="position">The translation position.</param>
 	/// <returns>A translation matrix.</returns>
-	public static DGMatrix3x2 CreateTranslation(FPVector2 position)
+	public static DGMatrix3x2 CreateTranslation(DGVector2 position)
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (FP) 1.0f;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) 1.0f;
+		result.SM11 = (DGFixedPoint) 1.0f;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) 1.0f;
 
 		result.SM31 = position.x;
 		result.SM32 = position.y;
@@ -334,14 +328,14 @@ public struct DGMatrix3x2
 	/// <param name="xPosition">The X position.</param>
 	/// <param name="yPosition">The Y position.</param>
 	/// <returns>A translation matrix.</returns>
-	public static DGMatrix3x2 CreateTranslation(FP xPosition, FP yPosition)
+	public static DGMatrix3x2 CreateTranslation(DGFixedPoint xPosition, DGFixedPoint yPosition)
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (FP) 1.0f;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) 1.0f;
+		result.SM11 = (DGFixedPoint) 1.0f;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) 1.0f;
 
 		result.SM31 = xPosition;
 		result.SM32 = yPosition;
@@ -355,16 +349,16 @@ public struct DGMatrix3x2
 	/// <param name="xScale">Value to scale by on the X-axis.</param>
 	/// <param name="yScale">Value to scale by on the Y-axis.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FP xScale, FP yScale)
+	public static DGMatrix3x2 CreateScale(DGFixedPoint xScale, DGFixedPoint yScale)
 	{
 		DGMatrix3x2 result;
 
 		result.SM11 = xScale;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) yScale;
-		result.SM31 = (FP) 0.0f;
-		result.SM32 = (FP) 0.0f;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) yScale;
+		result.SM31 = (DGFixedPoint) 0.0f;
+		result.SM32 = (DGFixedPoint) 0.0f;
 
 		return result;
 	}
@@ -376,16 +370,16 @@ public struct DGMatrix3x2
 	/// <param name="yScale">Value to scale by on the Y-axis.</param>
 	/// <param name="centerPoint">The center point.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FP xScale, FP yScale, FPVector2 centerPoint)
+	public static DGMatrix3x2 CreateScale(DGFixedPoint xScale, DGFixedPoint yScale, DGVector2 centerPoint)
 	{
 		DGMatrix3x2 result;
 
-		FP tx = centerPoint.x * ((FP) 1 - xScale);
-		FP ty = centerPoint.y * ((FP) 1 - yScale);
+		DGFixedPoint tx = centerPoint.x * ((DGFixedPoint) 1 - xScale);
+		DGFixedPoint ty = centerPoint.y * ((DGFixedPoint) 1 - yScale);
 
 		result.SM11 = xScale;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
 		result.SM22 = yScale;
 		result.SM31 = tx;
 		result.SM32 = ty;
@@ -398,16 +392,16 @@ public struct DGMatrix3x2
 	/// </summary>
 	/// <param name="scales">The scale to use.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FPVector2 scales)
+	public static DGMatrix3x2 CreateScale(DGVector2 scales)
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (FP) scales.x;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) scales.y;
-		result.SM31 = (FP) 0.0f;
-		result.SM32 = (FP) 0.0f;
+		result.SM11 = (DGFixedPoint) scales.x;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) scales.y;
+		result.SM31 = (DGFixedPoint) 0.0f;
+		result.SM32 = (DGFixedPoint) 0.0f;
 
 		return result;
 	}
@@ -418,19 +412,19 @@ public struct DGMatrix3x2
 	/// <param name="scales">The scale to use.</param>
 	/// <param name="centerPoint">The center offset.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FPVector2 scales, FPVector2 centerPoint)
+	public static DGMatrix3x2 CreateScale(DGVector2 scales, DGVector2 centerPoint)
 	{
 		DGMatrix3x2 result;
 
-		FP tx = centerPoint.x * ((FP) 1 - scales.x);
-		FP ty = centerPoint.y * ((FP) 1 - scales.y);
+		DGFixedPoint tx = centerPoint.x * ((DGFixedPoint) 1 - scales.x);
+		DGFixedPoint ty = centerPoint.y * ((DGFixedPoint) 1 - scales.y);
 
-		result.SM11 = (FP) scales.x;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) scales.y;
-		result.SM31 = (FP) tx;
-		result.SM32 = (FP) ty;
+		result.SM11 = (DGFixedPoint) scales.x;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) scales.y;
+		result.SM31 = (DGFixedPoint) tx;
+		result.SM32 = (DGFixedPoint) ty;
 
 		return result;
 	}
@@ -440,16 +434,16 @@ public struct DGMatrix3x2
 	/// </summary>
 	/// <param name="scale">The uniform scale to use.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FP scale)
+	public static DGMatrix3x2 CreateScale(DGFixedPoint scale)
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (FP) scale;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) scale;
-		result.SM31 = (FP) 0.0f;
-		result.SM32 = (FP) 0.0f;
+		result.SM11 = (DGFixedPoint) scale;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) scale;
+		result.SM31 = (DGFixedPoint) 0.0f;
+		result.SM32 = (DGFixedPoint) 0.0f;
 
 		return result;
 	}
@@ -460,19 +454,19 @@ public struct DGMatrix3x2
 	/// <param name="scale">The uniform scale to use.</param>
 	/// <param name="centerPoint">The center offset.</param>
 	/// <returns>A scaling matrix.</returns>
-	public static DGMatrix3x2 CreateScale(FP scale, FPVector2 centerPoint)
+	public static DGMatrix3x2 CreateScale(DGFixedPoint scale, DGVector2 centerPoint)
 	{
 		DGMatrix3x2 result;
 
-		FP tx = centerPoint.x * ((FP) 1 - scale);
-		FP ty = centerPoint.y * ((FP) 1 - scale);
+		DGFixedPoint tx = centerPoint.x * ((DGFixedPoint) 1 - scale);
+		DGFixedPoint ty = centerPoint.y * ((DGFixedPoint) 1 - scale);
 
-		result.SM11 = (FP) scale;
-		result.SM12 = (FP) 0.0f;
-		result.SM21 = (FP) 0.0f;
-		result.SM22 = (FP) scale;
-		result.SM31 = (FP) tx;
-		result.SM32 = (FP) ty;
+		result.SM11 = (DGFixedPoint) scale;
+		result.SM12 = (DGFixedPoint) 0.0f;
+		result.SM21 = (DGFixedPoint) 0.0f;
+		result.SM22 = (DGFixedPoint) scale;
+		result.SM31 = (DGFixedPoint) tx;
+		result.SM32 = (DGFixedPoint) ty;
 
 		return result;
 	}
@@ -483,19 +477,19 @@ public struct DGMatrix3x2
 	/// <param name="radiansX">The X angle, in radians.</param>
 	/// <param name="radiansY">The Y angle, in radians.</param>
 	/// <returns>A skew matrix.</returns>
-	public static DGMatrix3x2 CreateSkew(FP radiansX, FP radiansY)
+	public static DGMatrix3x2 CreateSkew(DGFixedPoint radiansX, DGFixedPoint radiansY)
 	{
 		DGMatrix3x2 result;
 
-		FP xTan = DGMath.Tan(radiansX);
-		FP yTan = DGMath.Tan(radiansY);
+		DGFixedPoint xTan = DGMath.Tan(radiansX);
+		DGFixedPoint yTan = DGMath.Tan(radiansY);
 
-		result.SM11 = (FP) 1.0f;
-		result.SM12 = (FP) yTan;
-		result.SM21 = (FP) xTan;
-		result.SM22 = (FP) 1.0f;
-		result.SM31 = (FP) 0.0f;
-		result.SM32 = (FP) 0.0f;
+		result.SM11 = (DGFixedPoint) 1.0f;
+		result.SM12 = (DGFixedPoint) yTan;
+		result.SM21 = (DGFixedPoint) xTan;
+		result.SM22 = (DGFixedPoint) 1.0f;
+		result.SM31 = (DGFixedPoint) 0.0f;
+		result.SM32 = (DGFixedPoint) 0.0f;
 
 		return result;
 	}
@@ -507,22 +501,22 @@ public struct DGMatrix3x2
 	/// <param name="radiansY">The Y angle, in radians.</param>
 	/// <param name="centerPoint">The center point.</param>
 	/// <returns>A skew matrix.</returns>
-	public static DGMatrix3x2 CreateSkew(FP radiansX, FP radiansY, FPVector2 centerPoint)
+	public static DGMatrix3x2 CreateSkew(DGFixedPoint radiansX, DGFixedPoint radiansY, DGVector2 centerPoint)
 	{
 		DGMatrix3x2 result;
 
-		FP xTan = DGMath.Tan(radiansX);
-		FP yTan = DGMath.Tan(radiansY);
+		DGFixedPoint xTan = DGMath.Tan(radiansX);
+		DGFixedPoint yTan = DGMath.Tan(radiansY);
 
-		FP tx = -centerPoint.y * xTan;
-		FP ty = -centerPoint.x * yTan;
+		DGFixedPoint tx = -centerPoint.y * xTan;
+		DGFixedPoint ty = -centerPoint.x * yTan;
 
-		result.SM11 = (FP) 1.0f;
-		result.SM12 = (FP) yTan;
-		result.SM21 = (FP) xTan;
-		result.SM22 = (FP) 1.0f;
-		result.SM31 = (FP) tx;
-		result.SM32 = (FP) ty;
+		result.SM11 = (DGFixedPoint) 1.0f;
+		result.SM12 = (DGFixedPoint) yTan;
+		result.SM21 = (DGFixedPoint) xTan;
+		result.SM22 = (DGFixedPoint) 1.0f;
+		result.SM31 = (DGFixedPoint) tx;
+		result.SM32 = (DGFixedPoint) ty;
 
 		return result;
 	}
@@ -532,39 +526,39 @@ public struct DGMatrix3x2
 	/// </summary>
 	/// <param name="radians">The amount of rotation, in radians.</param>
 	/// <returns>A rotation matrix.</returns>
-	public static DGMatrix3x2 CreateRotation(FP radians)
+	public static DGMatrix3x2 CreateRotation(DGFixedPoint radians)
 	{
 		DGMatrix3x2 result;
 
-		radians = DGMath.IEEERemainder(radians, DGMath.PI * (FP) 2);
+		radians = DGMath.IEEERemainder(radians, DGMath.PI * (DGFixedPoint) 2);
 
-		FP c, s;
+		DGFixedPoint c, s;
 
-		FP epsilon = (FP) 0.001f * DGMath.PI / (FP) 180f; // 0.1% of a degree
+		DGFixedPoint epsilon = (DGFixedPoint) 0.001f * DGMath.PI / (DGFixedPoint) 180f; // 0.1% of a degree
 
 		if (radians > -epsilon && radians < epsilon)
 		{
 			// Exact case for zero rotation.
-			c = (FP) 1;
-			s = (FP) 0;
+			c = (DGFixedPoint) 1;
+			s = (DGFixedPoint) 0;
 		}
-		else if (radians > DGMath.PI / (FP) 2 - epsilon && radians < DGMath.PI / (FP) 2 + epsilon)
+		else if (radians > DGMath.PI / (DGFixedPoint) 2 - epsilon && radians < DGMath.PI / (DGFixedPoint) 2 + epsilon)
 		{
 			// Exact case for 90 degree rotation.
-			c = (FP) 0;
-			s = (FP) 1;
+			c = (DGFixedPoint) 0;
+			s = (DGFixedPoint) 1;
 		}
 		else if (radians < -DGMath.PI + epsilon || radians > DGMath.PI - epsilon)
 		{
 			// Exact case for 180 degree rotation.
-			c = (FP) (-1);
-			s = (FP) 0;
+			c = (DGFixedPoint) (-1);
+			s = (DGFixedPoint) 0;
 		}
-		else if (radians > -DGMath.PI / (FP) 2 - epsilon && radians < -DGMath.PI / (FP) 2 + epsilon)
+		else if (radians > -DGMath.PI / (DGFixedPoint) 2 - epsilon && radians < -DGMath.PI / (DGFixedPoint) 2 + epsilon)
 		{
 			// Exact case for 270 degree rotation.
-			c = (FP) 0;
-			s = (FP) (-1);
+			c = (DGFixedPoint) 0;
+			s = (DGFixedPoint) (-1);
 		}
 		else
 		{
@@ -580,8 +574,8 @@ public struct DGMatrix3x2
 		result.SM12 = s;
 		result.SM21 = -s;
 		result.SM22 = c;
-		result.SM31 = (FP) 0.0f;
-		result.SM32 = (FP) 0.0f;
+		result.SM31 = (DGFixedPoint) 0.0f;
+		result.SM32 = (DGFixedPoint) 0.0f;
 
 		return result;
 	}
@@ -592,39 +586,39 @@ public struct DGMatrix3x2
 	/// <param name="radians">The amount of rotation, in radians.</param>
 	/// <param name="centerPoint">The center point.</param>
 	/// <returns>A rotation matrix.</returns>
-	public static DGMatrix3x2 CreateRotation(FP radians, FPVector2 centerPoint)
+	public static DGMatrix3x2 CreateRotation(DGFixedPoint radians, DGVector2 centerPoint)
 	{
 		DGMatrix3x2 result;
 
-		radians = DGMath.IEEERemainder(radians, DGMath.PI * (FP) 2);
+		radians = DGMath.IEEERemainder(radians, DGMath.PI * (DGFixedPoint) 2);
 
-		FP c, s;
+		DGFixedPoint c, s;
 
-		FP epsilon = (FP) 0.001f * DGMath.PI / (FP) 180f; // 0.1% of a degree
+		DGFixedPoint epsilon = (DGFixedPoint) 0.001f * DGMath.PI / (DGFixedPoint) 180f; // 0.1% of a degree
 
 		if (radians > -epsilon && radians < epsilon)
 		{
 			// Exact case for zero rotation.
-			c = (FP) 1;
-			s = (FP) 0;
+			c = (DGFixedPoint) 1;
+			s = (DGFixedPoint) 0;
 		}
-		else if (radians > DGMath.PI / (FP) 2 - epsilon && radians < DGMath.PI / (FP) 2 + epsilon)
+		else if (radians > DGMath.PI / (DGFixedPoint) 2 - epsilon && radians < DGMath.PI / (DGFixedPoint) 2 + epsilon)
 		{
 			// Exact case for 90 degree rotation.
-			c = (FP) 0;
-			s = (FP) 1;
+			c = (DGFixedPoint) 0;
+			s = (DGFixedPoint) 1;
 		}
 		else if (radians < -DGMath.PI + epsilon || radians > DGMath.PI - epsilon)
 		{
 			// Exact case for 180 degree rotation.
-			c = (FP) (-1);
-			s = (FP) 0;
+			c = (DGFixedPoint) (-1);
+			s = (DGFixedPoint) 0;
 		}
-		else if (radians > -DGMath.PI / (FP) 2 - epsilon && radians < -DGMath.PI / (FP) 2 + epsilon)
+		else if (radians > -DGMath.PI / (DGFixedPoint) 2 - epsilon && radians < -DGMath.PI / (DGFixedPoint) 2 + epsilon)
 		{
 			// Exact case for 270 degree rotation.
-			c = (FP) 0;
-			s = (FP) (-1);
+			c = (DGFixedPoint) 0;
+			s = (DGFixedPoint) (-1);
 		}
 		else
 		{
@@ -633,8 +627,8 @@ public struct DGMatrix3x2
 			s = DGMath.Sin(radians);
 		}
 
-		FP x = centerPoint.x * ((FP) 1 - c) + centerPoint.y * s;
-		FP y = centerPoint.y * ((FP) 1 - c) - centerPoint.x * s;
+		DGFixedPoint x = centerPoint.x * ((DGFixedPoint) 1 - c) + centerPoint.y * s;
+		DGFixedPoint y = centerPoint.y * ((DGFixedPoint) 1 - c) - centerPoint.x * s;
 
 		// [  c  s ]
 		// [ -s  c ]
@@ -658,7 +652,7 @@ public struct DGMatrix3x2
 	/// <returns>True if the operation succeeded, False otherwise.</returns>
 	public static bool Invert(DGMatrix3x2 matrix, out DGMatrix3x2 result)
 	{
-		FP det = (matrix.SM11 * matrix.SM22) - (matrix.SM21 * matrix.SM12);
+		DGFixedPoint det = (matrix.SM11 * matrix.SM22) - (matrix.SM21 * matrix.SM12);
 
 		if (DGMath.Abs(det) < DGMath.Epsilon)
 		{
@@ -666,7 +660,7 @@ public struct DGMatrix3x2
 			return false;
 		}
 
-		FP invDet = (FP) 1.0f / det;
+		DGFixedPoint invDet = (DGFixedPoint) 1.0f / det;
 
 		result.SM11 = matrix.SM22 * invDet;
 		result.SM12 = -matrix.SM12 * invDet;
@@ -685,7 +679,7 @@ public struct DGMatrix3x2
 	/// <param name="matrix2">The second source matrix.</param>
 	/// <param name="amount">The relative weighting of matrix2.</param>
 	/// <returns>The interpolated matrix.</returns>
-	public static DGMatrix3x2 Lerp(DGMatrix3x2 matrix1, DGMatrix3x2 matrix2, FP amount)
+	public static DGMatrix3x2 Lerp(DGMatrix3x2 matrix1, DGMatrix3x2 matrix2, DGFixedPoint amount)
 	{
 		DGMatrix3x2 result;
 
@@ -736,7 +730,7 @@ public struct DGMatrix3x2
 	/// <param name="value1">The source matrix.</param>
 	/// <param name="value2">The scaling value to use.</param>
 	/// <returns>The resulting matrix.</returns>
-	public static DGMatrix3x2 Multiply(DGMatrix3x2 value1, FP value2)
+	public static DGMatrix3x2 Multiply(DGMatrix3x2 value1, DGFixedPoint value2)
 	{
 		DGMatrix3x2 result;
 
@@ -760,14 +754,14 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Add(DGMatrix3x2 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = a.SM11 + b.SM11;
-		FP m12 = a.SM12 + b.SM12;
+		DGFixedPoint m11 = a.SM11 + b.SM11;
+		DGFixedPoint m12 = a.SM12 + b.SM12;
 
-		FP m21 = a.SM21 + b.SM21;
-		FP m22 = a.SM22 + b.SM22;
+		DGFixedPoint m21 = a.SM21 + b.SM21;
+		DGFixedPoint m22 = a.SM22 + b.SM22;
 
-		FP m31 = a.SM31 + b.SM31;
-		FP m32 = a.SM32 + b.SM32;
+		DGFixedPoint m31 = a.SM31 + b.SM31;
+		DGFixedPoint m32 = a.SM32 + b.SM32;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -787,17 +781,17 @@ public struct DGMatrix3x2
 	/// <param name="a">First matrix to multiply.</param>
 	/// <param name="b">Second matrix to multiply.</param>
 	/// <param name="result">Product of the multiplication.</param>
-	public static DGMatrix3x2 Multiply(FPMatrix3x3 a, DGMatrix3x2 b)
+	public static DGMatrix3x2 Multiply(DGMatrix3x3 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
+		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
+		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 
-		FP resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		FP resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
+		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
+		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
 
-		FP resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
-		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
+		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
+		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
@@ -817,17 +811,17 @@ public struct DGMatrix3x2
 	/// <param name="a">First matrix to multiply.</param>
 	/// <param name="b">Second matrix to multiply.</param>
 	/// <param name="result">Product of the multiplication.</param>
-	public static DGMatrix3x2 Multiply(FPMatrix4x4 a, ref DGMatrix3x2 b)
+	public static DGMatrix3x2 Multiply(DGMatrix4x4 a, ref DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		FP resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
+		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
+		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 
-		FP resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		FP resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
+		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
+		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
 
-		FP resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
-		FP resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
+		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
+		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
@@ -849,14 +843,14 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Negate(DGMatrix3x2 matrix)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = -matrix.SM11;
-		FP m12 = -matrix.SM12;
+		DGFixedPoint m11 = -matrix.SM11;
+		DGFixedPoint m12 = -matrix.SM12;
 
-		FP m21 = -matrix.SM21;
-		FP m22 = -matrix.SM22;
+		DGFixedPoint m21 = -matrix.SM21;
+		DGFixedPoint m22 = -matrix.SM22;
 
-		FP m31 = -matrix.SM31;
-		FP m32 = -matrix.SM32;
+		DGFixedPoint m31 = -matrix.SM31;
+		DGFixedPoint m32 = -matrix.SM32;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -879,14 +873,14 @@ public struct DGMatrix3x2
 	public static DGMatrix3x2 Subtract(DGMatrix3x2 a, DGMatrix3x2 b)
 	{
 		DGMatrix3x2 result = default;
-		FP m11 = a.SM11 - b.SM11;
-		FP m12 = a.SM12 - b.SM12;
+		DGFixedPoint m11 = a.SM11 - b.SM11;
+		DGFixedPoint m12 = a.SM12 - b.SM12;
 
-		FP m21 = a.SM21 - b.SM21;
-		FP m22 = a.SM22 - b.SM22;
+		DGFixedPoint m21 = a.SM21 - b.SM21;
+		DGFixedPoint m22 = a.SM22 - b.SM22;
 
-		FP m31 = a.SM31 - b.SM31;
-		FP m32 = a.SM32 - b.SM32;
+		DGFixedPoint m31 = a.SM31 - b.SM31;
+		DGFixedPoint m32 = a.SM32 - b.SM32;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -906,9 +900,9 @@ public struct DGMatrix3x2
 	/// <param name="v">Vector2 to transform.  Considered to be a column vector for purposes of multiplication.</param>
 	/// <param name="matrix">Matrix to use as the transformation.</param>
 	/// <param name="result">Column vector product of the transformation.</param>
-	public static FPVector3 Transform(FPVector2 v, DGMatrix3x2 matrix)
+	public static DGVector3 Transform(DGVector2 v, DGMatrix3x2 matrix)
 	{
-		FPVector3 result = default;
+		DGVector3 result = default;
 		result.x = matrix.SM11 * v.x + matrix.SM12 * v.y;
 		result.y = matrix.SM21 * v.x + matrix.SM22 * v.y;
 		result.z = matrix.SM31 * v.x + matrix.SM32 * v.y;
@@ -921,9 +915,9 @@ public struct DGMatrix3x2
 	/// <param name="v">Vector2 to transform.  Considered to be a row vector for purposes of multiplication.</param>
 	/// <param name="matrix">Matrix to use as the transformation.</param>
 	/// <param name="result">Row vector product of the transformation.</param>
-	public static FPVector2 Transform(FPVector3 v, DGMatrix3x2 matrix)
+	public static DGVector2 Transform(DGVector3 v, DGMatrix3x2 matrix)
 	{
-		FPVector2 result = default;
+		DGVector2 result = default;
 		result.x = v.x * matrix.SM11 + v.y * matrix.SM21 + v.z * matrix.SM31;
 		result.y = v.x * matrix.SM12 + v.y * matrix.SM22 + v.z * matrix.SM32;
 		return result;
@@ -935,9 +929,9 @@ public struct DGMatrix3x2
 	/// </summary>
 	/// <param name="matrix">Matrix to transpose.</param>
 	/// <param name="result">Transposed matrix.</param>
-	public static FPMatrix2x3 Transpose(DGMatrix3x2 matrix)
+	public static DGMatrix2x3 Transpose(DGMatrix3x2 matrix)
 	{
-		FPMatrix2x3 result = default;
+		DGMatrix2x3 result = default;
 		result.SM11 = matrix.SM11;
 		result.SM12 = matrix.SM21;
 		result.SM13 = matrix.SM31;
@@ -956,7 +950,7 @@ public struct DGMatrix3x2
 	/// The determinant is calculated by expanding the matrix with a third column whose values are (0,0,1).
 	/// </summary>
 	/// <returns>The determinant.</returns>
-	public FP GetDeterminant()
+	public DGFixedPoint GetDeterminant()
 	{
 		// There isn't actually any such thing as a determinant for a non-square matrix,
 		// but this 3x2 type is really just an optimization of a 3x3 where we happen to

@@ -10,26 +10,24 @@
 *************************************************************************************/
 
 
-using FP = DGFixedPoint;
-
 
 public static partial class DGMath
 {
 	/** Returns the next power of two. Returns the specified value if the value is already a power of two. */
-	public static FP NextPowerOfTwo(FP value)
+	public static DGFixedPoint NextPowerOfTwo(DGFixedPoint value)
 	{
 		var v = (int)value;
-		if (v == 0) return (FP)1;
+		if (v == 0) return (DGFixedPoint)1;
 		v--;
 		v |= v >> 1;
 		v |= v >> 2;
 		v |= v >> 4;
 		v |= v >> 8;
 		v |= v >> 16;
-		return (FP)(v + 1);
+		return (DGFixedPoint)(v + 1);
 	}
 
-	public static bool IsPowerOfTwo(FP value)
+	public static bool IsPowerOfTwo(DGFixedPoint value)
 	{
 		var v = (int)value;
 		return v != 0 && (v & v - 1) == 0;
@@ -40,7 +38,7 @@ public static partial class DGMath
 	 * @param rangeEnd Range end normalized to 1
 	 * @param value Value to normalize
 	 * @return Normalized value. Values outside of the range are not clamped to 0 and 1 */
-	public static FP Norm(FP rangeStart, FP rangeEnd, FP value)
+	public static DGFixedPoint Norm(DGFixedPoint rangeStart, DGFixedPoint rangeEnd, DGFixedPoint value)
 	{
 		return (value - rangeStart) / (rangeEnd - rangeStart);
 	}
@@ -53,36 +51,36 @@ public static partial class DGMath
 	 * @param outRangeEnd Output range end
 	 * @param value Value to map
 	 * @return Mapped value. Values outside of the input range are not clamped to output range */
-	public static FP Map(FP inRangeStart, FP inRangeEnd, FP outRangeStart, FP outRangeEnd, FP value)
+	public static DGFixedPoint Map(DGFixedPoint inRangeStart, DGFixedPoint inRangeEnd, DGFixedPoint outRangeStart, DGFixedPoint outRangeEnd, DGFixedPoint value)
 	{
 		return outRangeStart + (value - inRangeStart) * (outRangeEnd - outRangeStart) / (inRangeEnd - inRangeStart);
 	}
 
-	public static FP SinDeg(FP degrees)
+	public static DGFixedPoint SinDeg(DGFixedPoint degrees)
 	{
-		return FP.Sin(degrees * Deg2Rad);
+		return DGFixedPoint.Sin(degrees * Deg2Rad);
 	}
 
-	public static FP CosDeg(FP degrees)
+	public static DGFixedPoint CosDeg(DGFixedPoint degrees)
 	{
-		return FP.Cos(degrees * Deg2Rad);
+		return DGFixedPoint.Cos(degrees * Deg2Rad);
 	}
 
-	public static FP TanDeg(FP degrees)
+	public static DGFixedPoint TanDeg(DGFixedPoint degrees)
 	{
-		return FP.Tan(degrees * Deg2Rad);
+		return DGFixedPoint.Tan(degrees * Deg2Rad);
 	}
 
 
 	/** Returns true if the value is zero (using the default tolerance as upper bound) */
-	public static bool IsZero(FP value)
+	public static bool IsZero(DGFixedPoint value)
 	{
 		return Abs(value) <= Epsilon;
 	}
 
 	/** Returns true if the value is zero.
 	 * @param tolerance represent an upper bound below which the value is considered zero. */
-	public static bool IsZero(FP value, FP tolerance)
+	public static bool IsZero(DGFixedPoint value, DGFixedPoint tolerance)
 	{
 		return Abs(value) <= tolerance;
 	}
@@ -90,7 +88,7 @@ public static partial class DGMath
 	/** Returns true if a is nearly equal to b. The function uses the default floating error tolerance.
 	 * @param a the first value.
 	 * @param b the second value. */
-	public static bool IsEqual(FP a, FP b)
+	public static bool IsEqual(DGFixedPoint a, DGFixedPoint b)
 	{
 		return Abs(a - b) <= Epsilon;
 	}
@@ -99,7 +97,7 @@ public static partial class DGMath
 	 * @param a the first value.
 	 * @param b the second value.
 	 * @param tolerance represent an upper bound below which the two values are considered equal. */
-	public static bool IsEqual(FP a, FP b, FP tolerance)
+	public static bool IsEqual(DGFixedPoint a, DGFixedPoint b, DGFixedPoint tolerance)
 	{
 		return Abs(a - b) <= tolerance;
 	}

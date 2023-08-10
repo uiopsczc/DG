@@ -8,14 +8,13 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationSineIn : DGInterpolation
 {
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		return (FP)1 - DGMath.Cos(a * DGMath.HalfPi);
+		return (DGFixedPoint)1 - DGMath.Cos(a * DGMath.HalfPi);
 	}
 
 }

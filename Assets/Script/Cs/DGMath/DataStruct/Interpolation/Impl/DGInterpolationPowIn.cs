@@ -8,15 +8,14 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationPowIn : DGInterpolationPow
 {
-	public DGInterpolationPowIn(FP power):base(power)
+	public DGInterpolationPowIn(DGFixedPoint power):base(power)
 	{
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
 		return DGMath.Pow(a, power);
 	}

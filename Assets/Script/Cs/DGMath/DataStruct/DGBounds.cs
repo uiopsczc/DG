@@ -11,23 +11,20 @@
 
 
 using System;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPRay = DGRay;
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 
 #endif
 
 public struct DGBounds : IEquatable<DGBounds>
 {
-	private FPVector3 _center;
-	private FPVector3 _extents;
+	private DGVector3 _center;
+	private DGVector3 _extents;
 
 	/// <summary>
 	///   <para>The center of the bounding box.</para>
 	/// </summary>
-	public FPVector3 center
+	public DGVector3 center
 	{
 		get => this._center;
 		set => this._center = value;
@@ -36,16 +33,16 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// <summary>
 	///   <para>The total size of the box. This is always twice as large as the extents.</para>
 	/// </summary>
-	public FPVector3 size
+	public DGVector3 size
 	{
-		get => this._extents * (FP) 2f;
-		set => this._extents = value * (FP) 0.5f;
+		get => this._extents * (DGFixedPoint) 2f;
+		set => this._extents = value * (DGFixedPoint) 0.5f;
 	}
 
 	/// <summary>
 	///   <para>The extents of the Bounding Box. This is always half of the size of the Bounds.</para>
 	/// </summary>
-	public FPVector3 extents
+	public DGVector3 extents
 	{
 		get => this._extents;
 		set => this._extents = value;
@@ -54,7 +51,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// <summary>
 	///   <para>The minimal point of the box. This is always equal to center-extents.</para>
 	/// </summary>
-	public FPVector3 min
+	public DGVector3 min
 	{
 		get => this.center - this.extents;
 		set => this.SetMinMax(value, this.max);
@@ -63,7 +60,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// <summary>
 	///   <para>The maximal point of the box. This is always equal to center+extents.</para>
 	/// </summary>
-	public FPVector3 max
+	public DGVector3 max
 	{
 		get => this.center + this.extents;
 		set => this.SetMinMax(this.min, value);
@@ -74,17 +71,17 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// </summary>
 	/// <param name="center">The location of the origin of the Bounds.</param>
 	/// <param name="size">The dimensions of the Bounds.</param>
-	public DGBounds(FPVector3 center, FPVector3 size)
+	public DGBounds(DGVector3 center, DGVector3 size)
 	{
 		this._center = center;
-		this._extents = size * (FP) 0.5f;
+		this._extents = size * (DGFixedPoint) 0.5f;
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGBounds(Bounds bounds)
 	{
-		this._center = new FPVector3(bounds.center);
-		this._extents = new FPVector3(bounds.extents);
+		this._center = new DGVector3(bounds.center);
+		this._extents = new DGVector3(bounds.extents);
 	}
 #endif
 
@@ -105,7 +102,7 @@ public struct DGBounds : IEquatable<DGBounds>
 
 	public override int GetHashCode()
 	{
-		FPVector3 vector3 = this.center;
+		DGVector3 vector3 = this.center;
 		int hashCode = vector3.GetHashCode();
 		vector3 = this.extents;
 		int num = vector3.GetHashCode() << 2;
@@ -137,7 +134,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-	public static bool IntersectRayAABB(FPRay ray, DGBounds bounds, out FP distance)
+	public static bool IntersectRayAABB(DGRay ray, DGBounds bounds, out DGFixedPoint distance)
 	{
 		return bounds.IntersectRay(ray, out distance);
 	}
@@ -150,9 +147,9 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// </summary>
 	/// <param name="min"></param>
 	/// <param name="max"></param>
-	public void SetMinMax(FPVector3 min, FPVector3 max)
+	public void SetMinMax(DGVector3 min, DGVector3 max)
 	{
-		this.extents = (max - min) * (FP) 0.5f;
+		this.extents = (max - min) * (DGFixedPoint) 0.5f;
 		this.center = min + this.extents;
 	}
 
@@ -160,9 +157,9 @@ public struct DGBounds : IEquatable<DGBounds>
 	///   <para>Grows the Bounds to include the point.</para>
 	/// </summary>
 	/// <param name="point"></param>
-	public void Encapsulate(FPVector3 point)
+	public void Encapsulate(DGVector3 point)
 	{
-		this.SetMinMax(FPVector3.Min(this.min, point), FPVector3.Max(this.max, point));
+		this.SetMinMax(DGVector3.Min(this.min, point), DGVector3.Max(this.max, point));
 	}
 
 	/// <summary>
@@ -179,19 +176,19 @@ public struct DGBounds : IEquatable<DGBounds>
 	///   <para>Expand the bounds by increasing its size by amount along each side.</para>
 	/// </summary>
 	/// <param name="amount"></param>
-	public void Expand(FP amount)
+	public void Expand(DGFixedPoint amount)
 	{
-		amount *= (FP) 0.5f;
-		this.extents += new FPVector3(amount, amount, amount);
+		amount *= (DGFixedPoint) 0.5f;
+		this.extents += new DGVector3(amount, amount, amount);
 	}
 
 	/// <summary>
 	///   <para>Expand the bounds by increasing its size by amount along each side.</para>
 	/// </summary>
 	/// <param name="amount"></param>
-	public void Expand(FPVector3 amount)
+	public void Expand(DGVector3 amount)
 	{
-		this.extents += amount * (FP) 0.5f;
+		this.extents += amount * (DGFixedPoint) 0.5f;
 	}
 
 	/// <summary>
@@ -209,21 +206,21 @@ public struct DGBounds : IEquatable<DGBounds>
 	///   <para>Does ray intersect this bounding box?</para>
 	/// </summary>
 	/// <param name="ray"></param>
-	public (bool isIntersect, FP distance) IntersectRay(FPRay ray)
+	public (bool isIntersect, DGFixedPoint distance) IntersectRay(DGRay ray)
 	{
 		var tmin = DGMath.MinValue;
 		var tmax = DGMath.MaxValue;
-		FP t0, t1, f;
-		FPVector3 t = this.center - ray.origin;
-		var p = new FPVector3(t.x, t.y, t.z);
+		DGFixedPoint t0, t1, f;
+		DGVector3 t = this.center - ray.origin;
+		var p = new DGVector3(t.x, t.y, t.z);
 		t = this.extents;
-		var extent = new FPVector3(t.x, t.y, t.z);
+		var extent = new DGVector3(t.x, t.y, t.z);
 		t = ray.direction;
-		var dir = new FPVector3(t.x, t.y, t.z);
+		var dir = new DGVector3(t.x, t.y, t.z);
 
 		for (int i = 0; i < 3; i++)
 		{
-			f = (FP) 1 / dir[i];
+			f = (DGFixedPoint) 1 / dir[i];
 			t0 = (p[i] + extent[i]) * f;
 			t1 = (p[i] - extent[i]) * f;
 			if (t0 < t1)
@@ -231,21 +228,21 @@ public struct DGBounds : IEquatable<DGBounds>
 				if (t0 > tmin) tmin = t0;
 				if (t1 < tmax) tmax = t1;
 				if (tmin > tmax) return (false, default);
-				if (tmax < (FP) 0) return (false, default);
+				if (tmax < (DGFixedPoint) 0) return (false, default);
 			}
 			else
 			{
 				if (t1 > tmin) tmin = t1;
 				if (t0 < tmax) tmax = t0;
 				if (tmin > tmax) return (false, default);
-				if (tmax < (FP) 0) return (false, default);
+				if (tmax < (DGFixedPoint) 0) return (false, default);
 			}
 		}
 
 		return (true, tmin);
 	}
 
-	public bool IntersectRay(FPRay ray, out FP inDistance)
+	public bool IntersectRay(DGRay ray, out DGFixedPoint inDistance)
 	{
 		var (isIntersect, distance) = IntersectRay(ray);
 		inDistance = distance;
@@ -257,7 +254,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	///   <para>Is point contained in the bounding box?</para>
 	/// </summary>
 	/// <param name="point"></param>
-	public bool Contains(FPVector3 point)
+	public bool Contains(DGVector3 point)
 	{
 		var min = this.min;
 		var max = this.max;
@@ -271,7 +268,7 @@ public struct DGBounds : IEquatable<DGBounds>
 	///   <para>The smallest squared distance between the point and this bounding box.</para>
 	/// </summary>
 	/// <param name="point"></param>
-	public FP SqrDistance(FPVector3 point)
+	public DGFixedPoint SqrDistance(DGVector3 point)
 	{
 		var (closestPoint, distance) = this.ClosestPoint(point);
 		return distance;
@@ -284,14 +281,14 @@ public struct DGBounds : IEquatable<DGBounds>
 	/// <returns>
 	///   <para>The point on the bounding box or inside the bounding box.</para>
 	/// </returns>
-	public (FPVector3 closestPoint, FP distance) ClosestPoint(FPVector3 point)
+	public (DGVector3 closestPoint, DGFixedPoint distance) ClosestPoint(DGVector3 point)
 	{
 		var t = point - this.center;
-		var closest = new FPVector3(t.x, t.y, t.z);
+		var closest = new DGVector3(t.x, t.y, t.z);
 		var et = this.extents;
-		var extent = new FPVector3(et.x, et.y, et.z);
-		var sqrtDistance = (FP) 0;
-		FP delta;
+		var extent = new DGVector3(et.x, et.y, et.z);
+		var sqrtDistance = (DGFixedPoint) 0;
+		DGFixedPoint delta;
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -309,8 +306,8 @@ public struct DGBounds : IEquatable<DGBounds>
 			}
 		}
 
-		if (sqrtDistance == (FP) 0)
-			return (point, (FP) 0);
+		if (sqrtDistance == (DGFixedPoint) 0)
+			return (point, (DGFixedPoint) 0);
 		var outPoint = closest + this.center;
 		return (outPoint, sqrtDistance);
 	}

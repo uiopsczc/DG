@@ -8,23 +8,21 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
- 
+
 using System;
-using FP = DGFixedPoint;
-using FPMatrix4x4 = DGMatrix4x4;
 
 static class DGMatrix4x8
 {
-	[ThreadStatic] private static FP[,] Matrix;
+	[ThreadStatic] private static DGFixedPoint[,] Matrix;
 
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-	public static bool Invert(FPMatrix4x4 m, out FPMatrix4x4 r)
+	public static bool Invert(DGMatrix4x4 m, out DGMatrix4x4 r)
 	{
 		if (Matrix == null)
-			Matrix = new FP[4, 8];
-		FP[,] M = Matrix;
+			Matrix = new DGFixedPoint[4, 8];
+		DGFixedPoint[,] M = Matrix;
 
 		M[0, 0] = m.SM11;
 		M[0, 1] = m.SM12;
@@ -43,30 +41,31 @@ static class DGMatrix4x8
 		M[3, 2] = m.SM43;
 		M[3, 3] = m.SM44;
 
-		M[0, 4] = (FP)1;
-		M[0, 5] = (FP)0;
-		M[0, 6] = (FP)0;
-		M[0, 7] = (FP)0;
-		M[1, 4] = (FP)0;
-		M[1, 5] = (FP)1;
-		M[1, 6] = (FP)0;
-		M[1, 7] = (FP)0;
-		M[2, 4] = (FP)0;
-		M[2, 5] = (FP)0;
-		M[2, 6] = (FP)1;
-		M[2, 7] = (FP)0;
-		M[3, 4] = (FP)0;
-		M[3, 5] = (FP)0;
-		M[3, 6] = (FP)0;
-		M[3, 7] = (FP)1;
+		M[0, 4] = (DGFixedPoint) 1;
+		M[0, 5] = (DGFixedPoint) 0;
+		M[0, 6] = (DGFixedPoint) 0;
+		M[0, 7] = (DGFixedPoint) 0;
+		M[1, 4] = (DGFixedPoint) 0;
+		M[1, 5] = (DGFixedPoint) 1;
+		M[1, 6] = (DGFixedPoint) 0;
+		M[1, 7] = (DGFixedPoint) 0;
+		M[2, 4] = (DGFixedPoint) 0;
+		M[2, 5] = (DGFixedPoint) 0;
+		M[2, 6] = (DGFixedPoint) 1;
+		M[2, 7] = (DGFixedPoint) 0;
+		M[3, 4] = (DGFixedPoint) 0;
+		M[3, 5] = (DGFixedPoint) 0;
+		M[3, 6] = (DGFixedPoint) 0;
+		M[3, 7] = (DGFixedPoint) 1;
 
 
 		if (!Matrix3x6.Gauss(M, 4, 8))
 		{
-			r = new FPMatrix4x4();
+			r = new DGMatrix4x4();
 			return false;
 		}
-		r = new FPMatrix4x4(
+
+		r = new DGMatrix4x4(
 			// m11...m14
 			M[0, 4],
 			M[0, 5],

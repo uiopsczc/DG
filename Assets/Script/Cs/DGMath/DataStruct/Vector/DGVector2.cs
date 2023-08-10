@@ -7,21 +7,18 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+*************************************c************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPVector4 = DGVector4;
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 
 #endif
 
 public partial struct DGVector2 : IEquatable<DGVector2>
 {
-	public static readonly FP kEpsilon = (FP) 0.00001F;
-	public static readonly FP kEpsilonNormalSqrt = (FP) 1e-15f;
+	public static readonly DGFixedPoint kEpsilon = (DGFixedPoint) 0.00001F;
+	public static readonly DGFixedPoint kEpsilonNormalSqrt = (DGFixedPoint) 1e-15f;
 
 	public static DGVector2 zero => new DGVector2(0, 0);
 	public static DGVector2 one => new DGVector2(1, 1);
@@ -33,7 +30,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	public static DGVector2 min => new DGVector2(float.MinValue, float.MinValue);
 
 
-	public FP this[int index]
+	public DGFixedPoint this[int index]
 	{
 		get
 		{
@@ -66,9 +63,9 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public FP sqrMagnitude => len2();
+	public DGFixedPoint sqrMagnitude => len2();
 
-	public FP magnitude => len();
+	public DGFixedPoint magnitude => len();
 
 	/// <summary>
 	/// 返回该向量的单位向量
@@ -78,28 +75,28 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 
 	public DGVector2(float x, float y)
 	{
-		this.x = (FP) x;
-		this.y = (FP) y;
+		this.x = (DGFixedPoint) x;
+		this.y = (DGFixedPoint) y;
 	}
 
 	public DGVector2(int x, int y)
 	{
-		this.x = (FP) x;
-		this.y = (FP) y;
+		this.x = (DGFixedPoint) x;
+		this.y = (DGFixedPoint) y;
 	}
 
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGVector2(Vector2 vector)
 	{
-		this.x = (FP) vector.x;
-		this.y = (FP) vector.y;
+		this.x = (DGFixedPoint) vector.x;
+		this.y = (DGFixedPoint) vector.y;
 	}
 #endif
 	public DGVector2(System.Numerics.Vector2 vector)
 	{
-		this.x = (FP) vector.X;
-		this.y = (FP) vector.Y;
+		this.x = (DGFixedPoint) vector.X;
+		this.y = (DGFixedPoint) vector.Y;
 	}
 
 	/*************************************************************************************
@@ -126,17 +123,17 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	/*************************************************************************************
 	* 模块描述:转换
 	*************************************************************************************/
-	public static implicit operator DGVector2(FPVector3 v)
+	public static implicit operator DGVector2(DGVector3 v)
 	{
 		return new DGVector2(v.x, v.y);
 	}
 
-	public static implicit operator DGVector2(FPVector4 v)
+	public static implicit operator DGVector2(DGVector4 v)
 	{
 		return new DGVector2(v.x, v.y);
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	//转换为Unity的Vector2
 	public Vector2 ToVector2()
 	{
@@ -161,50 +158,50 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	*************************************************************************************/
 	public static DGVector2 operator +(DGVector2 value1, DGVector2 value2)
 	{
-		FP x = value1.x + value2.x;
-		FP y = value1.y + value2.y;
+		DGFixedPoint x = value1.x + value2.x;
+		DGFixedPoint y = value1.y + value2.y;
 		return new DGVector2(x, y);
 	}
 
 	public static DGVector2 operator -(DGVector2 value1, DGVector2 value2)
 	{
-		FP x = value1.x - value2.x;
-		FP y = value1.y - value2.y;
+		DGFixedPoint x = value1.x - value2.x;
+		DGFixedPoint y = value1.y - value2.y;
 		return new DGVector2(x, y);
 	}
 
 	public static DGVector2 operator -(DGVector2 value)
 	{
-		FP x = -value.x;
-		FP y = -value.y;
+		DGFixedPoint x = -value.x;
+		DGFixedPoint y = -value.y;
 		return new DGVector2(x, y);
 	}
 
 	public static DGVector2 operator *(DGVector2 value1, DGVector2 value2)
 	{
-		FP x = value1.x * value2.x;
-		FP y = value1.y * value2.y;
+		DGFixedPoint x = value1.x * value2.x;
+		DGFixedPoint y = value1.y * value2.y;
 		return new DGVector2(x, y);
 	}
 
-	public static DGVector2 operator *(DGVector2 value, FP multiply)
+	public static DGVector2 operator *(DGVector2 value, DGFixedPoint multiply)
 	{
-		FP x = value.x * multiply;
-		FP y = value.y * multiply;
+		DGFixedPoint x = value.x * multiply;
+		DGFixedPoint y = value.y * multiply;
 		return new DGVector2(x, y);
 	}
 
 	public static DGVector2 operator /(DGVector2 value1, DGVector2 value2)
 	{
-		FP x = value1.x / value2.x;
-		FP y = value1.y / value2.y;
+		DGFixedPoint x = value1.x / value2.x;
+		DGFixedPoint y = value1.y / value2.y;
 		return new DGVector2(x, y);
 	}
 
-	public static DGVector2 operator /(DGVector2 value1, FP div)
+	public static DGVector2 operator /(DGVector2 value1, DGFixedPoint div)
 	{
-		FP x = value1.x / div;
-		FP y = value1.y / div;
+		DGFixedPoint x = value1.x / div;
+		DGFixedPoint y = value1.y / div;
 		return new DGVector2(x, y);
 	}
 
@@ -215,71 +212,71 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	/// <summary>
 	/// 返回当前向量长度的平方
 	/// </summary>
-	public static FP SqrMagnitude(DGVector2 v)
+	public static DGFixedPoint SqrMagnitude(DGVector2 v)
 	{
 		return v.len2();
 	}
 
-	public static DGVector2 Lerp(DGVector2 a, DGVector2 b, FP t)
+	public static DGVector2 Lerp(DGVector2 a, DGVector2 b, DGFixedPoint t)
 	{
 		t = DGMath.Clamp01(t);
 		return new DGVector2(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
 	}
 
-	public static DGVector2 LerpUnclamped(DGVector2 a, DGVector2 b, FP t)
+	public static DGVector2 LerpUnclamped(DGVector2 a, DGVector2 b, DGFixedPoint t)
 	{
 		return new DGVector2(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t);
 	}
 
-	public static DGVector2 MoveTowards(DGVector2 current, DGVector2 target, FP maxDistanceDelta)
+	public static DGVector2 MoveTowards(DGVector2 current, DGVector2 target, DGFixedPoint maxDistanceDelta)
 	{
-		FP toVectorX = target.x - current.x;
-		FP toVectorY = target.y - current.y;
-		FP sqrtDistance = toVectorX * toVectorX + toVectorY * toVectorY;
-		if (sqrtDistance == FP.Zero ||
-		    maxDistanceDelta >= FP.Zero && sqrtDistance <= maxDistanceDelta * maxDistanceDelta)
+		DGFixedPoint toVectorX = target.x - current.x;
+		DGFixedPoint toVectorY = target.y - current.y;
+		DGFixedPoint sqrtDistance = toVectorX * toVectorX + toVectorY * toVectorY;
+		if (sqrtDistance == DGFixedPoint.Zero ||
+		    maxDistanceDelta >= DGFixedPoint.Zero && sqrtDistance <= maxDistanceDelta * maxDistanceDelta)
 			return target;
-		FP num4 = DGMath.Sqrt(sqrtDistance);
+		DGFixedPoint num4 = DGMath.Sqrt(sqrtDistance);
 		return new DGVector2(current.x + toVectorX / num4 * maxDistanceDelta,
 			current.y + toVectorY / num4 * maxDistanceDelta);
 	}
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public static DGVector2 SmoothDamp(DGVector2 current, DGVector2 target, ref DGVector2 currentVelocity,
-		FP smoothTime, FP maxSpeed)
+		DGFixedPoint smoothTime, DGFixedPoint maxSpeed)
 	{
-		FP deltaTime = (FP) Time.deltaTime;
+		DGFixedPoint deltaTime = (DGFixedPoint) Time.deltaTime;
 		return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 
 	public static DGVector2 SmoothDamp(DGVector2 current, DGVector2 target, ref DGVector2 currentVelocity,
-		FP smoothTime)
+		DGFixedPoint smoothTime)
 	{
-		FP deltaTime = (FP) Time.deltaTime;
-		FP maxSpeed = FP.MaxValue;
+		DGFixedPoint deltaTime = (DGFixedPoint) Time.deltaTime;
+		DGFixedPoint maxSpeed = DGFixedPoint.MaxValue;
 		return SmoothDamp(current, target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	}
 #endif
 
 	public static DGVector2 SmoothDamp(DGVector2 current, DGVector2 target, ref DGVector2 currentVelocity,
-		FP smoothTime, FP maxSpeed, FP deltaTime)
+		DGFixedPoint smoothTime, DGFixedPoint maxSpeed, DGFixedPoint deltaTime)
 	{
 		// Based on Game Programming Gems 4 Chapter 1.10
-		smoothTime = DGMath.Max((FP) 0.0001F, smoothTime);
-		FP omega = (FP) 2 / smoothTime;
+		smoothTime = DGMath.Max((DGFixedPoint) 0.0001F, smoothTime);
+		DGFixedPoint omega = (DGFixedPoint) 2 / smoothTime;
 
-		FP x = omega * deltaTime;
-		FP exp = (FP) 1 / ((FP) 1 + x + (FP) 0.48F * x * x + (FP) 0.235F * x * x * x);
+		DGFixedPoint x = omega * deltaTime;
+		DGFixedPoint exp = (DGFixedPoint) 1 / ((DGFixedPoint) 1 + x + (DGFixedPoint) 0.48F * x * x + (DGFixedPoint) 0.235F * x * x * x);
 
-		FP changeX = current.x - target.x;
-		FP changeY = current.y - target.y;
+		DGFixedPoint changeX = current.x - target.x;
+		DGFixedPoint changeY = current.y - target.y;
 		DGVector2 originalTo = target;
 
 		// Clamp maximum speed
-		FP maxChange = maxSpeed * smoothTime;
+		DGFixedPoint maxChange = maxSpeed * smoothTime;
 
-		FP maxChangeSq = maxChange * maxChange;
-		FP sqDist = changeX * changeX + changeY * changeY;
+		DGFixedPoint maxChangeSq = maxChange * maxChange;
+		DGFixedPoint sqDist = changeX * changeX + changeY * changeY;
 		if (sqDist > maxChangeSq)
 		{
 			var mag = DGMath.Sqrt(sqDist);
@@ -290,22 +287,22 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 		target.x = current.x - changeX;
 		target.y = current.y - changeY;
 
-		FP tempX = (currentVelocity.x + omega * changeX) * deltaTime;
-		FP tempY = (currentVelocity.y + omega * changeY) * deltaTime;
+		DGFixedPoint tempX = (currentVelocity.x + omega * changeX) * deltaTime;
+		DGFixedPoint tempY = (currentVelocity.y + omega * changeY) * deltaTime;
 
 		currentVelocity.x = (currentVelocity.x - omega * tempX) * exp;
 		currentVelocity.y = (currentVelocity.y - omega * tempY) * exp;
 
-		FP outputX = target.x + (changeX + tempX) * exp;
-		FP outputY = target.y + (changeY + tempY) * exp;
+		DGFixedPoint outputX = target.x + (changeX + tempX) * exp;
+		DGFixedPoint outputY = target.y + (changeY + tempY) * exp;
 
 		// Prevent overshooting
-		FP origMinusCurrentX = originalTo.x - current.x;
-		FP origMinusCurrentY = originalTo.y - current.y;
-		FP outMinusOrigX = outputX - originalTo.x;
-		FP outMinusOrigY = outputY - originalTo.y;
+		DGFixedPoint origMinusCurrentX = originalTo.x - current.x;
+		DGFixedPoint origMinusCurrentY = originalTo.y - current.y;
+		DGFixedPoint outMinusOrigX = outputX - originalTo.x;
+		DGFixedPoint outMinusOrigY = outputY - originalTo.y;
 
-		if (origMinusCurrentX * outMinusOrigX + origMinusCurrentY * outMinusOrigY > (FP) 0)
+		if (origMinusCurrentX * outMinusOrigX + origMinusCurrentY * outMinusOrigY > (DGFixedPoint) 0)
 		{
 			outputX = originalTo.x;
 			outputY = originalTo.y;
@@ -324,7 +321,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 
 	public static DGVector2 Reflect(DGVector2 inDirection, DGVector2 inNormal)
 	{
-		FP factor = (FP) (-2) * Dot(inNormal, inDirection);
+		DGFixedPoint factor = (DGFixedPoint) (-2) * Dot(inNormal, inDirection);
 		return new DGVector2(factor * inNormal.x + inDirection.x, factor * inNormal.y + inDirection.y);
 	}
 
@@ -342,7 +339,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 		var magnitude = value.magnitude;
 		if (magnitude <= kEpsilon)
 			return zero;
-		FP rate = FP.One / magnitude;
+		DGFixedPoint rate = DGFixedPoint.One / magnitude;
 		return value * rate;
 	}
 
@@ -351,7 +348,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	/// </summary>
 	/// <param name="v"></param>
 	/// <returns></returns>
-	public static FP Dot(DGVector2 v1, DGVector2 v2)
+	public static DGFixedPoint Dot(DGVector2 v1, DGVector2 v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y;
 	}
@@ -373,45 +370,45 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	/// <param name="fromAngle"></param>
 	/// <param name="toAngle"></param>
 	/// <returns></returns>
-	public static FP Angle(DGVector2 fromAngle, DGVector2 toAngle)
+	public static DGFixedPoint Angle(DGVector2 fromAngle, DGVector2 toAngle)
 	{
 		// sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
-		FP denominator = DGMath.Sqrt(fromAngle.sqrMagnitude * toAngle.sqrMagnitude);
+		DGFixedPoint denominator = DGMath.Sqrt(fromAngle.sqrMagnitude * toAngle.sqrMagnitude);
 		if (denominator < kEpsilonNormalSqrt)
-			return FP.Zero;
-		FP dot = DGMath.Clamp(Dot(fromAngle, toAngle) / denominator, FP.NegativeOne, FP.One);
+			return DGFixedPoint.Zero;
+		DGFixedPoint dot = DGMath.Clamp(Dot(fromAngle, toAngle) / denominator, DGFixedPoint.NegativeOne, DGFixedPoint.One);
 		return DGMath.Acos(dot) * DGMath.Rad2Deg;
 	}
 
-	public static FP SignedAngle(DGVector2 from, DGVector2 to)
+	public static DGFixedPoint SignedAngle(DGVector2 from, DGVector2 to)
 	{
-		FP unsignedAngle = Angle(from, to);
-		FP sign = (FP) DGMath.Sign(from.x * to.y - from.y * to.x);
+		DGFixedPoint unsignedAngle = Angle(from, to);
+		DGFixedPoint sign = (DGFixedPoint) DGMath.Sign(from.x * to.y - from.y * to.x);
 		return unsignedAngle * sign;
 	}
 
-	public static FP Distance(DGVector2 a, DGVector2 b)
+	public static DGFixedPoint Distance(DGVector2 a, DGVector2 b)
 	{
-		FP diffX = a.x - b.x;
-		FP diffY = a.y - b.y;
+		DGFixedPoint diffX = a.x - b.x;
+		DGFixedPoint diffY = a.y - b.y;
 		return DGMath.Sqrt(diffX * diffX + diffY * diffY);
 	}
 
-	public static DGVector2 ClampMagnitude(DGVector2 vector, FP maxLength)
+	public static DGVector2 ClampMagnitude(DGVector2 vector, DGFixedPoint maxLength)
 	{
-		FP sqrMagnitude = vector.sqrMagnitude;
+		DGFixedPoint sqrMagnitude = vector.sqrMagnitude;
 		if (sqrMagnitude <= maxLength * maxLength)
 			return vector;
 		//these intermediate variables force the intermediate result to be
 		//of float precision. without this, the intermediate result can be of higher
 		//precision, which changes behavior.
-		FP mag = DGMath.Sqrt(sqrMagnitude);
-		FP normalizedX = vector.x / mag;
-		FP normalizedY = vector.y / mag;
+		DGFixedPoint mag = DGMath.Sqrt(sqrMagnitude);
+		DGFixedPoint normalizedX = vector.x / mag;
+		DGFixedPoint normalizedY = vector.y / mag;
 		return new DGVector2(normalizedX * maxLength, normalizedY * maxLength);
 	}
 
-	public static FP Magnitude(DGVector2 vector)
+	public static DGFixedPoint Magnitude(DGVector2 vector)
 	{
 		return DGMath.Sqrt(vector.x * vector.x + vector.y * vector.y);
 	}
@@ -426,43 +423,43 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 		return new DGVector2(DGMath.Max(value1.x, value2.x), DGMath.Max(value1.y, value2.y));
 	}
 
-	public static DGVector2 SmoothStep(DGVector2 v1, DGVector2 v2, FP amount)
+	public static DGVector2 SmoothStep(DGVector2 v1, DGVector2 v2, DGFixedPoint amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		amount = (amount * amount) * ((FP) 3 - ((FP) 2 * amount));
+		amount = (amount * amount) * ((DGFixedPoint) 3 - ((DGFixedPoint) 2 * amount));
 		var x = v1.x + ((v2.x - v1.x) * amount);
 		var y = v1.y + ((v2.y - v1.y) * amount);
 		return new DGVector2(x, y);
 	}
 
-	public static DGVector2 CatmullRom(DGVector2 v1, DGVector2 v2, DGVector2 v3, DGVector2 v4, FP amount)
+	public static DGVector2 CatmullRom(DGVector2 v1, DGVector2 v2, DGVector2 v3, DGVector2 v4, DGFixedPoint amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		FP squared = amount * amount;
-		FP cubed = amount * squared;
+		DGFixedPoint squared = amount * amount;
+		DGFixedPoint cubed = amount * squared;
 		DGVector2 r;
-		r.x = (FP) 2 * v2.x;
+		r.x = (DGFixedPoint) 2 * v2.x;
 		r.x += (v3.x - v1.x) * amount;
-		r.x += (((FP) 2 * v1.x) + ((FP) 4 * v3.x) - ((FP) 5 * v2.x) - (v4.x)) * squared;
-		r.x += (((FP) 3 * v2.x) + (v4.x) - (v1.x) - ((FP) 3 * v3.x)) * cubed;
+		r.x += (((DGFixedPoint) 2 * v1.x) + ((DGFixedPoint) 4 * v3.x) - ((DGFixedPoint) 5 * v2.x) - (v4.x)) * squared;
+		r.x += (((DGFixedPoint) 3 * v2.x) + (v4.x) - (v1.x) - ((DGFixedPoint) 3 * v3.x)) * cubed;
 		r.x *= DGMath.Half;
-		r.y = (FP) 2 * v2.y;
+		r.y = (DGFixedPoint) 2 * v2.y;
 		r.y += (v3.y - v1.y) * amount;
-		r.y += (((FP) 2 * v1.y) + ((FP) 4 * v3.y) - ((FP) 5 * v2.y) - (v4.y)) * squared;
-		r.y += (((FP) 3 * v2.y) + (v4.y) - (v1.y) - ((FP) 3 * v3.y)) * cubed;
+		r.y += (((DGFixedPoint) 2 * v1.y) + ((DGFixedPoint) 4 * v3.y) - ((DGFixedPoint) 5 * v2.y) - (v4.y)) * squared;
+		r.y += (((DGFixedPoint) 3 * v2.y) + (v4.y) - (v1.y) - ((DGFixedPoint) 3 * v3.y)) * cubed;
 		r.y *= DGMath.Half;
 		return r;
 	}
 
-	public static DGVector2 Hermite(DGVector2 v1, DGVector2 tangent1, DGVector2 v2, DGVector2 tangent2, FP amount)
+	public static DGVector2 Hermite(DGVector2 v1, DGVector2 tangent1, DGVector2 v2, DGVector2 tangent2, DGFixedPoint amount)
 	{
 		amount = DGMath.Clamp01(amount);
-		FP squared = amount * amount;
-		FP cubed = amount * squared;
-		FP a = ((cubed * (FP) 2) - (squared * (FP) 3)) + (FP) 1;
-		FP b = (-cubed * (FP) 2) + (squared * (FP) 3);
-		FP c = (cubed - (squared * (FP) 2)) + amount;
-		FP d = cubed - squared;
+		DGFixedPoint squared = amount * amount;
+		DGFixedPoint cubed = amount * squared;
+		DGFixedPoint a = ((cubed * (DGFixedPoint) 2) - (squared * (DGFixedPoint) 3)) + (DGFixedPoint) 1;
+		DGFixedPoint b = (-cubed * (DGFixedPoint) 2) + (squared * (DGFixedPoint) 3);
+		DGFixedPoint c = (cubed - (squared * (DGFixedPoint) 2)) + amount;
+		DGFixedPoint d = cubed - squared;
 		var x = (v1.x * a) + (v2.x * b) + (tangent1.x * c) + (tangent2.x * d);
 		var y = (v1.y * a) + (v2.y * b) + (tangent1.y * c) + (tangent2.y * d);
 		return new DGVector2(x, y);

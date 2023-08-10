@@ -9,25 +9,21 @@
  * ======================================
 *************************************************************************************/
 
-using System;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPMatrix4x4 = DGMatrix4x4;
 
 /** Encapsulates a ray having a starting position and a unit length direction.
  * 
  * @author badlogicgames@gmail.com */
 public partial struct DGRay
 {
-	public FPVector3 origin;
-	public FPVector3 direction;
+	public DGVector3 origin;
+	public DGVector3 direction;
 	
 
 	/** Constructor, sets the starting position of the ray and the direction.
 	 * 
 	 * @param origin The starting position
 	 * @param direction The direction */
-	public DGRay(FPVector3 origin, FPVector3 direction)
+	public DGRay(DGVector3 origin, DGVector3 direction)
 	{
 		this.origin = default;
 		this.direction = default;
@@ -45,18 +41,18 @@ public partial struct DGRay
 	 * @param out The vector to set to the result
 	 * @param distance The distance from the end point to the start point.
 	 * @return The out param */
-	public FPVector3 getEndPoint(FPVector3 outVector, FP distance)
+	public DGVector3 getEndPoint(DGVector3 outVector, DGFixedPoint distance)
 	{
 		return outVector.set(direction).scl(distance).add(origin);
 	}
 
-	static FPVector3 tmp = new FPVector3();
+	static DGVector3 tmp = new DGVector3();
 
 	/** Multiplies the ray by the given matrix. Use this to transform a ray into another coordinate system.
 	 * 
 	 * @param matrix The matrix
 	 * @return This ray for chaining. */
-	public DGRay mul(FPMatrix4x4 matrix)
+	public DGRay mul(DGMatrix4x4 matrix)
 	{
 		tmp.set(origin).add(direction);
 		tmp.mul(matrix);
@@ -76,7 +72,7 @@ public partial struct DGRay
 	 * @param origin The starting position
 	 * @param direction The direction
 	 * @return this ray for chaining */
-	public DGRay set(FPVector3 origin, FPVector3 direction)
+	public DGRay set(DGVector3 origin, DGVector3 direction)
 	{
 		this.origin.set(origin);
 		this.direction.set(direction).nor();
@@ -92,7 +88,7 @@ public partial struct DGRay
 	 * @param dy The y-component of the direction
 	 * @param dz The z-component of the direction
 	 * @return this ray for chaining */
-	public DGRay set(FP x, FP y, FP z, FP dx, FP dy, FP dz)
+	public DGRay set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint dx, DGFixedPoint dy, DGFixedPoint dz)
 	{
 		this.origin.set(x, y, z);
 		this.direction.set(dx, dy, dz).nor();

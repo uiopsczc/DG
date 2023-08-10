@@ -9,10 +9,6 @@
  * ======================================
 *************************************************************************************/
 
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPMatrix4x4 = DGMatrix4x4;
-using FPMatrix3x3 = DGMatrix3x3;
 
 /** A simple quaternion class.
  * @see <a href="http://en.wikipedia.org/wiki/Quaternion">http://en.wikipedia.org/wiki/Quaternion</a>
@@ -21,20 +17,20 @@ using FPMatrix3x3 = DGMatrix3x3;
  * @author xoppa */
 public partial struct DGQuaternion
 {
-	private static DGQuaternion tmp1 = new DGQuaternion((FP) 0, (FP) 0, (FP) 0, (FP) 0);
-	private static DGQuaternion tmp2 = new DGQuaternion((FP) 0, (FP) 0, (FP) 0, (FP) 0);
+	private static DGQuaternion tmp1 = new DGQuaternion((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0);
+	private static DGQuaternion tmp2 = new DGQuaternion((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0);
 
-	public FP x;
-	public FP y;
-	public FP z;
-	public FP w;
+	public DGFixedPoint x;
+	public DGFixedPoint y;
+	public DGFixedPoint z;
+	public DGFixedPoint w;
 
 	/** Constructor, sets the four components of the quaternion.
 	 * @param x The x-component
 	 * @param y The y-component
 	 * @param z The z-component
 	 * @param w The w-component */
-	public DGQuaternion(FP x, FP y, FP z, FP w)
+	public DGQuaternion(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		this.x = x;
 		this.y = y;
@@ -44,10 +40,10 @@ public partial struct DGQuaternion
 
 	public DGQuaternion(bool isNotLibgdx = false)
 	{
-		this.x = (FP) 0;
-		this.y = (FP) 0;
-		this.z = (FP) 0;
-		this.w = (FP) 1;
+		this.x = (DGFixedPoint) 0;
+		this.y = (DGFixedPoint) 0;
+		this.z = (DGFixedPoint) 0;
+		this.w = (DGFixedPoint) 1;
 	}
 
 	/** Constructor, sets the quaternion components from the given quaternion.
@@ -65,28 +61,28 @@ public partial struct DGQuaternion
 	 * 
 	 * @param axis The axis
 	 * @param angle The angle in degrees. */
-	public DGQuaternion(FPVector3 axis, FP angle)
+	public DGQuaternion(DGVector3 axis, DGFixedPoint angle)
 	{
-		FP x = axis.x;
-		FP y = axis.y;
-		FP z = axis.z;
-		FP radians = angle * DGMath.Deg2Rad;
+		DGFixedPoint x = axis.x;
+		DGFixedPoint y = axis.y;
+		DGFixedPoint z = axis.z;
+		DGFixedPoint radians = angle * DGMath.Deg2Rad;
 
 
-		FP d = FPVector3.len(x, y, z);
-		if (d == (FP) 0f)
+		DGFixedPoint d = DGVector3.len(x, y, z);
+		if (d == (DGFixedPoint) 0f)
 		{
-			this.x = (FP) 0;
-			this.y = (FP) 0;
-			this.z = (FP) 0;
-			this.w = (FP) 1;
+			this.x = (DGFixedPoint) 0;
+			this.y = (DGFixedPoint) 0;
+			this.z = (DGFixedPoint) 0;
+			this.w = (DGFixedPoint) 1;
 		}
 		else
 		{
-			d = (FP) 1f / d;
-			FP l_ang = radians < (FP) 0 ? DGMath.TwoPI - (-radians % DGMath.TwoPI) : radians % DGMath.TwoPI;
-			FP l_sin = DGMath.Sin(l_ang / (FP) 2);
-			FP l_cos = DGMath.Cos(l_ang / (FP) 2);
+			d = (DGFixedPoint) 1f / d;
+			DGFixedPoint l_ang = radians < (DGFixedPoint) 0 ? DGMath.TwoPI - (-radians % DGMath.TwoPI) : radians % DGMath.TwoPI;
+			DGFixedPoint l_sin = DGMath.Sin(l_ang / (DGFixedPoint) 2);
+			DGFixedPoint l_cos = DGMath.Cos(l_ang / (DGFixedPoint) 2);
 			DGQuaternion result = new DGQuaternion(d * x * l_sin, d * y * l_sin, d * z * l_sin, l_cos);
 			result = result.nor();
 			this.x = result.x;
@@ -102,7 +98,7 @@ public partial struct DGQuaternion
 	 * @param z The z-component
 	 * @param w The w-component
 	 * @return This quaternion for chaining */
-	public DGQuaternion set(FP x, FP y, FP z, FP w)
+	public DGQuaternion set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		this.x = x;
 		this.y = y;
@@ -124,7 +120,7 @@ public partial struct DGQuaternion
 	 * @param axis The axis
 	 * @param angle The angle in degrees
 	 * @return This quaternion for chaining. */
-	public DGQuaternion set(FPVector3 axis, FP angle)
+	public DGQuaternion set(DGVector3 axis, DGFixedPoint angle)
 	{
 		return setFromAxis(axis.x, axis.y, axis.z, angle);
 	}
@@ -136,13 +132,13 @@ public partial struct DGQuaternion
 	}
 
 	/** @return the euclidean length of the specified quaternion */
-	public static FP len(FP x, FP y, FP z, FP w)
+	public static DGFixedPoint len(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		return DGMath.Sqrt(x * x + y * y + z * z + w * w);
 	}
 
 	/** @return the euclidean length of this quaternion */
-	public FP len()
+	public DGFixedPoint len()
 	{
 		return DGMath.Sqrt(x * x + y * y + z * z + w * w);
 	}
@@ -157,7 +153,7 @@ public partial struct DGQuaternion
 	 * @param pitch the rotation around the x axis in degrees
 	 * @param roll the rotation around the z axis degrees
 	 * @return this quaternion */
-	public DGQuaternion setEulerAngles(FP yaw, FP pitch, FP roll)
+	public DGQuaternion setEulerAngles(DGFixedPoint yaw, DGFixedPoint pitch, DGFixedPoint roll)
 	{
 		return setEulerAnglesRad(yaw * DGMath.Deg2Rad, pitch * DGMath.Deg2Rad,
 			roll * DGMath.Deg2Rad);
@@ -168,21 +164,21 @@ public partial struct DGQuaternion
 	 * @param pitch the rotation around the x axis in radians
 	 * @param roll the rotation around the z axis in radians
 	 * @return this quaternion */
-	public DGQuaternion setEulerAnglesRad(FP yaw, FP pitch, FP roll)
+	public DGQuaternion setEulerAnglesRad(DGFixedPoint yaw, DGFixedPoint pitch, DGFixedPoint roll)
 	{
-		FP hr = roll * (FP) 0.5f;
-		FP shr = DGMath.Sin(hr);
-		FP chr = DGMath.Cos(hr);
-		FP hp = pitch * (FP) 0.5f;
-		FP shp = DGMath.Sin(hp);
-		FP chp = DGMath.Cos(hp);
-		FP hy = yaw * (FP) 0.5f;
-		FP shy = DGMath.Sin(hy);
-		FP chy = DGMath.Cos(hy);
-		FP chy_shp = chy * shp;
-		FP shy_chp = shy * chp;
-		FP chy_chp = chy * chp;
-		FP shy_shp = shy * shp;
+		DGFixedPoint hr = roll * (DGFixedPoint) 0.5f;
+		DGFixedPoint shr = DGMath.Sin(hr);
+		DGFixedPoint chr = DGMath.Cos(hr);
+		DGFixedPoint hp = pitch * (DGFixedPoint) 0.5f;
+		DGFixedPoint shp = DGMath.Sin(hp);
+		DGFixedPoint chp = DGMath.Cos(hp);
+		DGFixedPoint hy = yaw * (DGFixedPoint) 0.5f;
+		DGFixedPoint shy = DGMath.Sin(hy);
+		DGFixedPoint chy = DGMath.Cos(hy);
+		DGFixedPoint chy_shp = chy * shp;
+		DGFixedPoint shy_chp = shy * chp;
+		DGFixedPoint chy_chp = chy * chp;
+		DGFixedPoint shy_shp = shy * shp;
 
 		x = (chy_shp * chr) +
 		    (shy_chp * shr); // cos(yaw/2) * sin(pitch/2) * cos(roll/2) + sin(yaw/2) * cos(pitch/2) * sin(roll/2)
@@ -197,69 +193,69 @@ public partial struct DGQuaternion
 
 	/** Get the pole of the gimbal lock, if any.
 	 * @return positive (+1) for north pole, negative (-1) for south pole, zero (0) when no gimbal lock */
-	public FP getGimbalPole()
+	public DGFixedPoint getGimbalPole()
 	{
-		FP t = y * x + z * w;
-		return t > (FP) 0.499f ? (FP) 1 : (t < (FP) (-0.499f) ? (FP) (-1) : (FP) 0);
+		DGFixedPoint t = y * x + z * w;
+		return t > (DGFixedPoint) 0.499f ? (DGFixedPoint) 1 : (t < (DGFixedPoint) (-0.499f) ? (DGFixedPoint) (-1) : (DGFixedPoint) 0);
 	}
 
 	/** Get the roll euler angle in radians, which is the rotation around the z axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the z axis in radians (between -PI and +PI) */
-	public FP getRollRad()
+	public DGFixedPoint getRollRad()
 	{
-		FP pole = getGimbalPole();
-		return pole == (FP) 0
-			? DGMath.Atan2((FP) 2f * (w * z + y * x), (FP) 1f - (FP) 2f * (x * x + z * z))
-			: pole * (FP) 2f * DGMath.Atan2(y, w);
+		DGFixedPoint pole = getGimbalPole();
+		return pole == (DGFixedPoint) 0
+			? DGMath.Atan2((DGFixedPoint) 2f * (w * z + y * x), (DGFixedPoint) 1f - (DGFixedPoint) 2f * (x * x + z * z))
+			: pole * (DGFixedPoint) 2f * DGMath.Atan2(y, w);
 	}
 
 	/** Get the roll euler angle in degrees, which is the rotation around the z axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the z axis in degrees (between -180 and +180) */
-	public FP getRoll()
+	public DGFixedPoint getRoll()
 	{
 		return getRollRad() * DGMath.Rad2Deg;
 	}
 
 	/** Get the pitch euler angle in radians, which is the rotation around the x axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the x axis in radians (between -(PI/2) and +(PI/2)) */
-	public FP getPitchRad()
+	public DGFixedPoint getPitchRad()
 	{
-		FP pole = getGimbalPole();
-		return pole == (FP) 0
-			? DGMath.Asin(DGMath.Clamp((FP) 2f * (w * x - z * y), (FP) (-1f), (FP) 1f))
-			: pole * DGMath.PI * (FP) 0.5f;
+		DGFixedPoint pole = getGimbalPole();
+		return pole == (DGFixedPoint) 0
+			? DGMath.Asin(DGMath.Clamp((DGFixedPoint) 2f * (w * x - z * y), (DGFixedPoint) (-1f), (DGFixedPoint) 1f))
+			: pole * DGMath.PI * (DGFixedPoint) 0.5f;
 	}
 
 	/** Get the pitch euler angle in degrees, which is the rotation around the x axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the x axis in degrees (between -90 and +90) */
-	public FP getPitch()
+	public DGFixedPoint getPitch()
 	{
 		return getPitchRad() * DGMath.Rad2Deg;
 	}
 
 	/** Get the yaw euler angle in radians, which is the rotation around the y axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the y axis in radians (between -PI and +PI) */
-	public FP getYawRad()
+	public DGFixedPoint getYawRad()
 	{
-		return getGimbalPole() == (FP) 0
-			? DGMath.Atan2((FP) 2f * (y * w + x * z), (FP) 1f - (FP) 2f * (y * y + x * x))
-			: (FP) 0f;
+		return getGimbalPole() == (DGFixedPoint) 0
+			? DGMath.Atan2((DGFixedPoint) 2f * (y * w + x * z), (DGFixedPoint) 1f - (DGFixedPoint) 2f * (y * y + x * x))
+			: (DGFixedPoint) 0f;
 	}
 
 	/** Get the yaw euler angle in degrees, which is the rotation around the y axis. Requires that this quaternion is normalized.
 	 * @return the rotation around the y axis in degrees (between -180 and +180) */
-	public FP getYaw()
+	public DGFixedPoint getYaw()
 	{
 		return getYawRad() * DGMath.Rad2Deg;
 	}
 
-	public static FP len2(FP x, FP y, FP z, FP w)
+	public static DGFixedPoint len2(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		return x * x + y * y + z * z + w * w;
 	}
 
 	/** @return the length of this quaternion without square root */
-	public FP len2()
+	public DGFixedPoint len2()
 	{
 		return x * x + y * y + z * z + w * w;
 	}
@@ -268,8 +264,8 @@ public partial struct DGQuaternion
 	 * @return the quaternion for chaining */
 	public DGQuaternion nor()
 	{
-		FP len = this.len2();
-		if (len != (FP) 0f && !DGMath.IsEqual(len, (FP) 1f))
+		DGFixedPoint len = this.len2();
+		if (len != (DGFixedPoint) 0f && !DGMath.IsEqual(len, (DGFixedPoint) 1f))
 		{
 			len = DGMath.Sqrt(len);
 			w /= len;
@@ -296,11 +292,11 @@ public partial struct DGQuaternion
 	/** Transforms the given vector using this quaternion
 	 * 
 	 * @param v Vector to transform */
-	public FPVector3 transform(FPVector3 v)
+	public DGVector3 transform(DGVector3 v)
 	{
 		tmp2.set(this);
 		tmp2.conjugate();
-		tmp2.mulLeft(tmp1.set(v.x, v.y, v.z, (FP) 0)).mulLeft(this);
+		tmp2.mulLeft(tmp1.set(v.x, v.y, v.z, (DGFixedPoint) 0)).mulLeft(this);
 
 		v.x = tmp2.x;
 		v.y = tmp2.y;
@@ -314,10 +310,10 @@ public partial struct DGQuaternion
 	 * @return This quaternion for chaining */
 	public DGQuaternion mul(DGQuaternion other)
 	{
-		FP newX = this.w * other.x + this.x * other.w + this.y * other.z - this.z * other.y;
-		FP newY = this.w * other.y + this.y * other.w + this.z * other.x - this.x * other.z;
-		FP newZ = this.w * other.z + this.z * other.w + this.x * other.y - this.y * other.x;
-		FP newW = this.w * other.w - this.x * other.x - this.y * other.y - this.z * other.z;
+		DGFixedPoint newX = this.w * other.x + this.x * other.w + this.y * other.z - this.z * other.y;
+		DGFixedPoint newY = this.w * other.y + this.y * other.w + this.z * other.x - this.x * other.z;
+		DGFixedPoint newZ = this.w * other.z + this.z * other.w + this.x * other.y - this.y * other.x;
+		DGFixedPoint newW = this.w * other.w - this.x * other.x - this.y * other.y - this.z * other.z;
 		this.x = newX;
 		this.y = newY;
 		this.z = newZ;
@@ -332,12 +328,12 @@ public partial struct DGQuaternion
 	 * @param z the z component of the other quaternion to multiply with
 	 * @param w the w component of the other quaternion to multiply with
 	 * @return This quaternion for chaining */
-	public DGQuaternion mul(FP x, FP y, FP z, FP w)
+	public DGQuaternion mul(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
-		FP newX = this.w * x + this.x * w + this.y * z - this.z * y;
-		FP newY = this.w * y + this.y * w + this.z * x - this.x * z;
-		FP newZ = this.w * z + this.z * w + this.x * y - this.y * x;
-		FP newW = this.w * w - this.x * x - this.y * y - this.z * z;
+		DGFixedPoint newX = this.w * x + this.x * w + this.y * z - this.z * y;
+		DGFixedPoint newY = this.w * y + this.y * w + this.z * x - this.x * z;
+		DGFixedPoint newZ = this.w * z + this.z * w + this.x * y - this.y * x;
+		DGFixedPoint newW = this.w * w - this.x * x - this.y * y - this.z * z;
 		this.x = newX;
 		this.y = newY;
 		this.z = newZ;
@@ -351,10 +347,10 @@ public partial struct DGQuaternion
 	 * @return This quaternion for chaining */
 	public DGQuaternion mulLeft(DGQuaternion other)
 	{
-		FP newX = other.w * this.x + other.x * this.w + other.y * this.z - other.z * this.y;
-		FP newY = other.w * this.y + other.y * this.w + other.z * this.x - other.x * this.z;
-		FP newZ = other.w * this.z + other.z * this.w + other.x * this.y - other.y * this.x;
-		FP newW = other.w * this.w - other.x * this.x - other.y * this.y - other.z * this.z;
+		DGFixedPoint newX = other.w * this.x + other.x * this.w + other.y * this.z - other.z * this.y;
+		DGFixedPoint newY = other.w * this.y + other.y * this.w + other.z * this.x - other.x * this.z;
+		DGFixedPoint newZ = other.w * this.z + other.z * this.w + other.x * this.y - other.y * this.x;
+		DGFixedPoint newW = other.w * this.w - other.x * this.x - other.y * this.y - other.z * this.z;
 		this.x = newX;
 		this.y = newY;
 		this.z = newZ;
@@ -369,12 +365,12 @@ public partial struct DGQuaternion
 	 * @param z the z component of the other quaternion to multiply with
 	 * @param w the w component of the other quaternion to multiply with
 	 * @return This quaternion for chaining */
-	public DGQuaternion mulLeft(FP x, FP y, FP z, FP w)
+	public DGQuaternion mulLeft(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
-		FP newX = w * this.x + x * this.w + y * this.z - z * this.y;
-		FP newY = w * this.y + y * this.w + z * this.x - x * this.z;
-		FP newZ = w * this.z + z * this.w + x * this.y - y * this.x;
-		FP newW = w * this.w - x * this.x - y * this.y - z * this.z;
+		DGFixedPoint newX = w * this.x + x * this.w + y * this.z - z * this.y;
+		DGFixedPoint newY = w * this.y + y * this.w + z * this.x - x * this.z;
+		DGFixedPoint newZ = w * this.z + z * this.w + x * this.y - y * this.x;
+		DGFixedPoint newW = w * this.w - x * this.x - y * this.y - z * this.z;
 		this.x = newX;
 		this.y = newY;
 		this.z = newZ;
@@ -393,7 +389,7 @@ public partial struct DGQuaternion
 	}
 
 	/** Add the x,y,z,w components of the passed in quaternion to the ones of this quaternion */
-	public DGQuaternion add(FP qx, FP qy, FP qz, FP qw)
+	public DGQuaternion add(DGFixedPoint qx, DGFixedPoint qy, DGFixedPoint qz, DGFixedPoint qw)
 	{
 		this.x += qx;
 		this.y += qy;
@@ -407,54 +403,54 @@ public partial struct DGQuaternion
 	/** Fills a 4x4 matrix with the rotation matrix represented by this quaternion.
 	 * 
 	 * @param matrix Matrix to fill */
-	public void toMatrix(FP[] matrix)
+	public void toMatrix(DGFixedPoint[] matrix)
 	{
-		FP xx = x * x;
-		FP xy = x * y;
-		FP xz = x * z;
-		FP xw = x * w;
-		FP yy = y * y;
-		FP yz = y * z;
-		FP yw = y * w;
-		FP zz = z * z;
-		FP zw = z * w;
+		DGFixedPoint xx = x * x;
+		DGFixedPoint xy = x * y;
+		DGFixedPoint xz = x * z;
+		DGFixedPoint xw = x * w;
+		DGFixedPoint yy = y * y;
+		DGFixedPoint yz = y * z;
+		DGFixedPoint yw = y * w;
+		DGFixedPoint zz = z * z;
+		DGFixedPoint zw = z * w;
 		// Set matrix from quaternion
-		matrix[FPMatrix4x4.M00] = (FP) 1 - (FP) 2 * (yy + zz);
-		matrix[FPMatrix4x4.M01] = (FP) 2 * (xy - zw);
-		matrix[FPMatrix4x4.M02] = (FP) 2 * (xz + yw);
-		matrix[FPMatrix4x4.M03] = (FP) 0;
-		matrix[FPMatrix4x4.M10] = (FP) 2 * (xy + zw);
-		matrix[FPMatrix4x4.M11] = (FP) 1 - (FP) 2 * (xx + zz);
-		matrix[FPMatrix4x4.M12] = (FP) 2 * (yz - xw);
-		matrix[FPMatrix4x4.M13] = (FP) 0;
-		matrix[FPMatrix4x4.M20] = (FP) 2 * (xz - yw);
-		matrix[FPMatrix4x4.M21] = (FP) 2 * (yz + xw);
-		matrix[FPMatrix4x4.M22] = (FP) 1 - (FP) 2 * (xx + yy);
-		matrix[FPMatrix4x4.M23] = (FP) 0;
-		matrix[FPMatrix4x4.M30] = (FP) 0;
-		matrix[FPMatrix4x4.M31] = (FP) 0;
-		matrix[FPMatrix4x4.M32] = (FP) 0;
-		matrix[FPMatrix4x4.M33] = (FP) 1;
+		matrix[DGMatrix4x4.M00] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (yy + zz);
+		matrix[DGMatrix4x4.M01] = (DGFixedPoint) 2 * (xy - zw);
+		matrix[DGMatrix4x4.M02] = (DGFixedPoint) 2 * (xz + yw);
+		matrix[DGMatrix4x4.M03] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M10] = (DGFixedPoint) 2 * (xy + zw);
+		matrix[DGMatrix4x4.M11] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + zz);
+		matrix[DGMatrix4x4.M12] = (DGFixedPoint) 2 * (yz - xw);
+		matrix[DGMatrix4x4.M13] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M20] = (DGFixedPoint) 2 * (xz - yw);
+		matrix[DGMatrix4x4.M21] = (DGFixedPoint) 2 * (yz + xw);
+		matrix[DGMatrix4x4.M22] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + yy);
+		matrix[DGMatrix4x4.M23] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M30] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M31] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M32] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M33] = (DGFixedPoint) 1;
 	}
 
 	/** Sets the quaternion to an identity Quaternion
 	 * @return this quaternion for chaining */
 	public DGQuaternion idt()
 	{
-		return this.set((FP) 0, (FP) 0, (FP) 0, (FP) 1);
+		return this.set((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 1);
 	}
 
 	/** @return If this quaternion is an identity Quaternion */
 	public bool isIdentity()
 	{
-		return DGMath.IsZero(x) && DGMath.IsZero(y) && DGMath.IsZero(z) && DGMath.IsEqual(w, (FP) 1f);
+		return DGMath.IsZero(x) && DGMath.IsZero(y) && DGMath.IsZero(z) && DGMath.IsEqual(w, (DGFixedPoint) 1f);
 	}
 
 	/** @return If this quaternion is an identity Quaternion */
-	public bool isIdentity(FP tolerance)
+	public bool isIdentity(DGFixedPoint tolerance)
 	{
 		return DGMath.IsZero(x, tolerance) && DGMath.IsZero(y, tolerance) && DGMath.IsZero(z, tolerance)
-		       && DGMath.IsEqual(w, (FP) 1f, tolerance);
+		       && DGMath.IsEqual(w, (DGFixedPoint) 1f, tolerance);
 	}
 
 	// todo : the setFromAxis(v3,float) method should replace the set(v3,float) method
@@ -463,7 +459,7 @@ public partial struct DGQuaternion
 	 * @param axis The axis
 	 * @param degrees The angle in degrees
 	 * @return This quaternion for chaining. */
-	public DGQuaternion setFromAxis(FPVector3 axis, FP degrees)
+	public DGQuaternion setFromAxis(DGVector3 axis, DGFixedPoint degrees)
 	{
 		return setFromAxis(axis.x, axis.y, axis.z, degrees);
 	}
@@ -473,7 +469,7 @@ public partial struct DGQuaternion
 	 * @param axis The axis
 	 * @param radians The angle in radians
 	 * @return This quaternion for chaining. */
-	public DGQuaternion setFromAxisRad(FPVector3 axis, FP radians)
+	public DGQuaternion setFromAxisRad(DGVector3 axis, DGFixedPoint radians)
 	{
 		return setFromAxisRad(axis.x, axis.y, axis.z, radians);
 	}
@@ -484,7 +480,7 @@ public partial struct DGQuaternion
 	 * @param z Z direction of the axis
 	 * @param degrees The angle in degrees
 	 * @return This quaternion for chaining. */
-	public DGQuaternion setFromAxis(FP x, FP y, FP z, FP degrees)
+	public DGQuaternion setFromAxis(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint degrees)
 	{
 		return setFromAxisRad(x, y, z, degrees * DGMath.Deg2Rad);
 	}
@@ -495,47 +491,47 @@ public partial struct DGQuaternion
 	 * @param z Z direction of the axis
 	 * @param radians The angle in radians
 	 * @return This quaternion for chaining. */
-	public DGQuaternion setFromAxisRad(FP x, FP y, FP z, FP radians)
+	public DGQuaternion setFromAxisRad(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint radians)
 	{
-		FP d = FPVector3.len(x, y, z);
-		if (d == (FP) 0f) return idt();
-		d = (FP) 1f / d;
-		FP l_ang = radians < (FP) 0 ? DGMath.TwoPI - (-radians % DGMath.TwoPI) : radians % DGMath.TwoPI;
-		FP l_sin = DGMath.Sin(l_ang / (FP) 2);
-		FP l_cos = DGMath.Cos(l_ang / (FP) 2);
+		DGFixedPoint d = DGVector3.len(x, y, z);
+		if (d == (DGFixedPoint) 0f) return idt();
+		d = (DGFixedPoint) 1f / d;
+		DGFixedPoint l_ang = radians < (DGFixedPoint) 0 ? DGMath.TwoPI - (-radians % DGMath.TwoPI) : radians % DGMath.TwoPI;
+		DGFixedPoint l_sin = DGMath.Sin(l_ang / (DGFixedPoint) 2);
+		DGFixedPoint l_cos = DGMath.Cos(l_ang / (DGFixedPoint) 2);
 		return this.set(d * x * l_sin, d * y * l_sin, d * z * l_sin, l_cos).nor();
 	}
 
 	/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
-	public DGQuaternion setFromMatrix(bool normalizeAxes, FPMatrix4x4 matrix)
+	public DGQuaternion setFromMatrix(bool normalizeAxes, DGMatrix4x4 matrix)
 	{
-		FPVector3 scale = default;
+		DGVector3 scale = default;
 		matrix.getScale(ref scale);
-		return setFromAxes(normalizeAxes, matrix.val[FPMatrix4x4.M00]/ scale.x, matrix.val[FPMatrix4x4.M01] / scale.y,
-			matrix.val[FPMatrix4x4.M02] / scale.z,
-			matrix.val[FPMatrix4x4.M10] / scale.x, matrix.val[FPMatrix4x4.M11]/ scale.y, matrix.val[FPMatrix4x4.M12] / scale.z,
-			matrix.val[FPMatrix4x4.M20] / scale.x,
-			matrix.val[FPMatrix4x4.M21] / scale.y, matrix.val[FPMatrix4x4.M22]/ scale.z);
+		return setFromAxes(normalizeAxes, matrix.val[DGMatrix4x4.M00]/ scale.x, matrix.val[DGMatrix4x4.M01] / scale.y,
+			matrix.val[DGMatrix4x4.M02] / scale.z,
+			matrix.val[DGMatrix4x4.M10] / scale.x, matrix.val[DGMatrix4x4.M11]/ scale.y, matrix.val[DGMatrix4x4.M12] / scale.z,
+			matrix.val[DGMatrix4x4.M20] / scale.x,
+			matrix.val[DGMatrix4x4.M21] / scale.y, matrix.val[DGMatrix4x4.M22]/ scale.z);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
-	public DGQuaternion setFromMatrix(FPMatrix4x4 matrix)
+	public DGQuaternion setFromMatrix(DGMatrix4x4 matrix)
 	{
 		return setFromMatrix(false, matrix);
 	}
 
 	/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
-	public DGQuaternion setFromMatrix(bool normalizeAxes, FPMatrix3x3 matrix)
+	public DGQuaternion setFromMatrix(bool normalizeAxes, DGMatrix3x3 matrix)
 	{
-		return setFromAxes(normalizeAxes, matrix.val[FPMatrix3x3.M00], matrix.val[FPMatrix3x3.M01],
-			matrix.val[FPMatrix3x3.M02],
-			matrix.val[FPMatrix3x3.M10], matrix.val[FPMatrix3x3.M11], matrix.val[FPMatrix3x3.M12],
-			matrix.val[FPMatrix3x3.M20],
-			matrix.val[FPMatrix3x3.M21], matrix.val[FPMatrix3x3.M22]);
+		return setFromAxes(normalizeAxes, matrix.val[DGMatrix3x3.M00], matrix.val[DGMatrix3x3.M01],
+			matrix.val[DGMatrix3x3.M02],
+			matrix.val[DGMatrix3x3.M10], matrix.val[DGMatrix3x3.M11], matrix.val[DGMatrix3x3.M12],
+			matrix.val[DGMatrix3x3.M20],
+			matrix.val[DGMatrix3x3.M21], matrix.val[DGMatrix3x3.M22]);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
-	public DGQuaternion setFromMatrix(FPMatrix3x3 matrix)
+	public DGQuaternion setFromMatrix(DGMatrix3x3 matrix)
 	{
 		return setFromMatrix(false, matrix);
 	}
@@ -559,7 +555,7 @@ public partial struct DGQuaternion
 	 * @param zx z-axis x-coordinate
 	 * @param zy z-axis y-coordinate
 	 * @param zz z-axis z-coordinate */
-	public DGQuaternion setFromAxes(FP xx, FP xy, FP xz, FP yx, FP yy, FP yz, FP zx, FP zy, FP zz)
+	public DGQuaternion setFromAxes(DGFixedPoint xx, DGFixedPoint xy, DGFixedPoint xz, DGFixedPoint yx, DGFixedPoint yy, DGFixedPoint yz, DGFixedPoint zx, DGFixedPoint zy, DGFixedPoint zz)
 	{
 		return setFromAxes(false, xx, xy, xz, yx, yy, yz, zx, zy, zz);
 	}
@@ -584,14 +580,14 @@ public partial struct DGQuaternion
 	 * @param zx z-axis x-coordinate
 	 * @param zy z-axis y-coordinate
 	 * @param zz z-axis z-coordinate */
-	public DGQuaternion setFromAxes(bool normalizeAxes, FP xx, FP xy, FP xz, FP yx, FP yy, FP yz, FP zx,
-		FP zy, FP zz)
+	public DGQuaternion setFromAxes(bool normalizeAxes, DGFixedPoint xx, DGFixedPoint xy, DGFixedPoint xz, DGFixedPoint yx, DGFixedPoint yy, DGFixedPoint yz, DGFixedPoint zx,
+		DGFixedPoint zy, DGFixedPoint zz)
 	{
 		if (normalizeAxes)
 		{
-			FP lx = (FP) 1f / FPVector3.len(xx, xy, xz);
-			FP ly = (FP) 1f / FPVector3.len(yx, yy, yz);
-			FP lz = (FP) 1f / FPVector3.len(zx, zy, zz);
+			DGFixedPoint lx = (DGFixedPoint) 1f / DGVector3.len(xx, xy, xz);
+			DGFixedPoint ly = (DGFixedPoint) 1f / DGVector3.len(yx, yy, yz);
+			DGFixedPoint lz = (DGFixedPoint) 1f / DGVector3.len(zx, zy, zz);
 			xx *= lx;
 			xy *= lx;
 			xz *= lx;
@@ -605,42 +601,42 @@ public partial struct DGQuaternion
 
 		// the trace is the sum of the diagonal elements; see
 		// http://mathworld.wolfram.com/MatrixTrace.html
-		FP t = xx + yy + zz;
+		DGFixedPoint t = xx + yy + zz;
 
 		// we protect the division by s by ensuring that s>=1
-		if (t >= (FP) 0)
+		if (t >= (DGFixedPoint) 0)
 		{
 			// |w| >= .5
-			FP s = DGMath.Sqrt(t + (FP) 1); // |s|>=1 ...
-			w = (FP) 0.5f * s;
-			s = (FP) 0.5f / s; // so this division isn't bad
+			DGFixedPoint s = DGMath.Sqrt(t + (DGFixedPoint) 1); // |s|>=1 ...
+			w = (DGFixedPoint) 0.5f * s;
+			s = (DGFixedPoint) 0.5f / s; // so this division isn't bad
 			x = (zy - yz) * s;
 			y = (xz - zx) * s;
 			z = (yx - xy) * s;
 		}
 		else if ((xx > yy) && (xx > zz))
 		{
-			FP s = DGMath.Sqrt((FP) 1.0 + xx - yy - zz); // |s|>=1
-			x = s * (FP) 0.5f; // |x| >= .5
-			s = (FP) 0.5f / s;
+			DGFixedPoint s = DGMath.Sqrt((DGFixedPoint) 1.0 + xx - yy - zz); // |s|>=1
+			x = s * (DGFixedPoint) 0.5f; // |x| >= .5
+			s = (DGFixedPoint) 0.5f / s;
 			y = (yx + xy) * s;
 			z = (xz + zx) * s;
 			w = (zy - yz) * s;
 		}
 		else if (yy > zz)
 		{
-			FP s = DGMath.Sqrt((FP) 1.0 + yy - xx - zz); // |s|>=1
-			y = s * (FP) 0.5f; // |y| >= .5
-			s = (FP) 0.5f / s;
+			DGFixedPoint s = DGMath.Sqrt((DGFixedPoint) 1.0 + yy - xx - zz); // |s|>=1
+			y = s * (DGFixedPoint) 0.5f; // |y| >= .5
+			s = (DGFixedPoint) 0.5f / s;
 			x = (yx + xy) * s;
 			z = (zy + yz) * s;
 			w = (xz - zx) * s;
 		}
 		else
 		{
-			FP s = DGMath.Sqrt((FP) 1.0 + zz - xx - yy); // |s|>=1
-			z = s * (FP) 0.5f; // |z| >= .5
-			s = (FP) 0.5f / s;
+			DGFixedPoint s = DGMath.Sqrt((DGFixedPoint) 1.0 + zz - xx - yy); // |s|>=1
+			z = s * (DGFixedPoint) 0.5f; // |z| >= .5
+			s = (DGFixedPoint) 0.5f / s;
 			x = (xz + zx) * s;
 			y = (zy + yz) * s;
 			w = (yx - xy) * s;
@@ -653,10 +649,10 @@ public partial struct DGQuaternion
 	 * @param v1 The base vector, which should be normalized.
 	 * @param v2 The target vector, which should be normalized.
 	 * @return This quaternion for chaining */
-	public DGQuaternion setFromCross(FPVector3 v1, FPVector3 v2)
+	public DGQuaternion setFromCross(DGVector3 v1, DGVector3 v2)
 	{
-		FP dot = DGMath.Clamp(v1.dot(v2), (FP) (-1f), (FP) 1f);
-		FP angle = DGMath.Acos(dot);
+		DGFixedPoint dot = DGMath.Clamp(v1.dot(v2), (DGFixedPoint) (-1f), (DGFixedPoint) 1f);
+		DGFixedPoint angle = DGMath.Acos(dot);
 		return setFromAxisRad(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.y * v2.x, angle);
 	}
 
@@ -668,11 +664,11 @@ public partial struct DGQuaternion
 	 * @param y2 The target vector y value, which should be normalized.
 	 * @param z2 The target vector z value, which should be normalized.
 	 * @return This quaternion for chaining */
-	public DGQuaternion setFromCross(FP x1, FP y1, FP z1, FP x2, FP y2,
-		FP z2)
+	public DGQuaternion setFromCross(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2,
+		DGFixedPoint z2)
 	{
-		FP dot = DGMath.Clamp(FPVector3.dot(x1, y1, z1, x2, y2, z2), (FP) (-1f), (FP) 1f);
-		FP angle = DGMath.Acos(dot);
+		DGFixedPoint dot = DGMath.Clamp(DGVector3.dot(x1, y1, z1, x2, y2, z2), (DGFixedPoint) (-1f), (DGFixedPoint) 1f);
+		DGFixedPoint angle = DGMath.Acos(dot);
 		return setFromAxisRad(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2, angle);
 	}
 
@@ -681,31 +677,31 @@ public partial struct DGQuaternion
 	 * @param end the end quaternion
 	 * @param alpha alpha in the range [0,1]
 	 * @return this quaternion for chaining */
-	public DGQuaternion slerp(DGQuaternion end, FP alpha)
+	public DGQuaternion slerp(DGQuaternion end, DGFixedPoint alpha)
 	{
-		FP d = this.x * end.x + this.y * end.y + this.z * end.z + this.w * end.w;
-		FP absDot = d < (FP) 0f ? -d : d;
+		DGFixedPoint d = this.x * end.x + this.y * end.y + this.z * end.z + this.w * end.w;
+		DGFixedPoint absDot = d < (DGFixedPoint) 0f ? -d : d;
 
 		// Set the first and second scale for the interpolation
-		FP scale0 = (FP) 1f - alpha;
-		FP scale1 = alpha;
+		DGFixedPoint scale0 = (DGFixedPoint) 1f - alpha;
+		DGFixedPoint scale1 = alpha;
 
 		// Check if the angle between the 2 quaternions was big enough to
 		// warrant such calculations
-		if (((FP) 1 - absDot) > (FP) 0.1)
+		if (((DGFixedPoint) 1 - absDot) > (DGFixedPoint) 0.1)
 		{
 			// Get the angle between the 2 quaternions,
 			// and then store the sin() of that angle
-			FP angle = DGMath.Acos(absDot);
-			FP invSinTheta = (FP) 1f / DGMath.Sin(angle);
+			DGFixedPoint angle = DGMath.Acos(absDot);
+			DGFixedPoint invSinTheta = (DGFixedPoint) 1f / DGMath.Sin(angle);
 
 			// Calculate the scale for q1 and q2, according to the angle and
 			// it's sine value
-			scale0 = (DGMath.Sin(((FP) 1f - alpha) * angle) * invSinTheta);
+			scale0 = (DGMath.Sin(((DGFixedPoint) 1f - alpha) * angle) * invSinTheta);
 			scale1 = (DGMath.Sin((alpha * angle)) * invSinTheta);
 		}
 
-		if (d < (FP) 0f) scale1 = -scale1;
+		if (d < (DGFixedPoint) 0f) scale1 = -scale1;
 
 		// Calculate the x, y, z and w values for the quaternion by using a
 		// special form of linear interpolation for quaternions.
@@ -725,7 +721,7 @@ public partial struct DGQuaternion
 	public DGQuaternion slerp(DGQuaternion[] q)
 	{
 		// Calculate exponents and multiply everything from left to right
-		FP w = (FP) 1.0f / (FP) q.Length;
+		DGFixedPoint w = (DGFixedPoint) 1.0f / (DGFixedPoint) q.Length;
 		set(q[0]).exp(w);
 		for (int i = 1; i < q.Length; i++)
 			mul(tmp1.set(q[i]).exp(w));
@@ -739,7 +735,7 @@ public partial struct DGQuaternion
 	 * @param q List of quaternions
 	 * @param w List of weights
 	 * @return This quaternion for chaining */
-	public DGQuaternion slerp(DGQuaternion[] q, FP[] w)
+	public DGQuaternion slerp(DGQuaternion[] q, DGFixedPoint[] w)
 	{
 		// Calculate exponents and multiply everything from left to right
 		set(q[0]).exp(w[0]);
@@ -753,18 +749,18 @@ public partial struct DGQuaternion
 	 * http://en.wikipedia.org/wiki/Quaternion#Exponential.2C_logarithm.2C_and_power
 	 * @param alpha Exponent
 	 * @return This quaternion for chaining */
-	public DGQuaternion exp(FP alpha)
+	public DGQuaternion exp(DGFixedPoint alpha)
 	{
 		// Calculate |q|^alpha
-		FP norm = len();
-		FP normExp = DGMath.Pow(norm, alpha);
+		DGFixedPoint norm = len();
+		DGFixedPoint normExp = DGMath.Pow(norm, alpha);
 
 		// Calculate theta
-		FP theta = DGMath.Acos(w / norm);
+		DGFixedPoint theta = DGMath.Acos(w / norm);
 
 		// Calculate coefficient of basis elements
-		FP coeff = (FP) 0;
-		if (DGMath.Abs(theta) < (FP) 0.001
+		DGFixedPoint coeff = (DGFixedPoint) 0;
+		if (DGMath.Abs(theta) < (DGFixedPoint) 0.001
 			) // If theta is small enough, use the limit of sin(alpha*theta) / sin(theta) instead of actual
 			// value
 			coeff = normExp * alpha / norm;
@@ -794,8 +790,8 @@ public partial struct DGQuaternion
 	 * @param z2 the z component of the second quaternion
 	 * @param w2 the w component of the second quaternion
 	 * @return the dot product between the first and second quaternion. */
-	public static FP dot(FP x1, FP y1, FP z1, FP w1, FP x2, FP y2,
-		FP z2, FP w2)
+	public static DGFixedPoint dot(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint w1, DGFixedPoint x2, DGFixedPoint y2,
+		DGFixedPoint z2, DGFixedPoint w2)
 	{
 		return x1 * x2 + y1 * y2 + z1 * z2 + w1 * w2;
 	}
@@ -803,7 +799,7 @@ public partial struct DGQuaternion
 	/** Get the dot product between this and the other quaternion (commutative).
 	 * @param other the other quaternion.
 	 * @return the dot product of this and the other quaternion. */
-	public FP dot(DGQuaternion other)
+	public DGFixedPoint dot(DGQuaternion other)
 	{
 		return this.x * other.x + this.y * other.y + this.z * other.z + this.w * other.w;
 	}
@@ -814,7 +810,7 @@ public partial struct DGQuaternion
 	 * @param z the z component of the other quaternion
 	 * @param w the w component of the other quaternion
 	 * @return the dot product of this and the other quaternion. */
-	public FP dot(FP x, FP y, FP z, FP w)
+	public DGFixedPoint dot(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint w)
 	{
 		return this.x * x + this.y * y + this.z * z + this.w * w;
 	}
@@ -822,7 +818,7 @@ public partial struct DGQuaternion
 	/** Multiplies the components of this quaternion with the given scalar.
 	 * @param scalar the scalar.
 	 * @return this quaternion for chaining. */
-	public DGQuaternion mul(FP scalar)
+	public DGQuaternion mul(DGFixedPoint scalar)
 	{
 		this.x *= scalar;
 		this.y *= scalar;
@@ -842,7 +838,7 @@ public partial struct DGQuaternion
 	 * @return the angle in degrees
 	 * @see <a href="http://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation">wikipedia</a>
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle">calculation</a> */
-	public FP getAxisAngle(out FPVector3 axis)
+	public DGFixedPoint getAxisAngle(out DGVector3 axis)
 	{
 		return getAxisAngleRad(out axis) * DGMath.Rad2Deg;
 	}
@@ -858,12 +854,12 @@ public partial struct DGQuaternion
 	 * @return the angle in radians
 	 * @see <a href="http://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation">wikipedia</a>
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle">calculation</a> */
-	public FP getAxisAngleRad(out FPVector3 axis)
+	public DGFixedPoint getAxisAngleRad(out DGVector3 axis)
 	{
-		if (this.w > (FP) 1)
+		if (this.w > (DGFixedPoint) 1)
 			this.nor(); // if w>1 acos and sqrt will produce errors, this cant happen if quaternion is normalised
-		FP angle = (FP) 2.0 * DGMath.Acos(this.w);
-		FP s = DGMath.Sqrt((FP) 1 - this.w *
+		DGFixedPoint angle = (DGFixedPoint) 2.0 * DGMath.Acos(this.w);
+		DGFixedPoint s = DGMath.Sqrt((DGFixedPoint) 1 - this.w *
 		                   this.w); // assuming quaternion normalised then w is less than 1, so term always positive.
 		if (s < DGMath.Epsilon)
 		{
@@ -887,15 +883,15 @@ public partial struct DGQuaternion
 	 * {@link #getAxisAngleRad(Vector3)} to get both the axis and the angle of this rotation. Use
 	 * {@link #getAngleAroundRad(Vector3)} to get the angle around a specific axis.
 	 * @return the angle in radians of the rotation */
-	public FP getAngleRad()
+	public DGFixedPoint getAngleRad()
 	{
-		return (FP) 2.0 * DGMath.Acos((this.w > (FP) 1) ? (this.w / len()) : this.w);
+		return (DGFixedPoint) 2.0 * DGMath.Acos((this.w > (DGFixedPoint) 1) ? (this.w / len()) : this.w);
 	}
 
 	/** Get the angle in degrees of the rotation this quaternion represents. Use {@link #getAxisAngle(Vector3)} to get both the
 	 * axis and the angle of this rotation. Use {@link #getAngleAround(Vector3)} to get the angle around a specific axis.
 	 * @return the angle in degrees of the rotation */
-	public FP getAngle()
+	public DGFixedPoint getAngle()
 	{
 		return getAngleRad() * DGMath.Rad2Deg;
 	}
@@ -912,12 +908,12 @@ public partial struct DGQuaternion
 	 * @param swing will receive the swing rotation: the rotation around an axis perpendicular to the specified axis
 	 * @param twist will receive the twist rotation: the rotation around the specified axis
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/for/decomposition">calculation</a> */
-	public void getSwingTwist(FP axisX, FP axisY, FP axisZ, DGQuaternion swing,
+	public void getSwingTwist(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ, DGQuaternion swing,
 		DGQuaternion twist)
 	{
-		FP d = FPVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
+		DGFixedPoint d = DGVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
 		twist.set(axisX * d, axisY * d, axisZ * d, this.w).nor();
-		if (d < (FP) 0) twist.mul((FP) (-1f));
+		if (d < (DGFixedPoint) 0) twist.mul((DGFixedPoint) (-1f));
 		swing.set(twist).conjugate().mulLeft(this);
 	}
 
@@ -931,7 +927,7 @@ public partial struct DGQuaternion
 	 * @param swing will receive the swing rotation: the rotation around an axis perpendicular to the specified axis
 	 * @param twist will receive the twist rotation: the rotation around the specified axis
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/for/decomposition">calculation</a> */
-	public void getSwingTwist(FPVector3 axis, DGQuaternion swing, DGQuaternion twist)
+	public void getSwingTwist(DGVector3 axis, DGQuaternion swing, DGQuaternion twist)
 	{
 		getSwingTwist(axis.x, axis.y, axis.z, swing, twist);
 	}
@@ -941,20 +937,20 @@ public partial struct DGQuaternion
 	 * @param axisY the y component of the normalized axis for which to get the angle
 	 * @param axisZ the z component of the normalized axis for which to get the angle
 	 * @return the angle in radians of the rotation around the specified axis */
-	public FP getAngleAroundRad(FP axisX, FP axisY, FP axisZ)
+	public DGFixedPoint getAngleAroundRad(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ)
 	{
-		FP d = FPVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
-		FP l2 = len2(axisX * d, axisY * d, axisZ * d, this.w);
+		DGFixedPoint d = DGVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
+		DGFixedPoint l2 = len2(axisX * d, axisY * d, axisZ * d, this.w);
 		return DGMath.IsZero(l2)
-			? (FP) 0f
-			: (FP) 2.0 * DGMath.Acos(DGMath.Clamp((d < (FP) 0 ? -this.w : this.w) / DGMath.Sqrt(l2), -(FP) 1f,
-				  (FP) 1f));
+			? (DGFixedPoint) 0f
+			: (DGFixedPoint) 2.0 * DGMath.Acos(DGMath.Clamp((d < (DGFixedPoint) 0 ? -this.w : this.w) / DGMath.Sqrt(l2), -(DGFixedPoint) 1f,
+				  (DGFixedPoint) 1f));
 	}
 
 	/** Get the angle in radians of the rotation around the specified axis. The axis must be normalized.
 	 * @param axis the normalized axis for which to get the angle
 	 * @return the angle in radians of the rotation around the specified axis */
-	public FP getAngleAroundRad(FPVector3 axis)
+	public DGFixedPoint getAngleAroundRad(DGVector3 axis)
 	{
 		return getAngleAroundRad(axis.x, axis.y, axis.z);
 	}
@@ -964,7 +960,7 @@ public partial struct DGQuaternion
 	 * @param axisY the y component of the normalized axis for which to get the angle
 	 * @param axisZ the z component of the normalized axis for which to get the angle
 	 * @return the angle in degrees of the rotation around the specified axis */
-	public FP getAngleAround(FP axisX, FP axisY, FP axisZ)
+	public DGFixedPoint getAngleAround(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ)
 	{
 		return getAngleAroundRad(axisX, axisY, axisZ) * DGMath.Rad2Deg;
 	}
@@ -972,7 +968,7 @@ public partial struct DGQuaternion
 	/** Get the angle in degrees of the rotation around the specified axis. The axis must be normalized.
 	 * @param axis the normalized axis for which to get the angle
 	 * @return the angle in degrees of the rotation around the specified axis */
-	public FP getAngleAround(FPVector3 axis)
+	public DGFixedPoint getAngleAround(DGVector3 axis)
 	{
 		return getAngleAround(axis.x, axis.y, axis.z);
 	}

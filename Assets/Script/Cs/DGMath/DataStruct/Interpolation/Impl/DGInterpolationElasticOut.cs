@@ -10,19 +10,18 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationElasticOut : DGInterpolationElastic
 {
-	public DGInterpolationElasticOut(FP value, FP power, FP bounces, FP scale):base(value, power, bounces, scale)
+	public DGInterpolationElasticOut(DGFixedPoint value, DGFixedPoint power, DGFixedPoint bounces, DGFixedPoint scale):base(value, power, bounces, scale)
 	{
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a == (FP)0) return (FP)0;
-		a = (FP)1 - a;
-		return ((FP)1 - DGMath.Pow(value, power * (a - (FP)1)) * DGMath.Sin(a * bounces) * scale);
+		if (a == (DGFixedPoint)0) return (DGFixedPoint)0;
+		a = (DGFixedPoint)1 - a;
+		return ((DGFixedPoint)1 - DGMath.Pow(value, power * (a - (DGFixedPoint)1)) * DGMath.Sin(a * bounces) * scale);
 	}
 
 }

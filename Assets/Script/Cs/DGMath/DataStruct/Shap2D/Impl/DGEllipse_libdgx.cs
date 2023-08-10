@@ -9,16 +9,11 @@
  * ======================================
 *************************************************************************************/
 
-using System;
-using UnityEditor;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
-using FPCircle = DGCircle;
 
 public struct DGEllipse : IDGShape2D
 {
-	public FP x, y;
-	public FP width, height;
+	public DGFixedPoint x, y;
+	public DGFixedPoint width, height;
 
 
 	/** Copy constructor
@@ -38,7 +33,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param y Y coordinate
 	 * @param width the width of the ellipse
 	 * @param height the height of the ellipse */
-	public DGEllipse(FP x, FP y, FP width, FP height)
+	public DGEllipse(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height)
 	{
 		this.x = x;
 		this.y = y;
@@ -51,7 +46,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param position Position vector
 	 * @param width the width of the ellipse
 	 * @param height the height of the ellipse */
-	public DGEllipse(FPVector2 position, FP width, FP height)
+	public DGEllipse(DGVector2 position, DGFixedPoint width, DGFixedPoint height)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -59,7 +54,7 @@ public struct DGEllipse : IDGShape2D
 		this.height = height;
 	}
 
-	public DGEllipse(FPVector2 position, FPVector2 size)
+	public DGEllipse(DGVector2 position, DGVector2 size)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -70,12 +65,12 @@ public struct DGEllipse : IDGShape2D
 	/** Constructs a new {@link Ellipse} from the position and radius of a {@link Circle} (since circles are special cases of
 	 * ellipses).
 	 * @param circle The circle to take the values of */
-	public DGEllipse(FPCircle circle)
+	public DGEllipse(DGCircle circle)
 	{
 		this.x = circle.x;
 		this.y = circle.y;
-		this.width = circle.radius * (FP) 2f;
-		this.height = circle.radius * (FP) 2f;
+		this.width = circle.radius * (DGFixedPoint) 2f;
+		this.height = circle.radius * (DGFixedPoint) 2f;
 	}
 
 	/** Checks whether or not this ellipse contains the given point.
@@ -84,13 +79,13 @@ public struct DGEllipse : IDGShape2D
 	 * @param y Y coordinate
 	 * 
 	 * @return true if this ellipse contains the given point; false otherwise. */
-	public bool contains(FP x, FP y)
+	public bool contains(DGFixedPoint x, DGFixedPoint y)
 	{
 		x = x - this.x;
 		y = y - this.y;
 
-		return (x * x) / (width * (FP) 0.5f * width * (FP) 0.5f) +
-		       (y * y) / (height * (FP) 0.5f * height * (FP) 0.5f) <= (FP) 1.0f;
+		return (x * x) / (width * (DGFixedPoint) 0.5f * width * (DGFixedPoint) 0.5f) +
+		       (y * y) / (height * (DGFixedPoint) 0.5f * height * (DGFixedPoint) 0.5f) <= (DGFixedPoint) 1.0f;
 	}
 
 	/** Checks whether or not this ellipse contains the given point.
@@ -98,7 +93,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param point Position vector
 	 * 
 	 * @return true if this ellipse contains the given point; false otherwise. */
-	public bool contains(FPVector2 point)
+	public bool contains(DGVector2 point)
 	{
 		return contains(point.x, point.y);
 	}
@@ -109,7 +104,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param y Y coordinate
 	 * @param width the width of the ellipse
 	 * @param height the height of the ellipse */
-	public void set(FP x, FP y, FP width, FP height)
+	public void set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height)
 	{
 		this.x = x;
 		this.y = y;
@@ -128,15 +123,15 @@ public struct DGEllipse : IDGShape2D
 		height = ellipse.height;
 	}
 
-	public void set(FPCircle circle)
+	public void set(DGCircle circle)
 	{
 		this.x = circle.x;
 		this.y = circle.y;
-		this.width = circle.radius * (FP) 2f;
-		this.height = circle.radius * (FP) 2f;
+		this.width = circle.radius * (DGFixedPoint) 2f;
+		this.height = circle.radius * (DGFixedPoint) 2f;
 	}
 
-	public void set(FPVector2 position, FPVector2 size)
+	public void set(DGVector2 position, DGVector2 size)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -147,7 +142,7 @@ public struct DGEllipse : IDGShape2D
 	/** Sets the x and y-coordinates of ellipse center from a {@link Vector2}.
 	 * @param position The position vector
 	 * @return this ellipse for chaining */
-	public DGEllipse setPosition(FPVector2 position)
+	public DGEllipse setPosition(DGVector2 position)
 	{
 		this.x = position.x;
 		this.y = position.y;
@@ -159,7 +154,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param x The x-coordinate
 	 * @param y The y-coordinate
 	 * @return this ellipse for chaining */
-	public DGEllipse setPosition(FP x, FP y)
+	public DGEllipse setPosition(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x = x;
 		this.y = y;
@@ -171,7 +166,7 @@ public struct DGEllipse : IDGShape2D
 	 * @param width The width
 	 * @param height The height
 	 * @return this ellipse for chaining */
-	public DGEllipse setSize(FP width, FP height)
+	public DGEllipse setSize(DGFixedPoint width, DGFixedPoint height)
 	{
 		this.width = width;
 		this.height = height;
@@ -180,27 +175,27 @@ public struct DGEllipse : IDGShape2D
 	}
 
 	/** @return The area of this {@link Ellipse} as {@link MathUtils#PI} * {@link Ellipse#width} * {@link Ellipse#height} */
-	public FP area()
+	public DGFixedPoint area()
 	{
-		return DGMath.PI * (this.width * this.height) / (FP) 4;
+		return DGMath.PI * (this.width * this.height) / (DGFixedPoint) 4;
 	}
 
 	/** Approximates the circumference of this {@link Ellipse}. Oddly enough, the circumference of an ellipse is actually difficult
 	 * to compute exactly.
 	 * @return The Ramanujan approximation to the circumference of an ellipse if one dimension is at least three times longer than
 	 *         the other, else the simpler approximation */
-	public FP circumference()
+	public DGFixedPoint circumference()
 	{
-		FP a = this.width / (FP) 2;
-		FP b = this.height / (FP) 2;
-		if (a * (FP) 3 > b || b * (FP) 3 > a)
+		DGFixedPoint a = this.width / (DGFixedPoint) 2;
+		DGFixedPoint b = this.height / (DGFixedPoint) 2;
+		if (a * (DGFixedPoint) 3 > b || b * (DGFixedPoint) 3 > a)
 		{
 			// If one dimension is three times as long as the other...
-			return DGMath.PI * (((FP) 3 * (a + b)) - DGMath.Sqrt(((FP) 3 * a + b) * (a + (FP) 3 * b)));
+			return DGMath.PI * (((DGFixedPoint) 3 * (a + b)) - DGMath.Sqrt(((DGFixedPoint) 3 * a + b) * (a + (DGFixedPoint) 3 * b)));
 		}
 
 		// We can use the simpler approximation, then
-		return DGMath.TwoPI * DGMath.Sqrt((a * a + b * b) / (FP) 2);
+		return DGMath.TwoPI * DGMath.Sqrt((a * a + b * b) / (DGFixedPoint) 2);
 	}
 
 	public override bool Equals(object obj)

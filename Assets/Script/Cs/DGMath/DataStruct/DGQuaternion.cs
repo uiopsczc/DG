@@ -10,23 +10,20 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPMatrix4x4 = DGMatrix4x4;
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 #endif
 
 //https://github.com/sungiant/abacus/blob/master/source/abacus/gen/main/Quaternion.t4
 public partial struct DGQuaternion 
 {
-	public static readonly FP kEpsilon = (FP) 0.000001F;
+	public static readonly DGFixedPoint kEpsilon = (DGFixedPoint) 0.000001F;
 	public static DGQuaternion identity = new DGQuaternion(0, 0, 0, 1);
 
 
 
-	public FP this[int index]
+	public DGFixedPoint this[int index]
 	{
 		get
 		{
@@ -66,7 +63,7 @@ public partial struct DGQuaternion
 		}
 	}
 
-	public FPVector3 xyz
+	public DGVector3 xyz
 	{
 		set
 		{
@@ -74,47 +71,47 @@ public partial struct DGQuaternion
 			y = value.y;
 			z = value.z;
 		}
-		get => new FPVector3(x, y, z);
+		get => new DGVector3(x, y, z);
 	}
 
-	public FPVector3 eulerAngles
+	public DGVector3 eulerAngles
 	{
 		get => Internal_ToEulerRad(this);
 		set => this = Internal_FromEulerRad(value * DGMath.Rad2Deg);
 	}
 
 	public DGQuaternion normalized => Normalize(this);
-	public FP sqrMagnitude => SqrMagnitude();
-	public FP magnitude => Magnitude();
+	public DGFixedPoint sqrMagnitude => SqrMagnitude();
+	public DGFixedPoint magnitude => Magnitude();
 
 
 	
 
 	public DGQuaternion(int x, int y, int z, int w)
 	{
-		this.x = (FP) x;
-		this.y = (FP) y;
-		this.z = (FP) z;
-		this.w = (FP) w;
+		this.x = (DGFixedPoint) x;
+		this.y = (DGFixedPoint) y;
+		this.z = (DGFixedPoint) z;
+		this.w = (DGFixedPoint) w;
 	}
 
 
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGQuaternion(Quaternion quaternion)
 	{
-		this.x = (FP) quaternion.x;
-		this.y = (FP) quaternion.y;
-		this.z = (FP) quaternion.z;
-		this.w = (FP) quaternion.w;
+		this.x = (DGFixedPoint) quaternion.x;
+		this.y = (DGFixedPoint) quaternion.y;
+		this.z = (DGFixedPoint) quaternion.z;
+		this.w = (DGFixedPoint) quaternion.w;
 	}
 #endif
 
 	public DGQuaternion(System.Numerics.Quaternion quaternion)
 	{
-		this.x = (FP)quaternion.X;
-		this.y = (FP)quaternion.Y;
-		this.z = (FP)quaternion.Z;
-		this.w = (FP)quaternion.W;
+		this.x = (DGFixedPoint)quaternion.X;
+		this.y = (DGFixedPoint)quaternion.Y;
+		this.z = (DGFixedPoint)quaternion.Z;
+		this.w = (DGFixedPoint)quaternion.W;
 	}
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:Equals ToString
@@ -139,7 +136,7 @@ public partial struct DGQuaternion
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:×ª»»
 	*************************************************************************************/
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	//×ª»»ÎªUnityµÄQuaternion
 	public Quaternion ToQuaternion()
 	{
@@ -164,28 +161,28 @@ public partial struct DGQuaternion
 	*************************************************************************************/
 	public static DGQuaternion operator +(DGQuaternion value1, DGQuaternion value2)
 	{
-		FP x = value1.x + value2.x;
-		FP y = value1.y + value2.y;
-		FP z = value1.z + value2.z;
-		FP w = value1.w + value2.w;
+		DGFixedPoint x = value1.x + value2.x;
+		DGFixedPoint y = value1.y + value2.y;
+		DGFixedPoint z = value1.z + value2.z;
+		DGFixedPoint w = value1.w + value2.w;
 		return new DGQuaternion(x, y, z, w);
 	}
 
 	public static DGQuaternion operator -(DGQuaternion value1, DGQuaternion value2)
 	{
-		FP x = value1.x - value2.x;
-		FP y = value1.y - value2.y;
-		FP z = value1.z - value2.z;
-		FP w = value1.w - value2.w;
+		DGFixedPoint x = value1.x - value2.x;
+		DGFixedPoint y = value1.y - value2.y;
+		DGFixedPoint z = value1.z - value2.z;
+		DGFixedPoint w = value1.w - value2.w;
 		return new DGQuaternion(x, y, z, w);
 	}
 
 	public static DGQuaternion operator -(DGQuaternion value)
 	{
-		FP x = -value.x;
-		FP y = -value.y;
-		FP z = -value.z;
-		FP w = -value.w;
+		DGFixedPoint x = -value.x;
+		DGFixedPoint y = -value.y;
+		DGFixedPoint z = -value.z;
+		DGFixedPoint w = -value.w;
 		return new DGQuaternion(x, y, z, w);
 	}
 
@@ -199,43 +196,43 @@ public partial struct DGQuaternion
 	}
 
 	// Rotates the point /point/ with /rotation/.
-	public static FPVector3 operator *(DGQuaternion rotation, FPVector3 point)
+	public static DGVector3 operator *(DGQuaternion rotation, DGVector3 point)
 	{
-		FP x = rotation.x * (FP) 2F;
-		FP y = rotation.y * (FP) 2F;
-		FP z = rotation.z * (FP) 2F;
-		FP xx = rotation.x * x;
-		FP yy = rotation.y * y;
-		FP zz = rotation.z * z;
-		FP xy = rotation.x * y;
-		FP xz = rotation.x * z;
-		FP yz = rotation.y * z;
-		FP wx = rotation.w * x;
-		FP wy = rotation.w * y;
-		FP wz = rotation.w * z;
+		DGFixedPoint x = rotation.x * (DGFixedPoint) 2F;
+		DGFixedPoint y = rotation.y * (DGFixedPoint) 2F;
+		DGFixedPoint z = rotation.z * (DGFixedPoint) 2F;
+		DGFixedPoint xx = rotation.x * x;
+		DGFixedPoint yy = rotation.y * y;
+		DGFixedPoint zz = rotation.z * z;
+		DGFixedPoint xy = rotation.x * y;
+		DGFixedPoint xz = rotation.x * z;
+		DGFixedPoint yz = rotation.y * z;
+		DGFixedPoint wx = rotation.w * x;
+		DGFixedPoint wy = rotation.w * y;
+		DGFixedPoint wz = rotation.w * z;
 
-		FPVector3 res;
-		res.x = ((FP) 1 - (yy + zz)) * point.x + (xy - wz) * point.y + (xz + wy) * point.z;
-		res.y = (xy + wz) * point.x + ((FP) 1 - (xx + zz)) * point.y + (yz - wx) * point.z;
-		res.z = (xz - wy) * point.x + (yz + wx) * point.y + ((FP) 1 - (xx + yy)) * point.z;
+		DGVector3 res;
+		res.x = ((DGFixedPoint) 1 - (yy + zz)) * point.x + (xy - wz) * point.y + (xz + wy) * point.z;
+		res.y = (xy + wz) * point.x + ((DGFixedPoint) 1 - (xx + zz)) * point.y + (yz - wx) * point.z;
+		res.z = (xz - wy) * point.x + (yz + wx) * point.y + ((DGFixedPoint) 1 - (xx + yy)) * point.z;
 		return res;
 	}
 
 	/*************************************************************************************
 	* Ä£¿éÃèÊö:StaticUtil
 	*************************************************************************************/
-	private static bool _IsEqualUsingDot(FP dot)
+	private static bool _IsEqualUsingDot(DGFixedPoint dot)
 	{
 		// Returns false in the presence of NaN values.
-		return dot > (FP) 1 - kEpsilon;
+		return dot > (DGFixedPoint) 1 - kEpsilon;
 	}
 
 	public static bool IsUnit(DGQuaternion q)
 	{
-		return DGMath.IsApproximatelyZero((FP) 1 - q.w * q.w - q.x * q.x - q.y * q.y - q.z * q.z);
+		return DGMath.IsApproximatelyZero((DGFixedPoint) 1 - q.w * q.w - q.x * q.x - q.y * q.y - q.z * q.z);
 	}
 
-	public static FP Dot(DGQuaternion value1, DGQuaternion value2)
+	public static DGFixedPoint Dot(DGQuaternion value1, DGQuaternion value2)
 	{
 		return value1.x * value2.x + value1.y * value2.y + value1.z * value2.z + value1.w * value2.w;
 	}
@@ -253,7 +250,7 @@ public partial struct DGQuaternion
 		return new DGQuaternion(x, y, z, w);
 	}
 
-	public static FPVector3 Transform(DGQuaternion value, FPVector3 vector)
+	public static DGVector3 Transform(DGQuaternion value, DGVector3 vector)
 	{
 		var i = value.x;
 		var j = value.y;
@@ -268,13 +265,13 @@ public partial struct DGQuaternion
 		var ij = i * j;
 		var ik = i * k;
 		var jk = j * k;
-		var x = vector.x - ((FP) 2 * vector.x * (jj + kk)) + ((FP) 2 * vector.y * (ij - uk)) +
-		        ((FP) 2 * vector.z * (ik + uj));
-		var y = vector.y + ((FP) 2 * vector.x * (ij + uk)) - ((FP) 2 * vector.y * (ii + kk)) +
-		        ((FP) 2 * vector.z * (jk - ui));
-		var z = vector.z + ((FP) 2 * vector.x * (ik - uj)) + ((FP) 2 * vector.y * (jk + ui)) -
-		        ((FP) 2 * vector.z * (ii + jj));
-		return new FPVector3(x, y, z);
+		var x = vector.x - ((DGFixedPoint) 2 * vector.x * (jj + kk)) + ((DGFixedPoint) 2 * vector.y * (ij - uk)) +
+		        ((DGFixedPoint) 2 * vector.z * (ik + uj));
+		var y = vector.y + ((DGFixedPoint) 2 * vector.x * (ij + uk)) - ((DGFixedPoint) 2 * vector.y * (ii + kk)) +
+		        ((DGFixedPoint) 2 * vector.z * (jk - ui));
+		var z = vector.z + ((DGFixedPoint) 2 * vector.x * (ik - uj)) + ((DGFixedPoint) 2 * vector.y * (jk + ui)) -
+		        ((DGFixedPoint) 2 * vector.z * (ii + jj));
+		return new DGVector3(x, y, z);
 	}
 
 	/// <summary>
@@ -283,25 +280,25 @@ public partial struct DGQuaternion
 	/// <param name="x">X component of the vector to transform.</param>
 	/// <param name="rotation">Rotation to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformX(FP x, DGQuaternion rotation)
+	public static DGVector3 TransformX(DGFixedPoint x, DGQuaternion rotation)
 	{
 		//This operation is an optimized-down version of v' = q * v * q^-1.
 		//The expanded form would be to treat v as an 'axis only' quaternion
 		//and perform standard quaternion multiplication.  Assuming q is normalized,
 		//q^-1 can be replaced by a conjugation.
-		FP y2 = rotation.y + rotation.y;
-		FP z2 = rotation.z + rotation.z;
-		FP xy2 = rotation.x * y2;
-		FP xz2 = rotation.x * z2;
-		FP yy2 = rotation.y * y2;
-		FP zz2 = rotation.z * z2;
-		FP wy2 = rotation.w * y2;
-		FP wz2 = rotation.w * z2;
+		DGFixedPoint y2 = rotation.y + rotation.y;
+		DGFixedPoint z2 = rotation.z + rotation.z;
+		DGFixedPoint xy2 = rotation.x * y2;
+		DGFixedPoint xz2 = rotation.x * z2;
+		DGFixedPoint yy2 = rotation.y * y2;
+		DGFixedPoint zz2 = rotation.z * z2;
+		DGFixedPoint wy2 = rotation.w * y2;
+		DGFixedPoint wz2 = rotation.w * z2;
 		//Defer the component setting since they're used in computation.
-		FP transformedX = x * (FP.One - yy2 - zz2);
-		FP transformedY = x * (xy2 + wz2);
-		FP transformedZ = x * (xz2 - wy2);
-		return new FPVector3(transformedX, transformedY, transformedZ);
+		DGFixedPoint transformedX = x * (DGFixedPoint.One - yy2 - zz2);
+		DGFixedPoint transformedY = x * (xy2 + wz2);
+		DGFixedPoint transformedZ = x * (xz2 - wy2);
+		return new DGVector3(transformedX, transformedY, transformedZ);
 	}
 
 	/// <summary>
@@ -310,26 +307,26 @@ public partial struct DGQuaternion
 	/// <param name="y">Y component of the vector to transform.</param>
 	/// <param name="rotation">Rotation to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformY(FP y, DGQuaternion rotation)
+	public static DGVector3 TransformY(DGFixedPoint y, DGQuaternion rotation)
 	{
 		//This operation is an optimized-down version of v' = q * v * q^-1.
 		//The expanded form would be to treat v as an 'axis only' quaternion
 		//and perform standard quaternion multiplication.  Assuming q is normalized,
 		//q^-1 can be replaced by a conjugation.
-		FP x2 = rotation.x + rotation.x;
-		FP y2 = rotation.y + rotation.y;
-		FP z2 = rotation.z + rotation.z;
-		FP xx2 = rotation.x * x2;
-		FP xy2 = rotation.x * y2;
-		FP yz2 = rotation.y * z2;
-		FP zz2 = rotation.z * z2;
-		FP wx2 = rotation.w * x2;
-		FP wz2 = rotation.w * z2;
+		DGFixedPoint x2 = rotation.x + rotation.x;
+		DGFixedPoint y2 = rotation.y + rotation.y;
+		DGFixedPoint z2 = rotation.z + rotation.z;
+		DGFixedPoint xx2 = rotation.x * x2;
+		DGFixedPoint xy2 = rotation.x * y2;
+		DGFixedPoint yz2 = rotation.y * z2;
+		DGFixedPoint zz2 = rotation.z * z2;
+		DGFixedPoint wx2 = rotation.w * x2;
+		DGFixedPoint wz2 = rotation.w * z2;
 		//Defer the component setting since they're used in computation.
-		FP transformedX = y * (xy2 - wz2);
-		FP transformedY = y * (FP.One - xx2 - zz2);
-		FP transformedZ = y * (yz2 + wx2);
-		return new FPVector3(transformedX, transformedY, transformedZ);
+		DGFixedPoint transformedX = y * (xy2 - wz2);
+		DGFixedPoint transformedY = y * (DGFixedPoint.One - xx2 - zz2);
+		DGFixedPoint transformedZ = y * (yz2 + wx2);
+		return new DGVector3(transformedX, transformedY, transformedZ);
 	}
 
 	/// <summary>
@@ -338,101 +335,101 @@ public partial struct DGQuaternion
 	/// <param name="z">Z component of the vector to transform.</param>
 	/// <param name="rotation">Rotation to apply to the vector.</param>
 	/// <param name="result">Transformed vector.</param>
-	public static FPVector3 TransformZ(FP z, DGQuaternion rotation)
+	public static DGVector3 TransformZ(DGFixedPoint z, DGQuaternion rotation)
 	{
 		//This operation is an optimized-down version of v' = q * v * q^-1.
 		//The expanded form would be to treat v as an 'axis only' quaternion
 		//and perform standard quaternion multiplication.  Assuming q is normalized,
 		//q^-1 can be replaced by a conjugation.
-		FP x2 = rotation.x + rotation.x;
-		FP y2 = rotation.y + rotation.y;
-		FP z2 = rotation.z + rotation.z;
-		FP xx2 = rotation.x * x2;
-		FP xz2 = rotation.x * z2;
-		FP yy2 = rotation.y * y2;
-		FP yz2 = rotation.y * z2;
-		FP wx2 = rotation.w * x2;
-		FP wy2 = rotation.w * y2;
+		DGFixedPoint x2 = rotation.x + rotation.x;
+		DGFixedPoint y2 = rotation.y + rotation.y;
+		DGFixedPoint z2 = rotation.z + rotation.z;
+		DGFixedPoint xx2 = rotation.x * x2;
+		DGFixedPoint xz2 = rotation.x * z2;
+		DGFixedPoint yy2 = rotation.y * y2;
+		DGFixedPoint yz2 = rotation.y * z2;
+		DGFixedPoint wx2 = rotation.w * x2;
+		DGFixedPoint wy2 = rotation.w * y2;
 		//Defer the component setting since they're used in computation.
-		FP transformedX = z * (xz2 + wy2);
-		FP transformedY = z * (yz2 - wx2);
-		FP transformedZ = z * (FP.One - xx2 - yy2);
-		return new FPVector3(transformedX, transformedY, transformedZ);
+		DGFixedPoint transformedX = z * (xz2 + wy2);
+		DGFixedPoint transformedY = z * (yz2 - wx2);
+		DGFixedPoint transformedZ = z * (DGFixedPoint.One - xx2 - yy2);
+		return new DGVector3(transformedX, transformedY, transformedZ);
 	}
 
 	// Angle of rotation, in radians. Angles are measured anti-clockwise when viewed from the rotation axis (positive side) toward the origin.
-	public static FPVector3 ToYawPitchRoll(DGQuaternion value, FPVector3 vector)
+	public static DGVector3 ToYawPitchRoll(DGQuaternion value, DGVector3 vector)
 	{
-		var sinrCosp = (FP) 2 * (value.w * value.z + value.x * value.y);
-		var cosrCosp = (FP) 1 - (FP) 2 * (value.z * value.z + value.x * value.y);
+		var sinrCosp = (DGFixedPoint) 2 * (value.w * value.z + value.x * value.y);
+		var cosrCosp = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (value.z * value.z + value.x * value.y);
 		var z = DGMath.Atan2(sinrCosp, cosrCosp);
 		// pitch (y-axis rotation)
-		var sinp = (FP) 2 * (value.w * value.x - value.y * value.z);
-		FPVector3 result = FPVector3.zero;
-		if (DGMath.Abs(sinp) >= FP.One)
+		var sinp = (DGFixedPoint) 2 * (value.w * value.x - value.y * value.z);
+		DGVector3 result = DGVector3.zero;
+		if (DGMath.Abs(sinp) >= DGFixedPoint.One)
 			result.y = DGMath.CopySign(DGMath.HalfPi, sinp);
 		else
 			result.y = DGMath.Asin(sinp);
 		// yaw (z-axis rotation)
-		var sinYcosp = (FP) 2 * (value.w * value.y + value.z + value.x);
-		var cosYcosp = (FP) 1 - (FP) 2 * (value.x * value.x + value.y * value.y);
+		var sinYcosp = (DGFixedPoint) 2 * (value.w * value.y + value.z + value.x);
+		var cosYcosp = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (value.x * value.x + value.y * value.y);
 		result.x = DGMath.Atan2(sinYcosp, cosYcosp);
 		return result;
 	}
 
 	public static DGQuaternion Normalize(DGQuaternion q)
 	{
-		FP num = DGMath.Sqrt(Dot(q, q));
+		DGFixedPoint num = DGMath.Sqrt(Dot(q, q));
 		if (num < DGMath.Epsilon)
 			return identity;
 		return new DGQuaternion(q.x / num, q.y / num, q.z / num, q.w / num);
 	}
 
-	public static FP Angle(DGQuaternion a, DGQuaternion b)
+	public static DGFixedPoint Angle(DGQuaternion a, DGQuaternion b)
 	{
-		FP dot = DGMath.Min(DGMath.Abs(Dot(a, b)), (FP) 1);
-		return _IsEqualUsingDot(dot) ? FP.Zero : DGMath.Acos(dot) * (FP) 2 * DGMath.Rad2Deg;
+		DGFixedPoint dot = DGMath.Min(DGMath.Abs(Dot(a, b)), (DGFixedPoint) 1);
+		return _IsEqualUsingDot(dot) ? DGFixedPoint.Zero : DGMath.Acos(dot) * (DGFixedPoint) 2 * DGMath.Rad2Deg;
 	}
 
 	// Makes euler angles positive 0/360 with 0.0001 hacked to support old behaviour of QuaternionToEuler
-	private static FPVector3 Internal_MakePositive(FPVector3 euler)
+	private static DGVector3 Internal_MakePositive(DGVector3 euler)
 	{
-		FP negativeFlip = (FP) (-0.0001f) * DGMath.Rad2Deg;
-		FP positiveFlip = (FP) 360 + negativeFlip;
+		DGFixedPoint negativeFlip = (DGFixedPoint) (-0.0001f) * DGMath.Rad2Deg;
+		DGFixedPoint positiveFlip = (DGFixedPoint) 360 + negativeFlip;
 
 		if (euler.x < negativeFlip)
-			euler.x += (FP) 360;
+			euler.x += (DGFixedPoint) 360;
 		else if (euler.x > positiveFlip)
-			euler.x -= (FP) 360;
+			euler.x -= (DGFixedPoint) 360;
 
 		if (euler.y < negativeFlip)
-			euler.y += (FP) 360;
+			euler.y += (DGFixedPoint) 360;
 		else if (euler.y > positiveFlip)
-			euler.y -= (FP) 360;
+			euler.y -= (DGFixedPoint) 360;
 
 		if (euler.z < negativeFlip)
-			euler.z += (FP) 360;
+			euler.z += (DGFixedPoint) 360;
 		else if (euler.z > positiveFlip)
-			euler.z -= (FP) 360;
+			euler.z -= (DGFixedPoint) 360;
 
 		return euler;
 	}
 
 	public static DGQuaternion RotateTowards(DGQuaternion from, DGQuaternion to,
-		FP maxDegreesDelta)
+		DGFixedPoint maxDegreesDelta)
 	{
-		FP angle = Angle(from, to);
-		if (angle == FP.Zero)
+		DGFixedPoint angle = Angle(from, to);
+		if (angle == DGFixedPoint.Zero)
 			return to;
-		return SlerpUnclamped(from, to, DGMath.Min((FP) 1, maxDegreesDelta / angle));
+		return SlerpUnclamped(from, to, DGMath.Min((DGFixedPoint) 1, maxDegreesDelta / angle));
 	}
 
-	public static DGQuaternion CreateFromAxisAngle(FPVector3 axis, FP angle)
+	public static DGQuaternion CreateFromAxisAngle(DGVector3 axis, DGFixedPoint angle)
 	{
 		return CreateFromAxisAngleRad(axis, angle * DGMath.Deg2Rad);
 	}
 
-	public static DGQuaternion CreateFromAxisAngleRad(FPVector3 axis, FP radians)
+	public static DGQuaternion CreateFromAxisAngleRad(DGVector3 axis, DGFixedPoint radians)
 	{
 		var theta = radians * DGMath.Half;
 		var sin = DGMath.Sin(theta);
@@ -449,19 +446,19 @@ public partial struct DGQuaternion
 	/// </summary>
 	/// <param name="angle"></param>
 	/// <param name="axis"></param>
-	public static DGQuaternion AngleAxis(FP angle, FPVector3 axis)
+	public static DGQuaternion AngleAxis(DGFixedPoint angle, DGVector3 axis)
 	{
 		return INTERNAL_CALL_AngleAxis(angle, ref axis);
 	}
 
-	private static DGQuaternion INTERNAL_CALL_AngleAxis(FP degress, ref FPVector3 axis)
+	private static DGQuaternion INTERNAL_CALL_AngleAxis(DGFixedPoint degress, ref DGVector3 axis)
 	{
-		if (axis.sqrMagnitude == (FP) 0.0f)
+		if (axis.sqrMagnitude == (DGFixedPoint) 0.0f)
 			return identity;
 
 		DGQuaternion result = identity;
 		var radians = degress * DGMath.Deg2Rad;
-		radians *= (FP) 0.5f;
+		radians *= (DGFixedPoint) 0.5f;
 		axis.Normalize();
 		axis = axis * DGMath.Sin(radians);
 		result.x = axis.x;
@@ -478,10 +475,10 @@ public partial struct DGQuaternion
 	/// </summary>
 	/// <param name="fromDirection"></param>
 	/// <param name="toDirection"></param>
-	public static DGQuaternion FromToRotation(FPVector3 fromDirection, FPVector3 toDirection)
+	public static DGQuaternion FromToRotation(DGVector3 fromDirection, DGVector3 toDirection)
 	{
-		FPVector3 axis = FPVector3.Cross(fromDirection, toDirection);
-		FP angle = FPVector3.Angle(fromDirection, toDirection);
+		DGVector3 axis = DGVector3.Cross(fromDirection, toDirection);
+		DGFixedPoint angle = DGVector3.Angle(fromDirection, toDirection);
 		return AngleAxis(angle, axis.normalized);
 	}
 
@@ -491,23 +488,23 @@ public partial struct DGQuaternion
 	/// </summary>
 	/// <param name="forward">The direction to look in.</param>
 	/// <param name="upwards">The vector that defines in which direction up is.</param>
-	public static DGQuaternion LookRotation(FPVector3 forward, FPVector3 upwards)
+	public static DGQuaternion LookRotation(DGVector3 forward, DGVector3 upwards)
 	{
 		return INTERNAL_CALL_LookRotation(ref forward, ref upwards);
 	}
 
-	public static DGQuaternion LookRotation(FPVector3 forward)
+	public static DGQuaternion LookRotation(DGVector3 forward)
 	{
-		FPVector3 up = FPVector3.up;
+		DGVector3 up = DGVector3.up;
 		return INTERNAL_CALL_LookRotation(ref forward, ref up);
 	}
 
 	// from http://answers.unity3d.com/questions/467614/what-is-the-source-code-of-quaternionlookrotation.html
-	private static DGQuaternion INTERNAL_CALL_LookRotation(ref FPVector3 forward, ref FPVector3 up)
+	private static DGQuaternion INTERNAL_CALL_LookRotation(ref DGVector3 forward, ref DGVector3 up)
 	{
-		forward = FPVector3.Normalize(forward);
-		FPVector3 right = FPVector3.Normalize(FPVector3.Cross(up, forward));
-		up = FPVector3.Cross(forward, right);
+		forward = DGVector3.Normalize(forward);
+		DGVector3 right = DGVector3.Normalize(DGVector3.Cross(up, forward));
+		up = DGVector3.Cross(forward, right);
 		var m00 = right.x;
 		var m01 = right.y;
 		var m02 = right.z;
@@ -519,13 +516,13 @@ public partial struct DGQuaternion
 		var m22 = forward.z;
 
 
-		FP num8 = (m00 + m11) + m22;
+		DGFixedPoint num8 = (m00 + m11) + m22;
 		var quaternion = new DGQuaternion(false);
-		if (num8 > (FP) 0f)
+		if (num8 > (DGFixedPoint) 0f)
 		{
-			var num = DGMath.Sqrt(num8 + (FP) 1f);
-			quaternion.w = num * (FP) 0.5f;
-			num = (FP) 0.5f / num;
+			var num = DGMath.Sqrt(num8 + (DGFixedPoint) 1f);
+			quaternion.w = num * (DGFixedPoint) 0.5f;
+			num = (DGFixedPoint) 0.5f / num;
 			quaternion.x = (m12 - m21) * num;
 			quaternion.y = (m20 - m02) * num;
 			quaternion.z = (m01 - m10) * num;
@@ -534,9 +531,9 @@ public partial struct DGQuaternion
 
 		if ((m00 >= m11) && (m00 >= m22))
 		{
-			var num7 = DGMath.Sqrt((((FP) 1f + m00) - m11) - m22);
-			var num4 = (FP) 0.5f / num7;
-			quaternion.x = (FP) 0.5f * num7;
+			var num7 = DGMath.Sqrt((((DGFixedPoint) 1f + m00) - m11) - m22);
+			var num4 = (DGFixedPoint) 0.5f / num7;
+			quaternion.x = (DGFixedPoint) 0.5f * num7;
 			quaternion.y = (m01 + m10) * num4;
 			quaternion.z = (m02 + m20) * num4;
 			quaternion.w = (m12 - m21) * num4;
@@ -545,26 +542,26 @@ public partial struct DGQuaternion
 
 		if (m11 > m22)
 		{
-			var num6 = DGMath.Sqrt((((FP) 1f + m11) - m00) - m22);
-			var num3 = (FP) 0.5f / num6;
+			var num6 = DGMath.Sqrt((((DGFixedPoint) 1f + m11) - m00) - m22);
+			var num3 = (DGFixedPoint) 0.5f / num6;
 			quaternion.x = (m10 + m01) * num3;
-			quaternion.y = (FP) 0.5f * num6;
+			quaternion.y = (DGFixedPoint) 0.5f * num6;
 			quaternion.z = (m21 + m12) * num3;
 			quaternion.w = (m20 - m02) * num3;
 			return quaternion;
 		}
 
-		var num5 = DGMath.Sqrt((((FP) 1f + m22) - m00) - m11);
-		var num2 = (FP) 0.5f / num5;
+		var num5 = DGMath.Sqrt((((DGFixedPoint) 1f + m22) - m00) - m11);
+		var num2 = (DGFixedPoint) 0.5f / num5;
 		quaternion.x = (m20 + m02) * num2;
 		quaternion.y = (m21 + m12) * num2;
-		quaternion.z = (FP) 0.5f * num5;
+		quaternion.z = (DGFixedPoint) 0.5f * num5;
 		quaternion.w = (m01 - m10) * num2;
 		return quaternion;
 	}
 
 
-	public static DGQuaternion CreateFromYawPitchRoll(FP yaw, FP pitch, FP roll)
+	public static DGQuaternion CreateFromYawPitchRoll(DGFixedPoint yaw, DGFixedPoint pitch, DGFixedPoint roll)
 	{
 		var hr = roll * DGMath.Half;
 		var hp = pitch * DGMath.Half;
@@ -582,46 +579,7 @@ public partial struct DGQuaternion
 		return new DGQuaternion(x, y, z, w);
 	}
 
-	// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
-//	public static DGQuaternion CreateFromRotationMatrix(FPMatrix4x4 m)
-//	{
-//		DGQuaternion r = default;
-//		FP tr = m.M11 + m.M22 + m.M33; //Vector3
-//		if (tr > (FP) 0)
-//		{
-//			FP s = DGMath.Sqrt(tr + (FP) 1) * (FP) 2;
-//			r.w = DGMath.Quarter * s;
-//			r.x = (m.M23 - m.M32) / s;
-//			r.y = (m.M31 - m.M13) / s;
-//			r.z = (m.M12 - m.M21) / s;
-//		}
-//		else if ((m.M11 >= m.M22) && (m.M11 >= m.M33))
-//		{
-//			FP s = DGMath.Sqrt((FP) 1 + m.M11 - m.M22 - m.M33) * (FP) 2;
-//			r.w = (m.M23 - m.M32) / s;
-//			r.x = DGMath.Quarter * s;
-//			r.y = (m.M12 + m.M21) / s;
-//			r.z = (m.M13 + m.M31) / s;
-//		}
-//		else if (m.M22 > m.M33)
-//		{
-//			FP s = DGMath.Sqrt((FP) 1 + m.M22 - m.M11 - m.M33) * (FP) 2;
-//			r.w = (m.M31 - m.M13) / s;
-//			r.x = (m.M21 + m.M12) / s;
-//			r.y = DGMath.Quarter * s;
-//			r.z = (m.M32 + m.M23) / s;
-//		}
-//		else
-//		{
-//			FP s = DGMath.Sqrt((FP) 1 + m.M33 - m.M11 - m.M22) * (FP) 2;
-//			r.w = (m.M12 - m.M21) / s;
-//			r.x = (m.M31 + m.M13) / s;
-//			r.y = (m.M32 + m.M23) / s;
-//			r.z = DGMath.Quarter * s;
-//		}
-//
-//		return r;
-//	}
+	
 
 	/// <summary>
 	/// Computes the axis angle representation of a normalized quaternion.
@@ -629,10 +587,10 @@ public partial struct DGQuaternion
 	/// <param name="q">Quaternion to be converted.</param>
 	/// <param name="axis">Axis represented by the quaternion.GetAxisAngleFromQu</param>
 	/// <param name="angle">Angle around the axis represented by the quaternion.</param>
-	public static FP GetAxisAngleFromQuaternion(DGQuaternion q, FPVector3 axis)
+	public static DGFixedPoint GetAxisAngleFromQuaternion(DGQuaternion q, DGVector3 axis)
 	{
-		FP qw = q.w;
-		if (qw > FP.Zero)
+		DGFixedPoint qw = q.w;
+		if (qw > DGFixedPoint.Zero)
 		{
 			axis.x = q.x;
 			axis.y = q.y;
@@ -646,17 +604,17 @@ public partial struct DGQuaternion
 			qw = -qw;
 		}
 
-		FP lengthSquared = axis.sqrMagnitude;
-		FP angle;
-		if (lengthSquared > (FP) 1e-14m)
+		DGFixedPoint lengthSquared = axis.sqrMagnitude;
+		DGFixedPoint angle;
+		if (lengthSquared > (DGFixedPoint) 1e-14m)
 		{
 			axis = axis / DGMath.Sqrt(lengthSquared);
-			angle = (FP) 2 * DGMath.Acos(DGMath.Clamp(qw, (FP) (-1), FP.One));
+			angle = (DGFixedPoint) 2 * DGMath.Acos(DGMath.Clamp(qw, (DGFixedPoint) (-1), DGFixedPoint.One));
 		}
 		else
 		{
-			axis = FPVector3.up;
-			angle = FP.Zero;
+			axis = DGVector3.up;
+			angle = DGFixedPoint.Zero;
 		}
 
 		return angle;
@@ -668,33 +626,33 @@ public partial struct DGQuaternion
 	/// <param name="v1">First unit-length vector.</param>
 	/// <param name="v2">Second unit-length vector.</param>
 	/// <param name="q">Quaternion representing the rotation from v1 to v2.</param>
-	public static DGQuaternion GetQuaternionBetweenNormalizedVectors(FPVector3 v1, FPVector3 v2)
+	public static DGQuaternion GetQuaternionBetweenNormalizedVectors(DGVector3 v1, DGVector3 v2)
 	{
-		FP dot = FPVector3.Dot(v1, v2);
+		DGFixedPoint dot = DGVector3.Dot(v1, v2);
 		DGQuaternion q;
 		//For non-normal vectors, the multiplying the axes length squared would be necessary:
 		//Fix64 w = dot + (Fix64)Math.Sqrt(v1.LengthSquared() * v2.LengthSquared());
-		if (dot < (FP) (-0.9999m)) //parallel, opposing direction
+		if (dot < (DGFixedPoint) (-0.9999m)) //parallel, opposing direction
 		{
 			//If this occurs, the rotation required is ~180 degrees.
 			//The problem is that we could choose any perpendicular axis for the rotation. It's not uniquely defined.
 			//The solution is to pick an arbitrary perpendicular axis.
 			//Project onto the plane which has the lowest component magnitude.
 			//On that 2d plane, perform a 90 degree rotation.
-			FP absX = FP.Abs(v1.x);
-			FP absY = FP.Abs(v1.y);
-			FP absZ = FP.Abs(v1.z);
+			DGFixedPoint absX = DGFixedPoint.Abs(v1.x);
+			DGFixedPoint absY = DGFixedPoint.Abs(v1.y);
+			DGFixedPoint absZ = DGFixedPoint.Abs(v1.z);
 			if (absX < absY && absX < absZ)
-				q = new DGQuaternion(FP.Zero, -v1.z, v1.y, FP.Zero);
+				q = new DGQuaternion(DGFixedPoint.Zero, -v1.z, v1.y, DGFixedPoint.Zero);
 			else if (absY < absZ)
-				q = new DGQuaternion(-v1.z, FP.Zero, v1.x, FP.Zero);
+				q = new DGQuaternion(-v1.z, DGFixedPoint.Zero, v1.x, DGFixedPoint.Zero);
 			else
-				q = new DGQuaternion(-v1.y, v1.x, FP.Zero, FP.Zero);
+				q = new DGQuaternion(-v1.y, v1.x, DGFixedPoint.Zero, DGFixedPoint.Zero);
 		}
 		else
 		{
-			FPVector3 axis = FPVector3.Cross(v1, v2);
-			q = new DGQuaternion(axis.x, axis.y, axis.z, dot + FP.One);
+			DGVector3 axis = DGVector3.Cross(v1, v2);
+			q = new DGQuaternion(axis.x, axis.y, axis.z, dot + DGFixedPoint.One);
 		}
 
 		q.Normalize();
@@ -732,31 +690,31 @@ public partial struct DGQuaternion
 	}
 
 
-	public static DGQuaternion Slerp(DGQuaternion start, DGQuaternion end, FP pct)
+	public static DGQuaternion Slerp(DGQuaternion start, DGQuaternion end, DGFixedPoint pct)
 	{
 		pct = DGMath.Clamp01(pct);
 		return SlerpUnclamped(start, end, pct);
 	}
 
-	public static DGQuaternion SlerpUnclamped(DGQuaternion start, DGQuaternion end, FP pct)
+	public static DGQuaternion SlerpUnclamped(DGQuaternion start, DGQuaternion end, DGFixedPoint pct)
 	{
 		var dot = start.x * end.x + start.y * end.y + start.z * end.z + start.w * end.w;
 
 
-		if (dot < (FP)0)
+		if (dot < (DGFixedPoint)0)
 		{
 			dot = -dot;
 			end = new DGQuaternion(-end.x, -end.y, -end.z, -end.w);
 		}
 
 
-		if (dot < (FP)0.95)
+		if (dot < (DGFixedPoint)0.95)
 		{
 			var angle = DGMath.Acos(dot);
 
-			var invSinAngle = (FP)1 / DGMath.Sin(angle);
+			var invSinAngle = (DGFixedPoint)1 / DGMath.Sin(angle);
 
-			var t1 = DGMath.Sin(((FP)1 - pct) * angle) * invSinAngle;
+			var t1 = DGMath.Sin(((DGFixedPoint)1 - pct) * angle) * invSinAngle;
 
 			var t2 = DGMath.Sin(pct * angle) * invSinAngle;
 
@@ -772,12 +730,12 @@ public partial struct DGQuaternion
 		return new DGQuaternion(x, y, z, w).normalized;
 	}
 
-	public static FP SqrMagnitude(DGQuaternion value)
+	public static DGFixedPoint SqrMagnitude(DGQuaternion value)
 	{
 		return value.x * value.x + value.y * value.y + value.z * value.z + value.w + value.w;
 	}
 
-	public static FP Magnitude(DGQuaternion value)
+	public static DGFixedPoint Magnitude(DGQuaternion value)
 	{
 		return DGMath.Sqrt(SqrMagnitude(value));
 	}
@@ -795,7 +753,7 @@ public partial struct DGQuaternion
 	public static DGQuaternion Inverse(DGQuaternion value)
 	{
 		var a = (value.x * value.x) + (value.y * value.y) + (value.z * value.z) + (value.w * value.w);
-		var b = (FP) 1 / a;
+		var b = (DGFixedPoint) 1 / a;
 		var x = -value.x * b;
 		var y = -value.y * b;
 		var z = -value.z * b;
@@ -818,55 +776,55 @@ public partial struct DGQuaternion
 		return new DGQuaternion(x, y, z, w);
 	}
 
-	public static DGQuaternion Euler(FP x, FP y, FP z)
+	public static DGQuaternion Euler(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
-		return Euler(new FPVector3(x, y, z));
+		return Euler(new DGVector3(x, y, z));
 	}
 
-	public static DGQuaternion Euler(FPVector3 v)
+	public static DGQuaternion Euler(DGVector3 v)
 	{
 		return Internal_FromEulerRad(v * DGMath.Deg2Rad);
 	}
 
 	// from http://stackoverflow.com/questions/12088610/conversion-between-euler-quaternion-like-in-unity3d-engine
-	private static FPVector3 Internal_ToEulerRad(DGQuaternion rotation)
+	private static DGVector3 Internal_ToEulerRad(DGQuaternion rotation)
 	{
-		FP sqw = rotation.w * rotation.w;
-		FP sqx = rotation.x * rotation.x;
-		FP sqy = rotation.y * rotation.y;
-		FP sqz = rotation.z * rotation.z;
-		FP unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
-		FP test = rotation.x * rotation.w - rotation.y * rotation.z;
-		FPVector3 v;
+		DGFixedPoint sqw = rotation.w * rotation.w;
+		DGFixedPoint sqx = rotation.x * rotation.x;
+		DGFixedPoint sqy = rotation.y * rotation.y;
+		DGFixedPoint sqz = rotation.z * rotation.z;
+		DGFixedPoint unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+		DGFixedPoint test = rotation.x * rotation.w - rotation.y * rotation.z;
+		DGVector3 v;
 
-		if (test > (FP) 0.4995f * unit)
+		if (test > (DGFixedPoint) 0.4995f * unit)
 		{
 			// singularity at north pole
-			v.y = (FP) 2f * DGMath.Atan2(rotation.y, rotation.x);
+			v.y = (DGFixedPoint) 2f * DGMath.Atan2(rotation.y, rotation.x);
 			v.x = DGMath.HalfPi;
-			v.z = (FP) 0;
+			v.z = (DGFixedPoint) 0;
 			return NormalizeAngles(v * DGMath.Rad2Deg);
 		}
 
-		if (test < (FP) (-0.4995f) * unit)
+		if (test < (DGFixedPoint) (-0.4995f) * unit)
 		{
 			// singularity at south pole
-			v.y = (FP) (-2f) * DGMath.Atan2(rotation.y, rotation.x);
+			v.y = (DGFixedPoint) (-2f) * DGMath.Atan2(rotation.y, rotation.x);
 			v.x = -DGMath.HalfPi;
-			v.z = (FP) 0;
+			v.z = (DGFixedPoint) 0;
 			return NormalizeAngles(v * DGMath.Rad2Deg);
 		}
 
 		DGQuaternion q = new DGQuaternion(rotation.w, rotation.z, rotation.x, rotation.y);
-		v.y = DGMath.Atan2((FP) 2f * q.x * q.w + (FP) 2f * q.y * q.z,
-			(FP) 1 - (FP) 2f * (q.z * q.z + q.w * q.w)); // Yaw
-		v.x = DGMath.Asin((FP) 2f * (q.x * q.z - q.w * q.y)); // Pitch
-		v.z = DGMath.Atan2((FP) 2f * q.x * q.y + (FP) 2f * q.z * q.w,
-			(FP) 1 - (FP) 2f * (q.y * q.y + q.z * q.z)); // Roll
+		v.y = DGMath.Atan2((DGFixedPoint) 2f * q.x * q.w + (DGFixedPoint) 2f * q.y * q.z,
+			(DGFixedPoint) 1 - (DGFixedPoint) 2f * (q.z * q.z + q.w * q.w)); // Yaw
+		v.x = DGMath.Asin((DGFixedPoint) 2f * (q.x * q.z - q.w * q.y)); // Pitch
+		v.z = DGMath.Atan2((DGFixedPoint) 2f * q.x * q.y + (DGFixedPoint) 2f * q.z * q.w,
+			(DGFixedPoint) 1 - (DGFixedPoint) 2f * (q.y * q.y + q.z * q.z)); // Roll
 		return NormalizeAngles(v * DGMath.Rad2Deg);
 	}
 
-	private static FPVector3 NormalizeAngles(FPVector3 angles)
+	private static DGVector3 NormalizeAngles(DGVector3 angles)
 	{
 		angles.x = NormalizeAngle(angles.x);
 		angles.y = NormalizeAngle(angles.y);
@@ -874,31 +832,31 @@ public partial struct DGQuaternion
 		return angles;
 	}
 
-	private static FP NormalizeAngle(FP angle)
+	private static DGFixedPoint NormalizeAngle(DGFixedPoint angle)
 	{
-		FP modAngle = angle % (FP) 360.0f;
+		DGFixedPoint modAngle = angle % (DGFixedPoint) 360.0f;
 
-		if (modAngle < (FP) 0.0f)
-			return modAngle + (FP) 360.0f;
+		if (modAngle < (DGFixedPoint) 0.0f)
+			return modAngle + (DGFixedPoint) 360.0f;
 		return modAngle;
 	}
 
 
 	// from http://stackoverflow.com/questions/11492299/quaternion-to-euler-angles-algorithm-how-to-convert-to-y-up-and-between-ha
-	private static DGQuaternion Internal_FromEulerRad(FPVector3 euler)
+	private static DGQuaternion Internal_FromEulerRad(DGVector3 euler)
 	{
 		var yaw = euler.y;
 		var pitch = euler.x;
 		var roll = euler.z;
-		FP rollOver2 = roll * (FP) 0.5f;
-		FP sinRollOver2 = DGMath.Sin(rollOver2);
-		FP cosRollOver2 = DGMath.Cos(rollOver2);
-		FP pitchOver2 = pitch * (FP) 0.5f;
-		FP sinPitchOver2 = DGMath.Sin(pitchOver2);
-		FP cosPitchOver2 = DGMath.Cos(pitchOver2);
-		FP yawOver2 = yaw * (FP) 0.5f;
-		FP sinYawOver2 = DGMath.Sin(yawOver2);
-		FP cosYawOver2 = DGMath.Cos(yawOver2);
+		DGFixedPoint rollOver2 = roll * (DGFixedPoint) 0.5f;
+		DGFixedPoint sinRollOver2 = DGMath.Sin(rollOver2);
+		DGFixedPoint cosRollOver2 = DGMath.Cos(rollOver2);
+		DGFixedPoint pitchOver2 = pitch * (DGFixedPoint) 0.5f;
+		DGFixedPoint sinPitchOver2 = DGMath.Sin(pitchOver2);
+		DGFixedPoint cosPitchOver2 = DGMath.Cos(pitchOver2);
+		DGFixedPoint yawOver2 = yaw * (DGFixedPoint) 0.5f;
+		DGFixedPoint sinYawOver2 = DGMath.Sin(yawOver2);
+		DGFixedPoint cosYawOver2 = DGMath.Cos(yawOver2);
 		DGQuaternion result;
 		result.x = cosYawOver2 * sinPitchOver2 * cosRollOver2 + sinYawOver2 * cosPitchOver2 * sinRollOver2;
 		result.y = sinYawOver2 * cosPitchOver2 * cosRollOver2 - cosYawOver2 * sinPitchOver2 * sinRollOver2;
@@ -907,20 +865,20 @@ public partial struct DGQuaternion
 		return result;
 	}
 
-	private static void Internal_ToAxisAngleRad(DGQuaternion q, out FPVector3 axis, out FP angle)
+	private static void Internal_ToAxisAngleRad(DGQuaternion q, out DGVector3 axis, out DGFixedPoint angle)
 	{
-		if (DGMath.Abs(q.w) > (FP) 1.0f)
+		if (DGMath.Abs(q.w) > (DGFixedPoint) 1.0f)
 			q.Normalize();
 
 
-		angle = (FP) 2.0f * DGMath.Acos(q.w); // angle
-		FP den = DGMath.Sqrt((FP) 1.0 - q.w * q.w);
-		if (den > (FP) 0.0001f)
+		angle = (DGFixedPoint) 2.0f * DGMath.Acos(q.w); // angle
+		DGFixedPoint den = DGMath.Sqrt((DGFixedPoint) 1.0 - q.w * q.w);
+		if (den > (DGFixedPoint) 0.0001f)
 			axis = q.xyz / den;
 		else
 			// This occurs when the angle is zero. 
 			// Not a problem: just set an arbitrary normalized axis.
-			axis = new FPVector3(1, 0, 0);
+			axis = new DGVector3(1, 0, 0);
 	}
 
 
@@ -932,17 +890,17 @@ public partial struct DGQuaternion
 		this = Normalize(this);
 	}
 
-	public FP SqrMagnitude()
+	public DGFixedPoint SqrMagnitude()
 	{
 		return SqrMagnitude(this);
 	}
 
-	public FP Magnitude()
+	public DGFixedPoint Magnitude()
 	{
 		return Magnitude(this);
 	}
 
-	public void ToAngleAxis(out FP angle, out FPVector3 axis)
+	public void ToAngleAxis(out DGFixedPoint angle, out DGVector3 axis)
 	{
 		Internal_ToAxisAngleRad(this, out axis, out angle);
 		angle *= DGMath.Rad2Deg;
@@ -953,14 +911,14 @@ public partial struct DGQuaternion
 	/// </summary>
 	/// <param name="fromDirection"></param>
 	/// <param name="toDirection"></param>
-	public void SetFromToRotation(FPVector3 fromDirection, FPVector3 toDirection)
+	public void SetFromToRotation(DGVector3 fromDirection, DGVector3 toDirection)
 	{
 		this = FromToRotation(fromDirection, toDirection);
 	}
 
-	public void SetLookRotation(FPVector3 view)
+	public void SetLookRotation(DGVector3 view)
 	{
-		FPVector3 up = FPVector3.up;
+		DGVector3 up = DGVector3.up;
 		this.SetLookRotation(view, up);
 	}
 
@@ -969,48 +927,16 @@ public partial struct DGQuaternion
 	/// </summary>
 	/// <param name="view">The direction to look in.</param>
 	/// <param name="up">The vector that defines in which direction up is.</param>
-	public void SetLookRotation(FPVector3 view, FPVector3 up)
+	public void SetLookRotation(DGVector3 view, DGVector3 up)
 	{
 		this = LookRotation(view, up);
 	}
 
 	public void SetIdentity()
 	{
-		this.x = (FP) 0;
-		this.y = (FP) 0;
-		this.z = (FP) 0;
-		this.w = (FP) 1;
+		this.x = (DGFixedPoint) 0;
+		this.y = (DGFixedPoint) 0;
+		this.z = (DGFixedPoint) 0;
+		this.w = (DGFixedPoint) 1;
 	}
-
-	//	public FPMatrix4x4 ToMatrix()
-	//	{
-	//		var xx = x * x;
-	//		var xy = x * y;
-	//		var xz = x * z;
-	//		var xw = x * w;
-	//		var yy = y * y;
-	//		var yz = y * z;
-	//		var yw = y * w;
-	//		var zz = z * z;
-	//		var zw = z * w;
-	//		FPMatrix4x4 matrix = default;
-	//		// Set matrix from quaternion
-	//		matrix.M11 = (FP)1 - (FP)2 * (yy + zz);
-	//		matrix.M12 = (FP)2 * (xy - zw);
-	//		matrix.M13 = (FP)2 * (xz + yw);
-	//		matrix.M14 = (FP)0;
-	//		matrix.M21 = (FP)2 * (xy + zw);
-	//		matrix.M22 = (FP)1 - (FP)2 * (xx + zz);
-	//		matrix.M23 = (FP)2 * (yz - xw);
-	//		matrix.M24 = (FP)0;
-	//		matrix.M31 = (FP)2 * (xz - yw);
-	//		matrix.M32 = (FP)2 * (yz + xw);
-	//		matrix.M33 = (FP)1 - (FP)2 * (xx + yy);
-	//		matrix.M34 = (FP)0;
-	//		matrix.M41 = (FP)0;
-	//		matrix.M42 = (FP)0;
-	//		matrix.M43 = (FP)0;
-	//		matrix.M44 = (FP)1;
-	//		return matrix;
-	//	}
 }

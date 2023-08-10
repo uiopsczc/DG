@@ -10,14 +10,6 @@
 *************************************************************************************/
 
 
-using System;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-using FPVector4 = DGVector4;
-using FPMatrix4x4 = DGMatrix4x4;
-using FPRay = DGRay;
 
 /** A plane defined via a unit length normal and the distance from the origin, as you learned in your math class.
  * 
@@ -35,15 +27,15 @@ public partial struct DGPlane
 		Front
 	}
 
-	public FPVector3 normal;
-	public FP d;
+	public DGVector3 normal;
+	public DGFixedPoint d;
 
 
 	/** Constructs a new plane based on the normal and distance to the origin.
 	 * 
 	 * @param normal The plane normal
 	 * @param d The distance to the origin */
-	public DGPlane(FPVector3 normal, FP d)
+	public DGPlane(DGVector3 normal, DGFixedPoint d)
 	{
 		this.normal = default;
 		this.normal.set(normal).nor();
@@ -54,7 +46,7 @@ public partial struct DGPlane
 	 * 
 	 * @param normal The normal
 	 * @param point The point on the plane */
-	public DGPlane(FPVector3 normal, FPVector3 point)
+	public DGPlane(DGVector3 normal, DGVector3 point)
 	{
 		this.normal = default;
 		this.normal.set(normal).nor();
@@ -67,7 +59,7 @@ public partial struct DGPlane
 	 * @param point1 The first point
 	 * @param point2 The second point
 	 * @param point3 The third point */
-	public DGPlane(FPVector3 point1, FPVector3 point2, FPVector3 point3)
+	public DGPlane(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 	{
 		normal = default;
 		normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
@@ -80,7 +72,7 @@ public partial struct DGPlane
 	 * @param point1
 	 * @param point2
 	 * @param point3 */
-	public void set(FPVector3 point1, FPVector3 point2, FPVector3 point3)
+	public void set(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 	{
 		normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
 		d = -point1.dot(normal);
@@ -92,7 +84,7 @@ public partial struct DGPlane
 	 * @param ny normal y-component
 	 * @param nz normal z-component
 	 * @param d distance to origin */
-	public void set(FP nx, FP ny, FP nz, FP d)
+	public void set(DGFixedPoint nx, DGFixedPoint ny, DGFixedPoint nz, DGFixedPoint d)
 	{
 		normal.set(nx, ny, nz);
 		this.d = d;
@@ -102,7 +94,7 @@ public partial struct DGPlane
 	 * 
 	 * @param point The point
 	 * @return the shortest signed distance between the plane and the point */
-	public FP distance(FPVector3 point)
+	public DGFixedPoint distance(DGVector3 point)
 	{
 		return normal.dot(point) + d;
 	}
@@ -112,13 +104,13 @@ public partial struct DGPlane
 	 * 
 	 * @param point The point
 	 * @return The side the point lies relative to the plane */
-	public DGPlaneSide testPoint(FPVector3 point)
+	public DGPlaneSide testPoint(DGVector3 point)
 	{
-		FP dist = normal.dot(point) + d;
+		DGFixedPoint dist = normal.dot(point) + d;
 
-		if (dist == (FP) 0)
+		if (dist == (DGFixedPoint) 0)
 			return DGPlaneSide.OnPlane;
-		if (dist < (FP) 0)
+		if (dist < (DGFixedPoint) 0)
 			return DGPlaneSide.Back;
 		return DGPlaneSide.Front;
 	}
@@ -130,13 +122,13 @@ public partial struct DGPlane
 	 * @param y
 	 * @param z
 	 * @return The side the point lies relative to the plane */
-	public DGPlaneSide testPoint(FP x, FP y, FP z)
+	public DGPlaneSide testPoint(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
-		FP dist = normal.dot(x, y, z) + d;
+		DGFixedPoint dist = normal.dot(x, y, z) + d;
 
-		if (dist == (FP) 0)
+		if (dist == (DGFixedPoint) 0)
 			return DGPlaneSide.OnPlane;
-		if (dist < (FP) 0)
+		if (dist < (DGFixedPoint) 0)
 			return DGPlaneSide.Back;
 		return DGPlaneSide.Front;
 	}
@@ -146,20 +138,20 @@ public partial struct DGPlane
 	 * 
 	 * @param direction the direction
 	 * @return whether the plane is front facing */
-	public bool isFrontFacing(FPVector3 direction)
+	public bool isFrontFacing(DGVector3 direction)
 	{
-		FP dot = normal.dot(direction);
-		return dot <= (FP) 0;
+		DGFixedPoint dot = normal.dot(direction);
+		return dot <= (DGFixedPoint) 0;
 	}
 
 	/** @return The normal */
-	public FPVector3 getNormal()
+	public DGVector3 getNormal()
 	{
 		return normal;
 	}
 
 	/** @return The distance to the origin */
-	public FP getD()
+	public DGFixedPoint getD()
 	{
 		return d;
 	}
@@ -168,13 +160,13 @@ public partial struct DGPlane
 	 * 
 	 * @param point the point on the plane
 	 * @param normal the normal of the plane */
-	public void set(FPVector3 point, FPVector3 normal)
+	public void set(DGVector3 point, DGVector3 normal)
 	{
 		this.normal.set(normal);
 		d = -point.dot(normal);
 	}
 
-	public void set(FP pointX, FP pointY, FP pointZ, FP norX, FP norY, FP norZ)
+	public void set(DGFixedPoint pointX, DGFixedPoint pointY, DGFixedPoint pointZ, DGFixedPoint norX, DGFixedPoint norY, DGFixedPoint norZ)
 	{
 		this.normal.set(norX, norY, norZ);
 		d = -(pointX * norX + pointY * norY + pointZ * norZ);

@@ -9,9 +9,7 @@
  * ======================================
 *************************************************************************************/
 
-using FP = DGFixedPoint;
-using FPVector3 = DGVector3;
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 using UnityEngine;
 
 #endif
@@ -19,11 +17,11 @@ using UnityEngine;
 
 public partial struct DGRay
 {
-#if UNITY_5_3_OR_NEWER
+#if UNITY_STANDALONE
 	public DGRay(Ray ray)
 	{
-		this.origin = new FPVector3(ray.origin);
-		this.direction = new FPVector3(ray.direction);
+		this.origin = new DGVector3(ray.origin);
+		this.direction = new DGVector3(ray.direction);
 	}
 #endif
 
@@ -59,7 +57,7 @@ public partial struct DGRay
 	///   <para>Returns a point at distance units along the ray.</para>
 	/// </summary>
 	/// <param name="distance"></param>
-	public FPVector3 GetPoint(FP distance)
+	public DGVector3 GetPoint(DGFixedPoint distance)
 	{
 		return this.origin + this.direction * distance;
 	}

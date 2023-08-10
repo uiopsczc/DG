@@ -8,21 +8,20 @@
  * ÐÞ¸ÄÄÚÈÝ:
  * ======================================
 *************************************************************************************/
-using FP = DGFixedPoint;
 //libgdx
 public class DGInterpolationPow : DGInterpolation
 {
-	protected  FP power;
+	protected  DGFixedPoint power;
 
-	public DGInterpolationPow(FP power)
+	public DGInterpolationPow(DGFixedPoint power)
 	{
 		this.power = power;
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		if (a <= (FP)0.5f) return DGMath.Pow(a * (FP)2, power) / (FP)2;
-		return DGMath.Pow((a - (FP)1) * (FP)2, power) / (power % (FP)2 == (FP)0 ? (FP)(- 2) : (FP)2) + (FP)1;
+		if (a <= (DGFixedPoint)0.5f) return DGMath.Pow(a * (DGFixedPoint)2, power) / (DGFixedPoint)2;
+		return DGMath.Pow((a - (DGFixedPoint)1) * (DGFixedPoint)2, power) / (power % (DGFixedPoint)2 == (DGFixedPoint)0 ? (DGFixedPoint)(- 2) : (DGFixedPoint)2) + (DGFixedPoint)1;
 	}
 
 }

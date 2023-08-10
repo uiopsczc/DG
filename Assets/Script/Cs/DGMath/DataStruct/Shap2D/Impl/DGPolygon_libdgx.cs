@@ -10,25 +10,22 @@
 *************************************************************************************/
 
 using System;
-using FP = DGFixedPoint;
-using FPVector2 = DGVector2;
-using FPRectangle = DGRectangle;
 
-public class Polygon : IDGShape2D
+public class DGPolygon : IDGShape2D
 {
-	private FP[] localVertices;
-	private FP[] worldVertices;
-	private FP x, y;
-	private FP originX, originY;
-	private FP rotation;
-	private FP scaleX = (FP) 1, scaleY = (FP) 1;
+	private DGFixedPoint[] localVertices;
+	private DGFixedPoint[] worldVertices;
+	private DGFixedPoint x, y;
+	private DGFixedPoint originX, originY;
+	private DGFixedPoint rotation;
+	private DGFixedPoint scaleX = (DGFixedPoint) 1, scaleY = (DGFixedPoint) 1;
 	private bool _dirty = true;
-	private FPRectangle bounds;
+	private DGRectangle bounds;
 
 	/** Constructs a new polygon with no vertices. */
-	public Polygon()
+	public DGPolygon()
 	{
-		this.localVertices = new FP[0];
+		this.localVertices = new DGFixedPoint[0];
 	}
 
 	/** Constructs a new polygon from a float array of parts of vertex points.
@@ -37,14 +34,14 @@ public class Polygon : IDGShape2D
 	 *           representing the vertical part
 	 * 
 	 * @throws IllegalArgumentException if less than 6 elements, representing 3 points, are provided */
-	public Polygon(FP[] vertices)
+	public DGPolygon(DGFixedPoint[] vertices)
 	{
 		if (vertices.Length < 6) throw new Exception("polygons must contain at least 3 points.");
 		this.localVertices = vertices;
 	}
 
 	/** Returns the polygon's local vertices without scaling or rotation and without being offset by the polygon position. */
-	public FP[] getVertices()
+	public DGFixedPoint[] getVertices()
 	{
 		return localVertices;
 	}
@@ -53,31 +50,31 @@ public class Polygon : IDGShape2D
 	 * as they are position within the world.
 	 * 
 	 * @return vertices scaled, rotated, and offset by the polygon position. */
-	public FP[] getTransformedVertices()
+	public DGFixedPoint[] getTransformedVertices()
 	{
 		if (!_dirty) return this.worldVertices;
 		_dirty = false;
 
-		FP[] localVertices = this.localVertices;
+		DGFixedPoint[] localVertices = this.localVertices;
 		if (this.worldVertices == null || this.worldVertices.Length != localVertices.Length)
-			this.worldVertices = new FP[localVertices.Length];
+			this.worldVertices = new DGFixedPoint[localVertices.Length];
 
-		FP[] worldVertices = this.worldVertices;
-		FP positionX = x;
-		FP positionY = y;
-		FP originX = this.originX;
-		FP originY = this.originY;
-		FP scaleX = this.scaleX;
-		FP scaleY = this.scaleY;
-		bool scale = scaleX != (FP) 1 || scaleY != (FP) 1;
-		FP rotation = this.rotation;
-		FP cos = DGMath.CosDeg(rotation);
-		FP sin = DGMath.SinDeg(rotation);
+		DGFixedPoint[] worldVertices = this.worldVertices;
+		DGFixedPoint positionX = x;
+		DGFixedPoint positionY = y;
+		DGFixedPoint originX = this.originX;
+		DGFixedPoint originY = this.originY;
+		DGFixedPoint scaleX = this.scaleX;
+		DGFixedPoint scaleY = this.scaleY;
+		bool scale = scaleX != (DGFixedPoint) 1 || scaleY != (DGFixedPoint) 1;
+		DGFixedPoint rotation = this.rotation;
+		DGFixedPoint cos = DGMath.CosDeg(rotation);
+		DGFixedPoint sin = DGMath.SinDeg(rotation);
 
 		for (int i = 0, n = localVertices.Length; i < n; i += 2)
 		{
-			FP x = localVertices[i] - originX;
-			FP y = localVertices[i + 1] - originY;
+			DGFixedPoint x = localVertices[i] - originX;
+			DGFixedPoint y = localVertices[i + 1] - originY;
 
 			// scale if needed
 			if (scale)
@@ -87,9 +84,9 @@ public class Polygon : IDGShape2D
 			}
 
 			// rotate if needed
-			if (rotation != (FP) 0)
+			if (rotation != (DGFixedPoint) 0)
 			{
-				FP oldX = x;
+				DGFixedPoint oldX = x;
 				x = cos * x - sin * y;
 				y = sin * oldX + cos * y;
 			}
@@ -102,7 +99,7 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Sets the origin point to which all of the polygon's local vertices are relative to. */
-	public void setOrigin(FP originX, FP originY)
+	public void setOrigin(DGFixedPoint originX, DGFixedPoint originY)
 	{
 		this.originX = originX;
 		this.originY = originY;
@@ -110,7 +107,7 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Sets the polygon's position within the world. */
-	public void setPosition(FP x, FP y)
+	public void setPosition(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x = x;
 		this.y = y;
@@ -123,7 +120,7 @@ public class Polygon : IDGShape2D
 	 * @param vertices float array where every even element represents the x-coordinate of a vertex, and the proceeding element
 	 *           representing the y-coordinate.
 	 * @throws IllegalArgumentException if less than 6 elements, representing 3 points, are provided */
-	public void setVertices(FP[] vertices)
+	public void setVertices(DGFixedPoint[] vertices)
 	{
 		if (vertices.Length < 6) throw new Exception("polygons must contain at least 3 points.");
 		localVertices = vertices;
@@ -133,7 +130,7 @@ public class Polygon : IDGShape2D
 	/** Set vertex position
 	 * @param vertexNum min=0, max=vertices.length/2-1
 	 * @throws IllegalArgumentException if vertex doesnt exist */
-	public void setVertex(int vertexNum, FP x, FP y)
+	public void setVertex(int vertexNum, DGFixedPoint x, DGFixedPoint y)
 	{
 		if (vertexNum < 0 || vertexNum > localVertices.Length / 2 - 1)
 			throw new Exception("the vertex " + vertexNum + " doesn't exist");
@@ -143,7 +140,7 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Translates the polygon's position by the specified horizontal and vertical amounts. */
-	public void translate(FP x, FP y)
+	public void translate(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.x += x;
 		this.y += y;
@@ -151,21 +148,21 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Sets the polygon to be rotated by the supplied degrees. */
-	public void setRotation(FP degrees)
+	public void setRotation(DGFixedPoint degrees)
 	{
 		this.rotation = degrees;
 		_dirty = true;
 	}
 
 	/** Applies additional rotation to the polygon by the supplied degrees. */
-	public void rotate(FP degrees)
+	public void rotate(DGFixedPoint degrees)
 	{
 		rotation += degrees;
 		_dirty = true;
 	}
 
 	/** Sets the amount of scaling to be applied to the polygon. */
-	public void setScale(FP scaleX, FP scaleY)
+	public void setScale(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
 		this.scaleX = scaleX;
 		this.scaleY = scaleY;
@@ -173,7 +170,7 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Applies additional scaling to the polygon by the supplied amount. */
-	public void scale(FP amount)
+	public void scale(DGFixedPoint amount)
 	{
 		this.scaleX += amount;
 		this.scaleY += amount;
@@ -188,9 +185,9 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Returns the area contained within the polygon. */
-	public FP area()
+	public DGFixedPoint area()
 	{
-		FP[] vertices = getTransformedVertices();
+		DGFixedPoint[] vertices = getTransformedVertices();
 		return DGGeometryUtils.polygonArea(vertices, 0, vertices.Length);
 	}
 
@@ -200,17 +197,17 @@ public class Polygon : IDGShape2D
 	}
 
 	/** @return Position(transformed) of vertex */
-	public FPVector2 getVertex(int vertexNum, FPVector2 pos)
+	public DGVector2 getVertex(int vertexNum, DGVector2 pos)
 	{
 		if (vertexNum < 0 || vertexNum > getVertexCount())
 			throw new Exception("the vertex " + vertexNum + " doesn't exist");
-		FP[] vertices = this.getTransformedVertices();
+		DGFixedPoint[] vertices = this.getTransformedVertices();
 		return pos.set(vertices[2 * vertexNum], vertices[2 * vertexNum + 1]);
 	}
 
-	public FPVector2 getCentroid(FPVector2 centroid)
+	public DGVector2 getCentroid(DGVector2 centroid)
 	{
-		FP[] vertices = getTransformedVertices();
+		DGFixedPoint[] vertices = getTransformedVertices();
 		return DGGeometryUtils.polygonCentroid(vertices, 0, vertices.Length, centroid);
 	}
 
@@ -219,14 +216,14 @@ public class Polygon : IDGShape2D
 	 * Note the returned Rectangle is cached in this polygon, and will be reused if this Polygon is changed.
 	 * 
 	 * @return this polygon's bounding box {@link Rectangle} */
-	public FPRectangle getBoundingRectangle()
+	public DGRectangle getBoundingRectangle()
 	{
-		FP[] vertices = getTransformedVertices();
+		DGFixedPoint[] vertices = getTransformedVertices();
 
-		FP minX = vertices[0];
-		FP minY = vertices[1];
-		FP maxX = vertices[0];
-		FP maxY = vertices[1];
+		DGFixedPoint minX = vertices[0];
+		DGFixedPoint minY = vertices[1];
+		DGFixedPoint maxX = vertices[0];
+		DGFixedPoint maxY = vertices[1];
 
 		int numFloats = vertices.Length;
 		for (int i = 2; i < numFloats; i += 2)
@@ -247,18 +244,18 @@ public class Polygon : IDGShape2D
 	}
 
 	/** Returns whether an x, y pair is contained within the polygon. */
-	public bool contains(FP x, FP y)
+	public bool contains(DGFixedPoint x, DGFixedPoint y)
 	{
-		FP[] vertices = getTransformedVertices();
+		DGFixedPoint[] vertices = getTransformedVertices();
 		int numFloats = vertices.Length;
 		int intersects = 0;
 
 		for (int i = 0; i < numFloats; i += 2)
 		{
-			FP x1 = vertices[i];
-			FP y1 = vertices[i + 1];
-			FP x2 = vertices[(i + 2) % numFloats];
-			FP y2 = vertices[(i + 3) % numFloats];
+			DGFixedPoint x1 = vertices[i];
+			DGFixedPoint y1 = vertices[i + 1];
+			DGFixedPoint x2 = vertices[(i + 2) % numFloats];
+			DGFixedPoint y2 = vertices[(i + 3) % numFloats];
 			if (((y1 <= y && y < y2) || (y2 <= y && y < y1)) && x < ((x2 - x1) / (y2 - y1) * (y - y1) + x1))
 				intersects++;
 		}
@@ -266,49 +263,49 @@ public class Polygon : IDGShape2D
 		return (intersects & 1) == 1;
 	}
 
-	public bool contains(FPVector2 point)
+	public bool contains(DGVector2 point)
 	{
 		return contains(point.x, point.y);
 	}
 
 	/** Returns the x-coordinate of the polygon's position within the world. */
-	public FP getX()
+	public DGFixedPoint getX()
 	{
 		return x;
 	}
 
 	/** Returns the y-coordinate of the polygon's position within the world. */
-	public FP getY()
+	public DGFixedPoint getY()
 	{
 		return y;
 	}
 
 	/** Returns the x-coordinate of the polygon's origin point. */
-	public FP getOriginX()
+	public DGFixedPoint getOriginX()
 	{
 		return originX;
 	}
 
 	/** Returns the y-coordinate of the polygon's origin point. */
-	public FP getOriginY()
+	public DGFixedPoint getOriginY()
 	{
 		return originY;
 	}
 
 	/** Returns the total rotation applied to the polygon. */
-	public FP getRotation()
+	public DGFixedPoint getRotation()
 	{
 		return rotation;
 	}
 
 	/** Returns the total horizontal scaling applied to the polygon. */
-	public FP getScaleX()
+	public DGFixedPoint getScaleX()
 	{
 		return scaleX;
 	}
 
 	/** Returns the total vertical scaling applied to the polygon. */
-	public FP getScaleY()
+	public DGFixedPoint getScaleY()
 	{
 		return scaleY;
 	}

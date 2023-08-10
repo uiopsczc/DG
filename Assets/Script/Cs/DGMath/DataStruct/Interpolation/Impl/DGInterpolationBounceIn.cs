@@ -9,12 +9,11 @@
  * ======================================
 *************************************************************************************/
 
-using FP = DGFixedPoint;
 
 //libgdx
 public class DGInterpolationBounceIn : DGInterpolationBounceOut
 {
-	public DGInterpolationBounceIn(FP[] widths, FP[] heights) : base(widths, heights)
+	public DGInterpolationBounceIn(DGFixedPoint[] widths, DGFixedPoint[] heights) : base(widths, heights)
 	{
 	}
 
@@ -22,8 +21,8 @@ public class DGInterpolationBounceIn : DGInterpolationBounceOut
 	{
 	}
 
-	public override FP Apply(FP a)
+	public override DGFixedPoint Apply(DGFixedPoint a)
 	{
-		return (FP)1 - base.Apply((FP)1 - a);
+		return (DGFixedPoint)1 - base.Apply((DGFixedPoint)1 - a);
 	}
 }
