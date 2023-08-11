@@ -1,6 +1,6 @@
-
 /** Encapsulates a 3D vector. Allows chaining operations by returning a reference to itself in all modification methods.
  * @author badlogicgames@gmail.com */
+
 public partial struct DGVector3
 {
 	/** the x-component of this vector **/
@@ -17,7 +17,7 @@ public partial struct DGVector3
 	public static DGVector3 Z = new DGVector3((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 1);
 	public static DGVector3 Zero = new DGVector3((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0);
 
-	private static DGMatrix4x4 tmpMat = new DGMatrix4x4(false);
+	private static DGMatrix4x4 tmpMat = DGMatrix4x4.default2;
 
 
 	/** Creates a vector with the given components
@@ -235,7 +235,8 @@ public partial struct DGVector3
 	}
 
 	/** @return The euclidean distance between the two specified vectors */
-	public static DGFixedPoint dst(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2, DGFixedPoint z2)
+	public static DGFixedPoint dst(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2,
+		DGFixedPoint z2)
 	{
 		DGFixedPoint a = x2 - x1;
 		DGFixedPoint b = y2 - y1;
@@ -261,7 +262,8 @@ public partial struct DGVector3
 	}
 
 	/** @return the squared distance between the given points */
-	public static DGFixedPoint dst2(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2, DGFixedPoint z2)
+	public static DGFixedPoint dst2(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2,
+		DGFixedPoint z2)
 	{
 		DGFixedPoint a = x2 - x1;
 		DGFixedPoint b = y2 - y1;
@@ -298,7 +300,8 @@ public partial struct DGVector3
 	}
 
 	/** @return The dot product between the two vectors */
-	public static DGFixedPoint dot(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2, DGFixedPoint z2)
+	public static DGFixedPoint dot(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2,
+		DGFixedPoint z2)
 	{
 		return x1 * x2 + y1 * y2 + z1 * z2;
 	}
@@ -415,8 +418,9 @@ public partial struct DGVector3
 	public DGVector3 prj(DGMatrix4x4 matrix)
 	{
 		DGFixedPoint[] l_mat = matrix.val;
-		DGFixedPoint l_w = (DGFixedPoint) 1f / (x * l_mat[DGMatrix4x4.M30] + y * l_mat[DGMatrix4x4.M31] + z * l_mat[DGMatrix4x4.M32] +
-		                    l_mat[DGMatrix4x4.M33]);
+		DGFixedPoint l_w = (DGFixedPoint) 1f / (x * l_mat[DGMatrix4x4.M30] + y * l_mat[DGMatrix4x4.M31] +
+		                                        z * l_mat[DGMatrix4x4.M32] +
+		                                        l_mat[DGMatrix4x4.M33]);
 		return this.set(
 			(x * l_mat[DGMatrix4x4.M00] + y * l_mat[DGMatrix4x4.M01] + z * l_mat[DGMatrix4x4.M02] +
 			 l_mat[DGMatrix4x4.M03]) * l_w,
@@ -497,7 +501,7 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 rotate(DGVector3 axis, DGFixedPoint degrees)
 	{
-		tmpMat.setToRotation(axis, degrees);
+		tmpMat = tmpMat.setToRotation(axis, degrees);
 		return this.mul(tmpMat);
 	}
 
@@ -508,7 +512,7 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 rotateRad(DGVector3 axis, DGFixedPoint radians)
 	{
-		tmpMat.setToRotationRad(axis, radians);
+		tmpMat = tmpMat.setToRotationRad(axis, radians);
 		return this.mul(tmpMat);
 	}
 
@@ -604,23 +608,44 @@ public partial struct DGVector3
 	 * @return This vector for chaining. */
 	public DGVector3 slerp(DGVector3 target, DGFixedPoint alpha)
 	{
-		DGFixedPoint dot = this.dot(target);
-		// If the inputs are too close for comfort, simply linearly interpolate.
-		if (dot > (DGFixedPoint) 0.9995 || dot < (DGFixedPoint) (-0.9995)) return lerp(target, alpha);
+		//		DGFixedPoint dot = this.dot(target);
+		//		// If the inputs are too close for comfort, simply linearly interpolate.
+		//		if (dot > (DGFixedPoint) 0.9995 || dot < (DGFixedPoint) (-0.9995)) return lerp(target, alpha);
+		//
+		//		// theta0 = angle between input vectors
+		//		DGFixedPoint theta0 = DGMath.Acos(dot);
+		//		// theta = angle between this vector and result
+		//		DGFixedPoint theta = theta0 * alpha;
+		//
+		//		DGFixedPoint st = DGMath.Sin(theta);
+		//		DGFixedPoint tx = target.x - x * dot;
+		//		DGFixedPoint ty = target.y - y * dot;
+		//		DGFixedPoint tz = target.z - z * dot;
+		//		DGFixedPoint l2 = tx * tx + ty * ty + tz * tz;
+		//		DGFixedPoint dl =
+		//			st * ((l2 < (DGFixedPoint) 0.0001f) ? (DGFixedPoint) 1f : (DGFixedPoint) 1f / DGMath.Sqrt(l2));
+		//
+		//		return scl(DGMath.Cos(theta)).add(tx * dl, ty * dl, tz * dl).nor();
 
-		// theta0 = angle between input vectors
-		DGFixedPoint theta0 = DGMath.Acos(dot);
-		// theta = angle between this vector and result
-		DGFixedPoint theta = theta0 * alpha;
+		//https://stackoverflow.com/questions/67919193/how-does-unity-implements-vector3-slerp-exactly
+		// Dot product - the cosine of the angle between 2 vectors.
+		DGFixedPoint dot = Dot(this.cpy().normalized, target.cpy().normalized);
 
-		DGFixedPoint st = DGMath.Sin(theta);
-		DGFixedPoint tx = target.x - x * dot;
-		DGFixedPoint ty = target.y - y * dot;
-		DGFixedPoint tz = target.z - z * dot;
-		DGFixedPoint l2 = tx * tx + ty * ty + tz * tz;
-		DGFixedPoint dl = st * ((l2 < (DGFixedPoint) 0.0001f) ? (DGFixedPoint) 1f : (DGFixedPoint) 1f / DGMath.Sqrt(l2));
+		// Clamp it to be in the range of Acos()
+		// This may be unnecessary, but floating point
+		// precision can be a fickle mistress.
+		dot = DGMath.Clamp(dot, (DGFixedPoint)(-1.0f), (DGFixedPoint)1.0f);
 
-		return scl(DGMath.Cos(theta)).add(tx * dl, ty * dl, tz * dl).nor();
+		// Acos(dot) returns the angle between start and end,
+		// And multiplying that by percent returns the angle between
+		// start and the final result.
+		DGFixedPoint theta = DGMath.Acos(dot) * alpha;
+		DGVector3 relativeVec = target - this * dot;
+		relativeVec.Normalize();
+
+		// Orthonormal basis
+		// The final result.
+		return (this * DGMath.Cos(theta)) + (relativeVec * DGMath.Sin(theta));
 	}
 
 	/** Converts this {@code Vector3} to a string in the format {@code (x,y,z)}.

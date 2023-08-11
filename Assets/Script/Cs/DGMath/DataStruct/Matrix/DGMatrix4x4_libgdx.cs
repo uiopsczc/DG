@@ -89,13 +89,13 @@ public partial struct DGMatrix4x4
 	public const int M33 = 15;
 
 	private const int Count = 16;
-	static DGQuaternion quat = new DGQuaternion(false);
-	static DGQuaternion quat2 = new DGQuaternion(false);
+	static DGQuaternion quat = DGQuaternion.default2;
+	static DGQuaternion quat2 = DGQuaternion.default2;
 	static DGVector3 l_vez = new DGVector3();
 	static DGVector3 l_vex = new DGVector3();
 	static DGVector3 l_vey = new DGVector3();
 	static DGVector3 tmpVec = new DGVector3();
-	static DGMatrix4x4 tmpMat = new DGMatrix4x4(false);
+	static DGMatrix4x4 tmpMat = DGMatrix4x4.default2;
 	static DGVector3 right = new DGVector3();
 	static DGVector3 tmpForward = new DGVector3();
 	static DGVector3 tmpUp = new DGVector3();
@@ -103,13 +103,18 @@ public partial struct DGMatrix4x4
 	public DGFixedPoint[] val;
 
 	/** Constructs an identity matrix */
-	public DGMatrix4x4(bool isNotLibdx = false)
+	public static DGMatrix4x4 default2
 	{
-		val = new DGFixedPoint[Count];
-		val[M00] = (DGFixedPoint) 1f;
-		val[M11] = (DGFixedPoint) 1f;
-		val[M22] = (DGFixedPoint) 1f;
-		val[M33] = (DGFixedPoint) 1f;
+		get
+		{
+			DGMatrix4x4 result = default;
+			result.val = new DGFixedPoint[Count];
+			result.val[M00] = (DGFixedPoint)1f;
+			result.val[M11] = (DGFixedPoint)1f;
+			result.val[M22] = (DGFixedPoint)1f;
+			result.val[M33] = (DGFixedPoint)1f;
+			return result;
+		}
 	}
 
 	/** Constructs a matrix from the given matrix.

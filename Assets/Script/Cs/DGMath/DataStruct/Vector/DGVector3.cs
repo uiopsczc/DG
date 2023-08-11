@@ -539,10 +539,9 @@ public partial struct DGVector3
 	public static DGFixedPoint Angle(DGVector3 fromAngle, DGVector3 toAngle)
 	{
 		// sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
-		DGFixedPoint denominator = DGMath.Sqrt(fromAngle.sqrMagnitude * toAngle.sqrMagnitude);
+		DGFixedPoint denominator = fromAngle.magnitude * toAngle.magnitude;
 		if (denominator <= kEpsilonNormalSqrt)
 			return DGFixedPoint.Zero;
-
 		DGFixedPoint dot = DGMath.Clamp(Dot(fromAngle, toAngle) / denominator, DGFixedPoint.NegativeOne, DGFixedPoint.One);
 		return DGMath.Acos(dot) * DGMath.Rad2Deg;
 	}

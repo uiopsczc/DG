@@ -172,7 +172,7 @@ public partial struct DGMatrix4x4
 	{
 		get
 		{
-			DGMatrix4x4 toReturn = new DGMatrix4x4(false);
+			DGMatrix4x4 toReturn = DGMatrix4x4.default2;
 			toReturn.SM11 = (DGFixedPoint) 1;
 			toReturn.SM12 = (DGFixedPoint) 0;
 			toReturn.SM13 = (DGFixedPoint) 0;
@@ -503,7 +503,7 @@ public partial struct DGMatrix4x4
 	/// <returns>The interpolated matrix.</returns>
 	public static DGMatrix4x4 Lerp(DGMatrix4x4 matrix1, DGMatrix4x4 matrix2, DGFixedPoint amount)
 	{
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		// First row
 		result.SM11 = matrix1.SM11 + (matrix2.SM11 - matrix1.SM11) * amount;
@@ -557,7 +557,7 @@ public partial struct DGMatrix4x4
 
 		DGFixedPoint oc = (DGFixedPoint)1 - cos;
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 		result.SM11 = oc * xx + cos;
 		result.SM21 = oc * xy + axis.z * sin;
 		result.SM31 = oc * xz - axis.y * sin;
@@ -601,7 +601,7 @@ public partial struct DGMatrix4x4
 		DGFixedPoint YW = qY2 * quaternion.w;
 		DGFixedPoint ZW = qZ2 * quaternion.w;
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = (DGFixedPoint) 1 - YY - ZZ;
 		result.SM12 = XY - ZW;
@@ -656,7 +656,7 @@ public partial struct DGMatrix4x4
 		DGFixedPoint resultM43 = a.SM41 * b.SM13 + a.SM42 * b.SM23 + a.SM43 * b.SM33 + a.SM44 * b.SM43;
 		DGFixedPoint resultM44 = a.SM41 * b.SM14 + a.SM42 * b.SM24 + a.SM43 * b.SM34 + a.SM44 * b.SM44;
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
 		result.SM13 = resultM13;
@@ -688,7 +688,7 @@ public partial struct DGMatrix4x4
 	/// <param name="result">Scaled matrix.</param>
 	public static DGMatrix4x4 Multiply(DGMatrix4x4 matrix, DGFixedPoint scale)
 	{
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = matrix.SM11 * scale;
 		result.SM12 = matrix.SM12 * scale;
@@ -835,7 +835,7 @@ public partial struct DGMatrix4x4
 	/// <param name="transposed">Matrix to transpose.</param>
 	public static DGMatrix4x4 Transpose(DGMatrix4x4 m)
 	{
-		DGMatrix4x4 transposed = new DGMatrix4x4(false);
+		DGMatrix4x4 transposed = DGMatrix4x4.default2;
 		DGFixedPoint m01 = m.SM12;
 		DGFixedPoint m02 = m.SM13;
 		DGFixedPoint m03 = m.SM14;
@@ -873,7 +873,7 @@ public partial struct DGMatrix4x4
 	/// <param name="inverted">Inverted version of the matrix.</param>
 	public static DGMatrix4x4 Invert(DGMatrix4x4 m)
 	{
-		DGMatrix4x4 inverted = new DGMatrix4x4(false);
+		DGMatrix4x4 inverted = DGMatrix4x4.default2;
 		DGMatrix4x8.Invert(m, out inverted);
 		return inverted;
 	}
@@ -886,7 +886,7 @@ public partial struct DGMatrix4x4
 	/// <param name="inverted">Inverted version of the matrix.</param>
 	public static DGMatrix4x4 InvertRigid(DGMatrix4x4 m)
 	{
-		DGMatrix4x4 inverted = new DGMatrix4x4(false);
+		DGMatrix4x4 inverted = DGMatrix4x4.default2;
 		//Invert (transpose) the upper left 3x3 rotation.
 		DGFixedPoint intermediate = m.SM12;
 		inverted.SM12 = m.SM21;
@@ -923,7 +923,7 @@ public partial struct DGMatrix4x4
 
 	public static DGMatrix4x4 CreateRotationX(DGFixedPoint radians)
 	{
-		DGMatrix4x4 r = new DGMatrix4x4(false);
+		DGMatrix4x4 r = DGMatrix4x4.default2;
 		DGFixedPoint cos = DGMath.Cos(radians);
 		DGFixedPoint sin = DGMath.Sin(radians);
 		r.SM11 = (DGFixedPoint) 1;
@@ -947,7 +947,7 @@ public partial struct DGMatrix4x4
 
 	public static DGMatrix4x4 CreateRotationY(DGFixedPoint radians)
 	{
-		DGMatrix4x4 r = new DGMatrix4x4(false);
+		DGMatrix4x4 r = DGMatrix4x4.default2;
 		DGFixedPoint cos = DGMath.Cos(radians);
 		DGFixedPoint sin = DGMath.Sin(radians);
 		r.SM11 = cos;
@@ -971,7 +971,7 @@ public partial struct DGMatrix4x4
 
 	public static DGMatrix4x4 CreateRotationZ(DGFixedPoint radians)
 	{
-		DGMatrix4x4 r = new DGMatrix4x4(false);
+		DGMatrix4x4 r = DGMatrix4x4.default2;
 		DGFixedPoint cos = DGMath.Cos(radians);
 		DGFixedPoint sin = DGMath.Sin(radians);
 		r.SM11 = cos;
@@ -1004,7 +1004,7 @@ public partial struct DGMatrix4x4
 	// Axes must be pair-wise perpendicular and have unit length.
 	public static DGMatrix4x4 CreateFromCartesianAxes(DGVector3 right, DGVector3 up, DGVector3 backward)
 	{
-		DGMatrix4x4 r = new DGMatrix4x4(false);
+		DGMatrix4x4 r = DGMatrix4x4.default2;
 		r.SM11 = right.x;
 		r.SM12 = right.y;
 		r.SM13 = right.z;
@@ -1054,7 +1054,7 @@ public partial struct DGMatrix4x4
 	/// <param name="projection">The resulting orthographic projection matrix.</param>
 	public static DGMatrix4x4 CreateOrthographicOffCenter(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top, DGFixedPoint zNear, DGFixedPoint zFar)
 	{
-		DGMatrix4x4 projection = new DGMatrix4x4(false);
+		DGMatrix4x4 projection = DGMatrix4x4.default2;
 		var xOrth = (DGFixedPoint) 2 / (right - left);
 		var yOrth = (DGFixedPoint) 2 / (top - bottom);
 		var zOrth = (DGFixedPoint) (-2) / (zFar - zNear);
@@ -1109,7 +1109,7 @@ public partial struct DGMatrix4x4
 	/// <param name="perspective">Resulting perspective matrix.</param>
 	public static DGMatrix4x4 CreatePerspectiveFieldOfView(DGFixedPoint fieldOfView, DGFixedPoint aspectRatio, DGFixedPoint nearClip, DGFixedPoint farClip)
 	{
-		DGMatrix4x4 perspective = new DGMatrix4x4(false);
+		DGMatrix4x4 perspective = DGMatrix4x4.default2;
 		perspective.SetIdentity();
 		var fd = (DGFixedPoint) 1.0 / DGMath.Tan(fieldOfView / (DGFixedPoint) 2.0);
 		var a1 = (farClip + nearClip) / (nearClip - farClip);
@@ -1155,7 +1155,7 @@ public partial struct DGMatrix4x4
 		if (nearPlaneDistance >= (DGFixedPoint) farPlaneDistance)
 			throw new ArgumentOutOfRangeException("nearPlaneDistance");
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		var x = (DGFixedPoint) 2.0f * nearPlaneDistance / (right - left);
 		var y = (DGFixedPoint) 2.0f * nearPlaneDistance / (top - bottom);
@@ -1199,7 +1199,7 @@ public partial struct DGMatrix4x4
 		DGFixedPoint fb = (DGFixedPoint) (-2.0f) * b;
 		DGFixedPoint fc = (DGFixedPoint) (-2.0f) * c;
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = fa * a + (DGFixedPoint) 1.0f;
 		result.SM12 = fb * a;
@@ -1240,7 +1240,7 @@ public partial struct DGMatrix4x4
 		DGFixedPoint c = -p.normal.z;
 		DGFixedPoint d = -p.d;
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = a * lightDirection.x + dot;
 		result.SM21 = b * lightDirection.x;
@@ -1298,7 +1298,7 @@ public partial struct DGMatrix4x4
 		DGVector3 x = DGVector3.Cross(upVector, z);
 		x.Normalize();
 		DGVector3 y = DGVector3.Cross(z, x);
-		DGMatrix4x4 viewMatrix = new DGMatrix4x4(false);
+		DGMatrix4x4 viewMatrix = DGMatrix4x4.default2;
 		viewMatrix.SM11 = x.x;
 		viewMatrix.SM12 = y.x;
 		viewMatrix.SM13 = z.x;
@@ -1331,7 +1331,7 @@ public partial struct DGMatrix4x4
 	/// <param name="worldMatrix">World matrix.</param>
 	public static DGMatrix4x4 CreateWorld(DGVector3 position, DGVector3 forward, DGVector3 upVector)
 	{
-		DGMatrix4x4 worldMatrix = new DGMatrix4x4(false);
+		DGMatrix4x4 worldMatrix = DGMatrix4x4.default2;
 
 		DGFixedPoint length = forward.magnitude;
 		DGVector3 z = forward / -length;
@@ -1368,7 +1368,7 @@ public partial struct DGMatrix4x4
 	/// <param name="translationMatrix">Matrix representing the given translation.</param>
 	public static DGMatrix4x4 CreateTranslation(DGVector3 translation)
 	{
-		DGMatrix4x4 translationMatrix = new DGMatrix4x4(false);
+		DGMatrix4x4 translationMatrix = DGMatrix4x4.default2;
 		translationMatrix.SM11 = (DGFixedPoint) 1;
 		translationMatrix.SM22 = (DGFixedPoint) 1;
 		translationMatrix.SM33 = (DGFixedPoint) 1;
@@ -1388,7 +1388,7 @@ public partial struct DGMatrix4x4
 	/// <param name="scaleMatrix">Matrix representing the given scale.</param>
 	public static DGMatrix4x4 CreateScale(DGVector3 scale)
 	{
-		DGMatrix4x4 scaleMatrix = new DGMatrix4x4(false);
+		DGMatrix4x4 scaleMatrix = DGMatrix4x4.default2;
 		scaleMatrix.SM11 = scale.x;
 		scaleMatrix.SM22 = scale.y;
 		scaleMatrix.SM33 = scale.z;
@@ -1405,7 +1405,7 @@ public partial struct DGMatrix4x4
 	/// <param name="scaleMatrix">Matrix representing the given scale.</param>
 	public static DGMatrix4x4 CreateScale(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
-		DGMatrix4x4 scaleMatrix = new DGMatrix4x4(false);
+		DGMatrix4x4 scaleMatrix = DGMatrix4x4.default2;
 		scaleMatrix.SM11 = x;
 		scaleMatrix.SM22 = y;
 		scaleMatrix.SM33 = z;
@@ -1420,7 +1420,7 @@ public partial struct DGMatrix4x4
 
 	public static DGMatrix4x4 Translate(DGVector3 vector)
 	{
-		DGMatrix4x4 m = new DGMatrix4x4(false);
+		DGMatrix4x4 m = DGMatrix4x4.default2;
 		m.SM11 = (DGFixedPoint) 1F;
 		m.SM12 = (DGFixedPoint) 0F;
 		m.SM13 = (DGFixedPoint) 0F;
@@ -1459,7 +1459,7 @@ public partial struct DGMatrix4x4
 		DGFixedPoint wz = q.w * z;
 
 		// Calculate 3x3 matrix from orthonormal basis
-		DGMatrix4x4 m = new DGMatrix4x4(false);
+		DGMatrix4x4 m = DGMatrix4x4.default2;
 		m.SM11 = (DGFixedPoint) 1.0f - (yy + zz);
 		m.SM21 = xy + wz;
 		m.SM31 = xz - wy;
@@ -1509,7 +1509,7 @@ public partial struct DGMatrix4x4
 
 		DGVector3 yaxis = DGVector3.Cross(zaxis, xaxis);
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = xaxis.x;
 		result.SM12 = xaxis.y;
@@ -1587,7 +1587,7 @@ public partial struct DGMatrix4x4
 			zaxis = DGVector3.Normalize(DGVector3.Cross(xaxis, yaxis));
 		}
 
-		DGMatrix4x4 result = new DGMatrix4x4(false);
+		DGMatrix4x4 result = DGMatrix4x4.default2;
 
 		result.SM11 = xaxis.x;
 		result.SM12 = xaxis.y;

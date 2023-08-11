@@ -373,7 +373,7 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	public static DGFixedPoint Angle(DGVector2 fromAngle, DGVector2 toAngle)
 	{
 		// sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers
-		DGFixedPoint denominator = DGMath.Sqrt(fromAngle.sqrMagnitude * toAngle.sqrMagnitude);
+		DGFixedPoint denominator = fromAngle.magnitude * toAngle.magnitude;
 		if (denominator < kEpsilonNormalSqrt)
 			return DGFixedPoint.Zero;
 		DGFixedPoint dot = DGMath.Clamp(Dot(fromAngle, toAngle) / denominator, DGFixedPoint.NegativeOne, DGFixedPoint.One);

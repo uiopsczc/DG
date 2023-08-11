@@ -25,6 +25,19 @@ public partial struct DGQuaternion
 	public DGFixedPoint z;
 	public DGFixedPoint w;
 
+	public static DGQuaternion default2
+	{
+		get
+		{
+			DGQuaternion result = default;
+			result.x = (DGFixedPoint)0;
+			result.y = (DGFixedPoint)0;
+			result.z = (DGFixedPoint)0;
+			result.w = (DGFixedPoint)1;
+			return result;
+		}
+	}
+
 	/** Constructor, sets the four components of the quaternion.
 	 * @param x The x-component
 	 * @param y The y-component
@@ -36,14 +49,6 @@ public partial struct DGQuaternion
 		this.y = y;
 		this.z = z;
 		this.w = w;
-	}
-
-	public DGQuaternion(bool isNotLibgdx = false)
-	{
-		this.x = (DGFixedPoint) 0;
-		this.y = (DGFixedPoint) 0;
-		this.z = (DGFixedPoint) 0;
-		this.w = (DGFixedPoint) 1;
 	}
 
 	/** Constructor, sets the quaternion components from the given quaternion.
@@ -294,9 +299,9 @@ public partial struct DGQuaternion
 	 * @param v Vector to transform */
 	public DGVector3 transform(DGVector3 v)
 	{
-		tmp2.set(this);
-		tmp2.conjugate();
-		tmp2.mulLeft(tmp1.set(v.x, v.y, v.z, (DGFixedPoint) 0)).mulLeft(this);
+		tmp2 = tmp2.set(this);
+		tmp2 = tmp2.conjugate();
+		tmp2 = tmp2.mulLeft(tmp1.set(v.x, v.y, v.z, (DGFixedPoint) 0)).mulLeft(this);
 
 		v.x = tmp2.x;
 		v.y = tmp2.y;

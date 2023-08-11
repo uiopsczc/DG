@@ -28,15 +28,19 @@ public partial struct DGAffine2
 
 	// constant: m21 = 0, m21 = 1, m22 = 1
 
-	/** Constructs an identity matrix. */
-	public DGAffine2(bool isNotLibgdx = false)
+	public static DGAffine2 default2
 	{
-		m00 = (DGFixedPoint) 1;
-		m01 = (DGFixedPoint) 0;
-		m02 = (DGFixedPoint) 0;
-		m10 = (DGFixedPoint) 0;
-		m11 = (DGFixedPoint) 1;
-		m12 = (DGFixedPoint) 0;
+		get
+		{
+			DGAffine2 result = default;
+			result.m00 = (DGFixedPoint)1;
+			result.m01 = (DGFixedPoint)0;
+			result.m02 = (DGFixedPoint)0;
+			result.m10 = (DGFixedPoint)0;
+			result.m11 = (DGFixedPoint)1;
+			result.m12 = (DGFixedPoint)0;
+			return result;
+		}
 	}
 
 	public DGAffine2(DGFixedPoint m00, DGFixedPoint m01, DGFixedPoint m02, DGFixedPoint m10, DGFixedPoint m11, DGFixedPoint m12)

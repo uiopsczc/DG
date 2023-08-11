@@ -300,7 +300,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = a.SM11 + b.SM11;
 		DGFixedPoint m12 = a.SM12 + b.SM12;
 		DGFixedPoint m13 = a.SM13 + b.SM13;
@@ -336,7 +336,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix4x4 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = a.SM11 + b.SM11;
 		DGFixedPoint m12 = a.SM12 + b.SM12;
 		DGFixedPoint m13 = a.SM13 + b.SM13;
@@ -372,7 +372,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, DGMatrix4x4 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = a.SM11 + b.SM11;
 		DGFixedPoint m12 = a.SM12 + b.SM12;
 		DGFixedPoint m13 = a.SM13 + b.SM13;
@@ -408,7 +408,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Sum of the two matrices.</param>
 	public static DGMatrix3x3 Add(DGMatrix4x4 a, DGMatrix4x4 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = a.SM11 + b.SM11;
 		DGFixedPoint m12 = a.SM12 + b.SM12;
 		DGFixedPoint m13 = a.SM13 + b.SM13;
@@ -443,7 +443,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Skew-symmetric matrix result.</param>
 	public static DGMatrix3x3 CreateCrossProduct(DGVector3 v)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = (DGFixedPoint) 0;
 		result.SM12 = -v.z;
 		result.SM13 = v.y;
@@ -464,7 +464,7 @@ public partial struct DGMatrix3x3
 	/// <param name="matrix3X3">Upper 3x3 matrix extracted from the XNA matrix.</param>
 	public static DGMatrix3x3 CreateFromMatrix(DGMatrix4x4 matrix4x4)
 	{
-		DGMatrix3x3 matrix3X3 = new DGMatrix3x3(false);
+		DGMatrix3x3 matrix3X3 = DGMatrix3x3.default2;
 		matrix3X3.SM11 = matrix4x4.SM11;
 		matrix3X3.SM12 = matrix4x4.SM12;
 		matrix3X3.SM13 = matrix4x4.SM13;
@@ -535,7 +535,7 @@ public partial struct DGMatrix3x3
 	/// <returns>Inverted matrix.</returns>
 	public static DGMatrix3x3 Invert(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 toReturn = new DGMatrix3x3(false);
+		DGMatrix3x3 toReturn = DGMatrix3x3.default2;
 		Invert(matrix, out toReturn);
 		return toReturn;
 	}
@@ -547,7 +547,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Inverted matrix.</param>
 	public static DGMatrix3x3 AdaptiveInvert(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		// Perform full Gauss-invert and return if successful
 		if (Invert(matrix, out result))
 			return result;
@@ -686,7 +686,7 @@ public partial struct DGMatrix3x3
 		//1) transpose(invert(M)) == invert(transpose(M)), and
 		//2) det(M) == det(transpose(M))
 		//This organization makes it clearer that the invert's usual division by determinant drops out.
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = (matrix.SM22 * matrix.SM33 - matrix.SM23 * matrix.SM32);
 		DGFixedPoint m12 = (matrix.SM13 * matrix.SM32 - matrix.SM33 * matrix.SM12);
 		DGFixedPoint m13 = (matrix.SM12 * matrix.SM23 - matrix.SM22 * matrix.SM13);
@@ -736,7 +736,7 @@ public partial struct DGMatrix3x3
 		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
 
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
 		result.SM13 = resultM13;
@@ -772,7 +772,7 @@ public partial struct DGMatrix3x3
 		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
 		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
 
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
 		result.SM13 = resultM13;
@@ -796,7 +796,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 Multiply(DGMatrix4x4 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
 		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
 		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
@@ -833,7 +833,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 MultiplyTransposed(DGMatrix3x3 transpose, DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint resultM11 = transpose.SM11 * matrix.SM11 + transpose.SM21 * matrix.SM21 + transpose.SM31 * matrix.SM31;
 		DGFixedPoint resultM12 = transpose.SM11 * matrix.SM12 + transpose.SM21 * matrix.SM22 + transpose.SM31 * matrix.SM32;
 		DGFixedPoint resultM13 = transpose.SM11 * matrix.SM13 + transpose.SM21 * matrix.SM23 + transpose.SM31 * matrix.SM33;
@@ -869,7 +869,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 MultiplyByTransposed(DGMatrix3x3 matrix, DGMatrix3x3 transpose)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint resultM11 = matrix.SM11 * transpose.SM11 + matrix.SM12 * transpose.SM12 + matrix.SM13 * transpose.SM13;
 		DGFixedPoint resultM12 = matrix.SM11 * transpose.SM21 + matrix.SM12 * transpose.SM22 + matrix.SM13 * transpose.SM23;
 		DGFixedPoint resultM13 = matrix.SM11 * transpose.SM31 + matrix.SM12 * transpose.SM32 + matrix.SM13 * transpose.SM33;
@@ -905,7 +905,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Scaled matrix.</param>
 	public static DGMatrix3x3 Multiply(DGMatrix3x3 matrix, DGFixedPoint scale)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = matrix.SM11 * scale;
 		result.SM12 = matrix.SM12 * scale;
 		result.SM13 = matrix.SM13 * scale;
@@ -927,7 +927,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Negated matrix.</param>
 	public static DGMatrix3x3 Negate(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = -matrix.SM11;
 		result.SM12 = -matrix.SM12;
 		result.SM13 = -matrix.SM13;
@@ -951,7 +951,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Difference of the two matrices.</param>
 	public static DGMatrix3x3 Subtract(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m11 = a.SM11 - b.SM11;
 		DGFixedPoint m12 = a.SM12 - b.SM12;
 		DGFixedPoint m13 = a.SM13 - b.SM13;
@@ -986,7 +986,7 @@ public partial struct DGMatrix3x3
 	/// <param name="b">Created 4x4 matrix.</param>
 	public static DGMatrix4x4 ToMatrix4X4(DGMatrix3x3 a)
 	{
-		DGMatrix4x4 b = new DGMatrix4x4(false);
+		DGMatrix4x4 b = DGMatrix4x4.default2;
 		b.SM11 = a.SM11;
 		b.SM12 = a.SM12;
 		b.SM13 = a.SM13;
@@ -1056,7 +1056,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Transposed matrix.</param>
 	public static DGMatrix3x3 Transpose(DGMatrix3x3 matrix)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint m21 = matrix.SM12;
 		DGFixedPoint m31 = matrix.SM13;
 		DGFixedPoint m12 = matrix.SM21;
@@ -1084,7 +1084,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Matrix representing the quaternion's orientation.</param>
 	public static DGMatrix3x3 CreateFromQuaternion(DGQuaternion quaternion)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint qX2 = quaternion.x + quaternion.x;
 		DGFixedPoint qY2 = quaternion.y + quaternion.y;
 		DGFixedPoint qZ2 = quaternion.z + quaternion.z;
@@ -1122,7 +1122,7 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Outer product result.</param>
 	public static DGMatrix3x3 CreateOuterProduct(DGVector3 a, DGVector3 b)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		result.SM11 = a.x * b.x;
 		result.SM12 = a.x * b.y;
 		result.SM13 = a.x * b.z;
@@ -1157,7 +1157,7 @@ public partial struct DGMatrix3x3
 	/// <returns></returns>
 	public static DGMatrix3x3 CreateFromAxisAngleRad(DGVector3 axis, DGFixedPoint radians)
 	{
-		DGMatrix3x3 result = new DGMatrix3x3(false);
+		DGMatrix3x3 result = DGMatrix3x3.default2;
 		DGFixedPoint xx = axis.x * axis.x;
 		DGFixedPoint yy = axis.y * axis.y;
 		DGFixedPoint zz = axis.z * axis.z;

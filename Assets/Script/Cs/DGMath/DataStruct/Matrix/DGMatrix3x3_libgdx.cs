@@ -28,21 +28,25 @@ public partial struct DGMatrix3x3
 	private const int Count = 9;
 	public DGFixedPoint[] val;
 
+	public static DGMatrix3x3 default2
+	{
+		get
+		{
+			DGMatrix3x3 result = default;
+			result.val = new DGFixedPoint[Count];
+			result.val[M00] = (DGFixedPoint)1f;
+			result.val[M11] = (DGFixedPoint)1f;
+			result.val[M22] = (DGFixedPoint)1f;
+			return result;
+		}
+	}
+
 
 	private DGFixedPoint[] _NewTmp()
 	{
 		var result = new DGFixedPoint[Count];
 		result[M22] = (DGFixedPoint) 1;
 		return result;
-	}
-
-
-	public DGMatrix3x3(bool isNotLibgdx)
-	{
-		val = new DGFixedPoint[Count];
-		val[M00] = (DGFixedPoint) 1f;
-		val[M11] = (DGFixedPoint) 1f;
-		val[M22] = (DGFixedPoint) 1f;
 	}
 
 

@@ -517,7 +517,7 @@ public partial struct DGQuaternion
 
 
 		DGFixedPoint num8 = (m00 + m11) + m22;
-		var quaternion = new DGQuaternion(false);
+		var quaternion = DGQuaternion.default2;
 		if (num8 > (DGFixedPoint) 0f)
 		{
 			var num = DGMath.Sqrt(num8 + (DGFixedPoint) 1f);
@@ -579,15 +579,15 @@ public partial struct DGQuaternion
 		return new DGQuaternion(x, y, z, w);
 	}
 
-	
+
 
 	/// <summary>
-	/// Computes the axis angle representation of a normalized quaternion.
+	/// Computes the axis radian representation of a normalized quaternion.
 	/// </summary>
 	/// <param name="q">Quaternion to be converted.</param>
 	/// <param name="axis">Axis represented by the quaternion.GetAxisAngleFromQu</param>
-	/// <param name="angle">Angle around the axis represented by the quaternion.</param>
-	public static DGFixedPoint GetAxisAngleFromQuaternion(DGQuaternion q, DGVector3 axis)
+	/// <param name="radian">Angle around the axis represented by the quaternion.</param>
+	public static DGFixedPoint GetAxisAngleRadFromQuaternion(DGQuaternion q, out DGVector3 axis)
 	{
 		DGFixedPoint qw = q.w;
 		if (qw > DGFixedPoint.Zero)
@@ -605,19 +605,25 @@ public partial struct DGQuaternion
 		}
 
 		DGFixedPoint lengthSquared = axis.sqrMagnitude;
-		DGFixedPoint angle;
+		DGFixedPoint radian;
 		if (lengthSquared > (DGFixedPoint) 1e-14m)
 		{
 			axis = axis / DGMath.Sqrt(lengthSquared);
-			angle = (DGFixedPoint) 2 * DGMath.Acos(DGMath.Clamp(qw, (DGFixedPoint) (-1), DGFixedPoint.One));
+			radian = (DGFixedPoint) 2 * DGMath.Acos(DGMath.Clamp(qw, (DGFixedPoint) (-1), DGFixedPoint.One));
 		}
 		else
 		{
 			axis = DGVector3.up;
-			angle = DGFixedPoint.Zero;
+			radian = DGFixedPoint.Zero;
 		}
 
-		return angle;
+		return radian;
+	}
+
+	public static DGFixedPoint GetAxisAngleFromQuaternion(DGQuaternion q, out DGVector3 axis)
+	{
+		var radian = GetAxisAngleRadFromQuaternion(q, out axis);
+		return radian * DGMath.Rad2Deg;
 	}
 
 	/// <summary>
@@ -763,17 +769,33 @@ public partial struct DGQuaternion
 
 	public static DGQuaternion Concatenate(DGQuaternion q1, DGQuaternion q2)
 	{
-		var a = (q1.z * q2.y) - (q1.y * q2.z);
-		var b = (q1.x * q2.z) - (q1.z * q2.x);
-		var c = (q1.y * q2.x) - (q1.x * q2.y);
-		var d = (q1.x * q2.x) - (q1.y * q2.y);
+		DGQuaternion ans = default;
 
-		var x = (q1.w * q2.x) + (q1.x * q2.w) + a;
-		var y = (q1.w * q2.y) + (q1.y * q2.w) + b;
-		var z = (q1.w * q2.z) + (q1.z * q2.w) + c;
-		var w = (q1.w * q2.w) - (q1.z * q2.z) - d;
+		// Concatenate rotation is actually q2 * q1 instead of q1 * q2.
+		// So that's why value2 goes q1 and value1 goes q2.
+		var q1x = q2.x;
+		var q1y = q2.y;
+		var q1z = q2.z;
+		var q1w = q2.w;
 
-		return new DGQuaternion(x, y, z, w);
+		var q2x = q1.x;
+		var q2y = q1.y;
+		var q2z = q1.z;
+		var q2w = q1.w;
+
+		// cross(av, bv)
+		var cx = q1y * q2z - q1z * q2y;
+		var cy = q1z * q2x - q1x * q2z;
+		var cz = q1x * q2y - q1y * q2x;
+
+		var dot = q1x * q2x + q1y * q2y + q1z * q2z;
+
+		ans.x = q1x * q2w + q2x * q1w + cx;
+		ans.y = q1y * q2w + q2y * q1w + cy;
+		ans.z = q1z * q2w + q2z * q1w + cz;
+		ans.w = q1w * q2w - dot;
+
+		return ans;
 	}
 
 	public static DGQuaternion Euler(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
