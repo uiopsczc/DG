@@ -20,18 +20,38 @@ public class DGTmpTest : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		var a1 = Quaternion.Euler(45.8f, 2.35f, 39.45f).To_System_Numerics_Quaternion();
-		var a2 = new Vector3(25.6f, 87.69f, 45.71f).To_System_Numerics_Vector3();
-		var a3 = new Vector3(4, 588, 23).To_System_Numerics_Vector3();
-		var a4 = this.transform.localToWorldMatrix.To_System_Numerics_Matrix4x4();
+		var a1 = tf1.localToWorldMatrix;
+		var a2 = tf2.localToWorldMatrix;
+		var a3 = new Vector3(12.4f, 21.5f, 153.9f);
+		var a4 = new Vector3(52.9f, 147.6f, 78.6f);
+		var a5 = new Vector3(15.8f, 45.9f, 68.3f);
+		var a6 = Quaternion.Euler(32.3f, 59.8f, 63.7f);
+		var a7 = new Vector4(25.9f, 45.7f, 98.6f,69.6f);
+		var a8 = new Vector3(25.9f, 45.7f, 98.6f);
 
-		var b1 = new DGQuaternion(a1);
-		var b2 = new DGVector3(a2);
-		var b3 = new DGVector3(a3);
-		var b4 = new DGMatrix4x4(a4);
 
-			
+		var b1 = a1.To_System_Numerics_Matrix4x4();
+		var b2 = a2.To_System_Numerics_Matrix4x4();
+		var b3 = a3.To_System_Numerics_Vector3();
+		var b4 = a4.To_System_Numerics_Vector3();
+		var b5 = a5.To_System_Numerics_Vector3();
+		var b6 = a6.To_System_Numerics_Quaternion();
+		var b7 = a7.To_System_Numerics_Vector4();
+		var b8 = a8.To_System_Numerics_Vector3();
 
+		var c1 = new DGMatrix4x4(a1);
+		var c2 = new DGMatrix4x4(a2);
+		var c3 = new DGVector3(a3);
+		var c4 = new DGVector3(a4);
+		var c5 = new DGVector3(a5);
+		var c6 = new DGQuaternion(a6);
+		var c7 = new DGVector4(a7);
+		var c8 = new DGVector3(a8);
+
+		//		Matrix4x4.Perspective()
+		Debug.LogWarning(Matrix4x4.Translate(a5).ToString2());
+		//		Debug.LogWarning(System.Numerics.Matrix4x4.CreateWorld(b3,b4,b5).ToString2());
+		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
 	}
 	
 }

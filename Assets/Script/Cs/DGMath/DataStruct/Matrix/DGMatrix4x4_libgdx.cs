@@ -1245,11 +1245,9 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix4x4 setToLookAt(DGVector3 direction, DGVector3 up)
 	{
-		//UnityEngine.Debug.LogWarning($"direction:{direction.x}  {direction.y}  {direction.z}");
-		l_vez = l_vez.set(direction).nor().scl((DGFixedPoint)(-1));
-		l_vex = l_vex.set(l_vez).crs(up).nor();
-		l_vey = l_vey.set(l_vex).crs(l_vez).nor();
-		l_vez = l_vez.scl((DGFixedPoint) (-1));
+		l_vez = l_vez.set(direction).nor();
+		l_vex = -l_vex.set(l_vez).crs(up).nor();
+		l_vey = -l_vey.set(l_vex).crs(l_vez).nor();
 		idt();
 		val[M00] = l_vex.x;
 		val[M10] = l_vex.y;
@@ -1279,14 +1277,14 @@ public partial struct DGMatrix4x4
 	public DGMatrix4x4 setToWorld(DGVector3 position, DGVector3 forward, DGVector3 up)
 	{
 //		UnityEngine.Debug.LogWarning($"forword:{forward.x}  {forward.y}  {forward.z} position:{position.x} {position.y} {position.z}");
-		tmpForward = tmpForward.set(forward).nor().scl((DGFixedPoint)(-1f));
+		tmpForward = tmpForward.set(forward).nor();
 //		UnityEngine.Debug.LogWarning(tmpForward);
-		right = right.set(tmpForward).crs(up).nor();
+		right = -right.set(tmpForward).crs(up).nor();
 //		UnityEngine.Debug.LogWarning(right);
-		tmpUp = tmpUp.set(right).crs(tmpForward).nor();
+		tmpUp = -tmpUp.set(right).crs(tmpForward).nor();
 		//		UnityEngine.Debug.LogWarning($"right:{right.x}  {right.y}  {right.z} tmpUp:{tmpUp.x}  {tmpUp.y}  {tmpUp.z} tmpForward:{tmpForward.x}  {tmpForward.y}  {tmpForward.z}");
 		//		set(right, tmpUp, tmpForward.scl(-(DGFixedPoint) 1), position);
-		set(right, tmpUp, tmpForward.scl((DGFixedPoint)(-1f)), position);
+		set(right, tmpUp, tmpForward, position);
 		return this;
 	}
 
@@ -2230,11 +2228,9 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for chaining */
 	public DGMatrix4x4 rotateTowardDirection(DGVector3 direction, DGVector3 up)
 	{
-		l_vez = l_vez.set(direction).nor().scl((DGFixedPoint)(-1));
-		l_vex = l_vex.set(l_vez).crs(up).nor();
-		l_vey = l_vey.set(l_vex).crs(l_vez).nor();
-		l_vez = l_vez.scl((DGFixedPoint)(-1));
 		l_vez = l_vez.set(direction).nor();
+		l_vex = -l_vex.set(l_vez).crs(up).nor();
+		l_vey = -l_vey.set(l_vex).crs(l_vez).nor();
 
 		DGFixedPoint m00 = val[M00] * l_vex.x + val[M01] * l_vex.y + val[M02] * l_vex.z;
 		DGFixedPoint m01 = val[M00] * l_vey.x + val[M01] * l_vey.y + val[M02] * l_vey.z;

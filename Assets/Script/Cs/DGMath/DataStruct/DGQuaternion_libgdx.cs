@@ -30,9 +30,6 @@ public partial struct DGQuaternion
 		get
 		{
 			DGQuaternion result = default;
-			result.x = (DGFixedPoint)0;
-			result.y = (DGFixedPoint)0;
-			result.z = (DGFixedPoint)0;
 			result.w = (DGFixedPoint)1;
 			return result;
 		}

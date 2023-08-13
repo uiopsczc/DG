@@ -11,6 +11,7 @@
 
 using System;
 
+// Matrix2x3
 /** A specialized 3x3 matrix that can represent sequences of 2D translations, scales, flips, rotations, and shears.
  * <a href="http://en.wikipedia.org/wiki/Affine_transformation">Affine transformations</a> preserve straight lines, and parallel
  * lines remain parallel after the transformation. Operations on affine matrices are faster because the last row can always be
@@ -34,11 +35,7 @@ public partial struct DGAffine2
 		{
 			DGAffine2 result = default;
 			result.m00 = (DGFixedPoint)1;
-			result.m01 = (DGFixedPoint)0;
-			result.m02 = (DGFixedPoint)0;
-			result.m10 = (DGFixedPoint)0;
 			result.m11 = (DGFixedPoint)1;
-			result.m12 = (DGFixedPoint)0;
 			return result;
 		}
 	}
