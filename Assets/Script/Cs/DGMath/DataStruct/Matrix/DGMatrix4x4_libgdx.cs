@@ -362,6 +362,7 @@ public partial struct DGMatrix4x4
 		return this;
 	}
 
+	
 	/** Sets the four columns of the matrix which correspond to the x-, y- and z-axis of the vector space this matrix creates as
 	 * well as the 4th column representing the translation of any point that is multiplied by this matrix.
 	 * @param xAxis The x-axis.
@@ -877,6 +878,7 @@ public partial struct DGMatrix4x4
 		       - val[M00] * val[M12] * val[M21] - val[M01] * val[M10] * val[M22] - val[M02] * val[M11] * val[M20];
 	}
 
+	//http://gsteph.blogspot.com/2012/05/world-view-and-projection-matrix.html
 	/** Sets the matrix to a projection matrix with a near- and far plane, a field of view in degrees and an aspect ratio. Note
 	 * that the field of view specified is the angle in degrees for the height, the field of view for the width will be calculated
 	 * according to the aspect ratio.
@@ -1274,6 +1276,7 @@ public partial struct DGMatrix4x4
 		return this;
 	}
 
+	//http://gsteph.blogspot.com/2012/05/world-view-and-projection-matrix.html
 	public DGMatrix4x4 setToWorld(DGVector3 position, DGVector3 forward, DGVector3 up)
 	{
 //		UnityEngine.Debug.LogWarning($"forword:{forward.x}  {forward.y}  {forward.z} position:{position.x} {position.y} {position.z}");
