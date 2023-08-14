@@ -19,82 +19,82 @@ public partial struct DGMatrix3x3
 	/// <summary>
 	/// Value at row 1, column 1 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM11
+	public DGFixedPoint sm11
 	{
-		get => val[M00];
-		set => val[M00] = value;
+		get => this.m00;
+		set => this.m00 = value;
 	}
 
 	/// <summary>
 	/// Value at row 1, column 2 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM12
+	public DGFixedPoint sm12
 	{
-		get => val[M01];
-		set => val[M01] = value;
+		get => this.m01;
+		set => this.m01 = value;
 	}
 
 	/// <summary>
 	/// Value at row 1, column 3 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM13
+	public DGFixedPoint sm13
 	{
-		get => val[M02];
-		set => val[M02] = value;
+		get => this.m02;
+		set => this.m02 = value;
 	}
 
 	/// <summary>
 	/// Value at row 2, column 1 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM21
+	public DGFixedPoint sm21
 	{
-		get => val[M10];
-		set => val[M10] = value;
+		get => this.m10;
+		set => this.m10 = value;
 	}
 
 	/// <summary>
 	/// Value at row 2, column 2 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM22
+	public DGFixedPoint sm22
 	{
-		get => val[M11];
-		set => val[M11] = value;
+		get => this.m11;
+		set => this.m11 = value;
 	}
 
 	/// <summary>
 	/// Value at row 2, column 3 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM23
+	public DGFixedPoint sm23
 	{
-		get => val[M12];
-		set => val[M12] = value;
+		get => this.m12;
+		set => this.m12 = value;
 	}
 
 	/// <summary>
 	/// Value at row 3, column 1 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM31
+	public DGFixedPoint sm31
 	{
-		get => val[M20];
-		set => val[M20] = value;
+		get => this.m20;
+		set => this.m20 = value;
 	}
 
 	/// <summary>
 	/// Value at row 3, column 2 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM32
+	public DGFixedPoint sm32
 	{
-		get => val[M21];
-		set => val[M21] = value;
+		get => this.m21;
+		set => this.m21 = value;
 	}
 
 	/// <summary>
 	/// Value at row 3, column 3 of the matrix.
 	/// </summary>
-	public DGFixedPoint SM33
+	public DGFixedPoint sm33
 	{
-		get => val[M22];
-		set => val[M22] = value;
+		get => this.m22;
+		set => this.m22 = value;
 	}
 
 	/// <summary>
@@ -111,16 +111,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = -SM13;
-			var y = -SM23;
-			var z = -SM33;
+			var x = -sm13;
+			var y = -sm23;
+			var z = -sm33;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM13 = -value.x;
-			SM23 = -value.y;
-			SM33 = -value.z;
+			sm13 = -value.x;
+			sm23 = -value.y;
+			sm33 = -value.z;
 		}
 	}
 
@@ -131,16 +131,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = -SM12;
-			var y = -SM22;
-			var z = -SM32;
+			var x = -sm12;
+			var y = -sm22;
+			var z = -sm32;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM12 = -value.x;
-			SM22 = -value.y;
-			SM32 = -value.z;
+			sm12 = -value.x;
+			sm22 = -value.y;
+			sm32 = -value.z;
 		}
 	}
 
@@ -151,16 +151,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = SM13;
-			var y = SM23;
-			var z = SM33;
+			var x = sm13;
+			var y = sm23;
+			var z = sm33;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM13 = value.x;
-			SM23 = value.y;
-			SM33 = value.z;
+			sm13 = value.x;
+			sm23 = value.y;
+			sm33 = value.z;
 		}
 	}
 
@@ -171,16 +171,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = -SM11;
-			var y = -SM21;
-			var z = -SM31;
+			var x = -sm11;
+			var y = -sm21;
+			var z = -sm31;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM11 = -value.x;
-			SM21 = -value.y;
-			SM31 = -value.z;
+			sm11 = -value.x;
+			sm21 = -value.y;
+			sm31 = -value.z;
 		}
 	}
 
@@ -191,16 +191,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = SM11;
-			var y = SM21;
-			var z = SM31;
+			var x = sm11;
+			var y = sm21;
+			var z = sm31;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM11 = value.x;
-			SM21 = value.y;
-			SM31 = value.z;
+			sm11 = value.x;
+			sm21 = value.y;
+			sm31 = value.z;
 		}
 	}
 
@@ -211,16 +211,16 @@ public partial struct DGMatrix3x3
 	{
 		get
 		{
-			var x = SM12;
-			var y = SM22;
-			var z = SM32;
+			var x = sm12;
+			var y = sm22;
+			var z = sm32;
 			return new DGVector3(x, y, z);
 		}
 		set
 		{
-			SM12 = value.x;
-			SM22 = value.y;
-			SM32 = value.z;
+			sm12 = value.x;
+			sm22 = value.y;
+			sm32 = value.z;
 		}
 	}
 
@@ -238,16 +238,15 @@ public partial struct DGMatrix3x3
 	/// <param name="sm33">Value at row 3, column 3 of the matrix.</param>
 	public DGMatrix3x3(DGFixedPoint sm11, DGFixedPoint sm12, DGFixedPoint sm13, DGFixedPoint sm21, DGFixedPoint sm22, DGFixedPoint sm23, DGFixedPoint sm31, DGFixedPoint sm32, DGFixedPoint sm33)
 	{
-		val = new DGFixedPoint[Count];
-		SM11 = sm11;
-		SM12 = sm12;
-		SM13 = sm13;
-		SM21 = sm21;
-		SM22 = sm22;
-		SM23 = sm23;
-		SM31 = sm31;
-		SM32 = sm32;
-		SM33 = sm33;
+		this.m00 = sm11;
+		this.m01 = sm12;
+		this.m02 = sm13;
+		this.m10 = sm21;
+		this.m11 = sm22;
+		this.m12 = sm23;
+		this.m20 = sm31;
+		this.m21 = sm32;
+		this.m22 = sm33;
 	}
 
 	/*************************************************************************************
@@ -301,29 +300,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
-		DGFixedPoint m13 = a.SM13 + b.SM13;
+		DGFixedPoint m11 = a.sm11 + b.sm11;
+		DGFixedPoint m12 = a.sm12 + b.sm12;
+		DGFixedPoint m13 = a.sm13 + b.sm13;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
-		DGFixedPoint m23 = a.SM23 + b.SM23;
+		DGFixedPoint m21 = a.sm21 + b.sm21;
+		DGFixedPoint m22 = a.sm22 + b.sm22;
+		DGFixedPoint m23 = a.sm23 + b.sm23;
 
-		DGFixedPoint m31 = a.SM31 + b.SM31;
-		DGFixedPoint m32 = a.SM32 + b.SM32;
-		DGFixedPoint m33 = a.SM33 + b.SM33;
+		DGFixedPoint m31 = a.sm31 + b.sm31;
+		DGFixedPoint m32 = a.sm32 + b.sm32;
+		DGFixedPoint m33 = a.sm33 + b.sm33;
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -337,29 +336,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Add(DGMatrix4x4 a, DGMatrix3x3 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
-		DGFixedPoint m13 = a.SM13 + b.SM13;
+		DGFixedPoint m11 = a.sm11 + b.sm11;
+		DGFixedPoint m12 = a.sm12 + b.sm12;
+		DGFixedPoint m13 = a.sm13 + b.sm13;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
-		DGFixedPoint m23 = a.SM23 + b.SM23;
+		DGFixedPoint m21 = a.sm21 + b.sm21;
+		DGFixedPoint m22 = a.sm22 + b.sm22;
+		DGFixedPoint m23 = a.sm23 + b.sm23;
 
-		DGFixedPoint m31 = a.SM31 + b.SM31;
-		DGFixedPoint m32 = a.SM32 + b.SM32;
-		DGFixedPoint m33 = a.SM33 + b.SM33;
+		DGFixedPoint m31 = a.sm31 + b.sm31;
+		DGFixedPoint m32 = a.sm32 + b.sm32;
+		DGFixedPoint m33 = a.sm33 + b.sm33;
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -373,29 +372,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Add(DGMatrix3x3 a, DGMatrix4x4 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
-		DGFixedPoint m13 = a.SM13 + b.SM13;
+		DGFixedPoint m11 = a.sm11 + b.sm11;
+		DGFixedPoint m12 = a.sm12 + b.sm12;
+		DGFixedPoint m13 = a.sm13 + b.sm13;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
-		DGFixedPoint m23 = a.SM23 + b.SM23;
+		DGFixedPoint m21 = a.sm21 + b.sm21;
+		DGFixedPoint m22 = a.sm22 + b.sm22;
+		DGFixedPoint m23 = a.sm23 + b.sm23;
 
-		DGFixedPoint m31 = a.SM31 + b.SM31;
-		DGFixedPoint m32 = a.SM32 + b.SM32;
-		DGFixedPoint m33 = a.SM33 + b.SM33;
+		DGFixedPoint m31 = a.sm31 + b.sm31;
+		DGFixedPoint m32 = a.sm32 + b.sm32;
+		DGFixedPoint m33 = a.sm33 + b.sm33;
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -409,29 +408,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Add(DGMatrix4x4 a, DGMatrix4x4 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
-		DGFixedPoint m13 = a.SM13 + b.SM13;
+		DGFixedPoint m11 = a.sm11 + b.sm11;
+		DGFixedPoint m12 = a.sm12 + b.sm12;
+		DGFixedPoint m13 = a.sm13 + b.sm13;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
-		DGFixedPoint m23 = a.SM23 + b.SM23;
+		DGFixedPoint m21 = a.sm21 + b.sm21;
+		DGFixedPoint m22 = a.sm22 + b.sm22;
+		DGFixedPoint m23 = a.sm23 + b.sm23;
 
-		DGFixedPoint m31 = a.SM31 + b.SM31;
-		DGFixedPoint m32 = a.SM32 + b.SM32;
-		DGFixedPoint m33 = a.SM33 + b.SM33;
+		DGFixedPoint m31 = a.sm31 + b.sm31;
+		DGFixedPoint m32 = a.sm32 + b.sm32;
+		DGFixedPoint m33 = a.sm33 + b.sm33;
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -444,15 +443,15 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 CreateCrossProduct(DGVector3 v)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = (DGFixedPoint) 0;
-		result.SM12 = -v.z;
-		result.SM13 = v.y;
-		result.SM21 = v.z;
-		result.SM22 = (DGFixedPoint) 0;
-		result.SM23 = -v.x;
-		result.SM31 = -v.y;
-		result.SM32 = v.x;
-		result.SM33 = (DGFixedPoint) 0;
+		result.sm11 = (DGFixedPoint) 0;
+		result.sm12 = -v.z;
+		result.sm13 = v.y;
+		result.sm21 = v.z;
+		result.sm22 = (DGFixedPoint) 0;
+		result.sm23 = -v.x;
+		result.sm31 = -v.y;
+		result.sm32 = v.x;
+		result.sm33 = (DGFixedPoint) 0;
 
 		return result;
 	}
@@ -465,17 +464,17 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 CreateFromMatrix(DGMatrix4x4 matrix4x4)
 	{
 		DGMatrix3x3 matrix3X3 = DGMatrix3x3.default2;
-		matrix3X3.SM11 = matrix4x4.SM11;
-		matrix3X3.SM12 = matrix4x4.SM12;
-		matrix3X3.SM13 = matrix4x4.SM13;
+		matrix3X3.sm11 = matrix4x4.sm11;
+		matrix3X3.sm12 = matrix4x4.sm12;
+		matrix3X3.sm13 = matrix4x4.sm13;
 
-		matrix3X3.SM21 = matrix4x4.SM21;
-		matrix3X3.SM22 = matrix4x4.SM22;
-		matrix3X3.SM23 = matrix4x4.SM23;
+		matrix3X3.sm21 = matrix4x4.sm21;
+		matrix3X3.sm22 = matrix4x4.sm22;
+		matrix3X3.sm23 = matrix4x4.sm23;
 
-		matrix3X3.SM31 = matrix4x4.SM31;
-		matrix3X3.SM32 = matrix4x4.SM32;
-		matrix3X3.SM33 = matrix4x4.SM33;
+		matrix3X3.sm31 = matrix4x4.sm31;
+		matrix3X3.sm32 = matrix4x4.sm32;
+		matrix3X3.sm33 = matrix4x4.sm33;
 
 		return matrix3X3;
 	}
@@ -487,7 +486,7 @@ public partial struct DGMatrix3x3
 	/// <param name="matrix">Scaling matrix.</param>
 	public static DGMatrix3x3 CreateScale(DGFixedPoint scale)
 	{
-		DGMatrix3x3 matrix = new DGMatrix3x3 {SM11 = scale, SM22 = scale, SM33 = scale};
+		DGMatrix3x3 matrix = new DGMatrix3x3 {sm11 = scale, sm22 = scale, sm33 = scale};
 		return matrix;
 	}
 
@@ -499,7 +498,7 @@ public partial struct DGMatrix3x3
 	/// <param name="matrix">Scaling matrix.</param>
 	public static DGMatrix3x3 CreateScale(DGVector3 scale)
 	{
-		DGMatrix3x3 matrix = new DGMatrix3x3 {SM11 = scale.x, SM22 = scale.y, SM33 = scale.z};
+		DGMatrix3x3 matrix = new DGMatrix3x3 {sm11 = scale.x, sm22 = scale.y, sm33 = scale.z};
 		return matrix;
 	}
 
@@ -513,7 +512,7 @@ public partial struct DGMatrix3x3
 	/// <param name="matrix">Scaling matrix.</param>
 	public static DGMatrix3x3 CreateScale(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
-		DGMatrix3x3 matrix = new DGMatrix3x3 {SM11 = x, SM22 = y, SM33 = z};
+		DGMatrix3x3 matrix = new DGMatrix3x3 {sm11 = x, sm22 = y, sm33 = z};
 		return matrix;
 	}
 
@@ -558,12 +557,12 @@ public partial struct DGMatrix3x3
 		switch (submatrix)
 		{
 			case 1: //Upper left matrix, m11, m12, m21, m22.
-				m11 = matrix.SM22 * determinantInverse;
-				m12 = -matrix.SM12 * determinantInverse;
+				m11 = matrix.sm22 * determinantInverse;
+				m12 = -matrix.sm12 * determinantInverse;
 				m13 = (DGFixedPoint) 0;
 
-				m21 = -matrix.SM21 * determinantInverse;
-				m22 = matrix.SM11 * determinantInverse;
+				m21 = -matrix.sm21 * determinantInverse;
+				m22 = matrix.sm11 * determinantInverse;
 				m23 = (DGFixedPoint) 0;
 
 				m31 = (DGFixedPoint) 0;
@@ -576,28 +575,28 @@ public partial struct DGMatrix3x3
 				m13 = (DGFixedPoint) 0;
 
 				m21 = (DGFixedPoint) 0;
-				m22 = matrix.SM33 * determinantInverse;
-				m23 = -matrix.SM23 * determinantInverse;
+				m22 = matrix.sm33 * determinantInverse;
+				m23 = -matrix.sm23 * determinantInverse;
 
 				m31 = (DGFixedPoint) 0;
-				m32 = -matrix.SM32 * determinantInverse;
-				m33 = matrix.SM22 * determinantInverse;
+				m32 = -matrix.sm32 * determinantInverse;
+				m33 = matrix.sm22 * determinantInverse;
 				break;
 			case 3: //Corners, m11, m31, m13, m33.
-				m11 = matrix.SM33 * determinantInverse;
+				m11 = matrix.sm33 * determinantInverse;
 				m12 = (DGFixedPoint) 0;
-				m13 = -matrix.SM13 * determinantInverse;
+				m13 = -matrix.sm13 * determinantInverse;
 
 				m21 = (DGFixedPoint) 0;
 				m22 = (DGFixedPoint) 0;
 				m23 = (DGFixedPoint) 0;
 
-				m31 = -matrix.SM31 * determinantInverse;
+				m31 = -matrix.sm31 * determinantInverse;
 				m32 = (DGFixedPoint) 0;
-				m33 = matrix.SM11 * determinantInverse;
+				m33 = matrix.sm11 * determinantInverse;
 				break;
 			case 4: //M11
-				m11 = (DGFixedPoint) 1 / matrix.SM11;
+				m11 = (DGFixedPoint) 1 / matrix.sm11;
 				m12 = (DGFixedPoint) 0;
 				m13 = (DGFixedPoint) 0;
 
@@ -615,7 +614,7 @@ public partial struct DGMatrix3x3
 				m13 = (DGFixedPoint) 0;
 
 				m21 = (DGFixedPoint) 0;
-				m22 = (DGFixedPoint) 1 / matrix.SM22;
+				m22 = (DGFixedPoint) 1 / matrix.sm22;
 				m23 = (DGFixedPoint) 0;
 
 				m31 = (DGFixedPoint) 0;
@@ -633,7 +632,7 @@ public partial struct DGMatrix3x3
 
 				m31 = (DGFixedPoint) 0;
 				m32 = (DGFixedPoint) 0;
-				m33 = (DGFixedPoint) 1 / matrix.SM33;
+				m33 = (DGFixedPoint) 1 / matrix.sm33;
 				break;
 			default: //Completely singular.
 				m11 = (DGFixedPoint) 0;
@@ -657,17 +656,17 @@ public partial struct DGMatrix3x3
 				break;
 		}
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -687,30 +686,30 @@ public partial struct DGMatrix3x3
 		//2) det(M) == det(transpose(M))
 		//This organization makes it clearer that the invert's usual division by determinant drops out.
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = (matrix.SM22 * matrix.SM33 - matrix.SM23 * matrix.SM32);
-		DGFixedPoint m12 = (matrix.SM13 * matrix.SM32 - matrix.SM33 * matrix.SM12);
-		DGFixedPoint m13 = (matrix.SM12 * matrix.SM23 - matrix.SM22 * matrix.SM13);
+		DGFixedPoint m11 = (matrix.sm22 * matrix.sm33 - matrix.sm23 * matrix.sm32);
+		DGFixedPoint m12 = (matrix.sm13 * matrix.sm32 - matrix.sm33 * matrix.sm12);
+		DGFixedPoint m13 = (matrix.sm12 * matrix.sm23 - matrix.sm22 * matrix.sm13);
 
-		DGFixedPoint m21 = (matrix.SM23 * matrix.SM31 - matrix.SM21 * matrix.SM33);
-		DGFixedPoint m22 = (matrix.SM11 * matrix.SM33 - matrix.SM13 * matrix.SM31);
-		DGFixedPoint m23 = (matrix.SM13 * matrix.SM21 - matrix.SM11 * matrix.SM23);
+		DGFixedPoint m21 = (matrix.sm23 * matrix.sm31 - matrix.sm21 * matrix.sm33);
+		DGFixedPoint m22 = (matrix.sm11 * matrix.sm33 - matrix.sm13 * matrix.sm31);
+		DGFixedPoint m23 = (matrix.sm13 * matrix.sm21 - matrix.sm11 * matrix.sm23);
 
-		DGFixedPoint m31 = (matrix.SM21 * matrix.SM32 - matrix.SM22 * matrix.SM31);
-		DGFixedPoint m32 = (matrix.SM12 * matrix.SM31 - matrix.SM11 * matrix.SM32);
-		DGFixedPoint m33 = (matrix.SM11 * matrix.SM22 - matrix.SM12 * matrix.SM21);
+		DGFixedPoint m31 = (matrix.sm21 * matrix.sm32 - matrix.sm22 * matrix.sm31);
+		DGFixedPoint m32 = (matrix.sm12 * matrix.sm31 - matrix.sm11 * matrix.sm32);
+		DGFixedPoint m33 = (matrix.sm11 * matrix.sm22 - matrix.sm12 * matrix.sm21);
 
 		//Note transposition.
-		result.SM11 = m11;
-		result.SM12 = m21;
-		result.SM13 = m31;
+		result.sm11 = m11;
+		result.sm12 = m21;
+		result.sm13 = m31;
 
-		result.SM21 = m12;
-		result.SM22 = m22;
-		result.SM23 = m32;
+		result.sm21 = m12;
+		result.sm22 = m22;
+		result.sm23 = m32;
 
-		result.SM31 = m13;
-		result.SM32 = m23;
-		result.SM33 = m33;
+		result.sm31 = m13;
+		result.sm32 = m23;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -724,30 +723,30 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 Multiply(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
-		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
+		DGFixedPoint resultM11 = a.sm11 * b.sm11 + a.sm12 * b.sm21 + a.sm13 * b.sm31;
+		DGFixedPoint resultM12 = a.sm11 * b.sm12 + a.sm12 * b.sm22 + a.sm13 * b.sm32;
+		DGFixedPoint resultM13 = a.sm11 * b.sm13 + a.sm12 * b.sm23 + a.sm13 * b.sm33;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
-		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33;
+		DGFixedPoint resultM21 = a.sm21 * b.sm11 + a.sm22 * b.sm21 + a.sm23 * b.sm31;
+		DGFixedPoint resultM22 = a.sm21 * b.sm12 + a.sm22 * b.sm22 + a.sm23 * b.sm32;
+		DGFixedPoint resultM23 = a.sm21 * b.sm13 + a.sm22 * b.sm23 + a.sm23 * b.sm33;
 
-		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
-		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
-		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
+		DGFixedPoint resultM31 = a.sm31 * b.sm11 + a.sm32 * b.sm21 + a.sm33 * b.sm31;
+		DGFixedPoint resultM32 = a.sm31 * b.sm12 + a.sm32 * b.sm22 + a.sm33 * b.sm32;
+		DGFixedPoint resultM33 = a.sm31 * b.sm13 + a.sm32 * b.sm23 + a.sm33 * b.sm33;
 
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = resultM11;
-		result.SM12 = resultM12;
-		result.SM13 = resultM13;
+		result.sm11 = resultM11;
+		result.sm12 = resultM12;
+		result.sm13 = resultM13;
 
-		result.SM21 = resultM21;
-		result.SM22 = resultM22;
-		result.SM23 = resultM23;
+		result.sm21 = resultM21;
+		result.sm22 = resultM22;
+		result.sm23 = resultM23;
 
-		result.SM31 = resultM31;
-		result.SM32 = resultM32;
-		result.SM33 = resultM33;
+		result.sm31 = resultM31;
+		result.sm32 = resultM32;
+		result.sm33 = resultM33;
 
 		return result;
 	}
@@ -760,30 +759,30 @@ public partial struct DGMatrix3x3
 	/// <param name="result">Product of the multiplication.</param>
 	public static DGMatrix3x3 Multiply(DGMatrix3x3 a, DGMatrix4x4 b)
 	{
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
-		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
+		DGFixedPoint resultM11 = a.sm11 * b.sm11 + a.sm12 * b.sm21 + a.sm13 * b.sm31;
+		DGFixedPoint resultM12 = a.sm11 * b.sm12 + a.sm12 * b.sm22 + a.sm13 * b.sm32;
+		DGFixedPoint resultM13 = a.sm11 * b.sm13 + a.sm12 * b.sm23 + a.sm13 * b.sm33;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
-		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33;
+		DGFixedPoint resultM21 = a.sm21 * b.sm11 + a.sm22 * b.sm21 + a.sm23 * b.sm31;
+		DGFixedPoint resultM22 = a.sm21 * b.sm12 + a.sm22 * b.sm22 + a.sm23 * b.sm32;
+		DGFixedPoint resultM23 = a.sm21 * b.sm13 + a.sm22 * b.sm23 + a.sm23 * b.sm33;
 
-		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
-		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
-		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
+		DGFixedPoint resultM31 = a.sm31 * b.sm11 + a.sm32 * b.sm21 + a.sm33 * b.sm31;
+		DGFixedPoint resultM32 = a.sm31 * b.sm12 + a.sm32 * b.sm22 + a.sm33 * b.sm32;
+		DGFixedPoint resultM33 = a.sm31 * b.sm13 + a.sm32 * b.sm23 + a.sm33 * b.sm33;
 
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = resultM11;
-		result.SM12 = resultM12;
-		result.SM13 = resultM13;
+		result.sm11 = resultM11;
+		result.sm12 = resultM12;
+		result.sm13 = resultM13;
 
-		result.SM21 = resultM21;
-		result.SM22 = resultM22;
-		result.SM23 = resultM23;
+		result.sm21 = resultM21;
+		result.sm22 = resultM22;
+		result.sm23 = resultM23;
 
-		result.SM31 = resultM31;
-		result.SM32 = resultM32;
-		result.SM33 = resultM33;
+		result.sm31 = resultM31;
+		result.sm32 = resultM32;
+		result.sm33 = resultM33;
 
 		return result;
 	}
@@ -797,29 +796,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Multiply(DGMatrix4x4 a, DGMatrix3x3 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
-		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
+		DGFixedPoint resultM11 = a.sm11 * b.sm11 + a.sm12 * b.sm21 + a.sm13 * b.sm31;
+		DGFixedPoint resultM12 = a.sm11 * b.sm12 + a.sm12 * b.sm22 + a.sm13 * b.sm32;
+		DGFixedPoint resultM13 = a.sm11 * b.sm13 + a.sm12 * b.sm23 + a.sm13 * b.sm33;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
-		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33;
+		DGFixedPoint resultM21 = a.sm21 * b.sm11 + a.sm22 * b.sm21 + a.sm23 * b.sm31;
+		DGFixedPoint resultM22 = a.sm21 * b.sm12 + a.sm22 * b.sm22 + a.sm23 * b.sm32;
+		DGFixedPoint resultM23 = a.sm21 * b.sm13 + a.sm22 * b.sm23 + a.sm23 * b.sm33;
 
-		DGFixedPoint resultM31 = a.SM31 * b.SM11 + a.SM32 * b.SM21 + a.SM33 * b.SM31;
-		DGFixedPoint resultM32 = a.SM31 * b.SM12 + a.SM32 * b.SM22 + a.SM33 * b.SM32;
-		DGFixedPoint resultM33 = a.SM31 * b.SM13 + a.SM32 * b.SM23 + a.SM33 * b.SM33;
+		DGFixedPoint resultM31 = a.sm31 * b.sm11 + a.sm32 * b.sm21 + a.sm33 * b.sm31;
+		DGFixedPoint resultM32 = a.sm31 * b.sm12 + a.sm32 * b.sm22 + a.sm33 * b.sm32;
+		DGFixedPoint resultM33 = a.sm31 * b.sm13 + a.sm32 * b.sm23 + a.sm33 * b.sm33;
 
-		result.SM11 = resultM11;
-		result.SM12 = resultM12;
-		result.SM13 = resultM13;
+		result.sm11 = resultM11;
+		result.sm12 = resultM12;
+		result.sm13 = resultM13;
 
-		result.SM21 = resultM21;
-		result.SM22 = resultM22;
-		result.SM23 = resultM23;
+		result.sm21 = resultM21;
+		result.sm22 = resultM22;
+		result.sm23 = resultM23;
 
-		result.SM31 = resultM31;
-		result.SM32 = resultM32;
-		result.SM33 = resultM33;
+		result.sm31 = resultM31;
+		result.sm32 = resultM32;
+		result.sm33 = resultM33;
 
 		return result;
 	}
@@ -834,29 +833,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 MultiplyTransposed(DGMatrix3x3 transpose, DGMatrix3x3 matrix)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint resultM11 = transpose.SM11 * matrix.SM11 + transpose.SM21 * matrix.SM21 + transpose.SM31 * matrix.SM31;
-		DGFixedPoint resultM12 = transpose.SM11 * matrix.SM12 + transpose.SM21 * matrix.SM22 + transpose.SM31 * matrix.SM32;
-		DGFixedPoint resultM13 = transpose.SM11 * matrix.SM13 + transpose.SM21 * matrix.SM23 + transpose.SM31 * matrix.SM33;
+		DGFixedPoint resultM11 = transpose.sm11 * matrix.sm11 + transpose.sm21 * matrix.sm21 + transpose.sm31 * matrix.sm31;
+		DGFixedPoint resultM12 = transpose.sm11 * matrix.sm12 + transpose.sm21 * matrix.sm22 + transpose.sm31 * matrix.sm32;
+		DGFixedPoint resultM13 = transpose.sm11 * matrix.sm13 + transpose.sm21 * matrix.sm23 + transpose.sm31 * matrix.sm33;
 
-		DGFixedPoint resultM21 = transpose.SM12 * matrix.SM11 + transpose.SM22 * matrix.SM21 + transpose.SM32 * matrix.SM31;
-		DGFixedPoint resultM22 = transpose.SM12 * matrix.SM12 + transpose.SM22 * matrix.SM22 + transpose.SM32 * matrix.SM32;
-		DGFixedPoint resultM23 = transpose.SM12 * matrix.SM13 + transpose.SM22 * matrix.SM23 + transpose.SM32 * matrix.SM33;
+		DGFixedPoint resultM21 = transpose.sm12 * matrix.sm11 + transpose.sm22 * matrix.sm21 + transpose.sm32 * matrix.sm31;
+		DGFixedPoint resultM22 = transpose.sm12 * matrix.sm12 + transpose.sm22 * matrix.sm22 + transpose.sm32 * matrix.sm32;
+		DGFixedPoint resultM23 = transpose.sm12 * matrix.sm13 + transpose.sm22 * matrix.sm23 + transpose.sm32 * matrix.sm33;
 
-		DGFixedPoint resultM31 = transpose.SM13 * matrix.SM11 + transpose.SM23 * matrix.SM21 + transpose.SM33 * matrix.SM31;
-		DGFixedPoint resultM32 = transpose.SM13 * matrix.SM12 + transpose.SM23 * matrix.SM22 + transpose.SM33 * matrix.SM32;
-		DGFixedPoint resultM33 = transpose.SM13 * matrix.SM13 + transpose.SM23 * matrix.SM23 + transpose.SM33 * matrix.SM33;
+		DGFixedPoint resultM31 = transpose.sm13 * matrix.sm11 + transpose.sm23 * matrix.sm21 + transpose.sm33 * matrix.sm31;
+		DGFixedPoint resultM32 = transpose.sm13 * matrix.sm12 + transpose.sm23 * matrix.sm22 + transpose.sm33 * matrix.sm32;
+		DGFixedPoint resultM33 = transpose.sm13 * matrix.sm13 + transpose.sm23 * matrix.sm23 + transpose.sm33 * matrix.sm33;
 
-		result.SM11 = resultM11;
-		result.SM12 = resultM12;
-		result.SM13 = resultM13;
+		result.sm11 = resultM11;
+		result.sm12 = resultM12;
+		result.sm13 = resultM13;
 
-		result.SM21 = resultM21;
-		result.SM22 = resultM22;
-		result.SM23 = resultM23;
+		result.sm21 = resultM21;
+		result.sm22 = resultM22;
+		result.sm23 = resultM23;
 
-		result.SM31 = resultM31;
-		result.SM32 = resultM32;
-		result.SM33 = resultM33;
+		result.sm31 = resultM31;
+		result.sm32 = resultM32;
+		result.sm33 = resultM33;
 
 		return result;
 	}
@@ -870,29 +869,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 MultiplyByTransposed(DGMatrix3x3 matrix, DGMatrix3x3 transpose)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint resultM11 = matrix.SM11 * transpose.SM11 + matrix.SM12 * transpose.SM12 + matrix.SM13 * transpose.SM13;
-		DGFixedPoint resultM12 = matrix.SM11 * transpose.SM21 + matrix.SM12 * transpose.SM22 + matrix.SM13 * transpose.SM23;
-		DGFixedPoint resultM13 = matrix.SM11 * transpose.SM31 + matrix.SM12 * transpose.SM32 + matrix.SM13 * transpose.SM33;
+		DGFixedPoint resultM11 = matrix.sm11 * transpose.sm11 + matrix.sm12 * transpose.sm12 + matrix.sm13 * transpose.sm13;
+		DGFixedPoint resultM12 = matrix.sm11 * transpose.sm21 + matrix.sm12 * transpose.sm22 + matrix.sm13 * transpose.sm23;
+		DGFixedPoint resultM13 = matrix.sm11 * transpose.sm31 + matrix.sm12 * transpose.sm32 + matrix.sm13 * transpose.sm33;
 
-		DGFixedPoint resultM21 = matrix.SM21 * transpose.SM11 + matrix.SM22 * transpose.SM12 + matrix.SM23 * transpose.SM13;
-		DGFixedPoint resultM22 = matrix.SM21 * transpose.SM21 + matrix.SM22 * transpose.SM22 + matrix.SM23 * transpose.SM23;
-		DGFixedPoint resultM23 = matrix.SM21 * transpose.SM31 + matrix.SM22 * transpose.SM32 + matrix.SM23 * transpose.SM33;
+		DGFixedPoint resultM21 = matrix.sm21 * transpose.sm11 + matrix.sm22 * transpose.sm12 + matrix.sm23 * transpose.sm13;
+		DGFixedPoint resultM22 = matrix.sm21 * transpose.sm21 + matrix.sm22 * transpose.sm22 + matrix.sm23 * transpose.sm23;
+		DGFixedPoint resultM23 = matrix.sm21 * transpose.sm31 + matrix.sm22 * transpose.sm32 + matrix.sm23 * transpose.sm33;
 
-		DGFixedPoint resultM31 = matrix.SM31 * transpose.SM11 + matrix.SM32 * transpose.SM12 + matrix.SM33 * transpose.SM13;
-		DGFixedPoint resultM32 = matrix.SM31 * transpose.SM21 + matrix.SM32 * transpose.SM22 + matrix.SM33 * transpose.SM23;
-		DGFixedPoint resultM33 = matrix.SM31 * transpose.SM31 + matrix.SM32 * transpose.SM32 + matrix.SM33 * transpose.SM33;
+		DGFixedPoint resultM31 = matrix.sm31 * transpose.sm11 + matrix.sm32 * transpose.sm12 + matrix.sm33 * transpose.sm13;
+		DGFixedPoint resultM32 = matrix.sm31 * transpose.sm21 + matrix.sm32 * transpose.sm22 + matrix.sm33 * transpose.sm23;
+		DGFixedPoint resultM33 = matrix.sm31 * transpose.sm31 + matrix.sm32 * transpose.sm32 + matrix.sm33 * transpose.sm33;
 
-		result.SM11 = resultM11;
-		result.SM12 = resultM12;
-		result.SM13 = resultM13;
+		result.sm11 = resultM11;
+		result.sm12 = resultM12;
+		result.sm13 = resultM13;
 
-		result.SM21 = resultM21;
-		result.SM22 = resultM22;
-		result.SM23 = resultM23;
+		result.sm21 = resultM21;
+		result.sm22 = resultM22;
+		result.sm23 = resultM23;
 
-		result.SM31 = resultM31;
-		result.SM32 = resultM32;
-		result.SM33 = resultM33;
+		result.sm31 = resultM31;
+		result.sm32 = resultM32;
+		result.sm33 = resultM33;
 
 		return result;
 	}
@@ -906,17 +905,17 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Multiply(DGMatrix3x3 matrix, DGFixedPoint scale)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = matrix.SM11 * scale;
-		result.SM12 = matrix.SM12 * scale;
-		result.SM13 = matrix.SM13 * scale;
+		result.sm11 = matrix.sm11 * scale;
+		result.sm12 = matrix.sm12 * scale;
+		result.sm13 = matrix.sm13 * scale;
 
-		result.SM21 = matrix.SM21 * scale;
-		result.SM22 = matrix.SM22 * scale;
-		result.SM23 = matrix.SM23 * scale;
+		result.sm21 = matrix.sm21 * scale;
+		result.sm22 = matrix.sm22 * scale;
+		result.sm23 = matrix.sm23 * scale;
 
-		result.SM31 = matrix.SM31 * scale;
-		result.SM32 = matrix.SM32 * scale;
-		result.SM33 = matrix.SM33 * scale;
+		result.sm31 = matrix.sm31 * scale;
+		result.sm32 = matrix.sm32 * scale;
+		result.sm33 = matrix.sm33 * scale;
 		return result;
 	}
 
@@ -928,17 +927,17 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Negate(DGMatrix3x3 matrix)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = -matrix.SM11;
-		result.SM12 = -matrix.SM12;
-		result.SM13 = -matrix.SM13;
+		result.sm11 = -matrix.sm11;
+		result.sm12 = -matrix.sm12;
+		result.sm13 = -matrix.sm13;
 
-		result.SM21 = -matrix.SM21;
-		result.SM22 = -matrix.SM22;
-		result.SM23 = -matrix.SM23;
+		result.sm21 = -matrix.sm21;
+		result.sm22 = -matrix.sm22;
+		result.sm23 = -matrix.sm23;
 
-		result.SM31 = -matrix.SM31;
-		result.SM32 = -matrix.SM32;
-		result.SM33 = -matrix.SM33;
+		result.sm31 = -matrix.sm31;
+		result.sm32 = -matrix.sm32;
+		result.sm33 = -matrix.sm33;
 
 		return result;
 	}
@@ -952,29 +951,29 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Subtract(DGMatrix3x3 a, DGMatrix3x3 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m11 = a.SM11 - b.SM11;
-		DGFixedPoint m12 = a.SM12 - b.SM12;
-		DGFixedPoint m13 = a.SM13 - b.SM13;
+		DGFixedPoint m11 = a.sm11 - b.sm11;
+		DGFixedPoint m12 = a.sm12 - b.sm12;
+		DGFixedPoint m13 = a.sm13 - b.sm13;
 
-		DGFixedPoint m21 = a.SM21 - b.SM21;
-		DGFixedPoint m22 = a.SM22 - b.SM22;
-		DGFixedPoint m23 = a.SM23 - b.SM23;
+		DGFixedPoint m21 = a.sm21 - b.sm21;
+		DGFixedPoint m22 = a.sm22 - b.sm22;
+		DGFixedPoint m23 = a.sm23 - b.sm23;
 
-		DGFixedPoint m31 = a.SM31 - b.SM31;
-		DGFixedPoint m32 = a.SM32 - b.SM32;
-		DGFixedPoint m33 = a.SM33 - b.SM33;
+		DGFixedPoint m31 = a.sm31 - b.sm31;
+		DGFixedPoint m32 = a.sm32 - b.sm32;
+		DGFixedPoint m33 = a.sm33 - b.sm33;
 
-		result.SM11 = m11;
-		result.SM12 = m12;
-		result.SM13 = m13;
+		result.sm11 = m11;
+		result.sm12 = m12;
+		result.sm13 = m13;
 
-		result.SM21 = m21;
-		result.SM22 = m22;
-		result.SM23 = m23;
+		result.sm21 = m21;
+		result.sm22 = m22;
+		result.sm23 = m23;
 
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = m33;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = m33;
 
 		return result;
 	}
@@ -987,25 +986,25 @@ public partial struct DGMatrix3x3
 	public static DGMatrix4x4 ToMatrix4X4(DGMatrix3x3 a)
 	{
 		DGMatrix4x4 b = DGMatrix4x4.default2;
-		b.SM11 = a.SM11;
-		b.SM12 = a.SM12;
-		b.SM13 = a.SM13;
+		b.sm11 = a.sm11;
+		b.sm12 = a.sm12;
+		b.sm13 = a.sm13;
 
-		b.SM21 = a.SM21;
-		b.SM22 = a.SM22;
-		b.SM23 = a.SM23;
+		b.sm21 = a.sm21;
+		b.sm22 = a.sm22;
+		b.sm23 = a.sm23;
 
-		b.SM31 = a.SM31;
-		b.SM32 = a.SM32;
-		b.SM33 = a.SM33;
+		b.sm31 = a.sm31;
+		b.sm32 = a.sm32;
+		b.sm33 = a.sm33;
 
-		b.SM44 = (DGFixedPoint) 1;
-		b.SM14 = (DGFixedPoint) 0;
-		b.SM24 = (DGFixedPoint) 0;
-		b.SM34 = (DGFixedPoint) 0;
-		b.SM41 = (DGFixedPoint) 0;
-		b.SM42 = (DGFixedPoint) 0;
-		b.SM43 = (DGFixedPoint) 0;
+		b.sm44 = (DGFixedPoint) 1;
+		b.sm14 = (DGFixedPoint) 0;
+		b.sm24 = (DGFixedPoint) 0;
+		b.sm34 = (DGFixedPoint) 0;
+		b.sm41 = (DGFixedPoint) 0;
+		b.sm42 = (DGFixedPoint) 0;
+		b.sm43 = (DGFixedPoint) 0;
 
 		return b;
 	}
@@ -1022,9 +1021,9 @@ public partial struct DGMatrix3x3
 		DGFixedPoint vX = v.x;
 		DGFixedPoint vY = v.y;
 		DGFixedPoint vZ = v.z;
-		result.x = vX * matrix.SM11 + vY * matrix.SM21 + vZ * matrix.SM31;
-		result.y = vX * matrix.SM12 + vY * matrix.SM22 + vZ * matrix.SM32;
-		result.z = vX * matrix.SM13 + vY * matrix.SM23 + vZ * matrix.SM33;
+		result.x = vX * matrix.sm11 + vY * matrix.sm21 + vZ * matrix.sm31;
+		result.y = vX * matrix.sm12 + vY * matrix.sm22 + vZ * matrix.sm32;
+		result.z = vX * matrix.sm13 + vY * matrix.sm23 + vZ * matrix.sm33;
 		return result;
 	}
 
@@ -1041,9 +1040,9 @@ public partial struct DGMatrix3x3
 		DGFixedPoint vX = v.x;
 		DGFixedPoint vY = v.y;
 		DGFixedPoint vZ = v.z;
-		result.x = vX * matrix.SM11 + vY * matrix.SM12 + vZ * matrix.SM13;
-		result.y = vX * matrix.SM21 + vY * matrix.SM22 + vZ * matrix.SM23;
-		result.z = vX * matrix.SM31 + vY * matrix.SM32 + vZ * matrix.SM33;
+		result.x = vX * matrix.sm11 + vY * matrix.sm12 + vZ * matrix.sm13;
+		result.y = vX * matrix.sm21 + vY * matrix.sm22 + vZ * matrix.sm23;
+		result.z = vX * matrix.sm31 + vY * matrix.sm32 + vZ * matrix.sm33;
 
 		return result;
 	}
@@ -1057,22 +1056,22 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 Transpose(DGMatrix3x3 matrix)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		DGFixedPoint m21 = matrix.SM12;
-		DGFixedPoint m31 = matrix.SM13;
-		DGFixedPoint m12 = matrix.SM21;
-		DGFixedPoint m32 = matrix.SM23;
-		DGFixedPoint m13 = matrix.SM31;
-		DGFixedPoint m23 = matrix.SM32;
+		DGFixedPoint m21 = matrix.sm12;
+		DGFixedPoint m31 = matrix.sm13;
+		DGFixedPoint m12 = matrix.sm21;
+		DGFixedPoint m32 = matrix.sm23;
+		DGFixedPoint m13 = matrix.sm31;
+		DGFixedPoint m23 = matrix.sm32;
 
-		result.SM11 = matrix.SM11;
-		result.SM12 = m12;
-		result.SM13 = m13;
-		result.SM21 = m21;
-		result.SM22 = matrix.SM22;
-		result.SM23 = m23;
-		result.SM31 = m31;
-		result.SM32 = m32;
-		result.SM33 = matrix.SM33;
+		result.sm11 = matrix.sm11;
+		result.sm12 = m12;
+		result.sm13 = m13;
+		result.sm21 = m21;
+		result.sm22 = matrix.sm22;
+		result.sm23 = m23;
+		result.sm31 = m31;
+		result.sm32 = m32;
+		result.sm33 = matrix.sm33;
 
 		return result;
 	}
@@ -1098,17 +1097,17 @@ public partial struct DGMatrix3x3
 		DGFixedPoint YW = qY2 * quaternion.w;
 		DGFixedPoint ZW = qZ2 * quaternion.w;
 
-		result.SM11 = (DGFixedPoint) 1 - YY - ZZ;
-		result.SM21 = XY - ZW;
-		result.SM31 = XZ + YW;
+		result.sm11 = (DGFixedPoint) 1 - YY - ZZ;
+		result.sm21 = XY - ZW;
+		result.sm31 = XZ + YW;
 
-		result.SM12 = XY + ZW;
-		result.SM22 = (DGFixedPoint) 1 - XX - ZZ;
-		result.SM32 = YZ - XW;
+		result.sm12 = XY + ZW;
+		result.sm22 = (DGFixedPoint) 1 - XX - ZZ;
+		result.sm32 = YZ - XW;
 
-		result.SM13 = XZ - YW;
-		result.SM23 = YZ + XW;
-		result.SM33 = (DGFixedPoint) 1 - XX - YY;
+		result.sm13 = XZ - YW;
+		result.sm23 = YZ + XW;
+		result.sm33 = (DGFixedPoint) 1 - XX - YY;
 
 		return result;
 	}
@@ -1123,17 +1122,17 @@ public partial struct DGMatrix3x3
 	public static DGMatrix3x3 CreateOuterProduct(DGVector3 a, DGVector3 b)
 	{
 		DGMatrix3x3 result = DGMatrix3x3.default2;
-		result.SM11 = a.x * b.x;
-		result.SM12 = a.x * b.y;
-		result.SM13 = a.x * b.z;
+		result.sm11 = a.x * b.x;
+		result.sm12 = a.x * b.y;
+		result.sm13 = a.x * b.z;
 
-		result.SM21 = a.y * b.x;
-		result.SM22 = a.y * b.y;
-		result.SM23 = a.y * b.z;
+		result.sm21 = a.y * b.x;
+		result.sm22 = a.y * b.y;
+		result.sm23 = a.y * b.z;
 
-		result.SM31 = a.z * b.x;
-		result.SM32 = a.z * b.y;
-		result.SM33 = a.z * b.z;
+		result.sm31 = a.z * b.x;
+		result.sm32 = a.z * b.y;
+		result.sm33 = a.z * b.z;
 
 		return result;
 	}
@@ -1170,17 +1169,17 @@ public partial struct DGMatrix3x3
 
 		DGFixedPoint oc = (DGFixedPoint)1 - cos;
 
-		result.SM11 = oc * xx + cos;
-		result.SM21 = oc * xy + axis.z * sin;
-		result.SM31 = oc * xz - axis.y * sin;
+		result.sm11 = oc * xx + cos;
+		result.sm21 = oc * xy + axis.z * sin;
+		result.sm31 = oc * xz - axis.y * sin;
 
-		result.SM12 = oc * xy - axis.z * sin;
-		result.SM22 = oc * yy + cos;
-		result.SM32 = oc * yz + axis.x * sin;
+		result.sm12 = oc * xy - axis.z * sin;
+		result.sm22 = oc * yy + cos;
+		result.sm32 = oc * yz + axis.x * sin;
 
-		result.SM13 = oc * xz + axis.y * sin;
-		result.SM23 = oc * yz - axis.x * sin;
-		result.SM33 = oc * zz + cos;
+		result.sm13 = oc * xz + axis.y * sin;
+		result.sm23 = oc * yz - axis.x * sin;
+		result.sm33 = oc * zz + cos;
 
 		return result;
 	}
@@ -1196,17 +1195,17 @@ public partial struct DGMatrix3x3
 	/// </summary>
 	public void Transpose()
 	{
-		DGFixedPoint intermediate = SM12;
-		SM12 = SM21;
-		SM21 = intermediate;
+		DGFixedPoint intermediate = sm12;
+		sm12 = sm21;
+		sm21 = intermediate;
 
-		intermediate = SM13;
-		SM13 = SM31;
-		SM31 = intermediate;
+		intermediate = sm13;
+		sm13 = sm31;
+		sm31 = intermediate;
 
-		intermediate = SM23;
-		SM23 = SM32;
-		SM32 = intermediate;
+		intermediate = sm23;
+		sm23 = sm32;
+		sm32 = intermediate;
 	}
 
 
@@ -1223,7 +1222,7 @@ public partial struct DGMatrix3x3
 
 		// We'll play it fast and loose here and assume the following won't overflow
 		//Try m11, m12, m21, m22.
-		DGFixedPoint determinant = SM11 * SM22 - SM12 * SM21;
+		DGFixedPoint determinant = sm11 * sm22 - sm12 * sm21;
 		if (determinant != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 1;
@@ -1231,7 +1230,7 @@ public partial struct DGMatrix3x3
 		}
 
 		//Try m22, m23, m32, m33.
-		determinant = SM22 * SM33 - SM23 * SM32;
+		determinant = sm22 * sm33 - sm23 * sm32;
 		if (determinant != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 2;
@@ -1239,7 +1238,7 @@ public partial struct DGMatrix3x3
 		}
 
 		//Try m11, m13, m31, m33.
-		determinant = SM11 * SM33 - SM13 * SM12;
+		determinant = sm11 * sm33 - sm13 * sm12;
 		if (determinant != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 3;
@@ -1247,24 +1246,24 @@ public partial struct DGMatrix3x3
 		}
 
 		//Try m11.
-		if (SM11 != (DGFixedPoint) 0)
+		if (sm11 != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 4;
-			return SM11;
+			return sm11;
 		}
 
 		//Try m22.
-		if (SM22 != (DGFixedPoint) 0)
+		if (sm22 != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 5;
-			return SM22;
+			return sm22;
 		}
 
 		//Try m33.
-		if (SM33 != (DGFixedPoint) 0)
+		if (sm33 != (DGFixedPoint) 0)
 		{
 			subMatrixCode = 6;
-			return SM33;
+			return sm33;
 		}
 
 		//It's completely singular!

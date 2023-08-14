@@ -104,11 +104,11 @@ public struct DGMatrix2x2
 	public static DGMatrix2x2 Add(DGMatrix4x4 a, DGMatrix2x2 b)
 	{
 		DGMatrix2x2 result = default;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
+		DGFixedPoint m11 = a.sm11 + b.SM11;
+		DGFixedPoint m12 = a.sm12 + b.SM12;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
+		DGFixedPoint m21 = a.sm21 + b.SM21;
+		DGFixedPoint m22 = a.sm22 + b.SM22;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -128,11 +128,11 @@ public struct DGMatrix2x2
 	public static DGMatrix2x2 Add(DGMatrix2x2 a, DGMatrix4x4 b)
 	{
 		DGMatrix2x2 result = default;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
+		DGFixedPoint m11 = a.SM11 + b.sm11;
+		DGFixedPoint m12 = a.SM12 + b.sm12;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
+		DGFixedPoint m21 = a.SM21 + b.sm21;
+		DGFixedPoint m22 = a.SM22 + b.sm22;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -152,11 +152,11 @@ public struct DGMatrix2x2
 	public static DGMatrix2x2 Add(DGMatrix4x4 a, DGMatrix4x4 b)
 	{
 		DGMatrix2x2 result = default;
-		DGFixedPoint m11 = a.SM11 + b.SM11;
-		DGFixedPoint m12 = a.SM12 + b.SM12;
+		DGFixedPoint m11 = a.sm11 + b.sm11;
+		DGFixedPoint m12 = a.sm12 + b.sm12;
 
-		DGFixedPoint m21 = a.SM21 + b.SM21;
-		DGFixedPoint m22 = a.SM22 + b.SM22;
+		DGFixedPoint m21 = a.sm21 + b.sm21;
+		DGFixedPoint m22 = a.sm22 + b.sm22;
 
 		result.SM11 = m11;
 		result.SM12 = m12;
@@ -242,11 +242,11 @@ public struct DGMatrix2x2
 	public static DGMatrix2x2 Multiply(DGMatrix2x2 a, DGMatrix4x4 b)
 	{
 		DGMatrix2x2 result = default;
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22;
+		DGFixedPoint resultM11 = a.SM11 * b.sm11 + a.SM12 * b.sm21;
+		DGFixedPoint resultM12 = a.SM11 * b.sm12 + a.SM12 * b.sm22;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22;
+		DGFixedPoint resultM21 = a.SM21 * b.sm11 + a.SM22 * b.sm21;
+		DGFixedPoint resultM22 = a.SM21 * b.sm12 + a.SM22 * b.sm22;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
@@ -266,11 +266,11 @@ public struct DGMatrix2x2
 	public static DGMatrix2x2 Multiply(DGMatrix4x4 a, DGMatrix2x2 b)
 	{
 		DGMatrix2x2 result = default;
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22;
+		DGFixedPoint resultM11 = a.sm11 * b.SM11 + a.sm12 * b.SM21;
+		DGFixedPoint resultM12 = a.sm11 * b.SM12 + a.sm12 * b.SM22;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22;
+		DGFixedPoint resultM21 = a.sm21 * b.SM11 + a.sm22 * b.SM21;
+		DGFixedPoint resultM22 = a.sm21 * b.SM12 + a.sm22 * b.SM22;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;

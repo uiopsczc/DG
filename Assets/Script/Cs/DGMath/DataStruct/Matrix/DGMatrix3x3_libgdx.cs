@@ -16,27 +16,55 @@ using System;
 /// </summary>
 public partial struct DGMatrix3x3
 {
-	public const int M00 = 0;
-	public const int M01 = 3;
-	public const int M02 = 6;
-	public const int M10 = 1;
-	public const int M11 = 4;
-	public const int M12 = 7;
-	public const int M20 = 2;
-	public const int M21 = 5;
-	public const int M22 = 8;
+	public const int M00Index = 0;
+	public const int M01Index = 3;
+	public const int M02Index = 6;
+	public const int M10Index = 1;
+	public const int M11Index = 4;
+	public const int M12Index = 7;
+	public const int M20Index = 2;
+	public const int M21Index = 5;
+	public const int M22Index = 8;
 	private const int Count = 9;
-	public DGFixedPoint[] val;
+
+
+	public DGFixedPoint m00;
+	public DGFixedPoint m01;
+	public DGFixedPoint m02;
+	public DGFixedPoint m10;
+	public DGFixedPoint m11;
+	public DGFixedPoint m12;
+	public DGFixedPoint m20;
+	public DGFixedPoint m21;
+	public DGFixedPoint m22;
+
 
 	public static DGMatrix3x3 default2
 	{
 		get
 		{
 			DGMatrix3x3 result = default;
-			result.val = new DGFixedPoint[Count];
-			result.val[M00] = (DGFixedPoint)1f;
-			result.val[M11] = (DGFixedPoint)1f;
-			result.val[M22] = (DGFixedPoint)1f;
+			result.m00 = (DGFixedPoint)1f;
+			result.m11 = (DGFixedPoint)1f;
+			result.m22 = (DGFixedPoint)1f;
+			return result;
+		}
+	}
+
+	public DGFixedPoint[] val
+	{
+		get
+		{
+			var result = new DGFixedPoint[Count];
+			result[M00Index] = m00;
+			result[M01Index] = m01;
+			result[M02Index] = m02;
+			result[M10Index] = m10;
+			result[M11Index] = m11;
+			result[M12Index] = m12;
+			result[M20Index] = m20;
+			result[M21Index] = m21;
+			result[M22Index] = m22;
 			return result;
 		}
 	}
@@ -45,7 +73,7 @@ public partial struct DGMatrix3x3
 	private DGFixedPoint[] _NewTmp()
 	{
 		var result = new DGFixedPoint[Count];
-		result[M22] = (DGFixedPoint) 1;
+		result[M22Index] = (DGFixedPoint) 1;
 		return result;
 	}
 
@@ -56,24 +84,30 @@ public partial struct DGMatrix3x3
 	 *           is not modified.) */
 	public DGMatrix3x3(DGFixedPoint[] values)
 	{
-		val = new DGFixedPoint[Count];
-		for (int i = 0; i < Count; i++)
-			val[i] = values[i];
+	this.m00=values[M00Index];
+	this.m01=values[M01Index];
+	this.m02=values[M02Index];
+	this.m10=values[M10Index];
+	this.m11=values[M11Index];
+	this.m12=values[M12Index];
+	this.m20=values[M20Index];
+	this.m21=values[M21Index];
+	this.m22=values[M22Index];
 	}
 
 /** Sets this matrix to the identity matrix
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 idt()
 	{
-		val[M00] = (DGFixedPoint) 1;
-		val[M10] = (DGFixedPoint) 0;
-		val[M20] = (DGFixedPoint) 0;
-		val[M01] = (DGFixedPoint) 0;
-		val[M11] = (DGFixedPoint) 1;
-		val[M21] = (DGFixedPoint) 0;
-		val[M02] = (DGFixedPoint) 0;
-		val[M12] = (DGFixedPoint) 0;
-		val[M22] = (DGFixedPoint) 1;
+		this.m00 = (DGFixedPoint) 1;
+		this.m10 = (DGFixedPoint) 0;
+		this.m20 = (DGFixedPoint) 0;
+		this.m01 = (DGFixedPoint) 0;
+		this.m11 = (DGFixedPoint) 1;
+		this.m21 = (DGFixedPoint) 0;
+		this.m02 = (DGFixedPoint) 0;
+		this.m12 = (DGFixedPoint) 0;
+		this.m22 = (DGFixedPoint) 1;
 		return this;
 	}
 
@@ -87,27 +121,27 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations together. */
 	public DGMatrix3x3 mul(DGMatrix3x3 m)
 	{
-		DGFixedPoint v00 = val[M00] * m.val[M00] + val[M01] * m.val[M10] + val[M02] * m.val[M20];
-		DGFixedPoint v01 = val[M00] * m.val[M01] + val[M01] * m.val[M11] + val[M02] * m.val[M21];
-		DGFixedPoint v02 = val[M00] * m.val[M02] + val[M01] * m.val[M12] + val[M02] * m.val[M22];
+		DGFixedPoint v00 = this.m00 * m.m00 + this.m01 * m.m10 + this.m02 * m.m20;
+		DGFixedPoint v01 = this.m00 * m.m01 + this.m01 * m.m11 + this.m02 * m.m21;
+		DGFixedPoint v02 = this.m00 * m.m02 + this.m01 * m.m12 + this.m02 * m.m22;
 
-		DGFixedPoint v10 = val[M10] * m.val[M00] + val[M11] * m.val[M10] + val[M12] * m.val[M20];
-		DGFixedPoint v11 = val[M10] * m.val[M01] + val[M11] * m.val[M11] + val[M12] * m.val[M21];
-		DGFixedPoint v12 = val[M10] * m.val[M02] + val[M11] * m.val[M12] + val[M12] * m.val[M22];
+		DGFixedPoint v10 = this.m10 * m.m00 + this.m11 * m.m10 + this.m12 * m.m20;
+		DGFixedPoint v11 = this.m10 * m.m01 + this.m11 * m.m11 + this.m12 * m.m21;
+		DGFixedPoint v12 = this.m10 * m.m02 + this.m11 * m.m12 + this.m12 * m.m22;
 
-		DGFixedPoint v20 = val[M20] * m.val[M00] + val[M21] * m.val[M10] + val[M22] * m.val[M20];
-		DGFixedPoint v21 = val[M20] * m.val[M01] + val[M21] * m.val[M11] + val[M22] * m.val[M21];
-		DGFixedPoint v22 = val[M20] * m.val[M02] + val[M21] * m.val[M12] + val[M22] * m.val[M22];
+		DGFixedPoint v20 = this.m20 * m.m00 + this.m21 * m.m10 + this.m22 * m.m20;
+		DGFixedPoint v21 = this.m20 * m.m01 + this.m21 * m.m11 + this.m22 * m.m21;
+		DGFixedPoint v22 = this.m20 * m.m02 + this.m21 * m.m12 + this.m22 * m.m22;
 
-		val[M00] = v00;
-		val[M10] = v10;
-		val[M20] = v20;
-		val[M01] = v01;
-		val[M11] = v11;
-		val[M21] = v21;
-		val[M02] = v02;
-		val[M12] = v12;
-		val[M22] = v22;
+		this.m00 = v00;
+		this.m10 = v10;
+		this.m20 = v20;
+		this.m01 = v01;
+		this.m11 = v11;
+		this.m21 = v21;
+		this.m02 = v02;
+		this.m12 = v12;
+		this.m22 = v22;
 
 		return this;
 	}
@@ -122,27 +156,27 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 mulLeft(DGMatrix3x3 m)
 	{
-		DGFixedPoint v00 = m.val[M00] * val[M00] + m.val[M01] * val[M10] + m.val[M02] * val[M20];
-		DGFixedPoint v01 = m.val[M00] * val[M01] + m.val[M01] * val[M11] + m.val[M02] * val[M21];
-		DGFixedPoint v02 = m.val[M00] * val[M02] + m.val[M01] * val[M12] + m.val[M02] * val[M22];
+		DGFixedPoint v00 = m.m00 * this.m00 + m.m01 * this.m10 + m.m02 * this.m20;
+		DGFixedPoint v01 = m.m00 * this.m01 + m.m01 * this.m11 + m.m02 * this.m21;
+		DGFixedPoint v02 = m.m00 * this.m02 + m.m01 * this.m12 + m.m02 * this.m22;
 
-		DGFixedPoint v10 = m.val[M10] * val[M00] + m.val[M11] * val[M10] + m.val[M12] * val[M20];
-		DGFixedPoint v11 = m.val[M10] * val[M01] + m.val[M11] * val[M11] + m.val[M12] * val[M21];
-		DGFixedPoint v12 = m.val[M10] * val[M02] + m.val[M11] * val[M12] + m.val[M12] * val[M22];
+		DGFixedPoint v10 = m.m10 * this.m00 + m.m11 * this.m10 + m.m12 * this.m20;
+		DGFixedPoint v11 = m.m10 * this.m01 + m.m11 * this.m11 + m.m12 * this.m21;
+		DGFixedPoint v12 = m.m10 * this.m02 + m.m11 * this.m12 + m.m12 * this.m22;
 
-		DGFixedPoint v20 = m.val[M20] * val[M00] + m.val[M21] * val[M10] + m.val[M22] * val[M20];
-		DGFixedPoint v21 = m.val[M20] * val[M01] + m.val[M21] * val[M11] + m.val[M22] * val[M21];
-		DGFixedPoint v22 = m.val[M20] * val[M02] + m.val[M21] * val[M12] + m.val[M22] * val[M22];
+		DGFixedPoint v20 = m.m20 * this.m00 + m.m21 * this.m10 + m.m22 * this.m20;
+		DGFixedPoint v21 = m.m20 * this.m01 + m.m21 * this.m11 + m.m22 * this.m21;
+		DGFixedPoint v22 = m.m20 * this.m02 + m.m21 * this.m12 + m.m22 * this.m22;
 
-		val[M00] = v00;
-		val[M10] = v10;
-		val[M20] = v20;
-		val[M01] = v01;
-		val[M11] = v11;
-		val[M21] = v21;
-		val[M02] = v02;
-		val[M12] = v12;
-		val[M22] = v22;
+		this.m00 = v00;
+		this.m10 = v10;
+		this.m20 = v20;
+		this.m01 = v01;
+		this.m11 = v11;
+		this.m21 = v21;
+		this.m02 = v02;
+		this.m12 = v12;
+		this.m22 = v22;
 
 		return this;
 	}
@@ -163,17 +197,17 @@ public partial struct DGMatrix3x3
 		DGFixedPoint cos = DGMath.Cos(radians);
 		DGFixedPoint sin = DGMath.Sin(radians);
 
-		val[M00] = cos;
-		val[M10] = sin;
-		val[M20] = (DGFixedPoint) 0;
+		this.m00 = cos;
+		this.m10 = sin;
+		this.m20 = (DGFixedPoint) 0;
 
-		val[M01] = -sin;
-		val[M11] = cos;
-		val[M21] = (DGFixedPoint) 0;
+		this.m01 = -sin;
+		this.m11 = cos;
+		this.m21 = (DGFixedPoint) 0;
 
-		val[M02] = (DGFixedPoint) 0;
-		val[M12] = (DGFixedPoint) 0;
-		val[M22] = (DGFixedPoint) 1;
+		this.m02 = (DGFixedPoint) 0;
+		this.m12 = (DGFixedPoint) 0;
+		this.m22 = (DGFixedPoint) 1;
 
 		return this;
 	}
@@ -199,15 +233,15 @@ public partial struct DGMatrix3x3
 	public DGMatrix3x3 setToRotation(DGVector3 axis, DGFixedPoint cos, DGFixedPoint sin)
 	{
 		DGFixedPoint oc = (DGFixedPoint) 1.0f - cos;
-		val[M00] = oc * axis.x * axis.x + cos;
-		val[M01] = oc * axis.x * axis.y - axis.z * sin;
-		val[M02] = oc * axis.z * axis.x + axis.y * sin;
-		val[M10] = oc * axis.x * axis.y + axis.z * sin;
-		val[M11] = oc * axis.y * axis.y + cos;
-		val[M12] = oc * axis.y * axis.z - axis.x * sin;
-		val[M20] = oc * axis.z * axis.x - axis.y * sin;
-		val[M21] = oc * axis.y * axis.z + axis.x * sin;
-		val[M22] = oc * axis.z * axis.z + cos;
+		this.m00 = oc * axis.x * axis.x + cos;
+		this.m01 = oc * axis.x * axis.y - axis.z * sin;
+		this.m02 = oc * axis.z * axis.x + axis.y * sin;
+		this.m10 = oc * axis.x * axis.y + axis.z * sin;
+		this.m11 = oc * axis.y * axis.y + cos;
+		this.m12 = oc * axis.y * axis.z - axis.x * sin;
+		this.m20 = oc * axis.z * axis.x - axis.y * sin;
+		this.m21 = oc * axis.y * axis.z + axis.x * sin;
+		this.m22 = oc * axis.z * axis.z + cos;
 		return this;
 	}
 
@@ -217,17 +251,17 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToTranslation(DGFixedPoint x, DGFixedPoint y)
 	{
-		val[M00] = (DGFixedPoint) 1;
-		val[M10] = (DGFixedPoint) 0;
-		val[M20] = (DGFixedPoint) 0;
+		this.m00 = (DGFixedPoint) 1;
+		this.m10 = (DGFixedPoint) 0;
+		this.m20 = (DGFixedPoint) 0;
 
-		val[M01] = (DGFixedPoint) 0;
-		val[M11] = (DGFixedPoint) 1;
-		val[M21] = (DGFixedPoint) 0;
+		this.m01 = (DGFixedPoint) 0;
+		this.m11 = (DGFixedPoint) 1;
+		this.m21 = (DGFixedPoint) 0;
 
-		val[M02] = x;
-		val[M12] = y;
-		val[M22] = (DGFixedPoint) 1;
+		this.m02 = x;
+		this.m12 = y;
+		this.m22 = (DGFixedPoint) 1;
 
 		return this;
 	}
@@ -237,17 +271,17 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToTranslation(DGVector2 translation)
 	{
-		val[M00] = (DGFixedPoint) 1;
-		val[M10] = (DGFixedPoint) 0;
-		val[M20] = (DGFixedPoint) 0;
+		this.m00 = (DGFixedPoint) 1;
+		this.m10 = (DGFixedPoint) 0;
+		this.m20 = (DGFixedPoint) 0;
 
-		val[M01] = (DGFixedPoint) 0;
-		val[M11] = (DGFixedPoint) 1;
-		val[M21] = (DGFixedPoint) 0;
+		this.m01 = (DGFixedPoint) 0;
+		this.m11 = (DGFixedPoint) 1;
+		this.m21 = (DGFixedPoint) 0;
 
-		val[M02] = translation.x;
-		val[M12] = translation.y;
-		val[M22] = (DGFixedPoint) 1;
+		this.m02 = translation.x;
+		this.m12 = translation.y;
+		this.m22 = (DGFixedPoint) 1;
 
 		return this;
 	}
@@ -259,15 +293,15 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToScaling(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
-		val[M00] = scaleX;
-		val[M10] = (DGFixedPoint) 0;
-		val[M20] = (DGFixedPoint) 0;
-		val[M01] = (DGFixedPoint) 0;
-		val[M11] = scaleY;
-		val[M21] = (DGFixedPoint) 0;
-		val[M02] = (DGFixedPoint) 0;
-		val[M12] = (DGFixedPoint) 0;
-		val[M22] = (DGFixedPoint) 1;
+		this.m00 = scaleX;
+		this.m10 = (DGFixedPoint) 0;
+		this.m20 = (DGFixedPoint) 0;
+		this.m01 = (DGFixedPoint) 0;
+		this.m11 = scaleY;
+		this.m21 = (DGFixedPoint) 0;
+		this.m02 = (DGFixedPoint) 0;
+		this.m12 = (DGFixedPoint) 0;
+		this.m22 = (DGFixedPoint) 1;
 		return this;
 	}
 
@@ -276,31 +310,30 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToScaling(DGVector2 scale)
 	{
-		val[M00] = scale.x;
-		val[M10] = (DGFixedPoint) 0;
-		val[M20] = (DGFixedPoint) 0;
-		val[M01] = (DGFixedPoint) 0;
-		val[M11] = scale.y;
-		val[M21] = (DGFixedPoint) 0;
-		val[M02] = (DGFixedPoint) 0;
-		val[M12] = (DGFixedPoint) 0;
-		val[M22] = (DGFixedPoint) 1;
+		this.m00 = scale.x;
+		this.m10 = (DGFixedPoint) 0;
+		this.m20 = (DGFixedPoint) 0;
+		this.m01 = (DGFixedPoint) 0;
+		this.m11 = scale.y;
+		this.m21 = (DGFixedPoint) 0;
+		this.m02 = (DGFixedPoint) 0;
+		this.m12 = (DGFixedPoint) 0;
+		this.m22 = (DGFixedPoint) 1;
 		return this;
 	}
 
 	public override string ToString()
 	{
-		return "[" + val[M00] + "|" + val[M01] + "|" + val[M02] + "]\n" //
-		       + "[" + val[M10] + "|" + val[M11] + "|" + val[M12] + "]\n" //
-		       + "[" + val[M20] + "|" + val[M21] + "|" + val[M22] + "]";
+		return "[" + this.m00 + "|" + this.m01 + "|" + this.m02 + "]\n" //
+		       + "[" + this.m10 + "|" + this.m11 + "|" + this.m12 + "]\n" //
+		       + "[" + this.m20 + "|" + this.m21 + "|" + this.m22 + "]";
 	}
 
 /** @return The determinant of this matrix */
 	public DGFixedPoint det()
 	{
-		DGFixedPoint[] val = this.val;
-		return val[M00] * val[M11] * val[M22] + val[M01] * val[M12] * val[M20] + val[M02] * val[M10] * val[M21]
-		       - val[M00] * val[M12] * val[M21] - val[M01] * val[M10] * val[M22] - val[M02] * val[M11] * val[M20];
+		return this.m00 * this.m11 *this.m22 +this.m01 *this.m12 *this.m20 +this.m02 *this.m10 *this.m21
+		       -this.m00 * this.m12 *this.m21 - this.m01 * this.m10 * this.m22 - this.m02 * this.m11 * this.m20;
 	}
 
 /** Inverts this matrix given that the determinant is != 0.
@@ -312,27 +345,26 @@ public partial struct DGMatrix3x3
 		if (det == (DGFixedPoint) 0) throw new Exception("Can't invert a singular matrix");
 
 		DGFixedPoint inv_det = (DGFixedPoint) 1.0f / det;
-		DGFixedPoint[] val = this.val;
 
-		DGFixedPoint v00 = val[M11] * val[M22] - val[M21] * val[M12];
-		DGFixedPoint v10 = val[M20] * val[M12] - val[M10] * val[M22];
-		DGFixedPoint v20 = val[M10] * val[M21] - val[M20] * val[M11];
-		DGFixedPoint v01 = val[M21] * val[M02] - val[M01] * val[M22];
-		DGFixedPoint v11 = val[M00] * val[M22] - val[M20] * val[M02];
-		DGFixedPoint v21 = val[M20] * val[M01] - val[M00] * val[M21];
-		DGFixedPoint v02 = val[M01] * val[M12] - val[M11] * val[M02];
-		DGFixedPoint v12 = val[M10] * val[M02] - val[M00] * val[M12];
-		DGFixedPoint v22 = val[M00] * val[M11] - val[M10] * val[M01];
+		DGFixedPoint v00 = this.m11 * this.m22 - this.m21 * this.m12;
+		DGFixedPoint v10 = this.m20 * this.m12 - this.m10 * this.m22;
+		DGFixedPoint v20 = this.m10 * this.m21 - this.m20 * this.m11;
+		DGFixedPoint v01 = this.m21 * this.m02 - this.m01 * this.m22;
+		DGFixedPoint v11 = this.m00 * this.m22 - this.m20 * this.m02;
+		DGFixedPoint v21 = this.m20 * this.m01 - this.m00 * this.m21;
+		DGFixedPoint v02 = this.m01 * this.m12 - this.m11 * this.m02;
+		DGFixedPoint v12 = this.m10 * this.m02 - this.m00 * this.m12;
+		DGFixedPoint v22 = this.m00 *this.m11 - this.m10 * this.m01;
 
-		val[M00] = inv_det * v00;
-		val[M10] = inv_det * v10;
-		val[M20] = inv_det * v20;
-		val[M01] = inv_det * v01;
-		val[M11] = inv_det * v11;
-		val[M21] = inv_det * v21;
-		val[M02] = inv_det * v02;
-		val[M12] = inv_det * v12;
-		val[M22] = inv_det * v22;
+		this.m00 = inv_det * v00;
+		this.m10 = inv_det * v10;
+		this.m20 = inv_det * v20;
+		this.m01 = inv_det * v01;
+		this.m11 = inv_det * v11;
+		this.m21 = inv_det * v21;
+		this.m02 = inv_det * v02;
+		this.m12 = inv_det * v12;
+		this.m22 = inv_det * v22;
 
 		return this;
 	}
@@ -351,15 +383,15 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purposes of chaining. */
 	public DGMatrix3x3 set(DGAffine2 affine)
 	{
-		val[M00] = affine.m00;
-		val[M10] = affine.m10;
-		val[M20] = (DGFixedPoint) 0;
-		val[M01] = affine.m01;
-		val[M11] = affine.m11;
-		val[M21] = (DGFixedPoint) 0;
-		val[M02] = affine.m02;
-		val[M12] = affine.m12;
-		val[M22] = (DGFixedPoint) 1;
+		this.m00 = affine.m00;
+		this.m10 = affine.m10;
+		this.m20 = (DGFixedPoint) 0;
+		this.m01 = affine.m01;
+		this.m11 = affine.m11;
+		this.m21 = (DGFixedPoint) 0;
+		this.m02 = affine.m02;
+		this.m12 = affine.m12;
+		this.m22 = (DGFixedPoint) 1;
 
 		return this;
 	}
@@ -369,15 +401,15 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 set(DGMatrix4x4 mat)
 	{
-		val[M00] = mat.val[DGMatrix4x4.M00];
-		val[M10] = mat.val[DGMatrix4x4.M10];
-		val[M20] = mat.val[DGMatrix4x4.M20];
-		val[M01] = mat.val[DGMatrix4x4.M01];
-		val[M11] = mat.val[DGMatrix4x4.M11];
-		val[M21] = mat.val[DGMatrix4x4.M21];
-		val[M02] = mat.val[DGMatrix4x4.M02];
-		val[M12] = mat.val[DGMatrix4x4.M12];
-		val[M22] = mat.val[DGMatrix4x4.M22];
+		this.m00 = mat.m00;
+		this.m10 = mat.m10;
+		this.m20 = mat.m20;
+		this.m01 = mat.m01;
+		this.m11 = mat.m11;
+		this.m21 = mat.m21;
+		this.m02 = mat.m02;
+		this.m12 = mat.m12;
+		this.m22 = mat.m22;
 		return this;
 	}
 
@@ -398,8 +430,8 @@ public partial struct DGMatrix3x3
 	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 trn(DGVector2 vector)
 	{
-		val[M02] += vector.x;
-		val[M12] += vector.y;
+		this.m02 += vector.x;
+		this.m12 += vector.y;
 		return this;
 	}
 
@@ -409,8 +441,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 trn(DGFixedPoint x, DGFixedPoint y)
 	{
-		val[M02] += x;
-		val[M12] += y;
+		this.m02 += x;
+		this.m12 += y;
 		return this;
 	}
 
@@ -419,8 +451,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 trn(DGVector3 vector)
 	{
-		val[M02] += vector.x;
-		val[M12] += vector.y;
+		this.m02 += vector.x;
+		this.m12 += vector.y;
 		return this;
 	}
 
@@ -432,16 +464,16 @@ public partial struct DGMatrix3x3
 	public DGMatrix3x3 translate(DGFixedPoint x, DGFixedPoint y)
 	{
 		var tmp = _NewTmp();
-		tmp[M00] = (DGFixedPoint) 1;
-		tmp[M10] = (DGFixedPoint) 0;
+		tmp[M00Index] = (DGFixedPoint) 1;
+		tmp[M10Index] = (DGFixedPoint) 0;
 		// tmp[M20] = 0;
 
-		tmp[M01] = (DGFixedPoint) 0;
-		tmp[M11] = (DGFixedPoint) 1;
+		tmp[M01Index] = (DGFixedPoint) 0;
+		tmp[M11Index] = (DGFixedPoint) 1;
 		// tmp[M21] = 0;
 
-		tmp[M02] = x;
-		tmp[M12] = y;
+		tmp[M02Index] = x;
+		tmp[M12Index] = y;
 		// tmp[M22] = 1;
 		mul(val, tmp);
 		return this;
@@ -455,16 +487,16 @@ public partial struct DGMatrix3x3
 	{
 		var tmp = _NewTmp();
 
-		tmp[M00] = (DGFixedPoint) 1;
-		tmp[M10] = (DGFixedPoint) 0;
+		tmp[M00Index] = (DGFixedPoint) 1;
+		tmp[M10Index] = (DGFixedPoint) 0;
 		// tmp[M20] = 0;
 
-		tmp[M01] = (DGFixedPoint) 0;
-		tmp[M11] = (DGFixedPoint) 1;
+		tmp[M01Index] = (DGFixedPoint) 0;
+		tmp[M11Index] = (DGFixedPoint) 1;
 		// tmp[M21] = 0;
 
-		tmp[M02] = translation.x;
-		tmp[M12] = translation.y;
+		tmp[M02Index] = translation.x;
+		tmp[M12Index] = translation.y;
 		// tmp[M22] = 1;
 		mul(val, tmp);
 		return this;
@@ -491,16 +523,16 @@ public partial struct DGMatrix3x3
 
 		var tmp = _NewTmp();
 
-		tmp[M00] = cos;
-		tmp[M10] = sin;
+		tmp[M00Index] = cos;
+		tmp[M10Index] = sin;
 		// tmp[M20] = 0;
 
-		tmp[M01] = -sin;
-		tmp[M11] = cos;
+		tmp[M01Index] = -sin;
+		tmp[M11Index] = cos;
 		// tmp[M21] = 0;
 
-		tmp[M02] = (DGFixedPoint) 0;
-		tmp[M12] = (DGFixedPoint) 0;
+		tmp[M02Index] = (DGFixedPoint) 0;
+		tmp[M12Index] = (DGFixedPoint) 0;
 		// tmp[M22] = 1;
 
 		mul(val, tmp);
@@ -515,16 +547,16 @@ public partial struct DGMatrix3x3
 	public DGMatrix3x3 scale(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
 		var tmp = _NewTmp();
-		tmp[M00] = scaleX;
-		tmp[M10] = (DGFixedPoint) 0;
+		tmp[M00Index] = scaleX;
+		tmp[M10Index] = (DGFixedPoint) 0;
 		// tmp[M20] = 0;
 
-		tmp[M01] = (DGFixedPoint) 0;
-		tmp[M11] = scaleY;
+		tmp[M01Index] = (DGFixedPoint) 0;
+		tmp[M11Index] = scaleY;
 		// tmp[M21] = 0;
 
-		tmp[M02] = (DGFixedPoint) 0;
-		tmp[M12] = (DGFixedPoint) 0;
+		tmp[M02Index] = (DGFixedPoint) 0;
+		tmp[M12Index] = (DGFixedPoint) 0;
 		// tmp[M22] = 1;
 
 		mul(val, tmp);
@@ -539,16 +571,16 @@ public partial struct DGMatrix3x3
 	{
 		var tmp = _NewTmp();
 
-		tmp[M00] = scale.x;
-		tmp[M10] = (DGFixedPoint) 0;
+		tmp[M00Index] = scale.x;
+		tmp[M10Index] = (DGFixedPoint) 0;
 		// tmp[M20] = 0;
 
-		tmp[M01] = (DGFixedPoint) 0;
-		tmp[M11] = scale.y;
+		tmp[M01Index] = (DGFixedPoint) 0;
+		tmp[M11Index] = scale.y;
 		// tmp[M21] = 0;
 
-		tmp[M02] = (DGFixedPoint) 0;
-		tmp[M12] = (DGFixedPoint) 0;
+		tmp[M02Index] = (DGFixedPoint) 0;
+		tmp[M12Index] = (DGFixedPoint) 0;
 		// tmp[M22] = 1;
 
 		mul(val, tmp);
@@ -564,8 +596,8 @@ public partial struct DGMatrix3x3
 
 	public DGVector2 getTranslation(DGVector2 position)
 	{
-		position.x = val[M02];
-		position.y = val[M12];
+		position.x = this.m02;
+		position.y = this.m12;
 		return position;
 	}
 
@@ -573,19 +605,19 @@ public partial struct DGMatrix3x3
  * @return The provided vector for chaining. */
 	public DGVector2 getScale(DGVector2 scale)
 	{
-		scale.x = DGMath.Sqrt(val[M00] * val[M00] + val[M01] * val[M01]);
-		scale.y = DGMath.Sqrt(val[M10] * val[M10] + val[M11] * val[M11]);
+		scale.x = DGMath.Sqrt(this.m00 * this.m00 + this.m01 * this.m01);
+		scale.y = DGMath.Sqrt(this.m10 * this.m10 + this.m11 * this.m11);
 		return scale;
 	}
 
 	public DGFixedPoint getRotation()
 	{
-		return DGMath.Rad2Deg * DGMath.Atan2(val[M10], val[M00]);
+		return DGMath.Rad2Deg * DGMath.Atan2(this.m10, this.m00);
 	}
 
 	public DGFixedPoint getRotationRad()
 	{
-		return DGMath.Atan2(val[M10], val[M00]);
+		return DGMath.Atan2(this.m10, this.m00);
 	}
 
 /** Scale the matrix in the both the x and y components by the scalar value.
@@ -593,8 +625,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGFixedPoint scale)
 	{
-		val[M00] *= scale;
-		val[M11] *= scale;
+		this.m00 *= scale;
+		this.m11 *= scale;
 		return this;
 	}
 
@@ -603,8 +635,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGVector2 scale)
 	{
-		val[M00] *= scale.x;
-		val[M11] *= scale.y;
+		this.m00 *= scale.x;
+		this.m11 *= scale.y;
 		return this;
 	}
 
@@ -613,8 +645,8 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGVector3 scale)
 	{
-		val[M00] *= scale.x;
-		val[M11] *= scale.y;
+		this.m00 *= scale.x;
+		this.m11 *= scale.y;
 		return this;
 	}
 
@@ -623,18 +655,18 @@ public partial struct DGMatrix3x3
 	public DGMatrix3x3 transpose()
 	{
 		// Where MXY you do not have to change MXX
-		DGFixedPoint v01 = val[M10];
-		DGFixedPoint v02 = val[M20];
-		DGFixedPoint v10 = val[M01];
-		DGFixedPoint v12 = val[M21];
-		DGFixedPoint v20 = val[M02];
-		DGFixedPoint v21 = val[M12];
-		val[M01] = v01;
-		val[M02] = v02;
-		val[M10] = v10;
-		val[M12] = v12;
-		val[M20] = v20;
-		val[M21] = v21;
+		DGFixedPoint v01 = this.m10;
+		DGFixedPoint v02 = this.m20;
+		DGFixedPoint v10 = this.m01;
+		DGFixedPoint v12 = this.m21;
+		DGFixedPoint v20 = this.m02;
+		DGFixedPoint v21 = this.m12;
+		this.m01 = v01;
+		this.m02 = v02;
+		this.m10 = v10;
+		this.m12 = v12;
+		this.m20 = v20;
+		this.m21 = v21;
 		return this;
 	}
 
@@ -648,26 +680,26 @@ public partial struct DGMatrix3x3
  * @param matb The float array representing the second matrix. Must have at least 9 elements. */
 	private static void mul(DGFixedPoint[] mata, DGFixedPoint[] matb)
 	{
-		DGFixedPoint v00 = mata[M00] * matb[M00] + mata[M01] * matb[M10] + mata[M02] * matb[M20];
-		DGFixedPoint v01 = mata[M00] * matb[M01] + mata[M01] * matb[M11] + mata[M02] * matb[M21];
-		DGFixedPoint v02 = mata[M00] * matb[M02] + mata[M01] * matb[M12] + mata[M02] * matb[M22];
+		DGFixedPoint v00 = mata[M00Index] * matb[M00Index] + mata[M01Index] * matb[M10Index] + mata[M02Index] * matb[M20Index];
+		DGFixedPoint v01 = mata[M00Index] * matb[M01Index] + mata[M01Index] * matb[M11Index] + mata[M02Index] * matb[M21Index];
+		DGFixedPoint v02 = mata[M00Index] * matb[M02Index] + mata[M01Index] * matb[M12Index] + mata[M02Index] * matb[M22Index];
 
-		DGFixedPoint v10 = mata[M10] * matb[M00] + mata[M11] * matb[M10] + mata[M12] * matb[M20];
-		DGFixedPoint v11 = mata[M10] * matb[M01] + mata[M11] * matb[M11] + mata[M12] * matb[M21];
-		DGFixedPoint v12 = mata[M10] * matb[M02] + mata[M11] * matb[M12] + mata[M12] * matb[M22];
+		DGFixedPoint v10 = mata[M10Index] * matb[M00Index] + mata[M11Index] * matb[M10Index] + mata[M12Index] * matb[M20Index];
+		DGFixedPoint v11 = mata[M10Index] * matb[M01Index] + mata[M11Index] * matb[M11Index] + mata[M12Index] * matb[M21Index];
+		DGFixedPoint v12 = mata[M10Index] * matb[M02Index] + mata[M11Index] * matb[M12Index] + mata[M12Index] * matb[M22Index];
 
-		DGFixedPoint v20 = mata[M20] * matb[M00] + mata[M21] * matb[M10] + mata[M22] * matb[M20];
-		DGFixedPoint v21 = mata[M20] * matb[M01] + mata[M21] * matb[M11] + mata[M22] * matb[M21];
-		DGFixedPoint v22 = mata[M20] * matb[M02] + mata[M21] * matb[M12] + mata[M22] * matb[M22];
+		DGFixedPoint v20 = mata[M20Index] * matb[M00Index] + mata[M21Index] * matb[M10Index] + mata[M22Index] * matb[M20Index];
+		DGFixedPoint v21 = mata[M20Index] * matb[M01Index] + mata[M21Index] * matb[M11Index] + mata[M22Index] * matb[M21Index];
+		DGFixedPoint v22 = mata[M20Index] * matb[M02Index] + mata[M21Index] * matb[M12Index] + mata[M22Index] * matb[M22Index];
 
-		mata[M00] = v00;
-		mata[M10] = v10;
-		mata[M20] = v20;
-		mata[M01] = v01;
-		mata[M11] = v11;
-		mata[M21] = v21;
-		mata[M02] = v02;
-		mata[M12] = v12;
-		mata[M22] = v22;
+		mata[M00Index] = v00;
+		mata[M10Index] = v10;
+		mata[M20Index] = v20;
+		mata[M01Index] = v01;
+		mata[M11Index] = v11;
+		mata[M21Index] = v21;
+		mata[M02Index] = v02;
+		mata[M12Index] = v12;
+		mata[M22Index] = v22;
 	}
 }

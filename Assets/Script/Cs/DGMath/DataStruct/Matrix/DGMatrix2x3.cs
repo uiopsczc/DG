@@ -119,13 +119,13 @@ public struct DGMatrix2x3
 	public static DGMatrix2x3 Multiply(DGMatrix2x3 a, DGMatrix3x3 b)
 	{
 		DGMatrix2x3 result = default;
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
-		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
+		DGFixedPoint resultM11 = a.SM11 * b.sm11 + a.SM12 * b.sm21 + a.SM13 * b.sm31;
+		DGFixedPoint resultM12 = a.SM11 * b.sm12 + a.SM12 * b.sm22 + a.SM13 * b.sm32;
+		DGFixedPoint resultM13 = a.SM11 * b.sm13 + a.SM12 * b.sm23 + a.SM13 * b.sm33;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
-		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33;
+		DGFixedPoint resultM21 = a.SM21 * b.sm11 + a.SM22 * b.sm21 + a.SM23 * b.sm31;
+		DGFixedPoint resultM22 = a.SM21 * b.sm12 + a.SM22 * b.sm22 + a.SM23 * b.sm32;
+		DGFixedPoint resultM23 = a.SM21 * b.sm13 + a.SM22 * b.sm23 + a.SM23 * b.sm33;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;
@@ -147,13 +147,13 @@ public struct DGMatrix2x3
 	public static DGMatrix2x3 Multiply(DGMatrix2x3 a, DGMatrix4x4 b)
 	{
 		DGMatrix2x3 result = default;
-		DGFixedPoint resultM11 = a.SM11 * b.SM11 + a.SM12 * b.SM21 + a.SM13 * b.SM31;
-		DGFixedPoint resultM12 = a.SM11 * b.SM12 + a.SM12 * b.SM22 + a.SM13 * b.SM32;
-		DGFixedPoint resultM13 = a.SM11 * b.SM13 + a.SM12 * b.SM23 + a.SM13 * b.SM33;
+		DGFixedPoint resultM11 = a.SM11 * b.sm11 + a.SM12 * b.sm21 + a.SM13 * b.sm31;
+		DGFixedPoint resultM12 = a.SM11 * b.sm12 + a.SM12 * b.sm22 + a.SM13 * b.sm32;
+		DGFixedPoint resultM13 = a.SM11 * b.sm13 + a.SM12 * b.sm23 + a.SM13 * b.sm33;
 
-		DGFixedPoint resultM21 = a.SM21 * b.SM11 + a.SM22 * b.SM21 + a.SM23 * b.SM31;
-		DGFixedPoint resultM22 = a.SM21 * b.SM12 + a.SM22 * b.SM22 + a.SM23 * b.SM32;
-		DGFixedPoint resultM23 = a.SM21 * b.SM13 + a.SM22 * b.SM23 + a.SM23 * b.SM33;
+		DGFixedPoint resultM21 = a.SM21 * b.sm11 + a.SM22 * b.sm21 + a.SM23 * b.sm31;
+		DGFixedPoint resultM22 = a.SM21 * b.sm12 + a.SM22 * b.sm22 + a.SM23 * b.sm32;
+		DGFixedPoint resultM23 = a.SM21 * b.sm13 + a.SM22 * b.sm23 + a.SM23 * b.sm33;
 
 		result.SM11 = resultM11;
 		result.SM12 = resultM12;

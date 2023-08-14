@@ -97,12 +97,12 @@ public partial struct DGAffine2
 	{
 		DGFixedPoint[] other = matrix.val;
 
-		m00 = other[DGMatrix3x3.M00];
-		m01 = other[DGMatrix3x3.M01];
-		m02 = other[DGMatrix3x3.M02];
-		m10 = other[DGMatrix3x3.M10];
-		m11 = other[DGMatrix3x3.M11];
-		m12 = other[DGMatrix3x3.M12];
+		m00 = other[DGMatrix3x3.M00Index];
+		m01 = other[DGMatrix3x3.M01Index];
+		m02 = other[DGMatrix3x3.M02Index];
+		m10 = other[DGMatrix3x3.M10Index];
+		m11 = other[DGMatrix3x3.M11Index];
+		m12 = other[DGMatrix3x3.M12Index];
 		return this;
 	}
 
@@ -120,12 +120,12 @@ public partial struct DGAffine2
 	{
 		DGFixedPoint[] other = matrix.val;
 
-		m00 = other[DGMatrix4x4.M00];
-		m01 = other[DGMatrix4x4.M01];
-		m02 = other[DGMatrix4x4.M03];
-		m10 = other[DGMatrix4x4.M10];
-		m11 = other[DGMatrix4x4.M11];
-		m12 = other[DGMatrix4x4.M13];
+		m00 = other[DGMatrix4x4.M00Index];
+		m01 = other[DGMatrix4x4.M01Index];
+		m02 = other[DGMatrix4x4.M03Index];
+		m10 = other[DGMatrix4x4.M10Index];
+		m11 = other[DGMatrix4x4.M11Index];
+		m12 = other[DGMatrix4x4.M13Index];
 		return this;
 	}
 

@@ -236,10 +236,10 @@ public partial struct DGPlane
 		DGFixedPoint x = plane.normal.x, y = plane.normal.y, z = plane.normal.z, w = plane.d;
 
 		return new DGPlane(
-			x * m.SM11 + y * m.SM12 + z * m.SM13 + w * m.SM14,
-			x * m.SM21 + y * m.SM22 + z * m.SM23 + w * m.SM24,
-			x * m.SM31 + y * m.SM32 + z * m.SM33 + w * m.SM34,
-			x * m.SM41 + y * m.SM42 + z * m.SM43 + w * m.SM44);
+			x * m.sm11 + y * m.sm12 + z * m.sm13 + w * m.sm14,
+			x * m.sm21 + y * m.sm22 + z * m.sm23 + w * m.sm24,
+			x * m.sm31 + y * m.sm32 + z * m.sm33 + w * m.sm34,
+			x * m.sm41 + y * m.sm42 + z * m.sm43 + w * m.sm44);
 	}
 
 	/// <summary>

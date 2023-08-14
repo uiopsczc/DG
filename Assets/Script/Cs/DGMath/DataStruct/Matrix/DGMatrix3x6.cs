@@ -82,15 +82,15 @@ static class Matrix3x6
 		DGFixedPoint[,] M = Matrix;
 
 		// Initialize temporary matrix
-		M[0, 0] = m.SM11;
-		M[0, 1] = m.SM12;
-		M[0, 2] = m.SM13;
-		M[1, 0] = m.SM21;
-		M[1, 1] = m.SM22;
-		M[1, 2] = m.SM23;
-		M[2, 0] = m.SM31;
-		M[2, 1] = m.SM32;
-		M[2, 2] = m.SM33;
+		M[0, 0] = m.sm11;
+		M[0, 1] = m.sm12;
+		M[0, 2] = m.sm13;
+		M[1, 0] = m.sm21;
+		M[1, 1] = m.sm22;
+		M[1, 2] = m.sm23;
+		M[2, 0] = m.sm31;
+		M[2, 1] = m.sm32;
+		M[2, 2] = m.sm33;
 
 		M[0, 3] = (DGFixedPoint) 1;
 		M[0, 4] = (DGFixedPoint) 0;

@@ -417,22 +417,22 @@ public partial struct DGQuaternion
 		DGFixedPoint zz = z * z;
 		DGFixedPoint zw = z * w;
 		// Set matrix from quaternion
-		matrix[DGMatrix4x4.M00] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (yy + zz);
-		matrix[DGMatrix4x4.M01] = (DGFixedPoint) 2 * (xy - zw);
-		matrix[DGMatrix4x4.M02] = (DGFixedPoint) 2 * (xz + yw);
-		matrix[DGMatrix4x4.M03] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M10] = (DGFixedPoint) 2 * (xy + zw);
-		matrix[DGMatrix4x4.M11] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + zz);
-		matrix[DGMatrix4x4.M12] = (DGFixedPoint) 2 * (yz - xw);
-		matrix[DGMatrix4x4.M13] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M20] = (DGFixedPoint) 2 * (xz - yw);
-		matrix[DGMatrix4x4.M21] = (DGFixedPoint) 2 * (yz + xw);
-		matrix[DGMatrix4x4.M22] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + yy);
-		matrix[DGMatrix4x4.M23] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M30] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M31] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M32] = (DGFixedPoint) 0;
-		matrix[DGMatrix4x4.M33] = (DGFixedPoint) 1;
+		matrix[DGMatrix4x4.M00Index] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (yy + zz);
+		matrix[DGMatrix4x4.M01Index] = (DGFixedPoint) 2 * (xy - zw);
+		matrix[DGMatrix4x4.M02Index] = (DGFixedPoint) 2 * (xz + yw);
+		matrix[DGMatrix4x4.M03Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M10Index] = (DGFixedPoint) 2 * (xy + zw);
+		matrix[DGMatrix4x4.M11Index] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + zz);
+		matrix[DGMatrix4x4.M12Index] = (DGFixedPoint) 2 * (yz - xw);
+		matrix[DGMatrix4x4.M13Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M20Index] = (DGFixedPoint) 2 * (xz - yw);
+		matrix[DGMatrix4x4.M21Index] = (DGFixedPoint) 2 * (yz + xw);
+		matrix[DGMatrix4x4.M22Index] = (DGFixedPoint) 1 - (DGFixedPoint) 2 * (xx + yy);
+		matrix[DGMatrix4x4.M23Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M30Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M31Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M32Index] = (DGFixedPoint) 0;
+		matrix[DGMatrix4x4.M33Index] = (DGFixedPoint) 1;
 	}
 
 	/** Sets the quaternion to an identity Quaternion
@@ -509,11 +509,11 @@ public partial struct DGQuaternion
 	{
 		DGVector3 scale = default;
 		matrix.getScale(ref scale);
-		return setFromAxes(normalizeAxes, matrix.val[DGMatrix4x4.M00]/ scale.x, matrix.val[DGMatrix4x4.M01] / scale.y,
-			matrix.val[DGMatrix4x4.M02] / scale.z,
-			matrix.val[DGMatrix4x4.M10] / scale.x, matrix.val[DGMatrix4x4.M11]/ scale.y, matrix.val[DGMatrix4x4.M12] / scale.z,
-			matrix.val[DGMatrix4x4.M20] / scale.x,
-			matrix.val[DGMatrix4x4.M21] / scale.y, matrix.val[DGMatrix4x4.M22]/ scale.z);
+		return setFromAxes(normalizeAxes, matrix.val[DGMatrix4x4.M00Index]/ scale.x, matrix.val[DGMatrix4x4.M01Index] / scale.y,
+			matrix.val[DGMatrix4x4.M02Index] / scale.z,
+			matrix.val[DGMatrix4x4.M10Index] / scale.x, matrix.val[DGMatrix4x4.M11Index]/ scale.y, matrix.val[DGMatrix4x4.M12Index] / scale.z,
+			matrix.val[DGMatrix4x4.M20Index] / scale.x,
+			matrix.val[DGMatrix4x4.M21Index] / scale.y, matrix.val[DGMatrix4x4.M22Index]/ scale.z);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
@@ -525,11 +525,11 @@ public partial struct DGQuaternion
 	/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
 	public DGQuaternion setFromMatrix(bool normalizeAxes, DGMatrix3x3 matrix)
 	{
-		return setFromAxes(normalizeAxes, matrix.val[DGMatrix3x3.M00], matrix.val[DGMatrix3x3.M01],
-			matrix.val[DGMatrix3x3.M02],
-			matrix.val[DGMatrix3x3.M10], matrix.val[DGMatrix3x3.M11], matrix.val[DGMatrix3x3.M12],
-			matrix.val[DGMatrix3x3.M20],
-			matrix.val[DGMatrix3x3.M21], matrix.val[DGMatrix3x3.M22]);
+		return setFromAxes(normalizeAxes, matrix.val[DGMatrix3x3.M00Index], matrix.val[DGMatrix3x3.M01Index],
+			matrix.val[DGMatrix3x3.M02Index],
+			matrix.val[DGMatrix3x3.M10Index], matrix.val[DGMatrix3x3.M11Index], matrix.val[DGMatrix3x3.M12Index],
+			matrix.val[DGMatrix3x3.M20Index],
+			matrix.val[DGMatrix3x3.M21Index], matrix.val[DGMatrix3x3.M22Index]);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */

@@ -272,8 +272,8 @@ public partial struct DGVector2
 	 * @return this vector */
 	public DGVector2 mul(DGMatrix3x3 mat)
 	{
-		DGFixedPoint x = this.x * mat.val[DGMatrix3x3.M00] + this.y * mat.val[DGMatrix3x3.M01] + mat.val[DGMatrix3x3.M02];
-		DGFixedPoint y = this.x * mat.val[DGMatrix3x3.M10] + this.y * mat.val[DGMatrix3x3.M11] + mat.val[DGMatrix3x3.M12];
+		DGFixedPoint x = this.x * mat.val[DGMatrix3x3.M00Index] + this.y * mat.val[DGMatrix3x3.M01Index] + mat.val[DGMatrix3x3.M02Index];
+		DGFixedPoint y = this.x * mat.val[DGMatrix3x3.M10Index] + this.y * mat.val[DGMatrix3x3.M11Index] + mat.val[DGMatrix3x3.M12Index];
 		this.x = x;
 		this.y = y;
 		return this;
