@@ -57,7 +57,7 @@ public class DGTmpTest : MonoBehaviour
 		Hashtable ht  = new Hashtable();
 		ht.Add("kk", new List<int>(){ 7, 3, 4 });
 		ht.Add("aa", "bb");
-		DGLog.Warn(ht, "aaaa{0}", 888);
+		DGLog.Warn(ht, "aaaa{0}", 888, "bbbb",999, "cccc{0}", 10);
 		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
 	}
 	

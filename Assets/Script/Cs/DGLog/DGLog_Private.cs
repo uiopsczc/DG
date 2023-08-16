@@ -30,23 +30,28 @@ public static partial class DGLog
 		int totalLength = args.Length;
 		string[] dgStringArgs = new string[totalLength];
 		for (int m = 0; m < args.Length; m++)
-			dgStringArgs[m] = args[m].DGToString();
-		int i = 0;
-		do
 		{
-			var format = dgStringArgs[i];
-			var formatArgCount = _GetStringFormatArgCount(format);
-			var formatArgs = new object[formatArgCount];
-			Array.Copy(dgStringArgs, i+1, formatArgs, 0, formatArgCount);
-			if (i != 0)
-			{
-				_Convert_To_Msg_String_Builder.Append("  ");
-				_Convert_To_Msg_String_Builder.Append(string.Format(format, formatArgs));
-			}else
-				_Convert_To_Msg_String_Builder.Append(format);
+			dgStringArgs[m] = args[m].DGToString();
+			if(!_Log_Cfg.enableArgFormat)
+				_Convert_To_Msg_String_Builder.Append(string.Format("  {0}", dgStringArgs[m]));
+		}
 
-			i = i + formatArgCount + 1;
-		} while (i<totalLength);
+		if (_Log_Cfg.enableArgFormat)
+		{
+			int i = 0;
+			do
+			{
+				var format = dgStringArgs[i];
+				var formatArgCount = _GetStringFormatArgCount(format);
+				var formatArgs = new string[formatArgCount];
+				Array.Copy(dgStringArgs, i + 1, formatArgs, 0, formatArgCount);
+				_Convert_To_Msg_String_Builder.Append(formatArgCount != 0
+					? string.Format("  " + format, formatArgs)
+					: string.Format("  {0}", format));
+				i = i + formatArgCount + 1;
+			} while (i < totalLength);
+		}
+		
 		var result = _Convert_To_Msg_String_Builder.ToString();
 		_Convert_To_Msg_String_Builder.Clear();
 		return result;
