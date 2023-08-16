@@ -1,7 +1,8 @@
 {
     "name": "DGFixedPoint",
     "references": [
-        "GUID:2888ca1977cfd9040b846319f226ecef"
+        "GUID:2888ca1977cfd9040b846319f226ecef",
+        "GUID:9084a5911daa7084ca5edf2626accf95"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

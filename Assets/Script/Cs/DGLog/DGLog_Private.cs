@@ -19,7 +19,7 @@ using System.Threading;
 public static partial class DGLog
 {
 	private static readonly StringBuilder _Convert_To_Msg_String_Builder = new StringBuilder(1000);
-	private const string _STRING_FORMAT_ARG_COUNT_PATTERN = @"{(.*?)}";
+	private const string _STRING_FORMAT_ARG_COUNT_PATTERN = @"{[0-9]+}";
 	private static readonly HashSet<string> _String_Format_Arg_Count_Hash_Set = new HashSet<string>();
 	private static StringBuilder _Decorate_Log_String_Builder = new StringBuilder(1000);
 
@@ -28,16 +28,23 @@ public static partial class DGLog
 		if (args == null || args.Length == 0)
 			return string.Empty;
 		int totalLength = args.Length;
+		string[] dgStringArgs = new string[totalLength];
+		for (int m = 0; m < args.Length; m++)
+			dgStringArgs[m] = args[m].DGToString();
 		int i = 0;
 		do
 		{
-			var format = args[i].ToString();
+			var format = dgStringArgs[i];
 			var formatArgCount = _GetStringFormatArgCount(format);
 			var formatArgs = new object[formatArgCount];
-			Array.Copy(args, i+1, formatArgs, 0, formatArgCount);
+			Array.Copy(dgStringArgs, i+1, formatArgs, 0, formatArgCount);
 			if (i != 0)
+			{
 				_Convert_To_Msg_String_Builder.Append("  ");
-			_Convert_To_Msg_String_Builder.Append(string.Format(format, formatArgs));
+				_Convert_To_Msg_String_Builder.Append(string.Format(format, formatArgs));
+			}else
+				_Convert_To_Msg_String_Builder.Append(format);
+
 			i = i + formatArgCount + 1;
 		} while (i<totalLength);
 		var result = _Convert_To_Msg_String_Builder.ToString();

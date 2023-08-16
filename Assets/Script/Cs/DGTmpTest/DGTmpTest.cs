@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using Matrix4x4 = UnityEngine.Matrix4x4;
@@ -52,7 +54,10 @@ public class DGTmpTest : MonoBehaviour
 		//		Matrix4x4.Perspective()
 //		Debug.LogWarning(Matrix4x4.Translate(a5).ToString2());
 		//		Debug.LogWarning(System.Numerics.Matrix4x4.CreateWorld(b3,b4,b5).ToString2());
-		DGLog.Warn("5555");
+		Hashtable ht  = new Hashtable();
+		ht.Add("kk", new List<int>(){ 7, 3, 4 });
+		ht.Add("aa", "bb");
+		DGLog.Warn(ht, "aaaa{0}", 888);
 		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
 	}
 	
