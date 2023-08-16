@@ -48,9 +48,11 @@ public class DGTmpTest : MonoBehaviour
 		var c7 = new DGVector4(a7);
 		var c8 = new DGVector3(a8);
 
+
 		//		Matrix4x4.Perspective()
-		Debug.LogWarning(Matrix4x4.Translate(a5).ToString2());
+//		Debug.LogWarning(Matrix4x4.Translate(a5).ToString2());
 		//		Debug.LogWarning(System.Numerics.Matrix4x4.CreateWorld(b3,b4,b5).ToString2());
+		DGLog.Warn("5555");
 		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
 	}
 	

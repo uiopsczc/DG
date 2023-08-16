@@ -1,3 +1,15 @@
-﻿{
-	"name": "DGFixedPoint"
+{
+    "name": "DGFixedPoint",
+    "references": [
+        "GUID:2888ca1977cfd9040b846319f226ecef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
