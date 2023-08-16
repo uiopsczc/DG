@@ -2,7 +2,7 @@
 
 public static class UnityEngine_Matrix4x4_Extension
 {
-	public static string ToString2(this Matrix4x4 v)
+	public static string DGToString(this Matrix4x4 v)
 	{
 		return "{" + v.m00 + ", " + v.m01 + ", " + v.m02 + ", " + v.m03 + "} \n" +
 		       "{" + v.m10 + ", " + v.m11 + ", " + v.m12 + ", " + v.m13 + "} \n" +

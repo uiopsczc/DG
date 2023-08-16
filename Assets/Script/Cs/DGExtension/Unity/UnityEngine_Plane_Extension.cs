@@ -2,9 +2,9 @@
 
 public static class UnityEngine_Plane_Extension
 {
-	public static string ToString2(this Plane v)
+	public static string DGToString(this Plane v)
 	{
-		return "{normal:" + v.normal.ToString2() + ", distance:" + v.distance + "}";
+		return "{normal:" + v.normal.DGToString() + ", distance:" + v.distance + "}";
 	}
 
 	public static System.Numerics.Plane To_System_Numerics_Plane(this Plane v)
