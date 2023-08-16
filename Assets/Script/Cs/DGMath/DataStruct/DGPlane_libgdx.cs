@@ -9,24 +9,23 @@
  * ======================================
 *************************************************************************************/
 
+/** Enum specifying on which side a point lies respective to the plane and it's normal. {@link PlaneSide#Front} is the side to
+ * which the normal points.
+ * 
+ * @author mzechner */
 
+public enum DGPlaneSide
+{
+	OnPlane,
+	Back,
+	Front
+}
 
 /** A plane defined via a unit length normal and the distance from the origin, as you learned in your math class.
  * 
  * @author badlogicgames@gmail.com */
 public partial struct DGPlane
 {
-	/** Enum specifying on which side a point lies respective to the plane and it's normal. {@link PlaneSide#Front} is the side to
-	 * which the normal points.
-	 * 
-	 * @author mzechner */
-	public enum DGPlaneSide
-	{
-		OnPlane,
-		Back,
-		Front
-	}
-
 	public DGVector3 normal;
 	public DGFixedPoint d;
 
@@ -166,7 +165,8 @@ public partial struct DGPlane
 		d = -point.dot(normal);
 	}
 
-	public void set(DGFixedPoint pointX, DGFixedPoint pointY, DGFixedPoint pointZ, DGFixedPoint norX, DGFixedPoint norY, DGFixedPoint norZ)
+	public void set(DGFixedPoint pointX, DGFixedPoint pointY, DGFixedPoint pointZ, DGFixedPoint norX, DGFixedPoint norY,
+		DGFixedPoint norZ)
 	{
 		this.normal.set(norX, norY, norZ);
 		d = -(pointX * norX + pointY * norY + pointZ * norZ);
