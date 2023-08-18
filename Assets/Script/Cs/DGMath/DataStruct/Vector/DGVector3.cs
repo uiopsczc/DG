@@ -19,6 +19,8 @@ public partial struct DGVector3
 	public static readonly DGFixedPoint kEpsilon = (DGFixedPoint) 0.00001F;
 	public static readonly DGFixedPoint kEpsilonNormalSqrt = (DGFixedPoint) 1e-15F;
 
+	//不能修改Null的值
+	public static DGVector3 Null = DGVector3.max.cpy();
 	public static DGVector3 zero => new DGVector3(0, 0, 0);
 	public static DGVector3 one => new DGVector3(1, 1, 1);
 	public static DGVector3 forward => new DGVector3(0, 0, 1);

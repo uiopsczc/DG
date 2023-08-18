@@ -20,6 +20,8 @@ public partial struct DGVector2 : IEquatable<DGVector2>
 	public static readonly DGFixedPoint kEpsilon = (DGFixedPoint) 0.00001F;
 	public static readonly DGFixedPoint kEpsilonNormalSqrt = (DGFixedPoint) 1e-15f;
 
+	//不能修改Null的值
+	public static DGVector2 Null = DGVector2.max.cpy();
 	public static DGVector2 zero => new DGVector2(0, 0);
 	public static DGVector2 one => new DGVector2(1, 1);
 	public static DGVector2 left => new DGVector2(-1, 0);

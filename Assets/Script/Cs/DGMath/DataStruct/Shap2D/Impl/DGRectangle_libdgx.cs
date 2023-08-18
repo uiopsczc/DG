@@ -11,11 +11,14 @@
 
 public struct DGRectangle : IDGShape2D
 {
+	//不能修改Null的值
+	public static DGRectangle Null = Max.cpy();
+	public static DGRectangle Max = new DGRectangle(DGFixedPoint.MaxValue, DGFixedPoint.MaxValue, DGFixedPoint.MaxValue, DGFixedPoint.MaxValue);
 	/** Static temporary rectangle. Use with care! Use only when sure other code will not also use this. */
-	static public DGRectangle tmp = default;
+	public static DGRectangle tmp = default;
 
 	/** Static temporary rectangle. Use with care! Use only when sure other code will not also use this. */
-	static public DGRectangle tmp2 = default;
+	public static DGRectangle tmp2 = default;
 
 	public DGFixedPoint x, y;
 	public DGFixedPoint width, height;
@@ -321,7 +324,7 @@ public struct DGRectangle : IDGShape2D
 	/** Calculates the center of the rectangle. Results are located in the given Vector2
 	 * @param vector the Vector2 to use
 	 * @return the given vector with results stored inside */
-	public DGVector2 getCenter(DGVector2 vector)
+	public DGVector2 getCenter(ref DGVector2 vector)
 	{
 		vector.x = x + width / (DGFixedPoint) 2;
 		vector.y = y + height / (DGFixedPoint) 2;
@@ -411,6 +414,11 @@ public struct DGRectangle : IDGShape2D
 	public DGFixedPoint perimeter()
 	{
 		return (DGFixedPoint) 2 * (this.width + this.height);
+	}
+
+	public DGRectangle cpy()
+	{
+		return new DGRectangle(x,y,width,height);
 	}
 
 	public override bool Equals(object obj)

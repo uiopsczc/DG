@@ -356,7 +356,7 @@ public struct DGMatrix3x2
 		result.SM11 = xScale;
 		result.SM12 = (DGFixedPoint) 0.0f;
 		result.SM21 = (DGFixedPoint) 0.0f;
-		result.SM22 = (DGFixedPoint) yScale;
+		result.SM22 = yScale;
 		result.SM31 = (DGFixedPoint) 0.0f;
 		result.SM32 = (DGFixedPoint) 0.0f;
 
@@ -396,10 +396,10 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (DGFixedPoint) scales.x;
+		result.SM11 = scales.x;
 		result.SM12 = (DGFixedPoint) 0.0f;
 		result.SM21 = (DGFixedPoint) 0.0f;
-		result.SM22 = (DGFixedPoint) scales.y;
+		result.SM22 = scales.y;
 		result.SM31 = (DGFixedPoint) 0.0f;
 		result.SM32 = (DGFixedPoint) 0.0f;
 
@@ -419,12 +419,12 @@ public struct DGMatrix3x2
 		DGFixedPoint tx = centerPoint.x * ((DGFixedPoint) 1 - scales.x);
 		DGFixedPoint ty = centerPoint.y * ((DGFixedPoint) 1 - scales.y);
 
-		result.SM11 = (DGFixedPoint) scales.x;
+		result.SM11 = scales.x;
 		result.SM12 = (DGFixedPoint) 0.0f;
 		result.SM21 = (DGFixedPoint) 0.0f;
-		result.SM22 = (DGFixedPoint) scales.y;
-		result.SM31 = (DGFixedPoint) tx;
-		result.SM32 = (DGFixedPoint) ty;
+		result.SM22 = scales.y;
+		result.SM31 = tx;
+		result.SM32 = ty;
 
 		return result;
 	}
@@ -438,10 +438,10 @@ public struct DGMatrix3x2
 	{
 		DGMatrix3x2 result;
 
-		result.SM11 = (DGFixedPoint) scale;
+		result.SM11 = scale;
 		result.SM12 = (DGFixedPoint) 0.0f;
 		result.SM21 = (DGFixedPoint) 0.0f;
-		result.SM22 = (DGFixedPoint) scale;
+		result.SM22 = scale;
 		result.SM31 = (DGFixedPoint) 0.0f;
 		result.SM32 = (DGFixedPoint) 0.0f;
 
@@ -461,12 +461,12 @@ public struct DGMatrix3x2
 		DGFixedPoint tx = centerPoint.x * ((DGFixedPoint) 1 - scale);
 		DGFixedPoint ty = centerPoint.y * ((DGFixedPoint) 1 - scale);
 
-		result.SM11 = (DGFixedPoint) scale;
+		result.SM11 = scale;
 		result.SM12 = (DGFixedPoint) 0.0f;
 		result.SM21 = (DGFixedPoint) 0.0f;
-		result.SM22 = (DGFixedPoint) scale;
-		result.SM31 = (DGFixedPoint) tx;
-		result.SM32 = (DGFixedPoint) ty;
+		result.SM22 = scale;
+		result.SM31 = tx;
+		result.SM32 = ty;
 
 		return result;
 	}
@@ -485,8 +485,8 @@ public struct DGMatrix3x2
 		DGFixedPoint yTan = DGMath.Tan(radiansY);
 
 		result.SM11 = (DGFixedPoint) 1.0f;
-		result.SM12 = (DGFixedPoint) yTan;
-		result.SM21 = (DGFixedPoint) xTan;
+		result.SM12 = yTan;
+		result.SM21 = xTan;
 		result.SM22 = (DGFixedPoint) 1.0f;
 		result.SM31 = (DGFixedPoint) 0.0f;
 		result.SM32 = (DGFixedPoint) 0.0f;
@@ -512,11 +512,11 @@ public struct DGMatrix3x2
 		DGFixedPoint ty = -centerPoint.x * yTan;
 
 		result.SM11 = (DGFixedPoint) 1.0f;
-		result.SM12 = (DGFixedPoint) yTan;
-		result.SM21 = (DGFixedPoint) xTan;
+		result.SM12 = yTan;
+		result.SM21 = xTan;
 		result.SM22 = (DGFixedPoint) 1.0f;
-		result.SM31 = (DGFixedPoint) tx;
-		result.SM32 = (DGFixedPoint) ty;
+		result.SM31 = tx;
+		result.SM32 = ty;
 
 		return result;
 	}

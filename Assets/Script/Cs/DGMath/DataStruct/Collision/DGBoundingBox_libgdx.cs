@@ -9,8 +9,6 @@
  * ======================================
 *************************************************************************************/
 
-
-using System;
 using System.Collections.Generic;
 
 public partial class DGBoundingBox
@@ -19,18 +17,18 @@ public partial class DGBoundingBox
 
 	/** Minimum vector. All XYZ components should be inferior to corresponding {@link #max} components. Call {@link #update()} if
 	 * you manually change this vector. */
-	public DGVector3 min = new DGVector3();
+	public DGVector3 min;
 
 	/** Maximum vector. All XYZ components should be superior to corresponding {@link #min} components. Call {@link #update()} if
 	 * you manually change this vector. */
-	public DGVector3 max = new DGVector3();
+	public DGVector3 max;
 
-	private DGVector3 cnt = new DGVector3();
-	private DGVector3 dim = new DGVector3();
+	private DGVector3 cnt;
+	private DGVector3 dim;
 
 	/** @param out The {@link Vector3} to receive the center of the bounding box.
 	 * @return The vector specified with the out argument. */
-	public DGVector3 getCenter(DGVector3 outCenter)
+	public DGVector3 getCenter(ref DGVector3 outCenter)
 	{
 		return outCenter.set(cnt);
 	}
@@ -50,49 +48,49 @@ public partial class DGBoundingBox
 		return cnt.z;
 	}
 
-	public DGVector3 getCorner000(DGVector3 outCenter)
+	public DGVector3 getCorner000(ref DGVector3 outCorner)
 	{
-		return outCenter.set(min.x, min.y, min.z);
+		return outCorner.set(min.x, min.y, min.z);
 	}
 
-	public DGVector3 getCorner001(DGVector3 outCorner)
+	public DGVector3 getCorner001(ref DGVector3 outCorner)
 	{
 		return outCorner.set(min.x, min.y, max.z);
 	}
 
-	public DGVector3 getCorner010(DGVector3 outCorner)
+	public DGVector3 getCorner010(ref DGVector3 outCorner)
 	{
 		return outCorner.set(min.x, max.y, min.z);
 	}
 
-	public DGVector3 getCorner011(DGVector3 outCorner)
+	public DGVector3 getCorner011(ref DGVector3 outCorner)
 	{
 		return outCorner.set(min.x, max.y, max.z);
 	}
 
-	public DGVector3 getCorner100(DGVector3 outCorner)
+	public DGVector3 getCorner100(ref DGVector3 outCorner)
 	{
 		return outCorner.set(max.x, min.y, min.z);
 	}
 
-	public DGVector3 getCorner101(DGVector3 outCorner)
+	public DGVector3 getCorner101(ref DGVector3 outCorner)
 	{
 		return outCorner.set(max.x, min.y, max.z);
 	}
 
-	public DGVector3 getCorner110(DGVector3 outCorner)
+	public DGVector3 getCorner110(ref DGVector3 outCorner)
 	{
 		return outCorner.set(max.x, max.y, min.z);
 	}
 
-	public DGVector3 getCorner111(DGVector3 outCorner)
+	public DGVector3 getCorner111(ref DGVector3 outCorner)
 	{
 		return outCorner.set(max.x, max.y, max.z);
 	}
 
 	/** @param out The {@link Vector3} to receive the dimensions of this bounding box on all three axis.
 	 * @return The vector specified with the out argument */
-	public DGVector3 getDimensions(DGVector3 outCorner)
+	public DGVector3 getDimensions(ref DGVector3 outCorner)
 	{
 		return outCorner.set(dim);
 	}
@@ -114,14 +112,14 @@ public partial class DGBoundingBox
 
 	/** @param out The {@link Vector3} to receive the minimum values.
 	 * @return The vector specified with the out argument */
-	public DGVector3 getMin(DGVector3 outMin)
+	public DGVector3 getMin(ref DGVector3 outMin)
 	{
 		return outMin.set(min);
 	}
 
 	/** @param out The {@link Vector3} to receive the maximum values.
 	 * @return The vector specified with the out argument */
-	public DGVector3 getMax(DGVector3 outMax)
+	public DGVector3 getMax(ref DGVector3 outMax)
 	{
 		return outMax.set(max);
 	}
@@ -129,7 +127,7 @@ public partial class DGBoundingBox
 	/** Constructs a new bounding box with the minimum and maximum vector set to zeros. */
 	public DGBoundingBox()
 	{
-		clr();
+		this.clr();
 	}
 
 	/** Constructs a new bounding box from the given bounding box.
@@ -146,7 +144,7 @@ public partial class DGBoundingBox
 	 * @param maximum The maximum vector */
 	public DGBoundingBox(DGVector3 minimum, DGVector3 maximum)
 	{
-		this.set(minimum, maximum);
+		set(minimum, maximum);
 	}
 
 	/** Sets the given bounding box.
@@ -176,8 +174,8 @@ public partial class DGBoundingBox
 	/** Should be called if you modify {@link #min} and/or {@link #max} vectors manually. */
 	public void update()
 	{
-		cnt.set(min).add(max).scl((DGFixedPoint) 0.5f);
-		dim.set(max).sub(min);
+		cnt = cnt.set(min).add(max).scl((DGFixedPoint) 0.5f);
+		dim = dim.set(max).sub(min);
 	}
 
 	/** Sets the bounding box minimum and maximum vector from the given points.
@@ -229,7 +227,7 @@ public partial class DGBoundingBox
 	 * @return This bounding box for chaining. */
 	public DGBoundingBox ext(DGVector3 point)
 	{
-		return this.set(min.set(Min(min.x, point.x), Min(min.y, point.y), Min(min.z, point.z)),
+		return this.set(min.set(DGMath.Min(min.x, point.x), DGMath.Min(min.y, point.y), DGMath.Min(min.z, point.z)),
 			max.set(DGMath.Max(max.x, point.x), DGMath.Max(max.y, point.y), DGMath.Max(max.z, point.z)));
 	}
 
@@ -254,8 +252,8 @@ public partial class DGBoundingBox
 	 * @return This bounding box for chaining. */
 	public DGBoundingBox ext(DGBoundingBox a_bounds)
 	{
-		return this.set(min.set(Min(min.x, a_bounds.min.x), Min(min.y, a_bounds.min.y), Min(min.z, a_bounds.min.z)),
-			max.set(Max(max.x, a_bounds.max.x), Max(max.y, a_bounds.max.y), Max(max.z, a_bounds.max.z)));
+		return this.set(min.set(DGMath.Min(min.x, a_bounds.min.x), DGMath.Min(min.y, a_bounds.min.y), DGMath.Min(min.z, a_bounds.min.z)),
+			max.set(DGMath.Max(max.x, a_bounds.max.x), DGMath.Max(max.y, a_bounds.max.y), DGMath.Max(max.z, a_bounds.max.z)));
 	}
 
 	/** Extends this bounding box by the given sphere.
@@ -266,8 +264,8 @@ public partial class DGBoundingBox
 	public DGBoundingBox ext(DGVector3 center, DGFixedPoint radius)
 	{
 		return this.set(
-			min.set(Min(min.x, center.x - radius), Min(min.y, center.y - radius), Min(min.z, center.z - radius)),
-			max.set(Max(max.x, center.x + radius), Max(max.y, center.y + radius), Max(max.z, center.z + radius)));
+			min.set(DGMath.Min(min.x, center.x - radius), DGMath.Min(min.y, center.y - radius), DGMath.Min(min.z, center.z - radius)),
+			max.set(DGMath.Max(max.x, center.x + radius), DGMath.Max(max.y, center.y + radius), DGMath.Max(max.z, center.z + radius)));
 	}
 
 	/** Extends this bounding box by the given transformed bounding box.
@@ -323,13 +321,13 @@ public partial class DGBoundingBox
 	 * @return Whether the given oriented bounding box is contained */
 	public bool contains(DGOrientedBoundingBox obb)
 	{
-		return contains(obb.getCorner000(tmpVector)) && contains(obb.getCorner001(tmpVector))
-		                                             && contains(obb.getCorner010(tmpVector)) &&
-		                                             contains(obb.getCorner011(tmpVector))
-		                                             && contains(obb.getCorner100(tmpVector)) &&
-		                                             contains(obb.getCorner101(tmpVector))
-		                                             && contains(obb.getCorner110(tmpVector)) &&
-		                                             contains(obb.getCorner111(tmpVector));
+		return contains(obb.getCorner000(ref tmpVector)) && contains(obb.getCorner001(ref tmpVector))
+		                                                 && contains(obb.getCorner010(ref tmpVector)) &&
+		                                                 contains(obb.getCorner011(ref tmpVector))
+		                                                 && contains(obb.getCorner100(ref tmpVector)) &&
+		                                                 contains(obb.getCorner101(ref tmpVector))
+		                                                 && contains(obb.getCorner110(ref tmpVector)) &&
+		                                                 contains(obb.getCorner111(ref tmpVector));
 	}
 
 	/** Returns whether the given bounding box is intersecting this bounding box (at least one point in).
@@ -374,17 +372,7 @@ public partial class DGBoundingBox
 	 * @return This bounding box for chaining. */
 	public DGBoundingBox ext(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z)
 	{
-		return this.set(min.set(Min(min.x, x), Min(min.y, y), Min(min.z, z)),
-			max.set(Max(max.x, x), Max(max.y, y), Max(max.z, z)));
-	}
-
-	static DGFixedPoint Min(DGFixedPoint a, DGFixedPoint b)
-	{
-		return a > b ? b : a;
-	}
-
-	static DGFixedPoint Max(DGFixedPoint a, DGFixedPoint b)
-	{
-		return a > b ? a : b;
+		return this.set(min.set(DGMath.Min(min.x, x), DGMath.Min(min.y, y), DGMath.Min(min.z, z)),
+			max.set(DGMath.Max(max.x, x), DGMath.Max(max.y, y), DGMath.Max(max.z, z)));
 	}
 }

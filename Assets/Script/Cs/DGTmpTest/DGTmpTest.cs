@@ -54,11 +54,26 @@ public class DGTmpTest : MonoBehaviour
 		//		Matrix4x4.Perspective()
 //		Debug.LogWarning(Matrix4x4.Translate(a5).ToString2());
 		//		Debug.LogWarning(System.Numerics.Matrix4x4.CreateWorld(b3,b4,b5).ToString2());
-		Hashtable ht  = new Hashtable();
-		ht.Add("kk", new List<int>(){ 7, 3, 4 });
-		ht.Add("aa", "bb");
-		DGLog.Warn(ht, "aaaa{0}", 888, "bbbb",999, "cccc{0}", 10);
-		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
+//		Hashtable ht  = new Hashtable();
+//		ht.Add("kk", new List<int>(){ 7, 3, 4 });
+//		ht.Add("aa", "bb");
+//		DGLog.Warn(ht, "aaaa{0}", 888, "bbbb",999, "cccc{0}", 10);
+//		Debug.LogWarning(DGMatrix4x4.default2.translate(c5));
+//		DGVector2? v = new DGVector2();
+//		AA(ref v);
+//		DGLog.Warn(v.Value);
+		var a = -DGFixedPoint.MinValue;
+		var b = DGFixedPoint.MaxValue;
+//		var c = new DGVector2(4,5);
+//		c.x = (DGFixedPoint)888;
+//		DGLog.Warn(a);
+//		DGLog.Warn(b);
+//		DGLog.Warn(c);
+	}
+
+	public static void AA(ref DGVector2? v)
+	{
+		v.Value.set(new DGVector2(new Vector2(4, 5)));
 	}
 	
 }

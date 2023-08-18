@@ -374,7 +374,15 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purposes of chaining. */
 	public DGMatrix3x3 set(DGMatrix3x3 mat)
 	{
-		Array.Copy(mat.val, 0, val, 0, val.Length);
+		m00 = mat.m00;
+		m01 = mat.m01;
+		m02 = mat.m02;
+		m10 = mat.m10;
+		m11 = mat.m11;
+		m12 = mat.m12;
+		m20 = mat.m20;
+		m21 = mat.m21;
+		m22 = mat.m22;
 		return this;
 	}
 
@@ -421,7 +429,15 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 set(DGFixedPoint[] values)
 	{
-		Array.Copy(values, 0, val, 0, val.Length);
+		m00 = values[M00Index];
+		m01 = values[M01Index];
+		m02 = values[M02Index];
+		m10 = values[M10Index];
+		m11 = values[M11Index];
+		m12 = values[M12Index];
+		m20 = values[M20Index];
+		m21 = values[M21Index];
+		m22 = values[M22Index];
 		return this;
 	}
 
@@ -463,19 +479,10 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(DGFixedPoint x, DGFixedPoint y)
 	{
-		var tmp = _NewTmp();
-		tmp[M00Index] = (DGFixedPoint) 1;
-		tmp[M10Index] = (DGFixedPoint) 0;
-		// tmp[M20] = 0;
-
-		tmp[M01Index] = (DGFixedPoint) 0;
-		tmp[M11Index] = (DGFixedPoint) 1;
-		// tmp[M21] = 0;
-
-		tmp[M02Index] = x;
-		tmp[M12Index] = y;
-		// tmp[M22] = 1;
-		mul(val, tmp);
+		var tmp = DGMatrix3x3.default2;
+		tmp.m02 = x;
+		tmp.m12 = y;
+		this.mul(tmp);
 		return this;
 	}
 
@@ -485,20 +492,10 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(DGVector2 translation)
 	{
-		var tmp = _NewTmp();
-
-		tmp[M00Index] = (DGFixedPoint) 1;
-		tmp[M10Index] = (DGFixedPoint) 0;
-		// tmp[M20] = 0;
-
-		tmp[M01Index] = (DGFixedPoint) 0;
-		tmp[M11Index] = (DGFixedPoint) 1;
-		// tmp[M21] = 0;
-
-		tmp[M02Index] = translation.x;
-		tmp[M12Index] = translation.y;
-		// tmp[M22] = 1;
-		mul(val, tmp);
+		var tmp = DGMatrix3x3.default2;
+		tmp.m02 = translation.x;
+		tmp.m12 = translation.y;
+		this.mul(tmp);
 		return this;
 	}
 
@@ -521,21 +518,21 @@ public partial struct DGMatrix3x3
 		DGFixedPoint cos = DGMath.Cos(radians);
 		DGFixedPoint sin = DGMath.Sin(radians);
 
-		var tmp = _NewTmp();
+		var tmp = DGMatrix3x3.default2;
 
-		tmp[M00Index] = cos;
-		tmp[M10Index] = sin;
-		// tmp[M20] = 0;
+		tmp.m00 = cos;
+		tmp.m10 = sin;
+		// tmp.m20 = 0;
 
-		tmp[M01Index] = -sin;
-		tmp[M11Index] = cos;
-		// tmp[M21] = 0;
+		tmp.m01 = -sin;
+		tmp.m11 = cos;
+		// tmp.m21 = 0;
 
-		tmp[M02Index] = (DGFixedPoint) 0;
-		tmp[M12Index] = (DGFixedPoint) 0;
-		// tmp[M22] = 1;
+		tmp.m02 = (DGFixedPoint) 0;
+		tmp.m12 = (DGFixedPoint) 0;
+		// tmp.m22 = 1;
 
-		mul(val, tmp);
+		this.mul(tmp);
 		return this;
 	}
 
@@ -546,20 +543,20 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
-		var tmp = _NewTmp();
-		tmp[M00Index] = scaleX;
-		tmp[M10Index] = (DGFixedPoint) 0;
-		// tmp[M20] = 0;
+		var tmp = DGMatrix3x3.default2;
+		tmp.m00 = scaleX;
+		tmp.m10 = (DGFixedPoint) 0;
+		// tmp.m20 = 0;
 
-		tmp[M01Index] = (DGFixedPoint) 0;
-		tmp[M11Index] = scaleY;
+		tmp.m01 = (DGFixedPoint) 0;
+		tmp.m11 = scaleY;
 		// tmp[M21] = 0;
 
-		tmp[M02Index] = (DGFixedPoint) 0;
-		tmp[M12Index] = (DGFixedPoint) 0;
+		tmp.m02 = (DGFixedPoint) 0;
+		tmp.m12 = (DGFixedPoint) 0;
 		// tmp[M22] = 1;
 
-		mul(val, tmp);
+		this.mul(tmp);
 		return this;
 	}
 
@@ -569,21 +566,21 @@ public partial struct DGMatrix3x3
  * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(DGVector2 scale)
 	{
-		var tmp = _NewTmp();
+		var tmp = DGMatrix3x3.default2;
 
-		tmp[M00Index] = scale.x;
-		tmp[M10Index] = (DGFixedPoint) 0;
-		// tmp[M20] = 0;
+		tmp.m00 = scale.x;
+		tmp.m10 = (DGFixedPoint) 0;
+		// tmp.m20 = 0;
 
-		tmp[M01Index] = (DGFixedPoint) 0;
-		tmp[M11Index] = scale.y;
-		// tmp[M21] = 0;
+		tmp.m01 = (DGFixedPoint) 0;
+		tmp.m11 = scale.y;
+		// tmp.m21 = 0;
 
-		tmp[M02Index] = (DGFixedPoint) 0;
-		tmp[M12Index] = (DGFixedPoint) 0;
-		// tmp[M22] = 1;
+		tmp.m02 = (DGFixedPoint) 0;
+		tmp.m12 = (DGFixedPoint) 0;
+		// tmp.m22 = 1;
 
-		mul(val, tmp);
+		this.mul(tmp);
 		return this;
 	}
 

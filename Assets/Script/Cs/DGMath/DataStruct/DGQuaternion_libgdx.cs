@@ -509,11 +509,11 @@ public partial struct DGQuaternion
 	{
 		DGVector3 scale = default;
 		matrix.getScale(ref scale);
-		return setFromAxes(normalizeAxes, matrix.val[DGMatrix4x4.M00Index]/ scale.x, matrix.val[DGMatrix4x4.M01Index] / scale.y,
-			matrix.val[DGMatrix4x4.M02Index] / scale.z,
-			matrix.val[DGMatrix4x4.M10Index] / scale.x, matrix.val[DGMatrix4x4.M11Index]/ scale.y, matrix.val[DGMatrix4x4.M12Index] / scale.z,
-			matrix.val[DGMatrix4x4.M20Index] / scale.x,
-			matrix.val[DGMatrix4x4.M21Index] / scale.y, matrix.val[DGMatrix4x4.M22Index]/ scale.z);
+		return setFromAxes(normalizeAxes, matrix.m00/ scale.x, matrix.m01 / scale.y,
+			matrix.m02 / scale.z,
+			matrix.m10 / scale.x, matrix.m11/ scale.y, matrix.m12 / scale.z,
+			matrix.m20 / scale.x,
+			matrix.m21 / scale.y, matrix.m22/ scale.z);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
@@ -525,11 +525,11 @@ public partial struct DGQuaternion
 	/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
 	public DGQuaternion setFromMatrix(bool normalizeAxes, DGMatrix3x3 matrix)
 	{
-		return setFromAxes(normalizeAxes, matrix.val[DGMatrix3x3.M00Index], matrix.val[DGMatrix3x3.M01Index],
-			matrix.val[DGMatrix3x3.M02Index],
-			matrix.val[DGMatrix3x3.M10Index], matrix.val[DGMatrix3x3.M11Index], matrix.val[DGMatrix3x3.M12Index],
-			matrix.val[DGMatrix3x3.M20Index],
-			matrix.val[DGMatrix3x3.M21Index], matrix.val[DGMatrix3x3.M22Index]);
+		return setFromAxes(normalizeAxes, matrix.m00, matrix.m01,
+			matrix.m02,
+			matrix.m10, matrix.m11, matrix.m12,
+			matrix.m20,
+			matrix.m21, matrix.m22);
 	}
 
 	/** Sets the Quaternion from the given rotation matrix, which must not contain scaling. */
@@ -724,7 +724,7 @@ public partial struct DGQuaternion
 	{
 		// Calculate exponents and multiply everything from left to right
 		DGFixedPoint w = (DGFixedPoint) 1.0f / (DGFixedPoint) q.Length;
-		set(q[0]).exp(w);
+		q[0] = set(q[0]).exp(w);
 		for (int i = 1; i < q.Length; i++)
 			mul(tmp1.set(q[i]).exp(w));
 		nor();
@@ -740,7 +740,7 @@ public partial struct DGQuaternion
 	public DGQuaternion slerp(DGQuaternion[] q, DGFixedPoint[] w)
 	{
 		// Calculate exponents and multiply everything from left to right
-		set(q[0]).exp(w[0]);
+		q[0] = set(q[0]).exp(w[0]);
 		for (int i = 1; i < q.Length; i++)
 			mul(tmp1.set(q[i]).exp(w[i]));
 		nor();
@@ -910,13 +910,13 @@ public partial struct DGQuaternion
 	 * @param swing will receive the swing rotation: the rotation around an axis perpendicular to the specified axis
 	 * @param twist will receive the twist rotation: the rotation around the specified axis
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/for/decomposition">calculation</a> */
-	public void getSwingTwist(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ, DGQuaternion swing,
-		DGQuaternion twist)
+	public void getSwingTwist(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ, ref DGQuaternion swing,
+		ref DGQuaternion twist)
 	{
 		DGFixedPoint d = DGVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
-		twist.set(axisX * d, axisY * d, axisZ * d, this.w).nor();
-		if (d < (DGFixedPoint) 0) twist.mul((DGFixedPoint) (-1f));
-		swing.set(twist).conjugate().mulLeft(this);
+		twist = twist.set(axisX * d, axisY * d, axisZ * d, this.w).nor();
+		if (d < (DGFixedPoint) 0) twist = twist.mul((DGFixedPoint) (-1f));
+		swing = swing.set(twist).conjugate().mulLeft(this);
 	}
 
 	/** Get the swing rotation and twist rotation for the specified axis. The twist rotation represents the rotation around the
@@ -929,9 +929,9 @@ public partial struct DGQuaternion
 	 * @param swing will receive the swing rotation: the rotation around an axis perpendicular to the specified axis
 	 * @param twist will receive the twist rotation: the rotation around the specified axis
 	 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/for/decomposition">calculation</a> */
-	public void getSwingTwist(DGVector3 axis, DGQuaternion swing, DGQuaternion twist)
+	public void getSwingTwist(DGVector3 axis, ref DGQuaternion swing, ref DGQuaternion twist)
 	{
-		getSwingTwist(axis.x, axis.y, axis.z, swing, twist);
+		getSwingTwist(axis.x, axis.y, axis.z, ref swing, ref twist);
 	}
 
 	/** Get the angle in radians of the rotation around the specified axis. The axis must be normalized.

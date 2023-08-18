@@ -15,6 +15,8 @@ using System.Runtime.CompilerServices;
 
 public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFixedPoint>
 {
+	//不能修改Null的值
+	public static DGFixedPoint Null = new DGFixedPoint(DGFixedPointConstInternal.MAX_VALUE);
 	public static readonly decimal Precision = (decimal) new DGFixedPoint(DGFixedPointConstInternal.PRECISION);
 	public static readonly DGFixedPoint Epsilon = new DGFixedPoint(DGFixedPointConstInternal.SCALED_EPSILON);
 	public static readonly DGFixedPoint MaxValue = new DGFixedPoint(DGFixedPointConstInternal.MAX_VALUE);

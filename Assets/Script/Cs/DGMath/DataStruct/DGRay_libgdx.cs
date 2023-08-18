@@ -28,7 +28,7 @@ public partial struct DGRay
 		this.origin = default;
 		this.direction = default;
 		this.origin.set(origin);
-		this.direction.set(direction).nor();
+		this.direction = this.direction.set(direction).nor();
 	}
 
 	/** @return a copy of this ray. */
@@ -41,9 +41,9 @@ public partial struct DGRay
 	 * @param out The vector to set to the result
 	 * @param distance The distance from the end point to the start point.
 	 * @return The out param */
-	public DGVector3 getEndPoint(DGVector3 outVector, DGFixedPoint distance)
+	public DGVector3 getEndPoint(DGFixedPoint distance)
 	{
-		return outVector.set(direction).scl(distance).add(origin);
+		return new DGVector3(direction).scl(distance).add(origin);
 	}
 
 	static DGVector3 tmp = new DGVector3();
@@ -54,10 +54,10 @@ public partial struct DGRay
 	 * @return This ray for chaining. */
 	public DGRay mul(DGMatrix4x4 matrix)
 	{
-		tmp.set(origin).add(direction);
-		tmp.mul(matrix);
-		origin.mul(matrix);
-		direction.set(tmp.sub(origin)).nor();
+		tmp = tmp.set(origin).add(direction);
+		tmp = tmp.mul(matrix);
+		origin = origin.mul(matrix);
+		direction = direction.set(tmp.sub(origin)).nor();
 		return this;
 	}
 
@@ -75,7 +75,7 @@ public partial struct DGRay
 	public DGRay set(DGVector3 origin, DGVector3 direction)
 	{
 		this.origin.set(origin);
-		this.direction.set(direction).nor();
+		this.direction = this.direction.set(direction).nor();
 		return this;
 	}
 
@@ -91,7 +91,7 @@ public partial struct DGRay
 	public DGRay set(DGFixedPoint x, DGFixedPoint y, DGFixedPoint z, DGFixedPoint dx, DGFixedPoint dy, DGFixedPoint dz)
 	{
 		this.origin.set(x, y, z);
-		this.direction.set(dx, dy, dz).nor();
+		this.direction = this.direction.set(dx, dy, dz).nor();
 		return this;
 	}
 
@@ -102,7 +102,7 @@ public partial struct DGRay
 	public DGRay set(DGRay ray)
 	{
 		this.origin.set(ray.origin);
-		this.direction.set(ray.direction).nor();
+		this.direction = this.direction.set(ray.direction).nor();
 		return this;
 	}
 }

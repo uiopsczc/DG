@@ -37,7 +37,7 @@ public partial struct DGPlane
 	public DGPlane(DGVector3 normal, DGFixedPoint d)
 	{
 		this.normal = default;
-		this.normal.set(normal).nor();
+		this.normal = this.normal.set(normal).nor();
 		this.d = d;
 	}
 
@@ -48,7 +48,7 @@ public partial struct DGPlane
 	public DGPlane(DGVector3 normal, DGVector3 point)
 	{
 		this.normal = default;
-		this.normal.set(normal).nor();
+		this.normal =  this.normal.set(normal).nor();
 		this.d = -this.normal.dot(point);
 	}
 
@@ -61,7 +61,7 @@ public partial struct DGPlane
 	public DGPlane(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 	{
 		normal = default;
-		normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
+		normal = normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
 		d = -point1.dot(normal);
 	}
 
@@ -73,7 +73,7 @@ public partial struct DGPlane
 	 * @param point3 */
 	public void set(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 	{
-		normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
+		normal = normal.set(point1).sub(point2).crs(point2.x - point3.x, point2.y - point3.y, point2.z - point3.z).nor();
 		d = -point1.dot(normal);
 	}
 
@@ -183,6 +183,6 @@ public partial struct DGPlane
 
 	public override string ToString()
 	{
-		return normal.ToString() + ", " + d;
+		return normal + ", " + d;
 	}
 }

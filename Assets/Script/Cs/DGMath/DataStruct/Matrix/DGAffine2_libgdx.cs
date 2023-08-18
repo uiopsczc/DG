@@ -95,14 +95,12 @@ public partial struct DGAffine2
 	 * @return This matrix for the purposes of chaining. */
 	public DGAffine2 set(DGMatrix3x3 matrix)
 	{
-		DGFixedPoint[] other = matrix.val;
-
-		m00 = other[DGMatrix3x3.M00Index];
-		m01 = other[DGMatrix3x3.M01Index];
-		m02 = other[DGMatrix3x3.M02Index];
-		m10 = other[DGMatrix3x3.M10Index];
-		m11 = other[DGMatrix3x3.M11Index];
-		m12 = other[DGMatrix3x3.M12Index];
+		m00 = matrix.m00;
+		m01 = matrix.m01;
+		m02 = matrix.m02;
+		m10 = matrix.m10;
+		m11 = matrix.m11;
+		m12 = matrix.m12;
 		return this;
 	}
 
@@ -118,14 +116,12 @@ public partial struct DGAffine2
 	 * @return This matrix for the purpose of chaining operations. */
 	public DGAffine2 set(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] other = matrix.val;
-
-		m00 = other[DGMatrix4x4.M00Index];
-		m01 = other[DGMatrix4x4.M01Index];
-		m02 = other[DGMatrix4x4.M03Index];
-		m10 = other[DGMatrix4x4.M10Index];
-		m11 = other[DGMatrix4x4.M11Index];
-		m12 = other[DGMatrix4x4.M13Index];
+		m00 = matrix.m00;
+		m01 = matrix.m01;
+		m02 = matrix.m03;
+		m10 = matrix.m10;
+		m11 = matrix.m11;
+		m12 = matrix.m13;
 		return this;
 	}
 

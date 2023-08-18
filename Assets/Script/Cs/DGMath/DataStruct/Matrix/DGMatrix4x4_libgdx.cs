@@ -39,7 +39,7 @@ public partial struct DGMatrix4x4
 	/** XW: Typically the translation of the X component. On Vector3 multiplication this value is added to the target X
 	 * component. */
 	public const int M30Index = 3;
-	
+
 
 	/** YX: Typically the sine of the angle when rotated on the Z axis. On Vector3 multiplication this value is multiplied with the
 	 * source X component and added to the target Y component. */
@@ -57,7 +57,7 @@ public partial struct DGMatrix4x4
 	/** YW: Typically the translation of the Y component. On Vector3 multiplication this value is added to the target Y
 	 * component. */
 	public const int M31Index = 7;
-	
+
 
 	/** ZX: Typically the negative sine of the angle when rotated on the Y axis. On Vector3 multiplication this value is multiplied
 	 * with the source X component and added to the target Z component. */
@@ -74,7 +74,7 @@ public partial struct DGMatrix4x4
 	/** ZW: Typically the translation of the Z component. On Vector3 multiplication this value is added to the target Z
 	 * component. */
 	public const int M32Index = 11;
-	
+
 
 	/** WX: Typically the value zero. On Vector3 multiplication this value is ignored. */
 	public const int M03Index = 12;
@@ -155,10 +155,10 @@ public partial struct DGMatrix4x4
 		get
 		{
 			DGMatrix4x4 result = default;
-			result.m00 = (DGFixedPoint)1f;
-			result.m11 = (DGFixedPoint)1f;
-			result.m22 = (DGFixedPoint)1f;
-			result.m33 = (DGFixedPoint)1f;
+			result.m00 = (DGFixedPoint) 1f;
+			result.m11 = (DGFixedPoint) 1f;
+			result.m22 = (DGFixedPoint) 1f;
+			result.m33 = (DGFixedPoint) 1f;
 			return result;
 		}
 	}
@@ -167,26 +167,26 @@ public partial struct DGMatrix4x4
 	 * @param matrix The matrix to copy. (This matrix is not modified) */
 	public DGMatrix4x4(DGMatrix4x4 matrix)
 	{
-	this.m00=matrix.m00;
-	this.m10=matrix.m10;
-	this.m20=matrix.m20;
-	this.m30=matrix.m30;
+		this.m00 = matrix.m00;
+		this.m10 = matrix.m10;
+		this.m20 = matrix.m20;
+		this.m30 = matrix.m30;
 
-	this.m01=matrix.m01;
-	this.m11=matrix.m11;
-	this.m21=matrix.m21;
-	this.m31=matrix.m31;
+		this.m01 = matrix.m01;
+		this.m11 = matrix.m11;
+		this.m21 = matrix.m21;
+		this.m31 = matrix.m31;
 
-	this.m02=matrix.m02;
-	this.m12=matrix.m12;
-	this.m22=matrix.m22;
-	this.m32=matrix.m32;
+		this.m02 = matrix.m02;
+		this.m12 = matrix.m12;
+		this.m22 = matrix.m22;
+		this.m32 = matrix.m32;
 
-	this.m03=matrix.m03;
-	this.m13=matrix.m13;
-	this.m23=matrix.m23;
-	this.m33=matrix.m33;
-}
+		this.m03 = matrix.m03;
+		this.m13 = matrix.m13;
+		this.m23 = matrix.m23;
+		this.m33 = matrix.m33;
+	}
 
 	/** Constructs a matrix from the given float array. The array must have at least 16 elements; the first 16 will be copied.
 	 * @param values The float array to copy. Remember that this matrix is in
@@ -227,7 +227,9 @@ public partial struct DGMatrix4x4
 		DGFixedPoint quaternionZ = quaternion.z;
 		DGFixedPoint quaternionW = quaternion.w;
 
-		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f, ys = quaternionY * (DGFixedPoint) 2f, zs = quaternionZ * (DGFixedPoint) 2f;
+		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f,
+			ys = quaternionY * (DGFixedPoint) 2f,
+			zs = quaternionZ * (DGFixedPoint) 2f;
 		DGFixedPoint wx = quaternionW * xs, wy = quaternionW * ys, wz = quaternionW * zs;
 		DGFixedPoint xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 		DGFixedPoint yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
@@ -270,7 +272,9 @@ public partial struct DGMatrix4x4
 		DGFixedPoint scaleY = scale.y;
 		DGFixedPoint scaleZ = scale.z;
 
-		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f, ys = quaternionY * (DGFixedPoint) 2f, zs = quaternionZ * (DGFixedPoint) 2f;
+		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f,
+			ys = quaternionY * (DGFixedPoint) 2f,
+			zs = quaternionZ * (DGFixedPoint) 2f;
 		DGFixedPoint wx = quaternionW * xs, wy = quaternionW * ys, wz = quaternionW * zs;
 		DGFixedPoint xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 		DGFixedPoint yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
@@ -301,7 +305,27 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix4x4 set(DGMatrix4x4 matrix)
 	{
-		return set(matrix.val);
+		this.m00 = matrix.m00;
+		this.m10 = matrix.m10;
+		this.m20 = matrix.m20;
+		this.m30 = matrix.m30;
+
+		this.m01 = matrix.m01;
+		this.m11 = matrix.m11;
+		this.m21 = matrix.m21;
+		this.m31 = matrix.m31;
+
+		this.m02 = matrix.m02;
+		this.m12 = matrix.m12;
+		this.m22 = matrix.m22;
+		this.m32 = matrix.m32;
+
+		this.m03 = matrix.m03;
+		this.m13 = matrix.m13;
+		this.m23 = matrix.m23;
+		this.m33 = matrix.m33;
+
+		return this;
 	}
 
 	/** Sets the matrix to the given matrix as a float array. The float array must have at least 16 elements; the first 16 will be
@@ -349,9 +373,11 @@ public partial struct DGMatrix4x4
 	 * @param quaternionZ The Z component of the quaternion that is to be used to set this matrix.
 	 * @param quaternionW The W component of the quaternion that is to be used to set this matrix.
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 set(DGFixedPoint quaternionX, DGFixedPoint quaternionY, DGFixedPoint quaternionZ, DGFixedPoint quaternionW)
+	public DGMatrix4x4 set(DGFixedPoint quaternionX, DGFixedPoint quaternionY, DGFixedPoint quaternionZ,
+		DGFixedPoint quaternionW)
 	{
-		return set((DGFixedPoint) 0f, (DGFixedPoint) 0f, (DGFixedPoint) 0f, quaternionX, quaternionY, quaternionZ, quaternionW);
+		return set((DGFixedPoint) 0f, (DGFixedPoint) 0f, (DGFixedPoint) 0f, quaternionX, quaternionY, quaternionZ,
+			quaternionW);
 	}
 
 	/** Set this matrix to the specified translation and rotation.
@@ -372,10 +398,13 @@ public partial struct DGMatrix4x4
 	 * @param quaternionZ The Z component of the quaternion that is to be used to set this matrix.
 	 * @param quaternionW The W component of the quaternion that is to be used to set this matrix.
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 set(DGFixedPoint translationX, DGFixedPoint translationY, DGFixedPoint translationZ, DGFixedPoint quaternionX, DGFixedPoint quaternionY,
+	public DGMatrix4x4 set(DGFixedPoint translationX, DGFixedPoint translationY, DGFixedPoint translationZ,
+		DGFixedPoint quaternionX, DGFixedPoint quaternionY,
 		DGFixedPoint quaternionZ, DGFixedPoint quaternionW)
 	{
-		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f, ys = quaternionY * (DGFixedPoint) 2f, zs = quaternionZ * (DGFixedPoint) 2f;
+		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f,
+			ys = quaternionY * (DGFixedPoint) 2f,
+			zs = quaternionZ * (DGFixedPoint) 2f;
 		DGFixedPoint wx = quaternionW * xs, wy = quaternionW * ys, wz = quaternionW * zs;
 		DGFixedPoint xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 		DGFixedPoint yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
@@ -426,10 +455,14 @@ public partial struct DGMatrix4x4
 	 * @param scaleY The Y component of the scaling that is to be used to set this matrix.
 	 * @param scaleZ The Z component of the scaling that is to be used to set this matrix.
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 set(DGFixedPoint translationX, DGFixedPoint translationY, DGFixedPoint translationZ, DGFixedPoint quaternionX, DGFixedPoint quaternionY,
-		DGFixedPoint quaternionZ, DGFixedPoint quaternionW, DGFixedPoint scaleX, DGFixedPoint scaleY, DGFixedPoint scaleZ)
+	public DGMatrix4x4 set(DGFixedPoint translationX, DGFixedPoint translationY, DGFixedPoint translationZ,
+		DGFixedPoint quaternionX, DGFixedPoint quaternionY,
+		DGFixedPoint quaternionZ, DGFixedPoint quaternionW, DGFixedPoint scaleX, DGFixedPoint scaleY,
+		DGFixedPoint scaleZ)
 	{
-		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f, ys = quaternionY * (DGFixedPoint) 2f, zs = quaternionZ * (DGFixedPoint) 2f;
+		DGFixedPoint xs = quaternionX * (DGFixedPoint) 2f,
+			ys = quaternionY * (DGFixedPoint) 2f,
+			zs = quaternionZ * (DGFixedPoint) 2f;
 		DGFixedPoint wx = quaternionW * xs, wy = quaternionW * ys, wz = quaternionW * zs;
 		DGFixedPoint xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 		DGFixedPoint yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
@@ -456,7 +489,7 @@ public partial struct DGMatrix4x4
 		return this;
 	}
 
-	
+
 	/** Sets the four columns of the matrix which correspond to the x-, y- and z-axis of the vector space this matrix creates as
 	 * well as the 4th column representing the translation of any point that is multiplied by this matrix.
 	 * @param xAxis The x-axis.
@@ -530,7 +563,54 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for the purpose of chaining operations together. */
 	public DGMatrix4x4 mul(DGMatrix4x4 matrix)
 	{
-		mul(val, matrix.val);
+		DGFixedPoint m00 = this.m00 * matrix.m00 + this.m01 * matrix.m10 +
+						   this.m02 * matrix.m20 + this.m03 * matrix.m30;
+		DGFixedPoint m01 = this.m00 * matrix.m01 + this.m01 * matrix.m11 +
+						   this.m02 * matrix.m21 + this.m03 * matrix.m31;
+		DGFixedPoint m02 = this.m00 * matrix.m02 + this.m01 * matrix.m12 +
+						   this.m02 * matrix.m22 + this.m03 * matrix.m32;
+		DGFixedPoint m03 = this.m00 * matrix.m03 + this.m01 * matrix.m13 +
+						   this.m02 * matrix.m23 + this.m03 * matrix.m33;
+		DGFixedPoint m10 = this.m10 * matrix.m00 + this.m11 * matrix.m10 +
+						   this.m12 * matrix.m20 + this.m13 * matrix.m30;
+		DGFixedPoint m11 = this.m10 * matrix.m01 + this.m11 * matrix.m11 +
+						   this.m12 * matrix.m21 + this.m13 * matrix.m31;
+		DGFixedPoint m12 = this.m10 * matrix.m02 + this.m11 * matrix.m12 +
+						   this.m12 * matrix.m22 + this.m13 * matrix.m32;
+		DGFixedPoint m13 = this.m10 * matrix.m03 + this.m11 * matrix.m13 +
+						   this.m12 * matrix.m23 + this.m13 * matrix.m33;
+		DGFixedPoint m20 = this.m20 * matrix.m00 + this.m21 * matrix.m10 +
+						   this.m22 * matrix.m20 + this.m23 * matrix.m30;
+		DGFixedPoint m21 = this.m20 * matrix.m01 + this.m21 * matrix.m11 +
+						   this.m22 * matrix.m21 + this.m23 * matrix.m31;
+		DGFixedPoint m22 = this.m20 * matrix.m02 + this.m21 * matrix.m12 +
+						   this.m22 * matrix.m22 + this.m23 * matrix.m32;
+		DGFixedPoint m23 = this.m20 * matrix.m03 + this.m21 * matrix.m13 +
+						   this.m22 * matrix.m23 + this.m23 * matrix.m33;
+		DGFixedPoint m30 = this.m30 * matrix.m00 + this.m31 * matrix.m10 +
+						   this.m32 * matrix.m20 + this.m33 * matrix.m30;
+		DGFixedPoint m31 = this.m30 * matrix.m01 + this.m31 * matrix.m11 +
+						   this.m32 * matrix.m21 + this.m33 * matrix.m31;
+		DGFixedPoint m32 = this.m30 * matrix.m02 + this.m31 * matrix.m12 +
+						   this.m32 * matrix.m22 + this.m33 * matrix.m32;
+		DGFixedPoint m33 = this.m30 * matrix.m03 + this.m31 * matrix.m13 +
+						   this.m32 * matrix.m23 + this.m33 * matrix.m33;
+		this.m00 = m00;
+		this.m10 = m10;
+		this.m20 = m20;
+		this.m30 = m30;
+		this.m01 = m01;
+		this.m11 = m11;
+		this.m21 = m21;
+		this.m31 = m31;
+		this.m02 = m02;
+		this.m12 = m12;
+		this.m22 = m22;
+		this.m32 = m32;
+		this.m03 = m03;
+		this.m13 = m13;
+		this.m23 = m23;
+		this.m33 = m33;
 		return this;
 	}
 
@@ -545,7 +625,7 @@ public partial struct DGMatrix4x4
 	public DGMatrix4x4 mulLeft(DGMatrix4x4 matrix)
 	{
 		tmpMat.set(matrix);
-		mul(tmpMat.val, val);
+		tmpMat.mul(this);
 		return set(tmpMat);
 	}
 
@@ -603,112 +683,203 @@ public partial struct DGMatrix4x4
 	public DGMatrix4x4 inv()
 	{
 		DGFixedPoint l_det = this.m30 * this.m21 * this.m12 * this.m03 - this.m20 * this.m31 * this.m12 * this.m03
-		                                                     - this.m30 * this.m11 * this.m22 * this.m03 + this.m10 *
-		                                                                                                 this.m31 * this.
-			                                                                                                 m22 * this.
-			                                                                                                 m03
-		                                                                                                 + this.m20 *
-		                                                                                                 this.m11 *
-		                                                                                                 this.m32 * this.m03 - this.m10 *
-			                                                                                                      this.m21 *
-			                                                                                                      this.m32 *
-			                                                                                                      this.m03
-			                                                                                                      - this.m30 *
-			                                                                                                      this.m21 *
-			                                                                                                      this.m02 *
-			                                                                                                      this.m13 + this.m20 *
-				                                                                                                           this.m31 *
-				                                                                                                           this.m02 *
-				                                                                                                           this.m13
-				                                                                                                           + this.m30 *
-				                                                                                                           this.m01 *
-				                                                                                                           this.m22 *
-				                                                                                                           this.m13 - this.m00 *
-					                                                                                                                 this.m31 *
-					                                                                                                                 this.m22 *
-					                                                                                                                 this.m13
-					                                                                                                                 - this.m20 *
-					                                                                                                                 this.m01 *
-					                                                                                                                 this.m32 *
-					                                                                                                                 this.m13 + this.m00 *
-						                                                                                                                       this.m21 *
-						                                                                                                                       this.m32 *
-						                                                                                                                       this.m13
-						                                                                                                                       + this.m30 *
-						                                                                                                                       this.m11 *
-						                                                                                                                       this.m02 *
-						                                                                                                                       this.m23 - this.m10 *
-							                                                                                                                             this.m31 *
-							                                                                                                                             this.m02 *
-							                                                                                                                             this.m23
-							                                                                                                                             - this.m30 *
-							                                                                                                                             this.m01 *
-							                                                                                                                             this.m12 *
-							                                                                                                                             this.m23 + this.m00 *
-								                                                                                                                                   this.m31 *
-								                                                                                                                                   this.m12 *
-								                                                                                                                                   this.m23
-								                                                                                                                                   + this.m10 *
-								                                                                                                                                   this.m01 *
-								                                                                                                                                   this.m32 *
-								                                                                                                                                   this.m23 - this.m00 *
-									                                                                                                                                         this.m11 *
-									                                                                                                                                         this.m32 *
-									                                                                                                                                         this.m23
-									                                                                                                                                         - this.m20 *
-									                                                                                                                                         this.m11 *
-									                                                                                                                                         this.m02 *
-									                                                                                                                                         this.m33 + this.m10 *
-										                                                                                                                                               this.m21 *
-										                                                                                                                                               this.m02 *
-										                                                                                                                                               this.m33
-										                                                                                                                                               +
-										                                                                                                                                               this.m20 *
-										                                                                                                                                               this.m01 *
-										                                                                                                                                               this.m12 *
-										                                                                                                                                               this.m33 - this.m00 *
-											                                                                                                                                                     this.m21 *
-											                                                                                                                                                     this.m12 *
-											                                                                                                                                                     this.m33
-											                                                                                                                                                     -
-											                                                                                                                                                     this.m10 *
-											                                                                                                                                                     this.m01 *
-											                                                                                                                                                     this.m22 *
-											                                                                                                                                                     this.m33 +
-		           this.m00 * this.m11 * this.m22 * this.m33;
+		                                                               - this.m30 * this.m11 * this.m22 *
+		                                                               this.m03 + this.m10 *
+		                                                                        this.m31 * this.m22 * this.m03
+		                                                                        + this.m20 *
+		                                                                        this.m11 *
+		                                                                        this.m32 * this.m03 - this.m10 *
+		                                                                                            this.m21 *
+		                                                                                            this.m32 *
+		                                                                                            this.m03
+		                                                                                            - this.m30 *
+		                                                                                            this.m21 *
+		                                                                                            this.m02 *
+		                                                                                            this
+			                                                                                            .m13 + this
+				                                                                                                 .m20 *
+			                                                                                                 this.m31 *
+			                                                                                                 this.m02 *
+			                                                                                                 this.m13
+			                                                                                                 + this
+				                                                                                                 .m30 *
+			                                                                                                 this.m01 *
+			                                                                                                 this.m22 *
+			                                                                                                 this
+				                                                                                                 .m13 - this
+					                                                                                                      .m00 *
+				                                                                                                      this
+					                                                                                                      .m31 *
+				                                                                                                      this
+					                                                                                                      .m22 *
+				                                                                                                      this
+					                                                                                                      .m13
+				                                                                                                      - this
+					                                                                                                      .m20 *
+				                                                                                                      this
+					                                                                                                      .m01 *
+				                                                                                                      this
+					                                                                                                      .m32 *
+				                                                                                                      this
+					                                                                                                      .m13 + this
+						                                                                                                           .m00 *
+					                                                                                                           this
+						                                                                                                           .m21 *
+					                                                                                                           this
+						                                                                                                           .m32 *
+					                                                                                                           this
+						                                                                                                           .m13
+					                                                                                                           + this
+						                                                                                                           .m30 *
+					                                                                                                           this
+						                                                                                                           .m11 *
+					                                                                                                           this
+						                                                                                                           .m02 *
+					                                                                                                           this
+						                                                                                                           .m23 - this
+							                                                                                                                .m10 *
+						                                                                                                                this
+							                                                                                                                .m31 *
+						                                                                                                                this
+							                                                                                                                .m02 *
+						                                                                                                                this
+							                                                                                                                .m23
+						                                                                                                                - this
+							                                                                                                                .m30 *
+						                                                                                                                this
+							                                                                                                                .m01 *
+						                                                                                                                this
+							                                                                                                                .m12 *
+						                                                                                                                this
+							                                                                                                                .m23 + this
+								                                                                                                                     .m00 *
+							                                                                                                                     this
+								                                                                                                                     .m31 *
+							                                                                                                                     this
+								                                                                                                                     .m12 *
+							                                                                                                                     this
+								                                                                                                                     .m23
+							                                                                                                                     + this
+								                                                                                                                     .m10 *
+							                                                                                                                     this
+								                                                                                                                     .m01 *
+							                                                                                                                     this
+								                                                                                                                     .m32 *
+							                                                                                                                     this
+								                                                                                                                     .m23 - this
+									                                                                                                                          .m00 *
+								                                                                                                                          this
+									                                                                                                                          .m11 *
+								                                                                                                                          this
+									                                                                                                                          .m32 *
+								                                                                                                                          this
+									                                                                                                                          .m23
+								                                                                                                                          - this
+									                                                                                                                          .m20 *
+								                                                                                                                          this
+									                                                                                                                          .m11 *
+								                                                                                                                          this
+									                                                                                                                          .m02 *
+								                                                                                                                          this
+									                                                                                                                          .m33 + this
+										                                                                                                                               .m10 *
+									                                                                                                                               this
+										                                                                                                                               .m21 *
+									                                                                                                                               this
+										                                                                                                                               .m02 *
+									                                                                                                                               this
+										                                                                                                                               .m33
+									                                                                                                                               +
+									                                                                                                                               this
+										                                                                                                                               .m20 *
+									                                                                                                                               this
+										                                                                                                                               .m01 *
+									                                                                                                                               this
+										                                                                                                                               .m12 *
+									                                                                                                                               this
+										                                                                                                                               .m33 - this
+											                                                                                                                                    .m00 *
+										                                                                                                                                    this
+											                                                                                                                                    .m21 *
+										                                                                                                                                    this
+											                                                                                                                                    .m12 *
+										                                                                                                                                    this
+											                                                                                                                                    .m33
+										                                                                                                                                    -
+										                                                                                                                                    this
+											                                                                                                                                    .m10 *
+										                                                                                                                                    this
+											                                                                                                                                    .m01 *
+										                                                                                                                                    this
+											                                                                                                                                    .m22 *
+										                                                                                                                                    this
+											                                                                                                                                    .m33 +
+		                     this.m00 * this.m11 * this.m22 * this.m33;
 		if (l_det == (DGFixedPoint) 0f) throw new Exception("non-invertible matrix");
-		DGFixedPoint m00 = this.m12 * this.m23 * this.m31 - this.m13 * this.m22 * this.m31 + this.m13 * this.m21 * this.m32
-		         - this.m11 * this.m23 * this.m32 - this.m12 * this.m21 * this.m33 + this.m11 * this.m22 * this.m33;
-		DGFixedPoint m01 = this.m03 * this.m22 * this.m31 - this.m02 * this.m23 * this.m31 - this.m03 * this.m21 * this.m32
-		         + this.m01 * this.m23 * this.m32 + this.m02 * this.m21 * this.m33 - this.m01 * this.m22 * this.m33;
-		DGFixedPoint m02 = this.m02 * this.m13 * this.m31 - this.m03 * this.m12 * this.m31 + this.m03 * this.m11 * this.m32
-		         - this.m01 * this.m13 * this.m32 - this.m02 * this.m11 * this.m33 + this.m01 * this.m12 * this.m33;
-		DGFixedPoint m03 = this.m03 * this.m12 * this.m21 - this.m02 * this.m13 * this.m21 - this.m03 * this.m11 * this.m22
-		         + this.m01 * this.m13 * this.m22 + this.m02 * this.m11 * this.m23 - this.m01 * this.m12 * this.m23;
-		DGFixedPoint m10 = this.m13 * this.m22 * this.m30 - this.m12 * this.m23 * this.m30 - this.m13 * this.m20 * this.m32
-		         + this.m10 * this.m23 * this.m32 + this.m12 * this.m20 * this.m33 - this.m10 * this.m22 * this.m33;
-		DGFixedPoint m11 = this.m02 * this.m23 * this.m30 - this.m03 * this.m22 * this.m30 + this.m03 * this.m20 * this.m32
-		         - this.m00 * this.m23 * this.m32 - this.m02 * this.m20 * this.m33 + this.m00 * this.m22 * this.m33;
-		DGFixedPoint m12 = this.m03 * this.m12 * this.m30 - this.m02 * this.m13 * this.m30 - this.m03 * this.m10 * this.m32
-		         + this.m00 * this.m13 * this.m32 + this.m02 * this.m10 * this.m33 - this.m00 * this.m12 * this.m33;
-		DGFixedPoint m13 = this.m02 * this.m13 * this.m20 - this.m03 * this.m12 * this.m20 + this.m03 * this.m10 * this.m22
-		         - this.m00 * this.m13 * this.m22 - this.m02 * this.m10 * this.m23 + this.m00 * this.m12 * this.m23;
-		DGFixedPoint m20 = this.m11 * this.m23 * this.m30 - this.m13 * this.m21 * this.m30 + this.m13 * this.m20 * this.m31
-		         - this.m10 * this.m23 * this.m31 - this.m11 * this.m20 * this.m33 + this.m10 * this.m21 * this.m33;
-		DGFixedPoint m21 = this.m03 * this.m21 * this.m30 - this.m01 * this.m23 * this.m30 - this.m03 * this.m20 * this.m31
-		         + this.m00 * this.m23 * this.m31 + this.m01 * this.m20 * this.m33 - this.m00 * this.m21 * this.m33;
-		DGFixedPoint m22 = this.m01 * this.m13 * this.m30 - this.m03 * this.m11 * this.m30 + this.m03 * this.m10 * this.m31
-		         - this.m00 * this.m13 * this.m31 - this.m01 * this.m10 * this.m33 + this.m00 * this.m11 * this.m33;
-		DGFixedPoint m23 = this.m03 * this.m11 * this.m20 - this.m01 * this.m13 * this.m20 - this.m03 * this.m10 * this.m21
-		         + this.m00 * this.m13 * this.m21 + this.m01 * this.m10 * this.m23 - this.m00 * this.m11 * this.m23;
-		DGFixedPoint m30 = this.m12 * this.m21 * this.m30 - this.m11 * this.m22 * this.m30 - this.m12 * this.m20 * this.m31
-		         + this.m10 * this.m22 * this.m31 + this.m11 * this.m20 * this.m32 - this.m10 * this.m21 * this.m32;
-		DGFixedPoint m31 = this.m01 * this.m22 * this.m30 - this.m02 * this.m21 * this.m30 + this.m02 * this.m20 * this.m31
-		         - this.m00 * this.m22 * this.m31 - this.m01 * this.m20 * this.m32 + this.m00 * this.m21 * this.m32;
-		DGFixedPoint m32 = this.m02 * this.m11 * this.m30 - this.m01 * this.m12 * this.m30 - this.m02 * this.m10 * this.m31
-		         + this.m00 * this.m12 * this.m31 + this.m01 * this.m10 * this.m32 - this.m00 * this.m11 * this.m32;
-		DGFixedPoint m33 = this.m01 * this.m12 * this.m20 - this.m02 * this.m11 * this.m20 + this.m02 * this.m10 * this.m21
-		         - this.m00 * this.m12 * this.m21 - this.m01 * this.m10 * this.m22 + this.m00 * this.m11 * this.m22;
+		DGFixedPoint m00 = this.m12 * this.m23 * this.m31 - this.m13 * this.m22 * this.m31 +
+		                   this.m13 * this.m21 * this.m32
+		                   - this.m11 * this.m23 * this.m32 - this.m12 * this.m21 * this.m33 +
+		                   this.m11 * this.m22 * this.m33;
+		DGFixedPoint m01 = this.m03 * this.m22 * this.m31 - this.m02 * this.m23 * this.m31 -
+		                   this.m03 * this.m21 * this.m32
+		                   + this.m01 * this.m23 * this.m32 + this.m02 * this.m21 * this.m33 -
+		                   this.m01 * this.m22 * this.m33;
+		DGFixedPoint m02 = this.m02 * this.m13 * this.m31 - this.m03 * this.m12 * this.m31 +
+		                   this.m03 * this.m11 * this.m32
+		                   - this.m01 * this.m13 * this.m32 - this.m02 * this.m11 * this.m33 +
+		                   this.m01 * this.m12 * this.m33;
+		DGFixedPoint m03 = this.m03 * this.m12 * this.m21 - this.m02 * this.m13 * this.m21 -
+		                   this.m03 * this.m11 * this.m22
+		                   + this.m01 * this.m13 * this.m22 + this.m02 * this.m11 * this.m23 -
+		                   this.m01 * this.m12 * this.m23;
+		DGFixedPoint m10 = this.m13 * this.m22 * this.m30 - this.m12 * this.m23 * this.m30 -
+		                   this.m13 * this.m20 * this.m32
+		                   + this.m10 * this.m23 * this.m32 + this.m12 * this.m20 * this.m33 -
+		                   this.m10 * this.m22 * this.m33;
+		DGFixedPoint m11 = this.m02 * this.m23 * this.m30 - this.m03 * this.m22 * this.m30 +
+		                   this.m03 * this.m20 * this.m32
+		                   - this.m00 * this.m23 * this.m32 - this.m02 * this.m20 * this.m33 +
+		                   this.m00 * this.m22 * this.m33;
+		DGFixedPoint m12 = this.m03 * this.m12 * this.m30 - this.m02 * this.m13 * this.m30 -
+		                   this.m03 * this.m10 * this.m32
+		                   + this.m00 * this.m13 * this.m32 + this.m02 * this.m10 * this.m33 -
+		                   this.m00 * this.m12 * this.m33;
+		DGFixedPoint m13 = this.m02 * this.m13 * this.m20 - this.m03 * this.m12 * this.m20 +
+		                   this.m03 * this.m10 * this.m22
+		                   - this.m00 * this.m13 * this.m22 - this.m02 * this.m10 * this.m23 +
+		                   this.m00 * this.m12 * this.m23;
+		DGFixedPoint m20 = this.m11 * this.m23 * this.m30 - this.m13 * this.m21 * this.m30 +
+		                   this.m13 * this.m20 * this.m31
+		                   - this.m10 * this.m23 * this.m31 - this.m11 * this.m20 * this.m33 +
+		                   this.m10 * this.m21 * this.m33;
+		DGFixedPoint m21 = this.m03 * this.m21 * this.m30 - this.m01 * this.m23 * this.m30 -
+		                   this.m03 * this.m20 * this.m31
+		                   + this.m00 * this.m23 * this.m31 + this.m01 * this.m20 * this.m33 -
+		                   this.m00 * this.m21 * this.m33;
+		DGFixedPoint m22 = this.m01 * this.m13 * this.m30 - this.m03 * this.m11 * this.m30 +
+		                   this.m03 * this.m10 * this.m31
+		                   - this.m00 * this.m13 * this.m31 - this.m01 * this.m10 * this.m33 +
+		                   this.m00 * this.m11 * this.m33;
+		DGFixedPoint m23 = this.m03 * this.m11 * this.m20 - this.m01 * this.m13 * this.m20 -
+		                   this.m03 * this.m10 * this.m21
+		                   + this.m00 * this.m13 * this.m21 + this.m01 * this.m10 * this.m23 -
+		                   this.m00 * this.m11 * this.m23;
+		DGFixedPoint m30 = this.m12 * this.m21 * this.m30 - this.m11 * this.m22 * this.m30 -
+		                   this.m12 * this.m20 * this.m31
+		                   + this.m10 * this.m22 * this.m31 + this.m11 * this.m20 * this.m32 -
+		                   this.m10 * this.m21 * this.m32;
+		DGFixedPoint m31 = this.m01 * this.m22 * this.m30 - this.m02 * this.m21 * this.m30 +
+		                   this.m02 * this.m20 * this.m31
+		                   - this.m00 * this.m22 * this.m31 - this.m01 * this.m20 * this.m32 +
+		                   this.m00 * this.m21 * this.m32;
+		DGFixedPoint m32 = this.m02 * this.m11 * this.m30 - this.m01 * this.m12 * this.m30 -
+		                   this.m02 * this.m10 * this.m31
+		                   + this.m00 * this.m12 * this.m31 + this.m01 * this.m10 * this.m32 -
+		                   this.m00 * this.m11 * this.m32;
+		DGFixedPoint m33 = this.m01 * this.m12 * this.m20 - this.m02 * this.m11 * this.m20 +
+		                   this.m02 * this.m10 * this.m21
+		                   - this.m00 * this.m12 * this.m21 - this.m01 * this.m10 * this.m22 +
+		                   this.m00 * this.m11 * this.m22;
 		DGFixedPoint inv_det = (DGFixedPoint) 1.0f / l_det;
 		this.m00 = m00 * inv_det;
 		this.m10 = m10 * inv_det;
@@ -739,72 +910,140 @@ public partial struct DGMatrix4x4
 		                                                                                             + this.m20 *
 		                                                                                             this.m11 *
 		                                                                                             this.m32 *
-		                                                                                             this.m03 - this.m10 *
+		                                                                                             this
+			                                                                                             .m03 - this
+				                                                                                                  .m10 *
 			                                                                                                  this.m21 *
 			                                                                                                  this.m32 *
 			                                                                                                  this.m03
-			                                                                                                  - this.m30 *
+			                                                                                                  - this
+				                                                                                                  .m30 *
 			                                                                                                  this.m21 *
 			                                                                                                  this.m02 *
-		                                                                                                      this.m13 + this.m20 *
-		       this.m31 *
-		       this.m02 *
-																													   this.m13
-																													   + this.m30 *
-		                                                                                                               this.m01 *
-		                                                                                                               this.m22 *
-		                                                                                                               this.m13 - this.m00 *
-		       this.m31 *
-		       this.m22 *
-																																 this.m13
-																																 - this.m20 *
-		                                                                                                                        this.m01 *
-		                                                                                                                        this.m32 *
-		                                                                                                                        this.m13 + this.m00 *
-		       this.m21 *
-		       this.m32 *
-																																		   this.m13
-																																		   + this.m30 *
-		                                                                                                                                 this.m11 *
-		                                                                                                                                 this.m02 *
-		                                                                                                                                 this.m23 - this.m10 *
-		       this.m31 *
-		       this.m02 *
-																																					 this.m23
-																																					 - this.m30 *
-		                                                                                                                                          this.m01 *
-		                                                                                                                                          this.m12 *
-		                                                                                                                                          this.m23 + this.m00 *
-		       this.m31 *
-		       this.m12 *
-																																							   this.m23
-																																							   + this.m10 *
-		                                                                                                                                                   this.m01 *
-		                                                                                                                                                   this.m32 *
-		                                                                                                                                                   this.m23 - this.m00 *
-		       this.m11 *
-		       this.m32 *
-																																										 this.m23
-																																										 - this.m20 *
-		                                                                                                                                                            this.m11 *
-		                                                                                                                                                            this.m02 *
-		                                                                                                                                                            this.m33 + this.m10 *
-		       this.m21 *
-		       this.m02 *
-																																												   this.m33
-																																												   +
-		                                                                                                                                                                     this.m20 *
-		                                                                                                                                                                     this.m01 *
-		                                                                                                                                                                     this.m12 *
-		                                                                                                                                                                     this.m33 - this.m00 *
-		       this.m21 *
-		       this.m12 *
-																																															 this.m33
-																																															 -
-		                                                                                                                                                                              this.m10 *
-		                                                                                                                                                                              this.m01 *
-		                                                                                                                                                                              this.m22 *
-		                                                                                                                                                                              this.m33 +
+			                                                                                                  this
+				                                                                                                  .m13 + this
+					                                                                                                       .m20 *
+				                                                                                                       this
+					                                                                                                       .m31 *
+				                                                                                                       this
+					                                                                                                       .m02 *
+				                                                                                                       this
+					                                                                                                       .m13
+				                                                                                                       + this
+					                                                                                                       .m30 *
+				                                                                                                       this
+					                                                                                                       .m01 *
+				                                                                                                       this
+					                                                                                                       .m22 *
+				                                                                                                       this
+					                                                                                                       .m13 - this
+						                                                                                                            .m00 *
+					                                                                                                            this
+						                                                                                                            .m31 *
+					                                                                                                            this
+						                                                                                                            .m22 *
+					                                                                                                            this
+						                                                                                                            .m13
+					                                                                                                            - this
+						                                                                                                            .m20 *
+					                                                                                                            this
+						                                                                                                            .m01 *
+					                                                                                                            this
+						                                                                                                            .m32 *
+					                                                                                                            this
+						                                                                                                            .m13 + this
+							                                                                                                                 .m00 *
+						                                                                                                                 this
+							                                                                                                                 .m21 *
+						                                                                                                                 this
+							                                                                                                                 .m32 *
+						                                                                                                                 this
+							                                                                                                                 .m13
+						                                                                                                                 + this
+							                                                                                                                 .m30 *
+						                                                                                                                 this
+							                                                                                                                 .m11 *
+						                                                                                                                 this
+							                                                                                                                 .m02 *
+						                                                                                                                 this
+							                                                                                                                 .m23 - this
+								                                                                                                                      .m10 *
+							                                                                                                                      this
+								                                                                                                                      .m31 *
+							                                                                                                                      this
+								                                                                                                                      .m02 *
+							                                                                                                                      this
+								                                                                                                                      .m23
+							                                                                                                                      - this
+								                                                                                                                      .m30 *
+							                                                                                                                      this
+								                                                                                                                      .m01 *
+							                                                                                                                      this
+								                                                                                                                      .m12 *
+							                                                                                                                      this
+								                                                                                                                      .m23 + this
+									                                                                                                                           .m00 *
+								                                                                                                                           this
+									                                                                                                                           .m31 *
+								                                                                                                                           this
+									                                                                                                                           .m12 *
+								                                                                                                                           this
+									                                                                                                                           .m23
+								                                                                                                                           + this
+									                                                                                                                           .m10 *
+								                                                                                                                           this
+									                                                                                                                           .m01 *
+								                                                                                                                           this
+									                                                                                                                           .m32 *
+								                                                                                                                           this
+									                                                                                                                           .m23 - this
+										                                                                                                                                .m00 *
+									                                                                                                                                this
+										                                                                                                                                .m11 *
+									                                                                                                                                this
+										                                                                                                                                .m32 *
+									                                                                                                                                this
+										                                                                                                                                .m23
+									                                                                                                                                - this
+										                                                                                                                                .m20 *
+									                                                                                                                                this
+										                                                                                                                                .m11 *
+									                                                                                                                                this
+										                                                                                                                                .m02 *
+									                                                                                                                                this
+										                                                                                                                                .m33 + this
+											                                                                                                                                     .m10 *
+										                                                                                                                                     this
+											                                                                                                                                     .m21 *
+										                                                                                                                                     this
+											                                                                                                                                     .m02 *
+										                                                                                                                                     this
+											                                                                                                                                     .m33
+										                                                                                                                                     +
+										                                                                                                                                     this
+											                                                                                                                                     .m20 *
+										                                                                                                                                     this
+											                                                                                                                                     .m01 *
+										                                                                                                                                     this
+											                                                                                                                                     .m12 *
+										                                                                                                                                     this
+											                                                                                                                                     .m33 - this
+												                                                                                                                                          .m00 *
+											                                                                                                                                          this
+												                                                                                                                                          .m21 *
+											                                                                                                                                          this
+												                                                                                                                                          .m12 *
+											                                                                                                                                          this
+												                                                                                                                                          .m33
+											                                                                                                                                          -
+											                                                                                                                                          this
+												                                                                                                                                          .m10 *
+											                                                                                                                                          this
+												                                                                                                                                          .m01 *
+											                                                                                                                                          this
+												                                                                                                                                          .m22 *
+											                                                                                                                                          this
+												                                                                                                                                          .m33 +
 		       this.m00 * this.m11 * this.m22 * this.m33;
 	}
 
@@ -827,7 +1066,8 @@ public partial struct DGMatrix4x4
 	public DGMatrix4x4 setToProjection(DGFixedPoint near, DGFixedPoint far, DGFixedPoint fovy, DGFixedPoint aspectRatio)
 	{
 		idt();
-		DGFixedPoint l_fd = (DGFixedPoint) 1.0 / DGMath.Tan((fovy * (DGMath.PI / (DGFixedPoint) 180)) / (DGFixedPoint) 2.0);
+		DGFixedPoint l_fd = (DGFixedPoint) 1.0 /
+		                    DGMath.Tan((fovy * (DGMath.PI / (DGFixedPoint) 180)) / (DGFixedPoint) 2.0);
 		DGFixedPoint l_a1 = (far + near) / (near - far);
 		DGFixedPoint l_a2 = ((DGFixedPoint) 2 * far * near) / (near - far);
 		this.m00 = l_fd / aspectRatio;
@@ -859,7 +1099,8 @@ public partial struct DGMatrix4x4
 	 * @param near The near plane
 	 * @param far The far plane
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 setToProjection(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top, DGFixedPoint near, DGFixedPoint far)
+	public DGMatrix4x4 setToProjection(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top,
+		DGFixedPoint near, DGFixedPoint far)
 	{
 		DGFixedPoint x = (DGFixedPoint) 2.0f * near / (right - left);
 		DGFixedPoint y = (DGFixedPoint) 2.0f * near / (top - bottom);
@@ -908,7 +1149,8 @@ public partial struct DGMatrix4x4
 	 * @param near The near plane
 	 * @param far The far plane
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 setToOrtho2D(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height, DGFixedPoint near, DGFixedPoint far)
+	public DGMatrix4x4 setToOrtho2D(DGFixedPoint x, DGFixedPoint y, DGFixedPoint width, DGFixedPoint height,
+		DGFixedPoint near, DGFixedPoint far)
 	{
 		setToOrtho(x, x + width, y, y + height, near, far);
 		return this;
@@ -923,7 +1165,8 @@ public partial struct DGMatrix4x4
 	 * @param near The near clipping plane
 	 * @param far The far clipping plane
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 setToOrtho(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top, DGFixedPoint near, DGFixedPoint far)
+	public DGMatrix4x4 setToOrtho(DGFixedPoint left, DGFixedPoint right, DGFixedPoint bottom, DGFixedPoint top,
+		DGFixedPoint near, DGFixedPoint far)
 	{
 		DGFixedPoint x_orth = (DGFixedPoint) 2 / (right - left);
 		DGFixedPoint y_orth = (DGFixedPoint) 2 / (top - bottom);
@@ -1030,7 +1273,8 @@ public partial struct DGMatrix4x4
 	 * @param scalingY The x-component of the scaling vector
 	 * @param scalingZ The x-component of the scaling vector
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 setToTranslationAndScaling(DGFixedPoint translationX, DGFixedPoint translationY, DGFixedPoint translationZ, DGFixedPoint scalingX,
+	public DGMatrix4x4 setToTranslationAndScaling(DGFixedPoint translationX, DGFixedPoint translationY,
+		DGFixedPoint translationZ, DGFixedPoint scalingX,
 		DGFixedPoint scalingY, DGFixedPoint scalingZ)
 	{
 		idt();
@@ -1096,7 +1340,8 @@ public partial struct DGMatrix4x4
 	 * @param axisZ The z-component of the axis
 	 * @param radians The angle in radians
 	 * @return This matrix for the purpose of chaining methods together. */
-	public DGMatrix4x4 setToRotationRad(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ, DGFixedPoint radians)
+	public DGMatrix4x4 setToRotationRad(DGFixedPoint axisX, DGFixedPoint axisY, DGFixedPoint axisZ,
+		DGFixedPoint radians)
 	{
 		if (radians == (DGFixedPoint) 0)
 		{
@@ -1124,7 +1369,8 @@ public partial struct DGMatrix4x4
 	 * @param y2 The target vector y value
 	 * @param z2 The target vector z value
 	 * @return This matrix for the purpose of chaining methods together */
-	public DGMatrix4x4 setToRotation(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2, DGFixedPoint y2, DGFixedPoint z2)
+	public DGMatrix4x4 setToRotation(DGFixedPoint x1, DGFixedPoint y1, DGFixedPoint z1, DGFixedPoint x2,
+		DGFixedPoint y2, DGFixedPoint z2)
 	{
 		return set(quat.setFromCross(x1, y1, z1, x2, y2, z2));
 	}
@@ -1252,7 +1498,7 @@ public partial struct DGMatrix4x4
 		this.m03 = this.m03 * ((DGFixedPoint) 1 - alpha) + matrix.m03 * alpha;
 		this.m13 = this.m13 * ((DGFixedPoint) 1 - alpha) + matrix.m13 * alpha;
 		this.m23 = this.m23 * ((DGFixedPoint) 1 - alpha) + matrix.m23 * alpha;
-		this.m33 = this.m33 * ((DGFixedPoint)1 - alpha) + matrix.m33 * alpha;
+		this.m33 = this.m33 * ((DGFixedPoint) 1 - alpha) + matrix.m33 * alpha;
 
 		return this;
 	}
@@ -1287,18 +1533,18 @@ public partial struct DGMatrix4x4
 	{
 		DGFixedPoint w = (DGFixedPoint) 1.0f / (DGFixedPoint) t.Length;
 
-		tmpVec.set(t[0].getScale(ref tmpUp).scl(w));
+		tmpVec = tmpVec.set(t[0].getScale(ref tmpUp).scl(w));
 		quat.set(t[0].getRotation(ref quat2).exp(w));
-		tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w));
+		tmpForward = tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w));
 
 		for (int i = 1; i < t.Length; i++)
 		{
-			tmpVec.add(t[i].getScale(ref tmpUp).scl(w));
-			quat.mul(t[i].getRotation(ref quat2).exp(w));
-			tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w));
+			tmpVec = tmpVec.add(t[i].getScale(ref tmpUp).scl(w));
+			quat = quat.mul(t[i].getRotation(ref quat2).exp(w));
+			tmpForward = tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w));
 		}
 
-		quat.nor();
+		quat = quat.nor();
 
 		setToScaling(tmpVec);
 		rotate(quat);
@@ -1314,18 +1560,18 @@ public partial struct DGMatrix4x4
 	 * @return This matrix for chaining */
 	public DGMatrix4x4 avg(DGMatrix4x4[] t, DGFixedPoint[] w)
 	{
-		tmpVec.set(t[0].getScale(ref tmpUp).scl(w[0]));
-		quat.set(t[0].getRotation(ref quat2).exp(w[0]));
-		tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w[0]));
+		tmpVec = tmpVec.set(t[0].getScale(ref tmpUp).scl(w[0]));
+		quat = quat.set(t[0].getRotation(ref quat2).exp(w[0]));
+		tmpForward = tmpForward.set(t[0].getTranslation(ref tmpUp).scl(w[0]));
 
 		for (int i = 1; i < t.Length; i++)
 		{
-			tmpVec.add(t[i].getScale(ref tmpUp).scl(w[i]));
-			quat.mul(t[i].getRotation(ref quat2).exp(w[i]));
-			tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w[i]));
+			tmpVec = tmpVec.add(t[i].getScale(ref tmpUp).scl(w[i]));
+			quat = quat.mul(t[i].getRotation(ref quat2).exp(w[i]));
+			tmpForward = tmpForward.add(t[i].getTranslation(ref tmpUp).scl(w[i]));
 		}
 
-		quat.nor();
+		quat = quat.nor();
 
 		setToScaling(tmpVec);
 		rotate(quat);
@@ -1337,22 +1583,26 @@ public partial struct DGMatrix4x4
 	 * @param mat the matrix */
 	public DGMatrix4x4 set(DGMatrix3x3 mat)
 	{
-		val[0] = mat.val[0];
-		val[1] = mat.val[1];
-		val[2] = mat.val[2];
-		val[3] = (DGFixedPoint) 0;
-		val[4] = mat.val[3];
-		val[5] = mat.val[4];
-		val[6] = mat.val[5];
-		val[7] = (DGFixedPoint) 0;
-		val[8] = (DGFixedPoint) 0;
-		val[9] = (DGFixedPoint) 0;
-		val[10] = (DGFixedPoint) 1;
-		val[11] = (DGFixedPoint) 0;
-		val[12] = mat.val[6];
-		val[13] = mat.val[7];
-		val[14] = (DGFixedPoint) 0;
-		val[15] = mat.val[8];
+
+		m00 = mat.m00;
+		m01 = mat.m01;
+		m02 = mat.m02;
+		m03 = (DGFixedPoint)0;
+		
+		m10 = mat.m10;
+		m11 = mat.m11;
+		m12 = mat.m12;
+		m13 = (DGFixedPoint)0;
+	
+		m20 = mat.m20;
+		m21 = mat.m21;
+		m22 = mat.m22;
+		m23 = (DGFixedPoint)0;
+	
+		m30 = (DGFixedPoint)0;
+		m31 = (DGFixedPoint)0;
+		m32 = (DGFixedPoint)0;
+		m33 = (DGFixedPoint)1;
 		return this;
 	}
 
@@ -1485,19 +1735,19 @@ public partial struct DGMatrix4x4
 	/** @return the squared scale factor on the X axis */
 	public DGFixedPoint getScaleXSquared()
 	{
-		return this.m00 * this.m00 +this.m10 *this.m10 +this.m20 *this.m20;
+		return this.m00 * this.m00 + this.m10 * this.m10 + this.m20 * this.m20;
 	}
 
 	/** @return the squared scale factor on the Y axis */
 	public DGFixedPoint getScaleYSquared()
 	{
-		return this.m01 *this.m01 +this.m11 *this.m11 +this.m21 *this.m21;
+		return this.m01 * this.m01 + this.m11 * this.m11 + this.m21 * this.m21;
 	}
 
 	/** @return the squared scale factor on the Z axis */
 	public DGFixedPoint getScaleZSquared()
 	{
-		return this.m02 *this.m02 +this.m12 *this.m12 +this.m22 *this.m22;
+		return this.m02 * this.m02 + this.m12 * this.m12 + this.m22 * this.m22;
 	}
 
 	/** @return the scale factor on the X axis (non-negative) */
@@ -1551,78 +1801,58 @@ public partial struct DGMatrix4x4
 		       + "[" + this.m30 + "|" + this.m31 + "|" + this.m32 + "|" + this.m33 + "]\n";
 	}
 
-	// @off
-	/*JNI
-	#include <memory.h>
-	#include <stdio.h>
-	#include <string.h>
-	
-	#define M00 0
-	#define M01 4
-	#define M02 8
-	#define M03 12
-	#define M10 1
-	#define M11 5
-	#define M12 9
-	#define M13 13
-	#define M20 2
-	#define M21 6
-	#define M22 10
-	#define M23 14
-	#define M30 3
-	#define M31 7
-	#define M32 11
-	#define M33 15
-	
-	static inline void matrix4_mul(float* mata, float* matb) {
-		float tmp[16];
-		tmp[M00] = mata[M00] * matb[M00] + mata[M01] * matb[M10] + mata[M02] * matb[M20] + mata[M03] * matb[M30];
-		tmp[M01] = mata[M00] * matb[M01] + mata[M01] * matb[M11] + mata[M02] * matb[M21] + mata[M03] * matb[M31];
-		tmp[M02] = mata[M00] * matb[M02] + mata[M01] * matb[M12] + mata[M02] * matb[M22] + mata[M03] * matb[M32];
-		tmp[M03] = mata[M00] * matb[M03] + mata[M01] * matb[M13] + mata[M02] * matb[M23] + mata[M03] * matb[M33];
-		tmp[M10] = mata[M10] * matb[M00] + mata[M11] * matb[M10] + mata[M12] * matb[M20] + mata[M13] * matb[M30];
-		tmp[M11] = mata[M10] * matb[M01] + mata[M11] * matb[M11] + mata[M12] * matb[M21] + mata[M13] * matb[M31];
-		tmp[M12] = mata[M10] * matb[M02] + mata[M11] * matb[M12] + mata[M12] * matb[M22] + mata[M13] * matb[M32];
-		tmp[M13] = mata[M10] * matb[M03] + mata[M11] * matb[M13] + mata[M12] * matb[M23] + mata[M13] * matb[M33];
-		tmp[M20] = mata[M20] * matb[M00] + mata[M21] * matb[M10] + mata[M22] * matb[M20] + mata[M23] * matb[M30];
-		tmp[M21] = mata[M20] * matb[M01] + mata[M21] * matb[M11] + mata[M22] * matb[M21] + mata[M23] * matb[M31];
-		tmp[M22] = mata[M20] * matb[M02] + mata[M21] * matb[M12] + mata[M22] * matb[M22] + mata[M23] * matb[M32];
-		tmp[M23] = mata[M20] * matb[M03] + mata[M21] * matb[M13] + mata[M22] * matb[M23] + mata[M23] * matb[M33];
-		tmp[M30] = mata[M30] * matb[M00] + mata[M31] * matb[M10] + mata[M32] * matb[M20] + mata[M33] * matb[M30];
-		tmp[M31] = mata[M30] * matb[M01] + mata[M31] * matb[M11] + mata[M32] * matb[M21] + mata[M33] * matb[M31];
-		tmp[M32] = mata[M30] * matb[M02] + mata[M31] * matb[M12] + mata[M32] * matb[M22] + mata[M33] * matb[M32];
-		tmp[M33] = mata[M30] * matb[M03] + mata[M31] * matb[M13] + mata[M32] * matb[M23] + mata[M33] * matb[M33];
-		memcpy(mata, tmp, sizeof(float) *  16);
+	static void matrix4_mul(DGFixedPoint[] mata, DGFixedPoint[] matb)
+	{
+		DGFixedPoint[] tmp = new DGFixedPoint[Count];
+		
+		tmp[DGMatrix4x4.M00Index] = mata[DGMatrix4x4.M00Index] * matb[DGMatrix4x4.M00Index] + mata[DGMatrix4x4.M01Index] * matb[DGMatrix4x4.M10Index] + mata[DGMatrix4x4.M02Index] * matb[DGMatrix4x4.M20Index] + mata[DGMatrix4x4.M03Index] * matb[DGMatrix4x4.M30Index];
+		tmp[DGMatrix4x4.M01Index] = mata[DGMatrix4x4.M00Index] * matb[DGMatrix4x4.M01Index] + mata[DGMatrix4x4.M01Index] * matb[DGMatrix4x4.M11Index] + mata[DGMatrix4x4.M02Index] * matb[DGMatrix4x4.M21Index] + mata[DGMatrix4x4.M03Index] * matb[DGMatrix4x4.M31Index];
+		tmp[DGMatrix4x4.M02Index] = mata[DGMatrix4x4.M00Index] * matb[DGMatrix4x4.M02Index] + mata[DGMatrix4x4.M01Index] * matb[DGMatrix4x4.M12Index] + mata[DGMatrix4x4.M02Index] * matb[DGMatrix4x4.M22Index] + mata[DGMatrix4x4.M03Index] * matb[DGMatrix4x4.M32Index];
+		tmp[DGMatrix4x4.M03Index] = mata[DGMatrix4x4.M00Index] * matb[DGMatrix4x4.M03Index] + mata[DGMatrix4x4.M01Index] * matb[DGMatrix4x4.M13Index] + mata[DGMatrix4x4.M02Index] * matb[DGMatrix4x4.M23Index] + mata[DGMatrix4x4.M03Index] * matb[DGMatrix4x4.M33Index];
+		tmp[DGMatrix4x4.M10Index] = mata[DGMatrix4x4.M10Index] * matb[DGMatrix4x4.M00Index] + mata[DGMatrix4x4.M11Index] * matb[DGMatrix4x4.M10Index] + mata[DGMatrix4x4.M12Index] * matb[DGMatrix4x4.M20Index] + mata[DGMatrix4x4.M13Index] * matb[DGMatrix4x4.M30Index];
+		tmp[DGMatrix4x4.M11Index] = mata[DGMatrix4x4.M10Index] * matb[DGMatrix4x4.M01Index] + mata[DGMatrix4x4.M11Index] * matb[DGMatrix4x4.M11Index] + mata[DGMatrix4x4.M12Index] * matb[DGMatrix4x4.M21Index] + mata[DGMatrix4x4.M13Index] * matb[DGMatrix4x4.M31Index];
+		tmp[DGMatrix4x4.M12Index] = mata[DGMatrix4x4.M10Index] * matb[DGMatrix4x4.M02Index] + mata[DGMatrix4x4.M11Index] * matb[DGMatrix4x4.M12Index] + mata[DGMatrix4x4.M12Index] * matb[DGMatrix4x4.M22Index] + mata[DGMatrix4x4.M13Index] * matb[DGMatrix4x4.M32Index];
+		tmp[DGMatrix4x4.M13Index] = mata[DGMatrix4x4.M10Index] * matb[DGMatrix4x4.M03Index] + mata[DGMatrix4x4.M11Index] * matb[DGMatrix4x4.M13Index] + mata[DGMatrix4x4.M12Index] * matb[DGMatrix4x4.M23Index] + mata[DGMatrix4x4.M13Index] * matb[DGMatrix4x4.M33Index];
+		tmp[DGMatrix4x4.M20Index] = mata[DGMatrix4x4.M20Index] * matb[DGMatrix4x4.M00Index] + mata[DGMatrix4x4.M21Index] * matb[DGMatrix4x4.M10Index] + mata[DGMatrix4x4.M22Index] * matb[DGMatrix4x4.M20Index] + mata[DGMatrix4x4.M23Index] * matb[DGMatrix4x4.M30Index];
+		tmp[DGMatrix4x4.M21Index] = mata[DGMatrix4x4.M20Index] * matb[DGMatrix4x4.M01Index] + mata[DGMatrix4x4.M21Index] * matb[DGMatrix4x4.M11Index] + mata[DGMatrix4x4.M22Index] * matb[DGMatrix4x4.M21Index] + mata[DGMatrix4x4.M23Index] * matb[DGMatrix4x4.M31Index];
+		tmp[DGMatrix4x4.M22Index] = mata[DGMatrix4x4.M20Index] * matb[DGMatrix4x4.M02Index] + mata[DGMatrix4x4.M21Index] * matb[DGMatrix4x4.M12Index] + mata[DGMatrix4x4.M22Index] * matb[DGMatrix4x4.M22Index] + mata[DGMatrix4x4.M23Index] * matb[DGMatrix4x4.M32Index];
+		tmp[DGMatrix4x4.M23Index] = mata[DGMatrix4x4.M20Index] * matb[DGMatrix4x4.M03Index] + mata[DGMatrix4x4.M21Index] * matb[DGMatrix4x4.M13Index] + mata[DGMatrix4x4.M22Index] * matb[DGMatrix4x4.M23Index] + mata[DGMatrix4x4.M23Index] * matb[DGMatrix4x4.M33Index];
+		tmp[DGMatrix4x4.M30Index] = mata[DGMatrix4x4.M30Index] * matb[DGMatrix4x4.M00Index] + mata[DGMatrix4x4.M31Index] * matb[DGMatrix4x4.M10Index] + mata[DGMatrix4x4.M32Index] * matb[DGMatrix4x4.M20Index] + mata[DGMatrix4x4.M33Index] * matb[DGMatrix4x4.M30Index];
+		tmp[DGMatrix4x4.M31Index] = mata[DGMatrix4x4.M30Index] * matb[DGMatrix4x4.M01Index] + mata[DGMatrix4x4.M31Index] * matb[DGMatrix4x4.M11Index] + mata[DGMatrix4x4.M32Index] * matb[DGMatrix4x4.M21Index] + mata[DGMatrix4x4.M33Index] * matb[DGMatrix4x4.M31Index];
+		tmp[DGMatrix4x4.M32Index] = mata[DGMatrix4x4.M30Index] * matb[DGMatrix4x4.M02Index] + mata[DGMatrix4x4.M31Index] * matb[DGMatrix4x4.M12Index] + mata[DGMatrix4x4.M32Index] * matb[DGMatrix4x4.M22Index] + mata[DGMatrix4x4.M33Index] * matb[DGMatrix4x4.M32Index];
+		tmp[DGMatrix4x4.M33Index] = mata[DGMatrix4x4.M30Index] * matb[DGMatrix4x4.M03Index] + mata[DGMatrix4x4.M31Index] * matb[DGMatrix4x4.M13Index] + mata[DGMatrix4x4.M32Index] * matb[DGMatrix4x4.M23Index] + mata[DGMatrix4x4.M33Index] * matb[DGMatrix4x4.M33Index];
+		Array.Copy(tmp, 0, mata, 0, Count);
 	}
-	
-	static inline void matrix4_mulVec(float* mat, float* vec) {
-		float x = vec[0] * mat[M00] + vec[1] * mat[M01] + vec[2] * mat[M02] + mat[M03];
-		float y = vec[0] * mat[M10] + vec[1] * mat[M11] + vec[2] * mat[M12] + mat[M13];
-		float z = vec[0] * mat[M20] + vec[1] * mat[M21] + vec[2] * mat[M22] + mat[M23];
-		vec[0] = x;
-		vec[1] = y;
-		vec[2] = z;
+
+
+	public static void prj(DGFixedPoint[] mat, DGFixedPoint[] vecs, int offset, int numVecs, int stride)
+	{
+		var vecsStartIndex = offset;
+		for (int i = 0; i < numVecs; i++)
+		{
+			matrix4_proj(mat, vecs, vecsStartIndex);
+			vecsStartIndex += stride;
+		}
 	}
-	
-	static inline void matrix4_proj(float* mat, float* vec) {
-		float inv_w = 1.0f / (vec[0] * mat[M30] + vec[1] * mat[M31] + vec[2] * mat[M32] + mat[M33]);
-		float x = (vec[0] * mat[M00] + vec[1] * mat[M01] + vec[2] * mat[M02] + mat[M03]) * inv_w;
-		float y = (vec[0] * mat[M10] + vec[1] * mat[M11] + vec[2] * mat[M12] + mat[M13]) * inv_w; 
-		float z = (vec[0] * mat[M20] + vec[1] * mat[M21] + vec[2] * mat[M22] + mat[M23]) * inv_w;
-		vec[0] = x;
-		vec[1] = y;
-		vec[2] = z;
+
+	public static void matrix4_proj(DGFixedPoint[] mat, DGFixedPoint[] vec, int vecStartIndex)
+	{
+		int index0 = vecStartIndex + 0;
+		int index1 = vecStartIndex + 1;
+		int index2 = vecStartIndex + 2;
+
+		DGFixedPoint inv_w = (DGFixedPoint)1.0f /
+		                     (vec[index0] * mat[M30Index] + vec[index1] * mat[M31Index] + vec[index2] * mat[M32Index] + mat[M33Index]);
+		DGFixedPoint x = (vec[index0] * mat[M00Index] + vec[index1] * mat[M01Index] + vec[index2] * mat[M02Index] + mat[M03Index]) *
+		                 inv_w;
+		DGFixedPoint y = (vec[index0] * mat[M10Index] + vec[index1] * mat[M11Index] + vec[index2] * mat[M12Index] + mat[M13Index]) *
+		                 inv_w;
+		DGFixedPoint z = (vec[index0] * mat[M20Index] + vec[index1] * mat[M21Index] + vec[index2] * mat[M22Index] + mat[M23Index]) *
+		                 inv_w;
+		vec[index0] = x;
+		vec[index1] = y;
+		vec[index2] = z;
 	}
-	
-	static inline void matrix4_rot(float* mat, float* vec) {
-		float x = vec[0] * mat[M00] + vec[1] * mat[M01] + vec[2] * mat[M02];
-		float y = vec[0] * mat[M10] + vec[1] * mat[M11] + vec[2] * mat[M12];
-		float z = vec[0] * mat[M20] + vec[1] * mat[M21] + vec[2] * mat[M22];
-		vec[0] = x;
-		vec[1] = y;
-		vec[2] = z;
-	}
-	 */
 
 	/** Multiplies the vectors with the given matrix. The matrix array is assumed to hold a 4x4 column major matrix as you can get
 	 * from {@link Matrix4#val}. The vectors array is assumed to hold 3-component vectors. Offset specifies the offset into the
@@ -1634,33 +1864,29 @@ public partial struct DGMatrix4x4
 	 * @param offset the offset into the vectors array
 	 * @param numVecs the number of vectors
 	 * @param stride the stride between vectors in floats */
-//	public static native void mulVec(float[] mat, float[] vecs, int offset, int numVecs, int stride) 
-	/*-{ }-*/ /*
-		float* vecPtr = vecs + offset;
-		for(int i = 0; i < numVecs; i++) {
-			matrix4_mulVec(mat, vecPtr);
-			vecPtr += stride;
+	public static void mulVec(DGFixedPoint[] mat, DGFixedPoint[] vecs, int offset, int numVecs, int stride)
+	{
+		int vecStartIndex = offset;
+		for (int i = 0; i < numVecs; i++)
+		{
+			matrix4_mulVec(mat, vecs, vecStartIndex);
+			vecStartIndex += stride;
 		}
-	*/
+	}
 
-	/** Multiplies the vectors with the given matrix, , performing a division by w. The matrix array is assumed to hold a 4x4 column
-	 * major matrix as you can get from {@link Matrix4#val}. The vectors array is assumed to hold 3-component vectors. Offset
-	 * specifies the offset into the array where the x-component of the first vector is located. The numVecs parameter specifies
-	 * the number of vectors stored in the vectors array. The stride parameter specifies the number of floats between subsequent
-	 * vectors and must be >= 3. This is the same as {@link Vector3#prj(Matrix4)} applied to multiple vectors.
-	 * @param mat the matrix
-	 * @param vecs the vectors
-	 * @param offset the offset into the vectors array
-	 * @param numVecs the number of vectors
-	 * @param stride the stride between vectors in floats */
-//	public static native void prj(float[] mat, float[] vecs, int offset, int numVecs, int stride) 
-	/*-{ }-*/ /*
-		float* vecPtr = vecs + offset;
-		for(int i = 0; i < numVecs; i++) {
-			matrix4_proj(mat, vecPtr);
-			vecPtr += stride;
-		}
-	*/
+	static void matrix4_mulVec(DGFixedPoint[] mat, DGFixedPoint[] vec, int vecStartIndex)
+	{
+		int index0 = vecStartIndex + 0;
+		int index1 = vecStartIndex + 1;
+		int index2 = vecStartIndex + 2;
+
+		DGFixedPoint x = vec[index0] * mat[DGMatrix4x4.M00Index] + vec[index1] * mat[DGMatrix4x4.M01Index] + vec[index2] * mat[DGMatrix4x4.M02Index] + mat[DGMatrix4x4.M03Index];
+		DGFixedPoint y = vec[index0] * mat[DGMatrix4x4.M10Index] + vec[index1] * mat[DGMatrix4x4.M11Index] + vec[index2] * mat[DGMatrix4x4.M12Index] + mat[DGMatrix4x4.M13Index];
+		DGFixedPoint z = vec[index0] * mat[DGMatrix4x4.M20Index] + vec[index1] * mat[DGMatrix4x4.M21Index] + vec[index2] * mat[DGMatrix4x4.M22Index] + mat[DGMatrix4x4.M23Index];
+		vec[index0] = x;
+		vec[index1] = y;
+		vec[index2] = z;
+	}
 
 	/** Multiplies the vectors with the top most 3x3 sub-matrix of the given matrix. The matrix array is assumed to hold a 4x4
 	 * column major matrix as you can get from {@link Matrix4#val}. The vectors array is assumed to hold 3-component vectors.
@@ -1672,39 +1898,68 @@ public partial struct DGMatrix4x4
 	 * @param offset the offset into the vectors array
 	 * @param numVecs the number of vectors
 	 * @param stride the stride between vectors in floats */
-//	public static native void rot(float[] mat, float[] vecs, int offset, int numVecs, int stride) 
-	/*-{ }-*/ /*
-		float* vecPtr = vecs + offset;
-		for(int i = 0; i < numVecs; i++) {
-			matrix4_rot(mat, vecPtr);
-			vecPtr += stride;
+	public static void rot(DGFixedPoint[] mat, DGFixedPoint[] vecs, int offset, int numVecs, int stride)
+	{
+		int vecsStartIndex = offset;
+		for (int i = 0; i < numVecs; i++)
+		{
+			matrix4_rot(mat, vecs, vecsStartIndex);
+			vecsStartIndex += stride;
 		}
-	*/
-	// @on
+	}
 
-	/** Multiplies the matrix mata with matrix matb, storing the result in mata. The arrays are assumed to hold 4x4 column major
-	 * matrices as you can get from {@link Matrix4#val}. This is the same as {@link Matrix4#mul(Matrix4)}.
-	 *
-	 * @param mata the first matrix.
-	 * @param matb the second matrix. */
+	static void matrix4_rot(DGFixedPoint[] mat, DGFixedPoint[] vec, int vecStartIndex)
+	{
+		int index0 = vecStartIndex + 0;
+		int index1 = vecStartIndex + 1;
+		int index2 = vecStartIndex + 2;
+
+		DGFixedPoint x = vec[index0] * mat[DGMatrix4x4.M00Index] + vec[index1] * mat[DGMatrix4x4.M01Index] + vec[index2] * mat[DGMatrix4x4.M02Index];
+		DGFixedPoint y = vec[index0] * mat[DGMatrix4x4.M10Index] + vec[index1] * mat[DGMatrix4x4.M11Index] + vec[index2] * mat[DGMatrix4x4.M12Index];
+		DGFixedPoint z = vec[index0] * mat[DGMatrix4x4.M20Index] + vec[index1] * mat[DGMatrix4x4.M21Index] + vec[index2] * mat[DGMatrix4x4.M22Index];
+		vec[index0] = x;
+		vec[index1] = y;
+		vec[index2] = z;
+	}
+
+	/*************************************************************************************
+	* Ä£¿éÃèÊö:
+	*************************************************************************************/
+
 	public static void mul(DGFixedPoint[] mata, DGFixedPoint[] matb)
 	{
-		DGFixedPoint m00 = mata[M00Index] * matb[M00Index] + mata[M01Index] * matb[M10Index] + mata[M02Index] * matb[M20Index] + mata[M03Index] * matb[M30Index];
-		DGFixedPoint m01 = mata[M00Index] * matb[M01Index] + mata[M01Index] * matb[M11Index] + mata[M02Index] * matb[M21Index] + mata[M03Index] * matb[M31Index];
-		DGFixedPoint m02 = mata[M00Index] * matb[M02Index] + mata[M01Index] * matb[M12Index] + mata[M02Index] * matb[M22Index] + mata[M03Index] * matb[M32Index];
-		DGFixedPoint m03 = mata[M00Index] * matb[M03Index] + mata[M01Index] * matb[M13Index] + mata[M02Index] * matb[M23Index] + mata[M03Index] * matb[M33Index];
-		DGFixedPoint m10 = mata[M10Index] * matb[M00Index] + mata[M11Index] * matb[M10Index] + mata[M12Index] * matb[M20Index] + mata[M13Index] * matb[M30Index];
-		DGFixedPoint m11 = mata[M10Index] * matb[M01Index] + mata[M11Index] * matb[M11Index] + mata[M12Index] * matb[M21Index] + mata[M13Index] * matb[M31Index];
-		DGFixedPoint m12 = mata[M10Index] * matb[M02Index] + mata[M11Index] * matb[M12Index] + mata[M12Index] * matb[M22Index] + mata[M13Index] * matb[M32Index];
-		DGFixedPoint m13 = mata[M10Index] * matb[M03Index] + mata[M11Index] * matb[M13Index] + mata[M12Index] * matb[M23Index] + mata[M13Index] * matb[M33Index];
-		DGFixedPoint m20 = mata[M20Index] * matb[M00Index] + mata[M21Index] * matb[M10Index] + mata[M22Index] * matb[M20Index] + mata[M23Index] * matb[M30Index];
-		DGFixedPoint m21 = mata[M20Index] * matb[M01Index] + mata[M21Index] * matb[M11Index] + mata[M22Index] * matb[M21Index] + mata[M23Index] * matb[M31Index];
-		DGFixedPoint m22 = mata[M20Index] * matb[M02Index] + mata[M21Index] * matb[M12Index] + mata[M22Index] * matb[M22Index] + mata[M23Index] * matb[M32Index];
-		DGFixedPoint m23 = mata[M20Index] * matb[M03Index] + mata[M21Index] * matb[M13Index] + mata[M22Index] * matb[M23Index] + mata[M23Index] * matb[M33Index];
-		DGFixedPoint m30 = mata[M30Index] * matb[M00Index] + mata[M31Index] * matb[M10Index] + mata[M32Index] * matb[M20Index] + mata[M33Index] * matb[M30Index];
-		DGFixedPoint m31 = mata[M30Index] * matb[M01Index] + mata[M31Index] * matb[M11Index] + mata[M32Index] * matb[M21Index] + mata[M33Index] * matb[M31Index];
-		DGFixedPoint m32 = mata[M30Index] * matb[M02Index] + mata[M31Index] * matb[M12Index] + mata[M32Index] * matb[M22Index] + mata[M33Index] * matb[M32Index];
-		DGFixedPoint m33 = mata[M30Index] * matb[M03Index] + mata[M31Index] * matb[M13Index] + mata[M32Index] * matb[M23Index] + mata[M33Index] * matb[M33Index];
+		DGFixedPoint m00 = mata[M00Index] * matb[M00Index] + mata[M01Index] * matb[M10Index] +
+		                   mata[M02Index] * matb[M20Index] + mata[M03Index] * matb[M30Index];
+		DGFixedPoint m01 = mata[M00Index] * matb[M01Index] + mata[M01Index] * matb[M11Index] +
+		                   mata[M02Index] * matb[M21Index] + mata[M03Index] * matb[M31Index];
+		DGFixedPoint m02 = mata[M00Index] * matb[M02Index] + mata[M01Index] * matb[M12Index] +
+		                   mata[M02Index] * matb[M22Index] + mata[M03Index] * matb[M32Index];
+		DGFixedPoint m03 = mata[M00Index] * matb[M03Index] + mata[M01Index] * matb[M13Index] +
+		                   mata[M02Index] * matb[M23Index] + mata[M03Index] * matb[M33Index];
+		DGFixedPoint m10 = mata[M10Index] * matb[M00Index] + mata[M11Index] * matb[M10Index] +
+		                   mata[M12Index] * matb[M20Index] + mata[M13Index] * matb[M30Index];
+		DGFixedPoint m11 = mata[M10Index] * matb[M01Index] + mata[M11Index] * matb[M11Index] +
+		                   mata[M12Index] * matb[M21Index] + mata[M13Index] * matb[M31Index];
+		DGFixedPoint m12 = mata[M10Index] * matb[M02Index] + mata[M11Index] * matb[M12Index] +
+		                   mata[M12Index] * matb[M22Index] + mata[M13Index] * matb[M32Index];
+		DGFixedPoint m13 = mata[M10Index] * matb[M03Index] + mata[M11Index] * matb[M13Index] +
+		                   mata[M12Index] * matb[M23Index] + mata[M13Index] * matb[M33Index];
+		DGFixedPoint m20 = mata[M20Index] * matb[M00Index] + mata[M21Index] * matb[M10Index] +
+		                   mata[M22Index] * matb[M20Index] + mata[M23Index] * matb[M30Index];
+		DGFixedPoint m21 = mata[M20Index] * matb[M01Index] + mata[M21Index] * matb[M11Index] +
+		                   mata[M22Index] * matb[M21Index] + mata[M23Index] * matb[M31Index];
+		DGFixedPoint m22 = mata[M20Index] * matb[M02Index] + mata[M21Index] * matb[M12Index] +
+		                   mata[M22Index] * matb[M22Index] + mata[M23Index] * matb[M32Index];
+		DGFixedPoint m23 = mata[M20Index] * matb[M03Index] + mata[M21Index] * matb[M13Index] +
+		                   mata[M22Index] * matb[M23Index] + mata[M23Index] * matb[M33Index];
+		DGFixedPoint m30 = mata[M30Index] * matb[M00Index] + mata[M31Index] * matb[M10Index] +
+		                   mata[M32Index] * matb[M20Index] + mata[M33Index] * matb[M30Index];
+		DGFixedPoint m31 = mata[M30Index] * matb[M01Index] + mata[M31Index] * matb[M11Index] +
+		                   mata[M32Index] * matb[M21Index] + mata[M33Index] * matb[M31Index];
+		DGFixedPoint m32 = mata[M30Index] * matb[M02Index] + mata[M31Index] * matb[M12Index] +
+		                   mata[M32Index] * matb[M22Index] + mata[M33Index] * matb[M32Index];
+		DGFixedPoint m33 = mata[M30Index] * matb[M03Index] + mata[M31Index] * matb[M13Index] +
+		                   mata[M32Index] * matb[M23Index] + mata[M33Index] * matb[M33Index];
 		mata[M00Index] = m00;
 		mata[M10Index] = m10;
 		mata[M20Index] = m20;
@@ -1747,14 +2002,21 @@ public partial struct DGMatrix4x4
 	 * @param vec the vector. */
 	public static void prj(DGFixedPoint[] mat, DGFixedPoint[] vec)
 	{
-		DGFixedPoint inv_w = (DGFixedPoint) 1.0f / (vec[0] * mat[M30Index] + vec[1] * mat[M31Index] + vec[2] * mat[M32Index] + mat[M33Index]);
-		DGFixedPoint x = (vec[0] * mat[M00Index] + vec[1] * mat[M01Index] + vec[2] * mat[M02Index] + mat[M03Index]) * inv_w;
-		DGFixedPoint y = (vec[0] * mat[M10Index] + vec[1] * mat[M11Index] + vec[2] * mat[M12Index] + mat[M13Index]) * inv_w;
-		DGFixedPoint z = (vec[0] * mat[M20Index] + vec[1] * mat[M21Index] + vec[2] * mat[M22Index] + mat[M23Index]) * inv_w;
+		DGFixedPoint inv_w = (DGFixedPoint) 1.0f /
+		                     (vec[0] * mat[M30Index] + vec[1] * mat[M31Index] + vec[2] * mat[M32Index] + mat[M33Index]);
+		DGFixedPoint x = (vec[0] * mat[M00Index] + vec[1] * mat[M01Index] + vec[2] * mat[M02Index] + mat[M03Index]) *
+		                 inv_w;
+		DGFixedPoint y = (vec[0] * mat[M10Index] + vec[1] * mat[M11Index] + vec[2] * mat[M12Index] + mat[M13Index]) *
+		                 inv_w;
+		DGFixedPoint z = (vec[0] * mat[M20Index] + vec[1] * mat[M21Index] + vec[2] * mat[M22Index] + mat[M23Index]) *
+		                 inv_w;
 		vec[0] = x;
 		vec[1] = y;
 		vec[2] = z;
 	}
+
+	
+
 
 	/** Multiplies the vector with the top most 3x3 sub-matrix of the given matrix. The matrix array is assumed to hold a 4x4
 	 * column major matrix as you can get from {@link Matrix4#val}. The vector array is assumed to hold a 3-component vector, with
@@ -1780,102 +2042,158 @@ public partial struct DGMatrix4x4
 	{
 		DGFixedPoint l_det = det(values);
 		if (l_det == (DGFixedPoint) 0) return false;
-		DGFixedPoint m00 = values[M12Index] * values[M23Index] * values[M31Index] - values[M13Index] * values[M22Index] * values[M31Index]
-		         + values[M13Index] * values[M21Index] * values[M32Index] - values[M11Index] * values[M23Index] * values[M32Index]
-		                                                   - values[M12Index] * values[M21Index] * values[M33Index] +
-		         values[M11Index] * values[M22Index] * values[M33Index];
-		DGFixedPoint m01 = values[M03Index] * values[M22Index] * values[M31Index] - values[M02Index] * values[M23Index] * values[M31Index]
-		                                                 - values[M03Index] * values[M21Index] * values[M32Index] + values[M01Index] *
-		                                                                                           values[M23Index] *
-		                                                                                           values[M32Index]
-		                                                                                           + values[M02Index] *
-		                                                                                           values[M21Index] *
-		                                                                                           values[M33Index] -
-		         values[M01Index] * values[M22Index] * values[M33Index];
-		DGFixedPoint m02 = values[M02Index] * values[M13Index] * values[M31Index] - values[M03Index] * values[M12Index] * values[M31Index]
-		         + values[M03Index] * values[M11Index] * values[M32Index] - values[M01Index] * values[M13Index] * values[M32Index]
-		                                                   - values[M02Index] * values[M11Index] * values[M33Index] +
-		         values[M01Index] * values[M12Index] * values[M33Index];
-		DGFixedPoint m03 = values[M03Index] * values[M12Index] * values[M21Index] - values[M02Index] * values[M13Index] * values[M21Index]
-		                                                 - values[M03Index] * values[M11Index] * values[M22Index] + values[M01Index] *
-		                                                                                           values[M13Index] *
-		                                                                                           values[M22Index]
-		                                                                                           + values[M02Index] *
-		                                                                                           values[M11Index] *
-		                                                                                           values[M23Index] -
-		         values[M01Index] * values[M12Index] * values[M23Index];
-		DGFixedPoint m10 = values[M13Index] * values[M22Index] * values[M30Index] - values[M12Index] * values[M23Index] * values[M30Index]
-		                                                 - values[M13Index] * values[M20Index] * values[M32Index] + values[M10Index] *
-		                                                                                           values[M23Index] *
-		                                                                                           values[M32Index]
-		                                                                                           + values[M12Index] *
-		                                                                                           values[M20Index] *
-		                                                                                           values[M33Index] -
-		         values[M10Index] * values[M22Index] * values[M33Index];
-		DGFixedPoint m11 = values[M02Index] * values[M23Index] * values[M30Index] - values[M03Index] * values[M22Index] * values[M30Index]
-		         + values[M03Index] * values[M20Index] * values[M32Index] - values[M00Index] * values[M23Index] * values[M32Index]
-		                                                   - values[M02Index] * values[M20Index] * values[M33Index] +
-		         values[M00Index] * values[M22Index] * values[M33Index];
-		DGFixedPoint m12 = values[M03Index] * values[M12Index] * values[M30Index] - values[M02Index] * values[M13Index] * values[M30Index]
-		                                                 - values[M03Index] * values[M10Index] * values[M32Index] + values[M00Index] *
-		                                                                                           values[M13Index] *
-		                                                                                           values[M32Index]
-		                                                                                           + values[M02Index] *
-		                                                                                           values[M10Index] *
-		                                                                                           values[M33Index] -
-		         values[M00Index] * values[M12Index] * values[M33Index];
-		DGFixedPoint m13 = values[M02Index] * values[M13Index] * values[M20Index] - values[M03Index] * values[M12Index] * values[M20Index]
-		         + values[M03Index] * values[M10Index] * values[M22Index] - values[M00Index] * values[M13Index] * values[M22Index]
-		                                                   - values[M02Index] * values[M10Index] * values[M23Index] +
-		         values[M00Index] * values[M12Index] * values[M23Index];
-		DGFixedPoint m20 = values[M11Index] * values[M23Index] * values[M30Index] - values[M13Index] * values[M21Index] * values[M30Index]
-		         + values[M13Index] * values[M20Index] * values[M31Index] - values[M10Index] * values[M23Index] * values[M31Index]
-		                                                   - values[M11Index] * values[M20Index] * values[M33Index] +
-		         values[M10Index] * values[M21Index] * values[M33Index];
-		DGFixedPoint m21 = values[M03Index] * values[M21Index] * values[M30Index] - values[M01Index] * values[M23Index] * values[M30Index]
-		                                                 - values[M03Index] * values[M20Index] * values[M31Index] + values[M00Index] *
-		                                                                                           values[M23Index] *
-		                                                                                           values[M31Index]
-		                                                                                           + values[M01Index] *
-		                                                                                           values[M20Index] *
-		                                                                                           values[M33Index] -
-		         values[M00Index] * values[M21Index] * values[M33Index];
-		DGFixedPoint m22 = values[M01Index] * values[M13Index] * values[M30Index] - values[M03Index] * values[M11Index] * values[M30Index]
-		         + values[M03Index] * values[M10Index] * values[M31Index] - values[M00Index] * values[M13Index] * values[M31Index]
-		                                                   - values[M01Index] * values[M10Index] * values[M33Index] +
-		         values[M00Index] * values[M11Index] * values[M33Index];
-		DGFixedPoint m23 = values[M03Index] * values[M11Index] * values[M20Index] - values[M01Index] * values[M13Index] * values[M20Index]
-		                                                 - values[M03Index] * values[M10Index] * values[M21Index] + values[M00Index] *
-		                                                                                           values[M13Index] *
-		                                                                                           values[M21Index]
-		                                                                                           + values[M01Index] *
-		                                                                                           values[M10Index] *
-		                                                                                           values[M23Index] -
-		         values[M00Index] * values[M11Index] * values[M23Index];
-		DGFixedPoint m30 = values[M12Index] * values[M21Index] * values[M30Index] - values[M11Index] * values[M22Index] * values[M30Index]
-		                                                 - values[M12Index] * values[M20Index] * values[M31Index] + values[M10Index] *
-		                                                                                           values[M22Index] *
-		                                                                                           values[M31Index]
-		                                                                                           + values[M11Index] *
-		                                                                                           values[M20Index] *
-		                                                                                           values[M32Index] -
-		         values[M10Index] * values[M21Index] * values[M32Index];
-		DGFixedPoint m31 = values[M01Index] * values[M22Index] * values[M30Index] - values[M02Index] * values[M21Index] * values[M30Index]
-		         + values[M02Index] * values[M20Index] * values[M31Index] - values[M00Index] * values[M22Index] * values[M31Index]
-		                                                   - values[M01Index] * values[M20Index] * values[M32Index] +
-		         values[M00Index] * values[M21Index] * values[M32Index];
-		DGFixedPoint m32 = values[M02Index] * values[M11Index] * values[M30Index] - values[M01Index] * values[M12Index] * values[M30Index]
-		                                                 - values[M02Index] * values[M10Index] * values[M31Index] + values[M00Index] *
-		                                                                                           values[M12Index] *
-		                                                                                           values[M31Index]
-		                                                                                           + values[M01Index] *
-		                                                                                           values[M10Index] *
-		                                                                                           values[M32Index] -
-		         values[M00Index] * values[M11Index] * values[M32Index];
-		DGFixedPoint m33 = values[M01Index] * values[M12Index] * values[M20Index] - values[M02Index] * values[M11Index] * values[M20Index]
-		         + values[M02Index] * values[M10Index] * values[M21Index] - values[M00Index] * values[M12Index] * values[M21Index]
-		                                                   - values[M01Index] * values[M10Index] * values[M22Index] +
-		         values[M00Index] * values[M11Index] * values[M22Index];
+		DGFixedPoint m00 = values[M12Index] * values[M23Index] * values[M31Index] -
+		                   values[M13Index] * values[M22Index] * values[M31Index]
+		                   + values[M13Index] * values[M21Index] * values[M32Index] - values[M11Index] *
+		                                                                            values[M23Index] * values[M32Index]
+		                                                                            - values[M12Index] *
+		                                                                            values[M21Index] *
+		                                                                            values[M33Index] +
+		                   values[M11Index] * values[M22Index] * values[M33Index];
+		DGFixedPoint m01 =
+			values[M03Index] * values[M22Index] * values[M31Index] - values[M02Index] * values[M23Index] *
+			                                                       values[M31Index]
+			                                                       - values[M03Index] * values[M21Index] *
+			                                                       values[M32Index] + values[M01Index] *
+			                                                                        values[M23Index] *
+			                                                                        values[M32Index]
+			                                                                        + values[M02Index] *
+			                                                                        values[M21Index] *
+			                                                                        values[M33Index] -
+			values[M01Index] * values[M22Index] * values[M33Index];
+		DGFixedPoint m02 = values[M02Index] * values[M13Index] * values[M31Index] -
+		                   values[M03Index] * values[M12Index] * values[M31Index]
+		                   + values[M03Index] * values[M11Index] * values[M32Index] - values[M01Index] *
+		                                                                            values[M13Index] * values[M32Index]
+		                                                                            - values[M02Index] *
+		                                                                            values[M11Index] *
+		                                                                            values[M33Index] +
+		                   values[M01Index] * values[M12Index] * values[M33Index];
+		DGFixedPoint m03 =
+			values[M03Index] * values[M12Index] * values[M21Index] - values[M02Index] * values[M13Index] *
+			                                                       values[M21Index]
+			                                                       - values[M03Index] * values[M11Index] *
+			                                                       values[M22Index] + values[M01Index] *
+			                                                                        values[M13Index] *
+			                                                                        values[M22Index]
+			                                                                        + values[M02Index] *
+			                                                                        values[M11Index] *
+			                                                                        values[M23Index] -
+			values[M01Index] * values[M12Index] * values[M23Index];
+		DGFixedPoint m10 =
+			values[M13Index] * values[M22Index] * values[M30Index] - values[M12Index] * values[M23Index] *
+			                                                       values[M30Index]
+			                                                       - values[M13Index] * values[M20Index] *
+			                                                       values[M32Index] + values[M10Index] *
+			                                                                        values[M23Index] *
+			                                                                        values[M32Index]
+			                                                                        + values[M12Index] *
+			                                                                        values[M20Index] *
+			                                                                        values[M33Index] -
+			values[M10Index] * values[M22Index] * values[M33Index];
+		DGFixedPoint m11 = values[M02Index] * values[M23Index] * values[M30Index] -
+		                   values[M03Index] * values[M22Index] * values[M30Index]
+		                   + values[M03Index] * values[M20Index] * values[M32Index] - values[M00Index] *
+		                                                                            values[M23Index] * values[M32Index]
+		                                                                            - values[M02Index] *
+		                                                                            values[M20Index] *
+		                                                                            values[M33Index] +
+		                   values[M00Index] * values[M22Index] * values[M33Index];
+		DGFixedPoint m12 =
+			values[M03Index] * values[M12Index] * values[M30Index] - values[M02Index] * values[M13Index] *
+			                                                       values[M30Index]
+			                                                       - values[M03Index] * values[M10Index] *
+			                                                       values[M32Index] + values[M00Index] *
+			                                                                        values[M13Index] *
+			                                                                        values[M32Index]
+			                                                                        + values[M02Index] *
+			                                                                        values[M10Index] *
+			                                                                        values[M33Index] -
+			values[M00Index] * values[M12Index] * values[M33Index];
+		DGFixedPoint m13 = values[M02Index] * values[M13Index] * values[M20Index] -
+		                   values[M03Index] * values[M12Index] * values[M20Index]
+		                   + values[M03Index] * values[M10Index] * values[M22Index] - values[M00Index] *
+		                                                                            values[M13Index] * values[M22Index]
+		                                                                            - values[M02Index] *
+		                                                                            values[M10Index] *
+		                                                                            values[M23Index] +
+		                   values[M00Index] * values[M12Index] * values[M23Index];
+		DGFixedPoint m20 = values[M11Index] * values[M23Index] * values[M30Index] -
+		                   values[M13Index] * values[M21Index] * values[M30Index]
+		                   + values[M13Index] * values[M20Index] * values[M31Index] - values[M10Index] *
+		                                                                            values[M23Index] * values[M31Index]
+		                                                                            - values[M11Index] *
+		                                                                            values[M20Index] *
+		                                                                            values[M33Index] +
+		                   values[M10Index] * values[M21Index] * values[M33Index];
+		DGFixedPoint m21 =
+			values[M03Index] * values[M21Index] * values[M30Index] - values[M01Index] * values[M23Index] *
+			                                                       values[M30Index]
+			                                                       - values[M03Index] * values[M20Index] *
+			                                                       values[M31Index] + values[M00Index] *
+			                                                                        values[M23Index] *
+			                                                                        values[M31Index]
+			                                                                        + values[M01Index] *
+			                                                                        values[M20Index] *
+			                                                                        values[M33Index] -
+			values[M00Index] * values[M21Index] * values[M33Index];
+		DGFixedPoint m22 = values[M01Index] * values[M13Index] * values[M30Index] -
+		                   values[M03Index] * values[M11Index] * values[M30Index]
+		                   + values[M03Index] * values[M10Index] * values[M31Index] - values[M00Index] *
+		                                                                            values[M13Index] * values[M31Index]
+		                                                                            - values[M01Index] *
+		                                                                            values[M10Index] *
+		                                                                            values[M33Index] +
+		                   values[M00Index] * values[M11Index] * values[M33Index];
+		DGFixedPoint m23 =
+			values[M03Index] * values[M11Index] * values[M20Index] - values[M01Index] * values[M13Index] *
+			                                                       values[M20Index]
+			                                                       - values[M03Index] * values[M10Index] *
+			                                                       values[M21Index] + values[M00Index] *
+			                                                                        values[M13Index] *
+			                                                                        values[M21Index]
+			                                                                        + values[M01Index] *
+			                                                                        values[M10Index] *
+			                                                                        values[M23Index] -
+			values[M00Index] * values[M11Index] * values[M23Index];
+		DGFixedPoint m30 =
+			values[M12Index] * values[M21Index] * values[M30Index] - values[M11Index] * values[M22Index] *
+			                                                       values[M30Index]
+			                                                       - values[M12Index] * values[M20Index] *
+			                                                       values[M31Index] + values[M10Index] *
+			                                                                        values[M22Index] *
+			                                                                        values[M31Index]
+			                                                                        + values[M11Index] *
+			                                                                        values[M20Index] *
+			                                                                        values[M32Index] -
+			values[M10Index] * values[M21Index] * values[M32Index];
+		DGFixedPoint m31 = values[M01Index] * values[M22Index] * values[M30Index] -
+		                   values[M02Index] * values[M21Index] * values[M30Index]
+		                   + values[M02Index] * values[M20Index] * values[M31Index] - values[M00Index] *
+		                                                                            values[M22Index] * values[M31Index]
+		                                                                            - values[M01Index] *
+		                                                                            values[M20Index] *
+		                                                                            values[M32Index] +
+		                   values[M00Index] * values[M21Index] * values[M32Index];
+		DGFixedPoint m32 =
+			values[M02Index] * values[M11Index] * values[M30Index] - values[M01Index] * values[M12Index] *
+			                                                       values[M30Index]
+			                                                       - values[M02Index] * values[M10Index] *
+			                                                       values[M31Index] + values[M00Index] *
+			                                                                        values[M12Index] *
+			                                                                        values[M31Index]
+			                                                                        + values[M01Index] *
+			                                                                        values[M10Index] *
+			                                                                        values[M32Index] -
+			values[M00Index] * values[M11Index] * values[M32Index];
+		DGFixedPoint m33 = values[M01Index] * values[M12Index] * values[M20Index] -
+		                   values[M02Index] * values[M11Index] * values[M20Index]
+		                   + values[M02Index] * values[M10Index] * values[M21Index] - values[M00Index] *
+		                                                                            values[M12Index] * values[M21Index]
+		                                                                            - values[M01Index] *
+		                                                                            values[M10Index] *
+		                                                                            values[M22Index] +
+		                   values[M00Index] * values[M11Index] * values[M22Index];
 		DGFixedPoint inv_det = (DGFixedPoint) 1.0f / l_det;
 		values[M00Index] = m00 * inv_det;
 		values[M10Index] = m10 * inv_det;
@@ -1902,140 +2220,196 @@ public partial struct DGMatrix4x4
 	 * @return the determinante. */
 	public static DGFixedPoint det(DGFixedPoint[] values)
 	{
-		return values[M30Index] * values[M21Index] * values[M12Index] * values[M03Index] - values[M20Index] * values[M31Index] * values[M12Index] *
-		                                                             values[M03Index]
-		                                                             - values[M30Index] * values[M11Index] * values[M22Index] *
-		                                                             values[M03Index] + values[M10Index] * values[M31Index] *
-		                                                                         values[M22Index] * values[M03Index]
-		                                                                         + values[M20Index] * values[M11Index] *
-		                                                                         values[M32Index] *
-		                                                                         values[M03Index] - values[M10Index] *
-		                                                                                     values[M21Index] * values[M32Index] *
-		                                                                                     values[M03Index]
-		                                                                                     - values[M30Index] *
-		                                                                                     values[M21Index] * values[M02Index] *
-		                                                                                     values[M13Index] + values[M20Index] *
-		                                                                                                 values[M31Index] *
-		                                                                                                 values[M02Index] *
-		                                                                                                 values[M13Index]
-		                                                                                                 + values[M30Index] *
-		                                                                                                 values[M01Index] *
-		                                                                                                 values[M22Index] *
-		                                                                                                 values
-			                                                                                                 [M13Index] - values
-			                                                                                                       [
-				                                                                                                       M00Index] *
-			                                                                                                       values
-				                                                                                                       [M31Index] *
-			                                                                                                       values
-				                                                                                                       [M22Index] *
-			                                                                                                       values
-				                                                                                                       [M13Index]
-			                                                                                                       - values
-				                                                                                                       [M20Index] *
-			                                                                                                       values
-				                                                                                                       [M01Index] *
-			                                                                                                       values
-				                                                                                                       [M32Index] *
-			                                                                                                       values
-				                                                                                                       [M13Index] + values
-				                                                                                                             [
-					                                                                                                             M00Index] *
-				                                                                                                             values
-					                                                                                                             [M21Index] *
-				                                                                                                             values
-					                                                                                                             [M32Index] *
-				                                                                                                             values
-					                                                                                                             [M13Index]
-				                                                                                                             + values
-					                                                                                                             [M30Index] *
-				                                                                                                             values
-					                                                                                                             [M11Index] *
-				                                                                                                             values
-					                                                                                                             [M02Index] *
-				                                                                                                             values
-					                                                                                                             [M23Index] - values
-					                                                                                                                   [
-						                                                                                                                   M10Index] *
-					                                                                                                                   values
-						                                                                                                                   [M31Index] *
-					                                                                                                                   values
-						                                                                                                                   [M02Index] *
-					                                                                                                                   values
-						                                                                                                                   [M23Index]
-					                                                                                                                   - values
-						                                                                                                                   [M30Index] *
-					                                                                                                                   values
-						                                                                                                                   [M01Index] *
-					                                                                                                                   values
-						                                                                                                                   [M12Index] *
-					                                                                                                                   values
-						                                                                                                                   [M23Index] + values
-						                                                                                                                         [
-							                                                                                                                         M00Index] *
-						                                                                                                                         values
-							                                                                                                                         [M31Index] *
-						                                                                                                                         values
-							                                                                                                                         [M12Index] *
-						                                                                                                                         values
-							                                                                                                                         [M23Index]
-						                                                                                                                         + values
-							                                                                                                                         [M10Index] *
-						                                                                                                                         values
-							                                                                                                                         [M01Index] *
-						                                                                                                                         values
-							                                                                                                                         [M32Index] *
-						                                                                                                                         values
-							                                                                                                                         [M23Index] - values
-							                                                                                                                               [
-								                                                                                                                               M00Index] *
-							                                                                                                                               values
-								                                                                                                                               [M11Index] *
-							                                                                                                                               values
-								                                                                                                                               [M32Index] *
-							                                                                                                                               values
-								                                                                                                                               [M23Index]
-							                                                                                                                               - values
-								                                                                                                                               [M20Index] *
-							                                                                                                                               values
-								                                                                                                                               [M11Index] *
-							                                                                                                                               values
-								                                                                                                                               [M02Index] *
-							                                                                                                                               values
-								                                                                                                                               [M33Index] + values
-								                                                                                                                                     [
-									                                                                                                                                     M10Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M21Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M02Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M33Index]
-								                                                                                                                                     + values
-									                                                                                                                                     [M20Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M01Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M12Index] *
-								                                                                                                                                     values
-									                                                                                                                                     [M33Index] - values
-									                                                                                                                                           [
-										                                                                                                                                           M00Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M21Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M12Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M33Index]
-									                                                                                                                                           -
-									                                                                                                                                           values
-										                                                                                                                                           [M10Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M01Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M22Index] *
-									                                                                                                                                           values
-										                                                                                                                                           [M33Index] +
+		return values[M30Index] * values[M21Index] * values[M12Index] * values[M03Index] - values[M20Index] *
+		                                                                                 values[M31Index] *
+		                                                                                 values[M12Index] *
+		                                                                                 values[M03Index]
+		                                                                                 - values[M30Index] *
+		                                                                                 values[M11Index] *
+		                                                                                 values[M22Index] *
+		                                                                                 values[M03Index] + values[
+			                                                                                                  M10Index] *
+		                                                                                                  values[
+			                                                                                                  M31Index] *
+		                                                                                                  values[
+			                                                                                                  M22Index] *
+		                                                                                                  values[
+			                                                                                                  M03Index]
+		                                                                                                  + values[
+			                                                                                                  M20Index] *
+		                                                                                                  values[
+			                                                                                                  M11Index] *
+		                                                                                                  values[
+			                                                                                                  M32Index] *
+		                                                                                                  values[
+			                                                                                                  M03Index] - values
+			                                                                                                            [
+				                                                                                                            M10Index] *
+			                                                                                                            values
+				                                                                                                            [M21Index] *
+			                                                                                                            values
+				                                                                                                            [M32Index] *
+			                                                                                                            values
+				                                                                                                            [M03Index]
+			                                                                                                            - values
+				                                                                                                            [M30Index] *
+			                                                                                                            values
+				                                                                                                            [M21Index] *
+			                                                                                                            values
+				                                                                                                            [M02Index] *
+			                                                                                                            values
+				                                                                                                            [M13Index] + values
+				                                                                                                                       [
+					                                                                                                                       M20Index] *
+				                                                                                                                       values
+					                                                                                                                       [M31Index] *
+				                                                                                                                       values
+					                                                                                                                       [M02Index] *
+				                                                                                                                       values
+					                                                                                                                       [M13Index]
+				                                                                                                                       + values
+					                                                                                                                       [M30Index] *
+				                                                                                                                       values
+					                                                                                                                       [M01Index] *
+				                                                                                                                       values
+					                                                                                                                       [M22Index] *
+				                                                                                                                       values
+					                                                                                                                       [M13Index] - values
+					                                                                                                                                  [
+						                                                                                                                                  M00Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M31Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M22Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M13Index]
+					                                                                                                                                  - values
+						                                                                                                                                  [M20Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M01Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M32Index] *
+					                                                                                                                                  values
+						                                                                                                                                  [M13Index] + values
+						                                                                                                                                             [
+							                                                                                                                                             M00Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M21Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M32Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M13Index]
+						                                                                                                                                             + values
+							                                                                                                                                             [M30Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M11Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M02Index] *
+						                                                                                                                                             values
+							                                                                                                                                             [M23Index] - values
+							                                                                                                                                                        [
+								                                                                                                                                                        M10Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M31Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M02Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M23Index]
+							                                                                                                                                                        - values
+								                                                                                                                                                        [M30Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M01Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M12Index] *
+							                                                                                                                                                        values
+								                                                                                                                                                        [M23Index] + values
+								                                                                                                                                                                   [
+									                                                                                                                                                                   M00Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M31Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M12Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M23Index]
+								                                                                                                                                                                   + values
+									                                                                                                                                                                   [M10Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M01Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M32Index] *
+								                                                                                                                                                                   values
+									                                                                                                                                                                   [M23Index] - values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M00Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M11Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M32Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M23Index]
+									                                                                                                                                                                              - values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M20Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M11Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M02Index] *
+									                                                                                                                                                                              values
+									                                                                                                                                                                              [
+										                                                                                                                                                                              M33Index] + values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M10Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M21Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M02Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M33Index]
+										                                                                                                                                                                                        +
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M20Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M01Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M12Index] *
+										                                                                                                                                                                                        values
+										                                                                                                                                                                                        [
+											                                                                                                                                                                                        M33Index] - values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M00Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M21Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M12Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M33Index]
+											                                                                                                                                                                                                  -
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M10Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M01Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M22Index] *
+											                                                                                                                                                                                                  values
+											                                                                                                                                                                                                  [
+												                                                                                                                                                                                                  M33Index] +
 		       values[M00Index] * values[M11Index] * values[M22Index] * values[M33Index];
 	}
 

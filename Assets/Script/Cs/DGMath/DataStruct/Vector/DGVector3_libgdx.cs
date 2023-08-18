@@ -355,14 +355,13 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 mul(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
 		return this.set(
-			x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M01Index] + z * l_mat[DGMatrix4x4.M02Index] +
-			l_mat[DGMatrix4x4.M03Index],
-			x * l_mat[DGMatrix4x4.M10Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M12Index] +
-			l_mat[DGMatrix4x4.M13Index],
-			x * l_mat[DGMatrix4x4.M20Index] + y * l_mat[DGMatrix4x4.M21Index] + z * l_mat[DGMatrix4x4.M22Index] +
-			l_mat[DGMatrix4x4.M23Index]);
+			x * matrix.m00 + y * matrix.m01 + z * matrix.m02 +
+			matrix.m03,
+			x * matrix.m10 + y * matrix.m11 + z * matrix.m12 +
+			matrix.m13,
+			x * matrix.m20 + y * matrix.m21 + z * matrix.m22 +
+			matrix.m23);
 	}
 
 	/** Multiplies the vector by the transpose of the given matrix, assuming the fourth (w) component of the vector is 1.
@@ -370,14 +369,13 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 traMul(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
 		return this.set(
-			x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M10Index] + z * l_mat[DGMatrix4x4.M20Index] +
-			l_mat[DGMatrix4x4.M30Index],
-			x * l_mat[DGMatrix4x4.M01Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M21Index] +
-			l_mat[DGMatrix4x4.M31Index],
-			x * l_mat[DGMatrix4x4.M02Index] + y * l_mat[DGMatrix4x4.M12Index] + z * l_mat[DGMatrix4x4.M22Index] +
-			l_mat[DGMatrix4x4.M32Index]);
+			x * matrix.m00 + y * matrix.m10 + z * matrix.m20 +
+			matrix.m30,
+			x * matrix.m01 + y * matrix.m11 + z * matrix.m21 +
+			matrix.m31,
+			x * matrix.m02 + y * matrix.m12 + z * matrix.m22 +
+			matrix.m32);
 	}
 
 
@@ -386,10 +384,9 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 mul(DGMatrix3x3 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		return set(x * l_mat[DGMatrix3x3.M00Index] + y * l_mat[DGMatrix3x3.M01Index] + z * l_mat[DGMatrix3x3.M02Index],
-			x * l_mat[DGMatrix3x3.M10Index] + y * l_mat[DGMatrix3x3.M11Index] + z * l_mat[DGMatrix3x3.M12Index],
-			x * l_mat[DGMatrix3x3.M20Index] + y * l_mat[DGMatrix3x3.M21Index] + z * l_mat[DGMatrix3x3.M22Index]);
+		return set(x * matrix.m00 + y * matrix.m01 + z * matrix.m02,
+			x * matrix.m10 + y * matrix.m11 + z * matrix.m12,
+			x * matrix.m20 + y * matrix.m21 + z * matrix.m22);
 	}
 
 	/** Multiplies the vector by the transpose of the given matrix.
@@ -397,10 +394,9 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 traMul(DGMatrix3x3 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		return set(x * l_mat[DGMatrix3x3.M00Index] + y * l_mat[DGMatrix3x3.M10Index] + z * l_mat[DGMatrix3x3.M20Index],
-			x * l_mat[DGMatrix3x3.M01Index] + y * l_mat[DGMatrix3x3.M11Index] + z * l_mat[DGMatrix3x3.M21Index],
-			x * l_mat[DGMatrix3x3.M02Index] + y * l_mat[DGMatrix3x3.M12Index] + z * l_mat[DGMatrix3x3.M22Index]);
+		return set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
+			x * matrix.m01 + y * matrix.m11 + z * matrix.m21,
+			x * matrix.m02 + y * matrix.m12 + z * matrix.m22);
 	}
 
 	/** Multiplies the vector by the given {@link Quaternion}.
@@ -417,17 +413,16 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 prj(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		DGFixedPoint l_w = (DGFixedPoint) 1f / (x * l_mat[DGMatrix4x4.M30Index] + y * l_mat[DGMatrix4x4.M31Index] +
-		                                        z * l_mat[DGMatrix4x4.M32Index] +
-		                                        l_mat[DGMatrix4x4.M33Index]);
+		DGFixedPoint l_w = (DGFixedPoint) 1f / (x * matrix.m30 + y * matrix.m31 +
+		                                        z * matrix.m32 +
+		                                        matrix.m33);
 		return this.set(
-			(x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M01Index] + z * l_mat[DGMatrix4x4.M02Index] +
-			 l_mat[DGMatrix4x4.M03Index]) * l_w,
-			(x * l_mat[DGMatrix4x4.M10Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M12Index] +
-			 l_mat[DGMatrix4x4.M13Index]) * l_w,
-			(x * l_mat[DGMatrix4x4.M20Index] + y * l_mat[DGMatrix4x4.M21Index] + z * l_mat[DGMatrix4x4.M22Index] +
-			 l_mat[DGMatrix4x4.M23Index]) * l_w);
+			(x * matrix.m00 + y * matrix.m01 + z * matrix.m02 +
+			 matrix.m03) * l_w,
+			(x * matrix.m10 + y * matrix.m11 + z * matrix.m12 +
+			 matrix.m13) * l_w,
+			(x * matrix.m20 + y * matrix.m21 + z * matrix.m22 +
+			 matrix.m23) * l_w);
 	}
 
 	/** Multiplies this vector by the first three columns of the matrix, essentially only applying rotation and scaling.
@@ -436,10 +431,9 @@ public partial struct DGVector3
 	 * @return This vector for chaining */
 	public DGVector3 rot(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		return this.set(x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M01Index] + z * l_mat[DGMatrix4x4.M02Index],
-			x * l_mat[DGMatrix4x4.M10Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M12Index],
-			x * l_mat[DGMatrix4x4.M20Index] + y * l_mat[DGMatrix4x4.M21Index] + z * l_mat[DGMatrix4x4.M22Index]);
+		return this.set(x * matrix.m00 + y * matrix.m01 + z * matrix.m02,
+			x * matrix.m10 + y * matrix.m11 + z * matrix.m12,
+			x * matrix.m20 + y * matrix.m21 + z * matrix.m22);
 	}
 
 	/** Multiplies this vector by the transpose of the first three columns of the matrix. Note: only works for translation and
@@ -448,10 +442,9 @@ public partial struct DGVector3
 	 * @return The vector for chaining */
 	public DGVector3 unrotate(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		return this.set(x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M10Index] + z * l_mat[DGMatrix4x4.M20Index],
-			x * l_mat[DGMatrix4x4.M01Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M21Index],
-			x * l_mat[DGMatrix4x4.M02Index] + y * l_mat[DGMatrix4x4.M12Index] + z * l_mat[DGMatrix4x4.M22Index]);
+		return this.set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
+			x * matrix.m01 + y * matrix.m11 + z * matrix.m21,
+			x * matrix.m02 + y * matrix.m12 + z * matrix.m22);
 	}
 
 	/** Translates this vector in the direction opposite to the translation of the matrix and the multiplies this vector by the
@@ -461,13 +454,12 @@ public partial struct DGVector3
 	 * @return The vector for chaining */
 	public DGVector3 untransform(DGMatrix4x4 matrix)
 	{
-		DGFixedPoint[] l_mat = matrix.val;
-		x -= l_mat[DGMatrix4x4.M03Index];
-		y -= l_mat[DGMatrix4x4.M13Index];
-		z -= l_mat[DGMatrix4x4.M23Index];
-		return this.set(x * l_mat[DGMatrix4x4.M00Index] + y * l_mat[DGMatrix4x4.M10Index] + z * l_mat[DGMatrix4x4.M20Index],
-			x * l_mat[DGMatrix4x4.M01Index] + y * l_mat[DGMatrix4x4.M11Index] + z * l_mat[DGMatrix4x4.M21Index],
-			x * l_mat[DGMatrix4x4.M02Index] + y * l_mat[DGMatrix4x4.M12Index] + z * l_mat[DGMatrix4x4.M22Index]);
+		x -= matrix.m03;
+		y -= matrix.m13;
+		z -= matrix.m23;
+		return this.set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
+			x * matrix.m01 + y * matrix.m11 + z * matrix.m21,
+			x * matrix.m02 + y * matrix.m12 + z * matrix.m22);
 	}
 
 	/** Rotates this vector by the given angle in degrees around the given axis.
