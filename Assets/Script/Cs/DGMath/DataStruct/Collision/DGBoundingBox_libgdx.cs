@@ -30,7 +30,13 @@ public partial class DGBoundingBox
 	 * @return The vector specified with the out argument. */
 	public DGVector3 getCenter(ref DGVector3 outCenter)
 	{
-		return outCenter.set(cnt);
+		var result = getCenter();
+		outCenter = result;
+		return result;
+	}
+	public DGVector3 getCenter()
+	{
+		return cnt.cpy();
 	}
 
 	public DGFixedPoint getCenterX()
@@ -50,49 +56,112 @@ public partial class DGBoundingBox
 
 	public DGVector3 getCorner000(ref DGVector3 outCorner)
 	{
+		if(outCorner == DGVector3.Null)
+			return new DGVector3(min.x, min.y, min.z);
 		return outCorner.set(min.x, min.y, min.z);
+	}
+
+	public DGVector3 getCorner000()
+	{
+		return getCorner000(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner001(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(min.x, min.y, max.z);
 		return outCorner.set(min.x, min.y, max.z);
+	}
+
+	public DGVector3 getCorner001()
+	{
+		return getCorner001(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner010(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(min.x, max.y, min.z);
 		return outCorner.set(min.x, max.y, min.z);
+	}
+
+	public DGVector3 getCorner010()
+	{
+		return getCorner010(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner011(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(min.x, max.y, max.z);
 		return outCorner.set(min.x, max.y, max.z);
+	}
+
+	public DGVector3 getCorner011()
+	{
+		return getCorner011(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner100(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(max.x, min.y, min.z);
 		return outCorner.set(max.x, min.y, min.z);
+	}
+
+	public DGVector3 getCorner100()
+	{
+		return getCorner100(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner101(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(max.x, min.y, max.z);
 		return outCorner.set(max.x, min.y, max.z);
+	}
+
+	public DGVector3 getCorner101()
+	{
+		return getCorner101(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner110(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(max.x, max.y, min.z);
 		return outCorner.set(max.x, max.y, min.z);
+	}
+
+	public DGVector3 getCorner110()
+	{
+		return getCorner110(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner111(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return new DGVector3(max.x, max.y, max.z);
 		return outCorner.set(max.x, max.y, max.z);
+	}
+
+	public DGVector3 getCorner111()
+	{
+		return getCorner111(ref DGVector3.Null);
 	}
 
 	/** @param out The {@link Vector3} to receive the dimensions of this bounding box on all three axis.
 	 * @return The vector specified with the out argument */
 	public DGVector3 getDimensions(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return dim.cpy();
 		return outCorner.set(dim);
+	}
+
+	public DGVector3 getDimensions()
+	{
+		return getDimensions(ref DGVector3.Null);
 	}
 
 	public DGFixedPoint getWidth()
@@ -114,15 +183,29 @@ public partial class DGBoundingBox
 	 * @return The vector specified with the out argument */
 	public DGVector3 getMin(ref DGVector3 outMin)
 	{
+		if (outMin == DGVector3.Null)
+			return min.cpy();
 		return outMin.set(min);
+	}
+
+	public DGVector3 getMin()
+	{
+		return getMin(ref DGVector3.Null);
 	}
 
 	/** @param out The {@link Vector3} to receive the maximum values.
 	 * @return The vector specified with the out argument */
 	public DGVector3 getMax(ref DGVector3 outMax)
 	{
+		if (outMax == DGVector3.Null)
+			return max.cpy();
 		return outMax.set(max);
 	}
+	public DGVector3 getMax()
+	{
+		return getMax(ref DGVector3.Null);
+	}
+
 
 	/** Constructs a new bounding box with the minimum and maximum vector set to zeros. */
 	public DGBoundingBox()

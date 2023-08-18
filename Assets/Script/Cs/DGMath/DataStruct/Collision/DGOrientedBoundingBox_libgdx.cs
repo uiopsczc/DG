@@ -116,42 +116,87 @@ public partial class DGOrientedBoundingBox
 
 	public DGVector3 getCorner000(ref DGVector3 outCorner)
 	{
-		return outCorner.set(vertices[0b000]);
+		if(outCorner == DGVector3.Null)
+			return vertices[0b000].cpy();
+		return outCorner.set(vertices[0b000]);;
+	}
+
+	public DGVector3 getCorner000()
+	{
+		return getCorner000(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner001(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return vertices[0b001].cpy();
 		return outCorner.set(vertices[0b001]);
 	}
 
+	public DGVector3 getCorner001()
+	{
+		return getCorner001(ref DGVector3.Null);
+	}
+
+
 	public DGVector3 getCorner010(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return vertices[0b010].cpy();
 		return outCorner.set(vertices[0b010]);
+	}
+
+	public DGVector3 getCorner010()
+	{
+		return getCorner010(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner011(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return vertices[0b011].cpy();
 		return outCorner.set(vertices[0b011]);
+	}
+
+	public DGVector3 getCorner011()
+	{
+		return getCorner011(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner100(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return vertices[0b100].cpy();
 		return outCorner.set(vertices[0b100]);
+	}
+
+	public DGVector3 getCorner100()
+	{
+		return getCorner100(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner101(ref DGVector3 outCorner)
 	{
-		return outCorner.set(vertices[0b101]);
+		if (outCorner == DGVector3.Null)
+			return vertices[0b110].cpy();
+		return outCorner.set(vertices[0b110]);
 	}
 
 	public DGVector3 getCorner110(ref DGVector3 outCorner)
 	{
-		return outCorner.set(vertices[0b110]);
+		return getCorner110(ref DGVector3.Null);
 	}
 
 	public DGVector3 getCorner111(ref DGVector3 outCorner)
 	{
+		if (outCorner == DGVector3.Null)
+			return vertices[0b111].cpy();
 		return outCorner.set(vertices[0b111]);
+	}
+
+	public DGVector3 getCorner111()
+	{
+		return getCorner111(ref DGVector3.Null);
 	}
 
 	/** Returns whether the given vector is contained in this oriented bounding box.
