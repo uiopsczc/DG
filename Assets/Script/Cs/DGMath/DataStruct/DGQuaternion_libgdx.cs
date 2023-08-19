@@ -10,11 +10,10 @@
 *************************************************************************************/
 
 
-/** A simple quaternion class.
- * @see <a href="http://en.wikipedia.org/wiki/Quaternion">http://en.wikipedia.org/wiki/Quaternion</a>
- * @author badlogicgames@gmail.com
- * @author vesuvio
- * @author xoppa */
+/// <summary>
+/// A simple quaternion class.
+/// @see <a href="http://en.wikipedia.org/wiki/Quaternion">http://en.wikipedia.org/wiki/Quaternion</a>
+/// </summary>
 public partial struct DGQuaternion
 {
 	private static DGQuaternion tmp1 = new DGQuaternion((DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0, (DGFixedPoint) 0);

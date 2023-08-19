@@ -111,14 +111,14 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
- * 
- * <pre>
- * A.mul(B) results in A := AB
- * </pre>
- * 
- * @param m Matrix to multiply by.
- * @return This matrix for the purpose of chaining operations together. */
+	/** Postmultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
+	 * 
+	 * <pre>
+	 * A.mul(B) results in A := AB
+	 * </pre>
+	 * 
+	 * @param m Matrix to multiply by.
+	 * @return This matrix for the purpose of chaining operations together. */
 	public DGMatrix3x3 mul(DGMatrix3x3 m)
 	{
 		DGFixedPoint v00 = this.m00 * m.m00 + this.m01 * m.m10 + this.m02 * m.m20;
@@ -146,14 +146,14 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Premultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
- * 
- * <pre>
- * A.mulLeft(B) results in A := BA
- * </pre>
- * 
- * @param m The other Matrix to multiply by
- * @return This matrix for the purpose of chaining operations. */
+	/** Premultiplies this matrix with the provided matrix and stores the result in this matrix. For example:
+	 * 
+	 * <pre>
+	 * A.mulLeft(B) results in A := BA
+	 * </pre>
+	 * 
+	 * @param m The other Matrix to multiply by
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 mulLeft(DGMatrix3x3 m)
 	{
 		DGFixedPoint v00 = m.m00 * this.m00 + m.m01 * this.m10 + m.m02 * this.m20;
@@ -181,9 +181,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
- * @param degrees the angle in degrees.
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a rotation matrix that will rotate any vector in counter-clockwise direction around the z-axis.
+	 * @param degrees the angle in degrees.
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToRotation(DGFixedPoint degrees)
 	{
 		return setToRotationRad(DGMath.Deg2Rad * degrees);
@@ -245,10 +245,10 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this matrix to a translation matrix.
- * @param x the translation in x
- * @param y the translation in y
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a translation matrix.
+	 * @param x the translation in x
+	 * @param y the translation in y
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToTranslation(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.m00 = (DGFixedPoint) 1;
@@ -266,9 +266,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this matrix to a translation matrix.
- * @param translation The translation vector.
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a translation matrix.
+	 * @param translation The translation vector.
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToTranslation(DGVector2 translation)
 	{
 		this.m00 = (DGFixedPoint) 1;
@@ -286,11 +286,11 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this matrix to a scaling matrix.
- * 
- * @param scaleX the scale in x
- * @param scaleY the scale in y
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a scaling matrix.
+	 * 
+	 * @param scaleX the scale in x
+	 * @param scaleY the scale in y
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToScaling(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
 		this.m00 = scaleX;
@@ -305,9 +305,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this matrix to a scaling matrix.
- * @param scale The scale vector.
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this matrix to a scaling matrix.
+	 * @param scale The scale vector.
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 setToScaling(DGVector2 scale)
 	{
 		this.m00 = scale.x;
@@ -329,16 +329,16 @@ public partial struct DGMatrix3x3
 		       + "[" + this.m20 + "|" + this.m21 + "|" + this.m22 + "]";
 	}
 
-/** @return The determinant of this matrix */
+	/** @return The determinant of this matrix */
 	public DGFixedPoint det()
 	{
 		return this.m00 * this.m11 *this.m22 +this.m01 *this.m12 *this.m20 +this.m02 *this.m10 *this.m21
 		       -this.m00 * this.m12 *this.m21 - this.m01 * this.m10 * this.m22 - this.m02 * this.m11 * this.m20;
 	}
 
-/** Inverts this matrix given that the determinant is != 0.
- * @return This matrix for the purpose of chaining operations.
- * @throws GdxRuntimeException if the matrix is singular (not invertible) */
+	/** Inverts this matrix given that the determinant is != 0.
+	 * @return This matrix for the purpose of chaining operations.
+	 * @throws GdxRuntimeException if the matrix is singular (not invertible) */
 	public DGMatrix3x3 inv()
 	{
 		DGFixedPoint det = this.det();
@@ -369,9 +369,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Copies the values from the provided matrix to this matrix.
- * @param mat The matrix to copy.
- * @return This matrix for the purposes of chaining. */
+	/** Copies the values from the provided matrix to this matrix.
+	 * @param mat The matrix to copy.
+	 * @return This matrix for the purposes of chaining. */
 	public DGMatrix3x3 set(DGMatrix3x3 mat)
 	{
 		m00 = mat.m00;
@@ -386,9 +386,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Copies the values from the provided affine matrix to this matrix. The last row is set to (0, 0, 1).
- * @param affine The affine matrix to copy.
- * @return This matrix for the purposes of chaining. */
+	/** Copies the values from the provided affine matrix to this matrix. The last row is set to (0, 0, 1).
+	 * @param affine The affine matrix to copy.
+	 * @return This matrix for the purposes of chaining. */
 	public DGMatrix3x3 set(DGAffine2 affine)
 	{
 		this.m00 = affine.m00;
@@ -404,9 +404,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets this 3x3 matrix to the top left 3x3 corner of the provided 4x4 matrix.
- * @param mat The matrix whose top left corner will be copied. This matrix will not be modified.
- * @return This matrix for the purpose of chaining operations. */
+	/** Sets this 3x3 matrix to the top left 3x3 corner of the provided 4x4 matrix.
+	 * @param mat The matrix whose top left corner will be copied. This matrix will not be modified.
+	 * @return This matrix for the purpose of chaining operations. */
 	public DGMatrix3x3 set(DGMatrix4x4 mat)
 	{
 		this.m00 = mat.m00;
@@ -421,12 +421,12 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Sets the matrix to the given matrix as a float array. The float array must have at least 9 elements; the first 9 will be
- * copied.
- * 
- * @param values The matrix, in float form, that is to be copied. Remember that this matrix is in
- *           <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> order.
- * @return This matrix for the purpose of chaining methods together. */
+	/** Sets the matrix to the given matrix as a float array. The float array must have at least 9 elements; the first 9 will be
+	 * copied.
+	 * 
+	 * @param values The matrix, in float form, that is to be copied. Remember that this matrix is in
+	 *           <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> order.
+	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 set(DGFixedPoint[] values)
 	{
 		m00 = values[M00Index];
@@ -451,10 +451,10 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Adds a translational component to the matrix in the 3rd column. The other columns are untouched.
- * @param x The x-component of the translation vector.
- * @param y The y-component of the translation vector.
- * @return This matrix for the purpose of chaining. */
+	/** Adds a translational component to the matrix in the 3rd column. The other columns are untouched.
+	 * @param x The x-component of the translation vector.
+	 * @param y The y-component of the translation vector.
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 trn(DGFixedPoint x, DGFixedPoint y)
 	{
 		this.m02 += x;
@@ -462,9 +462,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Adds a translational component to the matrix in the 3rd column. The other columns are untouched.
- * @param vector The translation vector. (The z-component of the vector is ignored because this is a 3x3 matrix)
- * @return This matrix for the purpose of chaining. */
+	/** Adds a translational component to the matrix in the 3rd column. The other columns are untouched.
+	 * @param vector The translation vector. (The z-component of the vector is ignored because this is a 3x3 matrix)
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 trn(DGVector3 vector)
 	{
 		this.m02 += vector.x;
@@ -472,11 +472,11 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix by a translation matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param x The x-component of the translation vector.
- * @param y The y-component of the translation vector.
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix by a translation matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param x The x-component of the translation vector.
+	 * @param y The y-component of the translation vector.
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(DGFixedPoint x, DGFixedPoint y)
 	{
 		var tmp = DGMatrix3x3.default2;
@@ -486,10 +486,10 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix by a translation matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param translation The translation vector.
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix by a translation matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param translation The translation vector.
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 translate(DGVector2 translation)
 	{
 		var tmp = DGMatrix3x3.default2;
@@ -499,19 +499,19 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix with a (counter-clockwise) rotation matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param degrees The angle in degrees
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix with a (counter-clockwise) rotation matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param degrees The angle in degrees
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 rotate(DGFixedPoint degrees)
 	{
 		return rotateRad(DGMath.Deg2Rad * degrees);
 	}
 
-/** Postmultiplies this matrix with a (counter-clockwise) rotation matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param radians The angle in radians
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix with a (counter-clockwise) rotation matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param radians The angle in radians
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 rotateRad(DGFixedPoint radians)
 	{
 		if (radians == (DGFixedPoint) 0) return this;
@@ -536,11 +536,11 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix with a scale matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param scaleX The scale in the x-axis.
- * @param scaleY The scale in the y-axis.
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix with a scale matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param scaleX The scale in the x-axis.
+	 * @param scaleY The scale in the y-axis.
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(DGFixedPoint scaleX, DGFixedPoint scaleY)
 	{
 		var tmp = DGMatrix3x3.default2;
@@ -560,10 +560,10 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Postmultiplies this matrix with a scale matrix. Postmultiplication is also used by OpenGL ES' 1.x
- * glTranslate/glRotate/glScale.
- * @param scale The vector to scale the matrix by.
- * @return This matrix for the purpose of chaining. */
+	/** Postmultiplies this matrix with a scale matrix. Postmultiplication is also used by OpenGL ES' 1.x
+	 * glTranslate/glRotate/glScale.
+	 * @param scale The vector to scale the matrix by.
+	 * @return This matrix for the purpose of chaining. */
 	public DGMatrix3x3 scale(DGVector2 scale)
 	{
 		var tmp = DGMatrix3x3.default2;
@@ -584,8 +584,8 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Get the values in this matrix.
- * @return The float values that make up this matrix in column-major order. */
+	/** Get the values in this matrix.
+	 * @return The float values that make up this matrix in column-major order. */
 	public DGFixedPoint[] getValues()
 	{
 		return val;
@@ -598,8 +598,8 @@ public partial struct DGMatrix3x3
 		return position;
 	}
 
-/** @param scale The vector which will receive the (non-negative) scale components on each axis.
- * @return The provided vector for chaining. */
+	/** @param scale The vector which will receive the (non-negative) scale components on each axis.
+	 * @return The provided vector for chaining. */
 	public DGVector2 getScale(DGVector2 scale)
 	{
 		scale.x = DGMath.Sqrt(this.m00 * this.m00 + this.m01 * this.m01);
@@ -617,9 +617,9 @@ public partial struct DGMatrix3x3
 		return DGMath.Atan2(this.m10, this.m00);
 	}
 
-/** Scale the matrix in the both the x and y components by the scalar value.
- * @param scale The single value that will be used to scale both the x and y components.
- * @return This matrix for the purpose of chaining methods together. */
+	/** Scale the matrix in the both the x and y components by the scalar value.
+	 * @param scale The single value that will be used to scale both the x and y components.
+	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGFixedPoint scale)
 	{
 		this.m00 *= scale;
@@ -627,9 +627,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Scale this matrix using the x and y components of the vector but leave the rest of the matrix alone.
- * @param scale The {@link Vector3} to use to scale this matrix.
- * @return This matrix for the purpose of chaining methods together. */
+	/** Scale this matrix using the x and y components of the vector but leave the rest of the matrix alone.
+	 * @param scale The {@link Vector3} to use to scale this matrix.
+	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGVector2 scale)
 	{
 		this.m00 *= scale.x;
@@ -637,9 +637,9 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Scale this matrix using the x and y components of the vector but leave the rest of the matrix alone.
- * @param scale The {@link Vector3} to use to scale this matrix. The z component will be ignored.
- * @return This matrix for the purpose of chaining methods together. */
+	/** Scale this matrix using the x and y components of the vector but leave the rest of the matrix alone.
+	 * @param scale The {@link Vector3} to use to scale this matrix. The z component will be ignored.
+	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 scl(DGVector3 scale)
 	{
 		this.m00 *= scale.x;
@@ -647,8 +647,8 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Transposes the current matrix.
- * @return This matrix for the purpose of chaining methods together. */
+	/** Transposes the current matrix.
+	 * @return This matrix for the purpose of chaining methods together. */
 	public DGMatrix3x3 transpose()
 	{
 		// Where MXY you do not have to change MXX
@@ -667,14 +667,14 @@ public partial struct DGMatrix3x3
 		return this;
 	}
 
-/** Multiplies matrix a with matrix b in the following manner:
- * 
- * <pre>
- * mul(A, B) => A := AB
- * </pre>
- * 
- * @param mata The float array representing the first matrix. Must have at least 9 elements.
- * @param matb The float array representing the second matrix. Must have at least 9 elements. */
+	/** Multiplies matrix a with matrix b in the following manner:
+	 * 
+	 * <pre>
+	 * mul(A, B) => A := AB
+	 * </pre>
+	 * 
+	 * @param mata The float array representing the first matrix. Must have at least 9 elements.
+	 * @param matb The float array representing the second matrix. Must have at least 9 elements. */
 	private static void mul(DGFixedPoint[] mata, DGFixedPoint[] matb)
 	{
 		DGFixedPoint v00 = mata[M00Index] * matb[M00Index] + mata[M01Index] * matb[M10Index] + mata[M02Index] * matb[M20Index];

@@ -9,10 +9,11 @@
  * ======================================
 *************************************************************************************/
 
-
-//libgdx
-/** Takes a linear value in the range of 0-1 and outputs a (usually) non-linear, interpolated value.
- * @author Nathan Sweet */
+/// <summary>
+/// libgdx
+/// Takes a linear value in the range of 0-1 and outputs a (usually) non-linear, interpolated value.
+/// @author Nathan Sweet
+/// </summary>
 public abstract class DGInterpolation
 {
 	/** @param a Alpha value between 0 and 1. */

@@ -9,8 +9,6 @@
  * ======================================
 *************************************************************************************/
 
-using System.Text;
-
 public interface IDGToString
 {
 	string DGToString(bool isFillStringWithDoubleQuote = false);

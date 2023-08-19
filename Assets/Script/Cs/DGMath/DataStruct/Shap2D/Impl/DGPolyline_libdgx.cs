@@ -37,13 +37,13 @@ public class DGPolyline : IDGShape2D
 		this.localVertices = vertices;
 	}
 
-/** Returns vertices without scaling or rotation and without being offset by the polyline position. */
+	/** Returns vertices without scaling or rotation and without being offset by the polyline position. */
 	public DGFixedPoint[] getVertices()
 	{
 		return localVertices;
 	}
 
-/** Returns vertices scaled, rotated, and offset by the polygon position. */
+	/** Returns vertices scaled, rotated, and offset by the polygon position. */
 	public DGFixedPoint[] getTransformedVertices()
 	{
 		if (!_dirty) return this.worldVertices;
@@ -92,7 +92,7 @@ public class DGPolyline : IDGShape2D
 		return worldVertices;
 	}
 
-/** Returns the euclidean length of the polyline without scaling */
+	/** Returns the euclidean length of the polyline without scaling */
 	public DGFixedPoint getLength()
 	{
 		if (!_calculateLength) return length;
@@ -109,7 +109,7 @@ public class DGPolyline : IDGShape2D
 		return length;
 	}
 
-/** Returns the euclidean length of the polyline */
+	/** Returns the euclidean length of the polyline */
 	public DGFixedPoint getScaledLength()
 	{
 		if (!_calculateScaledLength) return scaledLength;
@@ -232,11 +232,11 @@ public class DGPolyline : IDGShape2D
 		_dirty = true;
 	}
 
-/** Returns an axis-aligned bounding box of this polyline.
- *
- * Note the returned Rectangle is cached in this polyline, and will be reused if this Polyline is changed.
- *
- * @return this polyline's bounding box {@link Rectangle} */
+	/** Returns an axis-aligned bounding box of this polyline.
+	 *
+	 * Note the returned Rectangle is cached in this polyline, and will be reused if this Polyline is changed.
+	 *
+	 * @return this polyline's bounding box {@link Rectangle} */
 	public DGRectangle getBoundingRectangle()
 	{
 		DGFixedPoint[] vertices = getTransformedVertices();

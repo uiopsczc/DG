@@ -12,14 +12,14 @@
 using System;
 
 
-/** Encapsulates a <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> 4 by 4 matrix. Like
- * the {@link Vector3} class it allows the chaining of methods by returning a reference to itself. For example:
- * 
- * <pre>
- * Matrix4 mat = new Matrix4().trn(position).mul(camera.combined);
- * </pre>
- * 
- * @author badlogicgames@gmail.com */
+
+
+/// <summary>
+/// Encapsulates a <a href="http://en.wikipedia.org/wiki/Row-major_order#Column-major_order">column major</a> 4 by 4 matrix. Like
+/// the {@link Vector3} class it allows the chaining of methods by returning a reference to itself. For example:
+/// Matrix4 mat = new Matrix4().trn(position).mul(camera.combined);
+/// @author badlogicgames@gmail.com
+/// </summary>
 public partial struct DGMatrix4x4
 {
 	/** XX: Typically the unrotated X component for scaling, also the cosine of the angle when rotated on the Y and/or Z axis. On

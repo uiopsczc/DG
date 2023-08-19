@@ -11,13 +11,13 @@
 
 using System;
 
-// Matrix2x3
-/** A specialized 3x3 matrix that can represent sequences of 2D translations, scales, flips, rotations, and shears.
- * <a href="http://en.wikipedia.org/wiki/Affine_transformation">Affine transformations</a> preserve straight lines, and parallel
- * lines remain parallel after the transformation. Operations on affine matrices are faster because the last row can always be
- * assumed (0, 0, 1).
- *
- * @author vmilea */
+/// <summary>
+/// Matrix2x3
+/// A specialized 3x3 matrix that can represent sequences of 2D translations, scales, flips, rotations, and shears.
+/// <a href="http://en.wikipedia.org/wiki/Affine_transformation">Affine transformations</a> preserve straight lines, and parallel
+/// lines remain parallel after the transformation. Operations on affine matrices are faster because the last row can always be
+/// assumed (0, 0, 1).
+/// </summary>
 public partial struct DGAffine2
 {
 	public DGFixedPoint m00;

@@ -1,6 +1,7 @@
-/** Encapsulates a 3D vector. Allows chaining operations by returning a reference to itself in all modification methods.
- * @author badlogicgames@gmail.com */
 
+/// <summary>
+/// Encapsulates a 3D vector. Allows chaining operations by returning a reference to itself in all modification methods.
+/// </summary>
 public partial struct DGVector3
 {
 	/** the x-component of this vector **/

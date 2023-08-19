@@ -19,10 +19,10 @@ public class GenDGFixedPointLookUpTableTool
 		using (var writer = new StreamWriter("Lut/DGFixedPointSinLut.cs"))
 		{
 			writer.Write(
-@"partial struct DGFixedPointSinLut 
-{
-     public static readonly long[] SinLut = new[] 
-     {");
+				@"partial struct DGFixedPointSinLut 
+				{
+				     public static readonly long[] SinLut = new[] 
+				     {");
 			int lineCounter = 0;
 			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
 			{
@@ -40,9 +40,8 @@ public class GenDGFixedPointLookUpTableTool
 
 			writer.Write(
 				@"
-    };
-}
-");
+			    };
+			}");
 		}
 	}
 
@@ -51,10 +50,10 @@ public class GenDGFixedPointLookUpTableTool
 		using (var writer = new StreamWriter("Lut/DGFixedPointTanLut.cs"))
 		{
 			writer.Write(
-@"partial struct Fix64 
-{
-     public static readonly long[] TanLut = new[] 
-     {");
+				@"partial struct Fix64 
+				{
+				     public static readonly long[] TanLut = new[] 
+				     {");
 			int lineCounter = 0;
 			for (int i = 0; i < DGFixedPointConstInternal.LUT_SIZE; ++i)
 			{
@@ -66,18 +65,19 @@ public class GenDGFixedPointLookUpTableTool
 				}
 
 				var tan = Math.Tan(angle);
-				if (tan > (double)DGFixedPoint.MaxValue || tan < 0.0)
-					tan = (double)DGFixedPoint.MaxValue;
-				var scaledValue = (((decimal) tan > (decimal)DGFixedPoint.MaxValue || tan < 0.0) ? DGFixedPoint.MaxValue : (DGFixedPoint) tan)
+				if (tan > (double) DGFixedPoint.MaxValue || tan < 0.0)
+					tan = (double) DGFixedPoint.MaxValue;
+				var scaledValue = (((decimal) tan > (decimal) DGFixedPoint.MaxValue || tan < 0.0)
+						? DGFixedPoint.MaxValue
+						: (DGFixedPoint) tan)
 					.scaledValue;
 				writer.Write(string.Format("0x{0:X}L, ", scaledValue));
 			}
 
 			writer.Write(
 				@"
-    };
-}
-");
+			    };
+			}");
 		}
 	}
 }

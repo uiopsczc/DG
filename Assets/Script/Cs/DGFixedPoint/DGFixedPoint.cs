@@ -29,6 +29,7 @@ public partial struct DGFixedPoint : IEquatable<DGFixedPoint>, IComparable<DGFix
 	public static readonly DGFixedPoint Pi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_PI);
 	public static readonly DGFixedPoint HalfPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_HALF_PI);
 	public static readonly DGFixedPoint TwoPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_TWO_PI);
+	public static readonly DGFixedPoint FourPiDiv3 = Pi*(DGFixedPoint)4/(DGFixedPoint)3;
 	public static readonly DGFixedPoint QuarterPi = new DGFixedPoint(DGFixedPointConstInternal.SCALED_QUARTER_PI);
 	public static readonly DGFixedPoint Ln2 = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LN2);//以E为底的2的对数
 	public static readonly DGFixedPoint Log2Max = new DGFixedPoint(DGFixedPointConstInternal.SCALED_LOG2MAX);
