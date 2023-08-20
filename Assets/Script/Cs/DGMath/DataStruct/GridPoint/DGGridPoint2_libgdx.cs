@@ -10,15 +10,11 @@
 *************************************************************************************/
 
 
-public partial class DGGridPoint2
+public partial struct DGGridPoint2
 {
 	public int x;
 	public int y;
-
-	/** Constructs a new 2D grid point. */
-	public DGGridPoint2()
-	{
-	}
+	
 
 	/** Constructs a new 2D grid point.
 	 * 
@@ -160,9 +156,7 @@ public partial class DGGridPoint2
 
 	public override bool Equals(object o)
 	{
-		var other = o as DGGridPoint2;
-		if (other == null)
-			return false;
+		var other = (DGGridPoint2) o;
 		return this.x == other.x && this.y == other.y;
 	}
 

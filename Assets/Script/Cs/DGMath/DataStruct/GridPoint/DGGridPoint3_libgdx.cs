@@ -8,16 +8,12 @@
  * 修改内容:
  * ======================================
 *************************************************************************************/
-public partial class DGGridPoint3
+public partial struct DGGridPoint3
 {
 	public int x;
 	public int y;
 	public int z;
 
-	/** Constructs a 3D grid point with all coordinates pointing to the origin (0, 0, 0). */
-	public DGGridPoint3()
-	{
-	}
 
 	/** Constructs a 3D grid point.
 	 * 
@@ -177,9 +173,7 @@ public partial class DGGridPoint3
 	
 	public override bool Equals(object o)
 	{
-		var other = o as DGGridPoint3;
-		if (other == null)
-			return false;
+		var other = (DGGridPoint3) o;
 		return this.x == other.x && this.y == other.y && this.z == other.z;
 	}
 
