@@ -66,9 +66,10 @@ public class DGTmpTest : MonoBehaviour
 		var b = DGFixedPoint.MaxValue;
 //		var c = new DGVector2(4,5);
 //		c.x = (DGFixedPoint)888;
-		DGLog.Warn(a);
+//		DGLog.Warn(a);
 //		DGLog.Warn(b);
 //		DGLog.Warn(c);
+
 	}
 
 	public static void AA(ref DGVector2? v)
