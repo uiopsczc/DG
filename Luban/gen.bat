@@ -6,8 +6,8 @@ dotnet %LUBAN_DLL% ^
     -t all ^
     -c cs-simple-json ^
     -d json ^
-    --schemaPath %CONF_ROOT%\MiniTemplate\Defines\__root__.xml ^
-    -x inputDataDir=%CONF_ROOT%\MiniTemplate\Datas  ^
+    --schemaPath %CONF_ROOT%\DesignerConfigs\Defines\__root__.xml ^
+    -x inputDataDir=%CONF_ROOT%\DesignerConfigs\Datas  ^
     -x outputCodeDir=%WORKSPACE%\Assets\Luban\AutoGen\Code  ^
     -x outputDataDir=%WORKSPACE%\Assets\Luban\AutoGen\Data\json
     
