@@ -118,7 +118,30 @@ namespace DG
 			return ReflectionUtil.GetGenericMethodInfo(t, methodName, genericTypes, bindingFlags, null,
 				sourceParameterTypes);
 		}
-		
+
+		public static MethodInfo GetExtensionMethodInfo2(Type type, string methodName)
+		{
+			return ExtensionUtil.GetExtensionMethodInfo2(type, methodName);
+		}
+
+		public static MethodInfo GetExtensionMethodInfo(Type type, string methodName,
+			params Type[] sourceParameterTypes)
+		{
+			return ExtensionUtil.GetExtensionMethodInfo(type, methodName, sourceParameterTypes);
+		}
+
+		public static MethodInfo GetExtensionGenericMethodInfo2(Type type, string methodName,
+			Type[] genericTypes)
+		{
+			return ExtensionUtil.GetExtensionGenericMethodInfo2(type, methodName, genericTypes);
+		}
+
+		public static MethodInfo GetExtensionGenericMethodInfo(Type type, string methodName, Type[] genericTypes,
+			params Type[] sourceParameterTypes)
+		{
+			return ExtensionUtil.GetExtensionGenericMethodInfo(type, methodName, genericTypes, sourceParameterTypes);
+		}
+
 
 		public static PropertyInfo GetPropertyInfo(Type t, string propertyName,
 			BindingFlags bindingFlags = BindingFlagsConst.All)

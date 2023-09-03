@@ -75,7 +75,33 @@ namespace DG
 			return TypeUtil.GetGenericMethodInfo(self, methodName, genericTypes, bindingFlags, sourceParameterTypes);
 		}
 
-		
+		/*************************************************************************************
+		* 模块描述:ExtensionMethod
+		*************************************************************************************/
+		public static MethodInfo GetExtensionMethodInfo2(this Type self, string methodName)
+		{
+			return TypeUtil.GetExtensionMethodInfo2(self, methodName);
+		}
+
+		public static MethodInfo GetExtensionMethodInfo(this Type self, string methodName,
+			params Type[] sourceParameterTypes)
+		{
+			return TypeUtil.GetExtensionMethodInfo(self, methodName, sourceParameterTypes);
+		}
+
+		public static MethodInfo GetExtensionGenericMethodInfo2(this Type self, string methodName,
+			Type[] genericTypes)
+		{
+			return TypeUtil.GetExtensionGenericMethodInfo2(self, methodName, genericTypes);
+		}
+
+		public static MethodInfo GetExtensionGenericMethodInfo(this Type self, string methodName, Type[] genericTypes,
+			params Type[] sourceParameterTypes)
+		{
+			return TypeUtil.GetExtensionGenericMethodInfo(self, methodName, genericTypes, sourceParameterTypes);
+		}
+
+
 		public static PropertyInfo GetPropertyInfo(this Type self, string propertyName,
 			BindingFlags bindingFlags = BindingFlagsConst.All)
 		{
