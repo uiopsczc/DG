@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -71,6 +72,10 @@ namespace DG
 			//		DGLog.Warn(a);
 			//		DGLog.Warn(b);
 			//		DGLog.Warn(c);
+
+			int x = -8;
+			int z = x.RightShift3(2);
+			DGLog.Warn($"After >>>: {z,11}, hex: {z,8:x}, binary: {Convert.ToString(z, toBase: 2).PadLeft(32, '0'),32}");
 
 		}
 

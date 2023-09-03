@@ -2,7 +2,7 @@ using System;
 
 namespace DG
 {
-	public class CharUtil
+	public static class CharUtil
 	{
 		public static char[] GetCharsAll()
 		{

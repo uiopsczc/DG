@@ -51,7 +51,7 @@ namespace DG
 		public DGPlane(UnityEngine.Plane value)
 		{
 			normal = new DGVector3(value.normal);
-			d = (DGFixedPoint)value.distance;
+			d = (DGFixedPoint) value.distance;
 		}
 #endif
 		/*************************************************************************************
@@ -69,9 +69,9 @@ namespace DG
 				return this.normal.Equals(other.normal) && this.d == other.d;
 
 			return (normal.x == other.normal.x &&
-					normal.y == other.normal.y &&
-					normal.z == other.normal.z &&
-					d == other.d);
+			        normal.y == other.normal.y &&
+			        normal.z == other.normal.z &&
+			        d == other.d);
 		}
 
 		/// <summary>
@@ -106,9 +106,9 @@ namespace DG
 		public static bool operator ==(DGPlane value1, DGPlane value2)
 		{
 			return (value1.normal.x == value2.normal.x &&
-					value1.normal.y == value2.normal.y &&
-					value1.normal.z == value2.normal.z &&
-					value1.d == value2.d);
+			        value1.normal.y == value2.normal.y &&
+			        value1.normal.z == value2.normal.z &&
+			        value1.d == value2.d);
 		}
 
 		/// <summary>
@@ -121,9 +121,9 @@ namespace DG
 		public static bool operator !=(DGPlane value1, DGPlane value2)
 		{
 			return (value1.normal.x != value2.normal.x ||
-					value1.normal.y != value2.normal.y ||
-					value1.normal.z != value2.normal.z ||
-					value1.d != value2.d);
+			        value1.normal.y != value2.normal.y ||
+			        value1.normal.z != value2.normal.z ||
+			        value1.d != value2.d);
 		}
 		/*************************************************************************************
 		* Ä£¿éÃèÊö:StaticUtil
@@ -170,7 +170,7 @@ namespace DG
 
 				// Normalize(N)
 				DGFixedPoint ls = nx * nx + ny * ny + nz * nz;
-				DGFixedPoint invNorm = (DGFixedPoint)1.0f / DGMath.Sqrt(ls);
+				DGFixedPoint invNorm = (DGFixedPoint) 1.0f / DGMath.Sqrt(ls);
 
 				DGVector3 normal = new DGVector3(
 					nx * invNorm,
@@ -194,7 +194,7 @@ namespace DG
 			if (Vector.IsHardwareAccelerated)
 			{
 				DGFixedPoint normalLengthSquared = value.normal.sqrMagnitude;
-				if (DGMath.Abs(normalLengthSquared - (DGFixedPoint)1.0f) < DGMath.Epsilon)
+				if (DGMath.Abs(normalLengthSquared - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
 				{
 					// It already normalized, so we don't need to farther process.
 					return value;
@@ -207,14 +207,14 @@ namespace DG
 			}
 
 			DGFixedPoint f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
-				   value.normal.z * value.normal.z;
+			                 value.normal.z * value.normal.z;
 
-			if (DGMath.Abs(f - (DGFixedPoint)1.0f) < DGMath.Epsilon)
+			if (DGMath.Abs(f - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
 			{
 				return value; // It already normalized, so we don't need to further process.
 			}
 
-			DGFixedPoint fInv = (DGFixedPoint)1.0f / DGMath.Sqrt(f);
+			DGFixedPoint fInv = (DGFixedPoint) 1.0f / DGMath.Sqrt(f);
 
 			return new DGPlane(
 				value.normal.x * fInv,
@@ -269,17 +269,17 @@ namespace DG
 			DGFixedPoint yz2 = rotation.y * z2;
 			DGFixedPoint zz2 = rotation.z * z2;
 
-			DGFixedPoint m11 = (DGFixedPoint)1.0f - yy2 - zz2;
+			DGFixedPoint m11 = (DGFixedPoint) 1.0f - yy2 - zz2;
 			DGFixedPoint m21 = xy2 - wz2;
 			DGFixedPoint m31 = xz2 + wy2;
 
 			DGFixedPoint m12 = xy2 + wz2;
-			DGFixedPoint m22 = (DGFixedPoint)1.0f - xx2 - zz2;
+			DGFixedPoint m22 = (DGFixedPoint) 1.0f - xx2 - zz2;
 			DGFixedPoint m32 = yz2 - wx2;
 
 			DGFixedPoint m13 = xz2 - wy2;
 			DGFixedPoint m23 = yz2 + wx2;
-			DGFixedPoint m33 = (DGFixedPoint)1.0f - xx2 - yy2;
+			DGFixedPoint m33 = (DGFixedPoint) 1.0f - xx2 - yy2;
 
 			DGFixedPoint x = plane.normal.x, y = plane.normal.y, z = plane.normal.z;
 
@@ -300,9 +300,9 @@ namespace DG
 		public static DGFixedPoint Dot(DGPlane plane, DGVector4 value)
 		{
 			return plane.normal.x * value.x +
-				   plane.normal.y * value.y +
-				   plane.normal.z * value.z +
-				   plane.d * value.w;
+			       plane.normal.y * value.y +
+			       plane.normal.z * value.z +
+			       plane.d * value.w;
 		}
 
 		/// <summary>
@@ -320,9 +320,9 @@ namespace DG
 			}
 
 			return plane.normal.x * value.x +
-				   plane.normal.y * value.y +
-				   plane.normal.z * value.z +
-				   plane.d;
+			       plane.normal.y * value.y +
+			       plane.normal.z * value.z +
+			       plane.d;
 		}
 
 		/// <summary>
@@ -334,14 +334,14 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DGFixedPoint DotNormal(DGPlane plane, DGVector3 value)
 		{
-			if (Vector.IsHardwareAccelerated)
+			if (System.Numerics.Vector.IsHardwareAccelerated)
 			{
 				return DGVector3.Dot(plane.normal, value);
 			}
 
 			return plane.normal.x * value.x +
-				   plane.normal.y * value.y +
-				   plane.normal.z * value.z;
+			       plane.normal.y * value.y +
+			       plane.normal.z * value.z;
 		}
 
 		/// <summary>
@@ -426,7 +426,7 @@ namespace DG
 		/// <param name="point"></param>
 		public bool GetSide(DGVector3 point)
 		{
-			return DGVector3.Dot(this.normal, point) + this.d > (DGFixedPoint)0.0f;
+			return DGVector3.Dot(this.normal, point) + this.d > (DGFixedPoint) 0.0f;
 		}
 
 		/// <summary>
@@ -438,8 +438,8 @@ namespace DG
 		{
 			DGFixedPoint distanceToPoint1 = this.GetDistanceToPoint(inPt0);
 			DGFixedPoint distanceToPoint2 = this.GetDistanceToPoint(inPt1);
-			return distanceToPoint1 > (DGFixedPoint)0.0 && distanceToPoint2 > (DGFixedPoint)0.0 ||
-				   distanceToPoint1 <= (DGFixedPoint)0.0 && distanceToPoint2 <= (DGFixedPoint)0.0;
+			return distanceToPoint1 > (DGFixedPoint) 0.0 && distanceToPoint2 > (DGFixedPoint) 0.0 ||
+			       distanceToPoint1 <= (DGFixedPoint) 0.0 && distanceToPoint2 <= (DGFixedPoint) 0.0;
 		}
 
 		public bool Raycast(DGRay ray, out DGFixedPoint enter)
@@ -448,12 +448,12 @@ namespace DG
 			DGFixedPoint num = -DGVector3.Dot(ray.origin, this.normal) - this.d;
 			if (DGMath.IsApproximatelyZero(a))
 			{
-				enter = (DGFixedPoint)0.0f;
+				enter = (DGFixedPoint) 0.0f;
 				return false;
 			}
 
 			enter = num / a;
-			return (double)enter > 0.0;
+			return (double) enter > 0.0;
 		}
 	}
 }
