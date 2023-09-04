@@ -6,12 +6,12 @@ namespace DG
 	{
 		public static string DGToString(this Quaternion v)
 		{
-			return string.Format("x:{0},y:{1},z:{2},w:{3}", v.x, v.y, v.z, v.w);
+			return QuaternionUtil.DGToString(v);
 		}
 
 		public static System.Numerics.Quaternion To_System_Numerics_Quaternion(this Quaternion v)
 		{
-			return new System.Numerics.Quaternion(v.x, v.y, v.z, v.w);
+			return QuaternionUtil.To_System_Numerics_Quaternion(v);
 		}
 	}
 

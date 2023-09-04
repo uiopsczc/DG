@@ -6,12 +6,12 @@ namespace DG
 	{
 		public static string DGToString(this Plane v)
 		{
-			return "{normal:" + v.normal.DGToString() + ", distance:" + v.distance + "}";
+			return PlaneUtil.DGToString(v);
 		}
 
 		public static System.Numerics.Plane To_System_Numerics_Plane(this Plane v)
 		{
-			return new System.Numerics.Plane(v.normal.To_System_Numerics_Vector3(), v.distance);
+			return PlaneUtil.To_System_Numerics_Plane(v);
 		}
 	}
 }

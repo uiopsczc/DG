@@ -130,5 +130,17 @@ namespace DG
 			Color result = new Color(lum, lum, lum, color.a);
 			return result;
 		}
+
+		public static string ToHtmToHtmlStringRGBOrDefault(Color color, string toDefaultValue = null,
+			Color defaultColor = default)
+		{
+			return ObjectUtil.Equals(color, defaultColor) ? toDefaultValue : color.ToHtmlStringRGB();
+		}
+
+		public static string ToHtmlStringRGBAOrDefault(Color color, string toDefaultValue = null,
+			Color defaultColor = default)
+		{
+			return ObjectUtil.Equals(color, defaultColor) ? toDefaultValue : color.ToHtmlStringRGBA();
+		}
 	}
 }

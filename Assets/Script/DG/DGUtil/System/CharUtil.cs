@@ -39,6 +39,30 @@ namespace DG
 			Array.Copy(CharConst.CharsAll, 0, result, CharConst.Digits.Length, CharConst.CharsAll.Length);
 			return result;
 		}
+
+		/// <summary>
+		/// 转化为bytes
+		/// </summary>
+		/// <param name="c"></param>
+		/// <param name="isNetOrder">是否是网络顺序</param>
+		/// <returns></returns>
+		public static byte[] ToBytes(char c, bool isNetOrder = false)
+		{
+			byte[] data = BitConverter.GetBytes(c);
+			if (isNetOrder)
+				Array.Reverse(data);
+			return data;
+		}
+
+		public static bool IsUpper(char c)
+		{
+			return c >= CharConst.Char_A && c <= CharConst.Char_Z;
+		}
+
+		public static bool IsLower(char c)
+		{
+			return c >= CharConst.Char_a && c <= CharConst.Char_z;
+		}
 	}
 }
 
