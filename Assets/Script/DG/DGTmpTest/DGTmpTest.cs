@@ -73,10 +73,10 @@ namespace DG
 			//		DGLog.Warn(b);
 			//		DGLog.Warn(c);
 
-			int x = -8;
-			int z = x.RightShift3(2);
-			DGLog.Warn($"After >>>: {z,11}, hex: {z,8:x}, binary: {Convert.ToString(z, toBase: 2).PadLeft(32, '0'),32}");
-
+//			int x = -8;
+//			int z = x.RightShift3(2);
+//			DGLog.Warn($"After >>>: {z,11}, hex: {z,8:x}, binary: {Convert.ToString(z, toBase: 2).PadLeft(32, '0'),32}");
+DGLog.Warn(typeof(List<int>));
 		}
 
 		public static void AA(ref DGVector2? v)

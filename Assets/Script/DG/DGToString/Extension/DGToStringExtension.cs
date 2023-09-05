@@ -26,65 +26,7 @@ namespace DG
 			return result;
 		}
 
-		public static string DGToString(this ICollection self, bool isFillStringWithDoubleQuote = false)
-		{
-			bool isFirst = true;
-			StringBuilder stringBuilder = new StringBuilder(100);
-			switch (self)
-			{
-				case Array _:
-					stringBuilder.Append("(");
-					break;
-				case IList _:
-					stringBuilder.Append("[");
-					break;
-				case IDictionary _:
-					stringBuilder.Append("{");
-					break;
-			}
-
-			if (self is IDictionary dictionary)
-			{
-				foreach (DictionaryEntry dictionaryEntry in dictionary)
-				{
-					var key = dictionaryEntry.Key;
-					var value = dictionaryEntry.Value;
-					if (isFirst)
-						isFirst = false;
-					else
-						stringBuilder.Append(",");
-					stringBuilder.Append(key.DGToString(isFillStringWithDoubleQuote));
-					stringBuilder.Append(":");
-					stringBuilder.Append(value.DGToString(isFillStringWithDoubleQuote));
-				}
-			}
-			else //list
-			{
-				foreach (var o in self)
-				{
-					if (isFirst)
-						isFirst = false;
-					else
-						stringBuilder.Append(",");
-					stringBuilder.Append(o.DGToString(isFillStringWithDoubleQuote));
-				}
-			}
-
-			switch (self)
-			{
-				case Array _:
-					stringBuilder.Append(")");
-					break;
-				case IList _:
-					stringBuilder.Append("]");
-					break;
-				case IDictionary _:
-					stringBuilder.Append("}");
-					break;
-			}
-
-			return stringBuilder.ToString();
-		}
+		
 
 		#region  private
 		private static string _WarpWithDoubleQuotes(string content) //双引号

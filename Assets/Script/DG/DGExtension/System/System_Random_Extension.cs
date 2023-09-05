@@ -30,10 +30,10 @@ namespace DG
 		
 
 
-//		public static object ToLinkedHashtable2(this object self)
-//		{
-//			return ObjectUtil.ToLinkedHashtable2(self);
-//		}
+		public static object ToLinkedHashtable2(this object self)
+		{
+			return ObjectUtil.ToLinkedHashtable2(self);
+		}
 
 		#endregion
 

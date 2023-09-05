@@ -155,10 +155,10 @@ namespace DG
 		}
 
 
-//		public static object ToLinkedHashtable2(object obj)
-//		{
-//			return IsToLinkedHashtable2.ToLinkedHashtable2(obj);
-//		}
+		public static object ToLinkedHashtable2(object obj)
+		{
+			return IsToLinkedHashtable2.ToLinkedHashtable2(obj);
+		}
 
 		#endregion
 
