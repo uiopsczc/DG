@@ -17,6 +17,11 @@ namespace DG
 			return dict;
 		}
 
+		public static T Get<T>(Hashtable hashtable, object key)
+		{
+			return (T)hashtable[key];
+		}
+
 	}
 }
 

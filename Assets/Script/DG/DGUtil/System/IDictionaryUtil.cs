@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DG
 {
@@ -191,6 +192,164 @@ namespace DG
 			}
 
 			return false;
+		}
+
+		
+		public static T Get<T>(IDictionary dict, object key)
+		{
+			return dict.Contains(key) ? dict[key].To<T>() : default;
+		}
+
+		public static T GetOrGetDefault<T>(IDictionary dict, object key, T defaultValue = default)
+		{
+			return dict.Contains(key) ? dict[key].To<T>() : defaultValue;
+		}
+
+		public static T GetOrGetDefault<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			if (defaultFunc != null)
+				return defaultFunc();
+			return default(T);
+		}
+		public static T GetOrGetNew<T>(IDictionary dict, object key)where T:new()
+		{
+			return dict.Contains(key) ? dict[key].To<T>() : new T();
+		}
+
+		public static T GetOrGetNew<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			if (newFunc != null)
+				return newFunc();
+			return new T();
+		}
+		
+		public static T GetOrAddDefault<T>(IDictionary dict, object key, T defaultValue = default)
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			dict[key] = defaultValue;
+			return defaultValue;
+		}
+
+		public static T GetOrAddDefault<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			var result = defaultFunc != null ? defaultFunc() : default;
+			dict[key] = result;
+			return result;
+		}
+		public static T GetOrAddNew<T>(IDictionary dict, object key) where T : new()
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			var result = new T();
+			dict[key] = result;
+			return result;
+		}
+
+		public static T GetOrAddNew<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
+		{
+			if (dict.Contains(key))
+				return dict[key].To<T>();
+			var result = newFunc != null ? newFunc() : new T();
+			dict[key] = result;
+			return result;
+		}
+
+
+		public static V Remove2<V>(IDictionary dict, object key)
+		{
+			if (!dict.Contains(key))
+				return default;
+
+			V result = (V)dict[key];
+			dict.Remove(key);
+			return result;
+		}
+
+		
+
+		//删除值为null值、0数值、false逻辑值、空字符串、空集合等数据项
+		public static void Trim(IDictionary dict)
+		{
+			List<object> toRemoveKeyList = new List<object>();
+			foreach (DictionaryEntry dictionaryEntry in dict)
+			{
+				var key = dictionaryEntry.Key;
+				var value = dictionaryEntry.Value;
+				switch (value)
+				{
+					//删除值为null的数值
+					case null:
+						toRemoveKeyList.Add(key);
+						break;
+					default:
+						{
+							if (value.IsNumber() && value.To<double>() == 0) //删除值为0的数值
+								toRemoveKeyList.Add(key);
+							else if (value.IsBool() && (bool)value == false) //删除值为false的逻辑值
+								toRemoveKeyList.Add(key);
+							else if (value.IsString() && ((string)value).IsNullOrWhiteSpace()) //删除值为空的字符串
+								toRemoveKeyList.Add(key);
+							else if (value is ICollection collection && collection.Count == 0) //删除为null的collection
+								toRemoveKeyList.Add(key);
+							else if (value is IDictionary dictionary)
+								Trim(dictionary);
+							break;
+						}
+				}
+			}
+
+			for (var i = 0; i < toRemoveKeyList.Count; i++)
+			{
+				var toRemoveKey = toRemoveKeyList[i];
+				dict.Remove(toRemoveKey);
+			}
+		}
+
+		//删除值为null值、0数值、false逻辑值、空字符串、空集合等数据项
+		public static Hashtable ToHashtable(IDictionary dict)
+		{
+			Hashtable result = new Hashtable();
+			foreach (DictionaryEntry dictionaryEntry in dict)
+			{
+				var key = dictionaryEntry;
+				result[key] = dict[key];
+			}
+			return result;
+		}
+
+		public static void Combine(IDictionary dict, IDictionary another)
+		{
+			foreach (DictionaryEntry anotherDictionaryEntry in another)
+			{
+				var anotherKey = anotherDictionaryEntry.Key;
+				if (!dict.Contains(anotherKey))
+					dict[anotherKey] = another[anotherKey];
+			}
+		}
+
+		public static void RemoveByFunc(IDictionary dict, Func<object, object, bool> func)
+		{
+			List<object> toRemoveKeyList = new List<object>();
+			foreach (DictionaryEntry dictionaryEntry in dict)
+			{
+				var key = dictionaryEntry.Key;
+				var value = dictionaryEntry.Value;
+				if (func(key, value))
+					toRemoveKeyList.Add(key);
+			}
+
+			for (var i = 0; i < toRemoveKeyList.Count; i++)
+			{
+				var toRemoveKey = toRemoveKeyList[i];
+				dict.Remove(toRemoveKey);
+			}
 		}
 	}
 }

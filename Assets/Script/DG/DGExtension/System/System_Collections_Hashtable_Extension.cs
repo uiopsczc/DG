@@ -9,5 +9,10 @@ namespace DG
 		{
 			return HashtableUtil.ToDict<K, V>(self);
 		}
+
+		public static T Get<T>(this Hashtable self, object key)
+		{
+			return HashtableUtil.Get<T>(self, key);
+		}
 	}
 }
