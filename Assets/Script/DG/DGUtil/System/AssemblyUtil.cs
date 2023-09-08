@@ -42,6 +42,20 @@ namespace DG
 			return result.ToArray();
 		}
 
+
+		public static Assembly GetAssembly(string assemblyName)
+		{
+			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+			for (var i = 0; i < assemblies.Length; i++)
+			{
+				var assembly = assemblies[i];
+				if (assembly.GetName().Name.Equals(assemblyName))
+					return assembly;
+			}
+
+			return null;
+		}
+
 	}
 }
 

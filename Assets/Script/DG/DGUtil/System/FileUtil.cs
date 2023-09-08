@@ -2,22 +2,22 @@ namespace DG
 {
 	public static class FileUtil
 	{
-//		public static string ReadUnityFile(string filePath)
-//		{
-//			var fileContent = StdioUtil.ReadTextFile(filePath);
-//
-//			if (!string.IsNullOrEmpty(fileContent)) return null;
-//			for (var i = 0; i < FilePathConst.RootPathList.Count; i++)
-//			{
-//				string pathRoot = FilePathConst.RootPathList[i];
-//				string path = filePath.WithRootPath(pathRoot);
-//				fileContent = StdioUtil.ReadTextFile(path);
-//				if (!string.IsNullOrEmpty(fileContent))
-//					return fileContent;
-//			}
-//
-//			return null;
-//		}
+		public static string ReadUnityFile(string filePath)
+		{
+			var fileContent = StdioUtil.ReadTextFile(filePath);
+
+			if (!string.IsNullOrEmpty(fileContent)) return null;
+			for (var i = 0; i < FilePathConst.RootPathList.Count; i++)
+			{
+				string pathRoot = FilePathConst.RootPathList[i];
+				string path = filePath.WithRootPath(pathRoot);
+				fileContent = StdioUtil.ReadTextFile(path);
+				if (!string.IsNullOrEmpty(fileContent))
+					return fileContent;
+			}
+
+			return null;
+		}
 
 		/// <summary>
 		/// fullFilePath-pathRoot

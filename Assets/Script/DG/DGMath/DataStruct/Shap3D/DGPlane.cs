@@ -65,8 +65,8 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool Equals(DGPlane other)
 		{
-			if (Vector.IsHardwareAccelerated)
-				return this.normal.Equals(other.normal) && this.d == other.d;
+//			if (Vector.IsHardwareAccelerated)
+//				return this.normal.Equals(other.normal) && this.d == other.d;
 
 			return (normal.x == other.normal.x &&
 			        normal.y == other.normal.y &&
@@ -139,21 +139,21 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DGPlane CreateFromVertices(DGVector3 point1, DGVector3 point2, DGVector3 point3)
 		{
-			if (Vector.IsHardwareAccelerated)
-			{
-				DGVector3 a = point2 - point1;
-				DGVector3 b = point3 - point1;
-
-				// N = Cross(a, b)
-				DGVector3 n = DGVector3.Cross(a, b);
-				DGVector3 normal = DGVector3.Normalize(n);
-
-				// D = - Dot(N, point1)
-				DGFixedPoint d = -DGVector3.Dot(normal, point1);
-
-				return new DGPlane(normal, d);
-			}
-			else
+//			if (Vector.IsHardwareAccelerated)
+//			{
+//				DGVector3 a = point2 - point1;
+//				DGVector3 b = point3 - point1;
+//
+//				// N = Cross(a, b)
+//				DGVector3 n = DGVector3.Cross(a, b);
+//				DGVector3 normal = DGVector3.Normalize(n);
+//
+//				// D = - Dot(N, point1)
+//				DGFixedPoint d = -DGVector3.Dot(normal, point1);
+//
+//				return new DGPlane(normal, d);
+//			}
+//			else
 			{
 				DGFixedPoint ax = point2.x - point1.x;
 				DGFixedPoint ay = point2.y - point1.y;
@@ -191,20 +191,20 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DGPlane Normalize(DGPlane value)
 		{
-			if (Vector.IsHardwareAccelerated)
-			{
-				DGFixedPoint normalLengthSquared = value.normal.sqrMagnitude;
-				if (DGMath.Abs(normalLengthSquared - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
-				{
-					// It already normalized, so we don't need to farther process.
-					return value;
-				}
-
-				DGFixedPoint normalLength = DGMath.Sqrt(normalLengthSquared);
-				return new DGPlane(
-					value.normal / normalLength,
-					value.d / normalLength);
-			}
+//			if (Vector.IsHardwareAccelerated)
+//			{
+//				DGFixedPoint normalLengthSquared = value.normal.sqrMagnitude;
+//				if (DGMath.Abs(normalLengthSquared - (DGFixedPoint) 1.0f) < DGMath.Epsilon)
+//				{
+//					// It already normalized, so we don't need to farther process.
+//					return value;
+//				}
+//
+//				DGFixedPoint normalLength = DGMath.Sqrt(normalLengthSquared);
+//				return new DGPlane(
+//					value.normal / normalLength,
+//					value.d / normalLength);
+//			}
 
 			DGFixedPoint f = value.normal.x * value.normal.x + value.normal.y * value.normal.y +
 			                 value.normal.z * value.normal.z;
@@ -314,10 +314,10 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DGFixedPoint DotCoordinate(DGPlane plane, DGVector3 value)
 		{
-			if (Vector.IsHardwareAccelerated)
-			{
-				return DGVector3.Dot(plane.normal, value) + plane.d;
-			}
+//			if (Vector.IsHardwareAccelerated)
+//			{
+//				return DGVector3.Dot(plane.normal, value) + plane.d;
+//			}
 
 			return plane.normal.x * value.x +
 			       plane.normal.y * value.y +
@@ -334,10 +334,10 @@ namespace DG
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static DGFixedPoint DotNormal(DGPlane plane, DGVector3 value)
 		{
-			if (System.Numerics.Vector.IsHardwareAccelerated)
-			{
-				return DGVector3.Dot(plane.normal, value);
-			}
+//			if (System.Numerics.Vector.IsHardwareAccelerated)
+//			{
+//				return DGVector3.Dot(plane.normal, value);
+//			}
 
 			return plane.normal.x * value.x +
 			       plane.normal.y * value.y +

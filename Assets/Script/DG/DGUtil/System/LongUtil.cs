@@ -21,6 +21,74 @@ namespace DG
 			}
 			return value;
 		}
+
+		/// <summary>
+		///   long转化为指定进制（16进制或者8进制等）
+		/// </summary>
+		public static string ToString(long v, int xbase)
+		{
+			return _H2X(v, xbase);
+		}
+
+//		public static string GetAssetPathByRefId(long refId)
+//		{
+//			return AssetPathRefManager.instance.GetAssetPathByRefId(refId);
+//		}
+
+		#region bytes
+
+		/// <summary>
+		///   将数字转化为bytes
+		/// </summary>
+		public static byte[] ToBytes(long v, bool isNetOrder = false)
+		{
+			return ByteUtil.ToBytes(v, 8, isNetOrder);
+		}
+
+		#endregion
+
+
+		public static long Minimum(long v, long minimum)
+		{
+			return Math.Max(v, minimum);
+		}
+
+		public static long Maximum(long v, long maximum)
+		{
+			return Math.Min(v, maximum);
+		}
+
+		public static string ToStringWithComma(long v)
+		{
+			return string.Format(StringConst.String_Format_NumberWithComma, v);
+		}
+
+		#region 私有方法
+
+		/// <summary>
+		///   long转化为toBase进制
+		/// </summary>
+		private static string _H2X(long value, int toBase)
+		{
+			int digitIndex;
+			var longPositive = Math.Abs(value);
+			var radix = toBase;
+			var outDigits = new char[63];
+			var constChars = CharConst.DigitsAndCharsBig;
+
+			for (digitIndex = 0; digitIndex <= 64; digitIndex++)
+			{
+				if (longPositive == 0) break;
+
+				outDigits[outDigits.Length - digitIndex - 1] =
+					constChars[longPositive % radix];
+				longPositive /= radix;
+			}
+
+			return new string(outDigits, outDigits.Length - digitIndex, digitIndex);
+		}
+
+		#endregion
 	}
 }
 
