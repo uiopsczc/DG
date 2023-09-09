@@ -68,7 +68,7 @@ public static class MultiTagsUtil
 	/// <summary>
 	/// Path of the scriptable object from the resources folder, containing all tags of the project.
 	/// </summary>
-	public const string TAGS_ASSET_PATH = "Assets/CsCat/Plugins/Multi-Tags/TagsAsset.asset";
+	public const string TAGS_ASSET_PATH = "Assets/Plugins/Multi-Tags/TagsAsset.asset";
 
 
 	/// <summary>
