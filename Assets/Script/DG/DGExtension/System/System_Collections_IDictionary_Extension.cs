@@ -52,7 +52,7 @@ namespace DG
 			return IDictionaryUtil.GetOrGetDefault<T>(self, key, defaultValue);
 		}
 
-		public static T GetOrGetDefault<T>(this IDictionary self, object key, Func<T> defaultFunc = null)
+		public static T GetOrGetDefault<T>(this IDictionary self, object key, Func<T> defaultFunc)
 		{
 			return IDictionaryUtil.GetOrGetDefault<T>(self, key, defaultFunc);
 		}
@@ -61,7 +61,7 @@ namespace DG
 			return IDictionaryUtil.GetOrGetNew<T>(self, key);
 		}
 
-		public static T GetOrGetNew<T>(this IDictionary self, object key, Func<T> newFunc = null) where T : new()
+		public static T GetOrGetNew<T>(this IDictionary self, object key, Func<T> newFunc) where T : new()
 		{
 			return IDictionaryUtil.GetOrGetNew<T>(self, key, newFunc);
 		}
@@ -71,7 +71,7 @@ namespace DG
 			return IDictionaryUtil.GetOrAddDefault<T>(self, key, defaultValue);
 		}
 
-		public static T GetOrAddDefault<T>(this IDictionary self, object key, Func<T> defaultFunc = null)
+		public static T GetOrAddDefault<T>(this IDictionary self, object key, Func<T> defaultFunc)
 		{
 			return IDictionaryUtil.GetOrAddDefault<T>(self, key, defaultFunc);
 		}
@@ -80,7 +80,7 @@ namespace DG
 			return IDictionaryUtil.GetOrAddNew<T>(self, key);
 		}
 
-		public static T GetOrAddNew<T>(this IDictionary self, object key, Func<T> newFunc = null) where T : new()
+		public static T GetOrAddNew<T>(this IDictionary self, object key, Func<T> newFunc) where T : new()
 		{
 			return IDictionaryUtil.GetOrAddNew<T>(self, key, newFunc);
 		}

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DG
 {
@@ -36,6 +37,62 @@ namespace DG
 			}
 
 			return tweenList;
+		}
+
+		public static Tween SetDOTweenId(Tween tween, object objOfDOTweenId = null)
+		{
+			objOfDOTweenId = objOfDOTweenId ?? tween.target;
+
+			return tween.SetId(objOfDOTweenId.DOTweenId());
+		}
+
+		public static Tweener DOBlendableLocalMoveXBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableLocalMoveBy(
+				new Vector3(byValue, 0, 0), duration,
+				snapping);
+		}
+
+		public static Tweener DOBlendableLocalMoveYBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableLocalMoveBy(
+				new Vector3(0, byValue, 0), duration,
+				snapping);
+		}
+
+		public static Tweener DOBlendableLocalMoveZBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableLocalMoveBy(
+				new Vector3(0, 0, byValue), duration,
+				snapping);
+		}
+
+
+		public static Tweener DOBlendableMoveXBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableMoveBy(
+				new Vector3(byValue, 0, 0), duration,
+				snapping);
+		}
+
+		public static Tweener DOBlendableMoveYBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableMoveBy(
+				new Vector3(0, byValue, 0), duration,
+				snapping);
+		}
+
+		public static Tweener DOBlendableMoveZBy(Transform target, float byValue, float duration,
+			bool snapping = false)
+		{
+			return target.DOBlendableMoveBy(
+				new Vector3(0, 0, byValue), duration,
+				snapping);
 		}
 	}
 }
