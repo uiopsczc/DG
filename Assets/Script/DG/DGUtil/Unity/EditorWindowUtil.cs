@@ -23,7 +23,7 @@ namespace DG
 
 		public static void ShowNotification2(EditorWindow self, params object[] args)
 		{
-			self.ShowNotification(DGLog.GetLogString(args).ToGUIContent());
+			self.ShowNotification(DGLog.GetLogString(false, args).ToGUIContent());
 		}
 
 		private static void _ShowNotificationAndCallback(EditorWindow self, Action action, params object[] args)

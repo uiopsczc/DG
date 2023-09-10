@@ -25,9 +25,11 @@ namespace DG
 		private static readonly HashSet<string> _String_Format_Arg_Count_Hash_Set = new HashSet<string>();
 		private static StringBuilder _Decorate_Log_String_Builder = new StringBuilder(1000);
 
-		public static string GetLogString(params object[] args)
+		public static string GetLogString(bool isStackTrace = false, params object[] args)
 		{
-			return _ConvertToMsg(args);
+			var msg = _ConvertToMsg(args);
+			msg = _DecorateLog(msg, isStackTrace);
+			return msg;
 		}
 
 		private static string _ConvertToMsg(params object[] args)
