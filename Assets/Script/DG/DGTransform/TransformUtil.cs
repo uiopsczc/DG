@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DG
 {
-	public class TransformUtil
+	public partial class TransformUtil
 	{
 		/// <summary>
 		/// GetName    赋值物体的时候，名字可能出现去掉（），空格等，去掉这些冗余得到的名字

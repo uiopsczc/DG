@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public static class UnityEngine_Transform_Extension
+	public static partial class UnityEngine_Transform_Extension
 	{
 		/// <summary>
 		/// GetName    赋值物体的时候，名字可能出现去掉（），空格等，去掉这些冗余得到的名字
