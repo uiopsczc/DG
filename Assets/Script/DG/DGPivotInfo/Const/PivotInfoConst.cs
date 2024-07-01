@@ -5,29 +5,29 @@ namespace DG
 {
 	public static class PivotInfoConst
 	{
-		public static PivotInfo LeftTopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_LeftTop);
-		public static PivotInfo TopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_Top);
-		public static PivotInfo RightTopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_RightTop);
-		public static PivotInfo LeftPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_Left);
-		public static PivotInfo CenterPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_Center);
-		public static PivotInfo RightPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_Right);
-		public static PivotInfo LeftBottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_LeftBottom);
-		public static PivotInfo BottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_Bottom);
-		public static PivotInfo RightBottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_RightBottom);
+		public static PivotInfo LeftTopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_LEFT_TOP);
+		public static PivotInfo TopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_TOP);
+		public static PivotInfo RightTopPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_RIGHT_TOP);
+		public static PivotInfo LeftPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_LEFT);
+		public static PivotInfo CenterPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.String_CENTER);
+		public static PivotInfo RightPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_RIGHT);
+		public static PivotInfo LeftBottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_LEFT_BOTTOM);
+		public static PivotInfo BottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_BOTTOM);
+		public static PivotInfo RightBottomPivotInfo => PivotInfoUtil.GetPivotInfo(StringConst.STRING_RIGHT_BOTTOM);
 
 		public static readonly Dictionary<string, PivotInfo> PivotInfoDict = new Dictionary<string, PivotInfo>()
 		{
-			{StringConst.String_LeftBottom, new PivotInfo(0, 0, StringConst.String_LeftBottom)},
-			{StringConst.String_Bottom, new PivotInfo(0.5f, 0, StringConst.String_Bottom)},
-			{StringConst.String_RightBottom, new PivotInfo(1, 0, StringConst.String_RightBottom)},
+			{StringConst.STRING_LEFT_BOTTOM, new PivotInfo(0, 0, StringConst.STRING_LEFT_BOTTOM)},
+			{StringConst.STRING_BOTTOM, new PivotInfo(0.5f, 0, StringConst.STRING_BOTTOM)},
+			{StringConst.STRING_RIGHT_BOTTOM, new PivotInfo(1, 0, StringConst.STRING_RIGHT_BOTTOM)},
 
-			{StringConst.String_Left, new PivotInfo(0, 0.5f, StringConst.String_Left)},
-			{StringConst.String_Center, new PivotInfo(0.5f, 0.5f, StringConst.String_Center)},
-			{StringConst.String_Right, new PivotInfo(1, 0.5f, StringConst.String_Right)},
+			{StringConst.STRING_LEFT, new PivotInfo(0, 0.5f, StringConst.STRING_LEFT)},
+			{StringConst.String_CENTER, new PivotInfo(0.5f, 0.5f, StringConst.String_CENTER)},
+			{StringConst.STRING_RIGHT, new PivotInfo(1, 0.5f, StringConst.STRING_RIGHT)},
 
-			{StringConst.String_LeftTop, new PivotInfo(0, 1, StringConst.String_LeftTop)},
-			{StringConst.String_Top, new PivotInfo(0.5f, 1, StringConst.String_Top)},
-			{StringConst.String_RightTop, new PivotInfo(1, 1, StringConst.String_RightTop)},
+			{StringConst.STRING_LEFT_TOP, new PivotInfo(0, 1, StringConst.STRING_LEFT_TOP)},
+			{StringConst.STRING_TOP, new PivotInfo(0.5f, 1, StringConst.STRING_TOP)},
+			{StringConst.STRING_RIGHT_TOP, new PivotInfo(1, 1, StringConst.STRING_RIGHT_TOP)},
 		};
 
 		private static Dictionary<Vector2, PivotInfo> _PivotInfoDict2;

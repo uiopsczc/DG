@@ -18,7 +18,7 @@ namespace DG
 			for (var i = 0; i < datas.Length; i++)
 			{
 				var data = datas[i];
-				stringBuilder.Append(data.ToString(StringConst.String_x2));
+				stringBuilder.Append(data.ToString(StringConst.STRING_x2));
 			}
 
 			return stringBuilder.ToString();

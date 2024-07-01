@@ -108,7 +108,7 @@
         </member>
         <member name="P:DG.DemiLib.IEditorGUINode.connectedNodesIds">
             <summary>Ids of all forward connected nodes. Length indicates how many forward connections are allowed.
-            Min length represents available connections from node.</summary>
+            MIN length represents available connections from node.</summary>
         </member>
         <member name="T:DG.DemiLib.IntRange">
             <summary>
@@ -116,10 +116,10 @@
             </summary>
         </member>
         <member name="F:DG.DemiLib.IntRange.min">
-            <summary>Min value</summary>
+            <summary>MIN value</summary>
         </member>
         <member name="F:DG.DemiLib.IntRange.max">
-            <summary>Max value</summary>
+            <summary>MAX value</summary>
         </member>
         <member name="M:DG.DemiLib.IntRange.#ctor(System.Int32,System.Int32)">
             <summary>
@@ -137,10 +137,10 @@
             </summary>
         </member>
         <member name="F:DG.DemiLib.Range.min">
-            <summary>Min value</summary>
+            <summary>MIN value</summary>
         </member>
         <member name="F:DG.DemiLib.Range.max">
-            <summary>Max value</summary>
+            <summary>MAX value</summary>
         </member>
         <member name="M:DG.DemiLib.Range.#ctor(System.Single,System.Single)">
             <summary>

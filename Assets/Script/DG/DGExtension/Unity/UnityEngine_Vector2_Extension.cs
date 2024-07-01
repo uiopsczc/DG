@@ -15,7 +15,7 @@ namespace DG
 			return Vector2Util.To_System_Numerics_Vector2(v);
 		}
 
-		public static string ToStringDetail(this Vector2 self, string separator = StringConst.String_Comma)
+		public static string ToStringDetail(this Vector2 self, string separator = StringConst.STRING_COMMA)
 		{
 			return Vector2Util.ToStringDetail(self, separator);
 		}
@@ -38,7 +38,7 @@ namespace DG
 		/// <param name="self"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public static Vector3 ToVector3(this Vector2 self, string format = StringConst.String_x_y_0)
+		public static Vector3 ToVector3(this Vector2 self, string format = StringConst.STRING_X_Y_0)
 		{
 			return Vector2Util.ToVector3(self, format);
 		}

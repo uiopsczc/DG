@@ -6,37 +6,37 @@ namespace DG
 	{
 		public static char[] GetCharsAll()
 		{
-			var count = CharConst.Chars_Big.Length + CharConst.Chars_Small.Length;
+			var count = CharConst.CHARS_BIG.Length + CharConst.CHARS_SMALL.Length;
 			var result = new char[count];
-			Array.Copy(CharConst.Chars_Big, result, CharConst.Chars_Big.Length);
-			Array.Copy(CharConst.Chars_Small, 0, result, CharConst.Chars_Big.Length, CharConst.Chars_Small.Length);
+			Array.Copy(CharConst.CHARS_BIG, result, CharConst.CHARS_BIG.Length);
+			Array.Copy(CharConst.CHARS_SMALL, 0, result, CharConst.CHARS_BIG.Length, CharConst.CHARS_SMALL.Length);
 			return result;
 		}
 
 		public static char[] GetDigitsAndCharsBig()
 		{
-			var count = CharConst.Digits.Length + CharConst.Chars_Big.Length;
+			var count = CharConst.DIGITS.Length + CharConst.CHARS_BIG.Length;
 			var result = new char[count];
-			Array.Copy(CharConst.Digits, result, CharConst.Digits.Length);
-			Array.Copy(CharConst.Chars_Big, 0, result, CharConst.Digits.Length, CharConst.Chars_Big.Length);
+			Array.Copy(CharConst.DIGITS, result, CharConst.DIGITS.Length);
+			Array.Copy(CharConst.CHARS_BIG, 0, result, CharConst.DIGITS.Length, CharConst.CHARS_BIG.Length);
 			return result;
 		}
 
 		public static char[] GetDigitsAndCharsSmall()
 		{
-			var count = CharConst.Digits.Length + CharConst.Chars_Small.Length;
+			var count = CharConst.DIGITS.Length + CharConst.CHARS_SMALL.Length;
 			var result = new char[count];
-			Array.Copy(CharConst.Digits, result, CharConst.Digits.Length);
-			Array.Copy(CharConst.Chars_Small, 0, result, CharConst.Digits.Length, CharConst.Chars_Small.Length);
+			Array.Copy(CharConst.DIGITS, result, CharConst.DIGITS.Length);
+			Array.Copy(CharConst.CHARS_SMALL, 0, result, CharConst.DIGITS.Length, CharConst.CHARS_SMALL.Length);
 			return result;
 		}
 
 		public static char[] GetDigitsAndCharsAll()
 		{
-			var count = CharConst.Digits.Length + CharConst.CharsAll.Length;
+			var count = CharConst.DIGITS.Length + CharConst.CHARS_ALL.Length;
 			var result = new char[count];
-			Array.Copy(CharConst.Digits, result, CharConst.Digits.Length);
-			Array.Copy(CharConst.CharsAll, 0, result, CharConst.Digits.Length, CharConst.CharsAll.Length);
+			Array.Copy(CharConst.DIGITS, result, CharConst.DIGITS.Length);
+			Array.Copy(CharConst.CHARS_ALL, 0, result, CharConst.DIGITS.Length, CharConst.CHARS_ALL.Length);
 			return result;
 		}
 
@@ -56,12 +56,12 @@ namespace DG
 
 		public static bool IsUpper(char c)
 		{
-			return c >= CharConst.Char_A && c <= CharConst.Char_Z;
+			return c >= CharConst.CHAR_A && c <= CharConst.CHAR_Z;
 		}
 
 		public static bool IsLower(char c)
 		{
-			return c >= CharConst.Char_a && c <= CharConst.Char_z;
+			return c >= CharConst.CHAR_a && c <= CharConst.CHAR_z;
 		}
 	}
 }

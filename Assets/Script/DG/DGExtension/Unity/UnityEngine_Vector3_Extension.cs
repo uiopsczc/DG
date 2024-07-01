@@ -69,7 +69,7 @@ namespace DG
 
 		#region 各种To ToXXX
 
-		public static Vector2 ToVector2(this Vector3 self, string format = StringConst.String_x_y)
+		public static Vector2 ToVector2(this Vector3 self, string format = StringConst.String_X_Y)
 		{
 			return Vector3Util.ToVector2(self, format);
 		}
@@ -77,7 +77,7 @@ namespace DG
 		/// <summary>
 		/// Vector3.ToString只保留小数后2位，看起来会卡，所以需要ToStringDetail
 		/// </summary>
-		public static string ToStringDetail(this Vector3 self, string separator = StringConst.String_Comma)
+		public static string ToStringDetail(this Vector3 self, string separator = StringConst.STRING_COMMA)
 		{
 			return Vector3Util.ToStringDetail(self, separator);
 		}
@@ -85,7 +85,7 @@ namespace DG
 		/// <summary>
 		/// 将逗号改成对应的separator
 		/// </summary>
-		public static string ToStringReplaceSeparator(this Vector3 self, string separator = StringConst.String_Comma)
+		public static string ToStringReplaceSeparator(this Vector3 self, string separator = StringConst.STRING_COMMA)
 		{
 			return Vector3Util.ToStringReplaceSeparator(self, separator);
 		}

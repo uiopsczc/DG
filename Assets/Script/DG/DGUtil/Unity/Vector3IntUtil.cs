@@ -13,7 +13,7 @@ namespace DG
 
 		public static bool IsDefault( Vector3Int v, bool isMin = false)
 		{
-			return isMin ? v == Vector3IntConst.Default_Min : v == Vector3IntConst.Default_Max;
+			return isMin ? v == Vector3IntConst.DEFAULT_MIN : v == Vector3IntConst.DEFAULT_MAX;
 		}
 
 

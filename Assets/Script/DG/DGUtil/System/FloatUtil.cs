@@ -66,7 +66,7 @@ namespace DG
 		/// <returns></returns>
 		public static string ToPctString(float pct)
 		{
-			return string.Format(StringConst.String_Format_Pct, pct * 100);
+			return string.Format(StringConst.STRING_FORMAT_PCT, pct * 100);
 		}
 
 		//将v Round四舍五入snap_soze的倍数的值

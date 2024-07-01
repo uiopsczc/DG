@@ -60,7 +60,7 @@ namespace DG
 
 		public static string ToStringWithComma(long v)
 		{
-			return string.Format(StringConst.String_Format_NumberWithComma, v);
+			return string.Format(StringConst.STRING_FORMAT_NUMBER_WITH_COMMA, v);
 		}
 
 		#region Ë½ÓÐ·½·¨
@@ -74,7 +74,7 @@ namespace DG
 			var longPositive = Math.Abs(value);
 			var radix = toBase;
 			var outDigits = new char[63];
-			var constChars = CharConst.DigitsAndCharsBig;
+			var constChars = CharConst.DIGITS_AND_CHARS_BIG;
 
 			for (digitIndex = 0; digitIndex <= 64; digitIndex++)
 			{

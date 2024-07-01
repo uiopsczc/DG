@@ -22,7 +22,7 @@ namespace DG
 		/// <returns></returns>
 		public static string NameWithoutSuffix(FileInfo fileInfo)
 		{
-			return fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(CharConst.Char_Dot));
+			return fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(CharConst.CHAR_DOT));
 		}
 
 		/// <summary>
@@ -32,7 +32,7 @@ namespace DG
 		/// <returns></returns>
 		public static string FullNameWithoutSuffix(FileInfo fileInfo)
 		{
-			return fileInfo.FullName.Substring(0, fileInfo.FullName.LastIndexOf(CharConst.Char_Dot));
+			return fileInfo.FullName.Substring(0, fileInfo.FullName.LastIndexOf(CharConst.CHAR_DOT));
 		}
 
 

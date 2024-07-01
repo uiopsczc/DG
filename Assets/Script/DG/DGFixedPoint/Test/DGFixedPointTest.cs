@@ -490,7 +490,7 @@ namespace DG
 				}
 			}
 
-			Console.WriteLine("Max error: {0} ({1} times precision)", deltas.Max(),
+			Console.WriteLine("MAX error: {0} ({1} times precision)", deltas.Max(),
 				deltas.Max() / DGFixedPoint.Precision);
 			Console.WriteLine("Average precision: {0} ({1} times precision)", deltas.Average(),
 				deltas.Average() / DGFixedPoint.Precision);
@@ -590,7 +590,7 @@ namespace DG
 				}
 			}
 
-			Console.WriteLine("Max error: {0} ({1} times precision)", deltas.Max(),
+			Console.WriteLine("MAX error: {0} ({1} times precision)", deltas.Max(),
 				deltas.Max() / DGFixedPoint.Precision);
 			Console.WriteLine("Average precision: {0} ({1} times precision)", deltas.Average(),
 				deltas.Average() / DGFixedPoint.Precision);
@@ -710,7 +710,7 @@ namespace DG
 				Log(delta <= maxDelta);
 			}
 
-			Console.WriteLine("Max error: {0} ({1} times precision)", deltas.Max(),
+			Console.WriteLine("MAX error: {0} ({1} times precision)", deltas.Max(),
 				deltas.Max() / DGFixedPoint.Precision);
 			Console.WriteLine("Average precision: {0} ({1} times precision)", deltas.Average(),
 				deltas.Average() / DGFixedPoint.Precision);
@@ -757,7 +757,7 @@ namespace DG
 				}
 			}
 
-			Console.WriteLine("Max error: {0} ({1} times precision)", deltas.Max(),
+			Console.WriteLine("MAX error: {0} ({1} times precision)", deltas.Max(),
 				deltas.Max() / DGFixedPoint.Precision);
 			Console.WriteLine("Average precision: {0} ({1} times precision)", deltas.Average(),
 				deltas.Average() / DGFixedPoint.Precision);

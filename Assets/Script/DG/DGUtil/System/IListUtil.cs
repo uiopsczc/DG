@@ -83,7 +83,7 @@ namespace DG
 						                                     oldList[newKey].GetType() != newValue.GetType() ||
 						                                     (oldList[newKey] is IList oldListIList &&
 						                                      oldListIList.Count != 0)))
-							diff[newKey] = StringConst.String_New_In_Table + newValue.GetType();
+							diff[newKey] = StringConst.STRING_NEW_IN_TABLE + newValue.GetType();
 						else if (oldList.ContainsIndex(newKey) && oldList[newKey] is IList oldListIList2)
 							diff[newKey] = GetDiff(oldListIList2, newValueListIList);
 						else if (!oldList.ContainsIndex(newKey) || !newValue.Equals(oldList[newKey]))
@@ -106,7 +106,7 @@ namespace DG
 			for (int i = 0; i < oldList.Count; i++)
 			{
 				if (!newList.ContainsIndex(i))
-					diff[i] = StringConst.String_Nil_In_Table;
+					diff[i] = StringConst.STRING_NIL_IN_TABLE;
 			}
 
 			diff.Sort((a, b) => a.To<int>() >= b.To<int>());
@@ -129,16 +129,16 @@ namespace DG
 				var key = dictionaryEntry.Key.To<int>();
 				var value = dictionaryEntry.Value;
 				var valueString = value.ToString();
-				if (StringConst.String_Nil_In_Table.Equals(valueString))
+				if (StringConst.STRING_NIL_IN_TABLE.Equals(valueString))
 				{
 					if (oldList is Array oldListArray)
 						oldList = oldListArray.RemoveAt_Array(key);
 					else
 						oldList.RemoveAt(key);
 				}
-				else if (valueString.StartsWith(StringConst.String_New_In_Table))
+				else if (valueString.StartsWith(StringConst.STRING_NEW_IN_TABLE))
 				{
-					string typeString = value.ToString().Substring(StringConst.String_New_In_Table.Length);
+					string typeString = value.ToString().Substring(StringConst.STRING_NEW_IN_TABLE.Length);
 					Type type = TypeUtil.GetType(typeString);
 					var newValue = type.CreateInstance<object>();
 					if (key < oldListCount)

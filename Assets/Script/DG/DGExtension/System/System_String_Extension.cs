@@ -18,7 +18,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithoutRootPath(this string fullFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			return StringUtil.WithoutRootPath(fullFilePath, rootPath, slash);
 		}
@@ -30,7 +30,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithRootPath(this string relativeFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			return StringUtil.WithRootPath(relativeFilePath, rootPath, slash);
 		}
@@ -127,12 +127,12 @@ namespace DG
 			return StringUtil.AlphanumCompareTo(self, other);
 		}
 
-		public static string FileName(this string filePath, string lastSeparator = StringConst.String_Slash)
+		public static string FileName(this string filePath, string lastSeparator = StringConst.STRING_SLASH)
 		{
 			return StringUtil.FileName(filePath, lastSeparator);
 		}
 
-		public static string DirPath(this string filePath, string lastSeparator = StringConst.String_Slash)
+		public static string DirPath(this string filePath, string lastSeparator = StringConst.STRING_SLASH)
 		{
 			return StringUtil.DirPath(filePath, lastSeparator);
 		}
@@ -168,7 +168,7 @@ namespace DG
 			return StringUtil.WWWURLHandle(self);
 		}
 
-		public static string ReplaceDirectorySeparatorChar(this string self, char separator = CharConst.Char_Slash)
+		public static string ReplaceDirectorySeparatorChar(this string self, char separator = CharConst.CHAR_SLASH)
 		{
 			return StringUtil.ReplaceDirectorySeparatorChar(self, separator);
 		}
@@ -291,9 +291,9 @@ namespace DG
 
 		#region 各种转换 ToXX
 
-		public static Vector2 ToVector2(this string self, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector2 ToVector2(this string self, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			return StringUtil.ToVector2(self, split, trimLeft, trimRight);
 		}
@@ -304,9 +304,9 @@ namespace DG
 			return StringUtil.ToVector2OrDefault(self, toDefaultString, defaultValue);
 		}
 
-		public static Vector3 ToVector3(this string s, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector3 ToVector3(this string s, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			return StringUtil.ToVector3(s, split, trimLeft, trimRight);
 		}
@@ -330,9 +330,9 @@ namespace DG
 			return StringUtil.ToVector3IntOrDefault(self, toDefaultString, defaultValue);
 		}
 
-		public static Vector4 ToVector4(this string self, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector4 ToVector4(this string self, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			return StringUtil.ToVector4(self, split, trimLeft, trimRight);
 		}
@@ -343,9 +343,9 @@ namespace DG
 			return StringUtil.ToVector4OrDefault(self, toDefaultString, defaultValue);
 		}
 
-		public static Matrix4x4 ToMatrix4x4(this string self, string split = StringConst.String_SlashN,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Matrix4x4 ToMatrix4x4(this string self, string split = StringConst.STRING_SLASH_N,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			return StringUtil.ToMatrix4x4(self, trimLeft, trimRight);
 		}
@@ -367,9 +367,9 @@ namespace DG
 		return StringUtil.ToInt(self);
 			}
 
-		public static Quaternion ToQuaternion(this string self, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Quaternion ToQuaternion(this string self, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			return StringUtil.ToQuaternion(self, split, trimLeft, trimRight);
 		}
@@ -382,25 +382,25 @@ namespace DG
 		/// <param name="ignoreLeft">注意转移字符，需要加上\,例如忽略",则需要输入\\\"</param>
 		/// <param name="ignoreRight"></param>
 		/// <returns></returns>
-		public static string[] SplitIgnore(this string self, string split = StringConst.String_Comma,
-			string ignoreLeft = StringConst.String_Regex_DoubleQuotes,
+		public static string[] SplitIgnore(this string self, string split = StringConst.STRING_COMMA,
+			string ignoreLeft = StringConst.STRING_REGEX_DOUBLE_QUOTES,
 			string ignoreRight = null)
 		{
 			return StringUtil.SplitIgnore(self, split, ignoreLeft, ignoreRight);
 		}
 
-		public static List<T> ToList<T>(this string self, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftSquareBrackets,
-			string trimRight = StringConst.String_RightSquareBrackets)
+		public static List<T> ToList<T>(this string self, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_SQUARE_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_SQUARE_BRACKETS)
 		{
 			return StringUtil.ToList<T>(self, split, trimLeft, trimRight);
 		}
 
 		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this string self,
-			string split = StringConst.String_Comma,
-			string subSeparator = StringConst.String_Colon, string trimLeft = StringConst.String_LeftCurlyBrackets,
-			string trimRight = StringConst.String_RightCurlyBrackets,
-			string elementIgnoreLeft = StringConst.String_Regex_DoubleQuotes,
+			string split = StringConst.STRING_COMMA,
+			string subSeparator = StringConst.STRING_COLON, string trimLeft = StringConst.STRING_LEFT_CURLY_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_CURLY_BRACKETS,
+			string elementIgnoreLeft = StringConst.STRING_REGEX_DOUBLE_QUOTES,
 			string elementIgnoreRight = null)
 		{
 			return StringUtil.ToDictionary<TKey, TValue>(self, split, subSeparator, trimLeft, trimRight, elementIgnoreLeft, elementIgnoreRight);
@@ -420,7 +420,7 @@ namespace DG
 		///   #FF00FF00或者FF00FF00  含Alpha
 		///   或者#FF00FF或者FF00FF 不含Alpha
 		/// </summary>
-		public static Color ToColor(this string self, string trimLeft = StringConst.String_NumberSign)
+		public static Color ToColor(this string self, string trimLeft = StringConst.STRING_NUMBER_SIGN)
 		{
 			return StringUtil.ToColor(self, trimLeft);
 		}

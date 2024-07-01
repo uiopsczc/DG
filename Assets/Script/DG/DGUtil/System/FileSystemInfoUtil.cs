@@ -105,7 +105,7 @@ namespace DG
 			fileSystemInfo.Delete();
 		}
 
-		public static string FullName(FileSystemInfo fileSystemInfo, char separator = CharConst.Char_Slash)
+		public static string FullName(FileSystemInfo fileSystemInfo, char separator = CharConst.CHAR_SLASH)
 		{
 			return fileSystemInfo.FullName.ReplaceDirectorySeparatorChar(separator);
 		}

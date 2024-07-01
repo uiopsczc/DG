@@ -110,12 +110,12 @@ namespace DG
 		{
 			switch (pattern.ToLower())
 			{
-				case StringConst.String_date:
-					return dateTime.ToString(StringConst.String_yyyy_MM_dd);
-				case StringConst.String_time:
-					return dateTime.ToString(StringConst.String_HH_mm_ss);
-				case StringConst.String_datetime:
-					return dateTime.ToString(StringConst.String_yyyy_MM_dd_HH_mm_ss);
+				case StringConst.STRING_DATE:
+					return dateTime.ToString(StringConst.STRING_yyyy_MM_dd);
+				case StringConst.STRING_TIME:
+					return dateTime.ToString(StringConst.STRING_HH_mm_ss);
+				case StringConst.STRING_DATETIME:
+					return dateTime.ToString(StringConst.STRING_yyyy_MM_dd_HH_mm_ss);
 			}
 
 			return dateTime.ToString(pattern);
@@ -148,7 +148,7 @@ namespace DG
 		/// <returns></returns>
 		public static string GetDateTime()
 		{
-			return GetDateTime(StringConst.String_datetime);
+			return GetDateTime(StringConst.STRING_DATETIME);
 		}
 
 		/// <summary>
@@ -163,12 +163,12 @@ namespace DG
 			long hour = (seconds / 3600) % 24; //0-24小时
 			long day = seconds / (3600 * 24); //天
 
-			return (day > 0L ? day + StringConst.String_Day_CN : StringConst.String_Empty) + ((hour > 0L) || (day > 0L)
-				       ? hour + StringConst.String_Hour_CN
-				       : StringConst.String_Empty) +
+			return (day > 0L ? day + StringConst.STRING_DAY_CN : StringConst.STRING_EMPTY) + ((hour > 0L) || (day > 0L)
+				       ? hour + StringConst.STRING_HOUR_CN
+				       : StringConst.STRING_EMPTY) +
 			       ((min > 0L) || (hour > 0L) || (day > 0L)
-				       ? min + StringConst.String_Minute_CN
-				       : StringConst.String_Empty) + sec + StringConst.String_Second_CN;
+				       ? min + StringConst.STRING_MINUTE_CN
+				       : StringConst.STRING_EMPTY) + sec + StringConst.STRING_SECOND_CN;
 		}
 
 		/// <summary>
@@ -200,8 +200,8 @@ namespace DG
 		/// <returns>天</returns>
 		public static int DayDiff(string date1, string date2)
 		{
-			DateTime d1 = ParseDateTime(date1, StringConst.String_yyyy_MM_dd);
-			DateTime d2 = ParseDateTime(date2, StringConst.String_yyyy_MM_dd);
+			DateTime d1 = ParseDateTime(date1, StringConst.STRING_yyyy_MM_dd);
+			DateTime d2 = ParseDateTime(date2, StringConst.STRING_yyyy_MM_dd);
 			return DayDiff(d1, d2);
 		}
 

@@ -7,7 +7,7 @@ namespace DG
 	{
 		public static bool IsDefault(Vector2Int v, bool isMin = false)
 		{
-			return isMin ? v == Vector2IntConst.Default_Min : v == Vector2IntConst.Default_Max;
+			return isMin ? v == Vector2IntConst.DEFAULT_MIN : v == Vector2IntConst.DEFAULT_MAX;
 		}
 
 		public static string ToStringOrDefault(Vector2Int v, string toDefaultString = null,

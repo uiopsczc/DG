@@ -51,7 +51,7 @@ namespace DG
 			FileSystemInfoUtil.RemoveFiles(self);
 		}
 
-		public static string FullName(this FileSystemInfo self, char separator = CharConst.Char_Slash)
+		public static string FullName(this FileSystemInfo self, char separator = CharConst.CHAR_SLASH)
 		{
 			return FileSystemInfoUtil.FullName(self, separator);
 		}

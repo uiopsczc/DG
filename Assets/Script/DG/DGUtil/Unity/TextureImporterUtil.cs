@@ -51,7 +51,7 @@ namespace DG
 			int width = 0, height = 0;
 			GetWidthAndHeight(textureImporter, ref width, ref height);
 			var max = Mathf.Max(width, height);
-			int size = 1024; //Default size
+			int size = 1024; //DEFAULT size
 			foreach (var textureSize in _Texture_Sizes)
 			{
 				if (textureSize < max) continue;
@@ -60,8 +60,8 @@ namespace DG
 			}
 
 			if (size == int.MaxValue)
-				EditorUtility.DisplayDialog("TextureÌ«´ó",
-					string.Format("{0}Ì«´ó£¬Í¼Æ¬µÄ³¤¶ÈºÍ¿í¶ÈÐèÒªÉÙÓÚ»òÕßµÈÓÚ{1}", texture2D.name,
+				EditorUtility.DisplayDialog("TextureÌ«ï¿½ï¿½",
+					string.Format("{0}Ì«ï¿½ï¿½Í¼Æ¬ï¿½Ä³ï¿½ï¿½ÈºÍ¿ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ú»ï¿½ï¿½ßµï¿½ï¿½ï¿½{1}", texture2D.name,
 						_Texture_Sizes[_Texture_Sizes.Length - 2]), "Ok");
 			else
 				textureImporter.maxTextureSize = size;

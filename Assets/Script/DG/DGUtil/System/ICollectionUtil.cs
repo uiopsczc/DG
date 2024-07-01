@@ -42,13 +42,13 @@ namespace DG
 			switch (collection)
 			{
 				case Array _:
-					stringBuilder.Append(StringConst.String_LeftRoundBrackets);
+					stringBuilder.Append(StringConst.STRING_LEFT_ROUND_BRACKETS);
 					break;
 				case IList _:
-					stringBuilder.Append(StringConst.String_LeftSquareBrackets);
+					stringBuilder.Append(StringConst.STRING_LEFT_SQUARE_BRACKETS);
 					break;
 				case IDictionary _:
-					stringBuilder.Append(StringConst.String_LeftCurlyBrackets);
+					stringBuilder.Append(StringConst.STRING_LEFT_CURLY_BRACKETS);
 					break;
 			}
 
@@ -61,9 +61,9 @@ namespace DG
 					if (isFirst)
 						isFirst = false;
 					else
-						stringBuilder.Append(StringConst.String_Comma);
+						stringBuilder.Append(StringConst.STRING_COMMA);
 					stringBuilder.Append(key.DGToString(isFillStringWithDoubleQuote));
-					stringBuilder.Append(StringConst.String_Colon);
+					stringBuilder.Append(StringConst.STRING_COLON);
 					stringBuilder.Append(value.DGToString(isFillStringWithDoubleQuote));
 				}
 			}
@@ -74,7 +74,7 @@ namespace DG
 					if (isFirst)
 						isFirst = false;
 					else
-						stringBuilder.Append(StringConst.String_Comma);
+						stringBuilder.Append(StringConst.STRING_COMMA);
 					stringBuilder.Append(o.DGToString(isFillStringWithDoubleQuote));
 				}
 			}
@@ -82,13 +82,13 @@ namespace DG
 			switch (collection)
 			{
 				case Array _:
-					stringBuilder.Append(StringConst.String_RightRoundBrackets);
+					stringBuilder.Append(StringConst.STRING_RIGHT_ROUND_BRACKETS);
 					break;
 				case IList _:
-					stringBuilder.Append(StringConst.String_RightSquareBrackets);
+					stringBuilder.Append(StringConst.STRING_RIGHT_SQUARE_BRACKETS);
 					break;
 				case IDictionary _:
-					stringBuilder.Append(StringConst.String_RightCurlyBrackets);
+					stringBuilder.Append(StringConst.STRING_RIGHT_CURLY_BRACKETS);
 					break;
 			}
 

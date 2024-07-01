@@ -33,7 +33,7 @@ namespace DG
 				}
 			}
 
-			GetCacheDict()[StringUtil.LinkStringWithCommon(classPath, dllName ?? StringConst.String_Empty)] = result;
+			GetCacheDict()[StringUtil.LinkStringWithCommon(classPath, dllName ?? StringConst.STRING_EMPTY)] = result;
 			return result;
 		}
 
@@ -77,9 +77,9 @@ namespace DG
 		public static string GetLastName(Type t)
 		{
 			var type = t.ToString();
-			var splitIndex = type.IndexOf(CharConst.Char_Tilde);
+			var splitIndex = type.IndexOf(CharConst.CHAR_TILDE);
 			if (splitIndex != -1) type = type.Substring(0, splitIndex);
-			var index = type.LastIndexOf(CharConst.Char_Dot);
+			var index = type.LastIndexOf(CharConst.CHAR_DOT);
 			if (index != -1) type = type.Substring(index + 1);
 
 			return type;

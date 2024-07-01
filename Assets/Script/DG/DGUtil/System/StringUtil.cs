@@ -18,7 +18,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithoutRootPath(string fullFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			return FileUtil.WithoutRootPath(fullFilePath, rootPath, slash);
 		}
@@ -30,7 +30,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithRootPath(string relativeFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			return FileUtil.WithRootPath(relativeFilePath, rootPath, slash);
 		}
@@ -41,8 +41,8 @@ namespace DG
 			return FileUtil.LocalURL(path);
 		}
 
-		public static string[] SplitIgnore(string self, string split = StringConst.String_Comma,
-			string ignoreLeft = StringConst.String_Regex_DoubleQuotes,
+		public static string[] SplitIgnore(string self, string split = StringConst.STRING_COMMA,
+			string ignoreLeft = StringConst.STRING_REGEX_DOUBLE_QUOTES,
 			string ignoreRight = null)
 		{
 			if (ignoreRight == null)
@@ -50,7 +50,7 @@ namespace DG
 			var resultList = new List<string>();
 			//https://blog.csdn.net/scrOUT/article/details/90517304
 			//    var regex = new Regex("(" + split + ")" + "(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"); //双引号内的逗号不分割  双引号外的逗号进行分割
-			string pattern = string.Format(StringConst.String_Regex_Format_SplitIgnore, split, ignoreLeft, ignoreLeft,
+			string pattern = string.Format(StringConst.STRING_REGEX_FORMAT_SPLIT_IGNORE, split, ignoreLeft, ignoreLeft,
 				ignoreRight, ignoreRight, ignoreRight);
 			var regex = new Regex(pattern);
 			var startIndex = -1;
@@ -66,9 +66,9 @@ namespace DG
 			if (startIndex <= self.Length - 1)
 			{
 				if (self.Length == 0)
-					resultList.Add(StringConst.String_Empty);
+					resultList.Add(StringConst.STRING_EMPTY);
 				else if (startIndex == self.Length - split.Length && self.Substring(startIndex).Equals(split))
-					resultList.Add(StringConst.String_Empty);
+					resultList.Add(StringConst.STRING_EMPTY);
 				else
 					resultList.Add(self.Substring(startIndex + 1));
 			}
@@ -78,8 +78,8 @@ namespace DG
 
 		public static bool IsNumber(string self)
 		{
-			return Regex.IsMatch(self, StringConst.String_Regex_Integer) ||
-			       Regex.IsMatch(self, StringConst.String_Regex_Float);
+			return Regex.IsMatch(self, StringConst.STRING_REGEX_INTEGER) ||
+			       Regex.IsMatch(self, StringConst.STRING_REGEX_FLOAT);
 		}
 
 		public static string LinkString(string split, params string[] args)
@@ -107,23 +107,23 @@ namespace DG
 				case 1:
 					return args.ToString();
 				case 2:
-					return string.Format(StringConst.String_Format_LinkComma_2, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_2, args);
 				case 3:
-					return string.Format(StringConst.String_Format_LinkComma_3, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_3, args);
 				case 4:
-					return string.Format(StringConst.String_Format_LinkComma_4, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_4, args);
 				case 5:
-					return string.Format(StringConst.String_Format_LinkComma_5, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_5, args);
 				case 6:
-					return string.Format(StringConst.String_Format_LinkComma_6, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_6, args);
 				case 7:
-					return string.Format(StringConst.String_Format_LinkComma_7, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_7, args);
 				case 8:
-					return string.Format(StringConst.String_Format_LinkComma_8, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_8, args);
 				case 9:
-					return string.Format(StringConst.String_Format_LinkComma_9, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_9, args);
 				case 10:
-					return string.Format(StringConst.String_Format_LinkComma_10, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_COMMA_10, args);
 				default:
 					throw new Exception("Exception:ArgsTooLong");
 			}
@@ -139,23 +139,23 @@ namespace DG
 				case 1:
 					return args.ToString();
 				case 2:
-					return string.Format(StringConst.String_Format_LinkUnderLine_2, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_2, args);
 				case 3:
-					return string.Format(StringConst.String_Format_LinkUnderLine_3, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_3, args);
 				case 4:
-					return string.Format(StringConst.String_Format_LinkUnderLine_4, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_4, args);
 				case 5:
-					return string.Format(StringConst.String_Format_LinkUnderLine_5, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_5, args);
 				case 6:
-					return string.Format(StringConst.String_Format_LinkUnderLine_6, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_6, args);
 				case 7:
-					return string.Format(StringConst.String_Format_LinkUnderLine_7, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_7, args);
 				case 8:
-					return string.Format(StringConst.String_Format_LinkUnderLine_8, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_8, args);
 				case 9:
-					return string.Format(StringConst.String_Format_LinkUnderLine_9, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_9, args);
 				case 10:
-					return string.Format(StringConst.String_Format_LinkUnderLine_10, args);
+					return string.Format(StringConst.STRING_FORMAT_LINK_UNDERLINE_10, args);
 				default:
 					throw new Exception("Exception:ArgsTooLong");
 			}
@@ -163,7 +163,7 @@ namespace DG
 
 		public static string RoundBrackets(string arg)
 		{
-			return string.Format(StringConst.String_Format_RoundBrackets, arg);
+			return string.Format(StringConst.STRING_FORMAT_ROUND_BRACKETS, arg);
 		}
 
 
@@ -288,10 +288,10 @@ namespace DG
 		//跟上面这个EditorUtility.NaturalCompare效果是一样的
 		public static int AlphanumCompareTo(string content, string other)
 		{
-			return ComparatorConst.AlphanumComparator.Compare(content, other);
+			return ComparatorConst.ALPHANUM_COMPARATOR.Compare(content, other);
 		}
 
-		public static string FileName(string filePath, string lastSeparator = StringConst.String_Slash)
+		public static string FileName(string filePath, string lastSeparator = StringConst.STRING_SLASH)
 		{
 			var index = filePath.LastIndexOf(lastSeparator);
 			if (index < 0)
@@ -301,7 +301,7 @@ namespace DG
 			return filePath.Substring(index);
 		}
 
-		public static string DirPath(string filePath, string lastSeparator = StringConst.String_Slash)
+		public static string DirPath(string filePath, string lastSeparator = StringConst.STRING_SLASH)
 		{
 			var index = filePath.LastIndexOf(lastSeparator);
 			var length = index < 0 ? filePath.Length : index + lastSeparator.Length;
@@ -313,39 +313,39 @@ namespace DG
 
 		public static bool IsNetURL(string content)
 		{
-			return content.StartsWith(StringConst.String_http, StringComparison.CurrentCultureIgnoreCase) ||
-				   content.StartsWith(StringConst.String_ftp, StringComparison.CurrentCultureIgnoreCase);
+			return content.StartsWith(StringConst.STRING_HTTP, StringComparison.CurrentCultureIgnoreCase) ||
+				   content.StartsWith(StringConst.STRING_FTP, StringComparison.CurrentCultureIgnoreCase);
 		}
 
 		public static string WWWURLHandle(string content)
 		{
 			return content.IsNetURL()
 				? content
-				: content.IndexOf(StringConst.String_File_Url_Prefix, StringComparison.CurrentCultureIgnoreCase) == -1
-					? content.WithRootPath(StringConst.String_File_Url_Prefix)
+				: content.IndexOf(StringConst.STRING_FILE_URL_PREFIX, StringComparison.CurrentCultureIgnoreCase) == -1
+					? content.WithRootPath(StringConst.STRING_FILE_URL_PREFIX)
 					: content;
 		}
 
-		public static string ReplaceDirectorySeparatorChar(string content, char separator = CharConst.Char_Slash)
+		public static string ReplaceDirectorySeparatorChar(string content, char separator = CharConst.CHAR_SLASH)
 		{
 			return content.Replace(Path.DirectorySeparatorChar, separator);
 		}
 
 		public static string WithoutAllSuffix(string content)
 		{
-			var index = content.IndexOf(CharConst.Char_Dot);
+			var index = content.IndexOf(CharConst.CHAR_DOT);
 			return index != -1 ? content.Substring(0, index) : content;
 		}
 
 		public static string WithoutSuffix(string content)
 		{
-			var index = content.LastIndexOf(CharConst.Char_Dot);
+			var index = content.LastIndexOf(CharConst.CHAR_DOT);
 			return index != -1 ? content.Substring(0, index) : content;
 		}
 
 		public static string ToLuaRequirePath(string content)
 		{
-			return content.Replace(CharConst.Char_Slash, CharConst.Char_Dot);
+			return content.Replace(CharConst.CHAR_SLASH, CharConst.CHAR_DOT);
 		}
 
 
@@ -482,9 +482,9 @@ namespace DG
 
 		#region 各种转换 ToXX
 
-		public static Vector2 ToVector2(string content, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector2 ToVector2(string content, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			var elementList = content.ToList<string>(split, trimLeft, trimRight);
 			var x = elementList[0].To<float>();
@@ -498,9 +498,9 @@ namespace DG
 			return ObjectUtil.Equals(content, toDefaultString) ? defaultValue : content.ToVector2();
 		}
 
-		public static Vector3 ToVector3(string s, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector3 ToVector3(string s, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			var elementList = s.ToList<string>(split, trimLeft, trimRight);
 			var x = elementList[0].To<float>();
@@ -528,9 +528,9 @@ namespace DG
 			return content.ToVector3OrDefault(toDefaultString, defaultValue).ToVector3Int();
 		}
 
-		public static Vector4 ToVector4(string content, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Vector4 ToVector4(string content, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			var elementList = content.ToList<string>(split, trimLeft, trimRight);
 			var x = elementList[0].To<float>();
@@ -546,16 +546,16 @@ namespace DG
 			return ObjectUtil.Equals(content, toDefaultString) ? defaultValue : content.ToVector4();
 		}
 
-		public static Matrix4x4 ToMatrix4x4(string content, string split = StringConst.String_SlashN,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Matrix4x4 ToMatrix4x4(string content, string split = StringConst.STRING_SLASH_N,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
-			content = content.Replace(StringConst.String_SlashR, StringConst.String_Empty);
+			content = content.Replace(StringConst.STRING_SLASH_R, StringConst.STRING_EMPTY);
 			var elementList = content.ToList<string>(split, trimLeft, trimRight);
-			var row0 = elementList[0].ToVector4(StringConst.String_Tab);
-			var row1 = elementList[1].ToVector4(StringConst.String_Tab);
-			var row2 = elementList[2].ToVector4(StringConst.String_Tab);
-			var row3 = elementList[3].ToVector4(StringConst.String_Tab);
+			var row0 = elementList[0].ToVector4(StringConst.STRING_TAB);
+			var row1 = elementList[1].ToVector4(StringConst.STRING_TAB);
+			var row2 = elementList[2].ToVector4(StringConst.STRING_TAB);
+			var row3 = elementList[3].ToVector4(StringConst.STRING_TAB);
 
 			var column0 = new Vector4(row0.x, row1.x, row2.x, row3.x);
 			var column1 = new Vector4(row0.y, row1.y, row2.y, row3.y);
@@ -581,9 +581,9 @@ namespace DG
 			return int.Parse(content);
 		}
 
-		public static Quaternion ToQuaternion(string content, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftRoundBrackets,
-			string trimRight = StringConst.String_RightRoundBrackets)
+		public static Quaternion ToQuaternion(string content, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_ROUND_BRACKETS)
 		{
 			var elementList = content.ToList<string>(split, trimLeft, trimRight);
 			if (elementList.Count == 4)
@@ -605,9 +605,9 @@ namespace DG
 
 		
 
-		public static List<T> ToList<T>(string content, string split = StringConst.String_Comma,
-			string trimLeft = StringConst.String_LeftSquareBrackets,
-			string trimRight = StringConst.String_RightSquareBrackets)
+		public static List<T> ToList<T>(string content, string split = StringConst.STRING_COMMA,
+			string trimLeft = StringConst.STRING_LEFT_SQUARE_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_SQUARE_BRACKETS)
 		{
 			var list = new List<T>();
 			if (content.StartsWith(trimLeft))
@@ -627,10 +627,10 @@ namespace DG
 		}
 
 		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(string content,
-			string split = StringConst.String_Comma,
-			string subSeparator = StringConst.String_Colon, string trimLeft = StringConst.String_LeftCurlyBrackets,
-			string trimRight = StringConst.String_RightCurlyBrackets,
-			string elementIgnoreLeft = StringConst.String_Regex_DoubleQuotes,
+			string split = StringConst.STRING_COMMA,
+			string subSeparator = StringConst.STRING_COLON, string trimLeft = StringConst.STRING_LEFT_CURLY_BRACKETS,
+			string trimRight = StringConst.STRING_RIGHT_CURLY_BRACKETS,
+			string elementIgnoreLeft = StringConst.STRING_REGEX_DOUBLE_QUOTES,
 			string elementIgnoreRight = null)
 		{
 			var elementList = content.ToList<string>(split, trimLeft, trimRight);
@@ -663,10 +663,10 @@ namespace DG
 		///   #FF00FF00或者FF00FF00  含Alpha
 		///   或者#FF00FF或者FF00FF 不含Alpha
 		/// </summary>
-		public static Color ToColor(string content, string trimLeft = StringConst.String_NumberSign)
+		public static Color ToColor(string content, string trimLeft = StringConst.STRING_NUMBER_SIGN)
 		{
 			content = content.TrimLeft(trimLeft);
-			content = content.Replace(StringConst.String_0x, StringConst.String_Empty);
+			content = content.Replace(StringConst.STRING_0x, StringConst.STRING_EMPTY);
 			ColorUtility.TryParseHtmlString(content, out var color);
 			return color;
 			//int value = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
@@ -801,7 +801,7 @@ namespace DG
 
 		public static string WarpWithDoubleQuotes(string self) //双引号
 		{
-			return self.WarpBoth(StringConst.String_DoubleQuotes);
+			return self.WarpBoth(StringConst.STRING_DOUBLE_QUOTES);
 		}
 
 		//pos在left之后第一个字母的index
@@ -883,7 +883,7 @@ namespace DG
 		/// </summary>
 		public static string TrimLeft(string content, string trimString)
 		{
-			return Trim(content, trimString, StringConst.String_Empty);
+			return Trim(content, trimString, StringConst.STRING_EMPTY);
 		}
 
 		/// <summary>
@@ -891,7 +891,7 @@ namespace DG
 		/// </summary>
 		public static string TrimRight(string content, string trimString)
 		{
-			return Trim(content, StringConst.String_Empty, trimString);
+			return Trim(content, StringConst.STRING_EMPTY, trimString);
 		}
 
 		#endregion
@@ -1025,16 +1025,16 @@ namespace DG
 		{
 			if (color.HasValue)
 			{
-				content = content.Replace(StringConst.String_Regex_Text_Color_WarpEnd, StringConst.String_Empty);
-				content = Regex.Replace(content, StringConst.String_Regex_Text_Color_WarpStart, StringConst.String_Empty);
-				content = string.Format(StringConst.String_Format_Text_Color, color.Value.ToHtmlStringRGBA(), content);
+				content = content.Replace(StringConst.STRING_REGEX_TEXT_COLOR_WARP_END, StringConst.STRING_EMPTY);
+				content = Regex.Replace(content, StringConst.STRING_REGEX_TEXT_COLOR_WARP_START, StringConst.STRING_EMPTY);
+				content = string.Format(StringConst.STRING_FORMAT_TEXT_COLOR, color.Value.ToHtmlStringRGBA(), content);
 			}
 
 			if (fontSize.HasValue)
 			{
-				content = content.Replace(StringConst.String_Regex_Text_FontSize_WarpEnd, StringConst.String_Empty);
-				content = Regex.Replace(content, StringConst.String_Regex_Text_FontSize_WarpStart, StringConst.String_Empty);
-				content = string.Format(StringConst.String_Format_Text_FontSize, fontSize.Value, content);
+				content = content.Replace(StringConst.STRING_REGEX_TEXT_FONT_SIZE_WARP_END, StringConst.STRING_EMPTY);
+				content = Regex.Replace(content, StringConst.STRING_REGEX_TEXT_FONT_SIZE_WARP_START, StringConst.STRING_EMPTY);
+				content = string.Format(StringConst.STRING_FORMAT_TEXT_FONT_SIZE, fontSize.Value, content);
 			}
 
 			return content;
@@ -1070,7 +1070,7 @@ namespace DG
 			value = value.Trim();
 			if (string.IsNullOrEmpty(value))
 				return 0L;
-			var constChars = CharConst.DigitsAndCharsBig;
+			var constChars = CharConst.DIGITS_AND_CHARS_BIG;
 			var digits = new string(constChars, 0, fromBase);
 			long result = 0;
 			value = value.ToUpper(); // 2

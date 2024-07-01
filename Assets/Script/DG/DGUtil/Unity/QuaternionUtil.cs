@@ -16,7 +16,7 @@ namespace DG
 
 		public static bool IsDefault(Quaternion quaternion, bool isMin = false)
 		{
-			return isMin ? quaternion == QuaternionConst.Default_Min : quaternion == QuaternionConst.Default_Max;
+			return isMin ? quaternion == QuaternionConst.DEFAULT_MIN : quaternion == QuaternionConst.DEFAULT_MAX;
 		}
 
 		public static Quaternion Inverse(Quaternion quaternion)

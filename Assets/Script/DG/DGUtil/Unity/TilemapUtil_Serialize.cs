@@ -14,17 +14,17 @@
 //		{
 //			Hashtable hashtable = new Hashtable
 //			{
-//				[StringConst.String_animationFrameRate] = tilemap.animationFrameRate,
-//				[StringConst.String_color] = tilemap.color.ToHtmlStringRGBAOrDefault(),
-//				[StringConst.String_tileAnchor] = tilemap.tileAnchor.ToStringOrDefault(null, new Vector3(0.5f, 0.5f, 0)),
-//				[StringConst.String_orientation] = (int)tilemap.orientation
+//				[StringConst.STRING_ANIMATION_FRAME_RATE] = tilemap.animationFrameRate,
+//				[StringConst.STRING_COLOR] = tilemap.color.ToHtmlStringRGBAOrDefault(),
+//				[StringConst.STRING_TILE_ANCHOR] = tilemap.tileAnchor.ToStringOrDefault(null, new Vector3(0.5f, 0.5f, 0)),
+//				[StringConst.STRING_ORIENTATION] = (int)tilemap.orientation
 //			};
 //
 //			Hashtable tileHashtable = new Hashtable();
 //			Vector3Int size = tilemap.size;
 //			Vector3Int origin = tilemap.origin;
-//			hashtable[StringConst.String_size] = size.ToStringOrDefault();
-//			hashtable[StringConst.String_origin] = origin.ToStringOrDefault();
+//			hashtable[StringConst.STRING_SIZE] = size.ToStringOrDefault();
+//			hashtable[StringConst.STRING_ORIGIN] = origin.ToStringOrDefault();
 //			int checkCount = size.x * size.y * size.z;
 //			for (int i = 0; i < checkCount; i++)
 //			{
@@ -41,21 +41,21 @@
 //					string assetPath = tileBase.GetAssetPath();
 //					string guid = AssetDatabase.AssetPathToGUID(assetPath);
 //					long refId = AssetPathRefManager.instance.GetRefIdByGuid(guid);
-//					tileDetailHashtable[StringConst.String_tileBase_ref_id] = refId;
+//					tileDetailHashtable[StringConst.STRING_TILE_BASE_REF_ID] = refId;
 //					if (refIdHashtable != null)
 //						refIdHashtable[refId] = true;
 //
 //					TileFlags tileFlags = tilemap.GetTileFlags(current);
-//					tileDetailHashtable[StringConst.String_tileFlags] = (int)tileFlags;
+//					tileDetailHashtable[StringConst.STRING_TILE_FLAGS] = (int)tileFlags;
 //
-//					tileDetailHashtable[StringConst.String_transformMatrix] =
+//					tileDetailHashtable[StringConst.STRING_TRANSFORM_MATRIX] =
 //						tilemap.GetTransformMatrix(current).ToStringOrDefault(null, Matrix4x4.identity);
 //
 //					tileHashtable[current.ToString()] = tileDetailHashtable;
 //				}
 //			}
 //
-//			hashtable[StringConst.String_tile_hashtable] = tileHashtable;
+//			hashtable[StringConst.STRING_TILE_HASHTABLE] = tileHashtable;
 //			hashtable.Trim();
 //			return hashtable;
 //		}
@@ -63,23 +63,23 @@
 //
 //		public static void LoadSerializeHashtable(this Tilemap self, Hashtable hashtable, ResLoad resLoad)
 //		{
-//			self.animationFrameRate = hashtable.Get<float>(StringConst.String_animationFrameRate);
-//			self.color = hashtable.Get<string>(StringConst.String_color).ToColorOrDefault();
-//			self.tileAnchor = hashtable.Get<string>(StringConst.String_tileAnchor).ToVector3OrDefault(null, new Vector3(0.5f, 0.5f, 0));
-//			self.orientation = hashtable.Get<int>(StringConst.String_orientation).ToEnum<Tilemap.Orientation>();
+//			self.animationFrameRate = hashtable.Get<float>(StringConst.STRING_ANIMATION_FRAME_RATE);
+//			self.color = hashtable.Get<string>(StringConst.STRING_COLOR).ToColorOrDefault();
+//			self.tileAnchor = hashtable.Get<string>(StringConst.STRING_TILE_ANCHOR).ToVector3OrDefault(null, new Vector3(0.5f, 0.5f, 0));
+//			self.orientation = hashtable.Get<int>(StringConst.STRING_ORIENTATION).ToEnum<Tilemap.Orientation>();
 //
-//			Vector3Int size = hashtable.Get<string>(StringConst.String_size).ToVector3IntOrDefault();
-//			Vector3Int origin = hashtable.Get<string>(StringConst.String_origin).ToVector3IntOrDefault();
+//			Vector3Int size = hashtable.Get<string>(StringConst.STRING_SIZE).ToVector3IntOrDefault();
+//			Vector3Int origin = hashtable.Get<string>(StringConst.STRING_ORIGIN).ToVector3IntOrDefault();
 //			self.size = size;
 //			self.origin = origin;
-//			Hashtable tileHashtable = hashtable.Get<Hashtable>(StringConst.String_tile_hashtable);
+//			Hashtable tileHashtable = hashtable.Get<Hashtable>(StringConst.STRING_TILE_HASHTABLE);
 //
 //
 //			foreach (string cellPositionString in tileHashtable.Keys)
 //			{
 //				Vector3Int cellPos = cellPositionString.ToVector3().ToVector3Int();
 //				Hashtable tileDetailHashtable = tileHashtable.Get<Hashtable>(cellPositionString);
-//				long tileBaseRefId = tileDetailHashtable.Get<long>(StringConst.String_tileBase_ref_id);
+//				long tileBaseRefId = tileDetailHashtable.Get<long>(StringConst.STRING_TILE_BASE_REF_ID);
 //				string assetPath = tileBaseRefId.GetAssetPathByRefId();
 //				resLoad.GetOrLoadAsset(assetPath, assetCat =>
 //				{

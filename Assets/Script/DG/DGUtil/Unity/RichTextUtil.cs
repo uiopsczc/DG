@@ -6,22 +6,22 @@ namespace DG
 	{
 		public static string SetColor(string s, Color color)
 		{
-			return string.Format(StringConst.String_Format_Text_Color, ColorUtility.ToHtmlStringRGB(color), s);
+			return string.Format(StringConst.STRING_FORMAT_TEXT_COLOR, ColorUtility.ToHtmlStringRGB(color), s);
 		}
 
 		public static string SetIsBold(string s)
 		{
-			return string.Format(StringConst.String_Format_Text_Bold, s);
+			return string.Format(StringConst.STRING_FORMAT_TEXT_BOLD, s);
 		}
 
 		public static string SetIsItalic(string s)
 		{
-			return string.Format(StringConst.String_Format_Text_Italic, s);
+			return string.Format(StringConst.STRING_FORMAT_TEXT_ITALIC, s);
 		}
 
 		public static string SetFontSize(string s, int fontSize)
 		{
-			return string.Format(StringConst.String_Format_Text_FontSize, fontSize, s);
+			return string.Format(StringConst.STRING_FORMAT_TEXT_FONT_SIZE, fontSize, s);
 		}
 	}
 }

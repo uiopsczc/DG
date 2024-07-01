@@ -21,10 +21,54 @@ namespace DG
 			return o1?.Equals(o2) ?? o2 == null;
 		}
 
-		/// <summary>
-		/// o1和o2比较大小
-		/// </summary>
-		public static int Compares(object o1, object o2)
+	    public static bool EqualsArray<T>(T[] o1, T[] o2)
+	    {
+	        if (o1 == null && o2 == null)
+	            return true;
+	        if (o1 == null && o2 != null)
+	            return false;
+	        if (o1 != null && o2 == null)
+	            return false;
+
+	        if (o1.Length == o2.Length)
+	        {
+	            for (int i = 0; i < o1.Length; i++)
+	            {
+	                if (!Equals(o1[i], o2[i]))
+	                    return false;
+	            }
+	            return true;
+	        }
+
+	        return false;
+        }
+
+	    public static bool EqualsList<T>(List<T> o1, List<T> o2)
+	    {
+	        if (o1 == null && o2 == null)
+	            return true;
+	        if (o1 == null && o2 != null)
+	            return false;
+	        if (o1 != null && o2 == null)
+	            return false;
+
+	        if (o1.Count == o2.Count)
+	        {
+	            for (int i = 0; i < o1.Count; i++)
+	            {
+	                if (!Equals(o1[i], o2[i]))
+	                    return false;
+	            }
+	            return true;
+	        }
+
+	        return false;
+	    }
+
+        /// <summary>
+        /// o1和o2比较大小
+        /// </summary>
+        public static int Compares(object o1, object o2)
 		{
 			if (o1 == o2)
 				return 0;
@@ -104,7 +148,7 @@ namespace DG
 				if (i == objs.Length - 1)
 					stringBuilder.Append(obj);
 				else
-					stringBuilder.Append(obj + StringConst.String_Space);
+					stringBuilder.Append(obj + StringConst.STRING_SPACE);
 			}
 
 			return stringBuilder.ToString();
@@ -119,7 +163,7 @@ namespace DG
 				if (i == objs.Length - 1)
 					stringBuilder.Append(obj.DGToString());
 				else
-					stringBuilder.Append(obj.DGToString() + StringConst.String_Space);
+					stringBuilder.Append(obj.DGToString() + StringConst.STRING_SPACE);
 			}
 
 			return stringBuilder.ToString();
@@ -342,9 +386,9 @@ namespace DG
 				return ToIntOrToDefault(obj, 0) != 0;
 			if (obj.IsString())
 			{
-				if (StringConst.String_true.Equals(((string)obj).ToLower()))
+				if (StringConst.STRING_TRUE.Equals(((string)obj).ToLower()))
 					return true;
-				if (StringConst.String_false.Equals(((string)obj).ToUpper()))
+				if (StringConst.STRING_FALSE.Equals(((string)obj).ToUpper()))
 					return false;
 				try
 				{
@@ -627,7 +671,7 @@ namespace DG
 		/// </summary>
 		public static DateTime ToDateTimOrToDefault(object obj, DateTime defaultValue = default)
 		{
-			return ToDateTimeOrToDefault(obj, StringConst.String_yyyy_MM_dd_HH_mm_ss, defaultValue);
+			return ToDateTimeOrToDefault(obj, StringConst.STRING_yyyy_MM_dd_HH_mm_ss, defaultValue);
 		}
 
 		/// <summary>
@@ -635,7 +679,7 @@ namespace DG
 		/// </summary>
 		public static DateTime ToDateOrToDefault(object obj, DateTime dv = default)
 		{
-			return ToDateTimeOrToDefault(obj, StringConst.String_yyyy_MM_dd, dv);
+			return ToDateTimeOrToDefault(obj, StringConst.STRING_yyyy_MM_dd, dv);
 		}
 
 		/// <summary>
@@ -643,7 +687,7 @@ namespace DG
 		/// </summary>
 		public static DateTime ToTimeOrToDefault(object obj, DateTime defaultValue = default)
 		{
-			return ToDateTimeOrToDefault(obj, StringConst.String_HH_mm_ss, defaultValue);
+			return ToDateTimeOrToDefault(obj, StringConst.STRING_HH_mm_ss, defaultValue);
 		}
 
 		/// <summary>
@@ -904,11 +948,11 @@ namespace DG
 		public static string ObjectToString(object obj)
 		{
 			if (obj == null)
-				return StringConst.String_null;
+				return StringConst.STRING_NULL;
 			if (obj.IsString())
 				return (string)obj;
 			if (obj.IsDateTime())
-				return ((DateTime)obj).ToString(StringConst.String_yyyy_MM_dd);
+				return ((DateTime)obj).ToString(StringConst.STRING_yyyy_MM_dd);
 			if (IsChar(obj))
 				return ((char)obj).ToString();
 			if (IsChars(obj))
@@ -1105,22 +1149,22 @@ namespace DG
 
 		#region SetColor
 
-		public static void SetColorR(System.Object obj, float v, string memberName = StringConst.String_color)
+		public static void SetColorR(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ColorUtil.SetColor(obj, memberName, ColorMode.R, v);
 		}
 
-		public static void SetColorG(System.Object obj, float v, string memberName = StringConst.String_color)
+		public static void SetColorG(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ColorUtil.SetColor(obj, memberName, ColorMode.G, v);
 		}
 
-		public static void SetColorB(System.Object obj, float v, string memberName = StringConst.String_color)
+		public static void SetColorB(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ColorUtil.SetColor(obj, memberName, ColorMode.B, v);
 		}
 
-		public static void SetColorA(System.Object obj, float v, string memberName = StringConst.String_color)
+		public static void SetColorA(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ColorUtil.SetColor(obj, memberName, ColorMode.A, v);
 		}

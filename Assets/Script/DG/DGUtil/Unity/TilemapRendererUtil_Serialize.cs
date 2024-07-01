@@ -10,11 +10,11 @@ namespace DG
 		{
 			Hashtable hashtable = new Hashtable
 			{
-				[StringConst.String_mode] = (int)tilemapRenderer.mode,
-				[StringConst.String_detectChunkCullingBounds] = (int)tilemapRenderer.detectChunkCullingBounds,
-				[StringConst.String_sortOrder] = (int)tilemapRenderer.sortOrder,
-				[StringConst.String_sortingOrder] = tilemapRenderer.sortingOrder,
-				[StringConst.String_maskInteraction] = (int)tilemapRenderer.maskInteraction
+				[StringConst.STRING_MODE] = (int)tilemapRenderer.mode,
+				[StringConst.STRING_DETECT_CHUNK_CULLING_BOUNDS] = (int)tilemapRenderer.detectChunkCullingBounds,
+				[StringConst.STRING_SORT_ORDER] = (int)tilemapRenderer.sortOrder,
+				[StringConst.STRING_SORTING_ORDER] = tilemapRenderer.sortingOrder,
+				[StringConst.STRING_MASK_INTERACTION] = (int)tilemapRenderer.maskInteraction
 			};
 			hashtable.Trim();
 			return hashtable;
@@ -22,14 +22,14 @@ namespace DG
 
 		public static void LoadSerializeHashtable(TilemapRenderer tilemapRenderer, Hashtable hashtable)
 		{
-			tilemapRenderer.mode = hashtable.Get<int>(StringConst.String_mode).ToEnum<TilemapRenderer.Mode>();
+			tilemapRenderer.mode = hashtable.Get<int>(StringConst.STRING_MODE).ToEnum<TilemapRenderer.Mode>();
 			tilemapRenderer.detectChunkCullingBounds =
-				hashtable.Get<int>(StringConst.String_detectChunkCullingBounds)
+				hashtable.Get<int>(StringConst.STRING_DETECT_CHUNK_CULLING_BOUNDS)
 					.ToEnum<TilemapRenderer.DetectChunkCullingBounds>();
-			tilemapRenderer.sortOrder = hashtable.Get<int>(StringConst.String_sortOrder).ToEnum<TilemapRenderer.SortOrder>();
-			tilemapRenderer.sortingOrder = hashtable.Get<int>(StringConst.String_sortingOrder);
+			tilemapRenderer.sortOrder = hashtable.Get<int>(StringConst.STRING_SORT_ORDER).ToEnum<TilemapRenderer.SortOrder>();
+			tilemapRenderer.sortingOrder = hashtable.Get<int>(StringConst.STRING_SORTING_ORDER);
 			tilemapRenderer.maskInteraction =
-				hashtable.Get<int>(StringConst.String_maskInteraction).ToEnum<SpriteMaskInteraction>();
+				hashtable.Get<int>(StringConst.STRING_MASK_INTERACTION).ToEnum<SpriteMaskInteraction>();
 		}
 	}
 }

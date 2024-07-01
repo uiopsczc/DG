@@ -9,13 +9,13 @@ namespace DG
 		{
 			Hashtable hashtable = new Hashtable
 			{
-				[StringConst.String_bodyType] = (int)rigidbody2D.bodyType,
-				[StringConst.String_simulated] = rigidbody2D.simulated,
-				[StringConst.String_useFullKinematicContacts] = rigidbody2D.useFullKinematicContacts,
-				[StringConst.String_collisionDetectionMode] = (int)rigidbody2D.collisionDetectionMode,
-				[StringConst.String_sleepMode] = (int)rigidbody2D.sleepMode,
-				[StringConst.String_interpolation] = (int)rigidbody2D.interpolation,
-				[StringConst.String_constraints] = (int)rigidbody2D.constraints
+				[StringConst.STRING_BODY_TYPE] = (int)rigidbody2D.bodyType,
+				[StringConst.STRING_SIMULATED] = rigidbody2D.simulated,
+				[StringConst.STRING_USE_FULL_KINEMATIC_CONTACTS] = rigidbody2D.useFullKinematicContacts,
+				[StringConst.STRING_COLLISION_DETECTION_MODE] = (int)rigidbody2D.collisionDetectionMode,
+				[StringConst.STRING_SLEEP_MODE] = (int)rigidbody2D.sleepMode,
+				[StringConst.STRING_INTERPOLATION] = (int)rigidbody2D.interpolation,
+				[StringConst.STRING_CONSTRAINTS] = (int)rigidbody2D.constraints
 			};
 			hashtable.Trim();
 			return hashtable;
@@ -23,15 +23,15 @@ namespace DG
 
 		public static void LoadSerializeHashtable(Rigidbody2D rigidbody2D, Hashtable hashtable)
 		{
-			rigidbody2D.bodyType = hashtable.Get<int>(StringConst.String_bodyType).ToEnum<RigidbodyType2D>();
-			rigidbody2D.simulated = hashtable.Get<bool>(StringConst.String_bodyType);
-			rigidbody2D.useFullKinematicContacts = hashtable.Get<bool>(StringConst.String_useFullKinematicContacts);
+			rigidbody2D.bodyType = hashtable.Get<int>(StringConst.STRING_BODY_TYPE).ToEnum<RigidbodyType2D>();
+			rigidbody2D.simulated = hashtable.Get<bool>(StringConst.STRING_BODY_TYPE);
+			rigidbody2D.useFullKinematicContacts = hashtable.Get<bool>(StringConst.STRING_USE_FULL_KINEMATIC_CONTACTS);
 			rigidbody2D.collisionDetectionMode =
-				hashtable.Get<int>(StringConst.String_collisionDetectionMode).ToEnum<CollisionDetectionMode2D>();
-			rigidbody2D.sleepMode = hashtable.Get<int>(StringConst.String_sleepMode).ToEnum<RigidbodySleepMode2D>();
+				hashtable.Get<int>(StringConst.STRING_COLLISION_DETECTION_MODE).ToEnum<CollisionDetectionMode2D>();
+			rigidbody2D.sleepMode = hashtable.Get<int>(StringConst.STRING_SLEEP_MODE).ToEnum<RigidbodySleepMode2D>();
 			rigidbody2D.interpolation =
-				hashtable.Get<int>(StringConst.String_interpolation).ToEnum<RigidbodyInterpolation2D>();
-			rigidbody2D.constraints = hashtable.Get<int>(StringConst.String_constraints).ToEnum<RigidbodyConstraints2D>();
+				hashtable.Get<int>(StringConst.STRING_INTERPOLATION).ToEnum<RigidbodyInterpolation2D>();
+			rigidbody2D.constraints = hashtable.Get<int>(StringConst.STRING_CONSTRAINTS).ToEnum<RigidbodyConstraints2D>();
 		}
 	}
 }

@@ -5,6 +5,6 @@ namespace DG
 		public static string Output_Root_Path = "F:/NetBox下载/";
 
 		//    public static string Output_Base_Path = "D:/下载/NetBox下载/";
-		public static string Output_Path = Output_Root_Path + ManifestBundle_Path + "/";
+		public static string Output_Path = Output_Root_Path + MANIFEST_BOUNDLE_PATH + "/";
 	}
 }

@@ -88,7 +88,7 @@ namespace DG
 		/// <param name="excludeSeparator"></param>
 		/// <returns></returns>
 		public static Component[] GetComponentsExclude(this GameObject self, string excludeComponentTypes,
-			string excludeSeparator = StringConst.String_Vertical)
+			string excludeSeparator = StringConst.STRING_VERTICAL)
 		{
 			return GameObjectUtil.GetComponentsExclude(self, excludeComponentTypes, excludeSeparator);
 		}

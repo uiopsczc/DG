@@ -7,13 +7,13 @@ namespace DG
 	public class DOTweenUtil
 	{
 		public static DOTweenId GetDOTweenId(object source = null,
-			string prefix = StringConst.String_DOTweenId_Use_GameTime)
+			string prefix = StringConst.STRING_DOTWEEN_ID_USE_GAME_TIME)
 		{
 			return new DOTweenId(source, prefix);
 		}
 
 		public static List<Tween> GetDOTweens(object source = null,
-			string prefix = StringConst.String_DOTweenId_Use_GameTime)
+			string prefix = StringConst.STRING_DOTWEEN_ID_USE_GAME_TIME)
 		{
 			List<Tween> tweenList = new List<Tween>();
 			if (DOTween.PlayingTweens() == null) return tweenList;

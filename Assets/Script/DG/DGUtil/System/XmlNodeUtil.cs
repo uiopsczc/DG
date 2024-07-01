@@ -55,7 +55,7 @@ namespace DG
 			}
 
 			if (node.NodeType != XmlNodeType.Element) return false;
-			child = node.OwnerDocument.CreateTextNode(StringConst.String_Empty);
+			child = node.OwnerDocument.CreateTextNode(StringConst.STRING_EMPTY);
 			child.Value = value;
 			node.AppendChild(child);
 			return true;
@@ -206,8 +206,8 @@ namespace DG
 		{
 			foreach (DictionaryEntry dictionaryEntry in hashtable)
 			{
-				string name = dictionaryEntry.Key.ToStringOrToDefault(StringConst.String_Empty);
-				string value = dictionaryEntry.Value.ToStringOrToDefault(StringConst.String_Empty);
+				string name = dictionaryEntry.Key.ToStringOrToDefault(StringConst.STRING_EMPTY);
+				string value = dictionaryEntry.Value.ToStringOrToDefault(StringConst.STRING_EMPTY);
 				if (name.Length > 0)
 					AddChildNode(node, name, value);
 			}

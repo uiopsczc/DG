@@ -7,9 +7,9 @@ namespace DG
 			var fileContent = StdioUtil.ReadTextFile(filePath);
 
 			if (!string.IsNullOrEmpty(fileContent)) return null;
-			for (var i = 0; i < FilePathConst.RootPathList.Count; i++)
+			for (var i = 0; i < FilePathConst.ROOT_PATH_LIST.Count; i++)
 			{
-				string pathRoot = FilePathConst.RootPathList[i];
+				string pathRoot = FilePathConst.ROOT_PATH_LIST[i];
 				string path = filePath.WithRootPath(pathRoot);
 				fileContent = StdioUtil.ReadTextFile(path);
 				if (!string.IsNullOrEmpty(fileContent))
@@ -26,7 +26,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithoutRootPath(string fullFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			bool isFullFilePathStartWithSlash = fullFilePath.StartsWith(slash.ToString());
 			if (isFullFilePathStartWithSlash)
@@ -37,7 +37,7 @@ namespace DG
 			bool isRootPathEndWithSlash = rootPath.EndsWith(slash.ToString());
 			if (!isRootPathEndWithSlash)
 				rootPath = rootPath + slash;
-			return fullFilePath.Replace(rootPath, StringConst.String_Empty);
+			return fullFilePath.Replace(rootPath, StringConst.STRING_EMPTY);
 		}
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace DG
 		/// <param name="rootPath"></param>
 		/// <returns></returns>
 		public static string WithRootPath(string relativeFilePath, string rootPath,
-			char slash = CharConst.Char_Slash)
+			char slash = CharConst.CHAR_SLASH)
 		{
 			bool isRootPathEndWithSlash = rootPath.EndsWith(slash.ToString());
 			if (isRootPathEndWithSlash)
@@ -62,7 +62,7 @@ namespace DG
 
 		public static string LocalURL(string path)
 		{
-			return string.Format(StringConst.String_Format_File_Url, path);
+			return string.Format(StringConst.STRING_FORMAT_FILE_URL, path);
 		}
 	}
 }

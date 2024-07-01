@@ -41,19 +41,19 @@ namespace DG
 			long HH = seconds / 3600;
 			isZeroIgnore = isZeroIgnore && HH == 0;
 			if (!isZeroIgnore)
-				stringBuilder.Append(HH.ToString().FillHead(hCount, CharConst.Char_0) +
-				                           StringConst.String_Colon);
+				stringBuilder.Append(HH.ToString().FillHead(hCount, CharConst.CHAR_0) +
+				                           StringConst.STRING_COLON);
 
 			long mm = (seconds % 3600) / 60;
 			isZeroIgnore = isZeroIgnore && mm == 0;
 			if (isZeroIgnore)
-				stringBuilder.Append(mm.ToString().FillHead(2, CharConst.Char_0) + StringConst.String_Colon);
+				stringBuilder.Append(mm.ToString().FillHead(2, CharConst.CHAR_0) + StringConst.STRING_COLON);
 
 
 			long ss = seconds % 60;
 			isZeroIgnore = isZeroIgnore && ss == 0;
 			if (isZeroIgnore)
-				stringBuilder.Append(ss.ToString().FillHead(2, CharConst.Char_0));
+				stringBuilder.Append(ss.ToString().FillHead(2, CharConst.CHAR_0));
 
 			return stringBuilder.ToString();
 		}

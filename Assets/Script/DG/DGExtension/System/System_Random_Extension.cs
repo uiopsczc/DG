@@ -621,22 +621,22 @@ namespace DG
 
 		#region SetColor
 
-		public static void SetColorR(this System.Object self, float v, string memberName = StringConst.String_color)
+		public static void SetColorR(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorR(self, v, memberName);
 		}
 
-		public static void SetColorG(this System.Object self, float v, string memberName = StringConst.String_color)
+		public static void SetColorG(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorG(self, v, memberName);
 		}
 
-		public static void SetColorB(this System.Object self, float v, string memberName = StringConst.String_color)
+		public static void SetColorB(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorB(self, v, memberName);
 		}
 
-		public static void SetColorA(this System.Object self, float v, string memberName = StringConst.String_color)
+		public static void SetColorA(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorA(self, v, memberName);
 		}

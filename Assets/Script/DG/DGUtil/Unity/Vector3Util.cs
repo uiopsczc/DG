@@ -50,9 +50,9 @@ namespace DG
 		}
 
 
-		public static Vector2 ToVector2(Vector3 vector3, string format = StringConst.String_x_y)
+		public static Vector2 ToVector2(Vector3 vector3, string format = StringConst.String_X_Y)
 		{
-			string[] formats = format.Split(CharConst.Char_Comma);
+			string[] formats = format.Split(CharConst.CHAR_COMMA);
 			float x = GetFormat(vector3, formats[0]);
 			float y = GetFormat(vector3, formats[1]);
 			return new Vector2(x, y);
@@ -61,7 +61,7 @@ namespace DG
 		/// <summary>
 		/// Vector3.ToString只保留小数后2位，看起来会卡，所以需要ToStringDetail
 		/// </summary>
-		public static string ToStringDetail(Vector3 vector3, string separator = StringConst.String_Comma)
+		public static string ToStringDetail(Vector3 vector3, string separator = StringConst.STRING_COMMA)
 		{
 			return vector3.x + separator + vector3.y + separator + vector3.z;
 		}
@@ -69,18 +69,18 @@ namespace DG
 		/// <summary>
 		/// 将逗号改成对应的separator
 		/// </summary>
-		public static string ToStringReplaceSeparator(Vector3 vector3, string separator = StringConst.String_Comma)
+		public static string ToStringReplaceSeparator(Vector3 vector3, string separator = StringConst.STRING_COMMA)
 		{
-			return vector3.ToString().Replace(StringConst.String_Comma, separator);
+			return vector3.ToString().Replace(StringConst.STRING_COMMA, separator);
 		}
 
 		public static Dictionary<string, float> ToDictionary(Vector3 vector3) //
 		{
 			Dictionary<string, float> ret = new Dictionary<string, float>
 			{
-				[StringConst.String_x] = vector3.x,
-				[StringConst.String_y] = vector3.y,
-				[StringConst.String_z] = vector3.z
+				[StringConst.STRING_x] = vector3.x,
+				[StringConst.STRING_y] = vector3.y,
+				[StringConst.STRING_z] = vector3.z
 			};
 			return ret;
 		}
@@ -118,11 +118,11 @@ namespace DG
 		public static float GetFormat(Vector3 vector3, string format)
 		{
 			format = format.ToLower();
-			if (format.Equals(StringConst.String_x))
+			if (format.Equals(StringConst.STRING_x))
 				return vector3.x;
-			if (format.Equals(StringConst.String_y))
+			if (format.Equals(StringConst.STRING_y))
 				return vector3.y;
-			if (format.Equals(StringConst.String_z))
+			if (format.Equals(StringConst.STRING_z))
 				return vector3.z;
 			bool flag = float.TryParse(format, out var result);
 			return flag ? result : throw new Exception("错误的格式");
@@ -203,38 +203,38 @@ namespace DG
 
 		public static Vector3 SetX(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_x, args);
+			return v.Set(StringConst.STRING_x, args);
 		}
 
 		public static Vector3 SetY(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_y, args);
+			return v.Set(StringConst.STRING_y, args);
 		}
 
 		public static Vector3 SetZ(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_z, args);
+			return v.Set(StringConst.STRING_z, args);
 		}
 
 		public static Vector3 AddX(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_x, v.x + args);
+			return v.Set(StringConst.STRING_x, v.x + args);
 		}
 
 		public static Vector3 AddY(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_y, v.y + args);
+			return v.Set(StringConst.STRING_y, v.y + args);
 		}
 
 		public static Vector3 AddZ(Vector3 v, float args)
 		{
-			return v.Set(StringConst.String_z, v.z + args);
+			return v.Set(StringConst.STRING_z, v.z + args);
 		}
 
 
 		public static Vector3 Set(Vector3 v, string format, params float[] args)
 		{
-			string[] formats = format.Split(CharConst.Char_Vertical);
+			string[] formats = format.Split(CharConst.CHAR_VERTICAL);
 			float x = v.x;
 			float y = v.y;
 			float z = v.z;
@@ -245,13 +245,13 @@ namespace DG
 				string f = formats[index];
 				switch (f.ToLower())
 				{
-					case StringConst.String_x:
+					case StringConst.STRING_x:
 						x = args[i];
 						break;
-					case StringConst.String_y:
+					case StringConst.STRING_y:
 						y = args[i];
 						break;
-					case StringConst.String_z:
+					case StringConst.STRING_z:
 						z = args[i];
 						break;
 				}
@@ -270,7 +270,7 @@ namespace DG
 
 		public static bool IsDefault(Vector3 v, bool isMin = false)
 		{
-			return isMin ? v == Vector3Const.Default_Min : v == Vector3Const.Default_Max;
+			return isMin ? v == Vector3Const.DEFAULT_MIN : v == Vector3Const.DEFAULT_MAX;
 		}
 
 

@@ -84,10 +84,10 @@ namespace DG
 //			int i = 0;
 //			do
 //			{
-//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.String_yyyyMMddHHmmssSSS);
+//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
 //				string rand = new StringBuilder(randomManager.RandomInt(0, 1000) + "").ToString();
 //				string stem = dateTime
-//							  + rand.FillHead(3, CharConst.Char_c);
+//							  + rand.FillHead(3, CharConst.CHAR_c);
 //				string fileName = prefix + stem + suffix;
 //
 //				var file = new FileInfo(dir.SubPath(fileName));
@@ -107,11 +107,11 @@ namespace DG
 		/// <returns></returns>
 		public static string GetExtName(string name)
 		{
-			string s = name.Replace(CharConst.Char_BackSlash, CharConst.Char_Slash);
-			int pos1 = s.LastIndexOf(CharConst.Char_Slash);
-			int pos = s.LastIndexOf(CharConst.Char_Dot);
+			string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
+			int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
+			int pos = s.LastIndexOf(CharConst.CHAR_DOT);
 			if (pos == -1 || pos < pos1)
-				return StringConst.String_Empty;
+				return StringConst.STRING_EMPTY;
 			return name.Substring(pos);
 		}
 
@@ -122,9 +122,9 @@ namespace DG
 		/// <returns></returns>
 		public static string RemoveExtName(string name)
 		{
-			string s = name.Replace(CharConst.Char_BackSlash, CharConst.Char_Slash);
-			int pos1 = s.LastIndexOf(CharConst.Char_Slash);
-			int pos = s.LastIndexOf(CharConst.Char_Dot);
+			string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
+			int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
+			int pos = s.LastIndexOf(CharConst.CHAR_DOT);
 			if (pos == -1 || pos < pos1)
 				return name;
 			return name.Substring(0, pos);
@@ -138,8 +138,8 @@ namespace DG
 		/// <returns></returns>
 		public static string ChangeExtName(string name, string extName)
 		{
-			if (!extName.StartsWith(StringConst.String_Dot))
-				extName = StringConst.String_Dot + extName;
+			if (!extName.StartsWith(StringConst.STRING_DOT))
+				extName = StringConst.STRING_DOT + extName;
 			return RemoveExtName(name) + extName;
 		}
 
@@ -657,9 +657,9 @@ namespace DG
 //			int i = 0;
 //			do
 //			{
-//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.String_yyyyMMddHHmmssSSS);
+//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
 //				string rand = new StringBuilder(randomManager.RandomInt(0, 1000).ToString()).ToString();
-//				string stem = (dateTime + rand.FillHead(3, CharConst.Char_0))
+//				string stem = (dateTime + rand.FillHead(3, CharConst.CHAR_0))
 //					.Substring(0, length);
 //
 //				DirectoryInfo timelyDirectoryInfo = dir.CreateSubdirectory(stem);

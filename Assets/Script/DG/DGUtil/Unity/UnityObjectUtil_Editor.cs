@@ -13,7 +13,7 @@ namespace DG
 
 		public static string GetName(Object self)
 		{
-			return self == null ? StringConst.String_null : self.name;
+			return self == null ? StringConst.STRING_NULL : self.name;
 		}
 
 #if UNITY_EDITOR
@@ -45,7 +45,7 @@ namespace DG
 		public static string GetAssetPath(Object asset)
 		{
 			if (!asset.IsMainAsset())
-				return AssetDatabase.GetAssetPath(asset) + StringConst.String_Colon + asset.name;
+				return AssetDatabase.GetAssetPath(asset) + StringConst.STRING_COLON + asset.name;
 			else
 				return AssetDatabase.GetAssetPath(asset);
 		}

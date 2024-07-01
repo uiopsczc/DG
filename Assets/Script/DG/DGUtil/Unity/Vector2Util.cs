@@ -18,7 +18,7 @@ namespace DG
 		/// <summary>
 		/// Vector2.ToString只保留小数后2位，看起来会卡，所以需要ToStringDetail
 		/// </summary>
-		public static string ToStringDetail(Vector2 vector2, string separator = StringConst.String_Comma)
+		public static string ToStringDetail(Vector2 vector2, string separator = StringConst.STRING_COMMA)
 		{
 			return vector2.x + separator + vector2.y;
 		}
@@ -40,9 +40,9 @@ namespace DG
 		/// <param name="v"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public static Vector3 ToVector3(Vector2 v, string format = StringConst.String_x_y_0)
+		public static Vector3 ToVector3(Vector2 v, string format = StringConst.STRING_X_Y_0)
 		{
-			string[] formats = format.Split(CharConst.Char_Comma);
+			string[] formats = format.Split(CharConst.CHAR_COMMA);
 			float x = Vector3Util.GetFormat(v, formats[0]);
 			float y = Vector3Util.GetFormat(v, formats[1]);
 			float z = Vector3Util.GetFormat(v, formats[2]);
@@ -157,8 +157,8 @@ namespace DG
 		public static bool IsDefault(Vector2 v, bool isMin = false)
 		{
 			if (isMin)
-				return v == Vector2Const.Default_Min;
-			return v == Vector2Const.Default_Max;
+				return v == Vector2Const.DEFAULT_MIN;
+			return v == Vector2Const.DEFAULT_MAX;
 		}
 
 

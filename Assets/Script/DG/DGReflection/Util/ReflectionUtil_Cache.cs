@@ -20,7 +20,7 @@ namespace DG
 		private const string _methodInfoString = "methodInfo";
 		private const string _filedInfoString = "fieldInfo";
 		private const string _propertyInfoString = "propertyInfo";
-		private const string _splitString = StringConst.String_Underline;
+		private const string _splitString = StringConst.STRING_UNDERLINE;
 
 		#region MethodInfoCache
 		public static bool IsContainsMethodInfoCache(Type type, string methodName, params Type[] parameterTypes)

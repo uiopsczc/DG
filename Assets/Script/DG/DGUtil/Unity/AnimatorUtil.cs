@@ -23,12 +23,12 @@ namespace DG
 		}
 
 
-		public static string GetAnimatorStateLayerName(string stateName, string separator = StringConst.String_Dot)
+		public static string GetAnimatorStateLayerName(string stateName, string separator = StringConst.STRING_DOT)
 		{
 			return stateName.IndexOf(separator) != -1 ? stateName.Substring(0, stateName.IndexOf(separator)) : null;
 		}
 
-		public static string GetAnimatorStateLastName(string stateName, string separator = StringConst.String_Dot)
+		public static string GetAnimatorStateLastName(string stateName, string separator = StringConst.STRING_DOT)
 		{
 			return stateName.IndexOf(separator) != -1
 				? stateName.Substring(stateName.LastIndexOf(separator) + separator.Length)

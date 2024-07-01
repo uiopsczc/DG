@@ -43,25 +43,7 @@ namespace DG
 			if (other == null)
 				return false;
 
-			if (this._args == null && other._args == null)
-				return true;
-			if (this._args == null && other._args != null)
-				return false;
-			if (this._args != null && other._args == null)
-				return false;
-
-			if (this._args.Length == other._args.Length)
-			{
-				for (int i = 0; i < this._args.Length; i++)
-				{
-					if (!ObjectUtil.Equals(_args[i], other._args[i]))
-						return false;
-				}
-
-				return true;
-			}
-
-			return false;
+		    return ObjectUtil.EqualsArray(_args, other._args);
 		}
 
 		public override int GetHashCode()

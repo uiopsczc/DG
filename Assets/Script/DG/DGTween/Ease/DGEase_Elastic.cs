@@ -48,11 +48,11 @@ namespace DG
 				}
 				else
 				{
-					s = p / MathConst.Two_PI * (float)Math.Asin(c / a);
+					s = p / MathConst.TWO_PI * (float)Math.Asin(c / a);
 				}
 
 				return -(a * (float)Math.Pow(2, 10 * (t -= 1)) *
-						 (float)Math.Sin((t * d - s) * MathConst.Two_PI / p)) + b;
+						 (float)Math.Sin((t * d - s) * MathConst.TWO_PI / p)) + b;
 			}
 
 			public static float EaseOut(float t, float b, float c, float d, float a, float p)
@@ -71,10 +71,10 @@ namespace DG
 				}
 				else
 				{
-					s = p / MathConst.Two_PI * (float)Math.Asin(c / a);
+					s = p / MathConst.TWO_PI * (float)Math.Asin(c / a);
 				}
 
-				return a * (float)Math.Pow(2, -10 * t) * (float)Math.Sin((t * d - s) * MathConst.Two_PI / p) + c + b;
+				return a * (float)Math.Pow(2, -10 * t) * (float)Math.Sin((t * d - s) * MathConst.TWO_PI / p) + c + b;
 			}
 
 			public static float EaseInOut(float t, float b, float c, float d, float a, float p)
@@ -93,13 +93,13 @@ namespace DG
 				}
 				else
 				{
-					s = p / MathConst.Two_PI * (float)Math.Asin(c / a);
+					s = p / MathConst.TWO_PI * (float)Math.Asin(c / a);
 				}
 
 				if (t < 1)
 					return -.5f * (a * (float)Math.Pow(2, 10 * (t -= 1)) *
-								   (float)Math.Sin((t * d - s) * MathConst.Two_PI / p)) + b;
-				return a * (float)Math.Pow(2, -10 * (t -= 1)) * (float)Math.Sin((t * d - s) * MathConst.Two_PI / p) *
+								   (float)Math.Sin((t * d - s) * MathConst.TWO_PI / p)) + b;
+				return a * (float)Math.Pow(2, -10 * (t -= 1)) * (float)Math.Sin((t * d - s) * MathConst.TWO_PI / p) *
 					   .5f + c +
 					   b;
 			}

@@ -32,7 +32,7 @@ namespace DG
 						    (oldValue is IDictionary oldValueDict &&
 						     (oldValueDict.Count != 0)))
 						{
-							diff[newKey] = StringConst.String_New_In_Table + newValueDict.GetType();
+							diff[newKey] = StringConst.STRING_NEW_IN_TABLE + newValueDict.GetType();
 							continue;
 						}
 					}
@@ -67,7 +67,7 @@ namespace DG
 			{
 				var key = oldDictionaryEntry.Key;
 				if (!newDict.Contains(key))
-					diff[key] = StringConst.String_Nil_In_Table;
+					diff[key] = StringConst.STRING_NIL_IN_TABLE;
 			}
 
 			if (diff.Count == 0)
@@ -88,16 +88,16 @@ namespace DG
 			{
 				var key = dictionaryEntry.Key;
 				var value = dictionaryEntry.Value;
-				if (StringConst.String_Nil_In_Table.Equals(value))
+				if (StringConst.STRING_NIL_IN_TABLE.Equals(value))
 				{
 					oldDict.Remove(key);
 					continue;
 				}
 
 				var valueString = value.ToString();
-				if (valueString.StartsWith(StringConst.String_New_In_Table))
+				if (valueString.StartsWith(StringConst.STRING_NEW_IN_TABLE))
 				{
-					string typeString = valueString.Substring(StringConst.String_New_In_Table.Length);
+					string typeString = valueString.Substring(StringConst.STRING_NEW_IN_TABLE.Length);
 					Type type = TypeUtil.GetType(typeString);
 					oldDict[key] = type.CreateInstance<object>();
 					continue;

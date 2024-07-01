@@ -18,7 +18,7 @@ namespace DG
 			GameObject gameObject = new GameObject();
 			if (!path.IsNullOrWhiteSpace())
 			{
-				int index = path.IndexOf(CharConst.Char_Slash);
+				int index = path.IndexOf(CharConst.CHAR_SLASH);
 				if (index > 0)
 				{
 					var name = path.Substring(0, index);

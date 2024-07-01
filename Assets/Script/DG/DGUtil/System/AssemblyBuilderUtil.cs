@@ -21,7 +21,7 @@ namespace DG
 			if (assemblyNameString == null)
 			{
 				assemblyNameString = Guid.NewGuid().ToString()
-					.Replace(StringConst.String_Minus, StringConst.String_Empty);
+					.Replace(StringConst.STRING_MINUS, StringConst.STRING_EMPTY);
 				infos2 = (assemblyNameString, assemblyBuilderAccess);
 				if (_assemblyBuilderDict.TryGetValue(infos2, out result))
 					return result;

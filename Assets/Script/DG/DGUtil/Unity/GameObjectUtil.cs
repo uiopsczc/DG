@@ -133,7 +133,7 @@ namespace DG
 		/// <param name="excludeSeparator"></param>
 		/// <returns></returns>
 		public static Component[] GetComponentsExclude(GameObject gameObject, string excludeComponentTypes,
-			string excludeSeparator = StringConst.String_Vertical)
+			string excludeSeparator = StringConst.STRING_VERTICAL)
 		{
 			var excludeTypeList = new List<Type>();
 			if (string.IsNullOrEmpty(excludeComponentTypes))
@@ -166,12 +166,12 @@ namespace DG
 					return result.gameObject;
 			}
 
-			string name = path.GetPreString(StringConst.String_Slash);
+			string name = path.GetPreString(StringConst.STRING_SLASH);
 			var gameObject = new GameObject(name);
 			if (parentGameObject != null)
 				gameObject.transform.ResetToParent(parentGameObject.transform);
 			return !name.Equals(path)
-				? GetOrNewGameObject(path.GetPostString(StringConst.String_Slash), gameObject)
+				? GetOrNewGameObject(path.GetPostString(StringConst.STRING_SLASH), gameObject)
 				: gameObject;
 		}
 

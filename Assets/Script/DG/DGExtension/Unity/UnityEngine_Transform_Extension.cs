@@ -143,7 +143,7 @@ namespace DG
 		/// 从根物体到当前物体的全路径, 以/分隔
 		/// </summary>
 		public static string GetFullPath(this Transform self, Transform rootTransform = null,
-			string separator = StringConst.String_Slash)
+			string separator = StringConst.STRING_SLASH)
 		{
 			return TransformUtil.GetFullPath(self, rootTransform, separator);
 		}

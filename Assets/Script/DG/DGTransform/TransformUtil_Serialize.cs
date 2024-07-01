@@ -14,9 +14,9 @@ namespace DG
 		{
 			Hashtable hashtable = new Hashtable
 			{
-				[StringConst.String_localPosition] = transform.localPosition.ToStringOrDefault(),
-				[StringConst.String_localEulerAngles] = transform.localEulerAngles.ToStringOrDefault(),
-				[StringConst.String_localScale] = transform.localScale.ToStringOrDefault(null, Vector3.one)
+				[StringConst.STRING_LOCAL_POSITION] = transform.localPosition.ToStringOrDefault(),
+				[StringConst.STRING_LOCAL_EULER_ANGLES] = transform.localEulerAngles.ToStringOrDefault(),
+				[StringConst.STRING_LOCAL_SCALE] = transform.localScale.ToStringOrDefault(null, Vector3.one)
 			};
 			hashtable.Trim();
 			return hashtable;
@@ -24,9 +24,9 @@ namespace DG
 
 		public static void LoadSerializeHashtable(Transform transform, Hashtable hashtable)
 		{
-			transform.localPosition = hashtable.Get<string>(StringConst.String_localPosition).ToVector3OrDefault();
-			transform.localEulerAngles = hashtable.Get<string>(StringConst.String_localEulerAngles).ToVector3OrDefault();
-			transform.localScale = hashtable.Get<string>(StringConst.String_localScale)
+			transform.localPosition = hashtable.Get<string>(StringConst.STRING_LOCAL_POSITION).ToVector3OrDefault();
+			transform.localEulerAngles = hashtable.Get<string>(StringConst.STRING_LOCAL_EULER_ANGLES).ToVector3OrDefault();
+			transform.localScale = hashtable.Get<string>(StringConst.STRING_LOCAL_SCALE)
 				.ToVector3OrDefault(null, Vector3.one);
 		}
 	}

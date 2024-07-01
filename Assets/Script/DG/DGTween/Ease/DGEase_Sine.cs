@@ -12,12 +12,12 @@ namespace DG
 		{
 			public static float EaseIn(float t, float b, float c, float d)
 			{
-				return -c * (float)Math.Cos(t / d * MathConst.Half_PI) + c + b;
+				return -c * (float)Math.Cos(t / d * MathConst.HALF_PI) + c + b;
 			}
 
 			public static float EaseOut(float t, float b, float c, float d)
 			{
-				return c * (float)Math.Sin(t / d * MathConst.Half_PI) + b;
+				return c * (float)Math.Sin(t / d * MathConst.HALF_PI) + b;
 			}
 
 			public static float EaseInOut(float t, float b, float c, float d)

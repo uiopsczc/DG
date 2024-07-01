@@ -6,7 +6,7 @@ namespace DG
 	{
 		public static string GetDefaultString()
 		{
-			return StringConst.String_Null_In_Table;
+			return StringConst.STRING_NULL_IN_TABLE;
 		}
 	}
 }

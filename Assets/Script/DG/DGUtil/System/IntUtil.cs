@@ -35,7 +35,7 @@ namespace DG
 		/// </summary>
 		public static string ToHexString(int v)
 		{
-			return v.ToString(StringConst.String_X);
+			return v.ToString(StringConst.STRING_X);
 		}
 
 		#endregion
@@ -103,7 +103,7 @@ namespace DG
 
 		public static string ToStringWithComma(int v)
 		{
-			return string.Format(StringConst.String_Format_NumberWithComma, v);
+			return string.Format(StringConst.STRING_FORMAT_NUMBER_WITH_COMMA, v);
 		}
 	}
 }

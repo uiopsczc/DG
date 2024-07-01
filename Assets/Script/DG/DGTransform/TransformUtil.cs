@@ -18,10 +18,10 @@ namespace DG
 		{
 			string prefabName = transform.name;
 			int removeIndex = -1;
-			if ((removeIndex = prefabName.IndexOf(StringConst.String_LeftRoundBrackets)) >= 0)
+			if ((removeIndex = prefabName.IndexOf(StringConst.STRING_LEFT_ROUND_BRACKETS)) >= 0)
 				prefabName = prefabName.Remove(removeIndex);
 
-			if ((removeIndex = prefabName.IndexOf(StringConst.String_Space)) >= 0)
+			if ((removeIndex = prefabName.IndexOf(StringConst.STRING_SPACE)) >= 0)
 				prefabName = prefabName.Remove(removeIndex);
 
 			return prefabName;
@@ -69,7 +69,7 @@ namespace DG
 		public static Component FindComponentInChildren(Transform transform, Type type, string name,
 			bool isRecursive = true, bool isStartWith = true)
 		{
-			if (name.IndexOf(CharConst.Char_Slash) != -1)
+			if (name.IndexOf(CharConst.CHAR_SLASH) != -1)
 				return transform.Find(name).GetComponent(type);
 
 			for (int i = 0; i < transform.childCount; i++)
@@ -287,7 +287,7 @@ namespace DG
 		/// 从根物体到当前物体的全路径, 以/分隔
 		/// </summary>
 		public static string GetFullPath(Transform transform, Transform rootTransform = null,
-			string separator = StringConst.String_Slash)
+			string separator = StringConst.STRING_SLASH)
 		{
 			var stringBuilder = new StringBuilder();
 			stringBuilder.Append(transform.name);
@@ -362,13 +362,13 @@ namespace DG
 			Transform parentNode = transform.parent;
 			while (!(parentNode == null || parentNode == parentTransform))
 			{
-				stringBuilder.Insert(0, parentNode.name + StringConst.String_Slash);
+				stringBuilder.Insert(0, parentNode.name + StringConst.STRING_SLASH);
 				parentNode = parentNode.parent;
 			}
 
 			bool isFound = parentTransform == parentNode;
 			if (isFound && parentNode != null)
-				stringBuilder.Insert(0, parentNode.name + StringConst.String_Slash);
+				stringBuilder.Insert(0, parentNode.name + StringConst.STRING_SLASH);
 			return (isFound, stringBuilder.ToString());
 		}
 
@@ -887,8 +887,8 @@ namespace DG
 
 		public static Transform GetSocketTransform(Transform transform, string socketName = null)
 		{
-			socketName = socketName ?? StringConst.String_Empty;
-			Transform socketTransform = transform.gameObject.GetOrAddCache(StringConst.String_socket, socketName, () =>
+			socketName = socketName ?? StringConst.STRING_EMPTY;
+			Transform socketTransform = transform.gameObject.GetOrAddCache(StringConst.STRING_SOCKET, socketName, () =>
 			{
 				if (socketName.IsNullOrWhiteSpace())
 					return transform;

@@ -32,7 +32,7 @@ namespace DG
 				return;
 			//最后一个参数的名称不为remove开始的话，则不用处理
 			if (!delegateParameterInfos[delegateParameterInfos.Length - 1].Name
-				.StartsWith(StringConst.String_remove))
+				.StartsWith(StringConst.STRING_REMOVE))
 				return;
 			delegateInfo.toRemove = Delegate.Combine(delegateInfo.toRemove, delegateToRemove);
 			delegateInfo._remain = Delegate.Remove(delegateInfo._remain, delegateToRemove);

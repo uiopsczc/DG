@@ -90,21 +90,21 @@ namespace DG
 		{
 			bool first = true;
 			var stringBuilder = new StringBuilder();
-			stringBuilder.Append(CharConst.Char_LeftCurlyBrackets);
+			stringBuilder.Append(CharConst.CHAR_LEFT_CURLY_BRACKETS);
 			for (var i = 0; i < _keyList.Count; i++)
 			{
 				object key = _keyList[i];
 				if (first)
 					first = false;
 				else
-					stringBuilder.Append(CharConst.Char_Comma);
+					stringBuilder.Append(CharConst.CHAR_COMMA);
 				stringBuilder.Append(key.DGToString(isFillStringWithDoubleQuote));
-				stringBuilder.Append(CharConst.Char_Colon);
+				stringBuilder.Append(CharConst.CHAR_COLON);
 				object value = base[key];
 				stringBuilder.Append(value.DGToString(isFillStringWithDoubleQuote));
 			}
 
-			stringBuilder.Append(CharConst.Char_RightCurlyBrackets);
+			stringBuilder.Append(CharConst.CHAR_RIGHT_CURLY_BRACKETS);
 			return stringBuilder.ToString();
 		}
 
