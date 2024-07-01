@@ -7,7 +7,7 @@ namespace DG
 	{
 		public void Add(TKey key, TValue value, bool isValueUnique = false)
 		{
-			this.GetOrAddDefault(key, () => new List<TValue>());
+			this.GetOrAddByDefaultFunc(key, () => new List<TValue>());
 			if (isValueUnique && this[key].Contains(value))
 				return;
 			this[key].Add(value);

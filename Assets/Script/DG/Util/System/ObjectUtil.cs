@@ -1224,11 +1224,11 @@ namespace DG
 			return CloneUtil.Clone(self);
 		}
 
-//		public static void Despawn(object obj)
+//		public static void DeSpawn(object obj)
 //		{
-//			if (obj is IDespawn spawn)
+//			if (obj is IDeSpawn spawn)
 //			{
-//				spawn.Despawn();
+//				spawn.DeSpawn();
 //			}
 //		}
 

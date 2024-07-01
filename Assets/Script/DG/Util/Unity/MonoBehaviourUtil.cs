@@ -158,7 +158,7 @@ namespace DG
 
 		public static MonoBehaviourCache GetMonoBehaviourCache(MonoBehaviour monoBehaviour)
 		{
-			return monoBehaviour.GetPropertyValue<MonoBehaviourCache>(MonoBehaviourCacheConst.MonoBehaviourCache);
+			return monoBehaviour.GetPropertyValue<MonoBehaviourCache>(MonoBehaviourCacheConst.MONO_BEHAVIOUR_CACHE);
 		}
 
 		/// <summary>
@@ -174,7 +174,7 @@ namespace DG
 			Func<T> whenNotContainKeyFunc)
 		{
 			MonoBehaviourCache monoBehaviourCache = monoBehaviour.GetMonoBehaviourCache();
-			return monoBehaviourCache.dict.GetOrAddDefault(dictName, () => whenNotContainKeyFunc());
+			return monoBehaviourCache.dict.GetOrAddByDefaultFunc(dictName, whenNotContainKeyFunc);
 		}
 
 		/// <summary>
@@ -198,13 +198,13 @@ namespace DG
 		public static Dictionary<string, IEnumerator> GetCacheIEnumeratorDict(MonoBehaviour monoBehaviour)
 		{
 			return monoBehaviour.GetOrAddCacheDict<Dictionary<string, IEnumerator>>(MonoBehaviourCacheConst
-				.IEnumeratorDict);
+				.IENUMERATOR_DICT);
 		}
 
 		public static Dictionary<string, PausableCoroutine> GetCachePausableCoroutineDict(MonoBehaviour monoBehaviour)
 		{
 			return monoBehaviour.GetOrAddCacheDict<Dictionary<string, PausableCoroutine>>(MonoBehaviourCacheConst
-				.PausableCoroutineDict);
+				.PAUSABLE_COROUTINE_DICT);
 		}
 
 		#endregion

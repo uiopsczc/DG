@@ -5,25 +5,25 @@ namespace DG
 {
 	public class TextUtil
 	{
-		private const string Text_Is_Gray_Key = "Text_Is_Gray";
-		private const string Text_Origin_Color_Of_Gray_Key = "Text_Origin_Color_Of_Gray";
+		private const string _TEXT_IS_GRAY_KEY = "Text_Is_Gray";
+		private const string _TEXT_ORIGIN_COLOR_OF_GRAY_KEY = "Text_Origin_Color_Of_Gray";
 
 		public static void SetIsGray(Text text, bool isGray)
 		{
 			if (text == null)
 				return;
 			var monoBehaviourCache = text.GetMonoBehaviourCache();
-			bool textIsGray = monoBehaviourCache.GetOrGetDefault(Text_Is_Gray_Key, () => false);
+			bool textIsGray = monoBehaviourCache.GetOrGetByDefaultFunc(_TEXT_IS_GRAY_KEY, () => false);
 			if (textIsGray == isGray) return;
 			if (isGray)
 			{
-				monoBehaviourCache[Text_Origin_Color_Of_Gray_Key] = text.color;
+				monoBehaviourCache[_TEXT_ORIGIN_COLOR_OF_GRAY_KEY] = text.color;
 				text.color = text.color.ToGray();
 			}
 			else
-				text.color = monoBehaviourCache.Get<Color>(Text_Origin_Color_Of_Gray_Key);
+				text.color = monoBehaviourCache.Get<Color>(_TEXT_ORIGIN_COLOR_OF_GRAY_KEY);
 
-			monoBehaviourCache[Text_Is_Gray_Key] = isGray;
+			monoBehaviourCache[_TEXT_IS_GRAY_KEY] = isGray;
 		}
 
 		public static void SetAlpha(Text text, float alpha)

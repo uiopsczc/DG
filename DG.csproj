@@ -70,6 +70,10 @@
     <Compile Include="Assets\Script\DG\Audio\Util\AudioSourceUtil.cs" />
     <Compile Include="Assets\Script\DG\BitMask\BitMask.cs" />
     <Compile Include="Assets\Script\DG\BuildConst.cs" />
+    <Compile Include="Assets\Script\DG\Cache\Cache.cs" />
+    <Compile Include="Assets\Script\DG\Cache\CacheMonoBehaviour.cs" />
+    <Compile Include="Assets\Script\DG\Cache\Const\MonoBehaviourCacheConst.cs" />
+    <Compile Include="Assets\Script\DG\Cache\MonoBehaviourCache.cs" />
     <Compile Include="Assets\Script\DG\Color\Enum\ColorMode.cs" />
     <Compile Include="Assets\Script\DG\Color\Util\ColorUtil.cs" />
     <Compile Include="Assets\Script\DG\Comparator\AlphanumComparator.cs" />
@@ -119,10 +123,6 @@
     <Compile Include="Assets\Script\DG\DGArray\DGArray^8.cs" />
     <Compile Include="Assets\Script\DG\DGArray\DGArray^9.cs" />
     <Compile Include="Assets\Script\DG\DGArray\Test\DGArrayTest.cs" />
-    <Compile Include="Assets\Script\DG\DGCache\Cache.cs" />
-    <Compile Include="Assets\Script\DG\DGCache\CacheMonoBehaviour.cs" />
-    <Compile Include="Assets\Script\DG\DGCache\Const\MonoBehaviourCacheConst.cs" />
-    <Compile Include="Assets\Script\DG\DGCache\MonoBehaviourCache.cs" />
     <Compile Include="Assets\Script\DG\DGFixedPoint\Const\DGFixedPointConstInternal.cs" />
     <Compile Include="Assets\Script\DG\DGFixedPoint\DGFixedPoint.cs" />
     <Compile Include="Assets\Script\DG\DGFixedPoint\GenTool\GenDGFixedPointLookUpTableTool.cs" />

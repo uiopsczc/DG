@@ -691,9 +691,9 @@ namespace DG
 			return ObjectUtil.Clone(self);
 		}
 
-//		public static void Despawn(this object self)
+//		public static void DeSpawn(this object self)
 //		{
-//			return ObjectUtil.Despawn(self);
+//			return ObjectUtil.DeSpawn(self);
 //		}
 
 		public static object GetNotNullKey(this object self)

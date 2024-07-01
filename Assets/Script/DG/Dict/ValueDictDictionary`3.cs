@@ -8,7 +8,7 @@ namespace DG
 	{
 		public void Set(TKey1 key1, TKey2 key2, TValue2 value2)
 		{
-			this.GetOrAddDefault(key1, () => new Dictionary<TKey2, TValue2>());
+			this.GetOrAddByDefaultFunc(key1, () => new Dictionary<TKey2, TValue2>());
 			this[key1][key2] = value2;
 		}
 

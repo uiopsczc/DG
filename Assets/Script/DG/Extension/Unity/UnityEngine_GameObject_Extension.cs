@@ -113,9 +113,9 @@ namespace DG
 			return GameObjectUtil.IsSceneGameObject(self);
 		}
 
-		//		public static void Despawn(this GameObject self)
+		//		public static void DeSpawn(this GameObject self)
 		//		{
-		//			return GameObjectUtil.Despawn(self);
+		//			return GameObjectUtil.DeSpawn(self);
 		//		}
 
 		public static void SetCache(this GameObject self, string key, object obj)

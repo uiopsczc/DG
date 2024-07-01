@@ -205,7 +205,7 @@ namespace DG
 			return dict.Contains(key) ? dict[key].To<T>() : defaultValue;
 		}
 
-		public static T GetOrGetDefault<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
+		public static T GetOrGetByDefaultFunc<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
 		{
 			if (dict.Contains(key))
 				return dict[key].To<T>();
@@ -218,7 +218,7 @@ namespace DG
 			return dict.Contains(key) ? dict[key].To<T>() : new T();
 		}
 
-		public static T GetOrGetNew<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
+		public static T GetOrGetByNewFunc<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
 		{
 			if (dict.Contains(key))
 				return dict[key].To<T>();
@@ -235,7 +235,7 @@ namespace DG
 			return defaultValue;
 		}
 
-		public static T GetOrAddDefault<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
+		public static T GetOrAddByDefaultFunc<T>(IDictionary dict, object key, Func<T> defaultFunc = null)
 		{
 			if (dict.Contains(key))
 				return dict[key].To<T>();
@@ -252,7 +252,7 @@ namespace DG
 			return result;
 		}
 
-		public static T GetOrAddNew<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
+		public static T GetOrAddByNewFunc<T>(IDictionary dict, object key, Func<T> newFunc = null) where T : new()
 		{
 			if (dict.Contains(key))
 				return dict[key].To<T>();

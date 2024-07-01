@@ -195,14 +195,14 @@ namespace DG
 			return self.scene.IsValid();
 		}
 
-		//		public static void Despawn(GameObject gameObject)
+		//		public static void DeSpawn(GameObject gameObject)
 		//		{
 		//			if (gameObject == null)
 		//				return;
 		//			if (gameObject.IsCacheContainsKey(PoolCatConst.Pool_Item))
 		//			{
 		//				IPoolItem poolItem = gameObject.GetCache<IPoolItem>(PoolCatConst.Pool_Item);
-		//				poolItem.Despawn();
+		//				poolItem.DeSpawn();
 		//			}
 		//		}
 
@@ -234,7 +234,7 @@ namespace DG
 		public static T GetOrAddCache<T>(GameObject gameObject, string key, Func<T> defaultFunc)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			return cache.GetOrAddDefault(key, defaultFunc);
+			return cache.GetOrAddByDefaultFunc(key, defaultFunc);
 		}
 
 		public static object GetOrAddCache(GameObject gameObject, string key, Func<object> defaultFunc)
@@ -245,7 +245,7 @@ namespace DG
 		public static T GetOrAddCache<T>(GameObject gameObject, string key, string subKey, Func<T> defaultFunc)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			return cache.GetOrAdd(key, subKey, defaultFunc);
+			return cache.GetOrAddByDefaultFunc(key, subKey, defaultFunc);
 		}
 
 		public static bool IsCacheContainsKey(GameObject gameObject, string key)
