@@ -32,7 +32,7 @@ namespace DG
 
 		public static void SetColor(System.Object obj, string memberName, ColorMode rgbaMode, params float[] rgba)
 		{
-			FieldInfo fieldInfo = obj.GetType().GetFieldInfo(memberName, BindingFlagsConst.All);
+			FieldInfo fieldInfo = obj.GetType().GetFieldInfo(memberName, BindingFlagsConst.ALL);
 			if (fieldInfo != null)
 			{
 				Color oldColor = (Color) fieldInfo.GetValue(obj);
@@ -41,7 +41,7 @@ namespace DG
 				return;
 			}
 
-			PropertyInfo propertyInfo = obj.GetType().GetPropertyInfo(memberName, BindingFlagsConst.All);
+			PropertyInfo propertyInfo = obj.GetType().GetPropertyInfo(memberName, BindingFlagsConst.ALL);
 			if (propertyInfo != null)
 			{
 				Color oldColor = (Color) propertyInfo.GetValue(obj, null);
