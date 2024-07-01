@@ -20,50 +20,50 @@ namespace DG
 		#region property
 
 		//与Component中的过时组件对应
-		public GameObject gameObject => dict.GetOrAddByDefaultFunc(typeof(GameObject), () => _owner.gameObject);
+		public GameObject gameObject => _dict.GetOrAddByDefaultFunc(typeof(GameObject), () => _owner.gameObject);
 
-		public Rigidbody rigidbody => dict.GetOrAddByDefaultFunc(typeof(Rigidbody), () => _owner.GetComponent<Rigidbody>());
+		public Rigidbody rigidbody => _dict.GetOrAddByDefaultFunc(typeof(Rigidbody), () => _owner.GetComponent<Rigidbody>());
 
 		public Rigidbody2D rigidbody2D =>
-			dict.GetOrAddByDefaultFunc(typeof(Rigidbody2D), () => _owner.GetComponent<Rigidbody2D>());
+			_dict.GetOrAddByDefaultFunc(typeof(Rigidbody2D), () => _owner.GetComponent<Rigidbody2D>());
 
-		public Camera camera => dict.GetOrAddByDefaultFunc(typeof(Camera), () => _owner.GetComponent<Camera>());
+		public Camera camera => _dict.GetOrAddByDefaultFunc(typeof(Camera), () => _owner.GetComponent<Camera>());
 
-		public Light light => dict.GetOrAddByDefaultFunc(typeof(Light), () => _owner.GetComponent<Light>());
+		public Light light => _dict.GetOrAddByDefaultFunc(typeof(Light), () => _owner.GetComponent<Light>());
 
-		public Animation animation => dict.GetOrAddByDefaultFunc(typeof(Animation), () => _owner.GetComponent<Animation>());
+		public Animation animation => _dict.GetOrAddByDefaultFunc(typeof(Animation), () => _owner.GetComponent<Animation>());
 
 		public ConstantForce constantForce =>
-			dict.GetOrAddByDefaultFunc(typeof(ConstantForce), () => _owner.GetComponent<ConstantForce>());
+			_dict.GetOrAddByDefaultFunc(typeof(ConstantForce), () => _owner.GetComponent<ConstantForce>());
 
-		public Renderer renderer => dict.GetOrAddByDefaultFunc(typeof(Renderer), () => _owner.GetComponent<Renderer>());
+		public Renderer renderer => _dict.GetOrAddByDefaultFunc(typeof(Renderer), () => _owner.GetComponent<Renderer>());
 
-		public AudioSource audio => dict.GetOrAddByDefaultFunc(typeof(AudioSource), () => _owner.GetComponent<AudioSource>());
+		public AudioSource audio => _dict.GetOrAddByDefaultFunc(typeof(AudioSource), () => _owner.GetComponent<AudioSource>());
 
-		//  public GUIElement guiElement { get { return dict.GetOrAddByDefaultFunc(typeof(GUIElement), () => { return owner.GetComponent<GUIElement>(); }); } }
-		public Collider collider => dict.GetOrAddByDefaultFunc(typeof(Collider), () => _owner.GetComponent<Collider>());
+		//  public GUIElement guiElement { get { return _dict.GetOrAddByDefaultFunc(typeof(GUIElement), () => { return owner.GetComponent<GUIElement>(); }); } }
+		public Collider collider => _dict.GetOrAddByDefaultFunc(typeof(Collider), () => _owner.GetComponent<Collider>());
 
 		public Collider2D collider2D =>
-			dict.GetOrAddByDefaultFunc(typeof(Collider2D), () => _owner.GetComponent<Collider2D>());
+			_dict.GetOrAddByDefaultFunc(typeof(Collider2D), () => _owner.GetComponent<Collider2D>());
 
 		public HingeJoint hingeJoint =>
-			dict.GetOrAddByDefaultFunc(typeof(HingeJoint), () => _owner.GetComponent<HingeJoint>());
+			_dict.GetOrAddByDefaultFunc(typeof(HingeJoint), () => _owner.GetComponent<HingeJoint>());
 
-		public Transform transform => dict.GetOrAddByDefaultFunc(typeof(Transform), () => _owner.GetComponent<Transform>());
+		public Transform transform => _dict.GetOrAddByDefaultFunc(typeof(Transform), () => _owner.GetComponent<Transform>());
 
 		public ParticleSystem particleSystem =>
-			dict.GetOrAddByDefaultFunc(typeof(ParticleSystem), () => _owner.GetComponent<ParticleSystem>());
+			_dict.GetOrAddByDefaultFunc(typeof(ParticleSystem), () => _owner.GetComponent<ParticleSystem>());
 
 		public RectTransform rectTransform =>
-			dict.GetOrAddByDefaultFunc(typeof(RectTransform), () => _owner.GetComponent<RectTransform>());
+			_dict.GetOrAddByDefaultFunc(typeof(RectTransform), () => _owner.GetComponent<RectTransform>());
 
-		public Animator animator => dict.GetOrAddByDefaultFunc(typeof(Animator), () => _owner.GetComponent<Animator>());
+		public Animator animator => _dict.GetOrAddByDefaultFunc(typeof(Animator), () => _owner.GetComponent<Animator>());
 
 		public BoxCollider boxCollider =>
-			dict.GetOrAddByDefaultFunc(typeof(BoxCollider), () => _owner.GetComponent<BoxCollider>());
+			_dict.GetOrAddByDefaultFunc(typeof(BoxCollider), () => _owner.GetComponent<BoxCollider>());
 
 		public SpriteRenderer spriteRenderer =>
-			dict.GetOrAddByDefaultFunc(typeof(SpriteRenderer), () => _owner.GetComponent<SpriteRenderer>());
+			_dict.GetOrAddByDefaultFunc(typeof(SpriteRenderer), () => _owner.GetComponent<SpriteRenderer>());
 
 		#endregion
 

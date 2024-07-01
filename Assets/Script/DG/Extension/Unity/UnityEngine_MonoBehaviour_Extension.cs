@@ -113,7 +113,7 @@ namespace DG
 
 		/// <summary>
 		/// 在mono中需要有这个属性  protected CacheMono cacheMono=new CacheMono(this);
-		/// 获取或者添加cacheMono.dict[dictName]
+		/// 获取或者添加cacheMono._dict[dictName]
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
@@ -128,7 +128,7 @@ namespace DG
 
 		/// <summary>
 		/// 在mono中需要有这个属性  protected CacheMono cacheMono=new CacheMono(this);
-		/// 获取或者添加 cacheMono.dict[dictName]
+		/// 获取或者添加 cacheMono._dict[dictName]
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
@@ -140,7 +140,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// 获取或添加 Dictionary<string, IEnumerator> cacheMono.dict["IEnumeratorDict"]
+		/// 获取或添加 Dictionary<string, IEnumerator> cacheMono._dict["IEnumeratorDict"]
 		/// </summary>
 		/// <param name="self"></param>
 		/// <returns></returns>

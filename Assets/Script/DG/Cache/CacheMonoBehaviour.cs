@@ -19,7 +19,7 @@ namespace DG
 		{
 			if (key == null)
 				key = obj.GetType().FullName;
-			Dictionary<string, object> subDict = dict.GetOrAddNew<Dictionary<string, object>>(key);
+			Dictionary<string, object> subDict = dict.GetOrAddByNew<Dictionary<string, object>>(key);
 			subDict[subKey] = obj;
 		}
 
@@ -76,7 +76,7 @@ namespace DG
 		{
 			if (key == null)
 				key = typeof(T).FullName;
-			return dict.GetOrAddNew<T>(key);
+			return dict.GetOrAddByNew<T>(key);
 		}
 
 		public T GetOrAddByNewFunc<T>(string key, Func<T> newFunc) where T : new()

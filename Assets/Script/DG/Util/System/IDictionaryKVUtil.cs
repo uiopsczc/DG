@@ -19,7 +19,7 @@ namespace DG
 			return defaultValue;
 		}
 
-		public static V GetOrGetDefault<K,V>(IDictionary<K,V> dict, K key, Func<V> defaultFunc = null)
+		public static V GetOrGetByDefaultFunc<K,V>(IDictionary<K,V> dict, K key, Func<V> defaultFunc = null)
 		{
 			if (dict.TryGetValue(key, out var result))
 				return result;
@@ -32,7 +32,7 @@ namespace DG
 			return new V();
 		}
 
-		public static V GetOrGetNew<K,V>(IDictionary<K,V> dict, K key, Func<V> newFunc = null) where V : new()
+		public static V GetOrGetByNewFunc<K,V>(IDictionary<K,V> dict, K key, Func<V> newFunc = null) where V : new()
 		{
 			if (dict.TryGetValue(key, out var result))
 				return result;
@@ -47,7 +47,7 @@ namespace DG
 			return defaultValue;
 		}
 
-		public static V GetOrAddDefault<K,V>(IDictionary<K,V> dict, K key, Func<V> defaultFunc = null)
+		public static V GetOrAddByDefaultFunc<K,V>(IDictionary<K,V> dict, K key, Func<V> defaultFunc = null)
 		{
 			if (dict.TryGetValue(key, out var result))
 				return result;
@@ -64,7 +64,7 @@ namespace DG
 			return result;
 		}
 
-		public static V GetOrAddNew<K, V>(IDictionary<K, V> dict, K key, Func<V> newFunc = null) where V : new()
+		public static V GetOrAddByNewFunc<K, V>(IDictionary<K, V> dict, K key, Func<V> newFunc = null) where V : new()
 		{
 			if (dict.TryGetValue(key, out var result))
 				return result;

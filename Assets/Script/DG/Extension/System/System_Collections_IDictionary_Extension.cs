@@ -75,7 +75,7 @@ namespace DG
 		{
 			return IDictionaryUtil.GetOrAddByDefaultFunc<T>(self, key, defaultFunc);
 		}
-		public static T GetOrAddNew<T>(this IDictionary self, object key) where T : new()
+		public static T GetOrAddByNew<T>(this IDictionary self, object key) where T : new()
 		{
 			return IDictionaryUtil.GetOrAddNew<T>(self, key);
 		}

@@ -17,7 +17,7 @@ namespace DG
 
 		public static V GetOrGetByDefaultFunc<K, V>(this IDictionary<K, V> self, K key, Func<V> defaultFunc = null)
 		{
-			return IDictionaryKVUtil.GetOrGetDefault(self, key, defaultFunc);
+			return IDictionaryKVUtil.GetOrGetByDefaultFunc(self, key, defaultFunc);
 		}
 		public static V GetOrGetNew<K, V>(this IDictionary<K, V> self, K key) where V : new()
 		{
@@ -26,7 +26,7 @@ namespace DG
 
 		public static V GetOrGetByNewFunc<K, V>(this IDictionary<K, V> self, K key, Func<V> newFunc = null) where V : new()
 		{
-			return IDictionaryKVUtil.GetOrGetNew(self, key, newFunc);
+			return IDictionaryKVUtil.GetOrGetByNewFunc(self, key, newFunc);
 		}
 
 		public static V GetOrAddDefault<K, V>(this IDictionary<K, V> self, K key, V defaultValue = default)
@@ -36,7 +36,7 @@ namespace DG
 
 		public static V GetOrAddByDefaultFunc<K, V>(this IDictionary<K, V> self, K key, Func<V> defaultFunc = null)
 		{
-			return IDictionaryKVUtil.GetOrAddDefault(self, key, defaultFunc);
+			return IDictionaryKVUtil.GetOrAddByDefaultFunc(self, key, defaultFunc);
 		}
 		public static V GetOrAddNew<K, V>(this IDictionary<K, V> self, K key) where V : new()
 		{
@@ -45,7 +45,7 @@ namespace DG
 
 		public static V GetOrAddByNewFunc<K, V>(this IDictionary<K, V> self, K key, Func<V> newFunc = null) where V : new()
 		{
-			return IDictionaryKVUtil.GetOrAddNew(self, key, newFunc);
+			return IDictionaryKVUtil.GetOrAddByNewFunc(self, key, newFunc);
 		}
 
 		public static void RemoveByFunc<K, V>(this IDictionary<K, V> self, Func<K, V, bool> func)
