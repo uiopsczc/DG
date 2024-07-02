@@ -21,7 +21,7 @@ namespace DG
 			if (instanceGameObject != null)
 			{
 				instance = instanceGameObject.GetComponent<T>();
-				instance.SingletonInit();
+				instance.Init();
 				return instance;
 			}
 
@@ -35,7 +35,7 @@ namespace DG
 					GameObject inActiveGameObject = objects[i];
 					if (!inActiveGameObject.name.Equals(targetName)) continue;
 					instance = inActiveGameObject.GetComponent<T>();
-					instance.SingletonInit();
+					instance.Init();
 					return instance;
 				}
 			}
@@ -43,7 +43,7 @@ namespace DG
 			//如果都没有，新建一个
 			instanceGameObject = new GameObject(targetName);
 			instance = instanceGameObject.AddComponent<T>();
-			instance.SingletonInit();
+			instance.Init();
 			return instance;
 		}
 
@@ -57,7 +57,7 @@ namespace DG
 		{
 			if (instance != null) return instance;
 			instance = new T();
-			instance.SingletonInit();
+			instance.Init();
 
 			return instance;
 		}

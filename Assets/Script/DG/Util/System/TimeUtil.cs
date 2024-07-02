@@ -17,14 +17,14 @@ namespace DG
 			return (long)(second * 10000000);
 		}
 
-		public static TimeTable SecondToTimeTable(long seconds)
+		public static TimeInfo SecondToTimeTable(long seconds)
 		{
 			int day = (int)Mathf.Floor(seconds / (3600 * 24f));
 			int hour = (int)Mathf.Floor((seconds % (3600 * 24)) / 3600f);
 			int min = (int)Mathf.Floor((seconds % 3600) / 60f);
 			int sec = (int)Mathf.Floor(seconds % 60f);
 
-			return new TimeTable(day, hour, min, sec);
+			return new TimeInfo(day, hour, min, sec);
 		}
 
 		/// <summary>

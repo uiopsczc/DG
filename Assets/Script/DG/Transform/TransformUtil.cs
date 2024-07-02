@@ -36,13 +36,13 @@ namespace DG
 		/// <param name="name"></param>
 		/// <returns></returns>
 		public static Component[] FindComponentsInChildren(Transform transform, Type type, string name,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
 			List<Component> list = new List<Component>();
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				Transform child = transform.GetChild(i);
-				if (isStartWith)
+				if (isStartsWith)
 				{
 					if (child.name.StartsWith(name))
 						list.Add(child.GetComponent(type));
@@ -51,7 +51,7 @@ namespace DG
 					list.Add(child.GetComponent(type));
 
 				if (!isRecursive) continue;
-				Component[] components = FindComponentsInChildren(child, type, name, isRecursive, isStartWith);
+				Component[] components = FindComponentsInChildren(child, type, name, isRecursive, isStartsWith);
 				if (components == null || components.Length <= 0) continue;
 				list.AddRange(components);
 			}
@@ -60,14 +60,14 @@ namespace DG
 		}
 
 		public static T[] FindComponentsInChildren<T>(Transform transform, string name, bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			Component[] components = FindComponentsInChildren(transform, typeof(T), name, isRecursive, isStartWith);
+			Component[] components = FindComponentsInChildren(transform, typeof(T), name, isRecursive, isStartsWith);
 			return components?.ToArray<T>();
 		}
 
 		public static Component FindComponentInChildren(Transform transform, Type type, string name,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
 			if (name.IndexOf(CharConst.CHAR_SLASH) != -1)
 				return transform.Find(name).GetComponent(type);
@@ -75,7 +75,7 @@ namespace DG
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				Transform child = transform.GetChild(i);
-				if (isStartWith)
+				if (isStartsWith)
 				{
 					if (child.name.StartsWith(name))
 						return child.GetComponent(type);
@@ -85,7 +85,7 @@ namespace DG
 
 				if (isRecursive)
 				{
-					Component t = FindComponentInChildren(child, type, name, isRecursive, isStartWith);
+					Component t = FindComponentInChildren(child, type, name, isRecursive, isStartsWith);
 					if (t != null)
 						return t;
 				}
@@ -95,18 +95,18 @@ namespace DG
 		}
 
 		public static T FindComponentInChildren<T>(Transform transform, string name, bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return FindComponentInChildren(transform, typeof(T), name, isRecursive, isStartWith) as T;
+			return FindComponentInChildren(transform, typeof(T), name, isRecursive, isStartsWith) as T;
 		}
 
 		public static Component FindComponentWithTagInChildren(Transform transform, Type type, string tagName,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				Transform child = transform.GetChild(i);
-				if (isStartWith)
+				if (isStartsWith)
 				{
 					if (child.tag.StartsWith(tagName))
 						return child.GetComponent(type);
@@ -115,7 +115,7 @@ namespace DG
 					return child.GetComponent(type);
 
 				if (!isRecursive) continue;
-				Component component = FindComponentWithTagInChildren(child, type, tagName, true, isStartWith);
+				Component component = FindComponentWithTagInChildren(child, type, tagName, true, isStartsWith);
 				if (component != null)
 					return component;
 			}
@@ -125,29 +125,29 @@ namespace DG
 
 		public static T FindComponentWithTagInChildren<T>(Transform transform, string tagName,
 			bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return FindComponentWithTagInChildren(transform, typeof(T), tagName, isRecursive, isStartWith) as T;
+			return FindComponentWithTagInChildren(transform, typeof(T), tagName, isRecursive, isStartsWith) as T;
 		}
 
 		public static Component[] FindComponentsWithTagInChildren(Transform transform, Type type, string tagName,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
 			List<Component> list = new List<Component>();
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				Transform child = transform.GetChild(i);
-				if (isStartWith)
+				if (isStartsWith)
 				{
 					if (child.tag.StartsWith(tagName))
 						list.Add(child.GetComponent(type));
 				}
-				else if (child.tag.Equals(tagName))
+				else if (child.CompareTag(tagName))
 					list.Add(child.GetComponent(type));
 
 				if (!isRecursive) continue;
 				Component[] components =
-					FindComponentsWithTagInChildren(child, type, tagName, isRecursive, isStartWith);
+					FindComponentsWithTagInChildren(child, type, tagName, isRecursive, isStartsWith);
 				if (components == null || components.Length <= 0) continue;
 				list.AddRange(components);
 			}
@@ -157,10 +157,10 @@ namespace DG
 
 		public static T[] FindComponentsWithTagInChildren<T>(Transform transform, string tagName,
 			bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
 			Component[] components =
-				FindComponentsWithTagInChildren(transform, typeof(T), tagName, isRecursive, isStartWith);
+				FindComponentsWithTagInChildren(transform, typeof(T), tagName, isRecursive, isStartsWith);
 			return components?.ToArray<T>();
 		}
 

@@ -13,13 +13,10 @@ namespace DG
 
 		protected bool _CheckIsStarted()
 		{
-			if (!_isStarted)
-			{
-				_isStarted = true;
-				return false;
-			}
+			if (_isStarted) return true;
+			_isStarted = true;
+			return false;
 
-			return true;
 		}
 	}
 }

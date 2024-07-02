@@ -4,10 +4,7 @@ namespace DG
 	{
 		public override bool IsDone(float deltaTime)
 		{
-			if (!_CheckIsStarted())
-				return false;
-
-			return true;
+			return _CheckIsStarted();
 		}
 	}
 }

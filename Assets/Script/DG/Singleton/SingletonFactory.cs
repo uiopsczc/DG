@@ -26,7 +26,7 @@ namespace DG
 		public static SingletonFactory instance => _instance ?? (_instance = new SingletonFactory());
 
 
-		public void SingletonInit()
+		public void Init()
 		{
 		}
 

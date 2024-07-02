@@ -6,6 +6,6 @@ namespace DG
 
 	public interface ISingleton
 	{
-		void SingletonInit();
+		void Init();
 	}
 }

@@ -9,7 +9,7 @@ namespace DG
 		public GameObject[] inActiveGameObjects;
 		public static SingletonMaster instance => SingletonFactory.instance.GetMono<SingletonMaster>();
 
-		public void SingletonInit()
+		public void Init()
 		{
 		}
 

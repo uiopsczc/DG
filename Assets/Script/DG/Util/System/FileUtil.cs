@@ -28,14 +28,14 @@ namespace DG
 		public static string WithoutRootPath(string fullFilePath, string rootPath,
 			char slash = CharConst.CHAR_SLASH)
 		{
-			bool isFullFilePathStartWithSlash = fullFilePath.StartsWith(slash.ToString());
-			if (isFullFilePathStartWithSlash)
+			bool isFullFilePathStartsWithSlash = fullFilePath.StartsWith(slash.ToString());
+			if (isFullFilePathStartsWithSlash)
 				fullFilePath = fullFilePath.Substring(1);
-			bool isRootPathStartWithSlash = rootPath.StartsWith(slash.ToString());
-			if (isRootPathStartWithSlash)
+			bool isRootPathStartsWithSlash = rootPath.StartsWith(slash.ToString());
+			if (isRootPathStartsWithSlash)
 				rootPath = rootPath.Substring(1);
-			bool isRootPathEndWithSlash = rootPath.EndsWith(slash.ToString());
-			if (!isRootPathEndWithSlash)
+			bool isRootPathEndsWithSlash = rootPath.EndsWith(slash.ToString());
+			if (!isRootPathEndsWithSlash)
 				rootPath = rootPath + slash;
 			return fullFilePath.Replace(rootPath, StringConst.STRING_EMPTY);
 		}
@@ -49,11 +49,11 @@ namespace DG
 		public static string WithRootPath(string relativeFilePath, string rootPath,
 			char slash = CharConst.CHAR_SLASH)
 		{
-			bool isRootPathEndWithSlash = rootPath.EndsWith(slash.ToString());
-			if (isRootPathEndWithSlash)
+			bool isRootPathEndsWithSlash = rootPath.EndsWith(slash.ToString());
+			if (isRootPathEndsWithSlash)
 				rootPath = rootPath.Substring(0, rootPath.Length - 1);
-			bool isRelativeFilePathStartWithSlash = relativeFilePath.StartsWith(slash.ToString());
-			if (isRelativeFilePathStartWithSlash)
+			bool isRelativeFilePathStartsWithSlash = relativeFilePath.StartsWith(slash.ToString());
+			if (isRelativeFilePathStartsWithSlash)
 				relativeFilePath = relativeFilePath.Substring(1);
 
 			return rootPath + slash + relativeFilePath;

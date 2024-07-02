@@ -44,14 +44,14 @@ namespace DG
 			var b7 = a7.To_System_Numerics_Vector4();
 			var b8 = a8.To_System_Numerics_Vector3();
 
-			var c1 = new DGMatrix4x4(a1);
-			var c2 = new DGMatrix4x4(a2);
-			var c3 = new DGVector3(a3);
-			var c4 = new DGVector3(a4);
-			var c5 = new DGVector3(a5);
-			var c6 = new DGQuaternion(a6);
-			var c7 = new DGVector4(a7);
-			var c8 = new DGVector3(a8);
+			var c1 = new FPMatrix4x4(a1);
+			var c2 = new FPMatrix4x4(a2);
+			var c3 = new FPVector3(a3);
+			var c4 = new FPVector3(a4);
+			var c5 = new FPVector3(a5);
+			var c6 = new FPQuaternion(a6);
+			var c7 = new FPVector4(a7);
+			var c8 = new FPVector3(a8);
 
 
 			//		Matrix4x4.Perspective()
@@ -65,8 +65,8 @@ namespace DG
 			//		DGVector2? v = new DGVector2();
 			//		AA(ref v);
 			//		DGLog.Warn(v.Value);
-			var a = -DGFixedPoint.MinValue;
-			var b = DGFixedPoint.MaxValue;
+			var a = -FP.MIN_VALUE;
+			var b = FP.MAX_VALUE;
 			//		var c = new DGVector2(4,5);
 			//		c.x = (DGFixedPoint)888;
 			//		DGLog.Warn(a);
@@ -79,9 +79,9 @@ namespace DG
 DGLog.Warn(typeof(List<int>));
 		}
 
-		public static void AA(ref DGVector2? v)
+		public static void AA(ref FPVector2? v)
 		{
-			v.Value.set(new DGVector2(new Vector2(4, 5)));
+			v.Value.set(new FPVector2(new Vector2(4, 5)));
 		}
 
 	}

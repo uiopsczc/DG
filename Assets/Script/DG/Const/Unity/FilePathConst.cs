@@ -152,7 +152,7 @@ namespace DG
 
         #endregion
 
-        public static string GetPathStartWithRelativePath(string path, string relativePath)
+        public static string GetPathStartsWithRelativePath(string path, string relativePath)
         {
             path = GetPathRelativeTo(path, relativePath);
             path = relativePath + path;

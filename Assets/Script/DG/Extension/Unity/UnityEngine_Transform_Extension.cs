@@ -26,53 +26,53 @@ namespace DG
 		/// <param name="name"></param>
 		/// <returns></returns>
 		public static Component[] FindComponentsInChildren(this Transform self, Type type, string name,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
-			return TransformUtil.FindComponentsInChildren(self, type, name, isRecursive, isStartWith);
+			return TransformUtil.FindComponentsInChildren(self, type, name, isRecursive, isStartsWith);
 		}
 
 		public static T[] FindComponentsInChildren<T>(this Transform self, string name, bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return TransformUtil.FindComponentsInChildren<T>(self, name, isRecursive, isStartWith);
+			return TransformUtil.FindComponentsInChildren<T>(self, name, isRecursive, isStartsWith);
 		}
 
 		public static Component FindComponentInChildren(this Transform self, Type type, string name,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
-			return TransformUtil.FindComponentInChildren(self, type, name, isRecursive, isStartWith);
+			return TransformUtil.FindComponentInChildren(self, type, name, isRecursive, isStartsWith);
 		}
 
 		public static T FindComponentInChildren<T>(this Transform self, string name, bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return TransformUtil.FindComponentInChildren<T>(self, name, isRecursive, isStartWith);
+			return TransformUtil.FindComponentInChildren<T>(self, name, isRecursive, isStartsWith);
 		}
 
 		public static Component FindComponentWithTagInChildren(this Transform self, Type type, string tagName,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
-			return TransformUtil.FindComponentWithTagInChildren(self, type, tagName, isRecursive, isStartWith);
+			return TransformUtil.FindComponentWithTagInChildren(self, type, tagName, isRecursive, isStartsWith);
 		}
 
 		public static T FindComponentWithTagInChildren<T>(this Transform self, string tagName,
 			bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return TransformUtil.FindComponentWithTagInChildren<T>(self, tagName, isRecursive, isStartWith);
+			return TransformUtil.FindComponentWithTagInChildren<T>(self, tagName, isRecursive, isStartsWith);
 		}
 
 		public static Component[] FindComponentsWithTagInChildren(this Transform self, Type type, string tagName,
-			bool isRecursive = true, bool isStartWith = true)
+			bool isRecursive = true, bool isStartsWith = true)
 		{
-			return TransformUtil.FindComponentsWithTagInChildren(self, type, tagName, isRecursive, isStartWith);
+			return TransformUtil.FindComponentsWithTagInChildren(self, type, tagName, isRecursive, isStartsWith);
 		}
 
 		public static T[] FindComponentsWithTagInChildren<T>(this Transform self, string tagName,
 			bool isRecursive = true,
-			bool isStartWith = true) where T : Component
+			bool isStartsWith = true) where T : Component
 		{
-			return TransformUtil.FindComponentsWithTagInChildren<T>(self, tagName, isRecursive, isStartWith);
+			return TransformUtil.FindComponentsWithTagInChildren<T>(self, tagName, isRecursive, isStartsWith);
 		}
 
 		#endregion

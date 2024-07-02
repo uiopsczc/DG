@@ -13,10 +13,7 @@ namespace DG
 
 		public override bool IsDone(float deltaTime)
 		{
-			if (!_CheckIsStarted())
-				return false;
-
-			return asyncOperation.isDone;
+			return _CheckIsStarted() && asyncOperation.isDone;
 		}
 	}
 }
