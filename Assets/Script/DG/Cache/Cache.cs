@@ -32,7 +32,13 @@ namespace DG
 
 		public T Get<T>(object key)
 		{
-			return (T)this._dict[key];
+			return (T) this._dict[key];
+		}
+
+		public bool TryGetValue(object key, out object value)
+		{
+			var hasValue = _dict.TryGetValue(key, out value);
+			return hasValue;
 		}
 
 		public bool ContainsKey(object key)
@@ -114,7 +120,7 @@ namespace DG
 
 		public T GetOrAddNew<T>(object key) where T : new()
 		{
-			return _dict.GetOrAddByNew<T>(key);
+			return _dict.GetOrAddNew<T>(key);
 		}
 
 		public T GetOrAddNew<T>() where T : new()

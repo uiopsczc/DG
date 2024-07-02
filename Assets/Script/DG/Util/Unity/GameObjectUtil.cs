@@ -215,7 +215,7 @@ namespace DG
 		public static void SetCache(GameObject gameObject, string key, string subKey, object obj)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			cache.Set(obj, key, subKey);
+			cache.SetSubKey(obj, key, subKey);
 		}
 
 		public static T GetCache<T>(GameObject gameObject, string key = null)
@@ -228,7 +228,7 @@ namespace DG
 		public static T GetCache<T>(GameObject gameObject, string key, string subKey)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			return cache.Get<T>(key, subKey);
+			return cache.GetSubKey<T>(key, subKey);
 		}
 
 		public static T GetOrAddCache<T>(GameObject gameObject, string key, Func<T> defaultFunc)
@@ -245,13 +245,13 @@ namespace DG
 		public static T GetOrAddCache<T>(GameObject gameObject, string key, string subKey, Func<T> defaultFunc)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			return cache.GetOrAddByDefaultFunc(key, subKey, defaultFunc);
+			return cache.GetSubKeyOrAddByDefaultFunc(key, subKey, defaultFunc);
 		}
 
 		public static bool IsCacheContainsKey(GameObject gameObject, string key)
 		{
 			CacheMonoBehaviour cache = gameObject.GetOrAddComponent<CacheMonoBehaviour>();
-			return cache.dict.ContainsKey(key);
+			return cache.ContainsKey(key);
 		}
 
 		public static GameObject NewChildGameObject(GameObject gameObject, string path = null)

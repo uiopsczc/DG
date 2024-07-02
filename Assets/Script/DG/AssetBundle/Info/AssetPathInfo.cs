@@ -1,5 +1,3 @@
-using DG;
-
 namespace DG
 {
 	public class AssetPathInfo
@@ -11,8 +9,7 @@ namespace DG
 		{
 			var paths = path.Split(CharConst.CHAR_COLON);
 			mainAssetPath = paths[0];
-			if (paths.Length > 1)
-				subAssetPath = paths[1];
+			subAssetPath = paths.Length > 1 ? paths[1] : null;
 		}
 	}
 }

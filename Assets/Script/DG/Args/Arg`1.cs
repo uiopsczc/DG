@@ -39,7 +39,7 @@ namespace DG
 			if (other == null)
 				return false;
 
-		    return ObjectUtil.EqualsArray(_args, other._args);
+			return ObjectUtil.EqualsArray(_args, other._args);
 		}
 
 		public override int GetHashCode()

@@ -32,7 +32,14 @@ namespace DG
 
 		public T Get<T>(K key)
 		{
-			return (T)this._dict[key];
+			return (T) this._dict[key];
+		}
+
+		public bool TryGetValue<T>(K key, out T value)
+		{
+			var hasValue = _dict.TryGetValue(key, out var result);
+			value = hasValue ? (T) result : default;
+			return hasValue;
 		}
 
 		public bool ContainsKey(K key)
@@ -53,24 +60,22 @@ namespace DG
 
 		public T GetOrGetDefault<T>(K key, T defaultValue = default)
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return  (T)result;
-		    return defaultValue;
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			return defaultValue;
+		}
 
 		public T GetOrGetDefault<T>(T defaultValue = default)
 		{
-		    return GetOrGetDefault(typeof(T).FullName.To<K>(), defaultValue);
+			return GetOrGetDefault(typeof(T).FullName.To<K>(), defaultValue);
 		}
 
 		public T GetOrGetByDefaultFunc<T>(K key, Func<T> defaultFunc)
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    if (defaultFunc != null)
-		        return defaultFunc();
-		    return default(T);
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			return defaultFunc != null ? defaultFunc() : default;
+		}
 
 		public T GetOrGetByDefaultFunc<T>(Func<T> defaultFunc)
 		{
@@ -79,10 +84,10 @@ namespace DG
 
 		public T GetOrGetNew<T>(K key) where T : new()
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    return new T();
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			return new T();
+		}
 
 		public T GetOrGetNew<T>() where T : new()
 		{
@@ -92,10 +97,10 @@ namespace DG
 
 		public T GetOrGetByNewFunc<T>(K key, Func<T> newFunc) where T : new()
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    return newFunc != null ? newFunc() : new T();
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			return newFunc != null ? newFunc() : new T();
+		}
 
 		public T GetOrGetByNewFunc<T>(Func<T> newFunc) where T : new()
 		{
@@ -104,11 +109,11 @@ namespace DG
 
 		public T GetOrAddDefault<T>(K key, T defaultValue = default)
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    _dict[key] = defaultValue;
-		    return defaultValue;
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			_dict[key] = defaultValue;
+			return defaultValue;
+		}
 
 		public T GetOrAddDefault<T>(T defaultValue = default)
 		{
@@ -117,12 +122,12 @@ namespace DG
 
 		public T GetOrAddByDefaultFunc<T>(K key, Func<T> defaultFunc)
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    result = defaultFunc != null ? defaultFunc() : default;
-		    _dict[key] = result;
-		    return (T)result;
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			result = defaultFunc != null ? defaultFunc() : default;
+			_dict[key] = result;
+			return (T) result;
+		}
 
 		public T GetOrAddByDefaultFunc<T>(Func<T> defaultFunc)
 		{
@@ -131,26 +136,26 @@ namespace DG
 
 		public T GetOrAddNew<T>(K key) where T : new()
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    result = new T();
-		    _dict[key] = result;
-		    return (T)result;
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			result = new T();
+			_dict[key] = result;
+			return (T) result;
+		}
 
 		public T GetOrAddNew<T>() where T : new()
 		{
-			return GetOrAddNew<T>(typeof(T).FullName .To<K>());
+			return GetOrAddNew<T>(typeof(T).FullName.To<K>());
 		}
 
 		public T GetOrAddByNewFunc<T>(K key, Func<T> newFunc) where T : new()
 		{
-		    if (_dict.TryGetValue(key, out var result))
-		        return (T)result;
-		    result = newFunc != null ? newFunc() : new T();
-		    _dict[key] = result;
-		    return (T)result;
-        }
+			if (_dict.TryGetValue(key, out var result))
+				return (T) result;
+			result = newFunc != null ? newFunc() : new T();
+			_dict[key] = result;
+			return (T) result;
+		}
 
 		public T GetOrAddNew<T>(Func<T> newFunc) where T : new()
 		{
