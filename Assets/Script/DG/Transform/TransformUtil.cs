@@ -10,7 +10,7 @@ namespace DG
 	public partial class TransformUtil
 	{
 		/// <summary>
-		/// GetName    ¸³ÖµÎïÌåµÄÊ±ºò£¬Ãû×Ö¿ÉÄÜ³öÏÖÈ¥µô£¨£©£¬¿Õ¸ñµÈ£¬È¥µôÕâĞ©ÈßÓàµÃµ½µÄÃû×Ö
+		/// GetName    èµ‹å€¼ç‰©ä½“çš„æ—¶å€™ï¼Œåå­—å¯èƒ½å‡ºç°å»æ‰ï¼ˆï¼‰ï¼Œç©ºæ ¼ç­‰ï¼Œå»æ‰è¿™äº›å†—ä½™å¾—åˆ°çš„åå­—
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <returns></returns>
@@ -30,7 +30,7 @@ namespace DG
 		#region Find children
 
 		/// <summary>
-		/// ÕÒµ½Ò»¸ö·ûºÏÌõ¼şµÄTransformAºó£¬²»»áÔÙÔÚ¸ÃTransformAÖĞ¼ÌĞø²éÕÒ£¬¶øÊÇÕÒTransformAµÄÏÂÒ»¸öĞÖµÜ½Úµã
+		/// æ‰¾åˆ°ä¸€ä¸ªç¬¦åˆæ¡ä»¶çš„TransformAåï¼Œä¸ä¼šå†åœ¨è¯¥TransformAä¸­ç»§ç»­æŸ¥æ‰¾ï¼Œè€Œæ˜¯æ‰¾TransformAçš„ä¸‹ä¸€ä¸ªå…„å¼ŸèŠ‚ç‚¹
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <param name="name"></param>
@@ -239,7 +239,7 @@ namespace DG
 		#endregion
 
 		/// <summary>
-		/// »ñÈ¡Ö±½Ó×Óº¢×Ó½Úµã
+		/// è·å–ç›´æ¥å­å­©å­èŠ‚ç‚¹
 		/// </summary>
 		/// <param name="root"></param>
 		/// <returns></returns>
@@ -257,7 +257,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Ïú»Ù×Ó½Úµã
+		/// é”€æ¯å­èŠ‚ç‚¹
 		/// </summary>
 		/// <param name="root"></param>
 		public static void DestroyChildren(Transform root)
@@ -267,7 +267,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Find×ÓObject£¬°üÀ¨DisableµÄObjectÒ²»á±éÀú»ñÈ¡
+		/// Findå­Objectï¼ŒåŒ…æ‹¬Disableçš„Objectä¹Ÿä¼šéå†è·å–
 		/// </summary>
 		public static Transform FindChildRecursive(Transform parent, string childName)
 		{
@@ -284,7 +284,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ´Ó¸ùÎïÌåµ½µ±Ç°ÎïÌåµÄÈ«Â·¾¶, ÒÔ/·Ö¸ô
+		/// ä»æ ¹ç‰©ä½“åˆ°å½“å‰ç‰©ä½“çš„å…¨è·¯å¾„, ä»¥/åˆ†éš”
 		/// </summary>
 		public static string GetFullPath(Transform transform, Transform rootTransform = null,
 			string separator = StringConst.STRING_SLASH)
@@ -303,7 +303,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µİ¹éÉèÖÃlayer
+		/// é€’å½’è®¾ç½®layer
 		/// </summary>
 		public static void SetLayerRecursive(Transform transform, int layer)
 		{
@@ -319,7 +319,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÖØÖÃ
+		/// é‡ç½®
 		/// </summary>
 		/// <param name="transform"></param>
 		public static void Reset(Transform transform,
@@ -834,7 +834,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÉèÖÃÄ¿±êÎïÌåÏÂËùÓĞ×ÓÎïÌåµÄÏÔÒş×´Ì¬
+		/// è®¾ç½®ç›®æ ‡ç‰©ä½“ä¸‹æ‰€æœ‰å­ç‰©ä½“çš„æ˜¾éšçŠ¶æ€
 		/// </summary>
 		/// <param name="transform"></param>
 		/// <param name="isActive"></param>
@@ -880,7 +880,7 @@ namespace DG
 			if (transformMode.Contains(TransformMode.localScale))
 				targetTransform.localScale = transform.localScale;
 
-			//ÓĞrectµÄ£¬rectÒ²Ò»Æğcopy
+			//æœ‰rectçš„ï¼Œrectä¹Ÿä¸€èµ·copy
 			if (transform.GetComponent<RectTransform>() != null && targetTransform.GetComponent<RectTransform>() != null)
 				targetTransform.GetComponent<RectTransform>().CopyFrom(transform.GetComponent<RectTransform>());
 		}

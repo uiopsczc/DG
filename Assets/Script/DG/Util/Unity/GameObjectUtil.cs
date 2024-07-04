@@ -8,7 +8,7 @@ namespace DG
 	public class GameObjectUtil
 	{
 		/// <summary>
-		///   ÓĞT·µ»ØT£¬Ã»TÌí¼ÓT
+		///   æœ‰Tè¿”å›Tï¼Œæ²¡Tæ·»åŠ T
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="gameObject"></param>
@@ -28,7 +28,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   Ê¹Ä³¸öÀàĞÍµÄ×é¼şenable
+		///   ä½¿æŸä¸ªç±»å‹çš„ç»„ä»¶enable
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="gameObject"></param>
@@ -47,7 +47,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   Ïú»Ù×Óº¢×Ó½Úµã
+		///   é”€æ¯å­å­©å­èŠ‚ç‚¹
 		/// </summary>
 		/// <param name="gameObject"></param>
 		public static void DestroyChildren(GameObject gameObject)
@@ -62,7 +62,7 @@ namespace DG
 
 
 		/// <summary>
-		///   Ö»ÓĞ°üº¬È«²¿µÄComponents²Å»á·µ»ØTrue
+		///   åªæœ‰åŒ…å«å…¨éƒ¨çš„Componentsæ‰ä¼šè¿”å›True
 		/// </summary>
 		/// <param name="gameObject"></param>
 		/// <param name="types"></param>
@@ -90,10 +90,10 @@ namespace DG
 		}
 
 		/// <summary>
-		///   »ñÈ¡¸ÃgameObjectÏÂµÄ×é¼ş£¬²»°üÀ¨ÌŞ³ıµÄ×é¼şÀàĞÍ
+		///   è·å–è¯¥gameObjectä¸‹çš„ç»„ä»¶ï¼Œä¸åŒ…æ‹¬å‰”é™¤çš„ç»„ä»¶ç±»å‹
 		/// </summary>
 		/// <param name="gameObject"></param>
-		/// <param name="excludeComponentTypes">ÌŞ³ıµÄ×é¼şÀàĞÍ</param>
+		/// <param name="excludeComponentTypes">å‰”é™¤çš„ç»„ä»¶ç±»å‹</param>
 		/// <returns></returns>
 		public static Component[] GetComponentsExclude(GameObject gameObject, params Type[] excludeComponentTypes)
 		{
@@ -102,13 +102,13 @@ namespace DG
 			for (var i = 0; i < components.Length; i++)
 			{
 				var component = components[i];
-				if (excludeComponentTypes.Length > 0) //Èç¹ûÌŞ³ıµÄÀàĞÍ¸öÊı²»Îª0
+				if (excludeComponentTypes.Length > 0) //å¦‚æœå‰”é™¤çš„ç±»å‹ä¸ªæ•°ä¸ä¸º0
 				{
-					var isContinueThisRound = false; //ÊÇ·ñ½áÊøÕâ¸öround
+					var isContinueThisRound = false; //æ˜¯å¦ç»“æŸè¿™ä¸ªround
 					for (var j = 0; j < excludeComponentTypes.Length; j++)
 					{
 						var excludeComponentType = excludeComponentTypes[j];
-						if (component.GetType().IsSubTypeOf(excludeComponentType)) //Èç¹ûÊÇ×é¼şÀàĞÍÊÇÆäÖĞµÄÌŞ³ıµÄÀàĞÍ»òÆä×ÓÀà
+						if (component.GetType().IsSubTypeOf(excludeComponentType)) //å¦‚æœæ˜¯ç»„ä»¶ç±»å‹æ˜¯å…¶ä¸­çš„å‰”é™¤çš„ç±»å‹æˆ–å…¶å­ç±»
 						{
 							isContinueThisRound = true;
 							break;
@@ -126,10 +126,10 @@ namespace DG
 		}
 
 		/// <summary>
-		///   »ñÈ¡¸ÃgameObjectÏÂµÄ×é¼ş£¬²»°üÀ¨ÌŞ³ıµÄ×é¼şÀàĞÍ
+		///   è·å–è¯¥gameObjectä¸‹çš„ç»„ä»¶ï¼Œä¸åŒ…æ‹¬å‰”é™¤çš„ç»„ä»¶ç±»å‹
 		/// </summary>
 		/// <param name="gameObject"></param>
-		/// <param name="excludeComponentTypes">ÌŞ³ıµÄ×é¼şÀàĞÍ</param>
+		/// <param name="excludeComponentTypes">å‰”é™¤çš„ç»„ä»¶ç±»å‹</param>
 		/// <param name="excludeSeparator"></param>
 		/// <returns></returns>
 		public static Component[] GetComponentsExclude(GameObject gameObject, string excludeComponentTypes,
@@ -343,7 +343,7 @@ namespace DG
 		}
 
 
-		#region GameObject ·´Éä
+		#region GameObject åå°„
 
 		#region FiledValue
 
@@ -412,7 +412,7 @@ namespace DG
 		#region Invoke
 
 		/// <summary>
-		///   µ÷ÓÃcallMethodµÄ·½·¨
+		///   è°ƒç”¨callMethodçš„æ–¹æ³•
 		/// </summary>
 		/// <param name="gameObject"></param>
 		/// <param name="invokeMethodName"></param>

@@ -41,10 +41,10 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ×ª»¯Îªbytes
+		/// è½¬åŒ–ä¸ºbytes
 		/// </summary>
 		/// <param name="c"></param>
-		/// <param name="isNetOrder">ÊÇ·ñÊÇÍøÂçË³Ğò</param>
+		/// <param name="isNetOrder">æ˜¯å¦æ˜¯ç½‘ç»œé¡ºåº</param>
 		/// <returns></returns>
 		public static byte[] ToBytes(char c, bool isNetOrder = false)
 		{

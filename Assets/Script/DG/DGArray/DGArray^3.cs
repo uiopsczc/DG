@@ -1,4 +1,4 @@
-namespace CsCat
+namespace DG
 {
 	public class DGArray<P0, P1, P2> : DGArray<P0, P1>
 	{

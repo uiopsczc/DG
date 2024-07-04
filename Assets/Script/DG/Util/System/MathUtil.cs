@@ -17,13 +17,13 @@ namespace DG
 			return sourcePoint + dir * distance;
 		}
 
-		//dir1µ½dir2µÄ¼Ğ½Ç£¬Ë³Ê±Õë·½ÏòÎªÕı£¬ÄæÊ±Õë·½ÏòÎª¸º
+		//dir1åˆ°dir2çš„å¤¹è§’ï¼Œé¡ºæ—¶é’ˆæ–¹å‘ä¸ºæ­£ï¼Œé€†æ—¶é’ˆæ–¹å‘ä¸ºè´Ÿ
 		public static float GetDiffAngle(Vector2 dir1, Vector2 dir2)
 		{
 			dir1.Normalize();
 			dir2.Normalize();
 			var cos = Mathf.Clamp(Vector2.Dot(dir1, dir2), -1, 1);
-			var diffAngle = Mathf.Acos(cos) * Mathf.Rad2Deg; //¼Ğ½Ç
+			var diffAngle = Mathf.Acos(cos) * Mathf.Rad2Deg; //å¤¹è§’
 			var sin = dir1.x * dir2.y - dir2.x * dir1.y;
 			if (sin > 0)
 				diffAngle = -diffAngle;
@@ -47,13 +47,13 @@ namespace DG
 			return Math.Abs(cross);
 		}
 
-		//»ñÈ¡×î½üµÄ2´Î·½
+		//è·å–æœ€è¿‘çš„2æ¬¡æ–¹
 		public static int GetNearestPowerOf2(int num)
 		{
 			return (int)(Mathf.Pow(2, Mathf.Ceil(Mathf.Log(num) / Mathf.Log(2))));
 		}
 
-		//ÅĞ¶ÏÒ»¸öÊıÊÇ·ñ2µÄ´Î·½
+		//åˆ¤æ–­ä¸€ä¸ªæ•°æ˜¯å¦2çš„æ¬¡æ–¹
 		public static bool IsPowerOf2(int num)
 		{
 			int i = 1;
@@ -67,7 +67,7 @@ namespace DG
 			}
 		}
 
-		// ×î´ó¹«Ô¼Êı
+		// æœ€å¤§å…¬çº¦æ•°
 		public static int GetGCD(int a, int b)
 		{
 			if (a < b)
@@ -87,13 +87,13 @@ namespace DG
 			return a;
 		}
 
-		//·µ»Øa*a+b*bµÄ¿ª¸ù
+		//è¿”å›a*a+b*bçš„å¼€æ ¹
 		public static float Hypotenuse(params float[] args)
 		{
 			return Mathf.Sqrt(HypotenuseSquare(args));
 		}
 
-		//·µ»Øa*a+b*b
+		//è¿”å›a*a+b*b
 		public static float HypotenuseSquare(params float[] args)
 		{
 			float result = 0;
@@ -102,12 +102,12 @@ namespace DG
 			return result;
 		}
 
-		#region ÅÅÁĞ×éºÏ
+		#region æ’åˆ—ç»„åˆ
 
-		//×éºÏÅÅÁĞ
+		//ç»„åˆæ’åˆ—
 		/// <summary>
-		///   n!:½×³Ë
-		///   6£¡=6x5x4x3x2x1
+		///   n!:é˜¶ä¹˜
+		///   6ï¼=6x5x4x3x2x1
 		/// </summary>
 		public static long Factorial(long n)
 		{
@@ -118,10 +118,10 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÅÅÁĞ:´Ón¸ö²»Í¬ÔªËØÖĞ£¬ÈÎÈ¡m(m¡Ün,mÓën¾ùÎª×ÔÈ»Êı,ÏÂÍ¬£©¸öÔªËØ°´ÕÕÒ»¶¨µÄË³ĞòÅÅ³ÉÒ»ÁĞ£¬½Ğ×ö´Ón¸ö²»Í¬ÔªËØÖĞÈ¡³öm¸öÔªËØµÄÒ»¸öÅÅÁĞ
-		///   A(m,n£©£ºnÖĞÈ¡m¸öÔªËØµÄÅÅÁĞµÄËùÓĞ¸öÊı
+		///   æ’åˆ—:ä»nä¸ªä¸åŒå…ƒç´ ä¸­ï¼Œä»»å–m(mâ‰¤n,mä¸nå‡ä¸ºè‡ªç„¶æ•°,ä¸‹åŒï¼‰ä¸ªå…ƒç´ æŒ‰ç…§ä¸€å®šçš„é¡ºåºæ’æˆä¸€åˆ—ï¼Œå«åšä»nä¸ªä¸åŒå…ƒç´ ä¸­å–å‡ºmä¸ªå…ƒç´ çš„ä¸€ä¸ªæ’åˆ—
+		///   A(m,nï¼‰ï¼šnä¸­å–mä¸ªå…ƒç´ çš„æ’åˆ—çš„æ‰€æœ‰ä¸ªæ•°
 		///   A(m,n)= n!/(n-m)!
-		///   6£¡=6x5x4x3x2x1
+		///   6ï¼=6x5x4x3x2x1
 		/// </summary>
 		public static long A(long m, long n)
 		{
@@ -131,10 +131,10 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ×éºÏ£º´Ón¸ö²»Í¬ÔªËØÖĞ£¬ÈÎÈ¡m(m¡Ün£©¸öÔªËØ²¢³ÉÒ»×é£¬½Ğ×ö´Ón¸ö²»Í¬ÔªËØÖĞÈ¡³öm¸öÔªËØµÄÒ»¸ö×éºÏ
-		///   C(m,n£©£ºnÖĞÈ¡m¸öÔªËØµÄ×éºÏµÄËùÓĞ¸öÊı
-		///   C(m,n)=A(m,n)/m£¡=n!/[m!*(n-m)!]
-		///   6£¡=6x5x4x3x2x1
+		///   ç»„åˆï¼šä»nä¸ªä¸åŒå…ƒç´ ä¸­ï¼Œä»»å–m(mâ‰¤nï¼‰ä¸ªå…ƒç´ å¹¶æˆä¸€ç»„ï¼Œå«åšä»nä¸ªä¸åŒå…ƒç´ ä¸­å–å‡ºmä¸ªå…ƒç´ çš„ä¸€ä¸ªç»„åˆ
+		///   C(m,nï¼‰ï¼šnä¸­å–mä¸ªå…ƒç´ çš„ç»„åˆçš„æ‰€æœ‰ä¸ªæ•°
+		///   C(m,n)=A(m,n)/mï¼=n!/[m!*(n-m)!]
+		///   6ï¼=6x5x4x3x2x1
 		/// </summary>
 		/// <returns></returns>
 		public static long C(long m, long n)
@@ -163,13 +163,13 @@ namespace DG
 
 			var v = RotateTo(a, b, Vector3.Angle(a, b) * t);
 
-			//ÏòÁ¿µÄ³¤¶È£¬¸úÏßĞÔ²åÖµÒ»Ñù¼ÆËã
+			//å‘é‡çš„é•¿åº¦ï¼Œè·Ÿçº¿æ€§æ’å€¼ä¸€æ ·è®¡ç®—
 			var length = b.magnitude * t + a.magnitude * (1 - t);
 			return v.normalized * length;
 		}
 
 		/// <summary>
-		///   ½«ÏòÁ¿fromÏòÏòÁ¿toĞı×ª½Ç¶Èangle
+		///   å°†å‘é‡fromå‘å‘é‡toæ—‹è½¬è§’åº¦angle
 		/// </summary>
 		/// <param name="from"></param>
 		/// <param name="to"></param>
@@ -177,25 +177,25 @@ namespace DG
 		/// <returns></returns>
 		public static Vector3 RotateTo(Vector3 from, Vector3 to, float angle)
 		{
-			//Èç¹ûÁ½ÏòÁ¿½Ç¶ÈÎª0
+			//å¦‚æœä¸¤å‘é‡è§’åº¦ä¸º0
 			if (Vector3.Angle(from, to) == 0) return from;
 
-			//Ğı×ªÖá
+			//æ—‹è½¬è½´
 			var n = Vector3.Cross(from, to);
 
-			//Ğı×ªÖá¹æ·¶»¯
+			//æ—‹è½¬è½´è§„èŒƒåŒ–
 			n.Normalize();
 
-			//Ğı×ª¾ØÕó
+			//æ—‹è½¬çŸ©é˜µ
 			var rotateMatrix = new Matrix4x4();
 
-			//Ğı×ªµÄ»¡¶È
+			//æ—‹è½¬çš„å¼§åº¦
 			var radian = angle * Math.PI / 180;
 			var cosAngle = (float)Math.Cos(radian);
 			var sinAngle = (float)Math.Sin(radian);
 
-			//¾ØÕóµÄÊı¾İ
-			//ÕâÀï¿´²»¶®µÄ×ÔĞĞ¿ÆÆÕ¾ØÕóÖªÊ¶
+			//çŸ©é˜µçš„æ•°æ®
+			//è¿™é‡Œçœ‹ä¸æ‡‚çš„è‡ªè¡Œç§‘æ™®çŸ©é˜µçŸ¥è¯†
 			rotateMatrix.SetRow(0,
 				new Vector4(n.x * n.x * (1 - cosAngle) + cosAngle, n.x * n.y * (1 - cosAngle) + n.z * sinAngle,
 					n.x * n.z * (1 - cosAngle) - n.y * sinAngle, 0));
@@ -216,7 +216,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Á½¶ËÆ½»ºÖĞ¼ä¶¸ÇÍ
+		/// ä¸¤ç«¯å¹³ç¼“ä¸­é—´é™¡å³­
 		/// </summary>
 		/// <param name="start"></param>
 		/// <param name="end"></param>

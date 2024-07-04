@@ -36,10 +36,7 @@ namespace DG
 		{
 			Args<T> other = (Args<T>) obj;
 
-			if (other == null)
-				return false;
-
-			return ObjectUtil.EqualsArray(_args, other._args);
+			return other != null && ObjectUtil.EqualsArray(_args, other._args);
 		}
 
 		public override int GetHashCode()

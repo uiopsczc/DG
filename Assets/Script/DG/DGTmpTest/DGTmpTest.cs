@@ -14,44 +14,45 @@ namespace DG
 {
 	public class DGTmpTest : MonoBehaviour
 	{
-		public Transform tf1;
-
-		public Transform tf2;
-
-		public Transform tf3;
+		// public Transform tf1;
+		//
+		// public Transform tf2;
+		//
+		// public Transform tf3;
 
 
 
 		// Start is called before the first frame update
 		void Start()
 		{
-			var a1 = tf1.localToWorldMatrix;
-			var a2 = tf2.localToWorldMatrix;
-			var a3 = new Vector3(12.4f, 21.5f, 153.9f);
-			var a4 = new Vector3(52.9f, 147.6f, 78.6f);
-			var a5 = new Vector3(15.8f, 45.9f, 68.3f);
-			var a6 = Quaternion.Euler(32.3f, 59.8f, 63.7f);
-			var a7 = new Vector4(25.9f, 45.7f, 98.6f, 69.6f);
-			var a8 = new Vector3(25.9f, 45.7f, 98.6f);
-
-
-			var b1 = a1.To_System_Numerics_Matrix4x4();
-			var b2 = a2.To_System_Numerics_Matrix4x4();
-			var b3 = a3.To_System_Numerics_Vector3();
-			var b4 = a4.To_System_Numerics_Vector3();
-			var b5 = a5.To_System_Numerics_Vector3();
-			var b6 = a6.To_System_Numerics_Quaternion();
-			var b7 = a7.To_System_Numerics_Vector4();
-			var b8 = a8.To_System_Numerics_Vector3();
-
-			var c1 = new FPMatrix4x4(a1);
-			var c2 = new FPMatrix4x4(a2);
-			var c3 = new FPVector3(a3);
-			var c4 = new FPVector3(a4);
-			var c5 = new FPVector3(a5);
-			var c6 = new FPQuaternion(a6);
-			var c7 = new FPVector4(a7);
-			var c8 = new FPVector3(a8);
+			AutoSetValueTest.Test();
+			// var a1 = tf1.localToWorldMatrix;
+			// var a2 = tf2.localToWorldMatrix;
+			// var a3 = new Vector3(12.4f, 21.5f, 153.9f);
+			// var a4 = new Vector3(52.9f, 147.6f, 78.6f);
+			// var a5 = new Vector3(15.8f, 45.9f, 68.3f);
+			// var a6 = Quaternion.Euler(32.3f, 59.8f, 63.7f);
+			// var a7 = new Vector4(25.9f, 45.7f, 98.6f, 69.6f);
+			// var a8 = new Vector3(25.9f, 45.7f, 98.6f);
+			//
+			//
+			// var b1 = a1.To_System_Numerics_Matrix4x4();
+			// var b2 = a2.To_System_Numerics_Matrix4x4();
+			// var b3 = a3.To_System_Numerics_Vector3();
+			// var b4 = a4.To_System_Numerics_Vector3();
+			// var b5 = a5.To_System_Numerics_Vector3();
+			// var b6 = a6.To_System_Numerics_Quaternion();
+			// var b7 = a7.To_System_Numerics_Vector4();
+			// var b8 = a8.To_System_Numerics_Vector3();
+			//
+			// var c1 = new FPMatrix4x4(a1);
+			// var c2 = new FPMatrix4x4(a2);
+			// var c3 = new FPVector3(a3);
+			// var c4 = new FPVector3(a4);
+			// var c5 = new FPVector3(a5);
+			// var c6 = new FPQuaternion(a6);
+			// var c7 = new FPVector4(a7);
+			// var c8 = new FPVector3(a8);
 
 
 			//		Matrix4x4.Perspective()
@@ -65,8 +66,8 @@ namespace DG
 			//		DGVector2? v = new DGVector2();
 			//		AA(ref v);
 			//		DGLog.Warn(v.Value);
-			var a = -FP.MIN_VALUE;
-			var b = FP.MAX_VALUE;
+			// var a = -FP.MIN_VALUE;
+			// var b = FP.MAX_VALUE;
 			//		var c = new DGVector2(4,5);
 			//		c.x = (DGFixedPoint)888;
 			//		DGLog.Warn(a);
@@ -76,7 +77,7 @@ namespace DG
 //			int x = -8;
 //			int z = x.RightShift3(2);
 //			DGLog.Warn($"After >>>: {z,11}, hex: {z,8:x}, binary: {Convert.ToString(z, toBase: 2).PadLeft(32, '0'),32}");
-DGLog.Warn(typeof(List<int>));
+// DGLog.Warn(typeof(List<int>));
 		}
 
 		public static void AA(ref FPVector2? v)

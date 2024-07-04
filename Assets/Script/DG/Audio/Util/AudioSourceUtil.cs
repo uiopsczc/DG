@@ -9,13 +9,10 @@ namespace DG
 		{
 			audioMixer = audioMixer ?? SingletonMaster.instance.audioMixer;
 			AudioMixerGroup[] groups = audioMixer.FindMatchingGroups(AudioMixerConst.GROUP_DICT[groupName].groupPath);
-			if (groups.Length > 0)
-			{
-				audioSource.outputAudioMixerGroup = groups[0];
-				return true;
-			}
+			if (groups.Length <= 0) return false;
+			audioSource.outputAudioMixerGroup = groups[0];
+			return true;
 
-			return false;
 		}
 	}
 }

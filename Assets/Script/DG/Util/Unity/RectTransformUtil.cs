@@ -54,7 +54,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ anchorMin.x
+		/// шо╛ч╜о anchorMin.x
 		/// </summary>
 		public static void SetAnchorMinX(RectTransform rectTransform, float x)
 		{
@@ -65,7 +65,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ anchorMin.y
+		/// шо╛ч╜о anchorMin.y
 		/// </summary>
 		public static void SetAnchorMinY(RectTransform rectTransform, float y)
 		{
@@ -76,7 +76,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ anchorMax.x
+		/// шо╛ч╜о anchorMax.x
 		/// </summary>
 		public static void SetAnchorMaxX(RectTransform rectTransform, float x)
 		{
@@ -87,7 +87,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ anchorMax.y
+		/// шо╛ч╜о anchorMax.y
 		/// </summary>
 		public static void SetAnchorMaxY(RectTransform rectTransform, float y)
 		{
@@ -98,7 +98,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ pivot.x
+		/// шо╛ч╜о pivot.x
 		/// </summary>
 		public static void SetPivotX(RectTransform rectTransform, float x)
 		{
@@ -109,7 +109,7 @@ namespace DG
 
 
 		/// <summary>
-		/// ╔ш╓├ pivot.y
+		/// шо╛ч╜о pivot.y
 		/// </summary>
 		public static void SetPivotY(RectTransform rectTransform, float y)
 		{

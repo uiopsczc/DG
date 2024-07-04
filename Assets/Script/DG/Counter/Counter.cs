@@ -17,7 +17,7 @@ namespace DG
 
 		public void Decrease()
 		{
-			this._count = this._count - 1;
+			this._count -= 1;
 			this._CheckCallback();
 		}
 

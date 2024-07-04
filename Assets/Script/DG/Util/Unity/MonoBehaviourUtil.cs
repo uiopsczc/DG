@@ -11,7 +11,7 @@ namespace DG
 		#region IEnumerator
 
 		/// <summary>
-		/// Èç¹ûieSave²»Îªnull»òÕßÃ»Ö´ĞĞÍê£¬ÔòÍ£µôieSave£¬È»ºó½«ieToStart¸³Öµ¸øieSave£¬È»ºó¿ªÊ¼ieToStart
+		/// å¦‚æœieSaveä¸ä¸ºnullæˆ–è€…æ²¡æ‰§è¡Œå®Œï¼Œåˆ™åœæ‰ieSaveï¼Œç„¶åå°†ieToStartèµ‹å€¼ç»™ieSaveï¼Œç„¶åå¼€å§‹ieToStart
 		/// </summary>
 		/// <param name="monoBehaviour"></param>
 		/// <param name="saveEnumerator"></param>
@@ -28,10 +28,10 @@ namespace DG
 		}
 
 		/// <summary>
-		///  ½«GetIEnumeratorDict()[ieName]¸³Öµ¸øieSave£¬
-		///  È»ºóÂß¼­¸ú  StopAndStartCacheIEnumerator(this MonoBehaviour mono, ref IEnumerator ieSave, IEnumerator ieToStart) Ò»Ñù
-		///  ×îºóĞèÒª½«StopAndStartCoroutine(this MonoBehaviour mono, ref IEnumerator ieSave, IEnumerator ieToStart)µÄÖµ¸³Öµ¸øIEnumeratorDict[ieName]£¬·ñÔòIEnumeratorDict[ieName]µÄÖµ²»»á±ä»¯¡¾±»ĞÂµÄÖµÌæ»»¡¿
-		///  Àı×Ó£º  this.StopAndStartCacheIEnumerator("CountNum2", CountNum(100));   CountNum(100)ÎªIEnumeratorº¯Êı
+		///  å°†GetIEnumeratorDict()[ieName]èµ‹å€¼ç»™ieSaveï¼Œ
+		///  ç„¶åé€»è¾‘è·Ÿ  StopAndStartCacheIEnumerator(this MonoBehaviour mono, ref IEnumerator ieSave, IEnumerator ieToStart) ä¸€æ ·
+		///  æœ€åéœ€è¦å°†StopAndStartCoroutine(this MonoBehaviour mono, ref IEnumerator ieSave, IEnumerator ieToStart)çš„å€¼èµ‹å€¼ç»™IEnumeratorDict[ieName]ï¼Œå¦åˆ™IEnumeratorDict[ieName]çš„å€¼ä¸ä¼šå˜åŒ–ã€è¢«æ–°çš„å€¼æ›¿æ¢ã€‘
+		///  ä¾‹å­ï¼š  this.StopAndStartCacheIEnumerator("CountNum2", CountNum(100));   CountNum(100)ä¸ºIEnumeratorå‡½æ•°
 		/// </summary>
 		/// <param name="monoBehaviour"></param>
 		/// <param name="enumeratorName"></param>
@@ -46,7 +46,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Í£Ö¹ËùÓĞÔÚGetIEnumeratorDictÖĞµÄIEnumerator
+		/// åœæ­¢æ‰€æœ‰åœ¨GetIEnumeratorDictä¸­çš„IEnumerator
 		/// </summary>
 		/// <param name="monoBehaviour"></param>
 		public static void StopCacheIEnumeratorDict(MonoBehaviour monoBehaviour)
@@ -162,13 +162,13 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÔÚmonoÖĞĞèÒªÓĞÕâ¸öÊôĞÔ  protected CacheMono cacheMono=new CacheMono(this);
-		/// »ñÈ¡»òÕßÌí¼ÓcacheMono._dict[dictName]
+		/// åœ¨monoä¸­éœ€è¦æœ‰è¿™ä¸ªå±æ€§  protected CacheMono cacheMono=new CacheMono(this);
+		/// è·å–æˆ–è€…æ·»åŠ cacheMono._dict[dictName]
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="monoBehaviour"></param>
 		/// <param name="dictName"></param>
-		/// <param name="whenNotContainKeyFunc">µ±monoBehaviourDictsµÄKeyÖĞ²»°üº¬dictNameÊ±µÄµ÷ÓÃµÄ´´½¨·½·¨</param>
+		/// <param name="whenNotContainKeyFunc">å½“monoBehaviourDictsçš„Keyä¸­ä¸åŒ…å«dictNameæ—¶çš„è°ƒç”¨çš„åˆ›å»ºæ–¹æ³•</param>
 		/// <returns></returns>
 		public static T GetOrAddCacheDict<T>(MonoBehaviour monoBehaviour, string dictName,
 			Func<T> whenNotContainKeyFunc)
@@ -178,8 +178,8 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÔÚmonoÖĞĞèÒªÓĞÕâ¸öÊôĞÔ  protected CacheMono cacheMono=new CacheMono(this);
-		/// »ñÈ¡»òÕßÌí¼Ó cacheMono._dict[dictName]
+		/// åœ¨monoä¸­éœ€è¦æœ‰è¿™ä¸ªå±æ€§  protected CacheMono cacheMono=new CacheMono(this);
+		/// è·å–æˆ–è€…æ·»åŠ  cacheMono._dict[dictName]
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="monoBehaviour"></param>
@@ -191,7 +191,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// »ñÈ¡»òÌí¼Ó Dictionary<string, IEnumerator> cacheMono._dict["IEnumeratorDict"]
+		/// è·å–æˆ–æ·»åŠ  Dictionary<string, IEnumerator> cacheMono._dict["IEnumeratorDict"]
 		/// </summary>
 		/// <param name="monoBehaviour"></param>
 		/// <returns></returns>

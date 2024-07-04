@@ -16,7 +16,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Vector2.ToStringÖ»±£ÁôĞ¡Êıºó2Î»£¬¿´ÆğÀ´»á¿¨£¬ËùÒÔĞèÒªToStringDetail
+		/// Vector2.ToStringåªä¿ç•™å°æ•°å2ä½ï¼Œçœ‹èµ·æ¥ä¼šå¡ï¼Œæ‰€ä»¥éœ€è¦ToStringDetail
 		/// </summary>
 		public static string ToStringDetail(Vector2 vector2, string separator = StringConst.STRING_COMMA)
 		{
@@ -24,7 +24,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ²æ³Ë
+		/// å‰ä¹˜
 		/// </summary>
 		/// <param name="v1"></param>
 		/// <param name="v2"></param>
@@ -35,7 +35,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ±ä³ÉVector3
+		/// å˜æˆVector3
 		/// </summary>
 		/// <param name="v"></param>
 		/// <param name="format"></param>
@@ -50,7 +50,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Á½¸öÖµÊÇ·ñÏàµÈ Ğ¡ÓÚ»òµÈÓÚ
+		/// ä¸¤ä¸ªå€¼æ˜¯å¦ç›¸ç­‰ å°äºæˆ–ç­‰äº
 		/// </summary>
 		/// <param name="v1"></param>
 		/// <param name="v2"></param>
@@ -61,7 +61,7 @@ namespace DG
 			return (v1.x.EqualsEpsilon(v2.x, epsilon)) && (v1.y.EqualsEpsilon(v2.y, epsilon));
 		}
 
-		//½«v RoundËÄÉáÎåÈësnap_sizeµÄ±¶ÊıµÄÖµ
+		//å°†v Roundå››èˆäº”å…¥snap_sizeçš„å€æ•°çš„å€¼
 		//Rounds value to the closest multiple of snap_size.
 		public static Vector2 Snap(Vector2 v, Vector2 snapSize)
 		{

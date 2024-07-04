@@ -17,7 +17,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// XµÄÖµÎª0
+		/// Xçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -28,7 +28,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// yµÄÖµÎª0
+		/// yçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -39,7 +39,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ZµÄÖµÎª0
+		/// Zçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -59,7 +59,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Vector3.ToStringÖ»±£ÁôĞ¡Êıºó2Î»£¬¿´ÆğÀ´»á¿¨£¬ËùÒÔĞèÒªToStringDetail
+		/// Vector3.ToStringåªä¿ç•™å°æ•°å2ä½ï¼Œçœ‹èµ·æ¥ä¼šå¡ï¼Œæ‰€ä»¥éœ€è¦ToStringDetail
 		/// </summary>
 		public static string ToStringDetail(Vector3 vector3, string separator = StringConst.STRING_COMMA)
 		{
@@ -67,7 +67,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«¶ººÅ¸Ä³É¶ÔÓ¦µÄseparator
+		/// å°†é€—å·æ”¹æˆå¯¹åº”çš„separator
 		/// </summary>
 		public static string ToStringReplaceSeparator(Vector3 vector3, string separator = StringConst.STRING_COMMA)
 		{
@@ -87,7 +87,7 @@ namespace DG
 
 
 		/// <summary>
-		/// v1³Ëv2
+		/// v1ä¹˜v2
 		/// </summary>
 		/// <param name="v1"></param>
 		/// <param name="v2"></param>
@@ -97,7 +97,7 @@ namespace DG
 			return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
 		}
 
-		//½«v RoundËÄÉáÎåÈësnap_sizeµÄ±¶ÊıµÄÖµ
+		//å°†v Roundå››èˆäº”å…¥snap_sizeçš„å€æ•°çš„å€¼
 		//Rounds value to the closest multiple of snap_size.
 		public static Vector3 Snap(Vector3 v, Vector3 snapSize)
 		{
@@ -125,13 +125,13 @@ namespace DG
 			if (format.Equals(StringConst.STRING_z))
 				return vector3.z;
 			bool flag = float.TryParse(format, out var result);
-			return flag ? result : throw new Exception("´íÎóµÄ¸ñÊ½");
+			return flag ? result : throw new Exception("é”™è¯¯çš„æ ¼å¼");
 		}
 
 		#region ZeroX/Y/Z;
 
 		/// <summary>
-		/// XµÄÖµÎª0
+		/// Xçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -141,7 +141,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// yµÄÖµÎª0
+		/// yçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -151,7 +151,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ZµÄÖµÎª0
+		/// Zçš„å€¼ä¸º0
 		/// </summary>
 		/// <param name="vector3"></param>
 		/// <returns></returns>
@@ -179,7 +179,7 @@ namespace DG
 			return new Vector2(v.x, v.z);
 		}
 
-		#region ¸÷ÖÖTo ToXXX
+		#region å„ç§To ToXXX
 
 		#endregion
 

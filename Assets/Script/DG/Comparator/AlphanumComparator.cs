@@ -17,11 +17,8 @@ namespace DG
 			if (char.IsDigit(otherCh))
 				type = ChunkType.Numeric;
 
-			if ((type == ChunkType.Alphanumeric && char.IsDigit(ch))
-			    || (type == ChunkType.Numeric && !char.IsDigit(ch)))
-				return false;
-
-			return true;
+			return (type != ChunkType.Alphanumeric || !char.IsDigit(ch))
+			       && (type != ChunkType.Numeric || char.IsDigit(ch));
 		}
 
 		public int Compare(string x, string y)

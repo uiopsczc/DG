@@ -6,7 +6,7 @@ namespace DG
 {
 	public static class TypeBuilderUtil
 	{
-		//TypeBuilder.CreateType¼´¿ÉÉú³Étype
+		//TypeBuilder.CreateTypeå³å¯ç”Ÿæˆtype
 		public static TypeBuilder GetTypeBuilder(string typeName = null,
 			TypeAttributes typeAttributes = TypeAttributes.Public | TypeAttributes.Class, Type parentType = null,
 			Type[] interfaceTypes = null, ModuleBuilder moduleBuilder = null)

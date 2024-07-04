@@ -28,12 +28,12 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ��secondsתΪhh:mm:ss
-		/// ����ʱ����ʹ��
+		/// 将seconds转为hh:mm:ss
+		/// 倒计时经常使用
 		/// </summary>
 		/// <param name="seconds"></param>
-		/// <param name="hCount">Сʱ��λ��Ҫ���ٱ�������λ����1��ʱ���Բ���ʾΪ01</param>
-		/// <param name="isZeroIgnore">�Ƿ�Сʱ����ӻ���Ϊ0��ʱ����Ӹ�λ����λ�еĻ����ǻᱣ����λ�ģ���ʹ��λΪ0</param>
+		/// <param name="hCount">小时那位需要至少保留多少位，即1的时候显不显示为01</param>
+		/// <param name="isZeroIgnore">是否小时或分钟或秒为0的时候忽视该位，高位有的话还是会保留地位的，即使低位为0</param>
 		/// <returns></returns>
 		public static string SecondToStringHHmmss(long seconds, int hCount = 2, bool isZeroIgnore = false)
 		{
@@ -59,7 +59,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ��tickΪ��λ��������������������
+		/// 以tick为单位的两个东西的相差多少秒
 		/// </summary>
 		/// <param name="t1"></param>
 		/// <param name="t2"></param>

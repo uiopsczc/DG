@@ -119,10 +119,10 @@ namespace DG
 		public const string STRING_HH_mm_ss = "HH:mm:ss";
 		public const string STRING_yyyyMMddHHmmssSSS = "yyyyMMddHHmmssSSS";
 		public const string STRING_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-		public const string STRING_DAY_CN = "Ìì";
-		public const string STRING_HOUR_CN = "Ğ¡Ê±";
-		public const string STRING_MINUTE_CN = "·Ö";
-		public const string STRING_SECOND_CN = "Ãë";
+		public const string STRING_DAY_CN = "å¤©";
+		public const string STRING_HOUR_CN = "å°æ—¶";
+		public const string STRING_MINUTE_CN = "åˆ†";
+		public const string STRING_SECOND_CN = "ç§’";
 
 
 		public const string String_X_Y = "x,y";
@@ -240,9 +240,9 @@ namespace DG
 		public const string STRING_DOT_COUNT = ".count";
 
 		public const string STRING_REGEX_DATE =
-			"(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)"; //ÈÕÆÚÕıÔò±í´ïÊ½
+			"(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29)"; //æ—¥æœŸæ­£åˆ™è¡¨è¾¾å¼
 
-		public const string STRING_REGEX_INTEGER = "^[+-]?\\d+$"; //ÕûÊıÕıÔò±í´ïÊ½
-		public const string STRING_REGEX_FLOAT = "^[+-]?((\\d+)|(\\d+\\.\\d*)|(\\d*\\.\\d+))([eE]\\d+)?$"; //¸¡µãÊıÕıÔò±í´ïÊ½
+		public const string STRING_REGEX_INTEGER = "^[+-]?\\d+$"; //æ•´æ•°æ­£åˆ™è¡¨è¾¾å¼
+		public const string STRING_REGEX_FLOAT = "^[+-]?((\\d+)|(\\d+\\.\\d*)|(\\d*\\.\\d+))([eE]\\d+)?$"; //æµ®ç‚¹æ•°æ­£åˆ™è¡¨è¾¾å¼
 	}
 }

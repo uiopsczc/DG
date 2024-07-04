@@ -34,5 +34,25 @@ namespace DG
 				? stateName.Substring(stateName.LastIndexOf(separator) + separator.Length)
 				: stateName;
 		}
+		
+		public static T GetBehaviour<T>(Animator self, string name) where T : StateMachineBehaviour
+		{
+			var behaviours = self.GetBehaviours<T>();
+			for (var i = 0; i < behaviours.Length; i++)
+			{
+				var behaviour = behaviours[i];
+				if (name.Equals(behaviour.GetFieldValue<string>(StringConst.STRING_NAME)))
+					return behaviour;
+			}
+
+			return null;
+		}
+		
+		public static float SetTriggerExt(Animator self, string triggerName)
+		{
+			self.SetTrigger(triggerName);
+			self.Update(0);
+			return self.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+		}
 	}
 }

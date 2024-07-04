@@ -5,11 +5,11 @@ namespace DG
 	public class RectUtil
 	{
 		/// <summary>
-		/// Ëõ·ÅRect
+		/// ç¼©æ”¾Rect
 		/// </summary>
 		/// <param name="rect"></param>
 		/// <param name="scaleFactor"></param>
-		/// <param name="pivotPointOffset">ÖĞĞÄµãÆ«ÒÆ£¬Ä¬ÈÏ(0,0)ÊÇÔÚÖĞĞÄ</param>
+		/// <param name="pivotPointOffset">ä¸­å¿ƒç‚¹åç§»ï¼Œé»˜è®¤(0,0)æ˜¯åœ¨ä¸­å¿ƒ</param>
 		/// <returns></returns>
 		public static Rect ScaleBy(Rect rect, float scaleFactor, Vector2 pivotPointOffset = default)
 		{
@@ -27,7 +27,7 @@ namespace DG
 		
 
 		/// <summary>
-		/// »ñÈ¡Á½¸ö¾ØĞÎµÄ½»¼¯
+		/// è·å–ä¸¤ä¸ªçŸ©å½¢çš„äº¤é›†
 		/// </summary>
 		public static Rect GetIntersection(Rect rect, Rect other)
 		{

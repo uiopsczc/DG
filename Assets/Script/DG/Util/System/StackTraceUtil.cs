@@ -6,12 +6,12 @@ namespace DG
 {
 	public static class StackTraceUtil
 	{
-		//ÀûÓÃStackTrace»ùÓÚoffsetIndex+index»ñÈ¡Ëùµ÷ÓÃµÄº¯Êı
+		//åˆ©ç”¨StackTraceåŸºäºoffsetIndex+indexè·å–æ‰€è°ƒç”¨çš„å‡½æ•°
 		public static MethodBase GetMethodOfFrame(int index = 0)
 		{
 			StackTrace stackTrace = new StackTrace();
 
-			int offsetIndex = 1; //µ±Ç°ÊÇµÚÒ»²ã
+			int offsetIndex = 1; //å½“å‰æ˜¯ç¬¬ä¸€å±‚
 			int targetIndex = offsetIndex + index;
 			//UnityEngine.LogCat.LogWarning(targetIndex + " "+stackTrace.GetFrame(targetIndex).GetMethod().Name+" "+ stackTrace.GetFrame(targetIndex).GetMethod().DeclaringType);
 			return stackTrace.GetFrame(targetIndex)?.GetMethod();

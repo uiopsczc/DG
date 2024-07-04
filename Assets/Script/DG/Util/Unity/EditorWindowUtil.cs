@@ -6,6 +6,11 @@ namespace DG
 {
 	public class EditorWindowUtil
 	{
+		public static EditorWindowBeginWindowsScope BeginWindows(EditorWindow self)
+		{
+			return new EditorWindowBeginWindowsScope(self);
+		}
+		
 		public static void ShowNotificationAndLog(EditorWindow self, params object[] args)
 		{
 			_ShowNotificationAndCallback(self, () => DGLog.Info(args), args);

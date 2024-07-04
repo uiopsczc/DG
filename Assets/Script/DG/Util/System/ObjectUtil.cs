@@ -9,7 +9,7 @@ namespace DG
 	public static class ObjectUtil
 	{
 		/// <summary>
-		/// o1ÊÇ·ñºÍo2ÏàµÈ
+		/// o1æ˜¯å¦å’Œo2ç›¸ç­‰
 		/// </summary>
 		public new static bool Equals(object o1, object o2)
 		{
@@ -66,7 +66,7 @@ namespace DG
 	    }
 
         /// <summary>
-        /// o1ºÍo2±È½Ï´óĞ¡
+        /// o1å’Œo2æ¯”è¾ƒå¤§å°
         /// </summary>
         public static int Compares(object o1, object o2)
 		{
@@ -127,7 +127,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½»»»Á½¸öobject
+		/// äº¤æ¢ä¸¤ä¸ªobject
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="a"></param>
@@ -191,7 +191,7 @@ namespace DG
 		#region ToString2 ToLinkedHashtable2
 
 		/// <summary>
-		///   ½«ObjectÖĞµÄÕæÊµÄÚÈİÒÔ×Ö·û´®µÄĞÎÊ½Êä³ö
+		///   å°†Objectä¸­çš„çœŸå®å†…å®¹ä»¥å­—ç¬¦ä¸²çš„å½¢å¼è¾“å‡º
 		/// </summary>
 		public static string DGToString(object obj, bool isFillStringWithDoubleQuote = false)
 		{
@@ -206,10 +206,10 @@ namespace DG
 
 		#endregion
 
-		#region ÀàĞÍÅĞ¶Ï
+		#region ç±»å‹åˆ¤æ–­
 
 		/// <summary>
-		/// ÊÇ·ñÊÇIsIDictionary
+		/// æ˜¯å¦æ˜¯IsIDictionary
 		/// </summary>
 		public static bool IsDictionary<T, V>(object boj)
 		{
@@ -217,7 +217,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇÊı×é
+		/// æ˜¯å¦æ˜¯æ•°ç»„
 		/// </summary>
 		public static bool IsArray(object obj)
 		{
@@ -225,7 +225,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇIList
+		/// æ˜¯å¦æ˜¯IList
 		/// </summary>
 		public static bool IsList<T>(object obj)
 		{
@@ -233,7 +233,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇString
+		/// æ˜¯å¦æ˜¯String
 		/// </summary>
 		public static bool IsString(object obj)
 		{
@@ -241,7 +241,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇboolean
+		/// æ˜¯å¦æ˜¯boolean
 		/// </summary>
 		public static bool IsBool(object obj)
 		{
@@ -249,7 +249,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇÊı×Ö
+		/// æ˜¯å¦æ˜¯æ•°å­—
 		/// </summary>
 		public static bool IsNumber(object obj)
 		{
@@ -258,7 +258,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇÕûÊıÀàĞÍ£¬¼´·ÇĞ¡ÊıÀàĞÍ
+		/// æ˜¯å¦æ˜¯æ•´æ•°ç±»å‹ï¼Œå³éå°æ•°ç±»å‹
 		/// </summary>
 		public static bool IsIntegral(object obj)
 		{
@@ -266,7 +266,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇĞ¡ÊıÀàĞÍ£¬¼´·ÇÕûÊıÀàĞÍ
+		/// æ˜¯å¦æ˜¯å°æ•°ç±»å‹ï¼Œå³éæ•´æ•°ç±»å‹
 		/// </summary>
 		public static bool IsFloating(object obj)
 		{
@@ -274,7 +274,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇbyte
+		/// æ˜¯å¦æ˜¯byte
 		/// </summary>
 		public static bool IsByte(object obj)
 		{
@@ -282,7 +282,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇshort
+		/// æ˜¯å¦æ˜¯short
 		/// </summary>
 		public static bool IsShort(object obj)
 		{
@@ -290,7 +290,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇchar
+		/// æ˜¯å¦æ˜¯char
 		/// </summary>
 		public static bool IsChar(object obj)
 		{
@@ -298,7 +298,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇint
+		/// æ˜¯å¦æ˜¯int
 		/// </summary>
 		public static bool IsInt(object obj)
 		{
@@ -306,7 +306,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇlongÀàĞÍ
+		/// æ˜¯å¦æ˜¯longç±»å‹
 		/// </summary>
 		public static bool IsLong(object obj)
 		{
@@ -314,7 +314,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇfloatÀàĞÍ
+		/// æ˜¯å¦æ˜¯floatç±»å‹
 		/// </summary>
 		public static bool IsFloat(object obj)
 		{
@@ -322,7 +322,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇdoubleÀàĞÍ
+		/// æ˜¯å¦æ˜¯doubleç±»å‹
 		/// </summary>
 		public static bool IsDouble(object obj)
 		{
@@ -330,7 +330,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇDateTime
+		/// æ˜¯å¦æ˜¯DateTime
 		/// </summary>
 		public static bool IsDateTime(object obj)
 		{
@@ -338,7 +338,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇbytes
+		/// æ˜¯å¦æ˜¯bytes
 		/// </summary>
 		public static bool IsBytes(object obj)
 		{
@@ -346,7 +346,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇchars
+		/// æ˜¯å¦æ˜¯chars
 		/// </summary>
 		public static bool IsChars(object self)
 		{
@@ -354,7 +354,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇClass
+		/// æ˜¯å¦æ˜¯Class
 		/// </summary>
 		public static bool IsClass(object obj)
 		{
@@ -362,7 +362,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÊÇ·ñÊÇ·½·¨
+		/// æ˜¯å¦æ˜¯æ–¹æ³•
 		/// </summary>
 		public static bool IsMethod(object obj)
 		{
@@ -371,10 +371,10 @@ namespace DG
 
 		#endregion
 
-		#region ¸÷ÖÖToXX
+		#region å„ç§ToXX
 
 		/// <summary>
-		/// ½«o×ª»¯Îªboolean£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºbooleanï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static bool ToBoolOrToDefault(object obj, bool defaultValue = false)
 		{
@@ -403,7 +403,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªbyte£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºbyteï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static byte ToByteOrToDefault(object obj, byte defaultValue = 0)
 		{
@@ -440,7 +440,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªshort£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºshortï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static short ToShortOrToDefault(object obj, short defaultValue = 0)
 		{
@@ -476,7 +476,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªchar£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºcharï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static char ToCharOrToDefault(object obj, char defaultValue = (char)0x0)
 		{
@@ -507,7 +507,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªint£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºintï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static int ToIntOrToDefault(object obj, int defaultValue = 0)
 		{
@@ -543,7 +543,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªlong£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºlongï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static long ToLongOrToDefault(object obj, long defaultValue = 0)
 		{
@@ -579,7 +579,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªfloat£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºfloatï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static float ToFloatOrToDefault(object obj, float defaultValue = 0)
 		{
@@ -615,7 +615,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªdouble£¬Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºdoubleï¼Œå¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static double ToDoubleOrToDefault(object obj, double defaultValue = 0)
 		{
@@ -653,7 +653,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªDateTime£¨Èç¹ûoÊÇstringÀàĞÍ£¬°´ÕÕpatternÀ´×ª»»£©Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºDateTimeï¼ˆå¦‚æœoæ˜¯stringç±»å‹ï¼ŒæŒ‰ç…§patternæ¥è½¬æ¢ï¼‰å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static DateTime ToDateTimeOrToDefault(object obj, string pattern, DateTime defaultValue = default)
 		{
@@ -667,7 +667,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///½«o×ª»¯ÎªDateTime£¨Èç¹ûoÊÇstringÀàĞÍ£¬°´ÕÕyyyy-MM-dd HH:mm:ssÀ´×ª»»£©Ê§°ÜÊ±·µ»Ødv
+		///å°†oè½¬åŒ–ä¸ºDateTimeï¼ˆå¦‚æœoæ˜¯stringç±»å‹ï¼ŒæŒ‰ç…§yyyy-MM-dd HH:mm:ssæ¥è½¬æ¢ï¼‰å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static DateTime ToDateTimOrToDefault(object obj, DateTime defaultValue = default)
 		{
@@ -675,7 +675,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªDateTime£¨Èç¹ûoÊÇstringÀàĞÍ£¬°´ÕÕyyyy-MM-ddÀ´×ª»»£©Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºDateTimeï¼ˆå¦‚æœoæ˜¯stringç±»å‹ï¼ŒæŒ‰ç…§yyyy-MM-ddæ¥è½¬æ¢ï¼‰å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static DateTime ToDateOrToDefault(object obj, DateTime dv = default)
 		{
@@ -683,7 +683,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªDateTime£¨Èç¹ûoÊÇstringÀàĞÍ£¬°´ÕÕHH:mm:ssÀ´×ª»»£©Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºDateTimeï¼ˆå¦‚æœoæ˜¯stringç±»å‹ï¼ŒæŒ‰ç…§HH:mm:ssæ¥è½¬æ¢ï¼‰å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static DateTime ToTimeOrToDefault(object obj, DateTime defaultValue = default)
 		{
@@ -691,7 +691,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªString,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºString,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static string ToStringOrToDefault(object obj, string defaultValue = null)
 		{
@@ -699,7 +699,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªIList,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºIList,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static List<T> ToListOrToDefault<T>(object obj, List<T> defaultValue = null)
 		{
@@ -707,7 +707,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªIDictionary,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºIDictionary,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static Dictionary<T, V> ToDictionaryOrToDefault<T, V>(object obj, Dictionary<T, V> defaultValue = null)
 		{
@@ -715,7 +715,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªBooleans,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºBooleans,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static bool[] ToBoolsOrToDefault(object obj, bool[] defaultValue = null)
 		{
@@ -734,7 +734,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªBytes,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºBytes,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static byte[] ToBytesOrToDefault(object obj, byte[] defaultValue = null)
 		{
@@ -753,7 +753,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªShorts,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºShorts,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static short[] ToShortsOrToDefault(object obj, short[] defaultValue = null)
 		{
@@ -772,7 +772,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªInts,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºInts,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static int[] ToIntsOrToDefault(object obj, int[] defaultValue = null)
 		{
@@ -791,7 +791,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªLongs,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºLongs,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static long[] ToLongsOrToDefault(object obj, long[] defaultValue = null)
 		{
@@ -811,7 +811,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªFloats,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºFloats,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static float[] ToFloatsOrToDefault(object obj, float[] defaultValue = null)
 		{
@@ -830,7 +830,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªDoubles,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºDoubles,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static double[] ToDoublesOrToDefault(object obj, double[] defaultValue = null)
 		{
@@ -849,7 +849,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªStrings,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºStrings,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static string[] ToStringsOrToDefault(object obj, string[] defaultValue = null)
 		{
@@ -869,7 +869,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªILists,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºILists,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <param name="defaultValue"></param>
@@ -881,7 +881,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªIDictionarys,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºIDictionarys,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static Dictionary<T, V>[] ToDictionarysOrToDefault<T, V>(object obj, Dictionary<T, V>[] defaultValue = null)
 		{
@@ -890,7 +890,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯ÎªObjects,Ê§°ÜÊ±·µ»Ødv
+		/// å°†oè½¬åŒ–ä¸ºObjects,å¤±è´¥æ—¶è¿”å›dv
 		/// </summary>
 		public static Array ToArrayOrToDefault(object obj, Array defaultValue = null)
 		{
@@ -943,7 +943,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«o×ª»¯Îªstring
+		/// å°†oè½¬åŒ–ä¸ºstring
 		/// </summary>
 		public static string ObjectToString(object obj)
 		{
@@ -962,7 +962,7 @@ namespace DG
 
 		#endregion
 
-		#region ·´Éä
+		#region åå°„
 
 		public static bool IsHasMethod(object obj, string methodName,
 			BindingFlags bindingFlags = BindingFlagsConst.ALL)
@@ -983,7 +983,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:GenericMethod
+		* æ¨¡å—æè¿°:GenericMethod
 		*************************************************************************************/
 		public static MethodInfo GetGenericMethodInfo2(object obj, string methodName, Type[] genericTypes,
 			BindingFlags bindingFlags = BindingFlagsConst.ALL)
@@ -999,7 +999,7 @@ namespace DG
 				.GetGenericMethodInfo(methodName, genericTypes, bindingFlags, sourceParameterTypes);
 		}
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:ExtensionMethod
+		* æ¨¡å—æè¿°:ExtensionMethod
 		*************************************************************************************/
 		public static bool IsHasExtensionMethod(object obj, string methodName)
 		{
@@ -1095,7 +1095,7 @@ namespace DG
 			ReflectionUtil.Invoke<object>(obj, methodName, isMissNotInvoke, parameters);
 		}
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Generic
+		* æ¨¡å—æè¿°:Generic
 		*************************************************************************************/
 		public static T InvokeGenericMethod<T>(object obj, string methodName, Type[] genericTypes,
 			bool isMissNotInvoke = true,
@@ -1111,7 +1111,7 @@ namespace DG
 			return ReflectionUtil.InvokeGeneric<object>(obj, methodName, genericTypes, isMissNotInvoke, parameters);
 		}
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:ExtensionMethod
+		* æ¨¡å—æè¿°:ExtensionMethod
 		*************************************************************************************/
 		public static T InvokeExtensionMethod<T>(object obj, string methodName, bool isMissNotInvoke = true,
 			params object[] parameters)
@@ -1125,7 +1125,7 @@ namespace DG
 			ExtensionUtil.InvokeExtension<object>(obj, methodName, isMissNotInvoke, parameters);
 		}
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Generic
+		* æ¨¡å—æè¿°:Generic
 		*************************************************************************************/
 		public static T InvokeExtensionGenericMethod<T>( object obj, string methodName, Type[] genericTypes,
 			bool isMissNotInvoke = true,
@@ -1183,10 +1183,10 @@ namespace DG
 
 
 		/// <summary>
-		///ÓÃ·¨
+		///ç”¨æ³•
 		/// stirng s;
 		/// s=s.GetOrSetObject("kk");
-		/// ²ÉÓÃÑÓ³Ùµ÷ÓÃFunc
+		/// é‡‡ç”¨å»¶è¿Ÿè°ƒç”¨Func
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="obj"></param>
