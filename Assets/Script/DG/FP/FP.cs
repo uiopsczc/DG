@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  ¶¨µãÊı£¬³­×Ôhttps://github.com/asik/FixedMath.Net£¬ÀïÃæ»¹ÓĞfix16£¬fix8µÄÊµÏÖ
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/8
+ * æ    è¿°:  å®šç‚¹æ•°ï¼ŒæŠ„è‡ªhttps://github.com/asik/FixedMath.Netï¼Œé‡Œé¢è¿˜æœ‰fix16ï¼Œfix8çš„å®ç°
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/8
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -17,7 +17,7 @@ namespace DG
 {
 	public partial struct FP : IEquatable<FP>, IComparable<FP>
 	{
-		//²»ÄÜĞŞ¸ÄNullµÄÖµ
+		//ä¸èƒ½ä¿®æ”¹Nullçš„å€¼
 		public static readonly FP NULL = FPConstInternal.MAX_VALUE;
 		public static readonly decimal PRECISION = FPConstInternal.PRECISION;
 		public static readonly FP EPSILION = FPConstInternal.SCALED_EPSILON;
@@ -33,7 +33,7 @@ namespace DG
 		public static readonly FP TWO_PI = FPConstInternal.SCALED_TWO_PI;
 		public static readonly FP FOUR_PI_DIV_3 = PI * 4 / 3;
 		public static readonly FP QUARTER_PI = FPConstInternal.SCALED_QUARTER_PI;
-		public static readonly FP LN2 = FPConstInternal.SCALED_LN2; //ÒÔEÎªµ×µÄ2µÄ¶ÔÊı
+		public static readonly FP LN2 = FPConstInternal.SCALED_LN2; //ä»¥Eä¸ºåº•çš„2çš„å¯¹æ•°
 		public static readonly FP LOG2MAX = FPConstInternal.SCALED_LOG2MAX;
 		public static readonly FP LOG2MIN = FPConstInternal.SCALED_LOG2MIN;
 		public static readonly FP E = FPConstInternal.SCALED_E;
@@ -99,7 +99,7 @@ namespace DG
 
 		#endregion
 
-		#region ×ª»»
+		#region è½¬æ¢
 
 		public static implicit operator FP(long value)
 		{
@@ -143,7 +143,7 @@ namespace DG
 
 		#endregion
 
-		#region ¹ØÏµÔËËã·û
+		#region å…³ç³»è¿ç®—ç¬¦
 
 		public static bool operator ==(FP value1, FP value2)
 		{
@@ -177,14 +177,14 @@ namespace DG
 
 		#endregion
 
-		#region ËãÊõÔËËã·û
+		#region ç®—æœ¯è¿ç®—ç¬¦
 
 		public static FP operator +(FP value1, FP value2)
 		{
 			var scaledValue1 = value1.scaledValue;
 			var scaledValue2 = value2.scaledValue;
 			var scaledValueSum = scaledValue1 + scaledValue2;
-			//Èç¹ûv1ºÍv2ÏàÍ¬sign£¬µ«sumºÍxµÄsign²»Í¬£¬ÔòsumµÄÖµÒç³ö
+			//å¦‚æœv1å’Œv2ç›¸åŒsignï¼Œä½†sumå’Œxçš„signä¸åŒï¼Œåˆ™sumçš„å€¼æº¢å‡º
 			if (((~(scaledValue1 ^ scaledValue2) & (scaledValue1 ^ scaledValueSum)) &
 			     FPConstInternal.MIN_VALUE) != 0)
 				scaledValueSum = scaledValue1 > 0
@@ -198,7 +198,7 @@ namespace DG
 			var scaledValue1 = value1.scaledValue;
 			var scaleValue2 = value2.scaledValue;
 			var scaledDiff = scaledValue1 - scaleValue2;
-			//Èç¹ûv1ºÍv2²»Í¬sign£¬µ«diffºÍxµÄsign²»Í¬£¬ÔòdiffµÄÖµÒç³ö
+			//å¦‚æœv1å’Œv2ä¸åŒsignï¼Œä½†diffå’Œxçš„signä¸åŒï¼Œåˆ™diffçš„å€¼æº¢å‡º
 			if ((((scaledValue1 ^ scaleValue2) & (scaledValue1 ^ scaledDiff)) & FPConstInternal.MIN_VALUE) !=
 			    0)
 				scaledDiff = scaledValue1 < 0
@@ -348,7 +348,7 @@ namespace DG
 
 		#endregion
 
-		#region Fast ÔËËã(µ«²»°²È«)
+		#region Fast è¿ç®—(ä½†ä¸å®‰å…¨)
 
 		public static FP FastAdd(FP value1, FP value2)
 		{
@@ -486,7 +486,7 @@ namespace DG
 				return integralPart;
 			if (fractionalPart > FPConstInternal.SCALED_ROUND_FRACTIONAL_PART_MASK)
 				return integralPart + ONE;
-			// Ğ¡Êı²¿·ÖµÈÓÚ0.5Ê±£¬ System.Math.Round()µÄ´¦Àí·½Ê½ÊÇËÄÉáÎåÈëµ½×î½üµÄÅ¼ÕûÊı
+			// å°æ•°éƒ¨åˆ†ç­‰äº0.5æ—¶ï¼Œ System.Math.Round()çš„å¤„ç†æ–¹å¼æ˜¯å››èˆäº”å…¥åˆ°æœ€è¿‘çš„å¶æ•´æ•°
 			return (integralPart.scaledValue & FPConstInternal.SCALED_ONE) == 0
 				? integralPart
 				: integralPart + ONE;
