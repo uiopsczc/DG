@@ -162,9 +162,14 @@ namespace DG
 		}
 #if UNITY_STANDALONE
 		//×ª»»ÎªUnityµÄVector4
-		public Vector4 ToVector4()
+		public static implicit operator Vector4(FPVector4 value)
 		{
-			return new Vector4((float)x, (float)y, (float)z, (float)w);
+			return new Vector4(value.x, value.y, value.z, value.w);
+		}
+
+		public static implicit operator FPVector4(Vector4 value)
+		{
+			return new FPVector4(value.x, value.y, value.z, value.w);
 		}
 #endif
 

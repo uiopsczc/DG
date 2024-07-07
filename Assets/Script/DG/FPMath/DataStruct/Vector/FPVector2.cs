@@ -138,10 +138,14 @@ namespace DG
 		}
 
 #if UNITY_STANDALONE
-		//×ª»»ÎªUnityµÄVector2
-		public Vector2 ToVector2()
+		public static implicit operator Vector2(FPVector2 value)
 		{
-			return new Vector2((float)x, (float)y);
+			return new Vector2(value.x, value.y);
+		}
+
+		public static implicit operator FPVector2(Vector2 value)
+		{
+			return new FPVector2(value.x, value.y);
 		}
 #endif
 		/*************************************************************************************

@@ -10,8 +10,10 @@
 *************************************************************************************/
 
 
-using System.Numerics;
 using System.Runtime.CompilerServices;
+#if UNITY_STANDALONE
+using UnityEngine;
+#endif
 
 namespace DG
 {
@@ -48,10 +50,14 @@ namespace DG
 		}
 
 #if UNITY_STANDALONE
-		public FPPlane(UnityEngine.Plane value)
+		public static implicit operator Plane(FPPlane value)
 		{
-			normal = new FPVector3(value.normal);
-			d =  value.distance;
+			return new Plane(value.normal, value.d);
+		}
+
+		public static implicit operator FPPlane(Plane value)
+		{
+			return new FPPlane(value.normal, value.distance);
 		}
 #endif
 		/*************************************************************************************

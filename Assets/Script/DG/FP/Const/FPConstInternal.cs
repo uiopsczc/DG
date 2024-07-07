@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  dllÄÚ²¿Ê¹ÓÃ
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/8
+ * æ    è¿°:  dllå†…éƒ¨ä½¿ç”¨
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/8
  * ======================================
- * ÀúÊ·¸üÐÂ¼ÇÂ¼
- * °æ±¾:V          ÐÞ¸ÄÊ±¼ä:         ÐÞ¸ÄÈË:
- * ÐÞ¸ÄÄÚÈÝ:
+ * åŽ†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -41,19 +41,19 @@ namespace DG
 
 		internal const long
 			SCALED_LARGE_PI =
-				7244019458077122842; //¸úÕâ¸ö²î²»¶à(long)(Math.PI * (1L << (NUM_BIT_COUNT - MOVE_BIT_COUNT - 3 + MOVE_BIT_COUNT))) == 7244019458077122560; µ«ÊÇ»¹ÊÇ×îºóÈýÎ»ÓÐÇø±ð£¬²»È»ÓÐÎó²î
+				7244019458077122842; //è·Ÿè¿™ä¸ªå·®ä¸å¤š(long)(Math.PI * (1L << (NUM_BIT_COUNT - MOVE_BIT_COUNT - 3 + MOVE_BIT_COUNT))) == 7244019458077122560; ä½†æ˜¯è¿˜æ˜¯æœ€åŽä¸‰ä½æœ‰åŒºåˆ«ï¼Œä¸ç„¶æœ‰è¯¯å·®
 
-		internal const long SCALED_LN2 = 0xB17217F7; //(long)(Math.Log(2) * SCALED_ONE)   Math.Log(2)ÊÇÒÔEÎªµ×µÄ2µÄ¶ÔÊý
+		internal const long SCALED_LN2 = 0xB17217F7; //(long)(Math.Log(2) * SCALED_ONE)   Math.Log(2)æ˜¯ä»¥Eä¸ºåº•çš„2çš„å¯¹æ•°
 		internal const long SCALED_LOG2MAX = 0x1F00000000;
 		internal const long SCALED_LOG2MIN = -0x2000000000;
 
-		internal const ulong SCALED_INTEGRAL_PART_MASK = 0xFFFFFFFF00000000; //ÕûÊý²¿·ÖµÄmask
-		internal const uint SCALED_FRACTIONAL_PART_MASK = 0x00000000FFFFFFFF; //Ð¡Êý²¿·ÖµÄmask
-		internal const uint SCALED_ROUND_FRACTIONAL_PART_MASK = 0x80000000; //Ð¡ÊýËÄÉáÎåÈë²¿·ÖµÄmask
-		internal const int INTEGRAL_PART_ALL_ZERO = 0; //ÕûÊý²¿·ÖÈ«0
-		internal const int INTEGRAL_PART_ALL_ONE = -1; //ÕûÊý²¿·ÖÈ«1
-		internal const ulong COUNT_LEADING_ZERO_ROUGH_Mask = 0xF000000000000000; //ÔÚÍ³¼ÆÇ°ÖÃ0¸öÊýÊ±´ÖÂÔµÄmask£¬¼´ÏÈ4¸ö4¸öµÄ¼ì²â
-		internal const ulong COUNT_LEADING_ZERO_MASK = 0x8000000000000000; //ÔÚÍ³¼ÆÇ°ÖÃ0¸öÊýÊ±¾«Ï¸µÄmask,¼´1¸ö1¸öµÄ¼ì²â
+		internal const ulong SCALED_INTEGRAL_PART_MASK = 0xFFFFFFFF00000000; //æ•´æ•°éƒ¨åˆ†çš„mask
+		internal const uint SCALED_FRACTIONAL_PART_MASK = 0x00000000FFFFFFFF; //å°æ•°éƒ¨åˆ†çš„mask
+		internal const uint SCALED_ROUND_FRACTIONAL_PART_MASK = 0x80000000; //å°æ•°å››èˆäº”å…¥éƒ¨åˆ†çš„mask
+		internal const int INTEGRAL_PART_ALL_ZERO = 0; //æ•´æ•°éƒ¨åˆ†å…¨0
+		internal const int INTEGRAL_PART_ALL_ONE = -1; //æ•´æ•°éƒ¨åˆ†å…¨1
+		internal const ulong COUNT_LEADING_ZERO_ROUGH_Mask = 0xF000000000000000; //åœ¨ç»Ÿè®¡å‰ç½®0ä¸ªæ•°æ—¶ç²—ç•¥çš„maskï¼Œå³å…ˆ4ä¸ª4ä¸ªçš„æ£€æµ‹
+		internal const ulong COUNT_LEADING_ZERO_MASK = 0x8000000000000000; //åœ¨ç»Ÿè®¡å‰ç½®0ä¸ªæ•°æ—¶ç²¾ç»†çš„mask,å³1ä¸ª1ä¸ªçš„æ£€æµ‹
 		internal const ulong ALL_ONE = 0xFFFFFFFFFFFFFFFF; //
 
 		internal const int LUT_SIZE = (int) (SCALED_HALF_PI >> 15);

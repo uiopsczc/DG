@@ -19,10 +19,14 @@ namespace DG
 	public partial struct FPRay
 	{
 #if UNITY_STANDALONE
-		public FPRay(Ray ray)
+		public static implicit operator Ray(FPRay value)
 		{
-			this.origin = new FPVector3(ray.origin);
-			this.direction = new FPVector3(ray.direction);
+			return new Ray(value.origin, value.direction);
+		}
+
+		public static implicit operator FPRay(Ray value)
+		{
+			return new FPRay(value.origin, value.direction);
 		}
 #endif
 

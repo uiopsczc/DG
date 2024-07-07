@@ -80,10 +80,14 @@ namespace DG
 		}
 
 #if UNITY_STANDALONE
-		public FPBounds(Bounds bounds)
+		public static implicit operator Bounds(FPBounds value)
 		{
-			this._center = new FPVector3(bounds.center);
-			this._extents = new FPVector3(bounds.extents);
+			return new Bounds(value.center, value.size);
+		}
+
+		public static implicit operator FPBounds(Bounds value)
+		{
+			return new FPBounds(value.center, value.size);
 		}
 #endif
 
