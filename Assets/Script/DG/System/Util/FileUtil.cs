@@ -36,7 +36,7 @@ namespace DG
 				rootPath = rootPath.Substring(1);
 			bool isRootPathEndsWithSlash = rootPath.EndsWith(slash.ToString());
 			if (!isRootPathEndsWithSlash)
-				rootPath = rootPath + slash;
+				rootPath += slash;
 			return fullFilePath.Replace(rootPath, StringConst.STRING_EMPTY);
 		}
 

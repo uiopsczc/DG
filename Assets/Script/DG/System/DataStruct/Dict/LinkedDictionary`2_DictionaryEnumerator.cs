@@ -20,8 +20,8 @@ namespace DG
 
 			public void Init(List<K> keyList, List<V> valueList)
 			{
-				this._keyList = keyList;
-				this._valueList = valueList;
+				_keyList = keyList;
+				_valueList = valueList;
 			}
 
 			public bool MoveNext()

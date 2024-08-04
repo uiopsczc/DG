@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
@@ -29,12 +29,12 @@ namespace DG
 		private const int CONCAVE = -1;
 		private const int CONVEX = 1;
 
-		private List<short> indicesArray = new List<short>();
+		private List<short> indicesArray = new();
 		private short[] indices;
 		private FP[] vertices;
 		private int vertexCount;
-		private List<int> vertexTypes = new List<int>();
-		private List<short> triangles = new List<short>();
+		private List<int> vertexTypes = new();
+		private List<short> triangles = new();
 
 		/** @see #computeTriangles(float[], int, int) */
 		public List<short> computeTriangles(List<FP> vertices)

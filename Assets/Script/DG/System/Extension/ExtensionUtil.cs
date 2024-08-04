@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace DG
 {
@@ -23,7 +24,7 @@ namespace DG
 				{
 					var methodInfo = type.GetMethods(BindingFlags.Static
 													 | BindingFlags.Public | BindingFlags.NonPublic)[j];
-					if (methodInfo.IsDefined(typeof(System.Runtime.CompilerServices.ExtensionAttribute), false) &&
+					if (methodInfo.IsDefined(typeof(ExtensionAttribute), false) &&
 						methodInfo.GetParameters()[0].ParameterType == extendedType)
 						list.Add(methodInfo);
 				}

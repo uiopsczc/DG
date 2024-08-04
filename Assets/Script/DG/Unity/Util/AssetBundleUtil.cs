@@ -16,7 +16,7 @@ namespace DG
 				//otherwise the variant handling in client may go wrong
 				assetBundlePath = assetBundlePath.Replace(StringConst.STRING_DOT, StringConst.STRING_UNDERLINE);
 				//add after suffix ".assetbundle" to the end
-				assetBundlePath = assetBundlePath + BuildConst.ASSET_BUNDLE_SUFFIX;
+				assetBundlePath += BuildConst.ASSET_BUNDLE_SUFFIX;
 				return assetBundlePath.ToLower();
 			}
 

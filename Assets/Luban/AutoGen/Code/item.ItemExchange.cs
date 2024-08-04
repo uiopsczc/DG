@@ -10,10 +10,9 @@
 using Luban;
 using SimpleJSON;
 
-
 namespace cfg.item
 {
-public sealed partial class ItemExchange : Luban.BeanBase
+public sealed class ItemExchange : BeanBase
 {
     public ItemExchange(JSONNode _buf) 
     {
@@ -23,7 +22,7 @@ public sealed partial class ItemExchange : Luban.BeanBase
 
     public static ItemExchange DeserializeItemExchange(JSONNode _buf)
     {
-        return new item.ItemExchange(_buf);
+        return new ItemExchange(_buf);
     }
 
     /// <summary>

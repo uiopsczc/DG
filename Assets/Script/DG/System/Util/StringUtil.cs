@@ -169,7 +169,7 @@ namespace DG
 
 		public static int CheckInsertLine(string content, int startCheckInsertIndex, List<string> lineList)
 		{
-			content = content.Trim(new[] {'\r', '\n'});
+			content = content.Trim('\r', '\n');
 			int insertLineIndex = lineList.IndexOf(content, startCheckInsertIndex);
 			//如果lineList中没有content的内容的行，则直接插入
 			if (insertLineIndex < 0)
@@ -258,15 +258,15 @@ namespace DG
 			return stringBuilder.ToString();
 		}
 
-//		public static void RemoveFiles(string content)
-//		{
-//			StdioUtil.RemoveFiles(content);
-//		}
+		public static void RemoveFiles(string content)
+		{
+			StdioUtil.RemoveFiles(content);
+		}
 
-//		public static string Random(string content, int count, bool isUnique)
-//		{
-//			return new string(content.ToCharArray().RandomArray(count, isUnique));
-//		}
+		public static string Random(string content, int count, bool isUnique)
+		{
+			return new string(content.ToCharArray().RandomArray(count, isUnique));
+		}
 
 		public static int GetSubStringCount(string content, string subString)
 		{
@@ -349,18 +349,18 @@ namespace DG
 		}
 
 
-//		public static bool ContainTags(string content, params string[] checkTags)
-//		{
-//			var tags = content.Split(MultiTagsUtil.TAG_SEPARATOR);
-//			for (var i = 0; i < checkTags.Length; i++)
-//			{
-//				var checkTag = checkTags[i];
-//				if (!tags.Contains(checkTag))
-//					return false;
-//			}
-//
-//			return true;
-//		}
+		// public static bool ContainTags(string content, params string[] checkTags)
+		// {
+		// 	var tags = content.Split(MultiTagsUtil.TAG_SEPARATOR);
+		// 	for (var i = 0; i < checkTags.Length; i++)
+		// 	{
+		// 		var checkTag = checkTags[i];
+		// 		if (!tags.Contains(checkTag))
+		// 			return false;
+		// 	}
+		//
+		// 	return true;
+		// }
 
 		public static string GetMainAssetPath(string self)
 		{
@@ -813,14 +813,14 @@ namespace DG
 				if (s.IndexOf(left, pos) == pos)
 				{
 					stack++;
-					pos = pos + left.Length;
+					pos += left.Length;
 				}
 				else if (s.IndexOf(right, pos) == pos)
 				{
 					if (stack == 0)
 						return pos;
 					stack--;
-					pos = pos + right.Length;
+					pos += right.Length;
 				}
 				else
 					pos++;

@@ -6,22 +6,18 @@ namespace DG
 		private string _type;
 		private readonly string _name;
 
-		public CommandMessage(string name) : this(name, null, null)
-		{
-		}
-
 		public CommandMessage(string name, object body) : this(name, body, null)
 		{
 		}
 
-		public CommandMessage(string name, object body, string type)
+		public CommandMessage(string name, object body = null, string type = null)
 		{
-			this._name = name;
-			this._body = body;
-			this._type = type;
+			_name = name;
+			_body = body;
+			_type = type;
 		}
 
-		public virtual string name => this._name;
+		public virtual string name => _name;
 
 		public virtual object body
 		{

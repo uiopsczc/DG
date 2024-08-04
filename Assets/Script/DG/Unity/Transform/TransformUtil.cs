@@ -323,31 +323,31 @@ namespace DG
 		/// </summary>
 		/// <param name="transform"></param>
 		public static void Reset(Transform transform,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
-			if (transformMode.Contains(TransformMode.localPosition))
+			if (transformMode.Contains(ETransformMode.localPosition))
 				transform.localPosition = Vector3.zero;
-			if (transformMode.Contains(TransformMode.localRotation))
+			if (transformMode.Contains(ETransformMode.localRotation))
 				transform.localRotation = Quaternion.identity;
-			if (transformMode.Contains(TransformMode.localScale))
+			if (transformMode.Contains(ETransformMode.localScale))
 				transform.localScale = Vector3.one;
-			if (transformMode.Contains(TransformMode.position))
+			if (transformMode.Contains(ETransformMode.position))
 				transform.position = Vector3.zero;
-			if (transformMode.Contains(TransformMode.rotation))
+			if (transformMode.Contains(ETransformMode.rotation))
 				transform.rotation = Quaternion.identity;
 		}
 
 		public static void ResetToParent(Transform transform, GameObject parent,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			transform.ResetToParent(parent.transform, transformMode);
 		}
 
 		public static void ResetToParent(Transform transform, Transform parent,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			transform.SetParent(parent);
 			Reset(transform, transformMode);
@@ -855,29 +855,29 @@ namespace DG
 		}
 
 		public static void CopyFrom(Transform transform, Transform fromTransform,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			fromTransform.CopyTo(transform, transformMode);
 		}
 
 		public static void CopyTo(Transform transform, Transform targetTransform,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
-			if (transformMode.Contains(TransformMode.position))
+			if (transformMode.Contains(ETransformMode.position))
 				targetTransform.position = transform.position;
-			if (transformMode.Contains(TransformMode.localPosition))
+			if (transformMode.Contains(ETransformMode.localPosition))
 				targetTransform.localPosition = transform.localPosition;
 
-			if (transformMode.Contains(TransformMode.rotation))
+			if (transformMode.Contains(ETransformMode.rotation))
 				targetTransform.rotation = transform.rotation;
-			if (transformMode.Contains(TransformMode.localRotation))
+			if (transformMode.Contains(ETransformMode.localRotation))
 				targetTransform.localRotation = transform.localRotation;
 
-			if (transformMode.Contains(TransformMode.scale))
+			if (transformMode.Contains(ETransformMode.scale))
 				targetTransform.SetLossyScale(transform.lossyScale);
-			if (transformMode.Contains(TransformMode.localScale))
+			if (transformMode.Contains(ETransformMode.localScale))
 				targetTransform.localScale = transform.localScale;
 
 			//有rect的，rect也一起copy

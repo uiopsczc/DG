@@ -22,14 +22,14 @@ namespace DG
 			string secondUnit)
 		{
 			var stringBuilder = new StringBuilder(20);
-			if (this.day != 0)
-				stringBuilder.Append(this.day + dayUnit);
-			if (stringBuilder.Length != 0 || this.hour != 0)
-				stringBuilder.Append(this.hour + hourUnit);
-			if (stringBuilder.Length != 0 || this.minute != 0)
-				stringBuilder.Append(this.minute + minuteUnit);
-			if (stringBuilder.Length != 0 || this.second != 0)
-				stringBuilder.Append(this.second + secondUnit);
+			if (day != 0)
+				stringBuilder.Append(day + dayUnit);
+			if (stringBuilder.Length != 0 || hour != 0)
+				stringBuilder.Append(hour + hourUnit);
+			if (stringBuilder.Length != 0 || minute != 0)
+				stringBuilder.Append(minute + minuteUnit);
+			if (stringBuilder.Length != 0 || second != 0)
+				stringBuilder.Append(second + secondUnit);
 			var result = stringBuilder.ToString();
 			return result;
 		}

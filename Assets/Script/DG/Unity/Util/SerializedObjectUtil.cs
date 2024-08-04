@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public partial class SerializedObjectUtil
+	public class SerializedObjectUtil
 	{
 		public static T TargetObject<T>(SerializedObject serializedObject) where T : Object
 		{

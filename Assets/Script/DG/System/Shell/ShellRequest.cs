@@ -6,15 +6,15 @@ namespace DG
 {
 	public class ShellRequest
 	{
-		public event Action<DGLogLevel, string> onLogAction;
+		public event Action<EDGLogLevel, string> onLogAction;
 		public event Action onErrorAction;
 		public event Action onDoneAction;
 
-		public void Log(DGLogLevel logLevel, string log)
+		public void Log(EDGLogLevel logLevel, string log)
 		{
 			onLogAction?.Invoke(logLevel, log);
 
-			if (logLevel == DGLogLevel.Error)
+			if (logLevel == EDGLogLevel.Error)
 				DGLog.Error(log);
 		}
 

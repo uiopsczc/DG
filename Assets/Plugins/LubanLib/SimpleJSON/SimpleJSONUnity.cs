@@ -39,6 +39,7 @@
  * * * * */
 
 #endregion License and information
+
 using UnityEngine;
 
 namespace SimpleJSON

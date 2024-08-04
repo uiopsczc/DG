@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DG
+﻿namespace DG
 {
 	public static class Long_Extension
 	{

@@ -1,20 +1,20 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/8/17
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/8/17
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
 namespace DG
 {
-	public partial struct FPMinimumTranslationVector
+	public struct FPMinimumTranslationVector
 	{
 		public static FPMinimumTranslationVector Null = Max.cpy();
-		public static FPMinimumTranslationVector Max = new FPMinimumTranslationVector(FPVector2.max, FP.MAX_VALUE);
+		public static FPMinimumTranslationVector Max = new(FPVector2.max, FP.MAX_VALUE);
 		/** Unit length vector that indicates the direction for the separation */
 		public FPVector2 normal;
 		/** Distance of the translation required for the separation */
@@ -34,12 +34,12 @@ namespace DG
 		public override bool Equals(object obj)
 		{
 			FPMinimumTranslationVector other = (FPMinimumTranslationVector)obj;
-			return this.normal == other.normal && this.depth == other.depth;
+			return normal == other.normal && depth == other.depth;
 		}
 
 		public override int GetHashCode()
 		{
-			return this.normal.GetHashCode() ^ this.depth.GetHashCode();
+			return normal.GetHashCode() ^ depth.GetHashCode();
 		}
 	}
 }

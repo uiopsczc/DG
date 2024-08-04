@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace DG
 {
@@ -11,13 +10,13 @@ namespace DG
 
 		public TestScriptableObjectBB(T1 t1, T2 t2)
 		{
-			this.street = t1;
-			this.age = t2;
+			street = t1;
+			age = t2;
 		}
 
 		public override string ToString()
 		{
-			return this.street.ToString() + this.age.ToString();
+			return street + age.ToString();
 		}
 	}
 }

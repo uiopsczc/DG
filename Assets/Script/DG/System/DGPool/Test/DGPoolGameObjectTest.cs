@@ -6,7 +6,7 @@ namespace DG
 	{
 		public static void Test(GameObject prefab)
 		{
-			var pool = DGPoolManager.Default.GetOrAddGameObjectPool(null, prefab, null);
+			var pool = DGPoolManager.Default.GetOrAddGameObjectPool(null, prefab);
 			var clone = pool.SpawnValue();
 			pool = DGPoolManager.Default.GetGameObjectPool(prefab);
 			var poolItem = clone.GetCache<DGPoolItem<GameObject>>(DGPoolConst.POOL_ITEM);

@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
-using UnityEditorInternal;
 using System.Collections;
+using UnityEditorInternal;
 
 namespace DG
 {
 	public class ReorderableListInfo : ICopyable
 	{
 		public IList toReorderList;
-		private readonly GUIToggleTween _toggleTween = new GUIToggleTween();
+		private readonly GUIToggleTween _toggleTween = new();
 		public ReorderableList _reorderableList;
 		public ReorderableList reorderableList
 		{
@@ -25,12 +25,12 @@ namespace DG
 
 		public void SetElementHeight(float elementHeight)
 		{
-			this.reorderableList.SetElementHeight(elementHeight);
+			reorderableList.SetElementHeight(elementHeight);
 		}
 
 		public void DrawGUI(string title)
 		{
-			this.reorderableList.DrawGUI(_toggleTween, title);
+			reorderableList.DrawGUI(_toggleTween, title);
 		}
 
 		public void CopyTo(object dest)

@@ -5,12 +5,12 @@ namespace DG
 {
 	public class DelegateInfo
 	{
-		public Delegate toRemove = null;
-		private Delegate _remain = null;
+		public Delegate toRemove;
+		private Delegate _remain;
 
 		private DelegateInfo(Delegate remain)
 		{
-			this._remain = remain;
+			_remain = remain;
 		}
 
 		//如果Delegate中的参数最后一个参数的名称为remove则该delegate会被删除

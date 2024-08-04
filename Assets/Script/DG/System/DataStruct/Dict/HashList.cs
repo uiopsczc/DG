@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DG
@@ -6,14 +5,13 @@ namespace DG
 	//同HashSet一样，但有序
 	public class HashList<T> : List<T>
 	{
-		private readonly Dictionary<T, bool> _dict = new Dictionary<T, bool>();
+		private readonly Dictionary<T, bool> _dict = new();
 
 
 		public new void Add(T item)
 		{
-			if (_dict.ContainsKey(item))
+			if (!_dict.TryAdd(item, true))
 				return;
-			_dict[item] = true;
 			base.Add(item);
 		}
 
@@ -38,9 +36,8 @@ namespace DG
 
 		public new void Insert(int index, T item)
 		{
-			if (_dict.ContainsKey(item))
+			if (!_dict.TryAdd(item, true))
 				return;
-			_dict[item] = true;
 			base.Insert(index, item);
 		}
 

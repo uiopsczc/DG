@@ -447,13 +447,13 @@ namespace DG
 			var r = x;
 			FP ex = 0;
 
-			while (r < 0.125) { r *= 8; ex = ex - 1; }
-			while (r > 1.0) { r *= 0.125; ex = ex + 1; }
+			while (r < 0.125) { r *= 8; ex -= 1; }
+			while (r > 1.0) { r *= 0.125; ex += 1; }
 
 			r = (-0.46946116 * r + 1.072302) * r + 0.3812513;
 
-			while (ex < 0) { r *= 0.5; ex = ex + 1; }
-			while (ex > 0) { r *= 2; ex = ex - 1; }
+			while (ex < 0) { r *= 0.5; ex += 1; }
+			while (ex > 0) { r *= 2; ex -= 1; }
 
 			FP a = 0.66666666666667;// 2/3
 			FP b = 0.33333333333333;// 1/3

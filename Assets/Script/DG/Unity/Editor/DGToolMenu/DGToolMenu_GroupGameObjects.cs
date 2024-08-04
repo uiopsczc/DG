@@ -1,7 +1,6 @@
-using UnityEngine;
-using UnityEditor;
 using System.Collections.Generic;
-using CsCat;
+using UnityEditor;
+using UnityEngine;
 
 namespace DG
 {
@@ -64,7 +63,7 @@ namespace DG
 			foreach (Vector3 boundsVector in boundsVectorList)
 			{
 				Vector3 worldBoundsVector = parent.localToWorldMatrix * boundsVector;
-				worldBoundsVector = worldBoundsVector + parent.position;
+				worldBoundsVector += parent.position;
 				min = new Vector3(Mathf.Min(worldBoundsVector.x, min.x), Mathf.Min(worldBoundsVector.y, min.y),
 					Mathf.Min(worldBoundsVector.z, min.z));
 				max = new Vector3(Mathf.Max(worldBoundsVector.x, max.x), Mathf.Max(worldBoundsVector.y, max.y),

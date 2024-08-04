@@ -11,18 +11,18 @@
 
 namespace DG
 {
-	public partial class FPOrientedBoundingBox
+	public class FPOrientedBoundingBox
 	{
 		private static FPVector3[] tempAxes = new FPVector3[15];
 		private static FPVector3[] tempVertices = new FPVector3[8];
 		private static FPVector3[] tmpVectors = new FPVector3[9];
 
 		/** Bounds used as size. */
-		private FPBoundingBox bounds = new FPBoundingBox();
+		private FPBoundingBox bounds = new();
 
 		/** Transform matrix. */
-		public FPMatrix4x4 transform = new FPMatrix4x4();
-		private FPMatrix4x4 inverseTransform = new FPMatrix4x4();
+		public FPMatrix4x4 transform;
+		private FPMatrix4x4 inverseTransform;
 
 		private FPVector3[] axes = new FPVector3[3];
 		private FPVector3[] vertices = new FPVector3[8];

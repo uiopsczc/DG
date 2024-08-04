@@ -66,9 +66,7 @@ namespace DG
 			if (!value1.TryGetValue(mainKey, out var value2))
 				return null;
 			var subKey = new Args<Type>(parameterTypes);
-			if (!value2.TryGetValue(subKey, out var value3))
-				return null;
-			return value3;
+			return value2.GetValueOrDefault(subKey);
 		}
 
 		public static bool IsContainsGenericMethodInfoCache2(Type type, string methodName, Type[] genericTypes)
@@ -100,9 +98,7 @@ namespace DG
 				return null;
 			string mainKey = _METHOD_INFO_STRING + _SPLIT_STRING + methodName + _SPLIT_STRING +
 							 _GetGenericTypesString(genericTypes);
-			if (!value1.TryGetValue(mainKey, out var value2))
-				return null;
-			return value2;
+			return value1.GetValueOrDefault(mainKey);
 		}
 		#endregion
 
@@ -135,9 +131,7 @@ namespace DG
 				return null;
 			string mainKey = _FILED_INFO_STRING + _SPLIT_STRING + fieldName + _SPLIT_STRING +
 			                 _GetGenericTypesString(genericTypes);
-			if (!value1.TryGetValue(mainKey, out var value2))
-				return null;
-			return value2;
+			return value1.GetValueOrDefault(mainKey);
 		}
 		#endregion
 
@@ -171,9 +165,7 @@ namespace DG
 				return null;
 			string mainKey = _PROPERTY_INFO_STRING + _SPLIT_STRING + propertyName + _SPLIT_STRING +
 			                 _GetGenericTypesString(genericTypes);
-			if (!value1.TryGetValue(mainKey, out var value2))
-				return null;
-			return value2;
+			return value1.GetValueOrDefault(mainKey);
 		}
 		#endregion
 	}

@@ -4,16 +4,16 @@ namespace DG
 {
 	public static class MetaConst
 	{
-		public static Regex Guid_Regex =
-			new Regex("(?<=(guid: ))[\\s\\S]*?(?=(,))", RegexOptions.Multiline | RegexOptions.Singleline);
+		public static Regex GUID_REGEX =
+			new("(?<=(guid: ))[\\s\\S]*?(?=(,))", RegexOptions.Multiline | RegexOptions.Singleline);
 
-		public static Regex FileID_Regex =
-			new Regex("(?<=(fileID: ))[\\s\\S]*?(?=(,))", RegexOptions.Multiline | RegexOptions.Singleline);
+		public static Regex FILE_ID_REGEX =
+			new("(?<=(fileID: ))[\\s\\S]*?(?=(,))", RegexOptions.Multiline | RegexOptions.Singleline);
 
-		public static Regex Font_Regex = new Regex("(?<=(m_Font: {))[\\s\\S]*?(?=(}))",
+		public static Regex FONT_REGEX = new("(?<=(m_Font: {))[\\s\\S]*?(?=(}))",
 			RegexOptions.Multiline | RegexOptions.Singleline);
 
-		public static Regex Sprite_Regex = new Regex("(?<=(m_Sprite: {))[\\s\\S]*?(?=(}))",
+		public static Regex SPRITE_REGEX = new("(?<=(m_Sprite: {))[\\s\\S]*?(?=(}))",
 			RegexOptions.Multiline | RegexOptions.Singleline);
 	}
 }

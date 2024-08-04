@@ -1,4 +1,3 @@
-using System;
 using Object = UnityEngine.Object;
 
 namespace DG
@@ -9,8 +8,8 @@ namespace DG
 
 		public DGUnityObjectPool(string poolName, T prefab) : base(poolName)
 		{
-			this._poolName = poolName ?? DGPoolManagerUtil.GetPrefabPoolDefaultName(prefab);
-			this._prefab = prefab;
+			_poolName = poolName ?? DGPoolManagerUtil.GetPrefabPoolDefaultName(prefab);
+			_prefab = prefab;
 		}
 		
 

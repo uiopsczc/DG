@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace DG
 {
 	public static class System_Char_Extension

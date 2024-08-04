@@ -40,7 +40,7 @@ namespace DG
 		/// <summary>
 		/// 孩子节点
 		/// </summary>
-		public List<DGGenericMenuItemInfo> children = new List<DGGenericMenuItemInfo>();
+		public List<DGGenericMenuItemInfo> children = new();
 
 		public string itemName;
 
@@ -55,7 +55,7 @@ namespace DG
 		{
 			name = genericMenuItemAttribute.names[genericMenuItemAttribute.currentNameIndex];
 			this.parent = parent;
-			this.itemName = genericMenuItemAttribute.itemName;
+			itemName = genericMenuItemAttribute.itemName;
 			genericMenuItemAttribute.currentNameIndex++;
 			Update(genericMenuItemAttribute, methodInfo);
 		}
@@ -67,8 +67,8 @@ namespace DG
 		/// <param name="methodInfo"></param>
 		public void Update(DGGenericMenuItemAttribute genericMenuItemAttribute, MethodInfo methodInfo)
 		{
-			if (this.priority > genericMenuItemAttribute.priority)
-				this.priority = genericMenuItemAttribute.priority;
+			if (priority > genericMenuItemAttribute.priority)
+				priority = genericMenuItemAttribute.priority;
 			if (genericMenuItemAttribute.names.Length - genericMenuItemAttribute.currentNameIndex >= 1)
 			{
 				SubNamesLengthGreaterThanOrEquals_1_Condition(genericMenuItemAttribute, methodInfo);
@@ -110,12 +110,12 @@ namespace DG
 			DGGenericMenuItemAttribute genericMenuItemAttribute)
 		{
 			if (methodInfo.ReturnType == typeof(bool))
-				this.methodInfoValidate = methodInfo;
+				methodInfoValidate = methodInfo;
 			else
 				this.methodInfo = methodInfo;
 
 			if (genericMenuItemAttribute.isValidate)
-				this.isValidate = true;
+				isValidate = true;
 		}
 
 		/// <summary>

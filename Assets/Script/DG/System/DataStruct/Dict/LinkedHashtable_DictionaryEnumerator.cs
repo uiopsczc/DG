@@ -50,8 +50,8 @@ namespace DG
 
 			public void Init(ArrayList keyList, ArrayList valueList)
 			{
-				this._keyList = keyList;
-				this._valueList = valueList;
+				_keyList = keyList;
+				_valueList = valueList;
 			}
 
 			public void Reset()

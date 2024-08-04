@@ -2,9 +2,8 @@
 // Created: 2018/07/13
 
 #if true && (UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5 || UNITY_2017_1_OR_NEWER) // MODULE_MARKER
-using System;
-using UnityEngine;
 using DG.Tweening.Core;
+using UnityEngine;
 
 #pragma warning disable 1591
 namespace DG.Tweening
@@ -70,7 +69,7 @@ namespace DG.Tweening
 		/// <param name="endValue">The value to tween to</param><param name="duration">The duration of the tween</param>
 		public static Tweener DOBlendableColor(this SpriteRenderer target, Color endValue, float duration)
 		{
-			endValue = endValue - target.color;
+			endValue -= target.color;
 			Color to = new Color(0, 0, 0, 0);
 			return DOTween.To(() => to, x =>
 			{

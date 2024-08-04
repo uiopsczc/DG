@@ -31,20 +31,20 @@ namespace DG
 		/// <summary>
 		///   队列中是否有新的数据缓存了，需要处理的锁,当WaitOne的时候阻塞，直到其他地方有Set()调用才有机会获得锁，自己线程得以执行
 		/// </summary>
-		private readonly AutoResetEvent _dataAvailableEvent = new AutoResetEvent(false);
+		private readonly AutoResetEvent _dataAvailableEvent = new(false);
 
 		/// <summary>
 		///   Produce中Enqueue的时候需要进行的处理
 		/// </summary>
 		public Action<T> produceHandle;
 
-		private readonly Queue<T> _queue0 = new Queue<T>();
-		private readonly Queue<T> _queue1 = new Queue<T>();
+		private readonly Queue<T> _queue0 = new();
+		private readonly Queue<T> _queue1 = new();
 
 		/// <summary>
 		///   阻塞线程的锁，当WaitOne的时候阻塞，直到其他地方有Set()调用才有机会获得锁，自己线程得以执行
 		/// </summary>
-		private readonly AutoResetEvent _unblockEvent = new AutoResetEvent(true);
+		private readonly AutoResetEvent _unblockEvent = new(true);
 
 		public DoubleBuffer(Action<T> consumeHandle, Action<T> produceHandle = null)
 		{

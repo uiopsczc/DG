@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
 namespace DG
 {
 	public static class ResizableRectsConst

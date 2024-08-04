@@ -62,13 +62,12 @@ namespace DG
 
 		public override bool Equals(object obj)
 		{
-			if (obj is MemberToRestoreProxy otherProxy)
-				return otherProxy._memberToRestoreBase.Equals(_memberToRestoreBase);
-
-			if (obj is MemberToRestoreBase otherToRestoreBase)
-				return otherToRestoreBase.Equals(_memberToRestoreBase);
-
-			return false;
+			return obj switch
+			{
+				MemberToRestoreProxy otherProxy => otherProxy._memberToRestoreBase.Equals(_memberToRestoreBase),
+				MemberToRestoreBase otherToRestoreBase => otherToRestoreBase.Equals(_memberToRestoreBase),
+				_ => false
+			};
 		}
 
 		public override int GetHashCode()

@@ -39,7 +39,7 @@ namespace DG
 			});
 		}
 
-		private void CreateProduceThread(string id, int interval_ms)
+		private void CreateProduceThread(string id, int intervalMs)
 		{
 			ThreadManager.instance.Add(() =>
 			{
@@ -48,7 +48,7 @@ namespace DG
 				{
 					db.Produce(string.Format("{0}:{1}", id, i));
 					i++;
-					Thread.Sleep(interval_ms);
+					Thread.Sleep(intervalMs);
 				}
 			});
 		}

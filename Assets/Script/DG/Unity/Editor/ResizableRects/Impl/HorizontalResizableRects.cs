@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,12 +16,12 @@ namespace DG
 
 		public override void SetSplitLinePosition(int splitLineIndex, float position)
 		{
-			this.splitLineRects[splitLineIndex].position = total_rect.position + new Vector2(position, 0);
+			splitLineRects[splitLineIndex].position = total_rect.position + new Vector2(position, 0);
 		}
 
 		protected override void UpdateSplitLineRects()
 		{
-			for (int i = 0; i < this.splitLineRects.Length; i++)
+			for (int i = 0; i < splitLineRects.Length; i++)
 			{
 				if (isUsingSplitPixels)
 				{

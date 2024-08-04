@@ -10,7 +10,7 @@ namespace DG
 	{
 		#region field
 
-		protected Dictionary<object, object> _dict = new Dictionary<object, object>();
+		protected readonly Dictionary<object, object> _dict = new();
 
 		#endregion
 
@@ -22,17 +22,17 @@ namespace DG
 
 		public void Remove(object key)
 		{
-			this._dict.Remove(key);
+			_dict.Remove(key);
 		}
 
 		public object Get(object key)
 		{
-			return this._dict[key];
+			return _dict[key];
 		}
 
 		public T Get<T>(object key)
 		{
-			return (T) this._dict[key];
+			return (T) _dict[key];
 		}
 
 		public bool TryGetValue(object key, out object value)
@@ -43,38 +43,38 @@ namespace DG
 
 		public bool ContainsKey(object key)
 		{
-			return this._dict.ContainsKey(key);
+			return _dict.ContainsKey(key);
 		}
 
 		public bool ContainsKey<T>()
 		{
-			return this._dict.ContainsKey(typeof(T).FullName);
+			return _dict.ContainsKey(typeof(T).FullName);
 		}
 
 		public bool ContainsValue(object value)
 		{
-			return this._dict.ContainsValue(value);
+			return _dict.ContainsValue(value);
 		}
 
 
 		public T GetOrGetDefault<T>(object key, T defaultValue = default)
 		{
-			return _dict.GetOrGetDefault<T>(key, defaultValue);
+			return _dict.GetOrGetDefault(key, defaultValue);
 		}
 
 		public T GetOrGetDefault<T>(T defaultValue = default)
 		{
-			return GetOrGetDefault<T>(typeof(T).FullName, defaultValue);
+			return GetOrGetDefault(typeof(T).FullName, defaultValue);
 		}
 
 		public T GetOrGetByDefaultFunc<T>(object key, Func<T> defaultFunc)
 		{
-			return _dict.GetOrGetByDefaultFunc<T>(key, defaultFunc);
+			return _dict.GetOrGetByDefaultFunc(key, defaultFunc);
 		}
 
 		public T GetOrGetByDefaultFunc<T>(Func<T> defaultFunc)
 		{
-			return GetOrGetByDefaultFunc<T>(typeof(T).FullName, defaultFunc);
+			return GetOrGetByDefaultFunc(typeof(T).FullName, defaultFunc);
 		}
 
 		public T GetOrGetNew<T>(object key) where T : new()
@@ -90,32 +90,32 @@ namespace DG
 
 		public T GetOrGetByNewFunc<T>(object key, Func<T> newFunc) where T : new()
 		{
-			return _dict.GetOrGetByNewFunc<T>(key, newFunc);
+			return _dict.GetOrGetByNewFunc(key, newFunc);
 		}
 
 		public T GetOrGetByNewFunc<T>(Func<T> newFunc) where T : new()
 		{
-			return GetOrGetByNewFunc<T>(typeof(T).FullName, newFunc);
+			return GetOrGetByNewFunc(typeof(T).FullName, newFunc);
 		}
 
 		public T GetOrAddDefault<T>(object key, T defaultValue = default)
 		{
-			return _dict.GetOrAddDefault<T>(key, defaultValue);
+			return _dict.GetOrAddDefault(key, defaultValue);
 		}
 
 		public T GetOrAddDefault<T>(T defaultValue = default)
 		{
-			return GetOrAddDefault<T>(typeof(T).FullName, defaultValue);
+			return GetOrAddDefault(typeof(T).FullName, defaultValue);
 		}
 
 		public T GetOrAddByDefaultFunc<T>(object key, Func<T> defaultFunc)
 		{
-			return _dict.GetOrAddByDefaultFunc<T>(key, defaultFunc);
+			return _dict.GetOrAddByDefaultFunc(key, defaultFunc);
 		}
 
 		public T GetOrAddByDefaultFunc<T>(Func<T> defaultFunc)
 		{
-			return GetOrAddByDefaultFunc<T>(typeof(T).FullName, defaultFunc);
+			return GetOrAddByDefaultFunc(typeof(T).FullName, defaultFunc);
 		}
 
 		public T GetOrAddNew<T>(object key) where T : new()
@@ -130,7 +130,7 @@ namespace DG
 
 		public T GetOrAddByNewFunc<T>(object key, Func<T> newFunc) where T : new()
 		{
-			return _dict.GetOrAddByNewFunc<T>(key, newFunc);
+			return _dict.GetOrAddByNewFunc(key, newFunc);
 		}
 
 		public T GetOrAddByNewFunc<T>(Func<T> newFunc) where T : new()

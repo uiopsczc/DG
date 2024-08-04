@@ -10,11 +10,9 @@
 *************************************************************************************/
 
 
-using System;
-
 namespace DG
 {
-	public partial struct FPSphere
+	public struct FPSphere
 	{
 		public FP radius;
 		/** the center of the sphere **/
@@ -38,32 +36,32 @@ namespace DG
 		}
 		public FP volume()
 		{
-			return FP.FOUR_PI_DIV_3 * this.radius * this.radius * this.radius;
+			return FP.FOUR_PI_DIV_3 * radius * radius * radius;
 		}
 
 		public FP surfaceArea()
 		{
-			return 4 * FP.PI * this.radius * this.radius;
+			return 4 * FP.PI * radius * radius;
 		}
 
 		public override int GetHashCode()
 		{
 			int prime = 71;
 			int result = 1;
-			result = prime * result + this.center.GetHashCode();
-			result = prime * result + this.radius.GetHashCode();
+			result = prime * result + center.GetHashCode();
+			result = prime * result + radius.GetHashCode();
 			return result;
 		}
 
 		public override bool Equals(object o)
 		{
 			var other = (FPSphere)o;
-			return this.center == other.center && this.radius == other.radius;
+			return center == other.center && radius == other.radius;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("(center = {0}, radius = {1})", this.center, this.radius);
+			return string.Format("(center = {0}, radius = {1})", center, radius);
 		}
 	}
 }

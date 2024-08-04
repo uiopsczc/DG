@@ -4,9 +4,9 @@ namespace DG
 {
 	public static class Vector3Const
 	{
-		public static Vector3 MAX = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+		public static Vector3 MAX = new(float.MaxValue, float.MaxValue, float.MaxValue);
 
-		public static Vector3 MIN = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+		public static Vector3 MIN = new(float.MinValue, float.MinValue, float.MinValue);
 
 		public static Vector3 DEFAULT_MAX = MAX;
 
@@ -14,6 +14,6 @@ namespace DG
 
 		public static Vector3 DEFAULT = DEFAULT_MAX;
 
-		public static Vector3 HALF = new Vector3(0.5f, 0.5f, 0.5f);
+		public static Vector3 HALF = new(0.5f, 0.5f, 0.5f);
 	}
 }

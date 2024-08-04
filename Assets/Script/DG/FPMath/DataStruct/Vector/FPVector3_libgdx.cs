@@ -15,10 +15,10 @@ namespace DG
 		/** the z-component of this vector **/
 		public FP z;
 
-		public static FPVector3 X = new FPVector3(1, 0, 0);
-		public static FPVector3 Y = new FPVector3(0, 1, 0);
-		public static FPVector3 Z = new FPVector3(0, 0, 1);
-		public static FPVector3 Zero = new FPVector3(0, 0, 0);
+		public static FPVector3 X = new(1, 0, 0);
+		public static FPVector3 Y = new(0, 1, 0);
+		public static FPVector3 Z = new(0, 0, 1);
+		public static FPVector3 Zero = new(0, 0, 0);
 
 		private static FPMatrix4x4 tmpMat = FPMatrix4x4.default2;
 
@@ -38,9 +38,9 @@ namespace DG
 		 * @param vector The vector */
 		public FPVector3(FPVector3 vector)
 		{
-			this.x = vector.x;
-			this.y = vector.y;
-			this.z = vector.z;
+			x = vector.x;
+			y = vector.y;
+			z = vector.z;
 		}
 
 		/** Creates a vector from the given array. The array must have at least 3 elements.
@@ -48,9 +48,9 @@ namespace DG
 		 * @param values The array */
 		public FPVector3(FP[] values)
 		{
-			this.x = values[0];
-			this.y = values[1];
-			this.z = values[2];
+			x = values[0];
+			y = values[1];
+			z = values[2];
 		}
 
 		/** Creates a vector from the given vector and z-component
@@ -59,8 +59,8 @@ namespace DG
 		 * @param z The z-component */
 		public FPVector3(FPVector2 vector, FP z)
 		{
-			this.x = vector.x;
-			this.y = vector.y;
+			x = vector.x;
+			y = vector.y;
 			this.z = z;
 		}
 
@@ -80,7 +80,7 @@ namespace DG
 
 		public FPVector3 set(FPVector3 vector)
 		{
-			return this.set(vector.x, vector.y, vector.z);
+			return set(vector.x, vector.y, vector.z);
 		}
 
 		/** Sets the components from the array. The array must have at least 3 elements
@@ -89,7 +89,7 @@ namespace DG
 		 * @return this vector for chaining */
 		public FPVector3 set(FP[] values)
 		{
-			return this.set(values[0], values[1], values[2]);
+			return set(values[0], values[1], values[2]);
 		}
 
 		/** Sets the components of the given vector and z-component
@@ -99,7 +99,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 set(FPVector2 vector, FP z)
 		{
-			return this.set(vector.x, vector.y, z);
+			return set(vector.x, vector.y, z);
 		}
 
 		/** Sets the components from the given spherical coordinate
@@ -114,7 +114,7 @@ namespace DG
 			FP cosAzim = FPMath.Cos(azimuthalAngle);
 			FP sinAzim = FPMath.Sin(azimuthalAngle);
 
-			return this.set(cosAzim * sinPolar, sinAzim * sinPolar, cosPolar);
+			return set(cosAzim * sinPolar, sinAzim * sinPolar, cosPolar);
 		}
 
 
@@ -125,7 +125,7 @@ namespace DG
 
 		public FPVector3 add(FPVector3 vector)
 		{
-			return this.add(vector.x, vector.y, vector.z);
+			return add(vector.x, vector.y, vector.z);
 		}
 
 		/** Adds the given vector to this component
@@ -135,7 +135,7 @@ namespace DG
 		 * @return This vector for chaining. */
 		public FPVector3 add(FP x, FP y, FP z)
 		{
-			return this.set(this.x + x, this.y + y, this.z + z);
+			return set(this.x + x, this.y + y, this.z + z);
 		}
 
 		/** Adds the given value to all three components of the vector.
@@ -144,12 +144,12 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 add(FP values)
 		{
-			return this.set(this.x + values, this.y + values, this.z + values);
+			return set(x + values, y + values, z + values);
 		}
 
 		public FPVector3 sub(FPVector3 a_vec)
 		{
-			return this.sub(a_vec.x, a_vec.y, a_vec.z);
+			return sub(a_vec.x, a_vec.y, a_vec.z);
 		}
 
 		/** Subtracts the other vector from this vector.
@@ -160,7 +160,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 sub(FP x, FP y, FP z)
 		{
-			return this.set(this.x - x, this.y - y, this.z - z);
+			return set(this.x - x, this.y - y, this.z - z);
 		}
 
 		/** Subtracts the given value from all components of this vector
@@ -169,17 +169,17 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 sub(FP value)
 		{
-			return this.set(this.x - value, this.y - value, this.z - value);
+			return set(x - value, y - value, z - value);
 		}
 
 		public FPVector3 scl(FP scalar)
 		{
-			return this.set(this.x * scalar, this.y * scalar, this.z * scalar);
+			return set(x * scalar, y * scalar, z * scalar);
 		}
 
 		public FPVector3 scl(FPVector3 other)
 		{
-			return this.set(x * other.x, y * other.y, z * other.z);
+			return set(x * other.x, y * other.y, z * other.z);
 		}
 
 		/** Scales this vector by the given values
@@ -189,22 +189,22 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 scl(FP vx, FP vy, FP vz)
 		{
-			return this.set(this.x * vx, this.y * vy, this.z * vz);
+			return set(x * vx, y * vy, z * vz);
 		}
 
 		public FPVector3 mulAdd(FPVector3 vec, FP scalar)
 		{
-			this.x += vec.x * scalar;
-			this.y += vec.y * scalar;
-			this.z += vec.z * scalar;
+			x += vec.x * scalar;
+			y += vec.y * scalar;
+			z += vec.z * scalar;
 			return this;
 		}
 
 		public FPVector3 mulAdd(FPVector3 vec, FPVector3 mulVec)
 		{
-			this.x += vec.x * mulVec.x;
-			this.y += vec.y * mulVec.y;
-			this.z += vec.z * mulVec.z;
+			x += vec.x * mulVec.x;
+			y += vec.y * mulVec.y;
+			z += vec.z * mulVec.z;
 			return this;
 		}
 
@@ -299,7 +299,7 @@ namespace DG
 		{
 			FP len2 = this.len2();
 			if (len2 == 0f || len2 == 1f) return this;
-			return this.scl(1f / FPMath.Sqrt(len2));
+			return scl(1f / FPMath.Sqrt(len2));
 		}
 
 		/** @return The dot product between the two vectors */
@@ -329,7 +329,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 crs(FPVector3 vector)
 		{
-			return this.set(y * vector.z - z * vector.y, z * vector.x - x * vector.z, x * vector.y - y * vector.x);
+			return set(y * vector.z - z * vector.y, z * vector.x - x * vector.z, x * vector.y - y * vector.x);
 		}
 
 		/** Sets this vector to the cross product between it and the other vector.
@@ -339,7 +339,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 crs(FP x, FP y, FP z)
 		{
-			return this.set(this.y * z - this.z * y, this.z * x - this.x * z, this.x * y - this.y * x);
+			return set(this.y * z - this.z * y, this.z * x - this.x * z, this.x * y - this.y * x);
 		}
 
 		/** Left-multiplies the vector by the given 4x3 column major matrix. The matrix should be composed by a 3x3 matrix representing
@@ -358,7 +358,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 mul(FPMatrix4x4 matrix)
 		{
-			return this.set(
+			return set(
 				x * matrix.m00 + y * matrix.m01 + z * matrix.m02 +
 				matrix.m03,
 				x * matrix.m10 + y * matrix.m11 + z * matrix.m12 +
@@ -372,7 +372,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 traMul(FPMatrix4x4 matrix)
 		{
-			return this.set(
+			return set(
 				x * matrix.m00 + y * matrix.m10 + z * matrix.m20 +
 				matrix.m30,
 				x * matrix.m01 + y * matrix.m11 + z * matrix.m21 +
@@ -419,7 +419,7 @@ namespace DG
 			FP l_w = 1f / (x * matrix.m30 + y * matrix.m31 +
 													z * matrix.m32 +
 													matrix.m33);
-			return this.set(
+			return set(
 				(x * matrix.m00 + y * matrix.m01 + z * matrix.m02 +
 				 matrix.m03) * l_w,
 				(x * matrix.m10 + y * matrix.m11 + z * matrix.m12 +
@@ -434,7 +434,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 rot(FPMatrix4x4 matrix)
 		{
-			return this.set(x * matrix.m00 + y * matrix.m01 + z * matrix.m02,
+			return set(x * matrix.m00 + y * matrix.m01 + z * matrix.m02,
 				x * matrix.m10 + y * matrix.m11 + z * matrix.m12,
 				x * matrix.m20 + y * matrix.m21 + z * matrix.m22);
 		}
@@ -445,7 +445,7 @@ namespace DG
 		 * @return The vector for chaining */
 		public FPVector3 unrotate(FPMatrix4x4 matrix)
 		{
-			return this.set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
+			return set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
 				x * matrix.m01 + y * matrix.m11 + z * matrix.m21,
 				x * matrix.m02 + y * matrix.m12 + z * matrix.m22);
 		}
@@ -460,7 +460,7 @@ namespace DG
 			x -= matrix.m03;
 			y -= matrix.m13;
 			z -= matrix.m23;
-			return this.set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
+			return set(x * matrix.m00 + y * matrix.m10 + z * matrix.m20,
 				x * matrix.m01 + y * matrix.m11 + z * matrix.m21,
 				x * matrix.m02 + y * matrix.m12 + z * matrix.m22);
 		}
@@ -474,7 +474,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 rotate(FP degrees, FP axisX, FP axisY, FP axisZ)
 		{
-			return this.mul(tmpMat.setToRotation(axisX, axisY, axisZ, degrees));
+			return mul(tmpMat.setToRotation(axisX, axisY, axisZ, degrees));
 		}
 
 		/** Rotates this vector by the given angle in radians around the given axis.
@@ -486,7 +486,7 @@ namespace DG
 		 * @return This vector for chaining */
 		public FPVector3 rotateRad(FP radians, FP axisX, FP axisY, FP axisZ)
 		{
-			return this.mul(tmpMat.setToRotationRad(axisX, axisY, axisZ, radians));
+			return mul(tmpMat.setToRotationRad(axisX, axisY, axisZ, radians));
 		}
 
 		/** Rotates this vector by the given angle in degrees around the given axis.
@@ -497,7 +497,7 @@ namespace DG
 		public FPVector3 rotate(FPVector3 axis, FP degrees)
 		{
 			tmpMat = tmpMat.setToRotation(axis, degrees);
-			return this.mul(tmpMat);
+			return mul(tmpMat);
 		}
 
 		/** Rotates this vector by the given angle in radians around the given axis.
@@ -508,7 +508,7 @@ namespace DG
 		public FPVector3 rotateRad(FPVector3 axis, FP radians)
 		{
 			tmpMat = tmpMat.setToRotationRad(axis, radians);
-			return this.mul(tmpMat);
+			return mul(tmpMat);
 		}
 
 		public bool isUnit()
@@ -624,7 +624,7 @@ namespace DG
 
 			//https://stackoverflow.com/questions/67919193/how-does-unity-implements-vector3-slerp-exactly
 			// Dot product - the cosine of the angle between 2 vectors.
-			FP dot = Dot(this.cpy().normalized, target.cpy().normalized);
+			FP dot = Dot(cpy().normalized, target.cpy().normalized);
 
 			// Clamp it to be in the range of Acos()
 			// This may be unnecessary, but floating point
@@ -730,9 +730,9 @@ namespace DG
 
 		public FPVector3 setZero()
 		{
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
+			x = 0;
+			y = 0;
+			z = 0;
 			return this;
 		}
 	}

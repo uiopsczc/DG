@@ -6,30 +6,30 @@ namespace DG
 		private readonly int _index;
 		public DGPoolItemIndex(DGPool<T> pool, int index)
 		{
-			this._pool = pool;
-			this._index = index;
+			_pool = pool;
+			_index = index;
 		}
 
 		public DGPool<T> GetPool()
 		{
-			return this._pool;
+			return _pool;
 		}
 
 		public IDGPool GetIPool()
 		{
-			return this._pool;
+			return _pool;
 		}
 
 		
 		public DGPoolItem<T> GetPoolItem()
 		{
-			return this._pool.GetPoolItemAtIndex(this._index);
+			return _pool.GetPoolItemAtIndex(_index);
 		}
 
 		
 		public T GetValue()
 		{
-			return this.GetPoolItem().GetValue();
+			return GetPoolItem().GetValue();
 		}
 
 		public T2 GetValue<T2>() where  T2:class 
@@ -40,18 +40,18 @@ namespace DG
 		
 		public int GetIndex()
 		{
-			return this._index;
+			return _index;
 		}
 
 		public void DeSpawn()
 		{
-			var poolItem = this.GetPoolItem();
+			var poolItem = GetPoolItem();
 			poolItem.DeSpawn();
 		}
 
 		object IDGPoolItemIndex.GetValue()
 		{
-			return this.GetValue();
+			return GetValue();
 		}
 	}
 }

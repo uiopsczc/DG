@@ -13,8 +13,8 @@ namespace DG
 
 		public DelegateStruct(Delegate delegation, params object[] args)
 		{
-			this._delegation = delegation;
-			this._args = args;
+			_delegation = delegation;
+			_args = args;
 		}
 
 

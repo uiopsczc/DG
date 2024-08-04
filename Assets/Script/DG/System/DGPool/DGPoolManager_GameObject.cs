@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace DG
@@ -12,13 +11,13 @@ namespace DG
 				pool = new DGNormalGameObjectPool(poolName, prefab, category);
 			else
 				pool = new DGUIGameObjectPool(poolName, prefab, category);
-			this.AddPool(poolName, pool);
+			AddPool(poolName, pool);
 			return pool;
 		}
 
 		public  DGGameObjectPool GetGameObjectPool(string poolName)
 		{
-			return this.GetPool(poolName) as DGGameObjectPool;
+			return GetPool(poolName) as DGGameObjectPool;
 		}
 		
 		public  DGGameObjectPool GetGameObjectPool(GameObject prefab)

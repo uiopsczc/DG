@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -35,7 +35,7 @@ namespace DG
 		/** @return a copy of this ray. */
 		public FPRay cpy()
 		{
-			return new FPRay(this.origin, this.direction);
+			return new FPRay(origin, direction);
 		}
 
 		/** Returns the endpoint given the distance. This is calculated as startpoint + distance * direction.
@@ -47,7 +47,7 @@ namespace DG
 			return new FPVector3(direction).scl(distance).add(origin);
 		}
 
-		static FPVector3 tmp = new FPVector3();
+		static FPVector3 tmp;
 
 		/** Multiplies the ray by the given matrix. Use this to transform a ray into another coordinate system.
 		 * 
@@ -91,8 +91,8 @@ namespace DG
 		 * @return this ray for chaining */
 		public FPRay set(FP x, FP y, FP z, FP dx, FP dy, FP dz)
 		{
-			this.origin.set(x, y, z);
-			this.direction = this.direction.set(dx, dy, dz).nor();
+			origin.set(x, y, z);
+			direction = direction.set(dx, dy, dz).nor();
 			return this;
 		}
 
@@ -102,8 +102,8 @@ namespace DG
 		 * @return This ray for chaining */
 		public FPRay set(FPRay ray)
 		{
-			this.origin.set(ray.origin);
-			this.direction = this.direction.set(ray.direction).nor();
+			origin.set(ray.origin);
+			direction = direction.set(ray.direction).nor();
 			return this;
 		}
 	}

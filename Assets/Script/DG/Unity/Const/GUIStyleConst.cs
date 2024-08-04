@@ -1,27 +1,28 @@
+
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using UnityEngine;
 
 namespace DG
 {
 	public static partial class GUIStyleConst
 	{
-		public static GUIStyle Scroll_Style = new GUIStyle("ScrollView");
+		public static GUIStyle Scroll_Style = new("ScrollView");
 
-		public static GUIStyle Collider_Vertex_Handle_Style = new GUIStyle("U2D.dragDot")
+		public static GUIStyle Collider_Vertex_Handle_Style = new("U2D.dragDot")
 		{
 			normal = { textColor = Color.black },
 			contentOffset = Vector2.one * 8f,
 		};
 
-		public static GUIStyle VertexCoord_Style = new GUIStyle("Label")
+		public static GUIStyle VertexCoord_Style = new("Label")
 		{
 			normal = { textColor = Color.black },
 			fontStyle = FontStyle.Bold,
 		};
 
-		public static GUIStyle ToolbarBoxStyle = new GUIStyle()
+		public static GUIStyle ToolbarBoxStyle = new()
 		{
 			normal = { textColor = Color.white },
 			richText = true,
@@ -29,7 +30,7 @@ namespace DG
 
 
 #if UNITY_EDITOR
-		public static GUIStyle Visible_Toggle_Style = new GUIStyle(EditorStyles.toggle)
+		public static GUIStyle Visible_Toggle_Style = new(EditorStyles.toggle)
 		{
 			normal = { background = EditorGUIUtility.FindTexture("animationvisibilitytoggleoff") },
 			active = { background = EditorGUIUtility.FindTexture("animationvisibilitytoggleoff") },

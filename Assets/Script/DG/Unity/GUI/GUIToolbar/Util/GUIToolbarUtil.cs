@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public static partial class GUIToolbarUtil
+	public static class GUIToolbarUtil
 	{
 		private static Texture2D CreateToolbarIconTexture(float[] iconBits)
 		{

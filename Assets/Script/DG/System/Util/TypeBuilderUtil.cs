@@ -13,8 +13,7 @@ namespace DG
 		{
 			if (moduleBuilder == null)
 				moduleBuilder = ModuleBuilderUtil.GetModuleBuilder();
-			if (typeName == null)
-				typeName = Guid.NewGuid().ToString().Replace(StringConst.STRING_MINUS, StringConst.STRING_EMPTY);
+			typeName ??= Guid.NewGuid().ToString().Replace(StringConst.STRING_MINUS, StringConst.STRING_EMPTY);
 			return moduleBuilder.DefineType(typeName, typeAttributes, parentType, interfaceTypes);
 		}
 	}

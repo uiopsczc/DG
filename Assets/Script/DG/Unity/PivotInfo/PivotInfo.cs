@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public class PivotInfo
+	public struct PivotInfo
 	{
 		public float x;
 		public float y;

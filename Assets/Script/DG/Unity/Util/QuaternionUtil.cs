@@ -61,7 +61,7 @@ namespace DG
 
 		public static Quaternion GetNotZero(Quaternion quaternion, Quaternion? defaultValue = null)
 		{
-			defaultValue = defaultValue ?? Quaternion.identity;
+			defaultValue ??= Quaternion.identity;
 			return quaternion.IsZero() ? defaultValue.Value : quaternion;
 		}
 	}

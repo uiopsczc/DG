@@ -7,7 +7,7 @@ namespace DG
 		/// <summary>
 		/// 存数数据
 		/// </summary>
-		public LinkedHashtable dataDict = new LinkedHashtable();
+		public LinkedHashtable dataDict = new();
 
 		public string filePath;
 

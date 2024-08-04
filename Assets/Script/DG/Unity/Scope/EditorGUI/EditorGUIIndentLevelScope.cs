@@ -1,5 +1,5 @@
-using System;
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
 
 namespace DG
@@ -10,7 +10,7 @@ namespace DG
 
 		public EditorGUIIndentLevelScope(int add = 1)
 		{
-			this._add = add;
+			_add = add;
 			EditorGUI.indentLevel += add;
 		}
 

@@ -8,8 +8,8 @@ namespace DG
 	public static class IListTUtil
 	{
 		/// <summary>
-		/// ½«s´ÓfromIndex¿ªÊ¼,µ½toIndex£¨²»°üÀ¨toIndex£©½áÊøµÄÔªËØ×ªÎª×Ö·û´®Á¬½ÓÆğÀ´£¬ÔªËØÖ®¼äÓÃnÁ¬½Ó£¨×îºóµÄÔªËØºóÃæ²»¼Ón£©
-		/// ÀıÈç£ºobject[] s={"aa","bb","cc"} split="DD" return "aaDDbbDDcc"
+		/// å°†sä»fromIndexå¼€å§‹,åˆ°toIndexï¼ˆä¸åŒ…æ‹¬toIndexï¼‰ç»“æŸçš„å…ƒç´ è½¬ä¸ºå­—ç¬¦ä¸²è¿æ¥èµ·æ¥ï¼Œå…ƒç´ ä¹‹é—´ç”¨nè¿æ¥ï¼ˆæœ€åçš„å…ƒç´ åé¢ä¸åŠ nï¼‰
+		/// ä¾‹å¦‚ï¼šobject[] s={"aa","bb","cc"} split="DD" return "aaDDbbDDcc"
 		/// </summary>
 		public static string Concat<T>(IList<T> list, int fromIndex, int toIndex, string separator)
 		{
@@ -45,8 +45,8 @@ namespace DG
 		}
 
 
-		//Èç£ºlist.MergeSort((a, b)=>return a.count <= b.count)
-		//ÔòÊÇ½«countÓÉĞ¡µ½´óÅÅĞò£¬×¢Òâ±È½Ï´óĞ¡Ê±²»ÒªÂ©µôµÈÓÚºÅ£¬·ñÔòÏàµÈÊ±Ò²½øĞĞÅÅĞò£¬ÔòÅÅĞò²»ÎÈ¶¨
+		//å¦‚ï¼šlist.MergeSort((a, b)=>return a.count <= b.count)
+		//åˆ™æ˜¯å°†countç”±å°åˆ°å¤§æ’åºï¼Œæ³¨æ„æ¯”è¾ƒå¤§å°æ—¶ä¸è¦æ¼æ‰ç­‰äºå·ï¼Œå¦åˆ™ç›¸ç­‰æ—¶ä¹Ÿè¿›è¡Œæ’åºï¼Œåˆ™æ’åºä¸ç¨³å®š
 		public static void MergeSort<T>(IList<T> list, Func<T, T, bool> compareFunc)
 		{
 			SortUtil.MergeSort(list, compareFunc);
@@ -59,8 +59,8 @@ namespace DG
 		}
 
 
-		//Èç£ºlist.QuickSort((a, b)=>return a.count <= b.count)
-		//ÔòÊÇ½«countÓÉĞ¡µ½´óÅÅĞò£¬×¢Òâ±È½Ï´óĞ¡Ê±²»ÒªÂ©µôµÈÓÚºÅ£¬·ñÔòÏàµÈÊ±Ò²½øĞĞÅÅĞò£¬ÔòÅÅĞò²»ÎÈ¶¨
+		//å¦‚ï¼šlist.QuickSort((a, b)=>return a.count <= b.count)
+		//åˆ™æ˜¯å°†countç”±å°åˆ°å¤§æ’åºï¼Œæ³¨æ„æ¯”è¾ƒå¤§å°æ—¶ä¸è¦æ¼æ‰ç­‰äºå·ï¼Œå¦åˆ™ç›¸ç­‰æ—¶ä¹Ÿè¿›è¡Œæ’åºï¼Œåˆ™æ’åºä¸ç¨³å®š
 		public static void QuickSort<T>(IList<T> list, Func<T, T, bool> compareFunc)
 		{
 			SortUtil.QuickSort(list, compareFunc);
@@ -73,28 +73,26 @@ namespace DG
 		}
 
 		public static int BinarySearchCat<T>(IList<T> list, T targetValue,
-			IndexOccurType indexOccurType = IndexOccurType.Any_Index, IList<Comparison<T>> compareRules = null)
+			EIndexOccurType indexOccurType = EIndexOccurType.Any_Index, IList<Comparison<T>> compareRules = null)
 		{
 			return SortedListSearchUtil.BinarySearchCat(list, targetValue, indexOccurType, compareRules);
 		}
 
-		public static ListSortedType GetListSortedType<T>(IList<T> list, IList<Comparison<T>> compareRules)
+		public static EListSortedType GetListSortedType<T>(IList<T> list, IList<Comparison<T>> compareRules)
 		{
 			T firstValue = list[0];
 			T lastValue = list[list.Count - 1];
 			return CompareUtil.CompareWithRules(firstValue, lastValue, compareRules) <= 0
-				? ListSortedType.Increase
-				: ListSortedType.Decrease;
+				? EListSortedType.Increase
+				: EListSortedType.Decrease;
 		}
 
 		/// <summary>
-		///   ½«list1[a]ºÍlist2[b]½»»»
+		///   å°†list1[a]å’Œlist2[b]äº¤æ¢
 		/// </summary>
 		public static void Swap<T>(IList<T> list1, int index1, IList<T> list2, int index2)
 		{
-			var c = list1[index1];
-			list1[index1] = list2[index2];
-			list2[index2] = c;
+			(list1[index1], list2[index2]) = (list2[index2], list1[index1]);
 		}
 
 		public static IList<T> EmptyIfNull<T>(IList<T> list)
@@ -109,7 +107,7 @@ namespace DG
 					list.RemoveAt(i);
 		}
 
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±í»ñµÃ
+		//è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è·å¾—
 		public static T GetByLoopIndex<T>(IList<T> list, int index)
 		{
 			if (index < 0)
@@ -119,7 +117,7 @@ namespace DG
 			return list[index];
 		}
 
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±íÉèÖÃ
+		//è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è®¾ç½®
 		public static void SetByLoopIndex<T>(IList<T> list, int index, T value)
 		{
 			if (index < 0)
@@ -134,7 +132,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   Ê¹ÆäÄÚÔªËØµ¥Ò»
+		///   ä½¿å…¶å†…å…ƒç´ å•ä¸€
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list"></param>
@@ -181,11 +179,11 @@ namespace DG
 		}
 
 
-		#region ²éÕÒ
+		#region æŸ¥æ‰¾
 
 		/// <summary>
-		///   µÚÒ»¸öitem
-		///   ÓÃlinq
+		///   ç¬¬ä¸€ä¸ªitem
+		///   ç”¨linq
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list"></param>
@@ -196,8 +194,8 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ×îºóÒ»¸öitem
-		///   ÓÃlinq
+		///   æœ€åä¸€ä¸ªitem
+		///   ç”¨linq
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list"></param>
@@ -208,12 +206,12 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÔÚlistÖĞÕÒsublistµÄ¿ªÊ¼Î»ÖÃ
+		///   åœ¨listä¸­æ‰¾sublistçš„å¼€å§‹ä½ç½®
 		/// </summary>
-		/// <returns>-1±íÊ¾Ã»ÕÒµ½</returns>
+		/// <returns>-1è¡¨ç¤ºæ²¡æ‰¾åˆ°</returns>
 		public static int IndexOfSub<T>(IList<T> list, IList<T> subList)
 		{
-			var resultFromIndex = -1; //sublistÔÚlistÖĞµÄ¿ªÊ¼Î»ÖÃ
+			var resultFromIndex = -1; //subliståœ¨listä¸­çš„å¼€å§‹ä½ç½®
 			for (var i = 0; i < list.Count; i++)
 			{
 				object o = list[i];
@@ -237,7 +235,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÔÚlistÖĞÖ»±£ÁôsublistÖĞµÄÔªËØ
+		///   åœ¨listä¸­åªä¿ç•™sublistä¸­çš„å…ƒç´ 
 		/// </summary>
 		public static bool RetainElementsOfSub<T>(IList<T> list, IList<T> subList)
 		{
@@ -253,7 +251,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   °üº¬fromIndx
+		///   åŒ…å«fromIndx
 		/// </summary>
 		public static IList<T> Sub<T>(IList<T> inList, int fromIndex, int length)
 		{
@@ -267,7 +265,7 @@ namespace DG
 
 
 		/// <summary>
-		///   °üº¬fromIndxµ½Ä©Î²
+		///   åŒ…å«fromIndxåˆ°æœ«å°¾
 		/// </summary>
 		public static IList<T> Sub<T>(IList<T> list, int fromIndex)
 		{
@@ -277,10 +275,10 @@ namespace DG
 
 		#endregion
 
-		#region ²åÈëÉ¾³ı²Ù×÷
+		#region æ’å…¥åˆ é™¤æ“ä½œ
 
 		/// <summary>
-		///   µ±setÀ´Ê¹ÓÃ£¬±£³ÖÖ»ÓĞÒ»¸ö
+		///   å½“setæ¥ä½¿ç”¨ï¼Œä¿æŒåªæœ‰ä¸€ä¸ª
 		/// </summary>
 		public static IList<T> Add<T>(IList<T> list, T element, bool isUnique = false)
 		{
@@ -357,7 +355,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ¸úRemoveAtÒ»Ñù£¬Ö»ÊÇÓĞ·µ»ØÖµ
+		///   è·ŸRemoveAtä¸€æ ·ï¼Œåªæ˜¯æœ‰è¿”å›å€¼
 		/// </summary>
 		public static T RemoveAt2<T>(IList<T> list, int index)
 		{
@@ -368,7 +366,7 @@ namespace DG
 
 
 		/// <summary>
-		///   ¸úRemoveÒ»Ñù£¬Ö»ÊÇÓĞ·µ»ØÖµ(ÊÇ·ñÉ¾³ıµô)
+		///   è·ŸRemoveä¸€æ ·ï¼Œåªæ˜¯æœ‰è¿”å›å€¼(æ˜¯å¦åˆ é™¤æ‰)
 		/// </summary>
 		/// <param name="list"></param>
 		/// <param name="o"></param>
@@ -382,7 +380,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   É¾³ılistÖĞµÄsubList£¨subList±ØĞëÒªÈ«²¿ÔÚlistÖĞ£©
+		///   åˆ é™¤listä¸­çš„subListï¼ˆsubListå¿…é¡»è¦å…¨éƒ¨åœ¨listä¸­ï¼‰
 		/// </summary>
 		public static bool RemoveSub<T>(IList<T> list, IList<T> subList)
 		{
@@ -401,7 +399,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ¸úRemoveRangeÒ»Ñù£¬µ«·µ»ØÉ¾³ıµÄÔªËØList
+		///   è·ŸRemoveRangeä¸€æ ·ï¼Œä½†è¿”å›åˆ é™¤çš„å…ƒç´ List
 		/// </summary>
 		public static IList<T> RemoveRange2<T>(IList<T> list, int index, int length)
 		{
@@ -421,7 +419,7 @@ namespace DG
 
 
 		/// <summary>
-		///   ÔÚlistÖĞÉ¾³ısubListÖĞ³öÏÖµÄÔªËØ
+		///   åœ¨listä¸­åˆ é™¤subListä¸­å‡ºç°çš„å…ƒç´ 
 		/// </summary>
 		public static bool RemoveElementsOfSub<T>(IList<T> list, IList<T> subList)
 		{
@@ -438,30 +436,30 @@ namespace DG
 
 		#endregion
 
-		#region Random Ëæ»ú
-//		public static T Random<T>(this IList<T> list)
-//		{
-//			return RandomUtil.Random(list);
-//		}
-//
-//		/// <summary>
-//		/// Ëæ»úlistÀïÃæµÄÔªËØcount´Î
-//		/// </summary>
-//		/// <typeparam name="T"></typeparam>
-//		/// <param name="list"></param>
-//		/// <param name="count">¸öÊı</param>
-//		/// <param name="isUnique">ÊÇ·ñÎ¨Ò»</param>
-//		/// <param name="weights">È¨ÖØÊı×é</param>
-//		/// <returns></returns>
-//		public static IList<T> RandomList<T>(this IList<T> list, int count, bool isUnique, IList<float> weights = null)
-//		{
-//			return RandomUtil.RandomList(list, count, isUnique, weights);
-//		}
-//
-//		public static T[] RandomArray<T>(this IList<T> list, int count, bool isUnique, IList<float> weights = null)
-//		{
-//			return RandomUtil.RandomArray(list, count, isUnique, weights);
-//		}
+		#region Random éšæœº
+		public static T Random<T>(this IList<T> list)
+		{
+			return RandomUtil.Random(list);
+		}
+
+		/// <summary>
+		/// éšæœºlisté‡Œé¢çš„å…ƒç´ countæ¬¡
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list"></param>
+		/// <param name="count">ä¸ªæ•°</param>
+		/// <param name="isUnique">æ˜¯å¦å”¯ä¸€</param>
+		/// <param name="weights">æƒé‡æ•°ç»„</param>
+		/// <returns></returns>
+		public static IList<T> RandomList<T>(this IList<T> list, int count, bool isUnique, IList<float> weights = null)
+		{
+			return RandomUtil.RandomList(list, count, isUnique, weights);
+		}
+
+		public static T[] RandomArray<T>(this IList<T> list, int count, bool isUnique, IList<float> weights = null)
+		{
+			return RandomUtil.RandomArray(list, count, isUnique, weights);
+		}
 
 		#endregion
 

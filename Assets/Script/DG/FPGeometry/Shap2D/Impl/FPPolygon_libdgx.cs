@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 
@@ -27,7 +27,7 @@ namespace DG
 		/** Constructs a new polygon with no vertices. */
 		public FPPolygon()
 		{
-			this.localVertices = new FP[0];
+			localVertices = new FP[0];
 		}
 
 		/** Constructs a new polygon from a float array of parts of vertex points.
@@ -39,7 +39,7 @@ namespace DG
 		public FPPolygon(FP[] vertices)
 		{
 			if (vertices.Length < 6) throw new Exception("polygons must contain at least 3 points.");
-			this.localVertices = vertices;
+			localVertices = vertices;
 		}
 
 		/** Returns the polygon's local vertices without scaling or rotation and without being offset by the polygon position. */
@@ -152,7 +152,7 @@ namespace DG
 		/** Sets the polygon to be rotated by the supplied degrees. */
 		public void setRotation(FP degrees)
 		{
-			this.rotation = degrees;
+			rotation = degrees;
 			_dirty = true;
 		}
 
@@ -174,8 +174,8 @@ namespace DG
 		/** Applies additional scaling to the polygon by the supplied amount. */
 		public void scale(FP amount)
 		{
-			this.scaleX += amount;
-			this.scaleY += amount;
+			scaleX += amount;
+			scaleY += amount;
 			_dirty = true;
 		}
 
@@ -195,7 +195,7 @@ namespace DG
 
 		public int getVertexCount()
 		{
-			return this.localVertices.Length / 2;
+			return localVertices.Length / 2;
 		}
 
 		/** @return Position(transformed) of vertex */
@@ -203,7 +203,7 @@ namespace DG
 		{
 			if (vertexNum < 0 || vertexNum > getVertexCount())
 				throw new Exception("the vertex " + vertexNum + " doesn't exist");
-			FP[] vertices = this.getTransformedVertices();
+			FP[] vertices = getTransformedVertices();
 			return pos.set(vertices[2 * vertexNum], vertices[2 * vertexNum + 1]);
 		}
 

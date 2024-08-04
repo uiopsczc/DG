@@ -6,7 +6,7 @@ namespace DG
 {
 	public static class ValueParseUtil
 	{
-		private static readonly List<Hashtable> valueParseList = new List<Hashtable>();
+		private static readonly List<Hashtable> valueParseList = new();
 
 		private static void AddValueParseElement<T>(Func<string, T> func)
 		{

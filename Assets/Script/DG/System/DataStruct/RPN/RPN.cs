@@ -15,10 +15,6 @@ namespace DG
 	{
 		#region ctor
 
-		public RPN()
-		{
-		}
-
 		#endregion
 
 		public object Evaluate(string exp)
@@ -48,7 +44,7 @@ namespace DG
 		{
 			while (Regex.IsMatch(expression, "\"[^\"]*\""))
 			{
-				string myString = Regex.Match(expression, "\"[^\"]*\"").Value.ToString();
+				string myString = Regex.Match(expression, "\"[^\"]*\"").Value;
 				string stringAdapted = myString.Replace("\"", "@@@");
 				stringAdapted = stringAdapted.Replace("+", "µ#1");
 				stringAdapted = stringAdapted.Replace("-", "µ#2");
@@ -100,7 +96,7 @@ namespace DG
 		///
 		public ArrayList GetPostFixNotation(string szExpr, Type varType, bool bFormula)
 		{
-			szExpr = this.replacementToRPN(szExpr);
+			szExpr = replacementToRPN(szExpr);
 			//Replace the +,/,-,*,% in a string
 			Stack stkOp = new Stack();
 			ArrayList arrFinalExpr = new ArrayList();
@@ -596,7 +592,7 @@ namespace DG
 		}
 
 		protected string m_szVarName = "";
-		protected object m_VarValue = null;
+		protected object m_VarValue;
 	}
 
 	///
@@ -630,7 +626,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.Plus : rhs");
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value + (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value + (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -639,14 +635,14 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.Minus : rhs");
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value - (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value - (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
 		public IOperand Negate()
 		{
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value * -1;
+			oprResult.Value = (long)Value * -1;
 			return oprResult;
 		}
 
@@ -655,7 +651,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new ArgumentException("Argument invalid in LongOperand.Multiply : rhs");
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value * (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value * (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -664,7 +660,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.Divide : rhs");
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value / (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value / (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -673,7 +669,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.Modulo : rhs");
 			LongOperand oprResult = new LongOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (long)this.Value % (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value % (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -681,15 +677,13 @@ namespace DG
 		{
 			BoolOperand oprResult = new BoolOperand("Result", Type.GetType("System.Boolean"));
 
-			switch (Convert.ToString(this.Value))
+			switch (Convert.ToString(Value))
 			{
 				case "0":
 					oprResult.Value = !(false);
 					break;
 				case "1":
 					oprResult.Value = !(true);
-					break;
-				default:
 					break;
 			}
 
@@ -702,7 +696,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.== : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = (long)this.Value == (long)((Operand)rhs).Value;
+			oprResult.Value = (long)Value == (long)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -711,7 +705,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.!= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((long)this.Value != (long)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((long)Value != (long)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -720,7 +714,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.< : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((long)this.Value < (long)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((long)Value < (long)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -729,7 +723,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.<= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((long)this.Value <= (long)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((long)Value <= (long)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -738,7 +732,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.> : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((long)this.Value > (long)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((long)Value > (long)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -747,7 +741,7 @@ namespace DG
 			if (!(rhs is LongOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.>= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((long)this.Value >= (long)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((long)Value >= (long)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 	}
@@ -780,7 +774,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.Plus : rhs");
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value + (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value + (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -789,14 +783,14 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.Minus : rhs");
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value - (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value - (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
 		public IOperand Negate()
 		{
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value * -1;
+			oprResult.Value = (double)Value * -1;
 			return oprResult;
 		}
 
@@ -805,7 +799,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new ArgumentException("Argument invalid in DoubleOperand.Multiply : rhs");
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value * (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value * (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -814,7 +808,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.Divide : rhs");
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value / (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value / (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -823,7 +817,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.Modulo : rhs");
 			DoubleOperand oprResult = new DoubleOperand("Result", Type.GetType("System.Int64"));
-			oprResult.Value = (double)this.Value % (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value % (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -831,15 +825,13 @@ namespace DG
 		{
 			BoolOperand oprResult = new BoolOperand("Result", Type.GetType("System.Boolean"));
 
-			switch (Convert.ToString(this.Value))
+			switch (Convert.ToString(Value))
 			{
 				case "0":
 					oprResult.Value = !(false);
 					break;
 				case "1":
 					oprResult.Value = !(true);
-					break;
-				default:
 					break;
 			}
 
@@ -852,7 +844,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in LongOperand.== : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = (double)this.Value == (double)((Operand)rhs).Value;
+			oprResult.Value = (double)Value == (double)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -861,7 +853,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.!= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((double)this.Value != (double)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((double)Value != (double)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -870,7 +862,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.< : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((double)this.Value < (double)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((double)Value < (double)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -879,7 +871,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.<= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((double)this.Value <= (double)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((double)Value <= (double)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -888,7 +880,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.> : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((double)this.Value > (double)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((double)Value > (double)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -897,7 +889,7 @@ namespace DG
 			if (!(rhs is DoubleOperand))
 				throw new RPN_Exception("Argument invalid in DoubleOperand.>= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((double)this.Value >= (double)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((double)Value >= (double)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 	}
@@ -919,7 +911,7 @@ namespace DG
 
 		public override string ToString()
 		{
-			return this.Value.ToString();
+			return Value.ToString();
 		}
 
 		public override void ExtractAndSetValue(string szValue, bool bFormula)
@@ -932,7 +924,7 @@ namespace DG
 			if (!(rhs is BoolOperand))
 				throw new RPN_Exception("Argument invalid in BoolOperand.&& : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((bool)this.Value && (bool)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((bool)Value && (bool)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -941,7 +933,7 @@ namespace DG
 			if (!(rhs is BoolOperand))
 				throw new RPN_Exception("Argument invalid in BoolOperand.|| : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((bool)this.Value || (bool)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((bool)Value || (bool)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -949,15 +941,13 @@ namespace DG
 		{
 			BoolOperand oprResult = new BoolOperand("Result", Type.GetType("System.Boolean"));
 
-			switch (Convert.ToString(this.Value).ToLower())
+			switch (Convert.ToString(Value).ToLower())
 			{
 				case "false":
 					oprResult.Value = !(false);
 					break;
 				case "true":
 					oprResult.Value = !(true);
-					break;
-				default:
 					break;
 			}
 
@@ -997,12 +987,12 @@ namespace DG
 					//break;
 			}
 
-			throw new RPN_Exception("Unhandled type : " + varType.ToString());
+			throw new RPN_Exception("Unhandled type : " + varType);
 		}
 
 		static public Operand CreateOperand(string szVarName, Type varType)
 		{
-			return OperandHelper.CreateOperand(szVarName, varType, null);
+			return CreateOperand(szVarName, varType, null);
 		}
 	}
 
@@ -1034,7 +1024,7 @@ namespace DG
 			if (!(rhs is StringOperand))
 				throw new RPN_Exception("Argument invalid in StringOperand.== : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = (string)this.Value == (string)((Operand)rhs).Value;
+			oprResult.Value = (string)Value == (string)((Operand)rhs).Value;
 			return oprResult;
 		}
 
@@ -1043,7 +1033,7 @@ namespace DG
 			if (!(rhs is StringOperand))
 				throw new RPN_Exception("Argument invalid in StringOperand.!= : rhs");
 			BoolOperand oprResult = new BoolOperand("Result");
-			oprResult.Value = ((string)this.Value != (string)((Operand)rhs).Value) ? true : false;
+			oprResult.Value = ((string)Value != (string)((Operand)rhs).Value) ? true : false;
 			return oprResult;
 		}
 
@@ -1279,19 +1269,19 @@ namespace DG
 		static public IOperator CreateOperator(string szOperator)
 		{
 			IOperator oprtr = null;
-			if (OperatorHelper.IsArithmeticOperator(szOperator))
+			if (IsArithmeticOperator(szOperator))
 			{
 				oprtr = new ArithmeticOperator(szOperator);
 				return oprtr;
 			}
 
-			if (OperatorHelper.IsComparisonOperator(szOperator))
+			if (IsComparisonOperator(szOperator))
 			{
 				oprtr = new ComparisonOperator(szOperator);
 				return oprtr;
 			}
 
-			if (OperatorHelper.IsLogicalOperator(szOperator))
+			if (IsLogicalOperator(szOperator))
 			{
 				oprtr = new LogicalOperator(szOperator);
 				return oprtr;
@@ -1311,8 +1301,7 @@ namespace DG
 			int nPos = Array.IndexOf(m_AllOps, currentOp.Trim());
 			if (nPos != -1)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		public static bool IsUnaryOperator(string currentOp)
@@ -1320,8 +1309,7 @@ namespace DG
 			int nPos = Array.IndexOf(m_AllUnaryOps, currentOp.Trim());
 			if (nPos != -1)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		public static bool IsArithmeticOperator(string currentOp)
@@ -1329,8 +1317,7 @@ namespace DG
 			int nPos = Array.IndexOf(m_AllArithmeticOps, currentOp);
 			if (nPos != -1)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		public static bool IsComparisonOperator(string currentOp)
@@ -1338,8 +1325,7 @@ namespace DG
 			int nPos = Array.IndexOf(m_AllComparisonOps, currentOp);
 			if (nPos != -1)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		public static bool IsLogicalOperator(string currentOp)
@@ -1347,8 +1333,7 @@ namespace DG
 			int nPos = Array.IndexOf(m_AllLogicalOps, currentOp);
 			if (nPos != -1)
 				return true;
-			else
-				return false;
+			return false;
 		}
 
 		#region Precedence
@@ -1509,7 +1494,7 @@ namespace DG
 
 			if (strRegex.Length == 0)
 				throw new RPN_Exception("Invalid combination of ExpressionType value");
-			return "(" + strRegex.ToString() + ")";
+			return "(" + strRegex + ")";
 		}
 
 		///

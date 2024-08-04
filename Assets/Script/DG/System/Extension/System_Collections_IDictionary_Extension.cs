@@ -6,36 +6,36 @@ namespace DG
 	public static class System_Collections_IDictionary_Extension
 	{
 		//////////////////////////////////////////////////////////////////////
-		// DiffÏà¹Ø
+		// Diffç›¸å…³
 		//////////////////////////////////////////////////////////////////////
-		// ±ØĞëºÍApplyDiffÊ¹ÓÃ
-		// ÒÔnewÎª»ù×¼£¬»ñÈ¡newÏà¶ÔÓÚold²»Ò»ÑùµÄ²¿·Ö
+		// å¿…é¡»å’ŒApplyDiffä½¿ç”¨
+		// ä»¥newä¸ºåŸºå‡†ï¼Œè·å–newç›¸å¯¹äºoldä¸ä¸€æ ·çš„éƒ¨åˆ†
 		// local diff = table.GetDiff(old, new)
 		//  table.ApplyDiff(old, diff)
-		// ÕâÑùoldµÄ¾Í±ä³ÉºÍnewÒ»Ä£Ò»ÑùµÄÊı¾İ
+		// è¿™æ ·oldçš„å°±å˜æˆå’Œnewä¸€æ¨¡ä¸€æ ·çš„æ•°æ®
 		public static LinkedHashtable GetDiff(this IDictionary self, IDictionary newDict)
 		{
 			return IDictionaryUtil.GetDiff(self, newDict);
 		}
 
 		// table.ApplyDiff(old, diff)
-		// ½«diffÖĞµÄ¶«Î÷Ó¦ÓÃµ½oldÖĞ
+		// å°†diffä¸­çš„ä¸œè¥¿åº”ç”¨åˆ°oldä¸­
 		public static void ApplyDiff(this IDictionary self, LinkedHashtable diffDict)
 		{
 			IDictionaryUtil.ApplyDiff(self, diffDict);
 		}
 
-		// ±ØĞëºÍApplyDiffÊ¹ÓÃ
-		// ÒÔnewÎª»ù×¼£¬»ñÈ¡newÖĞÓĞ£¬µ«oldÖĞÃ»ÓĞµÄ
+		// å¿…é¡»å’ŒApplyDiffä½¿ç”¨
+		// ä»¥newä¸ºåŸºå‡†ï¼Œè·å–newä¸­æœ‰ï¼Œä½†oldä¸­æ²¡æœ‰çš„
 		// local diff = table.GetNotExist(old, new)
 		// table.ApplyDiff(old, diff)
-		// ÕâÑùold¾ÍÓĞnewÖĞµÄ×Ö¶Î
+		// è¿™æ ·oldå°±æœ‰newä¸­çš„å­—æ®µ
 		public static LinkedHashtable GetNotExist(this IDictionary self, IDictionary newDict)
 		{
 			return IDictionaryUtil.GetNotExist(self, newDict);
 		}
 
-		//Á½¸ötableÊÇ·ñ²»Ò»Ñù
+		//ä¸¤ä¸ªtableæ˜¯å¦ä¸ä¸€æ ·
 		public static bool IsDiff(this IDictionary self, IDictionary newDict)
 		{
 			return IDictionaryUtil.IsDiff(self, newDict);
@@ -49,12 +49,12 @@ namespace DG
 
 		public static T GetOrGetDefault<T>(this IDictionary self, object key, T defaultValue = default)
 		{
-			return IDictionaryUtil.GetOrGetDefault<T>(self, key, defaultValue);
+			return IDictionaryUtil.GetOrGetDefault(self, key, defaultValue);
 		}
 
 		public static T GetOrGetByDefaultFunc<T>(this IDictionary self, object key, Func<T> defaultFunc)
 		{
-			return IDictionaryUtil.GetOrGetByDefaultFunc<T>(self, key, defaultFunc);
+			return IDictionaryUtil.GetOrGetByDefaultFunc(self, key, defaultFunc);
 		}
 		public static T GetOrGetNew<T>(this IDictionary self, object key) where T : new()
 		{
@@ -63,17 +63,17 @@ namespace DG
 
 		public static T GetOrGetByNewFunc<T>(this IDictionary self, object key, Func<T> newFunc) where T : new()
 		{
-			return IDictionaryUtil.GetOrGetByNewFunc<T>(self, key, newFunc);
+			return IDictionaryUtil.GetOrGetByNewFunc(self, key, newFunc);
 		}
 
 		public static T GetOrAddDefault<T>(this IDictionary self, object key, T defaultValue = default)
 		{
-			return IDictionaryUtil.GetOrAddDefault<T>(self, key, defaultValue);
+			return IDictionaryUtil.GetOrAddDefault(self, key, defaultValue);
 		}
 
 		public static T GetOrAddByDefaultFunc<T>(this IDictionary self, object key, Func<T> defaultFunc)
 		{
-			return IDictionaryUtil.GetOrAddByDefaultFunc<T>(self, key, defaultFunc);
+			return IDictionaryUtil.GetOrAddByDefaultFunc(self, key, defaultFunc);
 		}
 		public static T GetOrAddNew<T>(this IDictionary self, object key) where T : new()
 		{
@@ -82,7 +82,7 @@ namespace DG
 
 		public static T GetOrAddByNewFunc<T>(this IDictionary self, object key, Func<T> newFunc) where T : new()
 		{
-			return IDictionaryUtil.GetOrAddByNewFunc<T>(self, key, newFunc);
+			return IDictionaryUtil.GetOrAddByNewFunc(self, key, newFunc);
 		}
 
 
@@ -93,13 +93,13 @@ namespace DG
 
 
 
-		//É¾³ıÖµÎªnullÖµ¡¢0ÊıÖµ¡¢falseÂß¼­Öµ¡¢¿Õ×Ö·û´®¡¢¿Õ¼¯ºÏµÈÊı¾İÏî
+		//åˆ é™¤å€¼ä¸ºnullå€¼ã€0æ•°å€¼ã€falseé€»è¾‘å€¼ã€ç©ºå­—ç¬¦ä¸²ã€ç©ºé›†åˆç­‰æ•°æ®é¡¹
 		public static void Trim(this IDictionary self)
 		{
 			IDictionaryUtil.Trim(self);
 		}
 
-		//É¾³ıÖµÎªnullÖµ¡¢0ÊıÖµ¡¢falseÂß¼­Öµ¡¢¿Õ×Ö·û´®¡¢¿Õ¼¯ºÏµÈÊı¾İÏî
+		//åˆ é™¤å€¼ä¸ºnullå€¼ã€0æ•°å€¼ã€falseé€»è¾‘å€¼ã€ç©ºå­—ç¬¦ä¸²ã€ç©ºé›†åˆç­‰æ•°æ®é¡¹
 		public static Hashtable ToHashtable(this IDictionary self)
 		{
 			return IDictionaryUtil.ToHashtable(self);

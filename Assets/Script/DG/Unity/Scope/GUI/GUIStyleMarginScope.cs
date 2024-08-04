@@ -23,13 +23,13 @@ namespace DG
 
 		public GUIStyleMarginScope(GUIStyle guiStyle, RectOffset margin, RectOffset padding, RectOffset overflow)
 		{
-			this._guiStyle = guiStyle;
-			this._margin = margin;
-			this._padding = padding;
-			this._overflow = overflow;
-			guiStyle.margin = this._margin;
-			guiStyle.padding = this._padding;
-			guiStyle.overflow = this._overflow;
+			_guiStyle = guiStyle;
+			_margin = margin;
+			_padding = padding;
+			_overflow = overflow;
+			guiStyle.margin = _margin;
+			guiStyle.padding = _padding;
+			guiStyle.overflow = _overflow;
 		}
 
 		public void Dispose()

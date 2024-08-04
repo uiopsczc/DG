@@ -5,20 +5,15 @@ namespace DG
 {
 	public class CommandManager : ICommandManager
 	{
-		protected Dictionary<string, Type> _commandDict = new Dictionary<string, Type>();
+		private readonly Dictionary<string, Type> _commandDict = new();
 
 
 		public virtual void ExecuteCommand(ICommandMessage commandMessage)
 		{
-			Type commandType = null;
-			if (_commandDict.ContainsKey(commandMessage.name))
-				commandType = _commandDict[commandMessage.name];
-
-			if (commandType != null)
-			{
-				var commandInstance = Activator.CreateInstance(commandType);
-				if (commandInstance is ICommand command) command.Execute(commandMessage);
-			}
+			_commandDict.TryGetValue(commandMessage.name, out var commandType);
+			if (commandType == null) return;
+			var commandInstance = Activator.CreateInstance(commandType);
+			if (commandInstance is ICommand command) command.Execute(commandMessage);
 		}
 
 		public virtual void RegisterCommand<HandleCommandType>(string commandName)

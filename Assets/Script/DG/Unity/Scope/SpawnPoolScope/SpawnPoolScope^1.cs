@@ -25,7 +25,7 @@ namespace DG
 
 		public SpawnPoolScope(Action<T> onSpawnCallback = null)
 		{
-			this._onSpawnCallback = onSpawnCallback;
+			_onSpawnCallback = onSpawnCallback;
 		}
 
 		public override void Dispose()
@@ -33,7 +33,7 @@ namespace DG
 			DGPoolManager.Default.GetPool<T>().DeSpawn(_poolItem);
 			_spawn = default;
 			_poolItem = null;
-			this._onSpawnCallback = null;
+			_onSpawnCallback = null;
 			base.Dispose();
 		}
 	}

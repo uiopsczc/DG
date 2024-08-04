@@ -1,6 +1,6 @@
 using System.Linq;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 /// <summary>
 /// Editor window to manages all this project tags.
@@ -82,29 +82,29 @@ public class TagsEditorWindow : EditorWindow
 
 
   /// <summary>Backing field for <see cref="Reference"/>.</summary>
-  [SerializeField] private TagsSO reference = null;
+  [SerializeField] private TagsSO reference;
 
   /// <summary>
   /// Editor of the tags object reference.
   /// </summary>
-  [SerializeField] private TagsEditor referenceEditor = null;
+  [SerializeField] private TagsEditor referenceEditor;
 
 
   /// <summary>
   /// Index used for the window toolbar.
   /// </summary>
-  [SerializeField] private int toolbarIndex = 0;
+  [SerializeField] private int toolbarIndex;
 
   /// <summary>
   /// All available options of the toolbar.
   /// </summary>
-  [SerializeField] private readonly GUIContent[] toolbarOptions = new GUIContent[] { new GUIContent("Tags", "Edit the tags of the project."), new GUIContent("Informations", "Everything you need to know to perfectly use these tags."), new GUIContent("Contact", "How to contact me, if you have any question or suggestion.") };
+  [SerializeField] private readonly GUIContent[] toolbarOptions = { new("Tags", "Edit the tags of the project."), new("Informations", "Everything you need to know to perfectly use these tags."), new("Contact", "How to contact me, if you have any question or suggestion.") };
 
 
   /// <summary>
   /// GUIStyle used to draw a clickable link.
   /// </summary>
-  [SerializeField] private GUIStyle linkStyle = null;
+  [SerializeField] private GUIStyle linkStyle;
 
 
   /// <summary>
@@ -314,10 +314,6 @@ public class TagsEditorWindow : EditorWindow
         // How to contact me
         DrawContact();
         break;
-
-      default:
-        // Nothing to see here...
-        break;
     }
 
     // End the scroll view
@@ -380,17 +376,17 @@ public class CreateTagWindow : EditorWindow
   /// <summary>
   /// Indicates if the name entered is empty.
   /// </summary>
-  private bool isNameEmpty = false;
+  private bool isNameEmpty;
 
   /// <summary>
   /// Indicates if a tag with the same name already exist or not.
   /// </summary>
-  private bool doesNameAlreadyExist = false;
+  private bool doesNameAlreadyExist;
 
   /// <summary>
   /// Indicates if the name entered contains the tag separator or not.
   /// </summary>
-  private bool doesNameContainSeparator = false;
+  private bool doesNameContainSeparator;
   #endregion
 
   #region Methods

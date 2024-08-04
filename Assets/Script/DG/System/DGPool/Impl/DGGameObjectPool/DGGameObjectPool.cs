@@ -30,7 +30,7 @@ namespace DG
 
 		public override GameObject SpawnValue(Action<GameObject> onSpawnCallback = null)
 		{
-			var(poolItem, poolItemIndex) = this.Spawn(onSpawnCallback);
+			var(poolItem, _) = Spawn(onSpawnCallback);
 			return poolItem.GetValue();
 		}
 

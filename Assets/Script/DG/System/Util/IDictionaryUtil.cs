@@ -59,7 +59,6 @@ namespace DG
 				if (!isOldDictContainsNewKey || !newValue.Equals(oldValue))
 				{
 					diff[newKey] = newValue;
-					continue;
 				}
 			}
 

@@ -4,11 +4,11 @@ namespace DG
 	{
 		#region override method
 
-		public override BehaviourTreeNodeStatus Update()
+		public override EBehaviourTreeNodeStatus Update()
 		{
 			if (childList == null || childList.Count == 0)
 			{
-				status = BehaviourTreeNodeStatus.Success;
+				status = EBehaviourTreeNodeStatus.Success;
 				return status;
 			}
 
@@ -16,14 +16,14 @@ namespace DG
 			{
 				var child = childList[i];
 				var childStatus = child.Update();
-				if (childStatus == BehaviourTreeNodeStatus.Running || childStatus == BehaviourTreeNodeStatus.Fail)
+				if (childStatus == EBehaviourTreeNodeStatus.Running || childStatus == EBehaviourTreeNodeStatus.Fail)
 				{
 					status = childStatus;
 					return status;
 				}
 			}
 
-			status = BehaviourTreeNodeStatus.Success;
+			status = EBehaviourTreeNodeStatus.Success;
 			return status;
 		}
 

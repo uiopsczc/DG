@@ -1,15 +1,15 @@
 using System;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace DG
 {
 	public static class EditorMouseInput
 	{
-		public static Action<EditorMouseInputStatus> onStatusChanged;
-		static EditorMouseInputStatus _status = EditorMouseInputStatus.Normal;
+		public static Action<EEditorMouseInputStatus> onStatusChanged;
+		static EEditorMouseInputStatus _status = EEditorMouseInputStatus.Normal;
 
-		public static EditorMouseInputStatus status
+		public static EEditorMouseInputStatus status
 		{
 			get => _status;
 			set
@@ -40,7 +40,7 @@ namespace DG
 
 		public static void DrawSelectBox()
 		{
-			if (_status == EditorMouseInputStatus.Selecting)
+			if (_status == EEditorMouseInputStatus.Selecting)
 			{
 				Vector2 min = Vector2.Min(lastTouchPoint, touchPoint);
 				Vector2 max = Vector2.Max(lastTouchPoint, touchPoint);

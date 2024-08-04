@@ -1,5 +1,5 @@
 /*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/5/12
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 
@@ -90,14 +90,14 @@ namespace DG
 		private const int Count = 16;
 		static FPQuaternion quat = FPQuaternion.default2;
 		static FPQuaternion quat2 = FPQuaternion.default2;
-		static FPVector3 l_vez = new FPVector3();
-		static FPVector3 l_vex = new FPVector3();
-		static FPVector3 l_vey = new FPVector3();
-		static FPVector3 tmpVec = new FPVector3();
-		static FPMatrix4x4 tmpMat = FPMatrix4x4.default2;
-		static FPVector3 right = new FPVector3();
-		static FPVector3 tmpForward = new FPVector3();
-		static FPVector3 tmpUp = new FPVector3();
+		static FPVector3 l_vez;
+		static FPVector3 l_vex;
+		static FPVector3 l_vey;
+		static FPVector3 tmpVec;
+		static FPMatrix4x4 tmpMat = default2;
+		static FPVector3 right;
+		static FPVector3 tmpForward;
+		static FPVector3 tmpUp;
 
 		public FP m00;
 		public FP m10;
@@ -166,25 +166,25 @@ namespace DG
 		 * @param matrix The matrix to copy. (This matrix is not modified) */
 		public FPMatrix4x4(FPMatrix4x4 matrix)
 		{
-			this.m00 = matrix.m00;
-			this.m10 = matrix.m10;
-			this.m20 = matrix.m20;
-			this.m30 = matrix.m30;
+			m00 = matrix.m00;
+			m10 = matrix.m10;
+			m20 = matrix.m20;
+			m30 = matrix.m30;
 
-			this.m01 = matrix.m01;
-			this.m11 = matrix.m11;
-			this.m21 = matrix.m21;
-			this.m31 = matrix.m31;
+			m01 = matrix.m01;
+			m11 = matrix.m11;
+			m21 = matrix.m21;
+			m31 = matrix.m31;
 
-			this.m02 = matrix.m02;
-			this.m12 = matrix.m12;
-			this.m22 = matrix.m22;
-			this.m32 = matrix.m32;
+			m02 = matrix.m02;
+			m12 = matrix.m12;
+			m22 = matrix.m22;
+			m32 = matrix.m32;
 
-			this.m03 = matrix.m03;
-			this.m13 = matrix.m13;
-			this.m23 = matrix.m23;
-			this.m33 = matrix.m33;
+			m03 = matrix.m03;
+			m13 = matrix.m13;
+			m23 = matrix.m23;
+			m33 = matrix.m33;
 		}
 
 		/** Constructs a matrix from the given float array. The array must have at least 16 elements; the first 16 will be copied.
@@ -193,25 +193,25 @@ namespace DG
 		 *           modified) */
 		public FPMatrix4x4(FP[] values)
 		{
-			this.m00 = values[M00Index];
-			this.m10 = values[M10Index];
-			this.m20 = values[M20Index];
-			this.m30 = values[M30Index];
+			m00 = values[M00Index];
+			m10 = values[M10Index];
+			m20 = values[M20Index];
+			m30 = values[M30Index];
 
-			this.m01 = values[M01Index];
-			this.m11 = values[M11Index];
-			this.m21 = values[M21Index];
-			this.m31 = values[M31Index];
+			m01 = values[M01Index];
+			m11 = values[M11Index];
+			m21 = values[M21Index];
+			m31 = values[M31Index];
 
-			this.m02 = values[M02Index];
-			this.m12 = values[M12Index];
-			this.m22 = values[M22Index];
-			this.m32 = values[M32Index];
+			m02 = values[M02Index];
+			m12 = values[M12Index];
+			m22 = values[M22Index];
+			m32 = values[M32Index];
 
-			this.m03 = values[M03Index];
-			this.m13 = values[M13Index];
-			this.m23 = values[M23Index];
-			this.m33 = values[M33Index];
+			m03 = values[M03Index];
+			m13 = values[M13Index];
+			m23 = values[M23Index];
+			m33 = values[M33Index];
 		}
 
 		/** Constructs a rotation matrix from the given {@link Quaternion}.
@@ -233,25 +233,25 @@ namespace DG
 			FP xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 			FP yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
 
-			this.m00 = 1f - (yy + zz);
-			this.m01 = xy - wz;
-			this.m02 = xz + wy;
-			this.m03 = translationX;
+			m00 = 1f - (yy + zz);
+			m01 = xy - wz;
+			m02 = xz + wy;
+			m03 = translationX;
 
-			this.m10 = xy + wz;
-			this.m11 = 1f - (xx + zz);
-			this.m12 = yz - wx;
-			this.m13 = translationY;
+			m10 = xy + wz;
+			m11 = 1f - (xx + zz);
+			m12 = yz - wx;
+			m13 = translationY;
 
-			this.m20 = xz - wy;
-			this.m21 = yz + wx;
-			this.m22 = 1f - (xx + yy);
-			this.m23 = translationZ;
+			m20 = xz - wy;
+			m21 = yz + wx;
+			m22 = 1f - (xx + yy);
+			m23 = translationZ;
 
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 		}
 
 		/** Construct a matrix from the given translation, rotation and scale.
@@ -278,25 +278,25 @@ namespace DG
 			FP xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 			FP yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
 
-			this.m00 = scaleX * (1.0f - (yy + zz));
-			this.m01 = scaleY * (xy - wz);
-			this.m02 = scaleZ * (xz + wy);
-			this.m03 = translationX;
+			m00 = scaleX * (1.0f - (yy + zz));
+			m01 = scaleY * (xy - wz);
+			m02 = scaleZ * (xz + wy);
+			m03 = translationX;
 
-			this.m10 = scaleX * (xy + wz);
-			this.m11 = scaleY * (1.0f - (xx + zz));
-			this.m12 = scaleZ * (yz - wx);
-			this.m13 = translationY;
+			m10 = scaleX * (xy + wz);
+			m11 = scaleY * (1.0f - (xx + zz));
+			m12 = scaleZ * (yz - wx);
+			m13 = translationY;
 
-			this.m20 = scaleX * (xz - wy);
-			this.m21 = scaleY * (yz + wx);
-			this.m22 = scaleZ * (1.0f - (xx + yy));
-			this.m23 = translationZ;
+			m20 = scaleX * (xz - wy);
+			m21 = scaleY * (yz + wx);
+			m22 = scaleZ * (1.0f - (xx + yy));
+			m23 = translationZ;
 
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 		}
 
 		/** Sets the matrix to the given matrix.
@@ -304,25 +304,25 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 set(FPMatrix4x4 matrix)
 		{
-			this.m00 = matrix.m00;
-			this.m10 = matrix.m10;
-			this.m20 = matrix.m20;
-			this.m30 = matrix.m30;
+			m00 = matrix.m00;
+			m10 = matrix.m10;
+			m20 = matrix.m20;
+			m30 = matrix.m30;
 
-			this.m01 = matrix.m01;
-			this.m11 = matrix.m11;
-			this.m21 = matrix.m21;
-			this.m31 = matrix.m31;
+			m01 = matrix.m01;
+			m11 = matrix.m11;
+			m21 = matrix.m21;
+			m31 = matrix.m31;
 
-			this.m02 = matrix.m02;
-			this.m12 = matrix.m12;
-			this.m22 = matrix.m22;
-			this.m32 = matrix.m32;
+			m02 = matrix.m02;
+			m12 = matrix.m12;
+			m22 = matrix.m22;
+			m32 = matrix.m32;
 
-			this.m03 = matrix.m03;
-			this.m13 = matrix.m13;
-			this.m23 = matrix.m23;
-			this.m33 = matrix.m33;
+			m03 = matrix.m03;
+			m13 = matrix.m13;
+			m23 = matrix.m23;
+			m33 = matrix.m33;
 
 			return this;
 		}
@@ -335,25 +335,25 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 set(FP[] values)
 		{
-			this.m00 = values[M00Index];
-			this.m10 = values[M10Index];
-			this.m20 = values[M20Index];
-			this.m30 = values[M30Index];
+			m00 = values[M00Index];
+			m10 = values[M10Index];
+			m20 = values[M20Index];
+			m30 = values[M30Index];
 
-			this.m01 = values[M01Index];
-			this.m11 = values[M11Index];
-			this.m21 = values[M21Index];
-			this.m31 = values[M31Index];
+			m01 = values[M01Index];
+			m11 = values[M11Index];
+			m21 = values[M21Index];
+			m31 = values[M31Index];
 
-			this.m02 = values[M02Index];
-			this.m12 = values[M12Index];
-			this.m22 = values[M22Index];
-			this.m32 = values[M32Index];
+			m02 = values[M02Index];
+			m12 = values[M12Index];
+			m22 = values[M22Index];
+			m32 = values[M32Index];
 
-			this.m03 = values[M03Index];
-			this.m13 = values[M13Index];
-			this.m23 = values[M23Index];
-			this.m33 = values[M33Index];
+			m03 = values[M03Index];
+			m13 = values[M13Index];
+			m23 = values[M23Index];
+			m33 = values[M33Index];
 			return this;
 		}
 
@@ -408,25 +408,25 @@ namespace DG
 			FP xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 			FP yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
 
-			this.m00 = 1f - (yy + zz);
-			this.m01 = xy - wz;
-			this.m02 = xz + wy;
-			this.m03 = translationX;
+			m00 = 1f - (yy + zz);
+			m01 = xy - wz;
+			m02 = xz + wy;
+			m03 = translationX;
 
-			this.m10 = xy + wz;
-			this.m11 = 1f - (xx + zz);
-			this.m12 = yz - wx;
-			this.m13 = translationY;
+			m10 = xy + wz;
+			m11 = 1f - (xx + zz);
+			m12 = yz - wx;
+			m13 = translationY;
 
-			this.m20 = xz - wy;
-			this.m21 = yz + wx;
-			this.m22 = 1f - (xx + yy);
-			this.m23 = translationZ;
+			m20 = xz - wy;
+			m21 = yz + wx;
+			m22 = 1f - (xx + yy);
+			m23 = translationZ;
 
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 			return this;
 		}
 
@@ -466,25 +466,25 @@ namespace DG
 			FP xx = quaternionX * xs, xy = quaternionX * ys, xz = quaternionX * zs;
 			FP yy = quaternionY * ys, yz = quaternionY * zs, zz = quaternionZ * zs;
 
-			this.m00 = scaleX * (1.0f - (yy + zz));
-			this.m01 = scaleY * (xy - wz);
-			this.m02 = scaleZ * (xz + wy);
-			this.m03 = translationX;
+			m00 = scaleX * (1.0f - (yy + zz));
+			m01 = scaleY * (xy - wz);
+			m02 = scaleZ * (xz + wy);
+			m03 = translationX;
 
-			this.m10 = scaleX * (xy + wz);
-			this.m11 = scaleY * (1.0f - (xx + zz));
-			this.m12 = scaleZ * (yz - wx);
-			this.m13 = translationY;
+			m10 = scaleX * (xy + wz);
+			m11 = scaleY * (1.0f - (xx + zz));
+			m12 = scaleZ * (yz - wx);
+			m13 = translationY;
 
-			this.m20 = scaleX * (xz - wy);
-			this.m21 = scaleY * (yz + wx);
-			this.m22 = scaleZ * (1.0f - (xx + yy));
-			this.m23 = translationZ;
+			m20 = scaleX * (xz - wy);
+			m21 = scaleY * (yz + wx);
+			m22 = scaleZ * (1.0f - (xx + yy));
+			m23 = translationZ;
 
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 			return this;
 		}
 
@@ -497,22 +497,22 @@ namespace DG
 		 * @param pos The translation vector. */
 		public FPMatrix4x4 set(FPVector3 xAxis, FPVector3 yAxis, FPVector3 zAxis, FPVector3 pos)
 		{
-			this.m00 = xAxis.x;
-			this.m10 = xAxis.y;
-			this.m20 = xAxis.z;
-			this.m01 = yAxis.x;
-			this.m11 = yAxis.y;
-			this.m21 = yAxis.z;
-			this.m02 = zAxis.x;
-			this.m12 = zAxis.y;
-			this.m22 = zAxis.z;
-			this.m03 = pos.x;
-			this.m13 = pos.y;
-			this.m23 = pos.z;
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m00 = xAxis.x;
+			m10 = xAxis.y;
+			m20 = xAxis.z;
+			m01 = yAxis.x;
+			m11 = yAxis.y;
+			m21 = yAxis.z;
+			m02 = zAxis.x;
+			m12 = zAxis.y;
+			m22 = zAxis.z;
+			m03 = pos.x;
+			m13 = pos.y;
+			m23 = pos.z;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 			return this;
 		}
 
@@ -527,9 +527,9 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 trn(FPVector3 vector)
 		{
-			this.m03 += vector.x;
-			this.m13 += vector.y;
-			this.m23 += vector.z;
+			m03 += vector.x;
+			m13 += vector.y;
+			m23 += vector.z;
 			return this;
 		}
 
@@ -540,9 +540,9 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 trn(FP x, FP y, FP z)
 		{
-			this.m03 += x;
-			this.m13 += y;
-			this.m23 += z;
+			m03 += x;
+			m13 += y;
+			m23 += z;
 			return this;
 		}
 
@@ -638,18 +638,18 @@ namespace DG
 			FP m12 = this.m12;
 			FP m13 = this.m13;
 			FP m23 = this.m23;
-			this.m01 = this.m10;
-			this.m02 = this.m20;
-			this.m03 = this.m30;
-			this.m10 = m01;
-			this.m12 = this.m21;
-			this.m13 = this.m31;
-			this.m20 = m02;
-			this.m21 = m12;
-			this.m23 = this.m32;
-			this.m30 = m03;
-			this.m31 = m13;
-			this.m32 = m23;
+			this.m01 = m10;
+			this.m02 = m20;
+			this.m03 = m30;
+			m10 = m01;
+			this.m12 = m21;
+			this.m13 = m31;
+			m20 = m02;
+			m21 = m12;
+			this.m23 = m32;
+			m30 = m03;
+			m31 = m13;
+			m32 = m23;
 			return this;
 		}
 
@@ -657,22 +657,22 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 idt()
 		{
-			this.m00 = 1f;
-			this.m01 = 0f;
-			this.m02 = 0f;
-			this.m03 = 0f;
-			this.m10 = 0f;
-			this.m11 = 1f;
-			this.m12 = 0f;
-			this.m13 = 0f;
-			this.m20 = 0f;
-			this.m21 = 0f;
-			this.m22 = 1f;
-			this.m23 = 0f;
-			this.m30 = 0f;
-			this.m31 = 0f;
-			this.m32 = 0f;
-			this.m33 = 1f;
+			m00 = 1f;
+			m01 = 0f;
+			m02 = 0f;
+			m03 = 0f;
+			m10 = 0f;
+			m11 = 1f;
+			m12 = 0f;
+			m13 = 0f;
+			m20 = 0f;
+			m21 = 0f;
+			m22 = 1f;
+			m23 = 0f;
+			m30 = 0f;
+			m31 = 0f;
+			m32 = 0f;
+			m33 = 1f;
 			return this;
 		}
 
@@ -902,155 +902,87 @@ namespace DG
 		/** @return The determinant of this matrix */
 		public FP det()
 		{
-			return this.m30 * this.m21 * this.m12 * this.m03 - this.m20 * this.m31 * this.m12 * this.m03
-															 - this.m30 * this.m11 * this.m22 * this.m03 + this.m10 *
-																										 this.m31 *
-																										 this.m22 * this.m03
-																										 + this.m20 *
-																										 this.m11 *
-																										 this.m32 *
-																										 this
-																											 .m03 - this
-																													  .m10 *
-																												  this.m21 *
-																												  this.m32 *
-																												  this.m03
-																												  - this
-																													  .m30 *
-																												  this.m21 *
-																												  this.m02 *
-																												  this
-																													  .m13 + this
-																															   .m20 *
-																														   this
-																															   .m31 *
-																														   this
-																															   .m02 *
-																														   this
-																															   .m13
-																														   + this
-																															   .m30 *
-																														   this
-																															   .m01 *
-																														   this
-																															   .m22 *
-																														   this
-																															   .m13 - this
-																																		.m00 *
-																																	this
-																																		.m31 *
-																																	this
-																																		.m22 *
-																																	this
-																																		.m13
-																																	- this
-																																		.m20 *
-																																	this
-																																		.m01 *
-																																	this
-																																		.m32 *
-																																	this
-																																		.m13 + this
-																																				 .m00 *
-																																			 this
-																																				 .m21 *
-																																			 this
-																																				 .m32 *
-																																			 this
-																																				 .m13
-																																			 + this
-																																				 .m30 *
-																																			 this
-																																				 .m11 *
-																																			 this
-																																				 .m02 *
-																																			 this
-																																				 .m23 - this
-																																						  .m10 *
-																																					  this
-																																						  .m31 *
-																																					  this
-																																						  .m02 *
-																																					  this
-																																						  .m23
-																																					  - this
-																																						  .m30 *
-																																					  this
-																																						  .m01 *
-																																					  this
-																																						  .m12 *
-																																					  this
-																																						  .m23 + this
-																																								   .m00 *
-																																							   this
-																																								   .m31 *
-																																							   this
-																																								   .m12 *
-																																							   this
-																																								   .m23
-																																							   + this
-																																								   .m10 *
-																																							   this
-																																								   .m01 *
-																																							   this
-																																								   .m32 *
-																																							   this
-																																								   .m23 - this
-																																											.m00 *
-																																										this
-																																											.m11 *
-																																										this
-																																											.m32 *
-																																										this
-																																											.m23
-																																										- this
-																																											.m20 *
-																																										this
-																																											.m11 *
-																																										this
-																																											.m02 *
-																																										this
-																																											.m33 + this
-																																													 .m10 *
-																																												 this
-																																													 .m21 *
-																																												 this
-																																													 .m02 *
-																																												 this
-																																													 .m33
+			return m30 * m21 * m12 * m03 - m20 * m31 * m12 * m03
+															 - m30 * m11 * m22 * m03 + m10 *
+																										 m31 *
+																										 m22 * m03
+																										 + m20 *
+																										 m11 *
+																										 m32 *
+																										 m03 - m10 *
+																												  m21 *
+																												  m32 *
+																												  m03
+																												  - m30 *
+																												  m21 *
+																												  m02 *
+																												  m13 + m20 *
+																														   m31 *
+																														   m02 *
+																														   m13
+																														   + m30 *
+																														   m01 *
+																														   m22 *
+																														   m13 - m00 *
+																																	m31 *
+																																	m22 *
+																																	m13
+																																	- m20 *
+																																	m01 *
+																																	m32 *
+																																	m13 + m00 *
+																																			 m21 *
+																																			 m32 *
+																																			 m13
+																																			 + m30 *
+																																			 m11 *
+																																			 m02 *
+																																			 m23 - m10 *
+																																					  m31 *
+																																					  m02 *
+																																					  m23
+																																					  - m30 *
+																																					  m01 *
+																																					  m12 *
+																																					  m23 + m00 *
+																																							   m31 *
+																																							   m12 *
+																																							   m23
+																																							   + m10 *
+																																							   m01 *
+																																							   m32 *
+																																							   m23 - m00 *
+																																										m11 *
+																																										m32 *
+																																										m23
+																																										- m20 *
+																																										m11 *
+																																										m02 *
+																																										m33 + m10 *
+																																												 m21 *
+																																												 m02 *
+																																												 m33
 																																												 +
-																																												 this
-																																													 .m20 *
-																																												 this
-																																													 .m01 *
-																																												 this
-																																													 .m12 *
-																																												 this
-																																													 .m33 - this
-																																															  .m00 *
-																																														  this
-																																															  .m21 *
-																																														  this
-																																															  .m12 *
-																																														  this
-																																															  .m33
+																																												 m20 *
+																																												 m01 *
+																																												 m12 *
+																																												 m33 - m00 *
+																																														  m21 *
+																																														  m12 *
+																																														  m33
 																																														  -
-																																														  this
-																																															  .m10 *
-																																														  this
-																																															  .m01 *
-																																														  this
-																																															  .m22 *
-																																														  this
-																																															  .m33 +
-				   this.m00 * this.m11 * this.m22 * this.m33;
+																																														  m10 *
+																																														  m01 *
+																																														  m22 *
+																																														  m33 +
+				   m00 * m11 * m22 * m33;
 		}
 
 		/** @return The determinant of the 3x3 upper left matrix */
 		public FP det3x3()
 		{
-			return this.m00 * this.m11 * this.m22 + this.m01 * this.m12 * this.m20 + this.m02 * this.m10 * this.m21
-				   - this.m00 * this.m12 * this.m21 - this.m01 * this.m10 * this.m22 - this.m02 * this.m11 * this.m20;
+			return m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21
+				   - m00 * m12 * m21 - m01 * m10 * m22 - m02 * m11 * m20;
 		}
 
 		//http://gsteph.blogspot.com/2012/05/world-view-and-projection-matrix.html
@@ -1069,22 +1001,22 @@ namespace DG
 								FPMath.Tan((fovy * (FPMath.PI / 180)) / 2.0);
 			FP l_a1 = (far + near) / (near - far);
 			FP l_a2 = (2 * far * near) / (near - far);
-			this.m00 = l_fd / aspectRatio;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m30 = 0;
-			this.m01 = 0;
-			this.m11 = l_fd;
-			this.m21 = 0;
-			this.m31 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = l_a1;
-			this.m32 = (-1);
-			this.m03 = 0;
-			this.m13 = 0;
-			this.m23 = l_a2;
-			this.m33 = 0;
+			m00 = l_fd / aspectRatio;
+			m10 = 0;
+			m20 = 0;
+			m30 = 0;
+			m01 = 0;
+			m11 = l_fd;
+			m21 = 0;
+			m31 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = l_a1;
+			m32 = (-1);
+			m03 = 0;
+			m13 = 0;
+			m23 = l_a2;
+			m33 = 0;
 			return this;
 		}
 
@@ -1107,22 +1039,22 @@ namespace DG
 			FP b = (top + bottom) / (top - bottom);
 			FP l_a1 = (far + near) / (near - far);
 			FP l_a2 = (2 * far * near) / (near - far);
-			this.m00 = x;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m30 = 0;
-			this.m01 = 0;
-			this.m11 = y;
-			this.m21 = 0;
-			this.m31 = 0;
-			this.m02 = a;
-			this.m12 = b;
-			this.m22 = l_a1;
-			this.m32 = (-1);
-			this.m03 = 0;
-			this.m13 = 0;
-			this.m23 = l_a2;
-			this.m33 = 0;
+			m00 = x;
+			m10 = 0;
+			m20 = 0;
+			m30 = 0;
+			m01 = 0;
+			m11 = y;
+			m21 = 0;
+			m31 = 0;
+			m02 = a;
+			m12 = b;
+			m22 = l_a1;
+			m32 = (-1);
+			m03 = 0;
+			m13 = 0;
+			m23 = l_a2;
+			m33 = 0;
 			return this;
 		}
 
@@ -1175,22 +1107,22 @@ namespace DG
 			FP ty = -(top + bottom) / (top - bottom);
 			FP tz = -(far + near) / (far - near);
 
-			this.m00 = x_orth;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m30 = 0;
-			this.m01 = 0;
-			this.m11 = y_orth;
-			this.m21 = 0;
-			this.m31 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = z_orth;
-			this.m32 = 0;
-			this.m03 = tx;
-			this.m13 = ty;
-			this.m23 = tz;
-			this.m33 = 1;
+			m00 = x_orth;
+			m10 = 0;
+			m20 = 0;
+			m30 = 0;
+			m01 = 0;
+			m11 = y_orth;
+			m21 = 0;
+			m31 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = z_orth;
+			m32 = 0;
+			m03 = tx;
+			m13 = ty;
+			m23 = tz;
+			m33 = 1;
 			return this;
 		}
 
@@ -1199,9 +1131,9 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 setTranslation(FPVector3 vector)
 		{
-			this.m03 = vector.x;
-			this.m13 = vector.y;
-			this.m23 = vector.z;
+			m03 = vector.x;
+			m13 = vector.y;
+			m23 = vector.z;
 			return this;
 		}
 
@@ -1212,9 +1144,9 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 setTranslation(FP x, FP y, FP z)
 		{
-			this.m03 = x;
-			this.m13 = y;
-			this.m23 = z;
+			m03 = x;
+			m13 = y;
+			m23 = z;
 			return this;
 		}
 
@@ -1225,9 +1157,9 @@ namespace DG
 		public FPMatrix4x4 setToTranslation(FPVector3 vector)
 		{
 			idt();
-			this.m03 = vector.x;
-			this.m13 = vector.y;
-			this.m23 = vector.z;
+			m03 = vector.x;
+			m13 = vector.y;
+			m23 = vector.z;
 			return this;
 		}
 
@@ -1240,9 +1172,9 @@ namespace DG
 		public FPMatrix4x4 setToTranslation(FP x, FP y, FP z)
 		{
 			idt();
-			this.m03 = x;
-			this.m13 = y;
-			this.m23 = z;
+			m03 = x;
+			m13 = y;
+			m23 = z;
 			return this;
 		}
 
@@ -1254,12 +1186,12 @@ namespace DG
 		public FPMatrix4x4 setToTranslationAndScaling(FPVector3 translation, FPVector3 scaling)
 		{
 			idt();
-			this.m03 = translation.x;
-			this.m13 = translation.y;
-			this.m23 = translation.z;
-			this.m00 = scaling.x;
-			this.m11 = scaling.y;
-			this.m22 = scaling.z;
+			m03 = translation.x;
+			m13 = translation.y;
+			m23 = translation.z;
+			m00 = scaling.x;
+			m11 = scaling.y;
+			m22 = scaling.z;
 			return this;
 		}
 
@@ -1277,12 +1209,12 @@ namespace DG
 			FP scalingY, FP scalingZ)
 		{
 			idt();
-			this.m03 = translationX;
-			this.m13 = translationY;
-			this.m23 = translationZ;
-			this.m00 = scalingX;
-			this.m11 = scalingY;
-			this.m22 = scalingZ;
+			m03 = translationX;
+			m13 = translationY;
+			m23 = translationZ;
+			m00 = scalingX;
+			m11 = scalingY;
+			m22 = scalingZ;
 			return this;
 		}
 
@@ -1402,9 +1334,9 @@ namespace DG
 		public FPMatrix4x4 setToScaling(FPVector3 vector)
 		{
 			idt();
-			this.m00 = vector.x;
-			this.m11 = vector.y;
-			this.m22 = vector.z;
+			m00 = vector.x;
+			m11 = vector.y;
+			m22 = vector.z;
 			return this;
 		}
 
@@ -1416,9 +1348,9 @@ namespace DG
 		public FPMatrix4x4 setToScaling(FP x, FP y, FP z)
 		{
 			idt();
-			this.m00 = x;
-			this.m11 = y;
-			this.m22 = z;
+			m00 = x;
+			m11 = y;
+			m22 = z;
 			return this;
 		}
 
@@ -1433,15 +1365,15 @@ namespace DG
 			l_vex = -l_vex.set(l_vez).crs(up).nor();
 			l_vey = -l_vey.set(l_vex).crs(l_vez).nor();
 			idt();
-			this.m00 = l_vex.x;
-			this.m10 = l_vex.y;
-			this.m20 = l_vex.z;
-			this.m01 = l_vey.x;
-			this.m11 = l_vey.y;
-			this.m21 = l_vey.z;
-			this.m02 = l_vez.x;
-			this.m12 = l_vez.y;
-			this.m22 = l_vez.z;
+			m00 = l_vex.x;
+			m10 = l_vex.y;
+			m20 = l_vex.z;
+			m01 = l_vey.x;
+			m11 = l_vey.y;
+			m21 = l_vey.z;
+			m02 = l_vez.x;
+			m12 = l_vez.y;
+			m22 = l_vez.z;
 			return this;
 		}
 
@@ -1479,25 +1411,25 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 lerp(FPMatrix4x4 matrix, FP alpha)
 		{
-			this.m00 = this.m00 * (1 - alpha) + matrix.m00 * alpha;
-			this.m10 = this.m10 * (1 - alpha) + matrix.m10 * alpha;
-			this.m20 = this.m20 * (1 - alpha) + matrix.m20 * alpha;
-			this.m30 = this.m30 * (1 - alpha) + matrix.m30 * alpha;
+			m00 = m00 * (1 - alpha) + matrix.m00 * alpha;
+			m10 = m10 * (1 - alpha) + matrix.m10 * alpha;
+			m20 = m20 * (1 - alpha) + matrix.m20 * alpha;
+			m30 = m30 * (1 - alpha) + matrix.m30 * alpha;
 
-			this.m01 = this.m01 * (1 - alpha) + matrix.m01 * alpha;
-			this.m11 = this.m11 * (1 - alpha) + matrix.m11 * alpha;
-			this.m21 = this.m21 * (1 - alpha) + matrix.m21 * alpha;
-			this.m31 = this.m31 * (1 - alpha) + matrix.m31 * alpha;
+			m01 = m01 * (1 - alpha) + matrix.m01 * alpha;
+			m11 = m11 * (1 - alpha) + matrix.m11 * alpha;
+			m21 = m21 * (1 - alpha) + matrix.m21 * alpha;
+			m31 = m31 * (1 - alpha) + matrix.m31 * alpha;
 
-			this.m02 = this.m02 * (1 - alpha) + matrix.m02 * alpha;
-			this.m12 = this.m12 * (1 - alpha) + matrix.m12 * alpha;
-			this.m22 = this.m22 * (1 - alpha) + matrix.m22 * alpha;
-			this.m32 = this.m32 * (1 - alpha) + matrix.m32 * alpha;
+			m02 = m02 * (1 - alpha) + matrix.m02 * alpha;
+			m12 = m12 * (1 - alpha) + matrix.m12 * alpha;
+			m22 = m22 * (1 - alpha) + matrix.m22 * alpha;
+			m32 = m32 * (1 - alpha) + matrix.m32 * alpha;
 
-			this.m03 = this.m03 * (1 - alpha) + matrix.m03 * alpha;
-			this.m13 = this.m13 * (1 - alpha) + matrix.m13 * alpha;
-			this.m23 = this.m23 * (1 - alpha) + matrix.m23 * alpha;
-			this.m33 = this.m33 * (1 - alpha) + matrix.m33 * alpha;
+			m03 = m03 * (1 - alpha) + matrix.m03 * alpha;
+			m13 = m13 * (1 - alpha) + matrix.m13 * alpha;
+			m23 = m23 * (1 - alpha) + matrix.m23 * alpha;
+			m33 = m33 * (1 - alpha) + matrix.m33 * alpha;
 
 			return this;
 		}
@@ -1618,22 +1550,22 @@ namespace DG
 		 * @return This matrix for chaining */
 		public FPMatrix4x4 set(FPAffine2 affine)
 		{
-			this.m00 = affine.m00;
-			this.m10 = affine.m10;
-			this.m20 = 0;
-			this.m30 = 0;
-			this.m01 = affine.m01;
-			this.m11 = affine.m11;
-			this.m21 = 0;
-			this.m31 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = 1;
-			this.m32 = 0;
-			this.m03 = affine.m02;
-			this.m13 = affine.m12;
-			this.m23 = 0;
-			this.m33 = 1;
+			m00 = affine.m00;
+			m10 = affine.m10;
+			m20 = 0;
+			m30 = 0;
+			m01 = affine.m01;
+			m11 = affine.m11;
+			m21 = 0;
+			m31 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = 1;
+			m32 = 0;
+			m03 = affine.m02;
+			m13 = affine.m12;
+			m23 = 0;
+			m33 = 1;
 			return this;
 		}
 
@@ -1651,12 +1583,12 @@ namespace DG
 		 * @return This matrix for chaining */
 		public FPMatrix4x4 setAsAffine(FPAffine2 affine)
 		{
-			this.m00 = affine.m00;
-			this.m10 = affine.m10;
-			this.m01 = affine.m01;
-			this.m11 = affine.m11;
-			this.m03 = affine.m02;
-			this.m13 = affine.m12;
+			m00 = affine.m00;
+			m10 = affine.m10;
+			m01 = affine.m01;
+			m11 = affine.m11;
+			m03 = affine.m02;
+			m13 = affine.m12;
 			return this;
 		}
 
@@ -1673,44 +1605,44 @@ namespace DG
 		 * @return This matrix for chaining */
 		public FPMatrix4x4 setAsAffine(FPMatrix4x4 mat)
 		{
-			this.m00 = mat.m00;
-			this.m10 = mat.m10;
-			this.m01 = mat.m01;
-			this.m11 = mat.m11;
-			this.m03 = mat.m03;
-			this.m13 = mat.m13;
+			m00 = mat.m00;
+			m10 = mat.m10;
+			m01 = mat.m01;
+			m11 = mat.m11;
+			m03 = mat.m03;
+			m13 = mat.m13;
 			return this;
 		}
 
 		public FPMatrix4x4 scl(FPVector3 scale)
 		{
-			this.m00 *= scale.x;
-			this.m11 *= scale.y;
-			this.m22 *= scale.z;
+			m00 *= scale.x;
+			m11 *= scale.y;
+			m22 *= scale.z;
 			return this;
 		}
 
 		public FPMatrix4x4 scl(FP x, FP y, FP z)
 		{
-			this.m00 *= x;
-			this.m11 *= y;
-			this.m22 *= z;
+			m00 *= x;
+			m11 *= y;
+			m22 *= z;
 			return this;
 		}
 
 		public FPMatrix4x4 scl(FP scale)
 		{
-			this.m00 *= scale;
-			this.m11 *= scale;
-			this.m22 *= scale;
+			m00 *= scale;
+			m11 *= scale;
+			m22 *= scale;
 			return this;
 		}
 
 		public FPVector3 getTranslation(ref FPVector3 position)
 		{
-			position.x = this.m03;
-			position.y = this.m13;
-			position.z = this.m23;
+			position.x = m03;
+			position.y = m13;
+			position.z = m23;
 			return position;
 		}
 
@@ -1734,19 +1666,19 @@ namespace DG
 		/** @return the squared scale factor on the X axis */
 		public FP getScaleXSquared()
 		{
-			return this.m00 * this.m00 + this.m10 * this.m10 + this.m20 * this.m20;
+			return m00 * m00 + m10 * m10 + m20 * m20;
 		}
 
 		/** @return the squared scale factor on the Y axis */
 		public FP getScaleYSquared()
 		{
-			return this.m01 * this.m01 + this.m11 * this.m11 + this.m21 * this.m21;
+			return m01 * m01 + m11 * m11 + m21 * m21;
 		}
 
 		/** @return the squared scale factor on the Z axis */
 		public FP getScaleZSquared()
 		{
-			return this.m02 * this.m02 + this.m12 * this.m12 + this.m22 * this.m22;
+			return m02 * m02 + m12 * m12 + m22 * m22;
 		}
 
 		/** @return the scale factor on the X axis (non-negative) */
@@ -1755,24 +1687,24 @@ namespace DG
 			//		DGLog.Warn((DGFixedPointMath.IsZero(val[M01]) && DGFixedPointMath.IsZero(val[M02]))
 			//			? DGFixedPointMath.Abs(val[M00])
 			//			: DGFixedPointMath.Sqrt(getScaleXSquared()));
-			return (FPMath.IsZero(this.m10) && FPMath.IsZero(this.m20))
-				? FPMath.Abs(this.m00)
+			return (FPMath.IsZero(m10) && FPMath.IsZero(m20))
+				? FPMath.Abs(m00)
 				: FPMath.Sqrt(getScaleXSquared());
 		}
 
 		/** @return the scale factor on the Y axis (non-negative) */
 		public FP getScaleY()
 		{
-			return (FPMath.IsZero(this.m01) && FPMath.IsZero(this.m21))
-				? FPMath.Abs(this.m11)
+			return (FPMath.IsZero(m01) && FPMath.IsZero(m21))
+				? FPMath.Abs(m11)
 				: FPMath.Sqrt(getScaleYSquared());
 		}
 
 		/** @return the scale factor on the X axis (non-negative) */
 		public FP getScaleZ()
 		{
-			return (FPMath.IsZero(this.m02) && FPMath.IsZero(this.m12))
-				? FPMath.Abs(this.m22)
+			return (FPMath.IsZero(m02) && FPMath.IsZero(m12))
+				? FPMath.Abs(m22)
 				: FPMath.Sqrt(getScaleZSquared());
 		}
 
@@ -1786,40 +1718,40 @@ namespace DG
 		/** removes the translational part and transposes the matrix. */
 		public FPMatrix4x4 toNormalMatrix()
 		{
-			this.m03 = 0;
-			this.m13 = 0;
-			this.m23 = 0;
+			m03 = 0;
+			m13 = 0;
+			m23 = 0;
 			return inv().tra();
 		}
 
 		public override string ToString()
 		{
-			return "[" + this.m00 + "|" + this.m01 + "|" + this.m02 + "|" + this.m03 + "]\n" //
-				   + "[" + this.m10 + "|" + this.m11 + "|" + this.m12 + "|" + this.m13 + "]\n" //
-				   + "[" + this.m20 + "|" + this.m21 + "|" + this.m22 + "|" + this.m23 + "]\n" //
-				   + "[" + this.m30 + "|" + this.m31 + "|" + this.m32 + "|" + this.m33 + "]\n";
+			return "[" + m00 + "|" + m01 + "|" + m02 + "|" + m03 + "]\n" //
+				   + "[" + m10 + "|" + m11 + "|" + m12 + "|" + m13 + "]\n" //
+				   + "[" + m20 + "|" + m21 + "|" + m22 + "|" + m23 + "]\n" //
+				   + "[" + m30 + "|" + m31 + "|" + m32 + "|" + m33 + "]\n";
 		}
 
 		static void matrix4_mul(FP[] mata, FP[] matb)
 		{
 			FP[] tmp = new FP[Count];
 
-			tmp[FPMatrix4x4.M00Index] = mata[FPMatrix4x4.M00Index] * matb[FPMatrix4x4.M00Index] + mata[FPMatrix4x4.M01Index] * matb[FPMatrix4x4.M10Index] + mata[FPMatrix4x4.M02Index] * matb[FPMatrix4x4.M20Index] + mata[FPMatrix4x4.M03Index] * matb[FPMatrix4x4.M30Index];
-			tmp[FPMatrix4x4.M01Index] = mata[FPMatrix4x4.M00Index] * matb[FPMatrix4x4.M01Index] + mata[FPMatrix4x4.M01Index] * matb[FPMatrix4x4.M11Index] + mata[FPMatrix4x4.M02Index] * matb[FPMatrix4x4.M21Index] + mata[FPMatrix4x4.M03Index] * matb[FPMatrix4x4.M31Index];
-			tmp[FPMatrix4x4.M02Index] = mata[FPMatrix4x4.M00Index] * matb[FPMatrix4x4.M02Index] + mata[FPMatrix4x4.M01Index] * matb[FPMatrix4x4.M12Index] + mata[FPMatrix4x4.M02Index] * matb[FPMatrix4x4.M22Index] + mata[FPMatrix4x4.M03Index] * matb[FPMatrix4x4.M32Index];
-			tmp[FPMatrix4x4.M03Index] = mata[FPMatrix4x4.M00Index] * matb[FPMatrix4x4.M03Index] + mata[FPMatrix4x4.M01Index] * matb[FPMatrix4x4.M13Index] + mata[FPMatrix4x4.M02Index] * matb[FPMatrix4x4.M23Index] + mata[FPMatrix4x4.M03Index] * matb[FPMatrix4x4.M33Index];
-			tmp[FPMatrix4x4.M10Index] = mata[FPMatrix4x4.M10Index] * matb[FPMatrix4x4.M00Index] + mata[FPMatrix4x4.M11Index] * matb[FPMatrix4x4.M10Index] + mata[FPMatrix4x4.M12Index] * matb[FPMatrix4x4.M20Index] + mata[FPMatrix4x4.M13Index] * matb[FPMatrix4x4.M30Index];
-			tmp[FPMatrix4x4.M11Index] = mata[FPMatrix4x4.M10Index] * matb[FPMatrix4x4.M01Index] + mata[FPMatrix4x4.M11Index] * matb[FPMatrix4x4.M11Index] + mata[FPMatrix4x4.M12Index] * matb[FPMatrix4x4.M21Index] + mata[FPMatrix4x4.M13Index] * matb[FPMatrix4x4.M31Index];
-			tmp[FPMatrix4x4.M12Index] = mata[FPMatrix4x4.M10Index] * matb[FPMatrix4x4.M02Index] + mata[FPMatrix4x4.M11Index] * matb[FPMatrix4x4.M12Index] + mata[FPMatrix4x4.M12Index] * matb[FPMatrix4x4.M22Index] + mata[FPMatrix4x4.M13Index] * matb[FPMatrix4x4.M32Index];
-			tmp[FPMatrix4x4.M13Index] = mata[FPMatrix4x4.M10Index] * matb[FPMatrix4x4.M03Index] + mata[FPMatrix4x4.M11Index] * matb[FPMatrix4x4.M13Index] + mata[FPMatrix4x4.M12Index] * matb[FPMatrix4x4.M23Index] + mata[FPMatrix4x4.M13Index] * matb[FPMatrix4x4.M33Index];
-			tmp[FPMatrix4x4.M20Index] = mata[FPMatrix4x4.M20Index] * matb[FPMatrix4x4.M00Index] + mata[FPMatrix4x4.M21Index] * matb[FPMatrix4x4.M10Index] + mata[FPMatrix4x4.M22Index] * matb[FPMatrix4x4.M20Index] + mata[FPMatrix4x4.M23Index] * matb[FPMatrix4x4.M30Index];
-			tmp[FPMatrix4x4.M21Index] = mata[FPMatrix4x4.M20Index] * matb[FPMatrix4x4.M01Index] + mata[FPMatrix4x4.M21Index] * matb[FPMatrix4x4.M11Index] + mata[FPMatrix4x4.M22Index] * matb[FPMatrix4x4.M21Index] + mata[FPMatrix4x4.M23Index] * matb[FPMatrix4x4.M31Index];
-			tmp[FPMatrix4x4.M22Index] = mata[FPMatrix4x4.M20Index] * matb[FPMatrix4x4.M02Index] + mata[FPMatrix4x4.M21Index] * matb[FPMatrix4x4.M12Index] + mata[FPMatrix4x4.M22Index] * matb[FPMatrix4x4.M22Index] + mata[FPMatrix4x4.M23Index] * matb[FPMatrix4x4.M32Index];
-			tmp[FPMatrix4x4.M23Index] = mata[FPMatrix4x4.M20Index] * matb[FPMatrix4x4.M03Index] + mata[FPMatrix4x4.M21Index] * matb[FPMatrix4x4.M13Index] + mata[FPMatrix4x4.M22Index] * matb[FPMatrix4x4.M23Index] + mata[FPMatrix4x4.M23Index] * matb[FPMatrix4x4.M33Index];
-			tmp[FPMatrix4x4.M30Index] = mata[FPMatrix4x4.M30Index] * matb[FPMatrix4x4.M00Index] + mata[FPMatrix4x4.M31Index] * matb[FPMatrix4x4.M10Index] + mata[FPMatrix4x4.M32Index] * matb[FPMatrix4x4.M20Index] + mata[FPMatrix4x4.M33Index] * matb[FPMatrix4x4.M30Index];
-			tmp[FPMatrix4x4.M31Index] = mata[FPMatrix4x4.M30Index] * matb[FPMatrix4x4.M01Index] + mata[FPMatrix4x4.M31Index] * matb[FPMatrix4x4.M11Index] + mata[FPMatrix4x4.M32Index] * matb[FPMatrix4x4.M21Index] + mata[FPMatrix4x4.M33Index] * matb[FPMatrix4x4.M31Index];
-			tmp[FPMatrix4x4.M32Index] = mata[FPMatrix4x4.M30Index] * matb[FPMatrix4x4.M02Index] + mata[FPMatrix4x4.M31Index] * matb[FPMatrix4x4.M12Index] + mata[FPMatrix4x4.M32Index] * matb[FPMatrix4x4.M22Index] + mata[FPMatrix4x4.M33Index] * matb[FPMatrix4x4.M32Index];
-			tmp[FPMatrix4x4.M33Index] = mata[FPMatrix4x4.M30Index] * matb[FPMatrix4x4.M03Index] + mata[FPMatrix4x4.M31Index] * matb[FPMatrix4x4.M13Index] + mata[FPMatrix4x4.M32Index] * matb[FPMatrix4x4.M23Index] + mata[FPMatrix4x4.M33Index] * matb[FPMatrix4x4.M33Index];
+			tmp[M00Index] = mata[M00Index] * matb[M00Index] + mata[M01Index] * matb[M10Index] + mata[M02Index] * matb[M20Index] + mata[M03Index] * matb[M30Index];
+			tmp[M01Index] = mata[M00Index] * matb[M01Index] + mata[M01Index] * matb[M11Index] + mata[M02Index] * matb[M21Index] + mata[M03Index] * matb[M31Index];
+			tmp[M02Index] = mata[M00Index] * matb[M02Index] + mata[M01Index] * matb[M12Index] + mata[M02Index] * matb[M22Index] + mata[M03Index] * matb[M32Index];
+			tmp[M03Index] = mata[M00Index] * matb[M03Index] + mata[M01Index] * matb[M13Index] + mata[M02Index] * matb[M23Index] + mata[M03Index] * matb[M33Index];
+			tmp[M10Index] = mata[M10Index] * matb[M00Index] + mata[M11Index] * matb[M10Index] + mata[M12Index] * matb[M20Index] + mata[M13Index] * matb[M30Index];
+			tmp[M11Index] = mata[M10Index] * matb[M01Index] + mata[M11Index] * matb[M11Index] + mata[M12Index] * matb[M21Index] + mata[M13Index] * matb[M31Index];
+			tmp[M12Index] = mata[M10Index] * matb[M02Index] + mata[M11Index] * matb[M12Index] + mata[M12Index] * matb[M22Index] + mata[M13Index] * matb[M32Index];
+			tmp[M13Index] = mata[M10Index] * matb[M03Index] + mata[M11Index] * matb[M13Index] + mata[M12Index] * matb[M23Index] + mata[M13Index] * matb[M33Index];
+			tmp[M20Index] = mata[M20Index] * matb[M00Index] + mata[M21Index] * matb[M10Index] + mata[M22Index] * matb[M20Index] + mata[M23Index] * matb[M30Index];
+			tmp[M21Index] = mata[M20Index] * matb[M01Index] + mata[M21Index] * matb[M11Index] + mata[M22Index] * matb[M21Index] + mata[M23Index] * matb[M31Index];
+			tmp[M22Index] = mata[M20Index] * matb[M02Index] + mata[M21Index] * matb[M12Index] + mata[M22Index] * matb[M22Index] + mata[M23Index] * matb[M32Index];
+			tmp[M23Index] = mata[M20Index] * matb[M03Index] + mata[M21Index] * matb[M13Index] + mata[M22Index] * matb[M23Index] + mata[M23Index] * matb[M33Index];
+			tmp[M30Index] = mata[M30Index] * matb[M00Index] + mata[M31Index] * matb[M10Index] + mata[M32Index] * matb[M20Index] + mata[M33Index] * matb[M30Index];
+			tmp[M31Index] = mata[M30Index] * matb[M01Index] + mata[M31Index] * matb[M11Index] + mata[M32Index] * matb[M21Index] + mata[M33Index] * matb[M31Index];
+			tmp[M32Index] = mata[M30Index] * matb[M02Index] + mata[M31Index] * matb[M12Index] + mata[M32Index] * matb[M22Index] + mata[M33Index] * matb[M32Index];
+			tmp[M33Index] = mata[M30Index] * matb[M03Index] + mata[M31Index] * matb[M13Index] + mata[M32Index] * matb[M23Index] + mata[M33Index] * matb[M33Index];
 			Array.Copy(tmp, 0, mata, 0, Count);
 		}
 
@@ -1879,9 +1811,9 @@ namespace DG
 			int index1 = vecStartIndex + 1;
 			int index2 = vecStartIndex + 2;
 
-			FP x = vec[index0] * mat[FPMatrix4x4.M00Index] + vec[index1] * mat[FPMatrix4x4.M01Index] + vec[index2] * mat[FPMatrix4x4.M02Index] + mat[FPMatrix4x4.M03Index];
-			FP y = vec[index0] * mat[FPMatrix4x4.M10Index] + vec[index1] * mat[FPMatrix4x4.M11Index] + vec[index2] * mat[FPMatrix4x4.M12Index] + mat[FPMatrix4x4.M13Index];
-			FP z = vec[index0] * mat[FPMatrix4x4.M20Index] + vec[index1] * mat[FPMatrix4x4.M21Index] + vec[index2] * mat[FPMatrix4x4.M22Index] + mat[FPMatrix4x4.M23Index];
+			FP x = vec[index0] * mat[M00Index] + vec[index1] * mat[M01Index] + vec[index2] * mat[M02Index] + mat[M03Index];
+			FP y = vec[index0] * mat[M10Index] + vec[index1] * mat[M11Index] + vec[index2] * mat[M12Index] + mat[M13Index];
+			FP z = vec[index0] * mat[M20Index] + vec[index1] * mat[M21Index] + vec[index2] * mat[M22Index] + mat[M23Index];
 			vec[index0] = x;
 			vec[index1] = y;
 			vec[index2] = z;
@@ -1913,9 +1845,9 @@ namespace DG
 			int index1 = vecStartIndex + 1;
 			int index2 = vecStartIndex + 2;
 
-			FP x = vec[index0] * mat[FPMatrix4x4.M00Index] + vec[index1] * mat[FPMatrix4x4.M01Index] + vec[index2] * mat[FPMatrix4x4.M02Index];
-			FP y = vec[index0] * mat[FPMatrix4x4.M10Index] + vec[index1] * mat[FPMatrix4x4.M11Index] + vec[index2] * mat[FPMatrix4x4.M12Index];
-			FP z = vec[index0] * mat[FPMatrix4x4.M20Index] + vec[index1] * mat[FPMatrix4x4.M21Index] + vec[index2] * mat[FPMatrix4x4.M22Index];
+			FP x = vec[index0] * mat[M00Index] + vec[index1] * mat[M01Index] + vec[index2] * mat[M02Index];
+			FP y = vec[index0] * mat[M10Index] + vec[index1] * mat[M11Index] + vec[index2] * mat[M12Index];
+			FP z = vec[index0] * mat[M20Index] + vec[index1] * mat[M21Index] + vec[index2] * mat[M22Index];
 			vec[index0] = x;
 			vec[index1] = y;
 			vec[index2] = z;
@@ -2429,10 +2361,10 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 translate(FP x, FP y, FP z)
 		{
-			this.m03 += this.m00 * x + this.m01 * y + this.m02 * z;
-			this.m13 += this.m10 * x + this.m11 * y + this.m12 * z;
-			this.m23 += this.m20 * x + this.m21 * y + this.m22 * z;
-			this.m33 += this.m30 * x + this.m31 * y + this.m32 * z;
+			m03 += m00 * x + m01 * y + m02 * z;
+			m13 += m10 * x + m11 * y + m12 * z;
+			m23 += m20 * x + m21 * y + m22 * z;
+			m33 += m30 * x + m31 * y + m32 * z;
 			return this;
 		}
 
@@ -2596,7 +2528,7 @@ namespace DG
 		 * @return This matrix for chaining */
 		public FPMatrix4x4 rotateTowardTarget(FPVector3 target, FPVector3 up)
 		{
-			tmpVec.set(target.x - this.m03, target.y - this.m13, target.z - this.m23);
+			tmpVec.set(target.x - m03, target.y - m13, target.z - m23);
 			return rotateTowardDirection(tmpVec, up);
 		}
 
@@ -2608,18 +2540,18 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix4x4 scale(FP scaleX, FP scaleY, FP scaleZ)
 		{
-			this.m00 *= scaleX;
-			this.m01 *= scaleY;
-			this.m02 *= scaleZ;
-			this.m10 *= scaleX;
-			this.m11 *= scaleY;
-			this.m12 *= scaleZ;
-			this.m20 *= scaleX;
-			this.m21 *= scaleY;
-			this.m22 *= scaleZ;
-			this.m30 *= scaleX;
-			this.m31 *= scaleY;
-			this.m32 *= scaleZ;
+			m00 *= scaleX;
+			m01 *= scaleY;
+			m02 *= scaleZ;
+			m10 *= scaleX;
+			m11 *= scaleY;
+			m12 *= scaleZ;
+			m20 *= scaleX;
+			m21 *= scaleY;
+			m22 *= scaleZ;
+			m30 *= scaleX;
+			m31 *= scaleY;
+			m32 *= scaleZ;
 			return this;
 		}
 
@@ -2627,28 +2559,28 @@ namespace DG
 		 * @param dst the destination matrix */
 		public void extract4x3Matrix(FP[] dst)
 		{
-			dst[0] = this.m00;
-			dst[1] = this.m10;
-			dst[2] = this.m20;
-			dst[3] = this.m01;
-			dst[4] = this.m11;
-			dst[5] = this.m21;
-			dst[6] = this.m02;
-			dst[7] = this.m12;
-			dst[8] = this.m22;
-			dst[9] = this.m03;
-			dst[10] = this.m13;
-			dst[11] = this.m23;
+			dst[0] = m00;
+			dst[1] = m10;
+			dst[2] = m20;
+			dst[3] = m01;
+			dst[4] = m11;
+			dst[5] = m21;
+			dst[6] = m02;
+			dst[7] = m12;
+			dst[8] = m22;
+			dst[9] = m03;
+			dst[10] = m13;
+			dst[11] = m23;
 		}
 
 		/** @return True if this matrix has any rotation or scaling, false otherwise */
 		public bool hasRotationOrScaling()
 		{
-			return !(FPMath.IsEqual(this.m00, 1) && FPMath.IsEqual(this.m11, 1) &&
-					 FPMath.IsEqual(this.m22, 1)
-					 && FPMath.IsZero(this.m01) && FPMath.IsZero(this.m02) && FPMath.IsZero(this.m10) &&
-					 FPMath.IsZero(this.m12)
-					 && FPMath.IsZero(this.m20) && FPMath.IsZero(this.m21));
+			return !(FPMath.IsEqual(m00, 1) && FPMath.IsEqual(m11, 1) &&
+					 FPMath.IsEqual(m22, 1)
+					 && FPMath.IsZero(m01) && FPMath.IsZero(m02) && FPMath.IsZero(m10) &&
+					 FPMath.IsZero(m12)
+					 && FPMath.IsZero(m20) && FPMath.IsZero(m21));
 		}
 	}
 }

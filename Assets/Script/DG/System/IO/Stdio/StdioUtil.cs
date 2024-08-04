@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
-using UnityEditor.PackageManager;
 
 namespace DG
 {
@@ -14,91 +12,90 @@ namespace DG
 		public static readonly IFileSystemInfoFilter DIR_FILTER = new DirFilter();
 
 
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyy+suffix文件
-//		/// </summary>
-//		/// <param name="dir"></param>
-//		/// <param name="prefix"></param>
-//		/// <param name="suffix"></param>
-//		/// <param name="len"></param>
-//		/// <returns></returns>
-//		public static FileInfo CreateYearlyFile(DirectoryInfo dir, string prefix, string suffix,
-//			RandomManager randomManager = null)
-//		{
-//			return CreateTimelyFile(dir, prefix, suffix, 4, randomManager);
-//		}
-//
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyyMM+suffix文件
-//		/// </summary>
-//		/// <param name="dir"></param>
-//		/// <param name="prefix"></param>
-//		/// <param name="suffix"></param>
-//		/// <param name="len"></param>
-//		/// <returns></returns>
-//		public static FileInfo CreateMonthlyFile(DirectoryInfo dir, string prefix, string suffix,
-//			RandomManager randomManager = null)
-//		{
-//			return CreateTimelyFile(dir, prefix, suffix, 6, randomManager);
-//		}
-//
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyyMMdd+suffix文件
-//		/// </summary>
-//		/// <param name="dir"></param>
-//		/// <param name="prefix"></param>
-//		/// <param name="suffix"></param>
-//		/// <param name="len"></param>
-//		/// <returns></returns>
-//		public static FileInfo CreateDailyFile(DirectoryInfo dir, string prefix, string suffix,
-//			RandomManager randomManager = null)
-//		{
-//			return CreateTimelyFile(dir, prefix, suffix, 8, randomManager);
-//		}
-//
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyyMMddHH+suffix文件
-//		/// </summary>
-//		/// <param name="dir"></param>
-//		/// <param name="prefix"></param>
-//		/// <param name="suffix"></param>
-//		/// <param name="len"></param>
-//		/// <returns></returns>
-//		public static FileInfo CreateHourlyFile(DirectoryInfo dir, string prefix, string suffix,
-//			RandomManager randomManager = null)
-//		{
-//			return CreateTimelyFile(dir, prefix, suffix, 10, randomManager);
-//		}
-//
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyyMMddHHmmss+(随机数3位)+suffix文件
-//		/// </summary>
-//		/// <param name="dir"></param>
-//		/// <param name="prefix"></param>
-//		/// <param name="suffix"></param>
-//		/// <returns></returns>
-//		public static FileInfo CreateTimeSliceFile(DirectoryInfo dir, string prefix, string suffix,
-//			RandomManager randomManager = null)
-//		{
-//			randomManager = randomManager ?? Client.instance.randomManager;
-//			int i = 0;
-//			do
-//			{
-//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
-//				string rand = new StringBuilder(randomManager.RandomInt(0, 1000) + "").ToString();
-//				string stem = dateTime
-//							  + rand.FillHead(3, CharConst.CHAR_c);
-//				string fileName = prefix + stem + suffix;
-//
-//				var file = new FileInfo(dir.SubPath(fileName));
-//				if (file.Exists)
-//					continue;
-//				file.Create().Close();
-//				return file;
-//			} while (i++ < 10000);
-//
-//			throw new IOException(dir.FullName + "中无法创建唯一文件");
-//		}
+		/// <summary>
+		/// dir目录下创建prefix+yyyy+suffix文件
+		/// </summary>
+		/// <param name="dir"></param>
+		/// <param name="prefix"></param>
+		/// <param name="suffix"></param>
+		/// <param name="len"></param>
+		/// <returns></returns>
+		public static FileInfo CreateYearlyFile(DirectoryInfo dir, string prefix, string suffix,
+			RandomManager randomManager)
+		{
+			return CreateTimelyFile(dir, prefix, suffix, 4, randomManager);
+		}
+
+		/// <summary>
+		/// dir目录下创建prefix+yyyyMM+suffix文件
+		/// </summary>
+		/// <param name="dir"></param>
+		/// <param name="prefix"></param>
+		/// <param name="suffix"></param>
+		/// <param name="len"></param>
+		/// <returns></returns>
+		public static FileInfo CreateMonthlyFile(DirectoryInfo dir, string prefix, string suffix,
+			RandomManager randomManager)
+		{
+			return CreateTimelyFile(dir, prefix, suffix, 6, randomManager);
+		}
+
+		/// <summary>
+		/// dir目录下创建prefix+yyyyMMdd+suffix文件
+		/// </summary>
+		/// <param name="dir"></param>
+		/// <param name="prefix"></param>
+		/// <param name="suffix"></param>
+		/// <param name="len"></param>
+		/// <returns></returns>
+		public static FileInfo CreateDailyFile(DirectoryInfo dir, string prefix, string suffix,
+			RandomManager randomManager)
+		{
+			return CreateTimelyFile(dir, prefix, suffix, 8, randomManager);
+		}
+
+		/// <summary>
+		/// dir目录下创建prefix+yyyyMMddHH+suffix文件
+		/// </summary>
+		/// <param name="dir"></param>
+		/// <param name="prefix"></param>
+		/// <param name="suffix"></param>
+		/// <param name="len"></param>
+		/// <returns></returns>
+		public static FileInfo CreateHourlyFile(DirectoryInfo dir, string prefix, string suffix,
+			RandomManager randomManager)
+		{
+			return CreateTimelyFile(dir, prefix, suffix, 10, randomManager);
+		}
+
+		/// <summary>
+		/// dir目录下创建prefix+yyyyMMddHHmmss+(随机数3位)+suffix文件
+		/// </summary>
+		/// <param name="dir"></param>
+		/// <param name="prefix"></param>
+		/// <param name="suffix"></param>
+		/// <returns></returns>
+		public static FileInfo CreateTimeSliceFile(DirectoryInfo dir, string prefix, string suffix,
+			RandomManager randomManager)
+		{
+			int i = 0;
+			do
+			{
+				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
+				string rand = new StringBuilder(randomManager.RandomInt(0, 1000) + "").ToString();
+				string stem = dateTime
+							  + rand.FillHead(3, CharConst.CHAR_c);
+				string fileName = prefix + stem + suffix;
+
+				var file = new FileInfo(dir.SubPath(fileName));
+				if (file.Exists)
+					continue;
+				file.Create().Close();
+				return file;
+			} while (i++ < 10000);
+
+			throw new IOException(dir.FullName + "中无法创建唯一文件");
+		}
 
 		/// <summary>
 		/// 获得文件名称的后缀名
@@ -642,43 +639,42 @@ namespace DG
 		}
 
 
-//		/// <summary>
-//		/// dir目录下创建prefix+yyyyMMddHHmmssSSS(len决定取yyyyMMddHHmmssSSS的多少位)+suffix文件
-//		/// </summary>
-//		/// <param name="dir">目录</param>
-//		/// <param name="prefix">前缀</param>
-//		/// <param name="suffix">后缀</param>
-//		/// <param name="length"></param>
-//		/// <returns></returns>
-//		private static FileInfo CreateTimelyFile(DirectoryInfo dir, string prefix, string suffix, int length,
-//			RandomManager randomManager = null)
-//		{
-//			randomManager = randomManager ?? Client.instance.randomManager;
-//			int i = 0;
-//			do
-//			{
-//				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
-//				string rand = new StringBuilder(randomManager.RandomInt(0, 1000).ToString()).ToString();
-//				string stem = (dateTime + rand.FillHead(3, CharConst.CHAR_0))
-//					.Substring(0, length);
-//
-//				DirectoryInfo timelyDirectoryInfo = dir.CreateSubdirectory(stem);
-//				timelyDirectoryInfo.Create();
-//				if (timelyDirectoryInfo.Exists)
-//				{
-//					string fileName = prefix + stem + suffix;
-//					var fileInfo = new FileInfo(timelyDirectoryInfo.SubPath(fileName));
-//					if (fileInfo.Exists)
-//						continue;
-//					fileInfo.Create().Close();
-//					return fileInfo;
-//				}
-//
-//				throw new IOException(string.Format("无法创建目录:", timelyDirectoryInfo.FullName));
-//			} while (i++ < 10000);
-//
-//			throw new IOException(string.Format("{0}中无法创建唯一文件", dir.FullName));
-//		}
+		/// <summary>
+		/// dir目录下创建prefix+yyyyMMddHHmmssSSS(len决定取yyyyMMddHHmmssSSS的多少位)+suffix文件
+		/// </summary>
+		/// <param name="dir">目录</param>
+		/// <param name="prefix">前缀</param>
+		/// <param name="suffix">后缀</param>
+		/// <param name="length"></param>
+		/// <returns></returns>
+		private static FileInfo CreateTimelyFile(DirectoryInfo dir, string prefix, string suffix, int length,
+			RandomManager randomManager)
+		{
+			int i = 0;
+			do
+			{
+				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
+				string rand = new StringBuilder(randomManager.RandomInt(0, 1000).ToString()).ToString();
+				string stem = (dateTime + rand.FillHead(3, CharConst.CHAR_0))
+					.Substring(0, length);
+
+				DirectoryInfo timelyDirectoryInfo = dir.CreateSubdirectory(stem);
+				timelyDirectoryInfo.Create();
+				if (timelyDirectoryInfo.Exists)
+				{
+					string fileName = prefix + stem + suffix;
+					var fileInfo = new FileInfo(timelyDirectoryInfo.SubPath(fileName));
+					if (fileInfo.Exists)
+						continue;
+					fileInfo.Create().Close();
+					return fileInfo;
+				}
+
+				throw new IOException(string.Format("无法创建目录:", timelyDirectoryInfo.FullName));
+			} while (i++ < 10000);
+
+			throw new IOException(string.Format("{0}中无法创建唯一文件", dir.FullName));
+		}
 	}
 }
 

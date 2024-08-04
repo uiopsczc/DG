@@ -9,7 +9,7 @@ namespace DG
 		public FrameCallback(Func<object, bool> callback, object arg)
 		{
 			_callbackArg = arg;
-			this._callback = callback;
+			_callback = callback;
 		}
 
 		#endregion

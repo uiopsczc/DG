@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DG
 {
@@ -24,16 +24,16 @@ namespace DG
 			this.middleMiddle = middleMiddle;
 			this.radius = radius;
 
-			this.leftTop = middleMiddle + factor * radius * new Vector3(-1, 0, 1);
-			this.middleTop = middleMiddle + factor * radius * new Vector3(0, 0, 1);
-			this.rightTop = middleMiddle + factor * radius * new Vector3(1, 0, 1);
+			leftTop = middleMiddle + factor * radius * new Vector3(-1, 0, 1);
+			middleTop = middleMiddle + factor * radius * new Vector3(0, 0, 1);
+			rightTop = middleMiddle + factor * radius * new Vector3(1, 0, 1);
 
-			this.leftMiddle = middleMiddle + factor * radius * new Vector3(-1, 0, 0);
-			this.rightMiddle = middleMiddle + factor * radius * new Vector3(1, 0, 0);
+			leftMiddle = middleMiddle + factor * radius * new Vector3(-1, 0, 0);
+			rightMiddle = middleMiddle + factor * radius * new Vector3(1, 0, 0);
 
-			this.leftBottom = middleMiddle + factor * radius * new Vector3(-1, 0, -1);
-			this.middleBottom = middleMiddle + factor * radius * new Vector3(0, 0, -1);
-			this.rightBottom = middleMiddle + factor * radius * new Vector3(1, 0, -1);
+			leftBottom = middleMiddle + factor * radius * new Vector3(-1, 0, -1);
+			middleBottom = middleMiddle + factor * radius * new Vector3(0, 0, -1);
+			rightBottom = middleMiddle + factor * radius * new Vector3(1, 0, -1);
 		}
 
 

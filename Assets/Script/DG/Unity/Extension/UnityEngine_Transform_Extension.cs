@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -161,22 +160,22 @@ namespace DG
 		/// </summary>
 		/// <param name="self"></param>
 		public static void Reset(this Transform self,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			TransformUtil.Reset(self, transformMode);
 		}
 
 		public static void ResetToParent(this Transform self, GameObject parent,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			TransformUtil.ResetToParent(self, parent, transformMode);
 		}
 
 		public static void ResetToParent(this Transform self, Transform parent,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			TransformUtil.ResetToParent(self, parent, transformMode);
 		}
@@ -558,15 +557,15 @@ namespace DG
 		}
 
 		public static void CopyFrom(this Transform self, Transform fromTransform,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			TransformUtil.CopyFrom(self, fromTransform, transformMode);
 		}
 
 		public static void CopyTo(this Transform self, Transform targetTransform,
-			TransformMode transformMode =
-				TransformMode.localPosition | TransformMode.localRotation | TransformMode.localScale)
+			ETransformMode transformMode =
+				ETransformMode.localPosition | ETransformMode.localRotation | ETransformMode.localScale)
 		{
 			TransformUtil.CopyTo(self, targetTransform, transformMode);
 		}

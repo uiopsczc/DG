@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,7 +15,7 @@ namespace DG
 				int columnCount = 20;
 				using (new GUILayoutBeginHorizontalScope())
 				{
-					for (int i = 0; i < EnumUtil.GetCount<EditorIconTextureType>(); ++i)
+					for (int i = 0; i < EnumUtil.GetCount<EEditorIconTextureType>(); ++i)
 					{
 						if (i > 0 && i % columnCount == 0)
 						{
@@ -25,11 +23,11 @@ namespace DG
 							GUILayout.BeginHorizontal();
 						}
 
-						if (GUILayout.Button(EditorIconTexture.GetSystem((EditorIconTextureType) i),
+						if (GUILayout.Button(EditorIconTexture.GetSystem((EEditorIconTextureType) i),
 							GUILayout.Width(50), GUILayout.Height(36)))
 						{
 							string displayValue = string.Format("EditorIconTextureType.{0}\n{1}",
-								EnumUtil.GetName<EditorIconTextureType>(i),
+								EnumUtil.GetName<EEditorIconTextureType>(i),
 								EditorIconTextureConst.IconTextureNames[i]
 							);
 							this.ShowNotificationAndLog(displayValue);

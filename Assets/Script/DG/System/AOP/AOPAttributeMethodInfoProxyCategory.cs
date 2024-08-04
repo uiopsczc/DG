@@ -27,8 +27,8 @@ namespace DG
 		///   AOP属性对被切面的方法的每个AOPMethodType类型对应的处理函数
 		///   bool 参数中是否加了self作为参数
 		/// </summary>
-		public Dictionary<AOPMethodType, MethodInfoProxy>
-		  aopMethodInfoDict = new Dictionary<AOPMethodType, MethodInfoProxy>();
+		public Dictionary<EAOPMethodType, MethodInfoProxy>
+		  aopMethodInfoDict = new();
 
 		#endregion
 	}

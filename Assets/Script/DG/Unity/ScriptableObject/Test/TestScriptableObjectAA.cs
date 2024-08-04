@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace DG
 {
@@ -17,7 +16,7 @@ namespace DG
 
 		public override string ToString()
 		{
-			return this.street + " " + this.age;
+			return street + " " + age;
 		}
 	}
 }

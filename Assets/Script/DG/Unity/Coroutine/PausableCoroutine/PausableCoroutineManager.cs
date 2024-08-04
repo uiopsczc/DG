@@ -1,11 +1,11 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-using System.Collections.Generic;
-using System;
-using System.Reflection;
 
 namespace DG
 {
@@ -13,17 +13,15 @@ namespace DG
 	//不仅可以在运行模式下运行，还可以在Editor模式中运行
 	public class PausableCoroutineManager : MonoBehaviour, ISingleton
 	{
-		private Dictionary<string, List<PausableCoroutine>> _coroutineDict =
-			new Dictionary<string, List<PausableCoroutine>>();
+		private Dictionary<string, List<PausableCoroutine>> _coroutineDict = new();
 
-		private List<List<PausableCoroutine>> _tempCoroutineList = new List<List<PausableCoroutine>>();
+		private List<List<PausableCoroutine>> _tempCoroutineList = new();
 
-		private Dictionary<string, Dictionary<string, PausableCoroutine>> _coroutineOwnerDict =
-			new Dictionary<string, Dictionary<string, PausableCoroutine>>();
+		private Dictionary<string, Dictionary<string, PausableCoroutine>> _coroutineOwnerDict = new();
 
 		private float _previousTimeSinceStartup;
-		private bool _isInited = false;
-		private bool _isPaused = false;
+		private bool _isInited;
+		private bool _isPaused;
 
 
 		public static PausableCoroutineManager instance
@@ -53,7 +51,7 @@ namespace DG
 
 		public void SetIsPaused(bool isPaused)
 		{
-			this._isPaused = isPaused;
+			_isPaused = isPaused;
 		}
 
 		/// <summary>Starts a coroutine.</summary>
@@ -141,8 +139,8 @@ namespace DG
 		void GoStopAllCoroutines(object thisReference)
 		{
 			PausableCoroutine coroutine = CreateCoroutine(null, thisReference);
-			if (!_coroutineOwnerDict.ContainsKey(coroutine.ownerUniqueHash)) return;
-			foreach (var couple in _coroutineOwnerDict[coroutine.ownerUniqueHash])
+			if (!_coroutineOwnerDict.TryGetValue(coroutine.ownerUniqueHash, out var value)) return;
+			foreach (var couple in value)
 				_coroutineDict.Remove(couple.Value.routineUniqueHash);
 
 			_coroutineOwnerDict.Remove(coroutine.ownerUniqueHash);
@@ -206,7 +204,7 @@ namespace DG
 				_previousTimeSinceStartup = Time.realtimeSinceStartup;
 			}
 #endif
-			if (this._isPaused)
+			if (_isPaused)
 				return;
 			if (deltaTime == 0f)
 				return;

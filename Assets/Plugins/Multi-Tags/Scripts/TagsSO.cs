@@ -1,3 +1,5 @@
+using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -83,12 +85,12 @@ public class TagsSO : ScriptableObject
 	/// <summary>
 	/// All custom tags of this project.
 	/// </summary>
-	public Tags CustomTags = new Tags();
+	public Tags CustomTags = new();
 
 	/// <summary>
 	/// All Unity built-in tags of this project.
 	/// </summary>
-	public Tags UnityBuiltInTags = new Tags();
+	public Tags UnityBuiltInTags = new();
 	#endregion
 
 	#region Methods
@@ -103,11 +105,11 @@ public class TagsSO : ScriptableObject
 	private void Connect()
 	{
 		// Initializes the project with this object
-		UnityEditor.Editor _thisEditor = UnityEditor.Editor.CreateEditor(this);
+		Editor _thisEditor = Editor.CreateEditor(this);
 
 		if (!_thisEditor) return;
 
-		_thisEditor.GetType().InvokeMember("ConnectProjectTags", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.InvokeMethod | System.Reflection.BindingFlags.NonPublic, null, _thisEditor, null);
+		_thisEditor.GetType().InvokeMember("ConnectProjectTags", BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic, null, _thisEditor, null);
 
 		// Destroy the created editor
 		DestroyImmediate(_thisEditor);
@@ -122,7 +124,7 @@ public class TagsSO : ScriptableObject
 	private void OnDestroy()
 	{
 #if UNITY_EDITOR
-		UnityEditor.EditorApplication.quitting -= Connect;
+		EditorApplication.quitting -= Connect;
 #endif
 	}
 
@@ -131,14 +133,14 @@ public class TagsSO : ScriptableObject
 	{
 #if UNITY_EDITOR
 		// In editor, connect the project with this asset when enabled
-		if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+		if (!EditorApplication.isPlayingOrWillChangePlaymode)
 		{
 			Connect();
 		}
 
 		// Connect on editor quit
-		UnityEditor.EditorApplication.quitting -= Connect;
-		UnityEditor.EditorApplication.quitting += Connect;
+		EditorApplication.quitting -= Connect;
+		EditorApplication.quitting += Connect;
 #endif
 	}
 	#endregion

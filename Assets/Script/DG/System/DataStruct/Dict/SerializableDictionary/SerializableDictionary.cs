@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace DG
 {
 	// Unity的Serializable不能序列化Dict和泛化的类，所以需要在SerializableDictionaryImpl添加对应的类型
+	[Serializable]
 	public abstract class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver
 	{
 		[SerializeField] private TKey[] _keys;
@@ -21,10 +23,7 @@ namespace DG
 		{
 			var length = _keys.Length;
 			dict = new Dictionary<TKey, TValue>(length);
-			for (int i = 0; i < length; i++)
-			{
-				dict[_keys[i]] = _values[i];
-			}
+			for (int i = 0; i < length; i++) dict[_keys[i]] = _values[i];
 
 			_keys = null;
 			_values = null;
@@ -47,54 +46,54 @@ namespace DG
 		}
 
 
-		public int Count => this.dict.Count;
+		public int Count => dict.Count;
 
-		public Dictionary<TKey, TValue>.KeyCollection Keys => this.dict.Keys;
+		public Dictionary<TKey, TValue>.KeyCollection Keys => dict.Keys;
 
-		public Dictionary<TKey, TValue>.ValueCollection Values => this.dict.Values;
+		public Dictionary<TKey, TValue>.ValueCollection Values => dict.Values;
 
 
 		public TValue this[TKey key]
 		{
-			get => this.dict[key];
-			set => this.dict[key] = value;
+			get => dict[key];
+			set => dict[key] = value;
 		}
 
 		public void Add(TKey key, TValue value)
 		{
-			this.dict.Add(key, value);
+			dict.Add(key, value);
 		}
 
 
 		public void Clear()
 		{
-			this.dict.Clear();
+			dict.Clear();
 		}
 
 		public bool ContainsKey(TKey key)
 		{
-			return this.dict.ContainsKey(key);
+			return dict.ContainsKey(key);
 		}
 
 		public bool ContainsValue(TValue value)
 		{
-			return this.dict.ContainsValue(value);
+			return dict.ContainsValue(value);
 		}
 
 
 		public Dictionary<TKey, TValue>.Enumerator GetEnumerator()
 		{
-			return this.dict.GetEnumerator();
+			return dict.GetEnumerator();
 		}
 
 		public bool Remove(TKey key)
 		{
-			return this.dict.Remove(key);
+			return dict.Remove(key);
 		}
 
 		public bool TryGetValue(TKey key, out TValue value)
 		{
-			return this.dict.TryGetValue(key, out value);
+			return dict.TryGetValue(key, out value);
 		}
 
 

@@ -1,9 +1,8 @@
 // Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2018/07/13
 
-using System;
-using UnityEngine;
 using DG.Tweening.Core;
+using UnityEngine;
 
 #pragma warning disable 1591
 namespace DG.Tweening

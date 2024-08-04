@@ -10,8 +10,8 @@ namespace DG
 	{
 		#region field
 
-		private List<FrameCallback> _callbackList = new List<FrameCallback>();
-		private readonly List<FrameCallback> _executingCallbackList = new List<FrameCallback>();
+		private List<FrameCallback> _callbackList = new();
+		private readonly List<FrameCallback> _executingCallbackList = new();
 
 		#endregion
 

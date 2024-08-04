@@ -1,6 +1,4 @@
 using System;
-using System.Reflection;
-using UnityEngine;
 
 namespace DG
 {
@@ -17,7 +15,7 @@ namespace DG
 	/// 4.被切面的方法的名称_AOPMethodType的类型（）
 	///   4.1.被切面的方法的类_被切面的方法的名称_AOPMethodType的类型()
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
 	public class AOP_TestAttribute : Attribute, IAOPAttribute
 	{
 		#region field
@@ -30,7 +28,7 @@ namespace DG
 
 		public AOP_TestAttribute(string desc)
 		{
-			this._desc = desc;
+			_desc = desc;
 		}
 
 		#endregion
@@ -44,7 +42,7 @@ namespace DG
 		/// <param name="message"></param>
 		public void CallHello_AOP_Handle_Pre(AOPExample self, string message, FPBounds bounds)
 		{
-			DGLog.Warn("AOP:" + bounds.ToString());
+			DGLog.Warn("AOP:" + bounds);
 		}
 
 

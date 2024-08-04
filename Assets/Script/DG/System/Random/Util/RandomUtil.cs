@@ -4,7 +4,7 @@ namespace DG
 {
 	public class RandomUtil
 	{
-		private static RandomManager randomManager = new RandomManager();
+		private static RandomManager randomManager = new();
 
 		public static void SetSeed(int seed)
 		{

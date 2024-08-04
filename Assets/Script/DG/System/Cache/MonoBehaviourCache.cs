@@ -12,7 +12,7 @@ namespace DG
 	{
 		#region field
 
-		protected MonoBehaviour _owner;
+		protected readonly MonoBehaviour _owner;
 
 		#endregion
 
@@ -78,7 +78,7 @@ namespace DG
 
 		public MonoBehaviourCache(MonoBehaviour owner)
 		{
-			this._owner = owner;
+			_owner = owner;
 		}
 
 		#endregion

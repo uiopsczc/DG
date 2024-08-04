@@ -60,8 +60,8 @@ namespace DG
 			}
 
 			if (size == int.MaxValue)
-				EditorUtility.DisplayDialog("Texture̫��",
-					string.Format("{0}̫��ͼƬ�ĳ��ȺͿ����Ҫ���ڻ��ߵ���{1}", texture2D.name,
+				EditorUtility.DisplayDialog("Texture太大",
+					string.Format("{0}太大，图片的长度和宽度需要少于或者等于{1}", texture2D.name,
 						_Texture_Sizes[_Texture_Sizes.Length - 2]), "Ok");
 			else
 				textureImporter.maxTextureSize = size;

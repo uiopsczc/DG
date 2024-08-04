@@ -116,21 +116,21 @@ namespace DG
 
         public BitMask And(BitMask mask)
         {
-            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] = _bytes[i] & mask._bytes[i];
+            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] &= mask._bytes[i];
             return this;
         }
 
         public BitMask Or(BitMask mask)
         {
             Debug.Assert(_bytes.Length == mask._bytes.Length, "BitMasks must be the same size");
-            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] = _bytes[i] | mask._bytes[i];
+            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] |= mask._bytes[i];
             return this;
         }
 
         public BitMask Xor(BitMask mask)
         {
             Debug.Assert(_bytes.Length == mask._bytes.Length, "BitMasks must be the same size");
-            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] = _bytes[i] ^ mask._bytes[i];
+            for (var i = 0; i < mask._bytes.Length; i++) _bytes[i] ^= mask._bytes[i];
             return this;
         }
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DG
 {
@@ -64,9 +63,9 @@ namespace DG
 		public static void StopCacheIEnumerator(MonoBehaviour monoBehaviour, string name)
 		{
 			Dictionary<string, IEnumerator> enumeratorDict = monoBehaviour.GetCacheIEnumeratorDict();
-			if (!enumeratorDict.ContainsKey(name))
+			if (!enumeratorDict.TryGetValue(name, out var value))
 				return;
-			if (enumeratorDict[name] == null)
+			if (value == null)
 				return;
 			monoBehaviour.StopCoroutine(enumeratorDict[name]);
 			enumeratorDict.Remove(name);
@@ -137,9 +136,9 @@ namespace DG
 		public static void StopCachePausableCoroutine(MonoBehaviour monoBehaviour, string name)
 		{
 			Dictionary<string, PausableCoroutine> pausableCoroutineDict = monoBehaviour.GetCachePausableCoroutineDict();
-			if (!pausableCoroutineDict.ContainsKey(name))
+			if (!pausableCoroutineDict.TryGetValue(name, out var value))
 				return;
-			if (pausableCoroutineDict[name] == null)
+			if (value == null)
 				return;
 			PausableCoroutineManager.instance.StopCoroutine(pausableCoroutineDict[name].routine, name);
 			pausableCoroutineDict.Remove(name);

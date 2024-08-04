@@ -5,7 +5,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-
 using Object = UnityEngine.Object;
 
 /// <summary>
@@ -193,7 +192,7 @@ public static class MultiTagsUtility
   /// <summary>
   /// Indicates if this class fields & properties has been initialized.
   /// </summary>
-  private static bool isInitialized = false;
+  private static bool isInitialized;
 
 
   /// <summary>Backing field for <see cref="AreTagsUnfolded"/>.</summary>
@@ -201,20 +200,20 @@ public static class MultiTagsUtility
 
 
   /// <summary>Backing field for <see cref="TagStyle"/>.</summary>
-  private static GUIStyle tagStyle = null;
+  private static GUIStyle tagStyle;
 
   /// <summary>Backing field for <see cref="OLMinusStyle"/>.</summary>
-  private static GUIStyle olMinusStyle = null;
+  private static GUIStyle olMinusStyle;
 
   /// <summary>Backing field for <see cref="OLPlusStyle"/>.</summary>
-  private static GUIStyle olPlusStyle = null;
+  private static GUIStyle olPlusStyle;
 
 
   /// <summary>Backing field for <see cref="TagStyle"/>.</summary>
-  private static float tagHeight = 0;
+  private static float tagHeight;
 
   /// <summary>Backing field for <see cref="FoldoutWidth"/>.</summary>
-  private static float foldoutWidth = 0;
+  private static float foldoutWidth;
 
   /// <summary>Backing field for <see cref="OLMinusSize"/>.</summary>
   private static Vector2 olMinusSize = Vector2.zero;
@@ -660,7 +659,7 @@ public static class MultiTagsUtility
   public static bool GUITagField(Rect _position, SerializedProperty _property, bool _doDisplayName)
   {
     if (_doDisplayName) return GUITagField(_position, _property);
-    else return DoGUITagField(_position, _property);
+    return DoGUITagField(_position, _property);
   }
 
   /// <summary>
@@ -755,7 +754,7 @@ public static class MultiTagsUtility
     if ((_event.type == EventType.ContextClick) && _tagRect.Contains(_event.mousePosition) && !_property.hasMultipleDifferentValues)
     {
       GenericMenu _menu = new GenericMenu();
-      GenericMenu.MenuFunction2 _colorCallback = new GenericMenu.MenuFunction2((object _object) => ColorPickerMenu((Tag)_object));
+      GenericMenu.MenuFunction2 _colorCallback = _object => ColorPickerMenu((Tag)_object);
 
       _menu.AddItem(new GUIContent("Change Color", "Change the color of this Tag"), false, _colorCallback, MultiTagsUtil.GetTag(_name));
 
@@ -889,7 +888,7 @@ public static class MultiTagsUtility
     if ((_event.type == EventType.ContextClick) && _tagRect.Contains(_event.mousePosition))
     {
       GenericMenu _menu = new GenericMenu();
-      GenericMenu.MenuFunction2 _colorCallback = new GenericMenu.MenuFunction2((object _object) => ColorPickerMenu((Tag)_object));
+      GenericMenu.MenuFunction2 _colorCallback = _object => ColorPickerMenu((Tag)_object);
 
       _menu.AddItem(new GUIContent("Change Color", "Change the color of this Tag"), false, _colorCallback, MultiTagsUtil.GetTag(_newTag.Name));
 
@@ -956,7 +955,7 @@ public static class MultiTagsUtility
   public static bool GUILayoutTagField(SerializedProperty _property, bool _doDisplayName)
   {
     if (_doDisplayName) return GUILayoutTagField(_property);
-    else return DoGUITagField(EditorGUILayout.GetControlRect(false, TagHeight), _property);
+    return DoGUITagField(EditorGUILayout.GetControlRect(false, TagHeight), _property);
   }
 
   /// <summary>
@@ -1099,7 +1098,7 @@ public static class MultiTagsUtility
   public static Rect GUITagsField(Rect _position, SerializedProperty _property, bool _doDisplayName)
   {
     if (_doDisplayName) return GUITagsField(_position, _property);
-    else return DoGUITagsField(_position, _property);
+    return DoGUITagsField(_position, _property);
   }
 
   /// <summary>
@@ -1177,7 +1176,7 @@ public static class MultiTagsUtility
       if (GUI.Button(_buttonRect, new GUIContent(string.Empty, "Add a new Tag to the list"), OLPlusStyle))
       {
         GenericMenu _menu = new GenericMenu();
-        GenericMenu.MenuFunction2 _callback = new GenericMenu.MenuFunction2((object _tag) => _allPropertyTags.Where(t => !t.ObjectTags.Contains((Tag)_tag)).ToList().ForEach(t => t.AddTag((Tag)_tag)));
+        GenericMenu.MenuFunction2 _callback = _tag => _allPropertyTags.Where(t => !t.ObjectTags.Contains((Tag)_tag)).ToList().ForEach(t => t.AddTag((Tag)_tag));
 
         foreach (Tag _tag in _tagsToAdd)
         {
@@ -1213,7 +1212,7 @@ public static class MultiTagsUtility
       {
         foreach (Tags _tags in _allPropertyTags)
         {
-          int _index = Array.FindIndex(_tags.ObjectTags, (Tag t) => t.Name == _tag.Name);
+          int _index = Array.FindIndex(_tags.ObjectTags, t => t.Name == _tag.Name);
           if (_index >= 0) _tags.ObjectTags[_index] = _matchingTag;
         }
       }
@@ -1295,7 +1294,7 @@ public static class MultiTagsUtility
         if (_event.type == EventType.ContextClick)
         {
           GenericMenu _menu = new GenericMenu();
-          GenericMenu.MenuFunction2 _colorCallback = new GenericMenu.MenuFunction2((object _object) => ColorPickerMenu((Tag)_object));
+          GenericMenu.MenuFunction2 _colorCallback = _object => ColorPickerMenu((Tag)_object);
 
           _menu.AddItem(new GUIContent("Change Color", "Change the color of this Tag"), false, _colorCallback, _tag);
 
@@ -1312,14 +1311,14 @@ public static class MultiTagsUtility
     if (!_isMouseUnderTag && (_event.type == EventType.ContextClick) && new Rect(_position.x, _position.y, _position.width, _lastRect.yMax - _position.y).Contains(_event.mousePosition))
     {
       GenericMenu _menu = new GenericMenu();
-      GenericMenu.MenuFunction _orderByColorAscending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Color.grayscale).ToArray()));
-      GenericMenu.MenuFunction _orderByColorDescending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Color.grayscale).ToArray()));
+      GenericMenu.MenuFunction _orderByColorAscending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Color.grayscale).ToArray());
+      GenericMenu.MenuFunction _orderByColorDescending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Color.grayscale).ToArray());
 
-      GenericMenu.MenuFunction _orderByNameAscending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Name).ToArray()));
-      GenericMenu.MenuFunction _orderByNameDescending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Name).ToArray()));
+      GenericMenu.MenuFunction _orderByNameAscending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Name).ToArray());
+      GenericMenu.MenuFunction _orderByNameDescending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Name).ToArray());
 
-      GenericMenu.MenuFunction _orderByLengthAscending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Name.Length).ToArray()));
-      GenericMenu.MenuFunction _orderByLengthDescending = new GenericMenu.MenuFunction(() => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Name.Length).ToArray()));
+      GenericMenu.MenuFunction _orderByLengthAscending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderBy(t => t.Name.Length).ToArray());
+      GenericMenu.MenuFunction _orderByLengthDescending = () => _allPropertyTags.ToList().ForEach(o => o.ObjectTags = o.ObjectTags.OrderByDescending(t => t.Name.Length).ToArray());
 
       _menu.AddItem(new GUIContent("Order by.../Color/Ascending", "Order this Tags by Color, in an ascending way"), false, _orderByColorAscending);
       _menu.AddItem(new GUIContent("Order by.../Color/Descending", "Order this Tags by Color, in a descending way"), false, _orderByColorDescending);
@@ -1536,7 +1535,7 @@ public static class MultiTagsUtility
         if (GUI.Button(_buttonRect, new GUIContent(string.Empty, "Add a new Tag to the list"), OLPlusStyle))
         {
           GenericMenu _menu = new GenericMenu();
-          GenericMenu.MenuFunction2 _callback = new GenericMenu.MenuFunction2((object _tag) => _addTagCallback.Invoke((Tag)_tag));
+          GenericMenu.MenuFunction2 _callback = _tag => _addTagCallback.Invoke((Tag)_tag);
 
           foreach (Tag _tag in _tagsToAdd)
           {
@@ -1643,7 +1642,7 @@ public static class MultiTagsUtility
         if ((_event.type == EventType.ContextClick))
         {
           GenericMenu _menu = new GenericMenu();
-          GenericMenu.MenuFunction2 _colorCallback = new GenericMenu.MenuFunction2((object _object) => ColorPickerMenu((Tag)_object));
+          GenericMenu.MenuFunction2 _colorCallback = _object => ColorPickerMenu((Tag)_object);
 
           _menu.AddItem(new GUIContent("Change Color", "Change the color of this Tag"), false, _colorCallback, _tag);
 
@@ -2033,7 +2032,7 @@ public static class MultiTagsUtility
   public static void ColorPickerMenu(Color _color)
   {
     // Create delegate to set tag color
-    Action<Color> _action = new Action<Color>((Color _c) => _color = _c);
+    Action<Color> _action = _c => _color = _c;
 
     // Get the ColorPicker class
     EditorWindow _colorPicker = ScriptableObject.CreateInstance("ColorPicker") as EditorWindow;
@@ -2049,10 +2048,10 @@ public static class MultiTagsUtility
   public static void ColorPickerMenu(Tag _tag)
   {
     // Get the tag object
-    Tag _tagObject = _tag as Tag;
+    Tag _tagObject = _tag;
 
     // Create delegate to set tag color
-    Action<Color> _action = new Action<Color>((Color _color) => _tagObject.Color = _color);
+    Action<Color> _action = _color => _tagObject.Color = _color;
 
     // Get the ColorPicker class
     EditorWindow _colorPicker = ScriptableObject.CreateInstance("ColorPicker") as EditorWindow;

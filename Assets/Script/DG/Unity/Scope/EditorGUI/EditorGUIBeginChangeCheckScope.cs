@@ -6,7 +6,7 @@ namespace DG
 {
 	public class EditorGUIBeginChangeCheckScope : IDisposable
 	{
-		private bool _isEndChangeCheck = false;
+		private bool _isEndChangeCheck;
 		private bool _isChanged;
 
 

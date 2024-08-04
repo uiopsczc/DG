@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 namespace DG
 {
-	public partial class TilemapUtil
+	public class TilemapUtil
 	{
 		public static void SetTile(Tilemap tilemap, Vector3Int cellPos, TileBase tileBase, Hashtable tileDetailDict)
 		{

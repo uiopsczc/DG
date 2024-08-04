@@ -4,11 +4,11 @@ namespace DG
 	{
 		#region override method
 
-		public override BehaviourTreeNodeStatus Update()
+		public override EBehaviourTreeNodeStatus Update()
 		{
-			status = status == BehaviourTreeNodeStatus.WaitingToRun ? Enter() : Execute();
+			status = status == EBehaviourTreeNodeStatus.WaitingToRun ? Enter() : Execute();
 
-			if (status != BehaviourTreeNodeStatus.Running)
+			if (status != EBehaviourTreeNodeStatus.Running)
 				Exit();
 			return status;
 		}
@@ -17,13 +17,13 @@ namespace DG
 
 		#region virtual method
 
-		public virtual BehaviourTreeNodeStatus Enter()
+		public virtual EBehaviourTreeNodeStatus Enter()
 		{
-			status = BehaviourTreeNodeStatus.Running;
+			status = EBehaviourTreeNodeStatus.Running;
 			return status;
 		}
 
-		public virtual BehaviourTreeNodeStatus Execute()
+		public virtual EBehaviourTreeNodeStatus Execute()
 		{
 			return status;
 		}

@@ -15,7 +15,7 @@ namespace DG
 		public static PivotInfo BOTTOM_PIVOT_INFO => PivotInfoUtil.GetPivotInfo(StringConst.STRING_BOTTOM);
 		public static PivotInfo RIGHT_BOTTOM_PIVOT_INFO => PivotInfoUtil.GetPivotInfo(StringConst.STRING_RIGHT_BOTTOM);
 
-		public static readonly Dictionary<string, PivotInfo> PIVOT_INFO_DICT = new Dictionary<string, PivotInfo>()
+		public static readonly Dictionary<string, PivotInfo> PIVOT_INFO_DICT = new()
 		{
 			{StringConst.STRING_LEFT_BOTTOM, new PivotInfo(0, 0, StringConst.STRING_LEFT_BOTTOM)},
 			{StringConst.STRING_BOTTOM, new PivotInfo(0.5f, 0, StringConst.STRING_BOTTOM)},

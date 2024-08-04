@@ -6,7 +6,7 @@ namespace DG
 	{
 		#region field
 
-		public List<BehaviourTreeNode> childList = new List<BehaviourTreeNode>();
+		public List<BehaviourTreeNode> childList = new();
 
 		#endregion
 

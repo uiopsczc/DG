@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/5/12
  * ======================================
@@ -7,16 +7,16 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
 
 namespace DG
 {
-	public static partial class FPGeometryUtils
+	public static class FPGeometryUtils
 	{
-		private static FPVector2 tmp1 = new FPVector2(), tmp2 = new FPVector2(), tmp3 = new FPVector2();
+		private static FPVector2 tmp1, tmp2, tmp3;
 
 		/** Computes the barycentric coordinates v,w for the specified point in the triangle.
 		 * <p>

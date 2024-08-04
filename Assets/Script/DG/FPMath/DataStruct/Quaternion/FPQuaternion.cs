@@ -1,16 +1,15 @@
 /*************************************************************************************
- * √Ë     ˆ:  
- * ¥¥ Ω® ’ﬂ:  czq
- * ¥¥Ω® ±º‰:  2023/5/12
+ * Êèè    Ëø∞:
+ * Âàõ Âª∫ ËÄÖ:  czq
+ * ÂàõÂª∫Êó∂Èó¥:  2023/5/12
  * ======================================
- * ¿˙ ∑∏¸–¬º«¬º
- * ∞Ê±æ:V          –ﬁ∏ƒ ±º‰:         –ﬁ∏ƒ»À:
- * –ﬁ∏ƒƒ⁄»›:
+ * ÂéÜÂè≤Êõ¥Êñ∞ËÆ∞ÂΩï
+ * ÁâàÊú¨:V          ‰øÆÊîπÊó∂Èó¥:         ‰øÆÊîπ‰∫∫:
+ * ‰øÆÊîπÂÜÖÂÆπ:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
-
 #if UNITY_STANDALONE
 using UnityEngine;
 #endif
@@ -21,7 +20,7 @@ namespace DG
 	public partial struct FPQuaternion
 	{
 		public static readonly FP kEpsilon = 0.000001F;
-		public static FPQuaternion identity = new FPQuaternion(0, 0, 0, 1);
+		public static FPQuaternion identity = new(0, 0, 0, 1);
 
 
 
@@ -73,7 +72,7 @@ namespace DG
 				y = value.y;
 				z = value.z;
 			}
-			get => new FPVector3(x, y, z);
+			get => new(x, y, z);
 		}
 
 		public FPVector3 eulerAngles
@@ -101,22 +100,22 @@ namespace DG
 #if UNITY_STANDALONE
 		public FPQuaternion(Quaternion quaternion)
 		{
-			this.x = quaternion.x;
-			this.y = quaternion.y;
-			this.z = quaternion.z;
-			this.w = quaternion.w;
+			x = quaternion.x;
+			y = quaternion.y;
+			z = quaternion.z;
+			w = quaternion.w;
 		}
 #endif
 
 		public FPQuaternion(System.Numerics.Quaternion quaternion)
 		{
-			this.x = quaternion.X;
-			this.y = quaternion.Y;
-			this.z = quaternion.Z;
-			this.w = quaternion.W;
+			x = quaternion.X;
+			y = quaternion.Y;
+			z = quaternion.Z;
+			w = quaternion.W;
 		}
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:Equals ToString
+		* Ê®°ÂùóÊèèËø∞:Equals ToString
 		*************************************************************************************/
 		public override bool Equals(object obj)
 		{
@@ -136,17 +135,17 @@ namespace DG
 			return x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2 ^ w.GetHashCode() >> 1;
 		}
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:◊™ªª
+		* Ê®°ÂùóÊèèËø∞:ËΩ¨Êç¢
 		*************************************************************************************/
 #if UNITY_STANDALONE
-		//◊™ªªŒ™UnityµƒQuaternion
+		//ËΩ¨Êç¢‰∏∫UnityÁöÑQuaternion
 		public Quaternion ToQuaternion()
 		{
-			return new Quaternion((float)x, (float)y, (float)z, (float)w);
+			return new Quaternion(x, y, z, w);
 		}
 #endif
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:πÿœµ‘ÀÀ„∑˚‘ÀÀ„
+		* Ê®°ÂùóÊèèËø∞:ÂÖ≥Á≥ªËøêÁÆóÁ¨¶ËøêÁÆó
 		*************************************************************************************/
 		public static bool operator ==(FPQuaternion value1, FPQuaternion value2)
 		{
@@ -159,7 +158,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:≤Ÿ◊˜‘ÀÀ„
+		* Ê®°ÂùóÊèèËø∞:Êìç‰ΩúËøêÁÆó
 		*************************************************************************************/
 		public static FPQuaternion operator +(FPQuaternion value1, FPQuaternion value2)
 		{
@@ -221,7 +220,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:StaticUtil
+		* Ê®°ÂùóÊèèËø∞:StaticUtil
 		*************************************************************************************/
 		private static bool _IsEqualUsingDot(FP dot)
 		{
@@ -462,7 +461,7 @@ namespace DG
 			var radians = degress * FPMath.DEG2RAD;
 			radians *= 0.5f;
 			axis.Normalize();
-			axis = axis * FPMath.Sin(radians);
+			axis *= FPMath.Sin(radians);
 			result.x = axis.x;
 			result.y = axis.y;
 			result.z = axis.z;
@@ -519,7 +518,7 @@ namespace DG
 
 
 			FP num8 = (m00 + m11) + m22;
-			var quaternion = FPQuaternion.default2;
+			var quaternion = default2;
 			if (num8 > 0f)
 			{
 				var num = FPMath.Sqrt(num8 + 1f);
@@ -610,7 +609,7 @@ namespace DG
 			FP radian;
 			if (lengthSquared > 1e-14m)
 			{
-				axis = axis / FPMath.Sqrt(lengthSquared);
+				axis /= FPMath.Sqrt(lengthSquared);
 				radian = 2 * FPMath.Acos(FPMath.Clamp(qw, (-1), FP.ONE));
 			}
 			else
@@ -748,7 +747,7 @@ namespace DG
 			return FPMath.Sqrt(SqrMagnitude(value));
 		}
 
-		//π≤ÈÓ£¨◊™÷√
+		//ÂÖ±ËΩ≠ÔºåËΩ¨ÁΩÆ
 		public static FPQuaternion Conjugate(FPQuaternion value)
 		{
 			var x = -value.x;
@@ -907,7 +906,7 @@ namespace DG
 
 
 		/*************************************************************************************
-		* ƒ£øÈ√Ë ˆ:Util
+		* Ê®°ÂùóÊèèËø∞:Util
 		*************************************************************************************/
 		public void Normalize()
 		{
@@ -943,7 +942,7 @@ namespace DG
 		public void SetLookRotation(FPVector3 view)
 		{
 			FPVector3 up = FPVector3.up;
-			this.SetLookRotation(view, up);
+			SetLookRotation(view, up);
 		}
 
 		/// <summary>
@@ -958,10 +957,10 @@ namespace DG
 
 		public void SetIdentity()
 		{
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
-			this.w = 1;
+			x = 0;
+			y = 0;
+			z = 0;
+			w = 1;
 		}
 	}
 }

@@ -16,7 +16,7 @@ namespace DG
 		public MonoBehaviourCache monoBehaviourCache =>
 			_monoBehaviourCache ??= new MonoBehaviourCache(this);
 
-		public UnityEngine.Component targetComponent
+		public Component targetComponent
 		{
 			get
 			{

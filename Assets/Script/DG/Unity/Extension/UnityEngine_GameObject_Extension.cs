@@ -141,7 +141,7 @@ namespace DG
 
 		public static T GetOrAddCache<T>(this GameObject self, string key, Func<T> defaultFunc)
 		{
-			return GameObjectUtil.GetOrAddCache<T>(self, key, defaultFunc);
+			return GameObjectUtil.GetOrAddCache(self, key, defaultFunc);
 		}
 
 		public static object GetOrAddCache(this GameObject self, string key, Func<object> defaultFunc)
@@ -230,7 +230,7 @@ namespace DG
 		public static T GetFieldValue<T>(this GameObject self, string fieldInfoString, T defaultValue,
 			params Type[] excludeComponentTypes)
 		{
-			return GameObjectUtil.GetFieldValue<T>(self, fieldInfoString, defaultValue, excludeComponentTypes);
+			return GameObjectUtil.GetFieldValue(self, fieldInfoString, defaultValue, excludeComponentTypes);
 		}
 
 		public static void SetFieldValue(this GameObject self, string fieldInfoString, object value,

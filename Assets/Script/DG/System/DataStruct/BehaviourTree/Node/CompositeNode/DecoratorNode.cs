@@ -2,9 +2,17 @@ namespace DG
 {
 	public class DecoratorNode : BehaviourTreeCompositeNode
 	{
+		#region field
+
+		public EBehaviourTreeNodeStatus untilStatus;
+		public int countLimit;
+		public int curCount;
+
+		#endregion
+		
 		#region ctor
 
-		public DecoratorNode(BehaviourTreeNodeStatus untilStatus, int countLimit = -1)
+		public DecoratorNode(EBehaviourTreeNodeStatus untilStatus, int countLimit = -1)
 		{
 			this.untilStatus = untilStatus;
 			this.countLimit = countLimit;
@@ -18,12 +26,12 @@ namespace DG
 		///   只包含一个子节点
 		/// </summary>
 		/// <returns></returns>
-		public override BehaviourTreeNodeStatus Update()
+		public override EBehaviourTreeNodeStatus Update()
 		{
 			if (childList == null || childList.Count == 0)
 			{
 				curCount = 0;
-				status = BehaviourTreeNodeStatus.Success;
+				status = EBehaviourTreeNodeStatus.Success;
 				return status;
 			}
 
@@ -31,14 +39,14 @@ namespace DG
 			var childStatus = child.Update();
 			if (childStatus == untilStatus)
 			{
-				status = BehaviourTreeNodeStatus.Success;
+				status = EBehaviourTreeNodeStatus.Success;
 				return status;
 			}
 
 			if (curCount == -1)
 			{
 				curCount = 0;
-				status = BehaviourTreeNodeStatus.Running;
+				status = EBehaviourTreeNodeStatus.Running;
 				return status;
 			}
 
@@ -46,22 +54,16 @@ namespace DG
 			if (curCount >= countLimit)
 			{
 				curCount = 0;
-				status = BehaviourTreeNodeStatus.Fail;
+				status = EBehaviourTreeNodeStatus.Fail;
 				return status;
 			}
 
-			status = BehaviourTreeNodeStatus.Running;
+			status = EBehaviourTreeNodeStatus.Running;
 			return status;
 		}
 
 		#endregion
 
-		#region field
-
-		public BehaviourTreeNodeStatus untilStatus;
-		public int countLimit;
-		public int curCount;
-
-		#endregion
+		
 	}
 }

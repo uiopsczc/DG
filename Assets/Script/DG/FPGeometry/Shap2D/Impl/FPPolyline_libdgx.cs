@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 
@@ -30,13 +30,13 @@ namespace DG
 
 		public FPPolyline()
 		{
-			this.localVertices = new FP[0];
+			localVertices = new FP[0];
 		}
 
 		public FPPolyline(FP[] vertices)
 		{
 			if (vertices.Length < 4) throw new Exception("polylines must contain at least 2 points.");
-			this.localVertices = vertices;
+			localVertices = vertices;
 		}
 
 		/** Returns vertices without scaling or rotation and without being offset by the polyline position. */
@@ -180,13 +180,13 @@ namespace DG
 		public void setVertices(FP[] vertices)
 		{
 			if (vertices.Length < 4) throw new Exception("polylines must contain at least 2 points.");
-			this.localVertices = vertices;
+			localVertices = vertices;
 			_dirty = true;
 		}
 
 		public void setRotation(FP degrees)
 		{
-			this.rotation = degrees;
+			rotation = degrees;
 			_dirty = true;
 		}
 
@@ -206,8 +206,8 @@ namespace DG
 
 		public void scale(FP amount)
 		{
-			this.scaleX += amount;
-			this.scaleY += amount;
+			scaleX += amount;
+			scaleY += amount;
 			_dirty = true;
 			_calculateScaledLength = true;
 		}

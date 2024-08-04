@@ -47,7 +47,7 @@ namespace DG
 
 		public static void CopyFrom(RectTransform source, RectTransform target)
 		{
-			RectTransformUtil.CopyTo(target, source);
+			CopyTo(target, source);
 		}
 
 		#region

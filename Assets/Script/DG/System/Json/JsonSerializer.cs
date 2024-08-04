@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 
 namespace DG
 {
@@ -26,10 +25,9 @@ namespace DG
 
 
 
-		private static Dictionary<Type, Dictionary<object, JsonSerializer.SerializeObjInfo>> _serializeCache =
-		  new Dictionary<Type, Dictionary<object, JsonSerializer.SerializeObjInfo>>();
+		private static Dictionary<Type, Dictionary<object, SerializeObjInfo>> _serializeCache = new();
 
-		private static readonly Hashtable _classTypeTable = new Hashtable();
+		private static readonly Hashtable _classTypeTable = new();
 		private static long _curClassId;
 		private static long _curObjectId;
 		private static Dictionary<long, Type> _typeCache;
@@ -47,26 +45,26 @@ namespace DG
 			if (obj != null)
 			{
 				long key = Convert.ToInt64(obj);
-				JsonSerializer._deserializeCache[key] = newObj;
+				_deserializeCache[key] = newObj;
 			}
 		}
 
 		public static object Deserialize(string txt, object context = null)
 		{
-			JsonSerializer._deserializeCache = new Dictionary<long, object>();
-			JsonSerializer._typeCache = new Dictionary<long, Type>();
+			_deserializeCache = new Dictionary<long, object>();
+			_typeCache = new Dictionary<long, Type>();
 			object obj = MiniJson.JsonDecode(txt);
 			object result = null;
 			if (obj != null)
 			{
-				JsonSerializer._ConstructClassTable((Hashtable)((Hashtable)obj)[STR_CLS_TABLE]);
-				result = JsonSerializer.Deserialize(obj, obj.GetType(), context);
+				_ConstructClassTable((Hashtable)((Hashtable)obj)[STR_CLS_TABLE]);
+				result = Deserialize(obj, obj.GetType(), context);
 			}
 
-			JsonSerializer._deserializeCache.Clear();
-			JsonSerializer._deserializeCache = null;
-			JsonSerializer._typeCache.Clear();
-			JsonSerializer._typeCache = null;
+			_deserializeCache.Clear();
+			_deserializeCache = null;
+			_typeCache.Clear();
+			_typeCache = null;
 
 			return result;
 		}
@@ -75,7 +73,7 @@ namespace DG
 		{
 			if (value is Hashtable hashtable)
 			{
-				return JsonSerializer.Deserialize(hashtable, context);
+				return Deserialize(hashtable, context);
 			}
 
 			if (type == typeof(string))
@@ -248,35 +246,35 @@ namespace DG
 				switch (Convert.ToInt32(table[STR_CLS_TYPE]))
 				{
 					case TYPE_REF:
-						result = JsonSerializer.DeserializeRef(table);
+						result = DeserializeRef(table);
 						break;
 					case TYPE_CLASS:
-						result = JsonSerializer.DeserializeClass(table, context);
+						result = DeserializeClass(table, context);
 						break;
 					case TYPE_ARRAY:
-						result = JsonSerializer.DeserializeArray(table, context);
+						result = DeserializeArray(table, context);
 						break;
 					case TYPE_LIST:
-						result = JsonSerializer.DeserializeList(table, context);
+						result = DeserializeList(table, context);
 						break;
 					case TYPE_DICT:
-						result = JsonSerializer.DeserializeDict(table, context);
+						result = DeserializeDict(table, context);
 						break;
 					case TYPE_ENUM:
-						result = JsonSerializer.DeserializeEnum(table);
+						result = DeserializeEnum(table);
 						break;
 					case TYPE_VALUE:
-						result = JsonSerializer.DeserializeValue(table);
+						result = DeserializeValue(table);
 						break;
 					default:
 						DGLog.Error("Deserialize unknown type:" +
-										JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])]);
+										_typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])]);
 						break;
 				}
 			}
 			catch (Exception ex)
 			{
-				DGLog.Error("Deserialize failed:" + ex.ToString());
+				DGLog.Error("Deserialize failed:" + ex);
 			}
 
 			return result;
@@ -284,24 +282,24 @@ namespace DG
 
 		public static object DeserializeArray(Hashtable table, object context)
 		{
-			Type type = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type type = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			ArrayList arrayList = (ArrayList)table[STR_CLS_DATA_VALUE];
 			int count = arrayList.Count;
 			Array array = Array.CreateInstance(type, count);
-			JsonSerializer.AddToCache(array, table);
+			AddToCache(array, table);
 			Type type2 = type.GetElementType() ?? type;
 			for (int i = 0; i < count; i++)
-				array.SetValue(JsonSerializer.Deserialize(arrayList[i], type2, context), i);
+				array.SetValue(Deserialize(arrayList[i], type2, context), i);
 
 			return array;
 		}
 
 		public static object DeserializeClass(Hashtable table, object context)
 		{
-			Type type = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type type = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			ArrayList arrayList = (ArrayList)table[STR_CLS_DATA_VALUE];
 			object obj = Activator.CreateInstance(type, true);
-			JsonSerializer.AddToCache(obj, table);
+			AddToCache(obj, table);
 			if (obj is ISerializable serializable)
 				serializable.Deserialize(new SerializationInfo(arrayList, context), context);
 			else
@@ -316,7 +314,7 @@ namespace DG
 					FieldInfo field = obj.GetType().GetFieldInfo(text, InstanceFlags);
 					if (field != null)
 					{
-						object obj2 = JsonSerializer.Deserialize(value, field.FieldType, context);
+						object obj2 = Deserialize(value, field.FieldType, context);
 						if (obj2 != null)
 						{
 							if (!obj2.GetType().IsSubTypeOf(field.FieldType))
@@ -336,7 +334,7 @@ namespace DG
 								}
 								catch (Exception e)
 								{
-									DGLog.Warn(string.Format(e.ToString(), new object[0]));
+									DGLog.Warn(string.Format(e.ToString()));
 								}
 							}
 						}
@@ -349,29 +347,29 @@ namespace DG
 
 		public static object DeserializeEnum(Hashtable table)
 		{
-			Type type = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type type = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			long value = Convert.ToInt64(table[STR_CLS_DATA_VALUE].ToString());
 			return Enum.ToObject(type, value);
 		}
 
 		public static object DeserializeValue(Hashtable table)
 		{
-			Type type = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type type = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			object value = table[STR_CLS_DATA_VALUE].To(type);
 			return value;
 		}
 
 		public static object DeserializeList(Hashtable table, object context)
 		{
-			Type type = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type type = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			ArrayList arrayList = (ArrayList)table[STR_CLS_DATA_VALUE];
 			IList list = (IList)Activator.CreateInstance(type);
-			JsonSerializer.AddToCache(list, table);
+			AddToCache(list, table);
 			Type type2 = type.GetGenericArguments()[0];
 			int count = arrayList.Count;
 			for (int i = 0; i < count; i++)
 			{
-				list.Add(JsonSerializer.Deserialize(arrayList[i], type2, context));
+				list.Add(Deserialize(arrayList[i], type2, context));
 			}
 
 			return list;
@@ -379,18 +377,18 @@ namespace DG
 
 		public static object DeserializeDict(Hashtable table, object context)
 		{
-			Type dictType = JsonSerializer._typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
+			Type dictType = _typeCache[Convert.ToInt64(table[STR_CLS_TYPE_ID])];
 			ArrayList dictList = (ArrayList)table[STR_CLS_DATA_VALUE];
 			IDictionary result = (IDictionary)Activator.CreateInstance(dictType);
-			JsonSerializer.AddToCache(result, table);
+			AddToCache(result, table);
 			Type keyType = dictType.GetGenericArguments()[0];
 			Type valueType = dictType.GetGenericArguments()[1];
 			foreach (Hashtable dict in dictList)
 			{
 				object key = dict["key"];
 				object value = dict["value"];
-				result[JsonSerializer.Deserialize(key, keyType, context)] =
-				  JsonSerializer.Deserialize(value, valueType, context);
+				result[Deserialize(key, keyType, context)] =
+				  Deserialize(value, valueType, context);
 			}
 
 			return result;
@@ -399,7 +397,7 @@ namespace DG
 		public static object DeserializeRef(Hashtable table)
 		{
 			long num = Convert.ToInt64(table[STR_REF_ID]);
-			if (!JsonSerializer._deserializeCache.TryGetValue(num, out var result))
+			if (!_deserializeCache.TryGetValue(num, out var result))
 				DGLog.ErrorFormat("DeserializeRef {0} failed!", num);
 
 			return result;
@@ -408,7 +406,7 @@ namespace DG
 		public static object SerializeObject(object value, object context)
 		{
 			Type type = value.GetType();
-			JsonSerializer.SerializeObjInfo serializeObjInfo = JsonSerializer.TryGetSerializedObject(type, value);
+			SerializeObjInfo serializeObjInfo = TryGetSerializedObject(type, value);
 			if (serializeObjInfo != null)
 			{
 				Hashtable hashtable = new Hashtable();
@@ -422,20 +420,20 @@ namespace DG
 			try
 			{
 				if (type.IsEnum)
-					result = JsonSerializer.SerializeEnum(value, type);
+					result = SerializeEnum(value, type);
 				else
 				{
 					if (type.IsArray)
-						result = JsonSerializer._SerializeArray(value, type, context);
+						result = _SerializeArray(value, type, context);
 					else
 					{
 						if (value is IList)
-							result = JsonSerializer.SerializeList(value, type, context);
+							result = SerializeList(value, type, context);
 						else if (value is IDictionary)
-							result = JsonSerializer.SerializeDict(value, type, context);
+							result = SerializeDict(value, type, context);
 						else
 						{
-							if (JsonSerializer.IsBaseType(type))
+							if (IsBaseType(type))
 							{
 								//result = value;
 								result = CreateValueTable(value);
@@ -443,13 +441,13 @@ namespace DG
 							else
 							{
 								if (UnitySerializeObjectType.IsSerializeType(type))
-									result = JsonSerializer.SerializeUnityStruct(value, type, context);
+									result = SerializeUnityStruct(value, type, context);
 								else
 								{
 									if (type.IsClass || type.IsValueType)
-										result = JsonSerializer._SerializeClass(value, type, context);
+										result = _SerializeClass(value, type, context);
 									else
-										DGLog.Error("unsupport serialize type:" + type.ToString());
+										DGLog.Error("unsupport serialize type:" + type);
 								}
 							}
 						}
@@ -458,7 +456,7 @@ namespace DG
 			}
 			catch (Exception ex)
 			{
-				DGLog.Error("SerializeObject failed:" + ex.ToString());
+				DGLog.Error("SerializeObject failed:" + ex);
 			}
 
 			return result;
@@ -472,9 +470,9 @@ namespace DG
 		{
 			if (classTable != null)
 			{
-				Dictionary<object, JsonSerializer.SerializeObjInfo> dict = JsonSerializer._serializeCache[type];
-				long id = JsonSerializer._curObjectId += 1;
-				dict[value] = new JsonSerializer.SerializeObjInfo
+				Dictionary<object, SerializeObjInfo> dict = _serializeCache[type];
+				long id = _curObjectId += 1;
+				dict[value] = new SerializeObjInfo
 				{
 					id = id,
 					classTable = classTable
@@ -484,10 +482,10 @@ namespace DG
 
 		private static void _Clear()
 		{
-			JsonSerializer._curObjectId = 0;
-			JsonSerializer._curClassId = 0;
-			JsonSerializer._classTypeTable.Clear();
-			JsonSerializer._serializeCache.Clear();
+			_curObjectId = 0;
+			_curClassId = 0;
+			_classTypeTable.Clear();
+			_serializeCache.Clear();
 		}
 
 		private static void _ConstructClassTable(Hashtable table)
@@ -497,9 +495,9 @@ namespace DG
 			{
 				Type type = Type.GetType(enumerator.Value.ToString());
 				if (type == null)
-					DGLog.Error("type is null:" + enumerator.Value.ToString());
+					DGLog.Error("type is null:" + enumerator.Value);
 				else
-					JsonSerializer._typeCache[Convert.ToInt64(enumerator.Key)] = type;
+					_typeCache[Convert.ToInt64(enumerator.Key)] = type;
 			}
 		}
 
@@ -508,7 +506,7 @@ namespace DG
 			Type type = value.GetType();
 			Hashtable hashtable = new Hashtable();
 			hashtable[STR_CLS_TYPE] = typeClass;
-			hashtable[STR_CLS_TYPE_ID] = JsonSerializer.GetClassTypeId(type);
+			hashtable[STR_CLS_TYPE_ID] = GetClassTypeId(type);
 			if (needList)
 			{
 				hashtable[STR_CLS_DATA_VALUE] = new ArrayList();
@@ -524,16 +522,16 @@ namespace DG
 			Type type = value.GetType();
 			Hashtable hashtable = new Hashtable();
 			hashtable[STR_CLS_TYPE] = typeClass;
-			hashtable[STR_CLS_TYPE_ID] = JsonSerializer.GetClassTypeId(type);
+			hashtable[STR_CLS_TYPE_ID] = GetClassTypeId(type);
 			hashtable[STR_CLS_DATA_VALUE] = value;
 			return hashtable;
 		}
 
 		private static long GetClassTypeId(Type type)
 		{
-			if (JsonSerializer._classTypeTable.ContainsValue(type.AssemblyQualifiedName))
+			if (_classTypeTable.ContainsValue(type.AssemblyQualifiedName))
 			{
-				IDictionaryEnumerator enumerator = JsonSerializer._classTypeTable.GetEnumerator();
+				IDictionaryEnumerator enumerator = _classTypeTable.GetEnumerator();
 				while (enumerator.MoveNext())
 				{
 					if (enumerator.Value.ToString() == type.AssemblyQualifiedName)
@@ -543,8 +541,8 @@ namespace DG
 				throw new Exception("GetClassTypeId failed! " + type.AssemblyQualifiedName);
 			}
 
-			long num = JsonSerializer._curClassId += 1;
-			JsonSerializer._classTypeTable[num] = type.AssemblyQualifiedName;
+			long num = _curClassId += 1;
+			_classTypeTable[num] = type.AssemblyQualifiedName;
 			return num;
 		}
 
@@ -556,30 +554,30 @@ namespace DG
 
 		public static string Serialize(object value, object context = null)
 		{
-			JsonSerializer._Clear();
-			Hashtable hashtable = JsonSerializer.SerializeObject(value, context) as Hashtable;
-			hashtable[STR_CLS_TABLE] = JsonSerializer._classTypeTable;
+			_Clear();
+			Hashtable hashtable = SerializeObject(value, context) as Hashtable;
+			hashtable[STR_CLS_TABLE] = _classTypeTable;
 			return MiniJson.JsonEncode(hashtable);
 		}
 
 		private static Hashtable _SerializeArray(object value, Type aryType, object context)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, true, TYPE_ARRAY);
-			JsonSerializer._AddToRefCache(aryType, value, hashtable);
+			Hashtable hashtable = CreateClassTable(value, true, TYPE_ARRAY);
+			_AddToRefCache(aryType, value, hashtable);
 			Array array = value as Array;
 			Type elementType = aryType.GetElementType();
-			hashtable[STR_CLS_TYPE_ID] = JsonSerializer.GetClassTypeId(elementType);
+			hashtable[STR_CLS_TYPE_ID] = GetClassTypeId(elementType);
 			ArrayList arrayList = hashtable[STR_CLS_DATA_VALUE] as ArrayList;
 			for (int i = 0; i < array.Length; i++)
-				arrayList.Add(JsonSerializer.SerializeObject(array.GetValue(i), context));
+				arrayList.Add(SerializeObject(array.GetValue(i), context));
 
 			return hashtable;
 		}
 
 		private static Hashtable _SerializeClass(object value, Type type, object context)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, true, TYPE_CLASS);
-			JsonSerializer._AddToRefCache(type, value, hashtable);
+			Hashtable hashtable = CreateClassTable(value);
+			_AddToRefCache(type, value, hashtable);
 			ArrayList arrayList = hashtable[STR_CLS_DATA_VALUE] as ArrayList;
 			if (value is ISerializable serializable)
 				serializable.Serialize(new SerializationInfo(arrayList, context), context);
@@ -601,7 +599,7 @@ namespace DG
 							object value2 = fieldInfo.GetValue(value);
 							if (value2 != null)
 							{
-								object obj = JsonSerializer.SerializeObject(value2, context);
+								object obj = SerializeObject(value2, context);
 								if (obj != null)
 								{
 									Hashtable hashtable2 = new Hashtable();
@@ -619,31 +617,31 @@ namespace DG
 
 		private static Hashtable SerializeEnum(object value, Type enumType)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, false, TYPE_ENUM);
+			Hashtable hashtable = CreateClassTable(value, false, TYPE_ENUM);
 			hashtable[STR_CLS_DATA_VALUE] = Enum.Format(enumType, value, "d");
 			return hashtable;
 		}
 
 		private static Hashtable SerializeList(object value, Type collectionType, object context)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, true, TYPE_LIST);
-			JsonSerializer._AddToRefCache(collectionType, value, hashtable);
+			Hashtable hashtable = CreateClassTable(value, true, TYPE_LIST);
+			_AddToRefCache(collectionType, value, hashtable);
 			IEnumerable iterator = value as IList;
-			hashtable[STR_CLS_TYPE_ID] = JsonSerializer.GetClassTypeId(collectionType);
+			hashtable[STR_CLS_TYPE_ID] = GetClassTypeId(collectionType);
 			ArrayList arrayList = hashtable[STR_CLS_DATA_VALUE] as ArrayList;
 			foreach (object current in iterator)
-				arrayList.Add(JsonSerializer.SerializeObject(current, context));
+				arrayList.Add(SerializeObject(current, context));
 
 			return hashtable;
 		}
 
 		private static Hashtable SerializeDict(object value, Type dictType, object context)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, true, TYPE_DICT);
-			JsonSerializer._AddToRefCache(dictType, value, hashtable);
+			Hashtable hashtable = CreateClassTable(value, true, TYPE_DICT);
+			_AddToRefCache(dictType, value, hashtable);
 			IEnumerator iterator = (value as IDictionary).GetEnumerator();
 
-			hashtable[STR_CLS_TYPE_ID] = JsonSerializer.GetClassTypeId(dictType);
+			hashtable[STR_CLS_TYPE_ID] = GetClassTypeId(dictType);
 			ArrayList dictList = hashtable[STR_CLS_DATA_VALUE] as ArrayList;
 			while (iterator.MoveNext())
 			{
@@ -651,8 +649,8 @@ namespace DG
 				object dictKey = current.GetFieldValue("_key");
 				object dictValue = current.GetFieldValue("_value");
 				Hashtable dict = new Hashtable();
-				dict["key"] = JsonSerializer.SerializeObject(dictKey, context);
-				dict["value"] = JsonSerializer.SerializeObject(dictValue, context);
+				dict["key"] = SerializeObject(dictKey, context);
+				dict["value"] = SerializeObject(dictValue, context);
 				dictList.Add(dict);
 			}
 
@@ -662,8 +660,8 @@ namespace DG
 
 		private static Hashtable SerializeUnityStruct(object value, Type type, object context)
 		{
-			Hashtable hashtable = JsonSerializer.CreateClassTable(value, true, TYPE_CLASS);
-			JsonSerializer._AddToRefCache(type, value, hashtable);
+			Hashtable hashtable = CreateClassTable(value);
+			_AddToRefCache(type, value, hashtable);
 			ArrayList arrayList = hashtable[STR_CLS_DATA_VALUE] as ArrayList;
 			FieldInfo[] fields = type.GetFields(InstanceFlags);
 			if (fields.Length == 0)
@@ -678,7 +676,7 @@ namespace DG
 					object value2 = fieldInfo.GetValue(value);
 					if (value2 != null)
 					{
-						object obj = JsonSerializer.SerializeObject(value2, context);
+						object obj = SerializeObject(value2, context);
 						if (obj != null)
 						{
 							Hashtable hashtable2 = new Hashtable();
@@ -692,12 +690,12 @@ namespace DG
 			return hashtable;
 		}
 
-		private static JsonSerializer.SerializeObjInfo TryGetSerializedObject(Type type, object obj)
+		private static SerializeObjInfo TryGetSerializedObject(Type type, object obj)
 		{
-			if (!JsonSerializer._serializeCache.TryGetValue(type, out var dictionary))
+			if (!_serializeCache.TryGetValue(type, out var dictionary))
 			{
-				dictionary = new Dictionary<object, JsonSerializer.SerializeObjInfo>();
-				JsonSerializer._serializeCache[type] = dictionary;
+				dictionary = new Dictionary<object, SerializeObjInfo>();
+				_serializeCache[type] = dictionary;
 				return null;
 			}
 

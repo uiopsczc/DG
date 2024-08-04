@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace DG
 {
 	public class YieldBase : ICoroutineYield

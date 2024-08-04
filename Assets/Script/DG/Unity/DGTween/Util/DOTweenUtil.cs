@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace DG
@@ -41,7 +41,7 @@ namespace DG
 
 		public static Tween SetDOTweenId(Tween tween, object objOfDOTweenId = null)
 		{
-			objOfDOTweenId = objOfDOTweenId ?? tween.target;
+			objOfDOTweenId ??= tween.target;
 
 			return tween.SetId(objOfDOTweenId.DOTweenId());
 		}

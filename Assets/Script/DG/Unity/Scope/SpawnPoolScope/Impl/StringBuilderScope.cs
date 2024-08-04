@@ -4,7 +4,7 @@ namespace DG
 {
 	public class StringBuilderScope : SpawnPoolScope<StringBuilder>
 	{
-		public StringBuilder stringBuilder => this.spawn;
+		public StringBuilder stringBuilder => spawn;
 
 		public StringBuilderScope()
 		{

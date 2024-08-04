@@ -1,27 +1,30 @@
+using System;
 using System.Diagnostics;
-using System.IO;
+using System.Reflection;
 using UnityEditor;
-using Debug = UnityEngine.Debug;
 
 namespace DG
 {
 	/// <summary>
 	///   CZM工具菜单
 	/// </summary>
-	public partial class CZMToolMenu
+	public partial class DGToolMenu
 	{
 		[MenuItem(DGToolConst.Menu_Root + "Log/Open Folder")]
 		public static void LogOpenFolder()
 		{
-			Process.Start("explorer.exe", DGLogConst.LogBasePath.Replace("/", "\\") + "");
+			Process.Start("explorer.exe", DGLogConst.LOG_BASE_PATH.Replace("/", "\\") + "");
 		}
 
 		[MenuItem(DGToolConst.Menu_Root + "Log/Clear Log")]
 		public static void LogClear()
 		{
-			DGLog.ClearLogs();
-			StdioUtil.ClearDir(DGLogConst.LogBasePath);
-			DGLog.Info(string.Format("Clear Finished Dir:{0}", DGLogConst.LogBasePath));
+			Assembly assembly = AssemblyUtil.GetAssembly("UnityEditor");
+			Type type = assembly.GetType("UnityEditor.LogEntries");
+			MethodInfo methodInfo = type.GetMethodInfo2("Clear");
+			methodInfo.Invoke(new object(), null);
+			StdioUtil.ClearDir(DGLogConst.LOG_BASE_PATH);
+			DGLog.Info(string.Format("Clear Finished Dir:{0}", DGLogConst.LOG_BASE_PATH));
 		}
 	}
 }

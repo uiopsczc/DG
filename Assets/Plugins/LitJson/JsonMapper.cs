@@ -16,7 +16,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 
-
 namespace LitJson
 {
 	internal struct PropertyMetadata
@@ -122,21 +121,21 @@ namespace LitJson
 				IDictionary<Type, ImporterFunc>> custom_importers_table;
 
 		private static readonly IDictionary<Type, ArrayMetadata> array_metadata;
-		private static readonly object array_metadata_lock = new Object();
+		private static readonly object array_metadata_lock = new();
 
 		private static readonly IDictionary<Type,
 				IDictionary<Type, MethodInfo>> conv_ops;
-		private static readonly object conv_ops_lock = new Object();
+		private static readonly object conv_ops_lock = new();
 
 		private static readonly IDictionary<Type, ObjectMetadata> object_metadata;
-		private static readonly object object_metadata_lock = new Object();
+		private static readonly object object_metadata_lock = new();
 
 		private static readonly IDictionary<Type,
 				IList<PropertyMetadata>> type_properties;
-		private static readonly object type_properties_lock = new Object();
+		private static readonly object type_properties_lock = new();
 
 		private static readonly JsonWriter static_writer;
-		private static readonly object static_writer_lock = new Object();
+		private static readonly object static_writer_lock = new();
 		#endregion
 
 
@@ -204,7 +203,6 @@ namespace LitJson
 				}
 				catch (ArgumentException)
 				{
-					return;
 				}
 			}
 		}
@@ -261,7 +259,6 @@ namespace LitJson
 				}
 				catch (ArgumentException)
 				{
-					return;
 				}
 			}
 		}
@@ -301,7 +298,6 @@ namespace LitJson
 				}
 				catch (ArgumentException)
 				{
-					return;
 				}
 			}
 		}
@@ -318,7 +314,7 @@ namespace LitJson
 				return conv_ops[t1][t2];
 
 			MethodInfo op = t1.GetMethod(
-				"op_Implicit", new Type[] { t2 });
+				"op_Implicit", new[] { t2 });
 
 			lock (conv_ops_lock)
 			{
@@ -412,7 +408,7 @@ namespace LitJson
 
 				if (conv_op != null)
 					return conv_op.Invoke(null,
-										   new object[] { reader.Value });
+										   new[] { reader.Value });
 
 				// No luck
 				throw new JsonException(String.Format(
@@ -486,28 +482,25 @@ namespace LitJson
 
 					string property = (string)reader.Value;
 
-					if (t_data.Properties.ContainsKey(property))
+					if (t_data.Properties.TryGetValue(property, out var propData))
 					{
-						PropertyMetadata prop_data =
-							t_data.Properties[property];
-
-						if (prop_data.IsField)
+						if (propData.IsField)
 						{
-							((FieldInfo)prop_data.Info).SetValue(
-								instance, ReadValue(prop_data.Type, reader));
+							((FieldInfo)propData.Info).SetValue(
+								instance, ReadValue(propData.Type, reader));
 						}
 						else
 						{
 							PropertyInfo p_info =
-								(PropertyInfo)prop_data.Info;
+								(PropertyInfo)propData.Info;
 
 							if (p_info.CanWrite)
 								p_info.SetValue(
 									instance,
-									ReadValue(prop_data.Type, reader),
+									ReadValue(propData.Type, reader),
 									null);
 							else
-								ReadValue(prop_data.Type, reader);
+								ReadValue(propData.Type, reader);
 						}
 
 					}
@@ -523,11 +516,9 @@ namespace LitJson
 										"property '{1}'",
 										inst_type, property));
 							}
-							else
-							{
-								ReadSkip(reader);
-								continue;
-							}
+
+							ReadSkip(reader);
+							continue;
 						}
 
 					  ((IDictionary)instance).Add(
@@ -593,7 +584,7 @@ namespace LitJson
 					if (item == null && reader.Token == JsonToken.ArrayEnd)
 						break;
 
-					((IList)instance).Add(item);
+					instance.Add(item);
 				}
 			}
 			else if (reader.Token == JsonToken.ObjectStart)
@@ -609,7 +600,7 @@ namespace LitJson
 
 					string property = (string)reader.Value;
 
-					((IDictionary)instance)[property] = ReadValue(
+					instance[property] = ReadValue(
 						factory, reader);
 				}
 
@@ -912,18 +903,16 @@ namespace LitJson
 			Type obj_type = obj.GetType();
 
 			// See if there's a custom exporter for the object
-			if (custom_exporters_table.ContainsKey(obj_type))
+			if (custom_exporters_table.TryGetValue(obj_type, out var exporter1))
 			{
-				ExporterFunc exporter = custom_exporters_table[obj_type];
-				exporter(obj, writer);
+				exporter1(obj, writer);
 
 				return;
 			}
 
 			// If not, maybe there's a base exporter
-			if (base_exporters_table.ContainsKey(obj_type))
+			if (base_exporters_table.TryGetValue(obj_type, out var exporter))
 			{
-				ExporterFunc exporter = base_exporters_table[obj_type];
 				exporter(obj, writer);
 
 				return;

@@ -7,13 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using cfg.item;
 using Luban;
 using SimpleJSON;
 
-
 namespace cfg
 {
-public sealed partial class Item : Luban.BeanBase
+public sealed class Item : BeanBase
 {
     public Item(JSONNode _buf) 
     {
@@ -25,10 +26,10 @@ public sealed partial class Item : Luban.BeanBase
         UpgradeToItemId_Ref = null;
         { var _j = _buf["expire_time"]; if (_j.Tag != JSONNodeType.None && _j.Tag != JSONNodeType.NullValue) { { if(!_j.IsNumber) { throw new SerializationException(); }  ExpireTime = _j; } } else { ExpireTime = null; } }
         { if(!_buf["batch_useable"].IsBoolean) { throw new SerializationException(); }  BatchUseable = _buf["batch_useable"]; }
-        { if(!_buf["quality"].IsNumber) { throw new SerializationException(); }  Quality = (item.EQuality)_buf["quality"].AsInt; }
-        { if(!_buf["exchange_stream"].IsObject) { throw new SerializationException(); }  ExchangeStream = item.ItemExchange.DeserializeItemExchange(_buf["exchange_stream"]);  }
-        { var __json0 = _buf["exchange_list"]; if(!__json0.IsArray) { throw new SerializationException(); } ExchangeList = new System.Collections.Generic.List<item.ItemExchange>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { item.ItemExchange __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = item.ItemExchange.DeserializeItemExchange(__e0);  }  ExchangeList.Add(__v0); }   }
-        { if(!_buf["exchange_column"].IsObject) { throw new SerializationException(); }  ExchangeColumn = item.ItemExchange.DeserializeItemExchange(_buf["exchange_column"]);  }
+        { if(!_buf["quality"].IsNumber) { throw new SerializationException(); }  Quality = (EQuality)_buf["quality"].AsInt; }
+        { if(!_buf["exchange_stream"].IsObject) { throw new SerializationException(); }  ExchangeStream = ItemExchange.DeserializeItemExchange(_buf["exchange_stream"]);  }
+        { var __json0 = _buf["exchange_list"]; if(!__json0.IsArray) { throw new SerializationException(); } ExchangeList = new List<ItemExchange>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { ItemExchange __v0;  { if(!__e0.IsObject) { throw new SerializationException(); }  __v0 = ItemExchange.DeserializeItemExchange(__e0);  }  ExchangeList.Add(__v0); }   }
+        { if(!_buf["exchange_column"].IsObject) { throw new SerializationException(); }  ExchangeColumn = ItemExchange.DeserializeItemExchange(_buf["exchange_column"]);  }
     }
 
     public static Item DeserializeItem(JSONNode _buf)
@@ -68,16 +69,16 @@ public sealed partial class Item : Luban.BeanBase
     /// <summary>
     /// 品质
     /// </summary>
-    public readonly item.EQuality Quality;
+    public readonly EQuality Quality;
     /// <summary>
     /// 道具兑换配置
     /// </summary>
-    public readonly item.ItemExchange ExchangeStream;
-    public readonly System.Collections.Generic.List<item.ItemExchange> ExchangeList;
+    public readonly ItemExchange ExchangeStream;
+    public readonly List<ItemExchange> ExchangeList;
     /// <summary>
     /// 道具兑换配置
     /// </summary>
-    public readonly item.ItemExchange ExchangeColumn;
+    public readonly ItemExchange ExchangeColumn;
    
     public const int __ID__ = 2289459;
     public override int GetTypeId() => __ID__;
@@ -109,7 +110,7 @@ public sealed partial class Item : Luban.BeanBase
         + "batchUseable:" + BatchUseable + ","
         + "quality:" + Quality + ","
         + "exchangeStream:" + ExchangeStream + ","
-        + "exchangeList:" + Luban.StringUtil.CollectionToString(ExchangeList) + ","
+        + "exchangeList:" + StringUtil.CollectionToString(ExchangeList) + ","
         + "exchangeColumn:" + ExchangeColumn + ","
         + "}";
     }

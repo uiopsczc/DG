@@ -60,12 +60,12 @@ namespace DG
 		}
 
 		public static int BinarySearchCat<T>(this IList<T> self, T targetValue,
-			IndexOccurType indexOccurType = IndexOccurType.Any_Index, IList<Comparison<T>> compareRules = null)
+			EIndexOccurType indexOccurType = EIndexOccurType.Any_Index, IList<Comparison<T>> compareRules = null)
 		{
 			return IListTUtil.BinarySearchCat(self, targetValue, indexOccurType, compareRules);
 		}
 
-		public static ListSortedType GetListSortedType<T>(this IList<T> self, IList<Comparison<T>> compareRules)
+		public static EListSortedType GetListSortedType<T>(this IList<T> self, IList<Comparison<T>> compareRules)
 		{
 			return IListTUtil.GetListSortedType(self, compareRules);
 		}

@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -35,8 +35,8 @@ namespace DG
 		 * @param radius The radius */
 		public FPCircle(FPVector2 position, FP radius)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 			this.radius = radius;
 		}
 
@@ -45,9 +45,9 @@ namespace DG
 		 * @param circle The circle to construct a copy of. */
 		public FPCircle(FPCircle circle)
 		{
-			this.x = circle.x;
-			this.y = circle.y;
-			this.radius = circle.radius;
+			x = circle.x;
+			y = circle.y;
+			radius = circle.radius;
 		}
 
 		/** Creates a new {@link Circle} in terms of its center and a point on its edge.
@@ -56,9 +56,9 @@ namespace DG
 		 * @param edge Any point on the edge of the given circle */
 		public FPCircle(FPVector2 center, FPVector2 edge)
 		{
-			this.x = center.x;
-			this.y = center.y;
-			this.radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
+			x = center.x;
+			y = center.y;
+			radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
 		}
 
 		/** Sets a new location and radius for this circle.
@@ -79,8 +79,8 @@ namespace DG
 		 * @param radius Circle radius */
 		public void set(FPVector2 position, FP radius)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 			this.radius = radius;
 		}
 
@@ -89,9 +89,9 @@ namespace DG
 		 * @param circle The circle to copy the position and radius of. */
 		public void set(FPCircle circle)
 		{
-			this.x = circle.x;
-			this.y = circle.y;
-			this.radius = circle.radius;
+			x = circle.x;
+			y = circle.y;
+			radius = circle.radius;
 		}
 
 		/** Sets this {@link Circle}'s values in terms of its center and a point on its edge.
@@ -100,17 +100,17 @@ namespace DG
 		 * @param edge Any point on the edge of the given circle */
 		public void set(FPVector2 center, FPVector2 edge)
 		{
-			this.x = center.x;
-			this.y = center.y;
-			this.radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
+			x = center.x;
+			y = center.y;
+			radius = FPVector2.len(center.x - edge.x, center.y - edge.y);
 		}
 
 		/** Sets the x and y-coordinates of circle center from vector
 		 * @param position The position vector */
 		public void setPosition(FPVector2 position)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 		}
 
 		/** Sets the x and y-coordinates of circle center
@@ -201,13 +201,13 @@ namespace DG
 		/** @return The circumference of this circle (as 2 * {@link MathUtils#PI2}) * {@code radius} */
 		public FP circumference()
 		{
-			return this.radius * FPMath.TWO_PI;
+			return radius * FPMath.TWO_PI;
 		}
 
 		/** @return The area of this circle (as {@link MathUtils#PI} * radius * radius). */
 		public FP area()
 		{
-			return this.radius * this.radius * FPMath.PI;
+			return radius * radius * FPMath.PI;
 		}
 
 		public override bool Equals(object obj)
@@ -227,9 +227,9 @@ namespace DG
 		{
 			int prime = 41;
 			int result = 1;
-			result = prime * result + this.x.GetHashCode();
-			result = prime * result + this.y.GetHashCode();
-			result = prime * result + this.radius.GetHashCode();
+			result = prime * result + x.GetHashCode();
+			result = prime * result + y.GetHashCode();
+			result = prime * result + radius.GetHashCode();
 			return result;
 		}
 	}

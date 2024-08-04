@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,7 +26,7 @@ namespace DG
 				int columnCount = 20;
 				using (new GUILayoutBeginHorizontalScope())
 				{
-					for (int i = 0; i < EnumUtil.GetCount<EditorIconGUIContentType>(); ++i)
+					for (int i = 0; i < EnumUtil.GetCount<EEditorIconGUIContentType>(); ++i)
 					{
 						if (i > 0 && i % columnCount == 0)
 						{
@@ -36,12 +34,12 @@ namespace DG
 							GUILayout.BeginHorizontal();
 						}
 
-						var guiContent = EditorIconGUIContent.GetSystem((EditorIconGUIContentType) i);
+						var guiContent = EditorIconGUIContent.GetSystem((EEditorIconGUIContentType) i);
 						if (GUILayout.Button(guiContent,
 							GUILayout.Width(50), GUILayout.Height(36)))
 						{
 							string displayValue = string.Format("EditorIconGUIContentType.{0}\n{1}",
-								EnumUtil.GetName<EditorIconGUIContentType>(i),
+								EnumUtil.GetName<EEditorIconGUIContentType>(i),
 								EditorIconGUIContentConst.IconGUIContentNames[i]
 							);
 							this.ShowNotificationAndLog(displayValue);

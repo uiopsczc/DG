@@ -14,7 +14,7 @@ namespace DG
 		public string ownerType;
 
 		public bool isFinished = false;
-		public bool isPaused = false;
+		public bool isPaused;
 
 		public PausableCoroutine(IEnumerator routine, int ownerHashCode, string ownerType)
 		{
@@ -27,7 +27,7 @@ namespace DG
 			{
 				string[] split = routine.ToString().Split('<', '>');
 				if (split.Length == 3)
-					this.methodName = split[1];
+					methodName = split[1];
 			}
 
 			routineUniqueHash = ownerHashCode + "_" + ownerType + "_" + methodName;

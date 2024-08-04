@@ -19,7 +19,7 @@ namespace DG
         private static IDGLogger _Logger;
         private static StreamWriter _Log_Stream_Writer;
 
-        public static void InfoFull(DGLogColor? logColor, bool? isStackTrace, params object[] args)
+        public static void InfoFull(EDGLogColor? logColor, bool? isStackTrace, params object[] args)
         {
             _CheckInitCfg();
             if (!_Log_Cfg.enable)
@@ -31,7 +31,7 @@ namespace DG
                 _WriteToFile(string.Format("[Log]{0}", msg));
         }
 
-        public static void WarnFull(DGLogColor? logColor, bool? isStackTrace, params object[] args)
+        public static void WarnFull(EDGLogColor? logColor, bool? isStackTrace, params object[] args)
         {
             _CheckInitCfg();
             if (!_Log_Cfg.enable)
@@ -43,7 +43,7 @@ namespace DG
                 _WriteToFile(string.Format("[Warn]{0}", msg));
         }
 
-        public static void ErrorFull(DGLogColor? logColor, bool? isStackTrace, params object[] args)
+        public static void ErrorFull(EDGLogColor? logColor, bool? isStackTrace, params object[] args)
         {
             _CheckInitCfg();
             if (!_Log_Cfg.enable)
@@ -71,17 +71,17 @@ namespace DG
             ErrorFull(null, null, args);
         }
 
-        public static void InfoWithColor(DGLogColor logColor = default, params object[] args)
+        public static void InfoWithColor(EDGLogColor logColor = default, params object[] args)
         {
             InfoFull(logColor, null, args);
         }
 
-        public static void WarnWithColor(DGLogColor logColor = default, params object[] args)
+        public static void WarnWithColor(EDGLogColor logColor = default, params object[] args)
         {
             WarnFull(logColor, null, args);
         }
 
-        public static void ErrorWithColor(DGLogColor logColor = default, params object[] args)
+        public static void ErrorWithColor(EDGLogColor logColor = default, params object[] args)
         {
             ErrorFull(logColor, null, args);
         }

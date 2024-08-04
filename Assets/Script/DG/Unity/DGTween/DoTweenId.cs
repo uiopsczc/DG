@@ -15,7 +15,7 @@ namespace DG
 		{
 			if (!(obj is DOTweenId other))
 				return false;
-			return ObjectUtil.Equals(this.prefix, other.prefix) && ObjectUtil.Equals(this.owner, other.owner);
+			return ObjectUtil.Equals(prefix, other.prefix) && ObjectUtil.Equals(owner, other.owner);
 		}
 
 		public override int GetHashCode()

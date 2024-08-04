@@ -7,18 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Luban;
+using System;
+using cfg.item;
 using SimpleJSON;
 
 namespace cfg
 {
-public partial class Tables
+public class Tables
 {
-    public item.TbItem TbItem {get; }
+    public TbItem TbItem {get; }
 
-    public Tables(System.Func<string, JSONNode> loader)
+    public Tables(Func<string, JSONNode> loader)
     {
-        TbItem = new item.TbItem(loader("item_tbitem"));
+        TbItem = new TbItem(loader("item_tbitem"));
         ResolveRef();
     }
     

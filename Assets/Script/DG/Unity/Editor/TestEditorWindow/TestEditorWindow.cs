@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 namespace DG
 {
@@ -47,7 +45,7 @@ namespace DG
 		{
 			//      LogCat.log("窗口面板的更新");
 			//      这里开启窗口的重绘，不然窗口信息不会刷新
-			this.Repaint();
+			Repaint();
 		}
 
 		void OnDestroy()
@@ -63,7 +61,7 @@ namespace DG
 			//      }
 
 
-			this.Repaint();
+			Repaint();
 		}
 
 		void OnSelectionChange()

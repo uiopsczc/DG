@@ -29,7 +29,7 @@ namespace DG
 
         public static Type GetReflectionType(object obj)
         {
-            return obj is Type type ? type : obj.GetType();
+            return obj as Type ?? obj.GetType();
         }
 
 
@@ -149,7 +149,7 @@ namespace DG
                 sourceParameterTypes[i] = sourceParameter?.GetType();
             }
 
-            return ReflectionUtil.GetMethodInfo(type, methodName, bindingFlags, getMethodInfosFunc,
+            return GetMethodInfo(type, methodName, bindingFlags, getMethodInfosFunc,
                 sourceParameterTypes);
         }
 
@@ -261,14 +261,14 @@ namespace DG
         {
             MethodInfo methodInfo = GetMethodInfo(fullClassPath, methodInfoString,
                 GetReflectionObject(obj) == null ? BindingFlagsConst.STATIC : BindingFlagsConst.INSTANCE, null,
-                ReflectionUtil.GetReflectionType(obj).Assembly, parameters);
+                GetReflectionType(obj).Assembly, parameters);
             return methodInfo == null && isMissNotInvoke ? default(T) : Invoke<T>(obj, methodInfo, parameters);
         }
 
         public static T Invoke<T>(object obj, string methodName, bool isMissNotInvoke = true,
             params object[] parameters)
         {
-            return Invoke<T>(obj, ReflectionUtil.GetReflectionType(obj).FullName, methodName, isMissNotInvoke,
+            return Invoke<T>(obj, GetReflectionType(obj).FullName, methodName, isMissNotInvoke,
                 parameters);
         }
 
@@ -277,7 +277,7 @@ namespace DG
         {
             MethodInfo methodInfo = GetMethodInfo(fullClassPath, methodInfoString,
                 GetReflectionObject(obj) == null ? BindingFlagsConst.STATIC : BindingFlagsConst.INSTANCE, null,
-                ReflectionUtil.GetReflectionType(obj).Assembly.FullName, parameters);
+                GetReflectionType(obj).Assembly.FullName, parameters);
             if (methodInfo == null && isMissNotInvoke)
                 return;
             Invoke<object>(obj, methodInfo, parameters);
@@ -286,8 +286,8 @@ namespace DG
         public static void Invoke(object obj, string methodName, bool isMissNotInvoke = true,
             params object[] parameters)
         {
-            Invoke(obj, ReflectionUtil.GetReflectionType(obj).FullName, methodName, isMissNotInvoke,
-                ReflectionUtil.GetReflectionType(obj).Assembly.FullName, parameters);
+            Invoke(obj, GetReflectionType(obj).FullName, methodName, isMissNotInvoke,
+                GetReflectionType(obj).Assembly.FullName, parameters);
         }
     }
 }

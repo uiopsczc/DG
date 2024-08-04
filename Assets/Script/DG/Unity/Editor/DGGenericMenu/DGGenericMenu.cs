@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 namespace DG
 {
@@ -11,8 +11,7 @@ namespace DG
 		public DGGenericMenuItemInfo root;
 		public string rootName;
 
-		private Dictionary<string, (object sourceObject, object userData)> _argDict =
-			new Dictionary<string, (object sourceObject, object userData)>();
+		private Dictionary<string, (object sourceObject, object userData)> _argDict = new();
 
 		GenericMenu GetGenericMenu()
 		{
@@ -62,14 +61,14 @@ namespace DG
 
 		public void InitRoot(DGGenericMenuItemAttribute genericMenuItemAttribute, MethodInfo methodInfo)
 		{
-			this.rootName = genericMenuItemAttribute.rootName;
+			rootName = genericMenuItemAttribute.rootName;
 			genericMenuItemAttribute.currentNameIndex = 0;
 			root = new DGGenericMenuItemInfo(null, genericMenuItemAttribute, methodInfo);
 		}
 
 		public void UpdateRoot(DGGenericMenuItemAttribute genericMenuItemAttribute, MethodInfo methodInfo)
 		{
-			this.rootName = genericMenuItemAttribute.rootName;
+			rootName = genericMenuItemAttribute.rootName;
 			genericMenuItemAttribute.currentNameIndex = 0;
 			root.Update(genericMenuItemAttribute, methodInfo);
 		}

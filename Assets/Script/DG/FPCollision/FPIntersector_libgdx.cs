@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/16
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
@@ -15,14 +15,14 @@ using System.Collections.Generic;
 
 namespace DG
 {
-	public partial class FPIntersector
+	public class FPIntersector
 	{
 
-		private static FPVector3 v0 = new FPVector3();
-		private static FPVector3 v1 = new FPVector3();
-		private static FPVector3 v2 = new FPVector3();
-		private static List<FP> floatArray = new List<FP>();
-		private static List<FP> floatArray2 = new List<FP>();
+		private static FPVector3 v0;
+		private static FPVector3 v1;
+		private static FPVector3 v2;
+		private static List<FP> floatArray = new();
+		private static List<FP> floatArray2 = new();
 
 
 		/** Returns whether the given point is inside the triangle. This assumes that the point is on the plane of the triangle. No
@@ -143,11 +143,11 @@ namespace DG
 			return oddNodes;
 		}
 
-		private static FPVector2 ip = new FPVector2();
-		private static FPVector2 ep1 = new FPVector2();
-		private static FPVector2 ep2 = new FPVector2();
-		private static FPVector2 s = new FPVector2();
-		private static FPVector2 e = new FPVector2();
+		private static FPVector2 ip = new();
+		private static FPVector2 ep1 = new();
+		private static FPVector2 ep2 = new();
+		private static FPVector2 s = new();
+		private static FPVector2 e = new();
 
 		/** Intersects two convex polygons with clockwise vertices and sets the overlap polygon resulting from the intersection.
 		 * Follows the Sutherland-Hodgman algorithm.
@@ -181,12 +181,12 @@ namespace DG
 				{
 					e.set(floatArray2[j], floatArray2[j + 1]);
 					// determine if point is inside clip edge
-					bool side = FPIntersector.pointLineSide(ep2, ep1, s) > 0;
-					if (FPIntersector.pointLineSide(ep2, ep1, e) > 0)
+					bool side = pointLineSide(ep2, ep1, s) > 0;
+					if (pointLineSide(ep2, ep1, e) > 0)
 					{
 						if (!side)
 						{
-							FPIntersector.intersectLines(s, e, ep1, ep2, ref ip);
+							intersectLines(s, e, ep1, ep2, ref ip);
 							if (floatArray.Count < 2 || floatArray[floatArray.Count - 2] != ip.x
 								|| floatArray[floatArray.Count - 1] != ip.y)
 							{
@@ -199,7 +199,7 @@ namespace DG
 					}
 					else if (side)
 					{
-						FPIntersector.intersectLines(s, e, ep1, ep2, ref ip);
+						intersectLines(s, e, ep1, ep2, ref ip);
 						floatArray.Add(ip.x);
 						floatArray.Add(ip.y);
 					}
@@ -228,8 +228,8 @@ namespace DG
 		{
 			var polygon1Array = polygon1.ToArray();
 			var polygon2Array = polygon2.ToArray();
-			if (FPIntersector.isPointInPolygon(polygon1Array, 0, polygon1.Count, polygon2Array[0], polygon2Array[1])) return true;
-			if (FPIntersector.isPointInPolygon(polygon2Array, 0, polygon2.Count, polygon1Array[0], polygon1Array[1])) return true;
+			if (isPointInPolygon(polygon1Array, 0, polygon1.Count, polygon2Array[0], polygon2Array[1])) return true;
+			if (isPointInPolygon(polygon2Array, 0, polygon2.Count, polygon1Array[0], polygon1Array[1])) return true;
 			return intersectPolygonEdges(polygon1, polygon2);
 		}
 
@@ -256,10 +256,10 @@ namespace DG
 			return false;
 		}
 
-		static FPVector2 v2a = new FPVector2();
-		static FPVector2 v2b = new FPVector2();
-		static FPVector2 v2c = new FPVector2();
-		static FPVector2 v2d = new FPVector2();
+		static FPVector2 v2a;
+		static FPVector2 v2b;
+		static FPVector2 v2c;
+		static FPVector2 v2d;
 
 		/** Returns the distance between the given line and point. Note the specified line is not a line segment. */
 		public static FP distanceLinePoint(FP startX, FP startY, FP endX, FP endY, FP pointX, FP pointY)
@@ -479,14 +479,15 @@ namespace DG
 					intersection = ray.origin.add(v0.set(ray.direction).scl(t));
 				return true;
 			}
-			else if (plane.testPoint(ray.origin) == DGPlaneSide.OnPlane)
+
+			if (plane.testPoint(ray.origin) == DGPlaneSide.OnPlane)
 			{
 				if (intersection != FPVector3.Null)
 					intersection = ray.origin;
 				return true;
 			}
-			else
-				return false;
+
+			return false;
 		}
 
 		public static bool intersectRayPlane(FPRay ray, FPPlane plane)
@@ -510,7 +511,8 @@ namespace DG
 					intersection = origin.add(direction.scl(t));
 				return t;
 			}
-			else if (plane.testPoint(origin) == DGPlaneSide.OnPlane)
+
+			if (plane.testPoint(origin) == DGPlaneSide.OnPlane)
 			{
 				if (intersection != FPVector3.Null)
 					intersection = origin;
@@ -558,8 +560,8 @@ namespace DG
 			return intersectPlanes(a, b, c, ref FPVector3.Null);
 		}
 
-		private static FPPlane p = new FPPlane(default, 0);
-		private static FPVector3 i = new FPVector3();
+		private static FPPlane p = new(default, 0);
+		private static FPVector3 i;
 
 		/** Intersect a {@link Ray} and a triangle, returning the intersection point in intersection.
 		 * @param t1 The first vertex of the triangle
@@ -577,7 +579,7 @@ namespace DG
 			if (FPMath.IsZero(det))
 			{
 				p.set(t1, t2, t3);
-				if (p.testPoint(ray.origin) == DGPlaneSide.OnPlane && FPIntersector.isPointInTriangle(ray.origin, t1, t2, t3))
+				if (p.testPoint(ray.origin) == DGPlaneSide.OnPlane && isPointInTriangle(ray.origin, t1, t2, t3))
 				{
 					if (intersection != FPVector3.Null)
 						intersection = ray.origin;
@@ -612,8 +614,8 @@ namespace DG
 			return intersectRayTriangle(ray, t1, t2, t3, ref FPVector3.Null);
 		}
 
-		private static FPVector3 dir = new FPVector3();
-		private static FPVector3 start = new FPVector3();
+		private static FPVector3 dir = new();
+		private static FPVector3 start = new();
 
 		/** Intersects a {@link Ray} and a sphere, returning the intersection point in intersection.
 		 * @param ray The ray, the direction component must be normalized before calling this method
@@ -1016,11 +1018,11 @@ namespace DG
 			return intersectRayOrientedBounds(ray, bounds, transform, ref FPVector3.Null);
 		}
 
-		static FPVector3 best = new FPVector3();
-		static FPVector3 tmp = new FPVector3();
-		static FPVector3 tmp1 = new FPVector3();
-		static FPVector3 tmp2 = new FPVector3();
-		static FPVector3 tmp3 = new FPVector3();
+		static FPVector3 best;
+		static FPVector3 tmp;
+		static FPVector3 tmp1;
+		static FPVector3 tmp2;
+		static FPVector3 tmp3;
 
 		/** Intersects the given ray with list of triangles. Returns the nearest intersection point in intersection
 		 * @param triangles The triangles, each successive 9 elements are the 3 vertices of a triangle, a vertex is made of 3
@@ -1054,12 +1056,9 @@ namespace DG
 
 			if (!hit)
 				return false;
-			else
-			{
-				if (intersection != FPVector3.Null)
-					intersection = best;
-				return true;
-			}
+			if (intersection != FPVector3.Null)
+				intersection = best;
+			return true;
 		}
 
 		public static bool intersectRayTriangles(FPRay ray, FP[] triangles)
@@ -1104,12 +1103,9 @@ namespace DG
 
 			if (!hit)
 				return false;
-			else
-			{
-				if (intersection != FPVector3.Null)
-					intersection = best;
-				return true;
-			}
+			if (intersection != FPVector3.Null)
+				intersection = best;
+			return true;
 		}
 
 		public static bool intersectRayTriangles(FPRay ray, FP[] vertices, short[] indices, int vertexSize)
@@ -1146,12 +1142,9 @@ namespace DG
 
 			if (!hit)
 				return false;
-			else
-			{
-				if (intersection != FPVector3.Null)
-					intersection = best;
-				return true;
-			}
+			if (intersection != FPVector3.Null)
+				intersection = best;
+			return true;
 		}
 
 		public static bool intersectRayTriangles(FPRay ray, List<FPVector3> triangles)
@@ -1428,9 +1421,9 @@ namespace DG
 				closestY = r.y + r.height;
 			}
 
-			closestX = closestX - c.x;
+			closestX -= c.x;
 			closestX *= closestX;
-			closestY = closestY - c.y;
+			closestY -= c.y;
 			closestY *= closestY;
 
 			return closestX + closestY < c.radius * c.radius;
@@ -1565,49 +1558,47 @@ namespace DG
 				{
 					return false;
 				}
-				else
+
+				if (!mtv.Equals(FPMinimumTranslationVector.Null))
 				{
-					if (!mtv.Equals(FPMinimumTranslationVector.Null))
+					FP o = FPMath.Min(maxA, maxB) - FPMath.Max(minA, minB);
+					bool aContainsB = minA < minB && maxA > maxB;
+					bool bContainsA = minB < minA && maxB > maxA;
+					// if it contains one or another
+					FP mins = 0;
+					FP maxs = 0;
+					if (aContainsB || bContainsA)
 					{
-						FP o = FPMath.Min(maxA, maxB) - FPMath.Max(minA, minB);
-						bool aContainsB = minA < minB && maxA > maxB;
-						bool bContainsA = minB < minA && maxB > maxA;
-						// if it contains one or another
-						FP mins = 0;
-						FP maxs = 0;
+						mins = FPMath.Abs(minA - minB);
+						maxs = FPMath.Abs(maxA - maxB);
+						o += FPMath.Min(mins, maxs);
+					}
+
+					if (mtv.depth > o)
+					{
+						mtv.depth = o;
+						bool condition;
+						if (shapesShifted)
+						{
+							condition = minA < minB;
+							axisX = condition ? axisX : -axisX;
+							axisY = condition ? axisY : -axisY;
+						}
+						else
+						{
+							condition = minA > minB;
+							axisX = condition ? axisX : -axisX;
+							axisY = condition ? axisY : -axisY;
+						}
+
 						if (aContainsB || bContainsA)
 						{
-							mins = FPMath.Abs(minA - minB);
-							maxs = FPMath.Abs(maxA - maxB);
-							o += FPMath.Min(mins, maxs);
+							condition = mins > maxs;
+							axisX = condition ? axisX : -axisX;
+							axisY = condition ? axisY : -axisY;
 						}
 
-						if (mtv.depth > o)
-						{
-							mtv.depth = o;
-							bool condition;
-							if (shapesShifted)
-							{
-								condition = minA < minB;
-								axisX = condition ? axisX : -axisX;
-								axisY = condition ? axisY : -axisY;
-							}
-							else
-							{
-								condition = minA > minB;
-								axisX = condition ? axisX : -axisX;
-								axisY = condition ? axisY : -axisY;
-							}
-
-							if (aContainsB || bContainsA)
-							{
-								condition = mins > maxs;
-								axisX = condition ? axisX : -axisX;
-								axisY = condition ? axisY : -axisY;
-							}
-
-							mtv.normal.set(axisX, axisY);
-						}
+						mtv.normal.set(axisX, axisY);
 					}
 				}
 			}
@@ -1753,11 +1744,11 @@ namespace DG
 			}
 		}
 
-		static FPVector3 intersection = new FPVector3();
+		static FPVector3 intersection;
 
 		private static void splitEdge(FP[] vertices, int s, int e, int stride, FPPlane plane, FP[] split, int offset)
 		{
-			FP t = FPIntersector.intersectLinePlane(vertices[s], vertices[s + 1], vertices[s + 2], vertices[e], vertices[e + 1],
+			FP t = intersectLinePlane(vertices[s], vertices[s + 1], vertices[s + 2], vertices[e], vertices[e + 1],
 				vertices[e + 2], plane, ref intersection);
 			split[offset + 0] = intersection.x;
 			split[offset + 1] = intersection.y;

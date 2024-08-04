@@ -14,7 +14,7 @@ namespace DG
 
 		public void _Init(int add = 1)
 		{
-			this._add = add;
+			_add = add;
 			Global_Indent_Level += add;
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Space(Global_Indent_Level * Width_Of_Per_Indent_Level);

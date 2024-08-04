@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************c************************************************/
+ *************************************c************************************************/
 
 using System;
 #if UNITY_STANDALONE
@@ -22,16 +22,16 @@ namespace DG
 		public static readonly FP kEpsilon = 0.00001F;
 		public static readonly FP kEpsilonNormalSqrt = 1e-15f;
 
-		//²»ÄÜĞŞ¸ÄNullµÄÖµ
-		public static FPVector2 Null = FPVector2.max.cpy();
-		public static FPVector2 zero => new FPVector2(0, 0);
-		public static FPVector2 one => new FPVector2(1, 1);
-		public static FPVector2 left => new FPVector2(-1, 0);
-		public static FPVector2 right => new FPVector2(1, 0);
-		public static FPVector2 up => new FPVector2(0, 1);
-		public static FPVector2 down => new FPVector2(0, -1);
-		public static FPVector2 max => new FPVector2(float.MaxValue, float.MaxValue);
-		public static FPVector2 min => new FPVector2(float.MinValue, float.MinValue);
+		//ä¸èƒ½ä¿®æ”¹Nullçš„å€¼
+		public static FPVector2 Null = max.cpy();
+		public static FPVector2 zero => new(0, 0);
+		public static FPVector2 one => new(1, 1);
+		public static FPVector2 left => new(-1, 0);
+		public static FPVector2 right => new(1, 0);
+		public static FPVector2 up => new(0, 1);
+		public static FPVector2 down => new(0, -1);
+		public static FPVector2 max => new(float.MaxValue, float.MaxValue);
+		public static FPVector2 min => new(float.MinValue, float.MinValue);
 
 
 		public FP this[int index]
@@ -65,14 +65,14 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public FP sqrMagnitude => len2();
 
 		public FP magnitude => len();
 
 		/// <summary>
-		/// ·µ»Ø¸ÃÏòÁ¿µÄµ¥Î»ÏòÁ¿
+		/// è¿”å›è¯¥å‘é‡çš„å•ä½å‘é‡
 		/// </summary>
 		public FPVector2 normalized => nor();
 
@@ -93,18 +93,18 @@ namespace DG
 #if UNITY_STANDALONE
 		public FPVector2(Vector2 vector)
 		{
-			this.x = vector.x;
-			this.y = vector.y;
+			x = vector.x;
+			y = vector.y;
 		}
 #endif
 		public FPVector2(System.Numerics.Vector2 vector)
 		{
-			this.x = vector.X;
-			this.y = vector.Y;
+			x = vector.X;
+			y = vector.Y;
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Equals ToString
+		* æ¨¡å—æè¿°:Equals ToString
 		*************************************************************************************/
 		public override bool Equals(object obj)
 		{
@@ -125,7 +125,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:×ª»»
+		* æ¨¡å—æè¿°:è½¬æ¢
 		*************************************************************************************/
 		public static implicit operator FPVector2(FPVector3 v)
 		{
@@ -149,7 +149,7 @@ namespace DG
 		}
 #endif
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:¹ØÏµÔËËã·û
+		* æ¨¡å—æè¿°:å…³ç³»è¿ç®—ç¬¦
 		*************************************************************************************/
 		public static bool operator ==(FPVector2 value1, FPVector2 value2)
 		{
@@ -162,7 +162,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:ËãÊõÔËËã·û
+		* æ¨¡å—æè¿°:ç®—æœ¯è¿ç®—ç¬¦
 		*************************************************************************************/
 		public static FPVector2 operator +(FPVector2 value1, FPVector2 value2)
 		{
@@ -215,10 +215,10 @@ namespace DG
 
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public static FP SqrMagnitude(FPVector2 v)
 		{
@@ -339,7 +339,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public static FPVector2 Normalize(FPVector2 value)
@@ -352,7 +352,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µã³Ë
+		/// ç‚¹ä¹˜
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>
@@ -362,7 +362,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ²æ³Ë
+		/// å‰ä¹˜
 		/// </summary>
 		/// <param name="v1"></param>
 		/// <param name="v2"></param>
@@ -373,7 +373,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÇóÁ½¸öÏòÁ¿µÄ¼Ğ½Ç£¬Ã»ÓĞÕı¸ºÇø·Ö
+		/// æ±‚ä¸¤ä¸ªå‘é‡çš„å¤¹è§’ï¼Œæ²¡æœ‰æ­£è´ŸåŒºåˆ†
 		/// </summary>
 		/// <param name="fromAngle"></param>
 		/// <param name="toAngle"></param>
@@ -474,10 +474,10 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Util
+		* æ¨¡å—æè¿°:Util
 		*************************************************************************************/
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public void Normalize()

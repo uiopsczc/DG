@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace DG
+﻿namespace DG
 {
 	public static partial class UnityEngine_Rigidbody2D_Extension
 	{

@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace DG
@@ -8,7 +9,7 @@ namespace DG
 	/// </summary>
 	public partial class DGToolMenu
 	{
-		static UnityEngine.Component[] copiedComponents;
+		static Component[] copiedComponents;
 
 		[MenuItem(DGToolConst.Menu_Root + "Component/Copy All Components #C")]
 		//crtl+alt+shift+c
@@ -17,7 +18,7 @@ namespace DG
 			if (Selection.activeGameObject == null)
 				return;
 
-			copiedComponents = Selection.activeGameObject.GetComponents<UnityEngine.Component>();
+			copiedComponents = Selection.activeGameObject.GetComponents<Component>();
 			Debug.LogWarning("Copyed");
 		}
 
@@ -43,18 +44,18 @@ namespace DG
 					if (!copiedComponent)
 						continue;
 
-					UnityEditorInternal.ComponentUtility.CopyComponent(copiedComponent);
+					ComponentUtility.CopyComponent(copiedComponent);
 
 					var targetComponent = targetGameObject.GetComponent(copiedComponent.GetType());
 
 					if (targetComponent) // if gameObject already contains the component
 					{
-						if (!UnityEditorInternal.ComponentUtility.PasteComponentValues(targetComponent))
+						if (!ComponentUtility.PasteComponentValues(targetComponent))
 							Debug.LogError("Failed to copy: " + copiedComponent.GetType());
 					}
 					else // if gameObject does not contain the component
 					{
-						if (!UnityEditorInternal.ComponentUtility.PasteComponentAsNew(targetGameObject))
+						if (!ComponentUtility.PasteComponentAsNew(targetGameObject))
 							Debug.LogError("Failed to copy: " + copiedComponent.GetType());
 					}
 				}

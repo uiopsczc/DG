@@ -31,13 +31,13 @@ namespace DG
 		}
 
 
-//		public static Line GetLine(Vector2 endPoint, Vector2 dir, float x)
-//		{
-//			var k = (endPoint.x - x) / dir.x;
-//			var y = endPoint.y - k * dir.y;
-//			var sourcePoint = new Vector2(x, y);
-//			return new Line(sourcePoint, endPoint);
-//		}
+		// public static Line GetLine(Vector2 endPoint, Vector2 dir, float x)
+		// {
+		// 	var k = (endPoint.x - x) / dir.x;
+		// 	var y = endPoint.y - k * dir.y;
+		// 	var sourcePoint = new Vector2(x, y);
+		// 	return new Line(sourcePoint, endPoint);
+		// }
 
 		public static float Area(Vector2 point1, Vector2 point2, Vector2 point3)
 		{
@@ -63,7 +63,7 @@ namespace DG
 					return false;
 				if (i == num)
 					return true;
-				i = i * 2;
+				i *= 2;
 			}
 		}
 
@@ -72,9 +72,7 @@ namespace DG
 		{
 			if (a < b)
 			{
-				int t = a;
-				a = b;
-				b = t;
+				(a, b) = (b, a);
 			}
 
 			while (b > 0)

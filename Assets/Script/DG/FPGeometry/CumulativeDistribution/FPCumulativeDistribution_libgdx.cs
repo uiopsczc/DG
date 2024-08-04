@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/16
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System.Collections.Generic;
 
@@ -24,7 +24,7 @@ namespace DG
 	/// @author Inferno
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public partial class FPCumulativeDistribution<T>
+	public class FPCumulativeDistribution<T>
 	{
 		private List<FPCumulativeValue<T>> values;
 

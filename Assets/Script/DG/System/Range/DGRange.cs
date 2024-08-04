@@ -9,8 +9,8 @@ namespace DG
 
 		public DGRange(IComparable min, IComparable max)
 		{
-			this._min = min;
-			this._max = max;
+			_min = min;
+			_max = max;
 		}
 
 		public bool IsContains(IComparable value, bool isNotIncludeMin = false, bool isNotIncludeMax = false)

@@ -6,12 +6,12 @@ namespace DG
 	public class GUILayoutBeginVerticalIndentLevelScope : IDisposable
 	{
 		public const float Width_Of_Per_Indent_Level = 10f;
-		public static int Global_Indent_Level = 0;
+		public static int Global_Indent_Level;
 		private int _add;
 
 		public void _Init(int add = 1)
 		{
-			this._add = add;
+			_add = add;
 			Global_Indent_Level += add;
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(Global_Indent_Level * Width_Of_Per_Indent_Level);

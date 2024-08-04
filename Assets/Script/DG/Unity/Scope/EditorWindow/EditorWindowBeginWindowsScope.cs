@@ -10,7 +10,7 @@ namespace DG
 
 		public EditorWindowBeginWindowsScope(EditorWindow self)
 		{
-			this._self = self;
+			_self = self;
 			self.BeginWindows();
 		}
 

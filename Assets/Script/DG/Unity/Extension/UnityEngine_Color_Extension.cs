@@ -6,22 +6,22 @@ namespace DG
 	{
 		public static Color SetR(this Color self, float v)
 		{
-			return ColorUtil.Set(self, ColorMode.R, v);
+			return ColorUtil.Set(self, EColorMode.R, v);
 		}
 
 		public static Color SetG(this Color self, float v)
 		{
-			return ColorUtil.Set(self, ColorMode.G, v);
+			return ColorUtil.Set(self, EColorMode.G, v);
 		}
 
 		public static Color SetB(this Color self, float v)
 		{
-			return ColorUtil.Set(self, ColorMode.B, v);
+			return ColorUtil.Set(self, EColorMode.B, v);
 		}
 
 		public static Color SetA(this Color self, float v)
 		{
-			return ColorUtil.Set(self, ColorMode.A, v);
+			return ColorUtil.Set(self, EColorMode.A, v);
 		}
 
 
@@ -32,7 +32,7 @@ namespace DG
 		/// <param name="rgbaMode">有RGBA</param>
 		/// <param name="rgba">对应设置的值，按照rgba的顺序来设置</param>
 		/// <returns></returns>
-		public static Color Set(this Color self, ColorMode rgbaMode, params float[] rgba)
+		public static Color Set(this Color self, EColorMode rgbaMode, params float[] rgba)
 		{
 			return ColorUtil.Set(self, rgbaMode, rgba);
 		}

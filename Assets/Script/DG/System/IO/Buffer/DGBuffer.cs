@@ -7,7 +7,7 @@ namespace DG
 		/// <summary>
 		///   网络字节顺序BIG_ENDIAN
 		/// </summary>
-		private ByteOrder _byteOrder = ByteOrder.BigEndian;
+		private ByteOrder _byteOrder = ByteOrder.BIG_ENDIAN;
 
 		private readonly byte[] _singleByteBuf = new byte[1];
 
@@ -17,7 +17,7 @@ namespace DG
 		/// <returns></returns>
 		private bool NetOrder()
 		{
-			return _byteOrder.Equals(ByteOrder.BigEndian);
+			return _byteOrder.Equals(ByteOrder.BIG_ENDIAN);
 		}
 
 
@@ -137,11 +137,11 @@ namespace DG
 		{
 			if (byteOrder == null)
 			{
-				this._byteOrder = ByteOrder.BigEndian;
+				_byteOrder = ByteOrder.BIG_ENDIAN;
 				return;
 			}
 
-			this._byteOrder = byteOrder;
+			_byteOrder = byteOrder;
 		}
 
 		/// <summary>

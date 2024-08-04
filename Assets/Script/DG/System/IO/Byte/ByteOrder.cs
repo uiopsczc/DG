@@ -3,12 +3,12 @@ namespace DG
 	public sealed class ByteOrder
 	{
 		private readonly string _name;
-		public static readonly ByteOrder BigEndian = new ByteOrder("BIG_ENDIAN");
-		public static readonly ByteOrder LittleEndian = new ByteOrder("LITTLE_ENDIAN");
+		public static readonly ByteOrder BIG_ENDIAN = new("BIG_ENDIAN");
+		public static readonly ByteOrder LITTLE_ENDIAN = new("LITTLE_ENDIAN");
 
 		private ByteOrder(string name)
 		{
-			this._name = name;
+			_name = name;
 		}
 
 

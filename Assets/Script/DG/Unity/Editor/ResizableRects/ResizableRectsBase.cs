@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ namespace DG
 
 		private bool isCanResizable = true;
 
-		protected bool isUsingSplitPixels = false;
+		protected bool isUsingSplitPixels;
 		protected float[] splitPixels;
 		protected float[] splitPCTs;
 
@@ -33,21 +32,21 @@ namespace DG
 		{
 			this.totalRectFunc = totalRectFunc;
 			this.splitPixels = splitPixels;
-			this.splitPCTs = splitPcTs;
-			this.isUsingSplitPixels = !splitPixels.IsNullOrEmpty();
+			splitPCTs = splitPcTs;
+			isUsingSplitPixels = !splitPixels.IsNullOrEmpty();
 			if (!isUsingSplitPixels && splitPcTs.IsNullOrEmpty())
-				this.splitPCTs = new float[] {0.3f};
+				splitPCTs = new[] {0.3f};
 
-			int splitCount = isUsingSplitPixels ? this.splitPixels.Length : this.splitPCTs.Length;
-			this.resizeSplitRects = new Rect[splitCount];
+			int splitCount = isUsingSplitPixels ? this.splitPixels.Length : splitPCTs.Length;
+			resizeSplitRects = new Rect[splitCount];
 
 
-			this.splitLineRects = new Rect[splitCount];
+			splitLineRects = new Rect[splitCount];
 			UpdateSplitLineRects();
 
 
-			this.rects = new Rect[splitCount + 1];
-			this.paddingRects = new Rect[splitCount + 1];
+			rects = new Rect[splitCount + 1];
+			paddingRects = new Rect[splitCount + 1];
 			SetRectListSize();
 		}
 

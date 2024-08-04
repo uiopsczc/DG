@@ -2,6 +2,6 @@ namespace DG
 {
 	public class BinaryHeapConst
 	{
-		public const int Default_Capacity = 4;
+		public const int DEFAULT_CAPACITY = 4;
 	}
 }

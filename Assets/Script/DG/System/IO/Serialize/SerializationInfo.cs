@@ -11,8 +11,8 @@ namespace DG
 
 		internal SerializationInfo(ArrayList list, object context)
 		{
-			this._list = list;
-			this._context = context;
+			_list = list;
+			_context = context;
 		}
 
 

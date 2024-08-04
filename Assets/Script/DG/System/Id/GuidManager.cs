@@ -6,7 +6,7 @@ namespace DG
 
 		public GuidManager(ulong currentKeyNumber)
 		{
-			this._keyNumber = currentKeyNumber;
+			_keyNumber = currentKeyNumber;
 		}
 
 		public GuidManager()

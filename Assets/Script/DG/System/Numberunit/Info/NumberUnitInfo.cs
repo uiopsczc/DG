@@ -1,6 +1,6 @@
 namespace DG
 {
-	public class NumberUnitInfo
+	public struct NumberUnitInfo
 	{
 		public int index; // list 中的index
 		public int zhiShu; //指数

@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 
-
 namespace DG
 {
 	public class AOPUtil
@@ -10,8 +9,7 @@ namespace DG
 		///处理两种方法名的情况
 		///		1.方法名：被切面的方法的类_被切面的方法的名称_AOPMethodType的类型 
 		///     2.方法名：被切面的方法的名称_AOPMethodType的类型 
-		private static string[] Seach_Format_Target_Method_Name_Orders = new string[]
-		{
+		private static readonly string[] Seach_Format_Target_Method_Name_Orders = {
 			"{0}_{1}_{2}",
 			"{1}_{2}",
 		};
@@ -20,8 +18,7 @@ namespace DG
 		///处理两种方法名的情况
 		///		1.参数列表：带有原函数的参数列表
 		///     2.参数列表：不带有原函数的参数列表
-		private static bool[] Is_Target_Method_With_Source_ArgTypes_Orders = new bool[]
-		{
+		private static bool[] Is_Target_Method_With_Source_ArgTypes_Orders = {
 			true,
 			false
 		};
@@ -30,8 +27,7 @@ namespace DG
 		///处理两种方法名的情况
 		///		1.参数列表：带原函数所在类的实例引用self
 		///     2.参数列表：不原函数所在类的实例引用self
-		private static bool[] Is_Target_Method_Self_Arg_Orders = new bool[]
-		{
+		private static bool[] Is_Target_Method_Self_Arg_Orders = {
 			true,
 			false
 		};
@@ -45,7 +41,7 @@ namespace DG
 		/// <param name="aopMethodType"></param>
 		/// <returns></returns>
 		private static string[] GetSearchTargetMethodNameOrders(Type sourceType, string sourceMethodName,
-			AOPMethodType aopMethodType)
+			EAOPMethodType aopMethodType)
 		{
 			string[] result = new string[Seach_Format_Target_Method_Name_Orders.Length + 1];
 			for (int i = 0; i < Seach_Format_Target_Method_Name_Orders.Length; i++)
@@ -66,7 +62,7 @@ namespace DG
 		/// <param name="aopMethodType"></param>
 		/// <returns></returns>
 		private static string GetTargetMethodName(string formatTargetMethodName, Type sourceType,
-			string sourceMethodName, AOPMethodType aopMethodType)
+			string sourceMethodName, EAOPMethodType aopMethodType)
 		{
 			return string.Format(formatTargetMethodName, sourceType.GetLastName(), sourceMethodName,
 				aopMethodType.ToString());
@@ -84,7 +80,7 @@ namespace DG
 		///   4.1.被切面的方法的类_被切面的方法的名称_AOPMethodType的类型()
 		/// 5.默认的处理方法
 		public static MethodInfoProxy SearchTargetMethodInfoProxy(Type aopAttributeType, Type sourceType,
-			string sourceMethodName, AOPMethodType aopMethodType, Type[] sourceMethodArgTypes)
+			string sourceMethodName, EAOPMethodType aopMethodType, Type[] sourceMethodArgTypes)
 		{
 			//从特殊到一般，注意有顺序先后的查找
 			var names = GetSearchTargetMethodNameOrders(sourceType, sourceMethodName,

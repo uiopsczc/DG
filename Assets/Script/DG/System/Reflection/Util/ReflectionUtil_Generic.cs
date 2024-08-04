@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace DG
@@ -133,7 +132,7 @@ namespace DG
 				sourceParameterTypes[i] = sourceParameter?.GetType();
 			}
 
-			return ReflectionUtil.GetGenericMethodInfo(type, methodName, genericTypes, bindingFlags,
+			return GetGenericMethodInfo(type, methodName, genericTypes, bindingFlags,
 				getMethodInfosFunc, sourceParameterTypes);
 		}
 
@@ -169,7 +168,7 @@ namespace DG
 		{
 			MethodInfo methodInfo = GetGenericMethodInfo(fullClassPath, methodInfoString, genericTypes,
 				GetReflectionObject(obj) == null ? BindingFlagsConst.STATIC : BindingFlagsConst.INSTANCE, null,
-				ReflectionUtil.GetReflectionType(obj).Assembly, parameters);
+				GetReflectionType(obj).Assembly, parameters);
 			if (methodInfo == null && isMissNotInvoke)
 				return default(T);
 			return Invoke<T>(obj, methodInfo, parameters);
@@ -179,7 +178,7 @@ namespace DG
 			bool isMissNotInvoke = true,
 			params object[] parameters)
 		{
-			return InvokeGeneric<T>(obj, ReflectionUtil.GetReflectionType(obj).FullName, methodName, genericTypes,
+			return InvokeGeneric<T>(obj, GetReflectionType(obj).FullName, methodName, genericTypes,
 				isMissNotInvoke,
 				parameters);
 		}
@@ -190,7 +189,7 @@ namespace DG
 		{
 			MethodInfo methodInfo = GetGenericMethodInfo(fullClassPath, methodInfoString, genericTypes,
 				GetReflectionObject(obj) == null ? BindingFlagsConst.STATIC : BindingFlagsConst.INSTANCE, null,
-				ReflectionUtil.GetReflectionType(obj).Assembly.FullName, parameters);
+				GetReflectionType(obj).Assembly.FullName, parameters);
 			if (methodInfo == null && isMissNotInvoke)
 				return;
 			Invoke<object>(obj, methodInfo, parameters);
@@ -200,9 +199,9 @@ namespace DG
 			bool isMissNotInvoke = true,
 			params object[] parameters)
 		{
-			InvokeGeneric(obj, ReflectionUtil.GetReflectionType(obj).FullName, methodName, genericTypes,
+			InvokeGeneric(obj, GetReflectionType(obj).FullName, methodName, genericTypes,
 				isMissNotInvoke,
-				ReflectionUtil.GetReflectionType(obj).Assembly.FullName, parameters);
+				GetReflectionType(obj).Assembly.FullName, parameters);
 		}
 	}
 }

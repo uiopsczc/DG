@@ -9,15 +9,13 @@
  * ======================================
 *************************************************************************************/
 
-using System;
-
 namespace DG
 {
 	public interface IDGLogger
 	{
-		void Info(string msg, DGLogColor? logColor = default);
-		void Warn(string msg, DGLogColor? logColor = default);
-		void Error(string msg, DGLogColor? logColor = default);
+		void Info(string msg, EDGLogColor? logColor = default);
+		void Warn(string msg, EDGLogColor? logColor = default);
+		void Error(string msg, EDGLogColor? logColor = default);
 	}
 }
 

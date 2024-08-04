@@ -1,38 +1,39 @@
 using System.Reflection;
 using UnityEngine;
+using Object = System.Object;
 
 namespace DG
 {
 	public class ColorUtil
 	{
-		public static void SetColorR(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorR(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			SetColor(obj, memberName, ColorMode.R, v);
+			SetColor(obj, memberName, EColorMode.R, v);
 		}
 
-		public static void SetColorG(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorG(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			SetColor(obj, memberName, ColorMode.G, v);
+			SetColor(obj, memberName, EColorMode.G, v);
 		}
 
-		public static void SetColorB(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorB(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			SetColor(obj, memberName, ColorMode.B, v);
+			SetColor(obj, memberName, EColorMode.B, v);
 		}
 
-		public static void SetColorA(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorA(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			SetColor(obj, memberName, ColorMode.A, v);
+			SetColor(obj, memberName, EColorMode.A, v);
 		}
 
-		public static void SetColor(System.Object obj, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(Object obj, EColorMode rgbaMode, params float[] rgba)
 		{
 			SetColor(obj, StringConst.STRING_COLOR, rgbaMode, rgba);
 		}
 
-		public static void SetColor(System.Object obj, string memberName, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(Object obj, string memberName, EColorMode rgbaMode, params float[] rgba)
 		{
-			FieldInfo fieldInfo = obj.GetType().GetFieldInfo(memberName, BindingFlagsConst.ALL);
+			FieldInfo fieldInfo = obj.GetType().GetFieldInfo(memberName);
 			if (fieldInfo != null)
 			{
 				Color oldColor = (Color) fieldInfo.GetValue(obj);
@@ -41,13 +42,12 @@ namespace DG
 				return;
 			}
 
-			PropertyInfo propertyInfo = obj.GetType().GetPropertyInfo(memberName, BindingFlagsConst.ALL);
+			PropertyInfo propertyInfo = obj.GetType().GetPropertyInfo(memberName);
 			if (propertyInfo != null)
 			{
 				Color oldColor = (Color) propertyInfo.GetValue(obj, null);
 				Color newColor = Set(oldColor, rgbaMode, rgba);
 				propertyInfo.SetValue(obj, newColor, null);
-				return;
 			}
 		}
 
@@ -58,29 +58,29 @@ namespace DG
 		/// <param name="rgbaMode">有RGBA</param>
 		/// <param name="rgba">对应设置的值，按照rgba的顺序来设置</param>
 		/// <returns></returns>
-		public static Color Set(Color color, ColorMode rgbaMode, params float[] rgba)
+		public static Color Set(Color color, EColorMode rgbaMode, params float[] rgba)
 		{
 			float r = color.r;
 			float g = color.g;
 			float b = color.b;
 			float a = color.a;
-			var colorModes = EnumUtil.GetValues<ColorMode>();
+			var colorModes = EnumUtil.GetValues<EColorMode>();
 			for (var i = 0; i < colorModes.Length; i++)
 			{
 				var colorMode = colorModes[i];
 				if (!rgbaMode.Contains(colorMode)) continue;
 				switch (colorMode)
 				{
-					case ColorMode.R:
+					case EColorMode.R:
 						r = rgba[i];
 						break;
-					case ColorMode.G:
+					case EColorMode.G:
 						g = rgba[i];
 						break;
-					case ColorMode.B:
+					case EColorMode.B:
 						b = rgba[i];
 						break;
-					case ColorMode.A:
+					case EColorMode.A:
 						a = rgba[i];
 						break;
 				}

@@ -14,9 +14,9 @@ namespace DG
 	{
 		#region field
 
-		private readonly FrameCallbackList _updateCallbackList = new FrameCallbackList();
-		private readonly FrameCallbackList _lateUpdateCallbackList = new FrameCallbackList();
-		private readonly FrameCallbackList _fixedUpdateCallbackList = new FrameCallbackList();
+		private readonly FrameCallbackList _updateCallbackList = new();
+		private readonly FrameCallbackList _lateUpdateCallbackList = new();
+		private readonly FrameCallbackList _fixedUpdateCallbackList = new();
 
 		#endregion
 

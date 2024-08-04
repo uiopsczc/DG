@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
 
 namespace DG
@@ -189,10 +185,10 @@ namespace DG
 		}
 
 
-//		public static bool ContainTags(this string self, params string[] checkTags)
-//		{
-//			return StringUtil.ContainTags(self, checkTags);
-//		}
+		// public static bool ContainTags(this string self, params string[] checkTags)
+		// {
+		// 	return StringUtil.ContainTags(self, checkTags);
+		// }
 
 		public static string GetMainAssetPath(this string self)
 		{

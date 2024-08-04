@@ -7,15 +7,12 @@ namespace DG
 	public partial class ReflectionUtil
 	{
 		private static readonly Dictionary<Type, Dictionary<string, Dictionary<Args<Type>, MethodInfo>>> _cacheOfMethodInfoDict =
-			new Dictionary<Type, Dictionary<string, Dictionary<Args<Type>, MethodInfo>>>();
-		private static readonly Dictionary<Type, Dictionary<string, MethodInfo>> _cacheOfMethodInfoDict2 =
-			new Dictionary<Type, Dictionary<string, MethodInfo>>();
+			new();
+		private static readonly Dictionary<Type, Dictionary<string, MethodInfo>> _cacheOfMethodInfoDict2 = new();
 
-		private static readonly Dictionary<Type, Dictionary<string, FieldInfo>> _cacheOfFieldInfoDict =
-			new Dictionary<Type, Dictionary<string, FieldInfo>>();
+		private static readonly Dictionary<Type, Dictionary<string, FieldInfo>> _cacheOfFieldInfoDict = new();
 
-		private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _cacheOfPropertyInfoDict =
-			new Dictionary<Type, Dictionary<string, PropertyInfo>>();
+		private static readonly Dictionary<Type, Dictionary<string, PropertyInfo>> _cacheOfPropertyInfoDict = new();
 
 		private const string _METHOD_INFO_STRING = "methodInfo";
 		private const string _FILED_INFO_STRING = "fieldInfo";
@@ -62,9 +59,7 @@ namespace DG
 			if (!value1.TryGetValue(mainKey, out var value2))
 				return null;
 			var subKey = new Args<Type>(parameterTypes);
-			if (!value2.TryGetValue(subKey, out var value3))
-				return null;
-			return value3;
+			return value2.GetValueOrDefault(subKey);
 		}
 
 		public static bool IsContainsMethodInfoCache2(Type type, string methodName)
@@ -124,9 +119,7 @@ namespace DG
 			if (!_cacheOfFieldInfoDict.TryGetValue(type, out var value1))
 				return null;
 			string mainKey = _FILED_INFO_STRING + _SPLIT_STRING + fieldName;
-			if (!value1.TryGetValue(mainKey, out var value2))
-				return null;
-			return value2;
+			return value1.GetValueOrDefault(mainKey);
 		}
 		#endregion
 
@@ -156,9 +149,7 @@ namespace DG
 			if (!_cacheOfPropertyInfoDict.TryGetValue(type, out var value1))
 				return null;
 			string mainKey = _PROPERTY_INFO_STRING + _SPLIT_STRING + propertyName;
-			if (!value1.TryGetValue(mainKey, out var value2))
-				return null;
-			return value2;
+			return value1.GetValueOrDefault(mainKey);
 		}
 		#endregion
 	}

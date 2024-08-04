@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace DG
 {
 	public class DGPoolItem<T>:IDGPoolItem
@@ -10,14 +8,14 @@ namespace DG
 
 		public DGPoolItem(DGPool<T> pool, T value, bool isDeSpawned)
 		{
-			this._pool = pool;
-			this._value = value;
-			this._isDeSpawned = isDeSpawned;
+			_pool = pool;
+			_value = value;
+			_isDeSpawned = isDeSpawned;
 		}
 
 		public T GetValue()
 		{
-			return this._value;
+			return _value;
 		}
 		
 		public void DeSpawn()
@@ -28,12 +26,12 @@ namespace DG
 		
 		public void SetIsDeSpawned(bool isDeSpawned)
 		{
-			this._isDeSpawned = isDeSpawned;
+			_isDeSpawned = isDeSpawned;
 		}
 
 		public bool IsDeSpawned()
 		{
-			return this._isDeSpawned;
+			return _isDeSpawned;
 		}
 	}
 }

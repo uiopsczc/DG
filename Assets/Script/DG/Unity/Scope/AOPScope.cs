@@ -9,8 +9,8 @@ namespace DG
 
 		public AOPScope(Action preCallback, Action postCallback)
 		{
-			this._preCallback = preCallback;
-			this._postCallback = postCallback;
+			_preCallback = preCallback;
+			_postCallback = postCallback;
 			preCallback?.Invoke();
 		}
 

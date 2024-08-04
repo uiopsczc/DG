@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
@@ -24,14 +24,14 @@ namespace DG
 		private const int COMPLETE = 1;
 		private const int INCOMPLETE = 2;
 
-		private List<int> quicksortStack = new List<int>();
+		private List<int> quicksortStack = new();
 		private FP[] sortedPoints;
-		private List<short> triangles = new List<short>(16);
-		private List<short> originalIndices = new List<short>(0);
-		private List<int> edges = new List<int>();
-		private List<bool> complete = new List<bool>(16);
+		private List<short> triangles = new(16);
+		private List<short> originalIndices = new(0);
+		private List<int> edges = new();
+		private List<bool> complete = new(16);
 		private FP[] superTriangle = new FP[6];
-		private FPVector2 centroid = new FPVector2();
+		private FPVector2 centroid = new();
 
 		/** @see #computeTriangles(float[], int, int, boolean) */
 		public List<short> computeTriangles(List<FP> points, bool sorted)
@@ -348,9 +348,9 @@ namespace DG
 			while (down < up)
 			{
 				while (down < up && values[down] <= value)
-					down = down + 2;
+					down += 2;
 				while (values[up] > value)
-					up = up - 2;
+					up -= 2;
 				if (down < up)
 				{
 					tempValue = values[down];

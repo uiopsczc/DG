@@ -11,7 +11,7 @@ namespace DG
 
 		public virtual (DGPoolItem<T> poolItem, DGPoolItemIndex<T> poolItemIndex) Spawn()
 		{
-			return this.Spawn(null);
+			return Spawn(null);
 		}
 
 		public virtual (DGPoolItem<T> poolItem, DGPoolItemIndex<T> poolItemIndex) Spawn(Action<T> onSpawnCallback = null)
@@ -40,7 +40,7 @@ namespace DG
 
 		public virtual T SpawnValue(Action<T> onSpawnCallback = null)
 		{
-			var (poolItem, poolItemIndex) = this.Spawn(onSpawnCallback);
+			var (poolItem, _) = Spawn(onSpawnCallback);
 			return poolItem.GetValue();
 		}
 	}

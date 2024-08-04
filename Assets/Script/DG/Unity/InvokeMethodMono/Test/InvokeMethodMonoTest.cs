@@ -6,7 +6,7 @@ namespace DG
 	{
 		void Start()
 		{
-			this.transform.GetComponent<InvokeMethodMono>().Invoke();
+			transform.GetComponent<InvokeMethodMono>().Invoke();
 		}
 	}
 }

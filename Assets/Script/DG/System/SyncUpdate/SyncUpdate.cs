@@ -7,8 +7,8 @@ namespace DG
 	{
 		#region field
 
-		private readonly List<Action> _runnableList = new List<Action>();
-		private readonly object _lockObj = new object();
+		private readonly List<Action> _runnableList = new();
+		private readonly object _lockObj = new();
 
 		#endregion
 

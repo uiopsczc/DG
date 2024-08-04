@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/16
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
@@ -18,13 +18,13 @@ namespace DG
 	/// <summary>
 	/// Computes the convex hull of a set of points using the monotone chain convex hull algorithm (aka Andrew's algorithm).
 	/// </summary>
-	public partial class FPConvexHull
+	public class FPConvexHull
 	{
-		private List<int> quicksortStack = new List<int>();
+		private List<int> quicksortStack = new();
 		private FP[] sortedPoints;
-		private List<FP> hull = new List<FP>();
-		private List<int> indices = new List<int>();
-		private List<short> originalIndices = new List<short>();
+		private List<FP> hull = new();
+		private List<int> indices = new();
+		private List<short> originalIndices = new();
 
 		/** @see #computePolygon(float[], int, int, boolean) */
 		public List<FP> computePolygon(List<FP> points, bool sorted)
@@ -236,9 +236,9 @@ namespace DG
 			while (down < up)
 			{
 				while (down < up && values[down] <= x)
-					down = down + 2;
+					down += 2;
 				while (values[up] > x || (values[up] == x && values[up + 1] < y))
-					up = up - 2;
+					up -= 2;
 				if (down < up)
 				{
 					temp = values[down];
@@ -315,16 +315,16 @@ namespace DG
 			while (down < up)
 			{
 				while (down < up && values[down] <= x)
-					down = down + 2;
+					down += 2;
 				if (yDown)
 				{
 					while (values[up] > x || (values[up] == x && values[up + 1] < y))
-						up = up - 2;
+						up -= 2;
 				}
 				else
 				{
 					while (values[up] > x || (values[up] == x && values[up + 1] > y))
-						up = up - 2;
+						up -= 2;
 				}
 
 				if (down < up)

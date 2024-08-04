@@ -1,5 +1,5 @@
 /*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/5/21
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
@@ -55,8 +55,8 @@ namespace DG
 		/// </summary>
 		public FPVector3 center
 		{
-			get => this._center;
-			set => this._center = value;
+			get => _center;
+			set => _center = value;
 		}
 
 		/// <summary>
@@ -64,8 +64,8 @@ namespace DG
 		/// </summary>
 		public FPVector3 size
 		{
-			get => this._extents * 2f;
-			set => this._extents = value * 0.5f;
+			get => _extents * 2f;
+			set => _extents = value * 0.5f;
 		}
 
 		/// <summary>
@@ -73,8 +73,8 @@ namespace DG
 		/// </summary>
 		public FPVector3 extents
 		{
-			get => this._extents;
-			set => this._extents = value;
+			get => _extents;
+			set => _extents = value;
 		}
 
 		/// <summary>
@@ -82,8 +82,8 @@ namespace DG
 		/// </summary>
 		public FPVector3 min
 		{
-			get => this.center - this.extents;
-			set => this.SetMinMax(value, this.max);
+			get => center - extents;
+			set => SetMinMax(value, max);
 		}
 
 		/// <summary>
@@ -91,8 +91,8 @@ namespace DG
 		/// </summary>
 		public FPVector3 max
 		{
-			get => this.center + this.extents;
-			set => this.SetMinMax(this.min, value);
+			get => center + extents;
+			set => SetMinMax(min, value);
 		}
 
 		/// <summary>
@@ -102,8 +102,8 @@ namespace DG
 		/// <param name="size">The dimensions of the Bounds.</param>
 		public FPBounds(FPVector3 center, FPVector3 size)
 		{
-			this._center = center;
-			this._extents = size * 0.5f;
+			_center = center;
+			_extents = size * 0.5f;
 		}
 
 #if UNITY_STANDALONE
@@ -164,19 +164,19 @@ namespace DG
 		{
 			if (!(other is FPBounds))
 				return false;
-			return this.Equals((FPBounds)other);
+			return Equals((FPBounds)other);
 		}
 
 		public bool Equals(FPBounds other)
 		{
-			return this.center.Equals(other.center) && this.extents.Equals(other.extents);
+			return center.Equals(other.center) && extents.Equals(other.extents);
 		}
 
 		public override int GetHashCode()
 		{
-			FPVector3 vector3 = this.center;
+			FPVector3 vector3 = center;
 			int hashCode = vector3.GetHashCode();
-			vector3 = this.extents;
+			vector3 = extents;
 			int num = vector3.GetHashCode() << 2;
 			return hashCode ^ num;
 		}
@@ -187,7 +187,7 @@ namespace DG
 		/// <param name="format"></param>
 		public override string ToString()
 		{
-			return string.Format("center: {0}, extents: {1}", this._center, this._extents);
+			return string.Format("center: {0}, extents: {1}", _center, _extents);
 		}
 
 		/*************************************************************************************
@@ -221,8 +221,8 @@ namespace DG
 		/// <param name="max"></param>
 		public void SetMinMax(FPVector3 min, FPVector3 max)
 		{
-			this.extents = (max - min) * 0.5f;
-			this.center = min + this.extents;
+			extents = (max - min) * 0.5f;
+			center = min + extents;
 		}
 
 		/// <summary>
@@ -231,7 +231,7 @@ namespace DG
 		/// <param name="point"></param>
 		public void Encapsulate(FPVector3 point)
 		{
-			this.SetMinMax(FPVector3.Min(this.min, point), FPVector3.Max(this.max, point));
+			SetMinMax(FPVector3.Min(min, point), FPVector3.Max(max, point));
 		}
 
 		/// <summary>
@@ -240,8 +240,8 @@ namespace DG
 		/// <param name="bounds"></param>
 		public void Encapsulate(FPBounds bounds)
 		{
-			this.Encapsulate(bounds.center - bounds.extents);
-			this.Encapsulate(bounds.center + bounds.extents);
+			Encapsulate(bounds.center - bounds.extents);
+			Encapsulate(bounds.center + bounds.extents);
 		}
 
 		/// <summary>
@@ -251,7 +251,7 @@ namespace DG
 		public void Expand(FP amount)
 		{
 			amount *= 0.5f;
-			this.extents += new FPVector3(amount, amount, amount);
+			extents += new FPVector3(amount, amount, amount);
 		}
 
 		/// <summary>
@@ -260,7 +260,7 @@ namespace DG
 		/// <param name="amount"></param>
 		public void Expand(FPVector3 amount)
 		{
-			this.extents += amount * 0.5f;
+			extents += amount * 0.5f;
 		}
 
 		/// <summary>
@@ -269,9 +269,9 @@ namespace DG
 		/// <param name="bounds"></param>
 		public bool Intersects(FPBounds bounds)
 		{
-			return this.min.x <= bounds.max.x && this.max.x >= bounds.min.x &&
-				   (this.min.y <= bounds.max.y && this.max.y >= bounds.min.y) && this.min.z <= bounds.max.z &&
-				   this.max.z >= bounds.min.z;
+			return min.x <= bounds.max.x && max.x >= bounds.min.x &&
+				   (min.y <= bounds.max.y && max.y >= bounds.min.y) && min.z <= bounds.max.z &&
+				   max.z >= bounds.min.z;
 		}
 
 		/// <summary>
@@ -283,9 +283,9 @@ namespace DG
 			var tmin = FPMath.MIN_VALUE;
 			var tmax = FPMath.MAX_VALUE;
 			FP t0, t1, f;
-			FPVector3 t = this.center - ray.origin;
+			FPVector3 t = center - ray.origin;
 			var p = new FPVector3(t.x, t.y, t.z);
-			t = this.extents;
+			t = extents;
 			var extent = new FPVector3(t.x, t.y, t.z);
 			t = ray.direction;
 			var dir = new FPVector3(t.x, t.y, t.z);
@@ -342,7 +342,7 @@ namespace DG
 		/// <param name="point"></param>
 		public FP SqrDistance(FPVector3 point)
 		{
-			var (closestPoint, distance) = this.ClosestPoint(point);
+			var (closestPoint, distance) = ClosestPoint(point);
 			return distance;
 		}
 
@@ -355,9 +355,9 @@ namespace DG
 		/// </returns>
 		public (FPVector3 closestPoint, FP distance) ClosestPoint(FPVector3 point)
 		{
-			var t = point - this.center;
+			var t = point - center;
 			var closest = new FPVector3(t.x, t.y, t.z);
-			var et = this.extents;
+			var et = extents;
 			var extent = new FPVector3(et.x, et.y, et.z);
 			FP sqrtDistance = 0;
 			FP delta;
@@ -367,20 +367,20 @@ namespace DG
 				if (closest[i] < -extent[i])
 				{
 					delta = closest[i] + extent[i];
-					sqrtDistance = sqrtDistance + delta * delta;
+					sqrtDistance += delta * delta;
 					closest[i] = -extent[i];
 				}
 				else if (closest[i] > extent[i])
 				{
 					delta = closest[i] - extent[i];
-					sqrtDistance = sqrtDistance + delta * delta;
+					sqrtDistance += delta * delta;
 					closest[i] = extent[i];
 				}
 			}
 
 			if (sqrtDistance == 0)
 				return (point, 0);
-			var outPoint = closest + this.center;
+			var outPoint = closest + center;
 			return (outPoint, sqrtDistance);
 		}
 	}

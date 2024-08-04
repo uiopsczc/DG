@@ -1,11 +1,10 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 using GUIStyle = UnityEngine.GUIStyle;
 
 namespace DG
 {
-	public static partial class UnityEngine_GUIStyle_Extension
+	public static class UnityEngine_GUIStyle_Extension
 	{
 		public static GUIStyle Append(this GUIStyle self, Action<GUIStyle> appendCallback)
 		{

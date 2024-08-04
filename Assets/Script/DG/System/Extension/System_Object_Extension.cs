@@ -621,32 +621,32 @@ namespace DG
 
 		#region SetColor
 
-		public static void SetColorR(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorR(this Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorR(self, v, memberName);
 		}
 
-		public static void SetColorG(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorG(this Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorG(self, v, memberName);
 		}
 
-		public static void SetColorB(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorB(this Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorB(self, v, memberName);
 		}
 
-		public static void SetColorA(this System.Object self, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorA(this Object self, float v, string memberName = StringConst.STRING_COLOR)
 		{
 			ObjectUtil.SetColorA(self, v, memberName);
 		}
 
-		public static void SetColor(this System.Object self, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(this Object self, EColorMode rgbaMode, params float[] rgba)
 		{
 			ObjectUtil.SetColor(self, rgbaMode, rgba);
 		}
 
-		public static void SetColor(System.Object self, string memberName, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(Object self, string memberName, EColorMode rgbaMode, params float[] rgba)
 		{
 			ObjectUtil.SetColor(self, memberName, rgbaMode, rgba);
 		}

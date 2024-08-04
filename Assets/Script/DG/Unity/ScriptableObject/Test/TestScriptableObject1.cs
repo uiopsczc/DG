@@ -6,7 +6,7 @@ namespace DG
 {
 	public class TestScriptableObject1 : ScriptableObject
 	{
-		[NonSerialized] public List<TestScriptableObjectAA> indexes = new List<TestScriptableObjectAA>();
+		[NonSerialized] public List<TestScriptableObjectAA> indexes = new();
 		public new string name;
 	}
 }

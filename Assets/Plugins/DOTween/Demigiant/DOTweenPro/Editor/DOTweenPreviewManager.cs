@@ -1,7 +1,6 @@
 // Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2015/03/12 16:03
 
-using System;
 using System.Collections.Generic;
 using DG.DemiEditor;
 using DG.DemiLib;
@@ -17,8 +16,8 @@ namespace DG.DOTweenEditor
   public static class DOTweenPreviewManager
   {
     static bool _previewOnlyIfSetToAutoPlay = true;
-    static readonly Dictionary<DOTweenAnimation, TweenInfo> _AnimationToTween = new Dictionary<DOTweenAnimation, TweenInfo>();
-    static readonly List<DOTweenAnimation> _TmpKeys = new List<DOTweenAnimation>();
+    static readonly Dictionary<DOTweenAnimation, TweenInfo> _AnimationToTween = new();
+    static readonly List<DOTweenAnimation> _TmpKeys = new();
 
     #region Public Methods & GUI
 
@@ -81,7 +80,7 @@ namespace DG.DOTweenEditor
       EditorGUI.BeginDisabledGroup(!isPreviewingThis);
       if (GUILayout.Button("■ Stop", Styles.btPreview))
       {
-        if (_AnimationToTween.ContainsKey(src)) StopPreview(_AnimationToTween[src].tween);
+        if (_AnimationToTween.TryGetValue(src, out var value)) StopPreview(value.tween);
       }
       EditorGUI.EndDisabledGroup();
       EditorGUI.BeginDisabledGroup(!isPreviewing);
@@ -138,7 +137,7 @@ namespace DG.DOTweenEditor
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
             UnityEditor.EditorApplication.playmodeStateChanged -= StopAllPreviews;
 #else
-      UnityEditor.EditorApplication.playModeStateChanged -= StopAllPreviews;
+      EditorApplication.playModeStateChanged -= StopAllPreviews;
 #endif
       //            EditorApplication.playmodeStateChanged -= StopAllPreviews;
 
@@ -155,7 +154,7 @@ namespace DG.DOTweenEditor
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
             UnityEditor.EditorApplication.playmodeStateChanged += StopAllPreviews;
 #else
-      UnityEditor.EditorApplication.playModeStateChanged += StopAllPreviews;
+      EditorApplication.playModeStateChanged += StopAllPreviews;
 #endif
       //            EditorApplication.playmodeStateChanged += StopAllPreviews;
     }

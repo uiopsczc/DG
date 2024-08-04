@@ -33,7 +33,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// 通过矩阵获取Rotation
+		/// 閫氳繃鐭╅樀鑾峰彇Rotation
 		/// </summary>
 		/// <param name="matrix4x4"></param>
 		/// <returns></returns>
@@ -48,7 +48,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// 通过矩阵获取Position
+		/// 閫氳繃鐭╅樀鑾峰彇Position
 		/// </summary>
 		/// <param name="matrix4x4"></param>
 		/// <returns></returns>
@@ -61,7 +61,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// 通过矩阵获取Scale
+		/// 閫氳繃鐭╅樀鑾峰彇Scale
 		/// </summary>
 		/// <param name="matrix4x4"></param>
 		/// <returns></returns>

@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/15
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 using System.IO;
@@ -20,13 +20,13 @@ namespace DG
 		{
 			if (logCfg == null)
 				logCfg = new DGLogCfg();
-			DGLog._Log_Cfg = logCfg;
+			_Log_Cfg = logCfg;
 			switch (logCfg.logType)
 			{
-				case DGLogType.Console:
+				case EDGLogType.Console:
 					_Logger = new DGConsoleLogger();
 					break;
-				case DGLogType.Unity:
+				case EDGLogType.Unity:
 					_Logger = new DGUnityLogger();
 					break;
 			}

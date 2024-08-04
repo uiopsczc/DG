@@ -42,7 +42,7 @@ namespace DG
 			if (parentXMLNode.Name == "DecortorNode")
 			{
 				var untilStatusString = XMLUtil.GetNodeAttrValue(parentXMLNode, "untilStatus", "").ToLower();
-				var untilStatus = untilStatusString == "success" ? BehaviourTreeNodeStatus.Success : BehaviourTreeNodeStatus.Fail;
+				var untilStatus = untilStatusString == "success" ? EBehaviourTreeNodeStatus.Success : EBehaviourTreeNodeStatus.Fail;
 				parent = new DecoratorNode(untilStatus);
 			}
 

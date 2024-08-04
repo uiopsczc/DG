@@ -11,7 +11,7 @@ namespace DG
 
 		public EditorGUISetIconSizeScope(Vector2 newSize)
 		{
-			this._preSize = EditorGUIUtility.GetIconSize();
+			_preSize = EditorGUIUtility.GetIconSize();
 			EditorGUIUtility.SetIconSize(newSize);
 		}
 

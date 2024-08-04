@@ -9,7 +9,7 @@ namespace DG
 
 		public BalanceGroupManager(params BalanceGroupDefinition[] balanceGroupDefinitions)
 		{
-			this._balanceGroupDefinitions = balanceGroupDefinitions;
+			_balanceGroupDefinitions = balanceGroupDefinitions;
 		}
 
 		public void Parse(string content)

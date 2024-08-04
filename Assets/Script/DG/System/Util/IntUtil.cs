@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DG
 {
@@ -13,11 +14,11 @@ namespace DG
 				// int.MaxValue = 0x7FFFFFFF 整数最大值
 				int mask = int.MaxValue;
 				//无符号整数最高位不表示正负但操作数还是有符号的，有符号数右移1位，正数时高位补0，负数时高位补1
-				value = value >> 1;
+				value >>= 1;
 				//和整数最大值进行逻辑与运算，运算后的结果为忽略表示正负值的最高位
-				value = value & mask;
+				value &= mask;
 				//逻辑运算后的值无符号，对无符号的值直接做右移运算，计算剩下的位
-				value = value >> shiftAmount - 1;
+				value >>= shiftAmount - 1;
 			}
 			return value;
 		}
@@ -52,31 +53,30 @@ namespace DG
 
 		#endregion
 
-//		/// <summary>
-//		///   随机一个total以内的队列（队列里面的元素不会重复）
-//		/// </summary>
-//		/// <param name="self"></param>
-//		/// <param name="isIncludeTotal">是否包括total</param>
-//		/// <param name="isZeroBase">是否从0开始</param>
-//		/// <returns></returns>
-//		public static List<int> Random(this int self, float outCount, bool isUnique, bool isIncludeTotal = false,
-//			bool isZeroBase = true, RandomManager randomManager = null)
-//		{
-//			randomManager = randomManager ?? Client.instance.randomManager;
-//			var result = new List<int>();
-//			var toRandomList = new List<int>(); //要被随机的List
-//
-//			for (var i = isZeroBase ? 0 : 1; i < (isIncludeTotal ? self + 1 : self); i++)
-//				toRandomList.Add(i);
-//
-//			for (var i = 0; i < outCount; i++)
-//			{
-//				var index = randomManager.RandomInt(0, toRandomList.Count);
-//				result.Add(isUnique ? toRandomList.RemoveAt2(index) : toRandomList[index]);
-//			}
-//
-//			return result;
-//		}
+		/// <summary>
+		///   随机一个total以内的队列（队列里面的元素不会重复）
+		/// </summary>
+		/// <param name="self"></param>
+		/// <param name="isIncludeTotal">是否包括total</param>
+		/// <param name="isZeroBase">是否从0开始</param>
+		/// <returns></returns>
+		public static List<int> Random(this int self, float outCount, bool isUnique, RandomManager randomManager, bool isIncludeTotal = false,
+			bool isZeroBase = true)
+		{
+			var result = new List<int>();
+			var toRandomList = new List<int>(); //要被随机的List
+
+			for (var i = isZeroBase ? 0 : 1; i < (isIncludeTotal ? self + 1 : self); i++)
+				toRandomList.Add(i);
+
+			for (var i = 0; i < outCount; i++)
+			{
+				var index = randomManager.RandomInt(0, toRandomList.Count);
+				result.Add(isUnique ? toRandomList.RemoveAt2(index) : toRandomList[index]);
+			}
+
+			return result;
+		}
 
 		//是否是defalut, 默认是与float.MaxValue比较
 		public static bool IsDefault(int v, bool isMin = false)

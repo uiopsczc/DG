@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -13,9 +13,9 @@ namespace DG
 {
 	public struct FPRectangle : IFPShape2D
 	{
-		//²»ÄÜĞŞ¸ÄNullµÄÖµ
+		//ä¸èƒ½ä¿®æ”¹Nullçš„å€¼
 		public static FPRectangle Null = Max.cpy();
-		public static FPRectangle Max = new FPRectangle(FP.MAX_VALUE, FP.MAX_VALUE, FP.MAX_VALUE, FP.MAX_VALUE);
+		public static FPRectangle Max = new(FP.MAX_VALUE, FP.MAX_VALUE, FP.MAX_VALUE, FP.MAX_VALUE);
 		/** Static temporary rectangle. Use with care! Use only when sure other code will not also use this. */
 		public static FPRectangle tmp = default;
 
@@ -140,8 +140,8 @@ namespace DG
 		 * @return this rectangle for chaining */
 		public FPRectangle setPosition(FPVector2 position)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 
 			return this;
 		}
@@ -175,8 +175,8 @@ namespace DG
 		 * @return this rectangle for chaining */
 		public FPRectangle setSize(FP sizeXY)
 		{
-			this.width = sizeXY;
-			this.height = sizeXY;
+			width = sizeXY;
+			height = sizeXY;
 
 			return this;
 		}
@@ -193,7 +193,7 @@ namespace DG
 		 * @return whether the point is contained in the rectangle */
 		public bool contains(FP x, FP y)
 		{
-			return this.x <= x && this.x + this.width >= x && this.y <= y && this.y + this.height >= y;
+			return this.x <= x && this.x + width >= x && this.y <= y && this.y + height >= y;
 		}
 
 		/** @param point The coordinates vector
@@ -238,10 +238,10 @@ namespace DG
 		 * @return this rectangle for chaining */
 		public FPRectangle set(FPRectangle rect)
 		{
-			this.x = rect.x;
-			this.y = rect.y;
-			this.width = rect.width;
-			this.height = rect.height;
+			x = rect.x;
+			y = rect.y;
+			width = rect.width;
+			height = rect.height;
 
 			return this;
 		}
@@ -273,12 +273,12 @@ namespace DG
 			FP minX = FPMath.Min(this.x, x);
 			FP maxX = FPMath.Max(this.x + width, x);
 			this.x = minX;
-			this.width = maxX - minX;
+			width = maxX - minX;
 
 			FP minY = FPMath.Min(this.y, y);
 			FP maxY = FPMath.Max(this.y + height, y);
 			this.y = minY;
-			this.height = maxY - minY;
+			height = maxY - minY;
 
 			return this;
 		}
@@ -410,12 +410,12 @@ namespace DG
 
 		public FP area()
 		{
-			return this.width * this.height;
+			return width * height;
 		}
 
 		public FP perimeter()
 		{
-			return 2 * (this.width + this.height);
+			return 2 * (width + height);
 		}
 
 		public FPRectangle cpy()
@@ -440,10 +440,10 @@ namespace DG
 		{
 			int prime = 31;
 			int result = 1;
-			result = prime * result + this.x.GetHashCode();
-			result = prime * result + this.y.GetHashCode();
-			result = prime * result + this.width.GetHashCode();
-			result = prime * result + this.height.GetHashCode();
+			result = prime * result + x.GetHashCode();
+			result = prime * result + y.GetHashCode();
+			result = prime * result + width.GetHashCode();
+			result = prime * result + height.GetHashCode();
 			return result;
 		}
 	}

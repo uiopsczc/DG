@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System.Runtime.CompilerServices;
@@ -22,7 +22,7 @@ namespace DG
 		/// <summary>
 		///   <para>Returns a copy of the plane that faces in the opposite direction.</para>
 		/// </summary>
-		public FPPlane flipped => new FPPlane(-this.normal, -this.d);
+		public FPPlane flipped => new(-normal, -d);
 
 		/// <summary>
 		/// Constructs a Plane from the X, Y, and Z components of its normal, and its distance from the origin on that normal.
@@ -61,7 +61,7 @@ namespace DG
 		}
 #endif
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Equal ToString
+		* æ¨¡å—æè¿°:Equal ToString
 		*************************************************************************************/
 		/// <summary>
 		/// Returns a boolean indicating whether the given Plane is equal to this Plane instance.
@@ -100,7 +100,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:¹ØÏµÔËËã·û
+		* æ¨¡å—æè¿°:å…³ç³»è¿ç®—ç¬¦
 		*************************************************************************************/
 		/// <summary>
 		/// Returns a boolean indicating whether the two given Planes are equal.
@@ -132,7 +132,7 @@ namespace DG
 			        value1.d != value2.d);
 		}
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 
 		/// <summary>
@@ -364,7 +364,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Member Util
+		* æ¨¡å—æè¿°:Member Util
 		*************************************************************************************/
 		/// <summary>
 		///   <para>Sets a plane using a point that lies within it along with a normal to orient it.</para>
@@ -373,8 +373,8 @@ namespace DG
 		/// <param name="inPoint">A point that lies on the plane.</param>
 		public void SetNormalAndPosition(FPVector3 inNormal, FPVector3 inPoint)
 		{
-			this.normal = FPVector3.Normalize(inNormal);
-			this.d = -FPVector3.Dot(inNormal, inPoint);
+			normal = FPVector3.Normalize(inNormal);
+			d = -FPVector3.Dot(inNormal, inPoint);
 		}
 
 		/// <summary>
@@ -385,14 +385,14 @@ namespace DG
 		/// <param name="c">Third point in clockwise order.</param>
 		public void Set3Points(FPVector3 a, FPVector3 b, FPVector3 c)
 		{
-			this.normal = FPVector3.Normalize(FPVector3.Cross(b - a, c - a));
-			this.d = -FPVector3.Dot(this.normal, a);
+			normal = FPVector3.Normalize(FPVector3.Cross(b - a, c - a));
+			d = -FPVector3.Dot(normal, a);
 		}
 
 		public void Flip()
 		{
-			this.normal = -this.normal;
-			this.d = -this.d;
+			normal = -normal;
+			d = -d;
 		}
 
 		/// <summary>
@@ -401,7 +401,7 @@ namespace DG
 		/// <param name="translation">The offset in space to move the plane with.</param>
 		public void Translate(FPVector3 translation)
 		{
-			this.d += FPVector3.Dot(this.normal, translation);
+			d += FPVector3.Dot(normal, translation);
 		}
 
 		/// <summary>
@@ -413,8 +413,8 @@ namespace DG
 		/// </returns>
 		public FPVector3 ClosestPointOnPlane(FPVector3 point)
 		{
-			FP num = FPVector3.Dot(this.normal, point) + this.d;
-			return point - this.normal * num;
+			FP num = FPVector3.Dot(normal, point) + d;
+			return point - normal * num;
 		}
 
 		/// <summary>
@@ -423,7 +423,7 @@ namespace DG
 		/// <param name="point"></param>
 		public FP GetDistanceToPoint(FPVector3 point)
 		{
-			return FPVector3.Dot(this.normal, point) + this.d;
+			return FPVector3.Dot(normal, point) + d;
 		}
 
 		/// <summary>
@@ -432,7 +432,7 @@ namespace DG
 		/// <param name="point"></param>
 		public bool GetSide(FPVector3 point)
 		{
-			return FPVector3.Dot(this.normal, point) + this.d >  0.0f;
+			return FPVector3.Dot(normal, point) + d >  0.0f;
 		}
 
 		/// <summary>
@@ -442,16 +442,16 @@ namespace DG
 		/// <param name="inPt1"></param>
 		public bool SameSide(FPVector3 inPt0, FPVector3 inPt1)
 		{
-			FP distanceToPoint1 = this.GetDistanceToPoint(inPt0);
-			FP distanceToPoint2 = this.GetDistanceToPoint(inPt1);
+			FP distanceToPoint1 = GetDistanceToPoint(inPt0);
+			FP distanceToPoint2 = GetDistanceToPoint(inPt1);
 			return distanceToPoint1 >  0.0 && distanceToPoint2 >  0.0 ||
 			       distanceToPoint1 <=  0.0 && distanceToPoint2 <=  0.0;
 		}
 
 		public bool Raycast(FPRay ray, out FP enter)
 		{
-			FP a = FPVector3.Dot(ray.direction, this.normal);
-			FP num = -FPVector3.Dot(ray.origin, this.normal) - this.d;
+			FP a = FPVector3.Dot(ray.direction, normal);
+			FP num = -FPVector3.Dot(ray.origin, normal) - d;
 			if (FPMath.IsApproximatelyZero(a))
 			{
 				enter =  0.0f;

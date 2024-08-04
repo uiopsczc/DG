@@ -34,12 +34,12 @@ namespace DG
 		public DGPool<T> GetPool<T>(string poolName = null)
 		{
 			poolName ??= typeof(T).FullName;
-			return this.GetPool(poolName) as DGPool<T>;
+			return GetPool(poolName) as DGPool<T>;
 		}
 
 		public bool TryGetPool(string poolName, out IDGPool pool)
 		{
-			return this._poolDict.TryGetValue(poolName, out pool);
+			return _poolDict.TryGetValue(poolName, out pool);
 		}
 
 		public bool TryGetPool<T>(string poolName, out DGPool<T> pool)
@@ -68,7 +68,7 @@ namespace DG
 			if (poolConstructArgs.Length == 0)
 				poolConstructArgs = new[] {poolType.FullName};
 			string poolName = (string)poolConstructArgs[0];
-			if (this.TryGetPool(poolName, out var pool))
+			if (TryGetPool(poolName, out var pool))
 				return pool;
 			pool = poolType.CreateInstance(poolConstructArgs) as IDGPool;
 			AddPool(poolName, pool);
@@ -99,7 +99,7 @@ namespace DG
 			if (!_poolDict.TryGetValue(poolName, out var pool))
 			{
 				pool = new DGPool<T>(poolName, spawnFunc);
-				this.AddPool(poolName, pool);
+				AddPool(poolName, pool);
 			}
 			var (poolItem, poolItemIndex) = ((DGPool<T>)pool).Spawn(onSpawnCallback);
 			return (poolItem, poolItemIndex);
@@ -111,7 +111,7 @@ namespace DG
 			if (!_poolDict.TryGetValue(poolName, out var pool))
 			{
 				pool = new DGPool<T>(poolName, spawnFunc);
-				this.AddPool(poolName, pool);
+				AddPool(poolName, pool);
 			}
 			var value = ((DGPool<T>)pool).SpawnValue(onSpawnCallback);
 			return value;

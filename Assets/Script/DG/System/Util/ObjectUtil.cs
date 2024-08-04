@@ -25,9 +25,9 @@ namespace DG
 	    {
 	        if (o1 == null && o2 == null)
 	            return true;
-	        if (o1 == null && o2 != null)
+	        if (o1 == null)
 	            return false;
-	        if (o1 != null && o2 == null)
+	        if (o2 == null)
 	            return false;
 
 	        if (o1.Length == o2.Length)
@@ -47,9 +47,9 @@ namespace DG
 	    {
 	        if (o1 == null && o2 == null)
 	            return true;
-	        if (o1 == null && o2 != null)
+	        if (o1 == null)
 	            return false;
-	        if (o1 != null && o2 == null)
+	        if (o2 == null)
 	            return false;
 
 	        if (o1.Count == o2.Count)
@@ -76,7 +76,7 @@ namespace DG
 				return 1;
 			switch (o1)
 			{
-				case null when o2 != null:
+				case null when true:
 					return -1;
 				case IComparable comparable:
 					return comparable.CompareTo(o2);
@@ -134,9 +134,7 @@ namespace DG
 		/// <param name="b"></param>
 		public static void Swap<T>(ref T a, ref T b)
 		{
-			T c = b;
-			b = a;
-			a = c;
+			(b, a) = (a, b);
 		}
 
 		public static string ToString(params object[] objs)
@@ -195,7 +193,7 @@ namespace DG
 		/// </summary>
 		public static string DGToString(object obj, bool isFillStringWithDoubleQuote = false)
 		{
-			return DGToStringExtension.DGToString(obj, isFillStringWithDoubleQuote);
+			return obj.DGToString(isFillStringWithDoubleQuote);
 		}
 
 
@@ -383,7 +381,7 @@ namespace DG
 			if (obj.IsBool())
 				return (bool)obj;
 			if (obj.IsNumber())
-				return ToIntOrToDefault(obj, 0) != 0;
+				return ToIntOrToDefault(obj) != 0;
 			if (obj.IsString())
 			{
 				if (StringConst.STRING_TRUE.Equals(((string)obj).ToLower()))
@@ -514,7 +512,7 @@ namespace DG
 			if (obj == null)
 				return defaultValue;
 			if (obj.IsBool())
-				return ToByteOrToDefault(obj, 0);
+				return ToByteOrToDefault(obj);
 			if (IsByte(obj))
 				return ((byte)obj);
 			if (obj.IsShort())
@@ -550,7 +548,7 @@ namespace DG
 			if (obj == null)
 				return defaultValue;
 			if (obj.IsBool())
-				return ToByteOrToDefault(obj, 0);
+				return ToByteOrToDefault(obj);
 			if (obj.IsByte())
 				return ((byte)obj);
 			if (obj.IsShort())
@@ -586,7 +584,7 @@ namespace DG
 			if (obj == null)
 				return defaultValue;
 			if (obj.IsBool())
-				return ToByteOrToDefault(obj, 0);
+				return ToByteOrToDefault(obj);
 			if (obj.IsByte())
 				return ((byte)obj);
 			if (obj.IsShort())
@@ -622,7 +620,7 @@ namespace DG
 			if (obj == null)
 				return defaultValue;
 			if (obj.IsBool())
-				return ToByteOrToDefault(obj, 0);
+				return ToByteOrToDefault(obj);
 			if (IsByte(obj))
 				return ((byte)obj);
 			if (obj.IsShort())
@@ -746,7 +744,7 @@ namespace DG
 				int len = array.Length;
 				defaultValue = new byte[len];
 				for (int i = 0; i < len; i++)
-					defaultValue[i] = array.GetValue(i).ToByteOrToDefault(0);
+					defaultValue[i] = array.GetValue(i).ToByteOrToDefault();
 			}
 
 			return defaultValue;
@@ -765,7 +763,7 @@ namespace DG
 				int len = array.Length;
 				defaultValue = new short[len];
 				for (int i = 0; i < len; i++)
-					defaultValue[i] = array.GetValue(i).ToShortOrToDefault(0);
+					defaultValue[i] = array.GetValue(i).ToShortOrToDefault();
 			}
 
 			return defaultValue;
@@ -784,7 +782,7 @@ namespace DG
 				int len = array.Length;
 				defaultValue = new int[len];
 				for (int i = 0; i < len; i++)
-					defaultValue[i] = array.GetValue(i).ToIntOrToDefault(0);
+					defaultValue[i] = array.GetValue(i).ToIntOrToDefault();
 			}
 
 			return defaultValue;
@@ -804,7 +802,7 @@ namespace DG
 				int len = array.Length;
 				defaultValue = new long[len];
 				for (int i = 0; i < len; i++)
-					defaultValue[i] = ToLongOrToDefault(array.GetValue(i), 0L);
+					defaultValue[i] = ToLongOrToDefault(array.GetValue(i));
 			}
 
 			return defaultValue;
@@ -842,7 +840,7 @@ namespace DG
 				int len = array.Length;
 				defaultValue = new double[len];
 				for (int i = 0; i < len; i++)
-					defaultValue[i] = ToDoubleOrToDefault(array.GetValue(i), 0.0d);
+					defaultValue[i] = ToDoubleOrToDefault(array.GetValue(i));
 			}
 
 			return defaultValue;
@@ -1149,32 +1147,32 @@ namespace DG
 
 		#region SetColor
 
-		public static void SetColorR(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorR(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			ColorUtil.SetColor(obj, memberName, ColorMode.R, v);
+			ColorUtil.SetColor(obj, memberName, EColorMode.R, v);
 		}
 
-		public static void SetColorG(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorG(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			ColorUtil.SetColor(obj, memberName, ColorMode.G, v);
+			ColorUtil.SetColor(obj, memberName, EColorMode.G, v);
 		}
 
-		public static void SetColorB(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorB(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			ColorUtil.SetColor(obj, memberName, ColorMode.B, v);
+			ColorUtil.SetColor(obj, memberName, EColorMode.B, v);
 		}
 
-		public static void SetColorA(System.Object obj, float v, string memberName = StringConst.STRING_COLOR)
+		public static void SetColorA(Object obj, float v, string memberName = StringConst.STRING_COLOR)
 		{
-			ColorUtil.SetColor(obj, memberName, ColorMode.A, v);
+			ColorUtil.SetColor(obj, memberName, EColorMode.A, v);
 		}
 
-		public static void SetColor(System.Object obj, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(Object obj, EColorMode rgbaMode, params float[] rgba)
 		{
 			ColorUtil.SetColor(obj, rgbaMode, rgba);
 		}
 
-		public static void SetColor(System.Object obj, string memberName, ColorMode rgbaMode, params float[] rgba)
+		public static void SetColor(Object obj, string memberName, EColorMode rgbaMode, params float[] rgba)
 		{
 			ColorUtil.SetColor(obj, memberName, rgbaMode, rgba);
 		}

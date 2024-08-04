@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-
 namespace DG
 {
 	public class EditorIconTextureConst

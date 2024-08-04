@@ -4,7 +4,7 @@ namespace DG
 {
 	public class AudioMixerConst
 	{
-		public static Dictionary<string, AudioMixerGroupInfo> GROUP_DICT = new Dictionary<string, AudioMixerGroupInfo>
+		public static Dictionary<string, AudioMixerGroupInfo> GROUP_DICT = new()
 		{
 			{"Master", new AudioMixerGroupInfo("Master", "Master_volume")},
 			{"bgm", new AudioMixerGroupInfo("Master/bgm", "bgm_volume")},

@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 
 namespace DG
 {
 	public class DGUIGameObjectPool : DGGameObjectPool
 	{
-		private readonly Cache _cache = new Cache();
+		private readonly Cache _cache = new();
 
-		private RectTransform prefabRectTransform => this._cache.GetOrAddByDefaultFunc("prefabRectTransform",
+		private RectTransform _prefabRectTransform => _cache.GetOrAddByDefaultFunc("_prefabRectTransform",
 			() => GetPrefab().GetComponent<RectTransform>());
 
 		public DGUIGameObjectPool(string poolName, GameObject prefab, string category = null) : base(poolName, prefab,

@@ -10,22 +10,18 @@ namespace DG
 		private int _closeStartIndex;
 		private int _closeEndIndex;
 
-		private List<BalanceGroup> _childrenList = new List<BalanceGroup>();
-
-		public BalanceGroup()
-		{
-		}
+		private List<BalanceGroup> _childrenList = new();
 
 		public void SetOpenIndexes(int openStartIndex, int openEndIndex)
 		{
-			this._openStartIndex = openStartIndex;
-			this._openEndIndex = openEndIndex;
+			_openStartIndex = openStartIndex;
+			_openEndIndex = openEndIndex;
 		}
 
 		public void SetCloseIndexes(int closeStartIndex, int closeEndIndex)
 		{
-			this._closeStartIndex = closeStartIndex;
-			this._closeEndIndex = closeEndIndex;
+			_closeStartIndex = closeStartIndex;
+			_closeEndIndex = closeEndIndex;
 		}
 
 		public string GetContent(string s)

@@ -11,7 +11,7 @@
 
 namespace DG
 {
-	public partial class FPCumulativeValue<T>
+	public class FPCumulativeValue<T>
 	{
 		public T value;
 		public FP frequency;

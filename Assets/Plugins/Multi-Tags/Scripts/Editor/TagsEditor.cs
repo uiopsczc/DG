@@ -65,7 +65,7 @@ public class TagsEditor : Editor
   /// <summary>
   /// The editing object of this editor.
   /// </summary>
-  private TagsSO tagsSO = null;
+  private TagsSO tagsSO;
   #endregion
 
   #region Methods

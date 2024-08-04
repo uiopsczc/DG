@@ -2,6 +2,6 @@ namespace DG
 {
 	public class BehaviourTreeNodeConst
 	{
-		public const BehaviourTreeNodeStatus Default_Status = BehaviourTreeNodeStatus.WaitingToRun;
+		public const EBehaviourTreeNodeStatus DEFAULT_STATUS = EBehaviourTreeNodeStatus.WaitingToRun;
 	}
 }

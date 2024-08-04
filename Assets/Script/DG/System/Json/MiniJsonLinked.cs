@@ -92,17 +92,17 @@ namespace DG
 			while (!done)
 			{
 				var token = _LookAhead(json, index);
-				if (token == MiniJsonLinked.TOKEN_NONE)
+				if (token == TOKEN_NONE)
 				{
 					success = false;
 					return null;
 				}
 
-				if (token == MiniJsonLinked.TOKEN_COMMA)
+				if (token == TOKEN_COMMA)
 				{
 					_NextToken(json, ref index);
 				}
-				else if (token == MiniJsonLinked.TOKEN_CURLY_CLOSE)
+				else if (token == TOKEN_CURLY_CLOSE)
 				{
 					_NextToken(json, ref index);
 					return table;
@@ -119,7 +119,7 @@ namespace DG
 
 					// :
 					token = _NextToken(json, ref index);
-					if (token != MiniJsonLinked.TOKEN_COLON)
+					if (token != TOKEN_COLON)
 					{
 						success = false;
 						return null;
@@ -155,17 +155,17 @@ namespace DG
 			while (!done)
 			{
 				int token = _LookAhead(json, index);
-				if (token == MiniJsonLinked.TOKEN_NONE)
+				if (token == TOKEN_NONE)
 				{
 					success = false;
 					return null;
 				}
 
-				if (token == MiniJsonLinked.TOKEN_COMMA)
+				if (token == TOKEN_COMMA)
 				{
 					_NextToken(json, ref index);
 				}
-				else if (token == MiniJsonLinked.TOKEN_SQUARED_CLOSE)
+				else if (token == TOKEN_SQUARED_CLOSE)
 				{
 					_NextToken(json, ref index);
 					break;
@@ -187,24 +187,24 @@ namespace DG
 		{
 			switch (_LookAhead(json, index))
 			{
-				case MiniJsonLinked.TOKEN_STRING:
+				case TOKEN_STRING:
 					return _ParseString(json, ref index, ref success);
-				case MiniJsonLinked.TOKEN_NUMBER:
+				case TOKEN_NUMBER:
 					return _ParseNumber(json, ref index, ref success);
-				case MiniJsonLinked.TOKEN_CURLY_OPEN:
+				case TOKEN_CURLY_OPEN:
 					return _ParseObject(json, ref index, ref success);
-				case MiniJsonLinked.TOKEN_SQUARED_OPEN:
+				case TOKEN_SQUARED_OPEN:
 					return _ParseArray(json, ref index, ref success);
-				case MiniJsonLinked.TOKEN_TRUE:
+				case TOKEN_TRUE:
 					_NextToken(json, ref index);
 					return true;
-				case MiniJsonLinked.TOKEN_FALSE:
+				case TOKEN_FALSE:
 					_NextToken(json, ref index);
 					return false;
-				case MiniJsonLinked.TOKEN_NULL:
+				case TOKEN_NULL:
 					_NextToken(json, ref index);
 					return null;
-				case MiniJsonLinked.TOKEN_NONE:
+				case TOKEN_NONE:
 					break;
 			}
 
@@ -342,24 +342,24 @@ namespace DG
 			_EatWhitespace(json, ref index);
 
 			if (index == json.Length)
-				return MiniJsonLinked.TOKEN_NONE;
+				return TOKEN_NONE;
 
 			char c = json[index];
 			index++;
 			switch (c)
 			{
 				case '{':
-					return MiniJsonLinked.TOKEN_CURLY_OPEN;
+					return TOKEN_CURLY_OPEN;
 				case '}':
-					return MiniJsonLinked.TOKEN_CURLY_CLOSE;
+					return TOKEN_CURLY_CLOSE;
 				case '[':
-					return MiniJsonLinked.TOKEN_SQUARED_OPEN;
+					return TOKEN_SQUARED_OPEN;
 				case ']':
-					return MiniJsonLinked.TOKEN_SQUARED_CLOSE;
+					return TOKEN_SQUARED_CLOSE;
 				case ',':
-					return MiniJsonLinked.TOKEN_COMMA;
+					return TOKEN_COMMA;
 				case '"':
-					return MiniJsonLinked.TOKEN_STRING;
+					return TOKEN_STRING;
 				case '0':
 				case '1':
 				case '2':
@@ -371,9 +371,9 @@ namespace DG
 				case '8':
 				case '9':
 				case '-':
-					return MiniJsonLinked.TOKEN_NUMBER;
+					return TOKEN_NUMBER;
 				case ':':
-					return MiniJsonLinked.TOKEN_COLON;
+					return TOKEN_COLON;
 			}
 
 			index--;
@@ -390,7 +390,7 @@ namespace DG
 				    json[index + 4] == 'e')
 				{
 					index += 5;
-					return MiniJsonLinked.TOKEN_FALSE;
+					return TOKEN_FALSE;
 				}
 			}
 
@@ -403,7 +403,7 @@ namespace DG
 				    json[index + 3] == 'e')
 				{
 					index += 4;
-					return MiniJsonLinked.TOKEN_TRUE;
+					return TOKEN_TRUE;
 				}
 			}
 
@@ -416,11 +416,11 @@ namespace DG
 				    json[index + 3] == 'l')
 				{
 					index += 4;
-					return MiniJsonLinked.TOKEN_NULL;
+					return TOKEN_NULL;
 				}
 			}
 
-			return MiniJsonLinked.TOKEN_NONE;
+			return TOKEN_NONE;
 		}
 
 		protected static bool _SerializeValue(object value, StringBuilder builder)

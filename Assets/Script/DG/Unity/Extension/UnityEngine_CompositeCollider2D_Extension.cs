@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace DG
+﻿namespace DG
 {
 	public static class UnityEngine_CompositeCollider2D_Extension
 	{

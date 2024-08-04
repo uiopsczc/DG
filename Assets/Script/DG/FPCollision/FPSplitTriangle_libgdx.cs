@@ -1,19 +1,19 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/8/17
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/8/17
  * ======================================
- * ÀúÊ·¸üÐÂ¼ÇÂ¼
- * °æ±¾:V          ÐÞ¸ÄÊ±¼ä:         ÐÞ¸ÄÈË:
- * ÐÞ¸ÄÄÚÈÝ:
+ * åŽ†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 
 namespace DG
 {
-	public partial class FPSplitTriangle
+	public class FPSplitTriangle
 	{
 		public FP[] front;
 		public FP[] back;
@@ -21,9 +21,9 @@ namespace DG
 		public int numFront;
 		public int numBack;
 		public int total;
-		bool frontCurrent = false;
-		int frontOffset = 0;
-		int backOffset = 0;
+		bool frontCurrent;
+		int frontOffset;
+		int backOffset;
 
 		/** Creates a new instance, assuming numAttributes attributes per triangle vertex.
 		 * @param numAttributes must be >= 3 */

@@ -5,7 +5,7 @@ namespace DG
 {
 	public static class GUILayoutToggleAreaScopeTest
 	{
-		private static readonly GUIToggleTween _toggleTween = new GUIToggleTween();
+		private static readonly GUIToggleTween _toggleTween = new();
 
 		public static void Test()
 		{

@@ -8,7 +8,7 @@ namespace DG
 	public static class AssemblyBuilderUtil
 	{
 		private static readonly Dictionary<(string, AssemblyBuilderAccess), AssemblyBuilder> _assemblyBuilderDict =
-			new Dictionary<(string, AssemblyBuilderAccess), AssemblyBuilder>();
+			new();
 
 		public static AssemblyBuilder GetAssemblyBuilder(string assemblyNameString = null,
 			AssemblyBuilderAccess assemblyBuilderAccess = AssemblyBuilderAccess.Run)

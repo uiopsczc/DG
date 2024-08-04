@@ -15,7 +15,6 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 
-
 namespace LitJson
 {
 	internal enum Condition
@@ -272,14 +271,14 @@ namespace LitJson
 						continue;
 				}
 
-				if ((int)str[i] >= 32 && (int)str[i] <= 126)
+				if (str[i] >= 32 && str[i] <= 126)
 				{
 					writer.Write(str[i]);
 					continue;
 				}
 
 				// Default, turn into a \uXXXX sequence
-				IntToHex((int)str[i], hex_seq);
+				IntToHex(str[i], hex_seq);
 				writer.Write("\\u");
 				writer.Write(hex_seq);
 			}

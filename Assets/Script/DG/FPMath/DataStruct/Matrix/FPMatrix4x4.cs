@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 #if UNITY_STANDALONE 
@@ -19,8 +19,8 @@ namespace DG
 {
 	/// <summary>
 	/// github:Bepu
-	/// System.Numerics.Matrix4x4 ÊÇÓÒÊÖ×ø±êÏµ
-	/// DGMatrix4xtÊÇ×óÊÖ×ø±êÏµ£¬ÓëUnityµÄMatrix4x4ÏàÍ¬£¬Í¬Îª×óÊÖ×ø±êÏµ
+	/// System.Numerics.Matrix4x4 æ˜¯å³æ‰‹åæ ‡ç³»
+	/// DGMatrix4xtæ˜¯å·¦æ‰‹åæ ‡ç³»ï¼Œä¸Unityçš„Matrix4x4ç›¸åŒï¼ŒåŒä¸ºå·¦æ‰‹åæ ‡ç³»
 	/// </summary>
 	public partial struct FPMatrix4x4
 	{
@@ -29,8 +29,8 @@ namespace DG
 		/// </summary>
 		public FP sm11
 		{
-			get => this.m00;
-			set => this.m00 = value;
+			get => m00;
+			set => m00 = value;
 		}
 
 		/// <summary>
@@ -38,8 +38,8 @@ namespace DG
 		/// </summary>
 		public FP sm12
 		{
-			get => this.m01;
-			set => this.m01 = value;
+			get => m01;
+			set => m01 = value;
 		}
 
 		/// <summary>
@@ -47,8 +47,8 @@ namespace DG
 		/// </summary>
 		public FP sm13
 		{
-			get => this.m02;
-			set => this.m02 = value;
+			get => m02;
+			set => m02 = value;
 		}
 
 		/// <summary>
@@ -56,8 +56,8 @@ namespace DG
 		/// </summary>
 		public FP sm14
 		{
-			get => this.m03;
-			set => this.m03 = value;
+			get => m03;
+			set => m03 = value;
 		}
 
 		/// <summary>
@@ -65,8 +65,8 @@ namespace DG
 		/// </summary>
 		public FP sm21
 		{
-			get => this.m10;
-			set => this.m10 = value;
+			get => m10;
+			set => m10 = value;
 		}
 
 		/// <summary>
@@ -74,8 +74,8 @@ namespace DG
 		/// </summary>
 		public FP sm22
 		{
-			get => this.m11;
-			set => this.m11 = value;
+			get => m11;
+			set => m11 = value;
 		}
 
 		/// <summary>
@@ -83,8 +83,8 @@ namespace DG
 		/// </summary>
 		public FP sm23
 		{
-			get => this.m12;
-			set => this.m12 = value;
+			get => m12;
+			set => m12 = value;
 		}
 
 		/// <summary>
@@ -92,8 +92,8 @@ namespace DG
 		/// </summary>
 		public FP sm24
 		{
-			get => this.m13;
-			set => this.m13 = value;
+			get => m13;
+			set => m13 = value;
 		}
 
 		/// <summary>
@@ -101,8 +101,8 @@ namespace DG
 		/// </summary>
 		public FP sm31
 		{
-			get => this.m20;
-			set => this.m20 = value;
+			get => m20;
+			set => m20 = value;
 		}
 
 		/// <summary>
@@ -110,8 +110,8 @@ namespace DG
 		/// </summary>
 		public FP sm32
 		{
-			get => this.m21;
-			set => this.m21 = value;
+			get => m21;
+			set => m21 = value;
 		}
 
 		/// <summary>
@@ -119,8 +119,8 @@ namespace DG
 		/// </summary>
 		public FP sm33
 		{
-			get => this.m22;
-			set => this.m22 = value;
+			get => m22;
+			set => m22 = value;
 		}
 
 		/// <summary>
@@ -128,8 +128,8 @@ namespace DG
 		/// </summary>
 		public FP sm34
 		{
-			get => this.m23;
-			set => this.m23 = value;
+			get => m23;
+			set => m23 = value;
 		}
 
 		/// <summary>
@@ -137,8 +137,8 @@ namespace DG
 		/// </summary>
 		public FP sm41
 		{
-			get => this.m30;
-			set => this.m30 = value;
+			get => m30;
+			set => m30 = value;
 		}
 
 		/// <summary>
@@ -146,8 +146,8 @@ namespace DG
 		/// </summary>
 		public FP sm42
 		{
-			get => this.m31;
-			set => this.m31 = value;
+			get => m31;
+			set => m31 = value;
 		}
 
 		/// <summary>
@@ -155,8 +155,8 @@ namespace DG
 		/// </summary>
 		public FP sm43
 		{
-			get => this.m32;
-			set => this.m32 = value;
+			get => m32;
+			set => m32 = value;
 		}
 
 		/// <summary>
@@ -164,22 +164,22 @@ namespace DG
 		/// </summary>
 		public FP sm44
 		{
-			get => this.m33;
-			set => this.m33 = value;
+			get => m33;
+			set => m33 = value;
 		}
 
 
 		/// <summary>
 		/// Gets the 4x4 identity matrix.
 		/// </summary>
-		public static FPMatrix4x4 Identity => FPMatrix4x4.default2;
+		public static FPMatrix4x4 Identity => default2;
 
 		/// <summary>
 		/// Gets or sets the translation component of the transform.
 		/// </summary>
 		public FPVector3 Translation
 		{
-			get => new FPVector3()
+			get => new()
 			{
 				x = sm14,
 				y = sm24,
@@ -316,7 +316,7 @@ namespace DG
 
 
 		public FPMatrix4x4 inverse => Invert(this);
-		public FP determinant => this.Determinant();
+		public FP determinant => Determinant();
 
 		/// <summary>
 		/// Constructs a new 4 row, 4 column matrix.
@@ -343,79 +343,79 @@ namespace DG
 			FP sm41, FP sm42, FP sm43, FP sm44)
 		{
 
-			this.m00 = sm11;
-			this.m01 = sm12;
-			this.m02 = sm13;
-			this.m03 = sm14;
+			m00 = sm11;
+			m01 = sm12;
+			m02 = sm13;
+			m03 = sm14;
 
 
-			this.m10 = sm21;
-			this.m11 = sm22;
-			this.m12 = sm23;
-			this.m13 = sm24;
+			m10 = sm21;
+			m11 = sm22;
+			m12 = sm23;
+			m13 = sm24;
 
-			this.m20 = sm31;
-			this.m21 = sm32;
-			this.m22 = sm33;
-			this.m23 = sm34;
+			m20 = sm31;
+			m21 = sm32;
+			m22 = sm33;
+			m23 = sm34;
 
-			this.m30 = sm41;
-			this.m31 = sm42;
-			this.m32 = sm43;
-			this.m33 = sm44;
+			m30 = sm41;
+			m31 = sm42;
+			m32 = sm43;
+			m33 = sm44;
 		}
 
 #if UNITY_STANDALONE
 		public FPMatrix4x4(Matrix4x4 matrix)
 		{
-			this.m00 = matrix.m00;
-			this.m01 = matrix.m01;
-			this.m02 = matrix.m02;
-			this.m03 = matrix.m03;
+			m00 = matrix.m00;
+			m01 = matrix.m01;
+			m02 = matrix.m02;
+			m03 = matrix.m03;
 
 
-			this.m10 = matrix.m10;
-			this.m11 = matrix.m11;
-			this.m12 = matrix.m12;
-			this.m13 = matrix.m13;
+			m10 = matrix.m10;
+			m11 = matrix.m11;
+			m12 = matrix.m12;
+			m13 = matrix.m13;
 
-			this.m20 = matrix.m20;
-			this.m21 = matrix.m21;
-			this.m22 = matrix.m22;
-			this.m23 = matrix.m23;
+			m20 = matrix.m20;
+			m21 = matrix.m21;
+			m22 = matrix.m22;
+			m23 = matrix.m23;
 
-			this.m30 = matrix.m30;
-			this.m31 = matrix.m31;
-			this.m32 = matrix.m32;
-			this.m33 = matrix.m33;
+			m30 = matrix.m30;
+			m31 = matrix.m31;
+			m32 = matrix.m32;
+			m33 = matrix.m33;
 		}
 #endif
 
 		public FPMatrix4x4(System.Numerics.Matrix4x4 matrix)
 		{
-			this.m00 = matrix.M11;
-			this.m01 = matrix.M12;
-			this.m02 = matrix.M13;
-			this.m03 = matrix.M14;
+			m00 = matrix.M11;
+			m01 = matrix.M12;
+			m02 = matrix.M13;
+			m03 = matrix.M14;
 
-			this.m10 = matrix.M21;
-			this.m11 = matrix.M22;
-			this.m12 = matrix.M23;
-			this.m13 = matrix.M24;
+			m10 = matrix.M21;
+			m11 = matrix.M22;
+			m12 = matrix.M23;
+			m13 = matrix.M24;
 
-			this.m20 = matrix.M31;
-			this.m21 = matrix.M32;
-			this.m22 = matrix.M33;
-			this.m23 = matrix.M34;
+			m20 = matrix.M31;
+			m21 = matrix.M32;
+			m22 = matrix.M33;
+			m23 = matrix.M34;
 
-			this.m30 = matrix.M41;
-			this.m31 = matrix.M42;
-			this.m32 = matrix.M43;
-			this.m33 = matrix.M44;
+			m30 = matrix.M41;
+			m31 = matrix.M42;
+			m32 = matrix.M43;
+			m33 = matrix.M44;
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:ËãÊıÔËËã·û
+		* æ¨¡å—æè¿°:ç®—æ•°è¿ç®—ç¬¦
 		*************************************************************************************/
 		/// <summary>
 		/// Multiplies two matrices together.
@@ -461,7 +461,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 		public static FPMatrix4x4 TRS(FPVector3 pos, FPQuaternion rotation, FPVector3 scale)
 		{
@@ -477,7 +477,7 @@ namespace DG
 		/// <returns>The interpolated matrix.</returns>
 		public static FPMatrix4x4 Lerp(FPMatrix4x4 matrix1, FPMatrix4x4 matrix2, FP amount)
 		{
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			// First row
 			result.sm11 = matrix1.sm11 + (matrix2.sm11 - matrix1.sm11) * amount;
@@ -531,7 +531,7 @@ namespace DG
 
 			FP oc = 1 - cos;
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 			result.sm11 = oc * xx + cos;
 			result.sm21 = oc * xy + axis.z * sin;
 			result.sm31 = oc * xz - axis.y * sin;
@@ -575,7 +575,7 @@ namespace DG
 			FP YW = qY2 * quaternion.w;
 			FP ZW = qZ2 * quaternion.w;
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = 1 - YY - ZZ;
 			result.sm12 = XY - ZW;
@@ -630,7 +630,7 @@ namespace DG
 			FP resultM43 = a.sm41 * b.sm13 + a.sm42 * b.sm23 + a.sm43 * b.sm33 + a.sm44 * b.sm43;
 			FP resultM44 = a.sm41 * b.sm14 + a.sm42 * b.sm24 + a.sm43 * b.sm34 + a.sm44 * b.sm44;
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 			result.sm11 = resultM11;
 			result.sm12 = resultM12;
 			result.sm13 = resultM13;
@@ -662,7 +662,7 @@ namespace DG
 		/// <param name="result">Scaled matrix.</param>
 		public static FPMatrix4x4 Multiply(FPMatrix4x4 matrix, FP scale)
 		{
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = matrix.sm11 * scale;
 			result.sm12 = matrix.sm12 * scale;
@@ -809,7 +809,7 @@ namespace DG
 		/// <param name="transposed">Matrix to transpose.</param>
 		public static FPMatrix4x4 Transpose(FPMatrix4x4 m)
 		{
-			FPMatrix4x4 transposed = FPMatrix4x4.default2;
+			FPMatrix4x4 transposed = default2;
 			FP m01 = m.sm12;
 			FP m02 = m.sm13;
 			FP m03 = m.sm14;
@@ -847,7 +847,7 @@ namespace DG
 		/// <param name="inverted">Inverted version of the matrix.</param>
 		public static FPMatrix4x4 Invert(FPMatrix4x4 m)
 		{
-			FPMatrix4x4 inverted = FPMatrix4x4.default2;
+			FPMatrix4x4 inverted = default2;
 			FPMatrix4x8.Invert(m, out inverted);
 			return inverted;
 		}
@@ -860,7 +860,7 @@ namespace DG
 		/// <param name="inverted">Inverted version of the matrix.</param>
 		public static FPMatrix4x4 InvertRigid(FPMatrix4x4 m)
 		{
-			FPMatrix4x4 inverted = FPMatrix4x4.default2;
+			FPMatrix4x4 inverted = default2;
 			//Invert (transpose) the upper left 3x3 rotation.
 			FP intermediate = m.sm12;
 			inverted.sm12 = m.sm21;
@@ -897,7 +897,7 @@ namespace DG
 
 		public static FPMatrix4x4 CreateRotationX(FP radians)
 		{
-			FPMatrix4x4 r = FPMatrix4x4.default2;
+			FPMatrix4x4 r = default2;
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 			r.sm11 = 1;
@@ -921,7 +921,7 @@ namespace DG
 
 		public static FPMatrix4x4 CreateRotationY(FP radians)
 		{
-			FPMatrix4x4 r = FPMatrix4x4.default2;
+			FPMatrix4x4 r = default2;
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 			r.sm11 = cos;
@@ -945,7 +945,7 @@ namespace DG
 
 		public static FPMatrix4x4 CreateRotationZ(FP radians)
 		{
-			FPMatrix4x4 r = FPMatrix4x4.default2;
+			FPMatrix4x4 r = default2;
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 			r.sm11 = cos;
@@ -978,7 +978,7 @@ namespace DG
 		// Axes must be pair-wise perpendicular and have unit length.
 		public static FPMatrix4x4 CreateFromCartesianAxes(FPVector3 right, FPVector3 up, FPVector3 forward)
 		{
-			FPMatrix4x4 r = FPMatrix4x4.default2;
+			FPMatrix4x4 r = default2;
 			r.sm11 = right.x;
 			r.sm21 = right.y;
 			r.sm31 = right.z;
@@ -1028,7 +1028,7 @@ namespace DG
 		/// <param name="projection">The resulting orthographic projection matrix.</param>
 		public static FPMatrix4x4 CreateOrthographicOffCenter(FP left, FP right, FP bottom, FP top, FP zNear, FP zFar)
 		{
-			FPMatrix4x4 projection = FPMatrix4x4.default2;
+			FPMatrix4x4 projection = default2;
 			var xOrth = 2 / (right - left);
 			var yOrth = 2 / (top - bottom);
 			var zOrth = (-2) / (zFar - zNear);
@@ -1083,7 +1083,7 @@ namespace DG
 		/// <param name="perspective">Resulting perspective matrix.</param>
 		public static FPMatrix4x4 CreatePerspectiveFieldOfViewRad(FP fieldOfViewRadian, FP aspectRatio, FP nearClip, FP farClip)
 		{
-			FPMatrix4x4 perspective = FPMatrix4x4.default2;
+			FPMatrix4x4 perspective = default2;
 			perspective.SetIdentity();
 			var fd = 1.0 / FPMath.Tan(fieldOfViewRadian / 2.0);
 			var a1 = (farClip + nearClip) / (nearClip - farClip);
@@ -1129,7 +1129,7 @@ namespace DG
 			if (nearPlaneDistance >= farPlaneDistance)
 				throw new ArgumentOutOfRangeException("nearPlaneDistance");
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			var x = 2.0f * nearPlaneDistance / (right - left);
 			var y = 2.0f * nearPlaneDistance / (top - bottom);
@@ -1173,7 +1173,7 @@ namespace DG
 			FP fb = (-2.0f) * b;
 			FP fc = (-2.0f) * c;
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = fa * a + 1.0f;
 			result.sm12 = fb * a;
@@ -1214,7 +1214,7 @@ namespace DG
 			FP c = -p.normal.z;
 			FP d = -p.d;
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = a * lightDirection.x + dot;
 			result.sm21 = b * lightDirection.x;
@@ -1270,7 +1270,7 @@ namespace DG
 			FPVector3 z = forward.normalized;
 			FPVector3 x = FPVector3.Cross(upVector, z).normalized;
 			FPVector3 y = -FPVector3.Cross(x, z);
-			FPMatrix4x4 viewMatrix = FPMatrix4x4.default2;
+			FPMatrix4x4 viewMatrix = default2;
 			viewMatrix.sm11 = x.x;
 			viewMatrix.sm12 = y.x;
 			viewMatrix.sm13 = z.x;
@@ -1300,7 +1300,7 @@ namespace DG
 		/// <param name="worldMatrix">World matrix.</param>
 		public static FPMatrix4x4 CreateWorld(FPVector3 position, FPVector3 forward, FPVector3 upVector)
 		{
-			FPMatrix4x4 worldMatrix = FPMatrix4x4.default2;
+			FPMatrix4x4 worldMatrix = default2;
 
 			FPVector3 z = forward.normalized;
 			FPVector3 x = FPVector3.Cross(upVector, z).normalized;
@@ -1337,7 +1337,7 @@ namespace DG
 		/// <param name="translationMatrix">Matrix representing the given translation.</param>
 		public static FPMatrix4x4 CreateTranslation(FPVector3 translation)
 		{
-			FPMatrix4x4 translationMatrix = FPMatrix4x4.default2;
+			FPMatrix4x4 translationMatrix = default2;
 			translationMatrix.sm11 = 1;
 			translationMatrix.sm22 = 1;
 			translationMatrix.sm33 = 1;
@@ -1357,7 +1357,7 @@ namespace DG
 		/// <param name="scaleMatrix">Matrix representing the given scale.</param>
 		public static FPMatrix4x4 CreateScale(FPVector3 scale)
 		{
-			FPMatrix4x4 scaleMatrix = FPMatrix4x4.default2;
+			FPMatrix4x4 scaleMatrix = default2;
 			scaleMatrix.sm11 = scale.x;
 			scaleMatrix.sm22 = scale.y;
 			scaleMatrix.sm33 = scale.z;
@@ -1374,7 +1374,7 @@ namespace DG
 		/// <param name="scaleMatrix">Matrix representing the given scale.</param>
 		public static FPMatrix4x4 CreateScale(FP x, FP y, FP z)
 		{
-			FPMatrix4x4 scaleMatrix = FPMatrix4x4.default2;
+			FPMatrix4x4 scaleMatrix = default2;
 			scaleMatrix.sm11 = x;
 			scaleMatrix.sm22 = y;
 			scaleMatrix.sm33 = z;
@@ -1389,7 +1389,7 @@ namespace DG
 
 		public static FPMatrix4x4 Translate(FPVector3 vector)
 		{
-			FPMatrix4x4 m = FPMatrix4x4.default2;
+			FPMatrix4x4 m = default2;
 			m.sm11 = 1F;
 			m.sm12 = 0F;
 			m.sm13 = 0F;
@@ -1428,7 +1428,7 @@ namespace DG
 			FP wz = q.w * z;
 
 			// Calculate 3x3 matrix from orthonormal basis
-			FPMatrix4x4 m = FPMatrix4x4.default2;
+			FPMatrix4x4 m = default2;
 			m.sm11 = 1.0f - (yy + zz);
 			m.sm21 = xy + wz;
 			m.sm31 = xz - wy;
@@ -1449,7 +1449,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Util
+		* æ¨¡å—æè¿°:Util
 		*************************************************************************************/
 		/// <summary>
 		/// Creates a spherical billboard that rotates around a specified object position.
@@ -1478,7 +1478,7 @@ namespace DG
 
 			FPVector3 yaxis = -FPVector3.Cross(xaxis, zaxis);
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = xaxis.x;
 			result.sm21 = xaxis.y;
@@ -1526,7 +1526,7 @@ namespace DG
 			if (norm < FPMath.EPSILION)
 				faceDir = -cameraForwardVector;
 			else
-				faceDir = faceDir * (1.0f / FPMath.Sqrt(norm));
+				faceDir *= (1.0f / FPMath.Sqrt(norm));
 
 			FPVector3 yaxis = rotateAxis;
 			FPVector3 xaxis;
@@ -1556,7 +1556,7 @@ namespace DG
 				zaxis = FPVector3.Normalize(FPVector3.Cross(xaxis, yaxis));
 			}
 
-			FPMatrix4x4 result = FPMatrix4x4.default2;
+			FPMatrix4x4 result = default2;
 
 			result.sm11 = xaxis.x;
 			result.sm21 = xaxis.y;
@@ -1584,10 +1584,10 @@ namespace DG
 		{
 			FPVector3 res;
 			FP w;
-			res.x = this.sm11 * point.x + this.sm12 * point.y + this.sm13 * point.z + this.sm14;
-			res.y = this.sm21 * point.x + this.sm22 * point.y + this.sm23 * point.z + this.sm24;
-			res.z = this.sm31 * point.x + this.sm32 * point.y + this.sm33 * point.z + this.sm34;
-			w = this.sm41 * point.x + this.sm42 * point.y + this.sm43 * point.z + this.sm44;
+			res.x = sm11 * point.x + sm12 * point.y + sm13 * point.z + sm14;
+			res.y = sm21 * point.x + sm22 * point.y + sm23 * point.z + sm24;
+			res.z = sm31 * point.x + sm32 * point.y + sm33 * point.z + sm34;
+			w = sm41 * point.x + sm42 * point.y + sm43 * point.z + sm44;
 
 			w = 1F / w;
 			res.x *= w;
@@ -1651,9 +1651,9 @@ namespace DG
 		public FPVector3 MultiplyPoint3x4(FPVector3 point)
 		{
 			FPVector3 res = default;
-			res.x = this.sm11 * point.x + this.sm12 * point.y + this.sm13 * point.z + this.sm14;
-			res.y = this.sm21 * point.x + this.sm22 * point.y + this.sm23 * point.z + this.sm24;
-			res.z = this.sm31 * point.x + this.sm32 * point.y + this.sm33 * point.z + this.sm34;
+			res.x = sm11 * point.x + sm12 * point.y + sm13 * point.z + sm14;
+			res.y = sm21 * point.x + sm22 * point.y + sm23 * point.z + sm24;
+			res.z = sm31 * point.x + sm32 * point.y + sm33 * point.z + sm34;
 
 
 			return res;
@@ -1663,9 +1663,9 @@ namespace DG
 		public FPVector3 MultiplyVector(FPVector3 vector)
 		{
 			FPVector3 res = default;
-			res.x = this.sm11 * vector.x + this.sm12 * vector.y + this.sm13 * vector.z;
-			res.y = this.sm21 * vector.x + this.sm22 * vector.y + this.sm23 * vector.z;
-			res.z = this.sm31 * vector.x + this.sm32 * vector.y + this.sm33 * vector.z;
+			res.x = sm11 * vector.x + sm12 * vector.y + sm13 * vector.z;
+			res.y = sm21 * vector.x + sm22 * vector.y + sm23 * vector.z;
+			res.z = sm31 * vector.x + sm32 * vector.y + sm33 * vector.z;
 			return res;
 		}
 

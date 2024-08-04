@@ -1,17 +1,17 @@
 #if UNITY_EDITOR
 using System;
-using System.Diagnostics;
-using UnityEditor;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using UnityEditor;
 
 namespace DG
 {
 	public class ShellUtil
 	{
-		private static readonly List<Action> _queue = new List<Action>();
-		private readonly List<string> _environmentVarList = new List<string>();
+		private static readonly List<Action> _queue = new();
+		private readonly List<string> _environmentVarList = new();
 
 		private static string shellApp
 		{
@@ -114,7 +114,7 @@ namespace DG
 							break;
 
 						line = line.Replace("\\", "/");
-						_queue.Add(delegate () { shellRequest.Log(0, line); });
+						_queue.Add(delegate { shellRequest.Log(0, line); });
 					} while (true);
 
 					while (true)
@@ -124,14 +124,14 @@ namespace DG
 							break;
 
 						isHasError = true;
-						_queue.Add(delegate () { shellRequest.Log(DGLogLevel.Error, error); });
+						_queue.Add(delegate { shellRequest.Log(EDGLogLevel.Error, error); });
 					}
 
 					process.Close();
 					if (isHasError)
-						_queue.Add(delegate () { shellRequest.Error(); });
+						_queue.Add(delegate { shellRequest.Error(); });
 					else
-						_queue.Add(delegate () { shellRequest.NotifyDone(); });
+						_queue.Add(delegate { shellRequest.NotifyDone(); });
 				}
 				catch (Exception e)
 				{
@@ -156,7 +156,7 @@ namespace DG
 
 		public ShellRequest ProcessCMD(string cmd, string workDirectory)
 		{
-			return ShellUtil.ProcessCommand(cmd, workDirectory, _environmentVarList);
+			return ProcessCommand(cmd, workDirectory, _environmentVarList);
 		}
 	}
 }

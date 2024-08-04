@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DG
@@ -6,30 +5,30 @@ namespace DG
 	public class ForeachDictionary<K, V>
 	{
 		private readonly Dictionary<K, V> _dict;
-		private readonly List<K> _tmpToCheckKeyList = new List<K>();
-		private readonly Dictionary<K, bool> _tmpCheckedKeyDict = new Dictionary<K, bool>();
+		private readonly List<K> _tmpToCheckKeyList = new();
+		private readonly Dictionary<K, bool> _tmpCheckedKeyDict = new();
 		public ForeachDictionary(Dictionary<K, V> dict)
 		{
-			this._dict = dict;
+			_dict = dict;
 		}
 
 		//to_check_key_list 有些特殊的要求可能用到，如外部需要按照to_check_key_list的顺序来检测
 		public IEnumerable<V> ForeachValues(List<K> toCheckKeyList = null)
 		{
-			this._tmpToCheckKeyList.Clear();
-			this._tmpCheckedKeyDict.Clear();
+			_tmpToCheckKeyList.Clear();
+			_tmpCheckedKeyDict.Clear();
 			if (toCheckKeyList == null)
-				this._tmpToCheckKeyList.AddRange(_dict.Keys);
+				_tmpToCheckKeyList.AddRange(_dict.Keys);
 			else
-				this._tmpToCheckKeyList.AddRange(toCheckKeyList);
+				_tmpToCheckKeyList.AddRange(toCheckKeyList);
 			while (true)
 			{
 				while (_tmpToCheckKeyList.Count > 0)
 				{
 					var tmpToCheckKey = _tmpToCheckKeyList.RemoveFirst();
-					if (!_dict.ContainsKey(tmpToCheckKey))//中途yield return value;可能有删除其他的节点，所以可能会出现null,所以要检测是否需要忽略
+					if (!_dict.TryGetValue(tmpToCheckKey, out var value))//中途yield return value;可能有删除其他的节点，所以可能会出现null,所以要检测是否需要忽略
 						continue;
-					yield return _dict[tmpToCheckKey];
+					yield return value;
 					_tmpCheckedKeyDict[tmpToCheckKey] = true;
 				}
 

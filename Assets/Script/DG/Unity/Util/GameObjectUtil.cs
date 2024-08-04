@@ -286,7 +286,7 @@ namespace DG
 		public static Text NewChildWithText(GameObject gameObject, string path = null, string content = null,
 			int fontSize = 20, Color? color = null, TextAnchor? alignment = null, Font font = null)
 		{
-			return gameObject.transform.NewChildWithText(path, content, fontSize, color, alignment, null);
+			return gameObject.transform.NewChildWithText(path, content, fontSize, color, alignment);
 		}
 
 		public static void SetIsGray(GameObject gameObject, bool isGray, bool isRecursive = true)

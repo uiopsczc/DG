@@ -8,7 +8,7 @@ namespace DG
 		/// <summary>
 		/// 所有GenericMenuCat菜单放在dict中
 		/// </summary>
-		public static Dictionary<string, DGGenericMenu> dict = new Dictionary<string, DGGenericMenu>();
+		public static Dictionary<string, DGGenericMenu> dict = new();
 
 		/// <summary>
 		/// 加载所有GenericMenuCat菜单到dict中

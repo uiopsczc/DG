@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DG
@@ -16,16 +15,16 @@ namespace DG
 		private T[] _datas;
 		private int _size;
 		private readonly bool _isCanRemoveSpecificData;
-		private readonly Dictionary<T, int> _indexDict = new Dictionary<T, int>();
+		private readonly Dictionary<T, int> _indexDict = new();//TODO,当数组大的时候，dict的效率是直线下降的，用数组来对应才是最好的办法
 
-		public int Size => this._size;
+		public int size => _size;
 		protected T this[int index]
 		{
 			set
 			{
-				this._datas[index] = value;
+				_datas[index] = value;
 				if (_isCanRemoveSpecificData)
-					this._indexDict[value] = index;
+					_indexDict[value] = index;
 			}
 		}
 
@@ -34,10 +33,10 @@ namespace DG
 		//是否能删除特定位置的数据
 		public BinaryHeap(int? capacity, bool isCanRemoveSpecificData, params Comparison<T>[] compareRules)
 		{
-			this._compareRules = compareRules;
-			this._capacity = capacity.GetValueOrDefault(BinaryHeapConst.Default_Capacity);
-			this._isCanRemoveSpecificData = isCanRemoveSpecificData;
-			_datas = new T[this._capacity];
+			_compareRules = compareRules;
+			_capacity = capacity.GetValueOrDefault(BinaryHeapConst.DEFAULT_CAPACITY);
+			_isCanRemoveSpecificData = isCanRemoveSpecificData;
+			_datas = new T[_capacity];
 		}
 
 		public void Clear()
@@ -51,8 +50,8 @@ namespace DG
 		//需要is_need_get_index为true才能生效
 		public int GetIndex(T data)
 		{
-			if (_indexDict.ContainsKey(data))
-				return _indexDict[data];
+			if (_indexDict.TryGetValue(data, out var index))
+				return index;
 			return -1;
 		}
 
@@ -83,7 +82,7 @@ namespace DG
 
 		private int _CompareWithRules(T data1, T data2)
 		{
-			return CompareUtil.CompareWithRules(data1, data2, this._compareRules);
+			return CompareUtil.CompareWithRules(data1, data2, _compareRules);
 		}
 
 		public void Push(T data)
@@ -151,7 +150,7 @@ namespace DG
 		{
 			if (_capacity < needSize)
 			{
-				_capacity = _capacity * 2;//翻倍
+				_capacity *= 2;//翻倍
 				T[] newDatas = new T[_capacity];
 				Array.Copy(_datas, newDatas, _datas.Length);
 				_datas = newDatas;

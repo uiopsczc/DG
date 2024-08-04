@@ -1,19 +1,18 @@
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 
 namespace DG
 {
 	public class DOTweenDict
 	{
-		Dictionary<string, Tween> _dict = new Dictionary<string, Tween>();
-		private IdPool _idPool = new IdPool();
+		Dictionary<string, Tween> _dict = new();
+		private IdPool _idPool = new();
 
 		public Sequence AddDOTweenSequence(string key)
 		{
 			if (key != null && _dict.ContainsKey(key))
 				RemoveDOTween(key);
-			key = key ?? _idPool.SpawnValue().ToString();
+			key ??= _idPool.SpawnValue().ToString();
 			var sequence = DOTween.Sequence();
 			_dict[key] = sequence;
 			sequence.OnKill(() => RemoveDOTween(key));
@@ -24,7 +23,7 @@ namespace DG
 		{
 			if (key != null && _dict.ContainsKey(key))
 				RemoveDOTween(key);
-			key = key ?? _idPool.SpawnValue().ToString();
+			key ??= _idPool.SpawnValue().ToString();
 			_dict[key] = tween;
 			tween.OnKill(() => RemoveDOTween(key));
 			return tween;
@@ -82,7 +81,7 @@ namespace DG
 
 		public void Reset()
 		{
-			this.RemoveDOTweens();
+			RemoveDOTweens();
 		}
 
 		public void Destroy()

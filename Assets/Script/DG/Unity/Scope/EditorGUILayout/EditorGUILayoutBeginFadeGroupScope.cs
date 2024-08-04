@@ -16,8 +16,8 @@ namespace DG
 		public EditorGUILayoutBeginFadeGroupScope(float value, bool isWithIndent = false)
 		{
 			EditorGUILayout.BeginFadeGroup(value);
-			this._isWithIndent = isWithIndent;
-			if (this._isWithIndent)
+			_isWithIndent = isWithIndent;
+			if (_isWithIndent)
 				EditorGUI.indentLevel++;
 		}
 

@@ -3,9 +3,9 @@ namespace DG
 {
 	public partial struct FPVector2
 	{
-		public static FPVector2 X = new FPVector2(1, 0);
-		public static FPVector2 Y = new FPVector2(0, 1);
-		public static FPVector2 Zero = new FPVector2(0, 0);
+		public static FPVector2 X = new(1, 0);
+		public static FPVector2 Y = new(0, 1);
+		public static FPVector2 Zero = new(0, 0);
 
 		/** the x-component of this vector **/
 		public FP x;
@@ -26,8 +26,8 @@ namespace DG
 		 * @param v The vector */
 		public FPVector2(FPVector2 v)
 		{
-			this.x = v.x;
-			this.y = v.y;
+			x = v.x;
+			y = v.y;
 		}
 
 		public FPVector2 cpy()
@@ -154,22 +154,22 @@ namespace DG
 
 		public FPVector2 scl(FPVector2 v)
 		{
-			this.x *= v.x;
-			this.y *= v.y;
+			x *= v.x;
+			y *= v.y;
 			return this;
 		}
 
 		public FPVector2 mulAdd(FPVector2 vec, FP scalar)
 		{
-			this.x += vec.x * scalar;
-			this.y += vec.y * scalar;
+			x += vec.x * scalar;
+			y += vec.y * scalar;
 			return this;
 		}
 
 		public FPVector2 mulAdd(FPVector2 vec, FPVector2 mulVec)
 		{
-			this.x += vec.x * mulVec.x;
-			this.y += vec.y * mulVec.y;
+			x += vec.x * mulVec.x;
+			y += vec.y * mulVec.y;
 			return this;
 		}
 
@@ -286,7 +286,7 @@ namespace DG
 		 * @return the cross product */
 		public FP crs(FPVector2 v)
 		{
-			return this.x * v.y - this.y * v.x;
+			return x * v.y - y * v.x;
 		}
 
 		/** Calculates the 2D cross product between this and the given vector.
@@ -368,8 +368,8 @@ namespace DG
 		 * @param radians The angle in radians to set. */
 		public FPVector2 setAngleRad(FP radians)
 		{
-			this.set(len(), 0f);
-			this.rotateRad(radians);
+			set(len(), 0f);
+			rotateRad(radians);
 
 			return this;
 		}
@@ -388,7 +388,7 @@ namespace DG
 		 * @deprecated use {@link #rotateAroundDeg(Vector2, float)} instead. */
 		public FPVector2 rotateAround(FPVector2 reference, FP degrees)
 		{
-			return this.sub(reference).rotateDeg(degrees).add(reference);
+			return sub(reference).rotateDeg(degrees).add(reference);
 		}
 
 		/** Rotates the Vector2 by the given angle, counter-clockwise assuming the y-axis points up.
@@ -405,11 +405,11 @@ namespace DG
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 
-			FP newX = this.x * cos - this.y * sin;
-			FP newY = this.x * sin + this.y * cos;
+			FP newX = x * cos - y * sin;
+			FP newY = x * sin + y * cos;
 
-			this.x = newX;
-			this.y = newY;
+			x = newX;
+			y = newY;
 
 			return this;
 		}
@@ -419,7 +419,7 @@ namespace DG
 		 * @param reference center Vector2 */
 		public FPVector2 rotateAroundDeg(FPVector2 reference, FP degrees)
 		{
-			return this.sub(reference).rotateDeg(degrees).add(reference);
+			return sub(reference).rotateDeg(degrees).add(reference);
 		}
 
 		/** Rotates the Vector2 by the given angle around reference vector, counter-clockwise assuming the y-axis points up.
@@ -427,7 +427,7 @@ namespace DG
 		 * @param reference center Vector2 */
 		public FPVector2 rotateAroundRad(FPVector2 reference, FP radians)
 		{
-			return this.sub(reference).rotateRad(radians).add(reference);
+			return sub(reference).rotateRad(radians).add(reference);
 		}
 
 		/** Rotates the Vector2 by 90 degrees in the specified direction, where >= 0 is counter-clockwise and < 0 is clockwise. */
@@ -451,8 +451,8 @@ namespace DG
 		public FPVector2 lerp(FPVector2 target, FP alpha)
 		{
 			FP invAlpha = 1.0f - alpha;
-			this.x = (x * invAlpha) + (target.x * alpha);
-			this.y = (y * invAlpha) + (target.y * alpha);
+			x = (x * invAlpha) + (target.x * alpha);
+			y = (y * invAlpha) + (target.y * alpha);
 			return this;
 		}
 
@@ -567,8 +567,8 @@ namespace DG
 
 		public FPVector2 setZero()
 		{
-			this.x = 0;
-			this.y = 0;
+			x = 0;
+			y = 0;
 			return this;
 		}
 	}

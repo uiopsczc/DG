@@ -76,9 +76,9 @@ namespace DG
 			return text;
 		}
 
-//		public static GameObject GetOrNewGameObject(Component component, string path)
-//		{
-//			return GameObjectUtil.GetOrNewGameObject(path, component.gameObject);
-//		}
+		public static GameObject GetOrNewGameObject(Component component, string path)
+		{
+			return GameObjectUtil.GetOrNewGameObject(path, component.gameObject);
+		}
 	}
 }

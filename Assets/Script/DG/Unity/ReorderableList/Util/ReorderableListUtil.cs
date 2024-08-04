@@ -1,8 +1,6 @@
 #if UNITY_EDITOR
-using UnityEditorInternal;
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEditorInternal;
 
 namespace DG
 {
@@ -28,7 +26,7 @@ namespace DG
 		public static void SetElementHeight(ReorderableList reorderableList, float elementHeight)
 		{
 			reorderableList.elementHeight =
-				reorderableList.count == 0 ? EditorConst.Single_Line_Height : elementHeight;
+				reorderableList.count == 0 ? EditorConst.SINGLE_LINE_HEIGHT : elementHeight;
 		}
 	}
 }

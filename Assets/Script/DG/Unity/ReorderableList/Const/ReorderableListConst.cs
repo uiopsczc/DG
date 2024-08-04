@@ -1,6 +1,4 @@
 #if UNITY_EDITOR
-using UnityEditor;
-
 namespace DG
 {
 	public static class ReorderableListConst

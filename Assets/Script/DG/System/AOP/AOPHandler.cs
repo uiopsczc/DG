@@ -17,8 +17,7 @@ namespace DG
 		///   AOPAttributeMethodInfoProxyCategory的东西可以参考AOPAttributeMethodInfoProxyCategory的类说明
 		/// </summary>
 		private readonly Dictionary<MethodBase, List<AOPAttributeMethodInfoProxyCategory>>
-			_aopAttributeMethodInfoProxyCategoryCacheDict =
-				new Dictionary<MethodBase, List<AOPAttributeMethodInfoProxyCategory>>();
+			_aopAttributeMethodInfoProxyCategoryCacheDict = new();
 
 
 		public static AOPHandler instance => SingletonFactory.instance.Get<AOPHandler>();
@@ -45,7 +44,7 @@ namespace DG
 			aopAttributeMethodInfoProxyCategoryList.ForEach(
 				aopAttributeMethodCategory =>
 				{
-					_InvokeAOPAttributeMethod(aopAttributeMethodCategory, AOPMethodType.Pre_AOP_Handle,
+					_InvokeAOPAttributeMethod(aopAttributeMethodCategory, EAOPMethodType.Pre_AOP_Handle,
 						sourceMethodOwner,
 						sourceMethodBase, sourceMethodArgs);
 				}
@@ -65,7 +64,7 @@ namespace DG
 			aopAttributeMethodCategoryList.ForEach(
 				aopAttributeMethodCategory =>
 				{
-					_InvokeAOPAttributeMethod(aopAttributeMethodCategory, AOPMethodType.Post_AOP_Handle,
+					_InvokeAOPAttributeMethod(aopAttributeMethodCategory, EAOPMethodType.Post_AOP_Handle,
 						sourceMethodOwner,
 						sourceMethodBase, sourceMethodArgs);
 				}
@@ -99,7 +98,7 @@ namespace DG
 		/// <param name="sourceMethodBase"></param>
 		/// <param name="sourceMethodArgs"></param>
 		private void _InvokeAOPAttributeMethod(AOPAttributeMethodInfoProxyCategory aopAttributeMethodInfoProxyCategory,
-			AOPMethodType aopMethodType, object sourceMethodOwner, MethodBase sourceMethodBase,
+			EAOPMethodType aopMethodType, object sourceMethodOwner, MethodBase sourceMethodBase,
 			params object[] sourceMethodArgs)
 		{
 			//获取目标函数
@@ -128,12 +127,12 @@ namespace DG
 		/// <returns></returns>
 		private MethodInfoProxy _GetTargetMethodInfoProxy(
 			AOPAttributeMethodInfoProxyCategory aopAttributeMethodInfoProxyCategory,
-			AOPMethodType aopMethodType, MethodBase sourceMethodBase,
+			EAOPMethodType aopMethodType, MethodBase sourceMethodBase,
 			params Type[] sourceMethodParameterTypes)
 		{
 			//如果缓存中有对应的aop处理函数，则不用查找，直接使用
-			if (aopAttributeMethodInfoProxyCategory.aopMethodInfoDict.ContainsKey(aopMethodType))
-				return aopAttributeMethodInfoProxyCategory.aopMethodInfoDict[aopMethodType];
+			if (aopAttributeMethodInfoProxyCategory.aopMethodInfoDict.TryGetValue(aopMethodType, out var proxy))
+				return proxy;
 
 			//根据优先顺序查找
 			var aopAttributeType = aopAttributeMethodInfoProxyCategory.aopAttribute.GetType();

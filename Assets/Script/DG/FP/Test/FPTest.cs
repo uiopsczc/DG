@@ -1,5 +1,5 @@
 /*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/5/11
  * ======================================
@@ -7,14 +7,13 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 #if UNITY_STANDALONE
-using Debug = UnityEngine.Debug;
 
 #endif
 
@@ -22,8 +21,7 @@ namespace DG
 {
 	public class FPTest
 	{
-		long[] m_testCases = new[]
-		{
+		long[] m_testCases = {
 			// Small numbers
 			0L, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
 			-1, -2, -3, -4, -5, -6, -7, -8, -9, -10,
@@ -92,16 +90,16 @@ namespace DG
 		{
 			var sources = new[]
 			{
-				(double) int.MinValue,
-				-(double) Math.PI,
-				-(double) Math.E,
+				int.MinValue,
+				-Math.PI,
+				-Math.E,
 				-1.0,
 				-0.0,
 				0.0,
 				1.0,
-				(double) Math.PI,
-				(double) Math.E,
-				(double) int.MaxValue
+				Math.PI,
+				Math.E,
+				int.MaxValue
 			};
 
 			foreach (var value in sources)
@@ -112,7 +110,7 @@ namespace DG
 
 		void AreEqualWithinPrecision(decimal value1, decimal value2)
 		{
-			Log(Math.Abs(value2 - value1) < (decimal) FP.PRECISION);
+			Log(Math.Abs(value2 - value1) < FP.PRECISION);
 		}
 
 		void AreEqualWithinPrecision(double value1, double value2)
@@ -152,10 +150,8 @@ namespace DG
 			{
 				FP.MIN_VALUE,  (-1), FP.ZERO, FP.ONE, FP.MAX_VALUE
 			};
-			FP[] terms2 = new FP[]
-				{ -1,  2, -1.5m, -2, FP.ONE};
-			FP[] expecteds = new FP[]
-			{
+			FP[] terms2 = { -1,  2, -1.5m, -2, FP.ONE};
+			FP[] expecteds = {
 				FP.MIN_VALUE, FP.ONE, -1.5m, -1,
 				FP.MAX_VALUE
 			};
@@ -194,7 +190,7 @@ namespace DG
 					var expected = xM * yM;
 					expected =
 						expected > (decimal) FP.MAX_VALUE
-							? (decimal) FP.MAX_VALUE
+							? FP.MAX_VALUE
 							: expected < (decimal) FP.MIN_VALUE
 								? (decimal) FP.MIN_VALUE
 								: expected;
@@ -239,7 +235,7 @@ namespace DG
 						var expected = xM / yM;
 						expected =
 							expected > (decimal) FP.MAX_VALUE
-								? (decimal) FP.MAX_VALUE
+								? FP.MAX_VALUE
 								: expected < (decimal) FP.MIN_VALUE
 									? (decimal) FP.MIN_VALUE
 									: expected;
@@ -355,7 +351,7 @@ namespace DG
 				}
 				else
 				{
-					var expected = Math.Sqrt((double) f);
+					var expected = Math.Sqrt(f);
 					var actual = (double) FP.Sqrt(f);
 					var delta = (decimal) Math.Abs(expected - actual);
 					Log(delta <= FP.PRECISION);
@@ -377,7 +373,7 @@ namespace DG
 				}
 				else
 				{
-					var expected = Math.Log((double) b) / Math.Log(2);
+					var expected = Math.Log(b) / Math.Log(2);
 					var actual = (double) FP.Log2(b);
 					var delta = Math.Abs(expected - actual);
 
@@ -400,7 +396,7 @@ namespace DG
 				}
 				else
 				{
-					var expected = Math.Log((double) b);
+					var expected = Math.Log(b);
 					var actual = (double) FP.Ln(b);
 					var delta = Math.Abs(expected - actual);
 
@@ -416,7 +412,7 @@ namespace DG
 			{
 				var e = FP.CreateByScaledValue(m_testCases[i]);
 
-				var expected = Math.Min(Math.Pow(2, (double) e), (double) FP.MAX_VALUE);
+				var expected = Math.Min(Math.Pow(2, e), FP.MAX_VALUE);
 				var actual = (double) FP.Pow2(e);
 				var delta = Math.Abs(expected - actual);
 
@@ -446,7 +442,7 @@ namespace DG
 					{
 						var expected = e == FP.ZERO ? 1 :
 							b == FP.ZERO ? 0 :
-							Math.Min(Math.Pow((double) b, (double) e), (double) FP.MAX_VALUE);
+							Math.Min(Math.Pow(b, e), FP.MAX_VALUE);
 
 						// Absolute precision deteriorates with large result values, take this into account
 						// Similarly, large exponents reduce precision, even if result is small.
@@ -526,7 +522,7 @@ namespace DG
 			{
 				var f = FP.CreateByScaledValue(val);
 				var actualF = FP.Sin(f);
-				var expected = (decimal) Math.Sin((double) f);
+				var expected = (decimal) Math.Sin(f);
 				var delta = Math.Abs(expected - (decimal) actualF);
 				Log(delta <= 0.0000001M);
 			}
@@ -547,7 +543,7 @@ namespace DG
 			{
 				var f = FP.CreateByScaledValue(val);
 				var actualF = FP.FastSin(f);
-				var expected = (decimal) Math.Sin((double) f);
+				var expected = (decimal) Math.Sin(f);
 				var delta = Math.Abs(expected - (decimal) actualF);
 				Log(delta <= 0.01M);
 			}
@@ -567,7 +563,7 @@ namespace DG
 			{
 				FP xf =  x;
 				var actual = (decimal) FP.Acos(xf);
-				var expected = (decimal) Math.Acos((double) xf);
+				var expected = (decimal) Math.Acos(xf);
 				var delta = Math.Abs(actual - expected);
 				deltas.Add(delta);
 				Log(delta <= maxDelta);
@@ -583,7 +579,7 @@ namespace DG
 				}
 				else
 				{
-					var expected = (decimal) Math.Acos((double) b);
+					var expected = (decimal) Math.Acos(b);
 					var actual = (decimal) FP.Acos(b);
 					var delta = Math.Abs(expected - actual);
 					deltas.Add(delta);
@@ -625,7 +621,7 @@ namespace DG
 			{
 				var f = FP.CreateByScaledValue(val);
 				var actualF = FP.Cos(f);
-				var expected = (decimal) Math.Cos((double) f);
+				var expected = (decimal) Math.Cos(f);
 				var delta = Math.Abs(expected - (decimal) actualF);
 				Log(delta <= 0.0000001M);
 			}
@@ -646,7 +642,7 @@ namespace DG
 			{
 				var f = FP.CreateByScaledValue(val);
 				var actualF = FP.FastCos(f);
-				var expected = (decimal) Math.Cos((double) f);
+				var expected = (decimal) Math.Cos(f);
 				var delta = Math.Abs(expected - (decimal) actualF);
 				Log(delta <= 0.01M);
 			}
@@ -694,7 +690,7 @@ namespace DG
 			{
 				FP xf =  x;
 				var actual = (decimal) FP.Atan(xf);
-				var expected = (decimal) Math.Atan((double) xf);
+				var expected = (decimal) Math.Atan(xf);
 				var delta = Math.Abs(actual - expected);
 				deltas.Add(delta);
 				Log(delta <= maxDelta);
@@ -705,7 +701,7 @@ namespace DG
 			{
 				FP xf =  x;
 				var actual = (decimal) FP.Atan(xf);
-				var expected = (decimal) Math.Atan((double) xf);
+				var expected = (decimal) Math.Atan(xf);
 				var delta = Math.Abs(actual - expected);
 				deltas.Add(delta);
 				Log(delta <= maxDelta);
@@ -736,7 +732,7 @@ namespace DG
 					FP yf =  y;
 					FP xf =  x;
 					var actual = FP.Atan2(yf, xf);
-					var expected = (decimal) Math.Atan2((double) yf, (double) xf);
+					var expected = (decimal) Math.Atan2(yf, xf);
 					var delta = Math.Abs((decimal) actual - expected);
 					deltas.Add(delta);
 					Log(delta <= 0.005M);
@@ -751,7 +747,7 @@ namespace DG
 					FP yf =  y;
 					FP xf =  x;
 					var actual = (decimal) FP.Atan2(yf, xf);
-					var expected = (decimal) Math.Atan2((double) yf, (double) xf);
+					var expected = (decimal) Math.Atan2(yf, xf);
 					var delta = Math.Abs(actual - expected);
 					deltas.Add(delta);
 					Log(delta <= 0.005M);

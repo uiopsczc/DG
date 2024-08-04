@@ -8,12 +8,12 @@ namespace DG
 {
 	public partial class LinkedHashtable : Hashtable, IDGToString
 	{
-		private readonly ArrayList _keyList = new ArrayList();
-		private readonly ArrayList _valueList = new ArrayList();
+		private readonly ArrayList _keyList = new();
+		private readonly ArrayList _valueList = new();
 		private DictionaryEnumerator __enumerator;
 
 		private DictionaryEnumerator _enumerator =>
-			__enumerator ?? (__enumerator = new DictionaryEnumerator(_keyList, _valueList));
+			__enumerator ??= new DictionaryEnumerator(_keyList, _valueList);
 
 		public override ICollection Keys => _keyList;
 		public override ICollection Values => _valueList;

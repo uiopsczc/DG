@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 #if UNITY_STANDALONE
@@ -22,18 +22,18 @@ namespace DG
 		public static readonly FP kEpsilon = 0.00001F;
 		public static readonly FP kEpsilonNormalSqrt = 1e-15F;
 
-		//²»ÄÜĞŞ¸ÄNullµÄÖµ
-		public static FPVector3 Null = FPVector3.max.cpy();
-		public static FPVector3 zero => new FPVector3(0, 0, 0);
-		public static FPVector3 one => new FPVector3(1, 1, 1);
-		public static FPVector3 forward => new FPVector3(0, 0, 1);
-		public static FPVector3 back => new FPVector3(0, 0, -1);
-		public static FPVector3 left => new FPVector3(-1, 0, 0);
-		public static FPVector3 right => new FPVector3(1, 0, 0);
-		public static FPVector3 up => new FPVector3(0, 1, 0);
-		public static FPVector3 down => new FPVector3(0, -1, 0);
-		public static FPVector3 max => new FPVector3(float.MaxValue, float.MaxValue, float.MaxValue);
-		public static FPVector3 min => new FPVector3(float.MinValue, float.MinValue, float.MinValue);
+		//ä¸èƒ½ä¿®æ”¹Nullçš„å€¼
+		public static FPVector3 Null = max.cpy();
+		public static FPVector3 zero => new(0, 0, 0);
+		public static FPVector3 one => new(1, 1, 1);
+		public static FPVector3 forward => new(0, 0, 1);
+		public static FPVector3 back => new(0, 0, -1);
+		public static FPVector3 left => new(-1, 0, 0);
+		public static FPVector3 right => new(1, 0, 0);
+		public static FPVector3 up => new(0, 1, 0);
+		public static FPVector3 down => new(0, -1, 0);
+		public static FPVector3 max => new(float.MaxValue, float.MaxValue, float.MaxValue);
+		public static FPVector3 min => new(float.MinValue, float.MinValue, float.MinValue);
 
 
 		public FP this[int index]
@@ -75,16 +75,16 @@ namespace DG
 		public FPVector3 abs => Abs(this);
 
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public FP sqrMagnitude => len2();
 
 		public FP magnitude => len();
 
 		/// <summary>
-		/// ·µ»Ø¸ÃÏòÁ¿µÄµ¥Î»ÏòÁ¿
+		/// è¿”å›è¯¥å‘é‡çš„å•ä½å‘é‡
 		/// </summary>
-		public FPVector3 normalized => this.nor();
+		public FPVector3 normalized => nor();
 
 
 		public FPVector3(float x, float y, float z)
@@ -105,20 +105,20 @@ namespace DG
 #if UNITY_STANDALONE
 		public FPVector3(Vector3 vector)
 		{
-			this.x = vector.x;
-			this.y = vector.y;
-			this.z = vector.z;
+			x = vector.x;
+			y = vector.y;
+			z = vector.z;
 		}
 #endif
 		public FPVector3(System.Numerics.Vector3 vector)
 		{
-			this.x = vector.X;
-			this.y = vector.Y;
-			this.z = vector.Z;
+			x = vector.X;
+			y = vector.Y;
+			z = vector.Z;
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Equals ToString
+		* æ¨¡å—æè¿°:Equals ToString
 		*************************************************************************************/
 		public override bool Equals(object obj)
 		{
@@ -140,7 +140,7 @@ namespace DG
 
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:×ª»»
+		* æ¨¡å—æè¿°:è½¬æ¢
 		*************************************************************************************/
 		public static implicit operator FPVector3(FPVector2 v)
 		{
@@ -152,7 +152,7 @@ namespace DG
 			return new FPVector3(v.x, v.y, v.z);
 		}
 #if UNITY_STANDALONE
-		//×ª»»ÎªUnityµÄVector3
+		//è½¬æ¢ä¸ºUnityçš„Vector3
 		public static implicit operator Vector3(FPVector3 value)
 		{
 			return new Vector3(value.x, value.y, value.z);
@@ -164,7 +164,7 @@ namespace DG
 		}
 #endif
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:¹ØÏµÔËËã·û
+		* æ¨¡å—æè¿°:å…³ç³»è¿ç®—ç¬¦
 		*************************************************************************************/
 		public static bool operator ==(FPVector3 value1, FPVector3 value2)
 		{
@@ -182,7 +182,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:²Ù×÷ÔËËã
+		* æ¨¡å—æè¿°:æ“ä½œè¿ç®—
 		*************************************************************************************/
 		public static FPVector3 operator +(FPVector3 value1, FPVector3 value2)
 		{
@@ -241,11 +241,11 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public static FP SqrMagnitude(FPVector3 v)
 		{
@@ -280,7 +280,7 @@ namespace DG
 		public static (FPVector3, FPVector3) OrthoNormalize(FPVector3 va, FPVector3 vb)
 		{
 			va.Normalize();
-			vb = vb - Project(vb, va);
+			vb -= Project(vb, va);
 			vb.Normalize();
 			return (va, vb);
 		}
@@ -288,10 +288,10 @@ namespace DG
 		public static (FPVector3, FPVector3, FPVector3) OrthoNormalize(FPVector3 va, FPVector3 vb, FPVector3 vc)
 		{
 			va.Normalize();
-			vb = vb - Project(vb, va);
+			vb -= Project(vb, va);
 			vb.Normalize();
-			vc = vc - Project(vc, va);
-			vc = vc - Project(vc, vb);
+			vc -= Project(vc, va);
+			vc -= Project(vc, vb);
 			vc.Normalize();
 			return (va, vb, vc);
 		}
@@ -338,22 +338,22 @@ namespace DG
 					return MoveTowards(current, target, maxMagnitudeDelta);
 				if (cosom < (-1) + FPMath.EPSILION)
 				{
-					var axis = OrthoNormalVector(@from);
+					var axis = OrthoNormalVector(from);
 					var q = FPQuaternion.AngleAxis(maxRadiansDelta * FPMath.Rad2Deg, axis);
-					var rotated = q * @from;
+					var rotated = q * from;
 					var delta = FPMath.ClampedMove(len1, len2, maxMagnitudeDelta);
-					rotated = rotated * delta;
+					rotated *= delta;
 					return rotated;
 				}
 
 				{
 					var angle = FPMath.Acos(cosom);
-					var axis = Cross(@from, to);
+					var axis = Cross(from, to);
 					axis.Normalize();
 					var q = FPQuaternion.AngleAxis(FPMath.Min(maxRadiansDelta, angle) * FPMath.Rad2Deg, axis);
-					var rotated = q * @from;
+					var rotated = q * from;
 					var delta = FPMath.ClampedMove(len1, len2, maxMagnitudeDelta);
-					rotated = rotated * delta;
+					rotated *= delta;
 					return rotated;
 				}
 			}
@@ -487,7 +487,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public static FPVector3 Normalize(FPVector3 value)
@@ -501,7 +501,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µã³Ë
+		/// ç‚¹ä¹˜
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>
@@ -511,7 +511,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ²æ³Ë
+		/// å‰ä¹˜
 		/// </summary>
 		/// <param name="v1"></param>
 		/// <param name="v2"></param>
@@ -541,7 +541,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÇóÁ½¸öÏòÁ¿µÄ¼Ğ½Ç£¬Ã»ÓĞÕı¸ºÇø·Ö
+		/// æ±‚ä¸¤ä¸ªå‘é‡çš„å¤¹è§’ï¼Œæ²¡æœ‰æ­£è´ŸåŒºåˆ†
 		/// </summary>
 		/// <param name="fromAngle"></param>
 		/// <param name="toAngle"></param>
@@ -648,17 +648,17 @@ namespace DG
 
 		public static FP AngleAroundAxis(FPVector3 from, FPVector3 to, FPVector3 axis)
 		{
-			from = from - Project(from, axis);
-			to = to - Project(to, axis);
+			from -= Project(from, axis);
+			to -= Project(to, axis);
 			var angle = Angle(from, to);
 			return angle * (Dot(axis, Cross(from, to)) < 0 ? (-1) : 1);
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Util
+		* æ¨¡å—æè¿°:Util
 		*************************************************************************************/
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public void Normalize()
@@ -679,9 +679,9 @@ namespace DG
 
 		public void Scale(FPVector3 scale)
 		{
-			this.x *= scale.x;
-			this.y *= scale.y;
-			this.z *= scale.z;
+			x *= scale.x;
+			y *= scale.y;
+			z *= scale.z;
 		}
 
 		public void Abs()

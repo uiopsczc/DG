@@ -10,7 +10,7 @@
 *************************************************************************************/
 namespace DG
 {
-	public partial struct FPGridPoint3
+	public struct FPGridPoint3
 	{
 		public int x;
 		public int y;
@@ -34,9 +34,9 @@ namespace DG
 		 * @param point The 3D grid point to make a copy of. */
 		public FPGridPoint3(FPGridPoint3 point)
 		{
-			this.x = point.x;
-			this.y = point.y;
-			this.z = point.z;
+			x = point.x;
+			y = point.y;
+			z = point.z;
 		}
 
 		/** Sets the coordinates of this 3D grid point to that of another.
@@ -46,9 +46,9 @@ namespace DG
 		 * @return this GridPoint3 for chaining. */
 		public FPGridPoint3 set(FPGridPoint3 point)
 		{
-			this.x = point.x;
-			this.y = point.y;
-			this.z = point.z;
+			x = point.x;
+			y = point.y;
+			z = point.z;
 			return this;
 		}
 
@@ -176,16 +176,16 @@ namespace DG
 		public override bool Equals(object o)
 		{
 			var other = (FPGridPoint3)o;
-			return this.x == other.x && this.y == other.y && this.z == other.z;
+			return x == other.x && y == other.y && z == other.z;
 		}
 
 		public override int GetHashCode()
 		{
 			int prime = 17;
 			int result = 1;
-			result = prime * result + this.x;
-			result = prime * result + this.y;
-			result = prime * result + this.z;
+			result = prime * result + x;
+			result = prime * result + y;
+			result = prime * result + z;
 			return result;
 		}
 

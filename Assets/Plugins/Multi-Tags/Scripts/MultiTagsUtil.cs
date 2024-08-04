@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -84,7 +85,7 @@ public static class MultiTagsUtil
 		get
 		{
 			if (TagsAsset) return TagsAsset.AllTags;
-			else return new Tag[] { };
+			return new Tag[] { };
 		}
 	}
 
@@ -92,7 +93,7 @@ public static class MultiTagsUtil
 	/// The scriptable object containing all this project tags. Null if none.
 	/// </summary>
 #if UNITY_EDITOR
-	private static TagsSO TagsAsset { get { return UnityEditor.AssetDatabase.LoadAssetAtPath<TagsSO>(TAGS_ASSET_PATH); } }
+	private static TagsSO TagsAsset { get { return AssetDatabase.LoadAssetAtPath<TagsSO>(TAGS_ASSET_PATH); } }
 #else
     private static TagsSO               TagsAsset                   { get { return null; } }
 #endif
@@ -149,7 +150,7 @@ public static class MultiTagsUtil
 	/// <returns>Returns the Tag object from this tag name.</returns>
 	public static Tag GetTag(string _tagName)
 	{
-		return Array.Find(AllTags, (Tag _t) => _t.Name == _tagName);
+		return Array.Find(AllTags, _t => _t.Name == _tagName);
 	}
 
 	/// <summary>
@@ -159,7 +160,7 @@ public static class MultiTagsUtil
 	/// <returns>Returns the Tags object from these tags name.</returns>
 	public static Tag[] GetTags(string[] _tagsName)
 	{
-		return Array.FindAll(AllTags, (Tag _t) => _tagsName.Contains(_t.Name));
+		return Array.FindAll(AllTags, _t => _tagsName.Contains(_t.Name));
 	}
 
 
@@ -297,7 +298,7 @@ public class Tags
 	/// <summary>
 	/// All tags of this object.
 	/// </summary>
-	public Tag[] ObjectTags = new Tag[] { };
+	public Tag[] ObjectTags = { };
 
 	/// <summary>
 	/// Name of all this object tags.
@@ -476,7 +477,7 @@ public class Tags
 	/// </summary>
 	public void Sort()
 	{
-		Array.Sort(ObjectTags, new Comparison<Tag>((first, second) => first.Name.CompareTo(second.Name)));
+		Array.Sort(ObjectTags, (first, second) => first.Name.CompareTo(second.Name));
 	}
 	#endregion
 

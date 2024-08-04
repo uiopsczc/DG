@@ -37,10 +37,10 @@ namespace DG
 
 		#region override method
 
-		public override BehaviourTreeNodeStatus Update()
+		public override EBehaviourTreeNodeStatus Update()
 		{
 			var match = ParseCondition();
-			status = match ? BehaviourTreeNodeStatus.Success : BehaviourTreeNodeStatus.Fail;
+			status = match ? EBehaviourTreeNodeStatus.Success : EBehaviourTreeNodeStatus.Fail;
 			return status;
 		}
 

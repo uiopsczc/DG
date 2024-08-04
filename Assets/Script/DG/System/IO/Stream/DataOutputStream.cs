@@ -9,7 +9,7 @@ namespace DG
 
 		public DataOutputStream(OutputStream outputStream)
 		{
-			this._outputStream = outputStream;
+			_outputStream = outputStream;
 		}
 
 

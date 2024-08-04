@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/15
  * ======================================
@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -20,10 +20,10 @@ namespace DG
 {
 	public static partial class DGLog
 	{
-		private static readonly StringBuilder _Convert_To_Msg_String_Builder = new StringBuilder(1000);
+		private static readonly StringBuilder _Convert_To_Msg_String_Builder = new(1000);
 		private const string _STRING_FORMAT_ARG_COUNT_PATTERN = @"{[0-9]+}";
-		private static readonly HashSet<string> _String_Format_Arg_Count_Hash_Set = new HashSet<string>();
-		private static StringBuilder _Decorate_Log_String_Builder = new StringBuilder(1000);
+		private static readonly HashSet<string> _String_Format_Arg_Count_Hash_Set = new();
+		private static StringBuilder _Decorate_Log_String_Builder = new(1000);
 
 		public static string GetLogString(bool isStackTrace = false, params object[] args)
 		{

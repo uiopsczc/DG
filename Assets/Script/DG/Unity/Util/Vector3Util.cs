@@ -179,14 +179,6 @@ namespace DG
 			return new Vector2(v.x, v.z);
 		}
 
-		#region 各种To ToXXX
-
-		#endregion
-
-
-		#region Other
-
-		#endregion
 
 		public static Vector3 Average(Vector3[] vs)
 		{

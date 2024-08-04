@@ -1,13 +1,13 @@
 /*************************************************************************************
- * √Ë     ˆ:  
- * ¥¥ Ω® ’ﬂ:  czq
- * ¥¥Ω® ±º‰:  2023/5/12
+ * Êèè    Ëø∞:
+ * Âàõ Âª∫ ËÄÖ:  czq
+ * ÂàõÂª∫Êó∂Èó¥:  2023/5/12
  * ======================================
- * ¿˙ ∑∏¸–¬º«¬º
- * ∞Ê±æ:V          –ﬁ∏ƒ ±º‰:         –ﬁ∏ƒ»À:
- * –ﬁ∏ƒƒ⁄»›:
+ * ÂéÜÂè≤Êõ¥Êñ∞ËÆ∞ÂΩï
+ * ÁâàÊú¨:V          ‰øÆÊîπÊó∂Èó¥:         ‰øÆÊîπ‰∫∫:
+ * ‰øÆÊîπÂÜÖÂÆπ:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 
@@ -86,30 +86,30 @@ namespace DG
 		 *           is not modified.) */
 		public FPMatrix3x3(FP[] values)
 		{
-			this.m00 = values[M00Index];
-			this.m01 = values[M01Index];
-			this.m02 = values[M02Index];
-			this.m10 = values[M10Index];
-			this.m11 = values[M11Index];
-			this.m12 = values[M12Index];
-			this.m20 = values[M20Index];
-			this.m21 = values[M21Index];
-			this.m22 = values[M22Index];
+			m00 = values[M00Index];
+			m01 = values[M01Index];
+			m02 = values[M02Index];
+			m10 = values[M10Index];
+			m11 = values[M11Index];
+			m12 = values[M12Index];
+			m20 = values[M20Index];
+			m21 = values[M21Index];
+			m22 = values[M22Index];
 		}
 
 		/** Sets this matrix to the identity matrix
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 idt()
 		{
-			this.m00 = 1;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m01 = 0;
-			this.m11 = 1;
-			this.m21 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = 1;
+			m00 = 1;
+			m10 = 0;
+			m20 = 0;
+			m01 = 0;
+			m11 = 1;
+			m21 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = 1;
 			return this;
 		}
 
@@ -123,27 +123,27 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations together. */
 		public FPMatrix3x3 mul(FPMatrix3x3 m)
 		{
-			FP v00 = this.m00 * m.m00 + this.m01 * m.m10 + this.m02 * m.m20;
-			FP v01 = this.m00 * m.m01 + this.m01 * m.m11 + this.m02 * m.m21;
-			FP v02 = this.m00 * m.m02 + this.m01 * m.m12 + this.m02 * m.m22;
+			FP v00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20;
+			FP v01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21;
+			FP v02 = m00 * m.m02 + m01 * m.m12 + m02 * m.m22;
 
-			FP v10 = this.m10 * m.m00 + this.m11 * m.m10 + this.m12 * m.m20;
-			FP v11 = this.m10 * m.m01 + this.m11 * m.m11 + this.m12 * m.m21;
-			FP v12 = this.m10 * m.m02 + this.m11 * m.m12 + this.m12 * m.m22;
+			FP v10 = m10 * m.m00 + m11 * m.m10 + m12 * m.m20;
+			FP v11 = m10 * m.m01 + m11 * m.m11 + m12 * m.m21;
+			FP v12 = m10 * m.m02 + m11 * m.m12 + m12 * m.m22;
 
-			FP v20 = this.m20 * m.m00 + this.m21 * m.m10 + this.m22 * m.m20;
-			FP v21 = this.m20 * m.m01 + this.m21 * m.m11 + this.m22 * m.m21;
-			FP v22 = this.m20 * m.m02 + this.m21 * m.m12 + this.m22 * m.m22;
+			FP v20 = m20 * m.m00 + m21 * m.m10 + m22 * m.m20;
+			FP v21 = m20 * m.m01 + m21 * m.m11 + m22 * m.m21;
+			FP v22 = m20 * m.m02 + m21 * m.m12 + m22 * m.m22;
 
-			this.m00 = v00;
-			this.m10 = v10;
-			this.m20 = v20;
-			this.m01 = v01;
-			this.m11 = v11;
-			this.m21 = v21;
-			this.m02 = v02;
-			this.m12 = v12;
-			this.m22 = v22;
+			m00 = v00;
+			m10 = v10;
+			m20 = v20;
+			m01 = v01;
+			m11 = v11;
+			m21 = v21;
+			m02 = v02;
+			m12 = v12;
+			m22 = v22;
 
 			return this;
 		}
@@ -158,27 +158,27 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 mulLeft(FPMatrix3x3 m)
 		{
-			FP v00 = m.m00 * this.m00 + m.m01 * this.m10 + m.m02 * this.m20;
-			FP v01 = m.m00 * this.m01 + m.m01 * this.m11 + m.m02 * this.m21;
-			FP v02 = m.m00 * this.m02 + m.m01 * this.m12 + m.m02 * this.m22;
+			FP v00 = m.m00 * m00 + m.m01 * m10 + m.m02 * m20;
+			FP v01 = m.m00 * m01 + m.m01 * m11 + m.m02 * m21;
+			FP v02 = m.m00 * m02 + m.m01 * m12 + m.m02 * m22;
 
-			FP v10 = m.m10 * this.m00 + m.m11 * this.m10 + m.m12 * this.m20;
-			FP v11 = m.m10 * this.m01 + m.m11 * this.m11 + m.m12 * this.m21;
-			FP v12 = m.m10 * this.m02 + m.m11 * this.m12 + m.m12 * this.m22;
+			FP v10 = m.m10 * m00 + m.m11 * m10 + m.m12 * m20;
+			FP v11 = m.m10 * m01 + m.m11 * m11 + m.m12 * m21;
+			FP v12 = m.m10 * m02 + m.m11 * m12 + m.m12 * m22;
 
-			FP v20 = m.m20 * this.m00 + m.m21 * this.m10 + m.m22 * this.m20;
-			FP v21 = m.m20 * this.m01 + m.m21 * this.m11 + m.m22 * this.m21;
-			FP v22 = m.m20 * this.m02 + m.m21 * this.m12 + m.m22 * this.m22;
+			FP v20 = m.m20 * m00 + m.m21 * m10 + m.m22 * m20;
+			FP v21 = m.m20 * m01 + m.m21 * m11 + m.m22 * m21;
+			FP v22 = m.m20 * m02 + m.m21 * m12 + m.m22 * m22;
 
-			this.m00 = v00;
-			this.m10 = v10;
-			this.m20 = v20;
-			this.m01 = v01;
-			this.m11 = v11;
-			this.m21 = v21;
-			this.m02 = v02;
-			this.m12 = v12;
-			this.m22 = v22;
+			m00 = v00;
+			m10 = v10;
+			m20 = v20;
+			m01 = v01;
+			m11 = v11;
+			m21 = v21;
+			m02 = v02;
+			m12 = v12;
+			m22 = v22;
 
 			return this;
 		}
@@ -199,17 +199,17 @@ namespace DG
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 
-			this.m00 = cos;
-			this.m10 = sin;
-			this.m20 = 0;
+			m00 = cos;
+			m10 = sin;
+			m20 = 0;
 
-			this.m01 = -sin;
-			this.m11 = cos;
-			this.m21 = 0;
+			m01 = -sin;
+			m11 = cos;
+			m21 = 0;
 
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = 1;
+			m02 = 0;
+			m12 = 0;
+			m22 = 1;
 
 			return this;
 		}
@@ -235,15 +235,15 @@ namespace DG
 		public FPMatrix3x3 setToRotation(FPVector3 axis, FP cos, FP sin)
 		{
 			FP oc = 1.0f - cos;
-			this.m00 = oc * axis.x * axis.x + cos;
-			this.m01 = oc * axis.x * axis.y - axis.z * sin;
-			this.m02 = oc * axis.z * axis.x + axis.y * sin;
-			this.m10 = oc * axis.x * axis.y + axis.z * sin;
-			this.m11 = oc * axis.y * axis.y + cos;
-			this.m12 = oc * axis.y * axis.z - axis.x * sin;
-			this.m20 = oc * axis.z * axis.x - axis.y * sin;
-			this.m21 = oc * axis.y * axis.z + axis.x * sin;
-			this.m22 = oc * axis.z * axis.z + cos;
+			m00 = oc * axis.x * axis.x + cos;
+			m01 = oc * axis.x * axis.y - axis.z * sin;
+			m02 = oc * axis.z * axis.x + axis.y * sin;
+			m10 = oc * axis.x * axis.y + axis.z * sin;
+			m11 = oc * axis.y * axis.y + cos;
+			m12 = oc * axis.y * axis.z - axis.x * sin;
+			m20 = oc * axis.z * axis.x - axis.y * sin;
+			m21 = oc * axis.y * axis.z + axis.x * sin;
+			m22 = oc * axis.z * axis.z + cos;
 			return this;
 		}
 
@@ -253,17 +253,17 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 setToTranslation(FP x, FP y)
 		{
-			this.m00 = 1;
-			this.m10 = 0;
-			this.m20 = 0;
+			m00 = 1;
+			m10 = 0;
+			m20 = 0;
 
-			this.m01 = 0;
-			this.m11 = 1;
-			this.m21 = 0;
+			m01 = 0;
+			m11 = 1;
+			m21 = 0;
 
-			this.m02 = x;
-			this.m12 = y;
-			this.m22 = 1;
+			m02 = x;
+			m12 = y;
+			m22 = 1;
 
 			return this;
 		}
@@ -273,17 +273,17 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 setToTranslation(FPVector2 translation)
 		{
-			this.m00 = 1;
-			this.m10 = 0;
-			this.m20 = 0;
+			m00 = 1;
+			m10 = 0;
+			m20 = 0;
 
-			this.m01 = 0;
-			this.m11 = 1;
-			this.m21 = 0;
+			m01 = 0;
+			m11 = 1;
+			m21 = 0;
 
-			this.m02 = translation.x;
-			this.m12 = translation.y;
-			this.m22 = 1;
+			m02 = translation.x;
+			m12 = translation.y;
+			m22 = 1;
 
 			return this;
 		}
@@ -295,15 +295,15 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 setToScaling(FP scaleX, FP scaleY)
 		{
-			this.m00 = scaleX;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m01 = 0;
-			this.m11 = scaleY;
-			this.m21 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = 1;
+			m00 = scaleX;
+			m10 = 0;
+			m20 = 0;
+			m01 = 0;
+			m11 = scaleY;
+			m21 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = 1;
 			return this;
 		}
 
@@ -312,30 +312,30 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 setToScaling(FPVector2 scale)
 		{
-			this.m00 = scale.x;
-			this.m10 = 0;
-			this.m20 = 0;
-			this.m01 = 0;
-			this.m11 = scale.y;
-			this.m21 = 0;
-			this.m02 = 0;
-			this.m12 = 0;
-			this.m22 = 1;
+			m00 = scale.x;
+			m10 = 0;
+			m20 = 0;
+			m01 = 0;
+			m11 = scale.y;
+			m21 = 0;
+			m02 = 0;
+			m12 = 0;
+			m22 = 1;
 			return this;
 		}
 
 		public override string ToString()
 		{
-			return "[" + this.m00 + "|" + this.m01 + "|" + this.m02 + "]\n" //
-				   + "[" + this.m10 + "|" + this.m11 + "|" + this.m12 + "]\n" //
-				   + "[" + this.m20 + "|" + this.m21 + "|" + this.m22 + "]";
+			return "[" + m00 + "|" + m01 + "|" + m02 + "]\n" //
+				   + "[" + m10 + "|" + m11 + "|" + m12 + "]\n" //
+				   + "[" + m20 + "|" + m21 + "|" + m22 + "]";
 		}
 
 		/** @return The determinant of this matrix */
 		public FP det()
 		{
-			return this.m00 * this.m11 * this.m22 + this.m01 * this.m12 * this.m20 + this.m02 * this.m10 * this.m21
-				   - this.m00 * this.m12 * this.m21 - this.m01 * this.m10 * this.m22 - this.m02 * this.m11 * this.m20;
+			return m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21
+				   - m00 * m12 * m21 - m01 * m10 * m22 - m02 * m11 * m20;
 		}
 
 		/** Inverts this matrix given that the determinant is != 0.
@@ -348,25 +348,25 @@ namespace DG
 
 			FP inv_det = 1.0f / det;
 
-			FP v00 = this.m11 * this.m22 - this.m21 * this.m12;
-			FP v10 = this.m20 * this.m12 - this.m10 * this.m22;
-			FP v20 = this.m10 * this.m21 - this.m20 * this.m11;
-			FP v01 = this.m21 * this.m02 - this.m01 * this.m22;
-			FP v11 = this.m00 * this.m22 - this.m20 * this.m02;
-			FP v21 = this.m20 * this.m01 - this.m00 * this.m21;
-			FP v02 = this.m01 * this.m12 - this.m11 * this.m02;
-			FP v12 = this.m10 * this.m02 - this.m00 * this.m12;
-			FP v22 = this.m00 * this.m11 - this.m10 * this.m01;
+			FP v00 = m11 * m22 - m21 * m12;
+			FP v10 = m20 * m12 - m10 * m22;
+			FP v20 = m10 * m21 - m20 * m11;
+			FP v01 = m21 * m02 - m01 * m22;
+			FP v11 = m00 * m22 - m20 * m02;
+			FP v21 = m20 * m01 - m00 * m21;
+			FP v02 = m01 * m12 - m11 * m02;
+			FP v12 = m10 * m02 - m00 * m12;
+			FP v22 = m00 * m11 - m10 * m01;
 
-			this.m00 = inv_det * v00;
-			this.m10 = inv_det * v10;
-			this.m20 = inv_det * v20;
-			this.m01 = inv_det * v01;
-			this.m11 = inv_det * v11;
-			this.m21 = inv_det * v21;
-			this.m02 = inv_det * v02;
-			this.m12 = inv_det * v12;
-			this.m22 = inv_det * v22;
+			m00 = inv_det * v00;
+			m10 = inv_det * v10;
+			m20 = inv_det * v20;
+			m01 = inv_det * v01;
+			m11 = inv_det * v11;
+			m21 = inv_det * v21;
+			m02 = inv_det * v02;
+			m12 = inv_det * v12;
+			m22 = inv_det * v22;
 
 			return this;
 		}
@@ -393,15 +393,15 @@ namespace DG
 		 * @return This matrix for the purposes of chaining. */
 		public FPMatrix3x3 set(FPAffine2 affine)
 		{
-			this.m00 = affine.m00;
-			this.m10 = affine.m10;
-			this.m20 = 0;
-			this.m01 = affine.m01;
-			this.m11 = affine.m11;
-			this.m21 = 0;
-			this.m02 = affine.m02;
-			this.m12 = affine.m12;
-			this.m22 = 1;
+			m00 = affine.m00;
+			m10 = affine.m10;
+			m20 = 0;
+			m01 = affine.m01;
+			m11 = affine.m11;
+			m21 = 0;
+			m02 = affine.m02;
+			m12 = affine.m12;
+			m22 = 1;
 
 			return this;
 		}
@@ -411,15 +411,15 @@ namespace DG
 		 * @return This matrix for the purpose of chaining operations. */
 		public FPMatrix3x3 set(FPMatrix4x4 mat)
 		{
-			this.m00 = mat.m00;
-			this.m10 = mat.m10;
-			this.m20 = mat.m20;
-			this.m01 = mat.m01;
-			this.m11 = mat.m11;
-			this.m21 = mat.m21;
-			this.m02 = mat.m02;
-			this.m12 = mat.m12;
-			this.m22 = mat.m22;
+			m00 = mat.m00;
+			m10 = mat.m10;
+			m20 = mat.m20;
+			m01 = mat.m01;
+			m11 = mat.m11;
+			m21 = mat.m21;
+			m02 = mat.m02;
+			m12 = mat.m12;
+			m22 = mat.m22;
 			return this;
 		}
 
@@ -448,8 +448,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 trn(FPVector2 vector)
 		{
-			this.m02 += vector.x;
-			this.m12 += vector.y;
+			m02 += vector.x;
+			m12 += vector.y;
 			return this;
 		}
 
@@ -459,8 +459,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 trn(FP x, FP y)
 		{
-			this.m02 += x;
-			this.m12 += y;
+			m02 += x;
+			m12 += y;
 			return this;
 		}
 
@@ -469,8 +469,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 trn(FPVector3 vector)
 		{
-			this.m02 += vector.x;
-			this.m12 += vector.y;
+			m02 += vector.x;
+			m12 += vector.y;
 			return this;
 		}
 
@@ -481,10 +481,10 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 translate(FP x, FP y)
 		{
-			var tmp = FPMatrix3x3.default2;
+			var tmp = default2;
 			tmp.m02 = x;
 			tmp.m12 = y;
-			this.mul(tmp);
+			mul(tmp);
 			return this;
 		}
 
@@ -494,10 +494,10 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 translate(FPVector2 translation)
 		{
-			var tmp = FPMatrix3x3.default2;
+			var tmp = default2;
 			tmp.m02 = translation.x;
 			tmp.m12 = translation.y;
-			this.mul(tmp);
+			mul(tmp);
 			return this;
 		}
 
@@ -520,7 +520,7 @@ namespace DG
 			FP cos = FPMath.Cos(radians);
 			FP sin = FPMath.Sin(radians);
 
-			var tmp = FPMatrix3x3.default2;
+			var tmp = default2;
 
 			tmp.m00 = cos;
 			tmp.m10 = sin;
@@ -534,7 +534,7 @@ namespace DG
 			tmp.m12 = 0;
 			// tmp.m22 = 1;
 
-			this.mul(tmp);
+			mul(tmp);
 			return this;
 		}
 
@@ -545,7 +545,7 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 scale(FP scaleX, FP scaleY)
 		{
-			var tmp = FPMatrix3x3.default2;
+			var tmp = default2;
 			tmp.m00 = scaleX;
 			tmp.m10 = 0;
 			// tmp.m20 = 0;
@@ -558,7 +558,7 @@ namespace DG
 			tmp.m12 = 0;
 			// tmp[M22] = 1;
 
-			this.mul(tmp);
+			mul(tmp);
 			return this;
 		}
 
@@ -568,7 +568,7 @@ namespace DG
 		 * @return This matrix for the purpose of chaining. */
 		public FPMatrix3x3 scale(FPVector2 scale)
 		{
-			var tmp = FPMatrix3x3.default2;
+			var tmp = default2;
 
 			tmp.m00 = scale.x;
 			tmp.m10 = 0;
@@ -582,7 +582,7 @@ namespace DG
 			tmp.m12 = 0;
 			// tmp.m22 = 1;
 
-			this.mul(tmp);
+			mul(tmp);
 			return this;
 		}
 
@@ -595,8 +595,8 @@ namespace DG
 
 		public FPVector2 getTranslation(FPVector2 position)
 		{
-			position.x = this.m02;
-			position.y = this.m12;
+			position.x = m02;
+			position.y = m12;
 			return position;
 		}
 
@@ -604,19 +604,19 @@ namespace DG
 		 * @return The provided vector for chaining. */
 		public FPVector2 getScale(FPVector2 scale)
 		{
-			scale.x = FPMath.Sqrt(this.m00 * this.m00 + this.m01 * this.m01);
-			scale.y = FPMath.Sqrt(this.m10 * this.m10 + this.m11 * this.m11);
+			scale.x = FPMath.Sqrt(m00 * m00 + m01 * m01);
+			scale.y = FPMath.Sqrt(m10 * m10 + m11 * m11);
 			return scale;
 		}
 
 		public FP getRotation()
 		{
-			return FPMath.Rad2Deg * FPMath.Atan2(this.m10, this.m00);
+			return FPMath.Rad2Deg * FPMath.Atan2(m10, m00);
 		}
 
 		public FP getRotationRad()
 		{
-			return FPMath.Atan2(this.m10, this.m00);
+			return FPMath.Atan2(m10, m00);
 		}
 
 		/** Scale the matrix in the both the x and y components by the scalar value.
@@ -624,8 +624,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix3x3 scl(FP scale)
 		{
-			this.m00 *= scale;
-			this.m11 *= scale;
+			m00 *= scale;
+			m11 *= scale;
 			return this;
 		}
 
@@ -634,8 +634,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix3x3 scl(FPVector2 scale)
 		{
-			this.m00 *= scale.x;
-			this.m11 *= scale.y;
+			m00 *= scale.x;
+			m11 *= scale.y;
 			return this;
 		}
 
@@ -644,8 +644,8 @@ namespace DG
 		 * @return This matrix for the purpose of chaining methods together. */
 		public FPMatrix3x3 scl(FPVector3 scale)
 		{
-			this.m00 *= scale.x;
-			this.m11 *= scale.y;
+			m00 *= scale.x;
+			m11 *= scale.y;
 			return this;
 		}
 
@@ -654,18 +654,18 @@ namespace DG
 		public FPMatrix3x3 transpose()
 		{
 			// Where MXY you do not have to change MXX
-			FP v01 = this.m10;
-			FP v02 = this.m20;
-			FP v10 = this.m01;
-			FP v12 = this.m21;
-			FP v20 = this.m02;
-			FP v21 = this.m12;
-			this.m01 = v01;
-			this.m02 = v02;
-			this.m10 = v10;
-			this.m12 = v12;
-			this.m20 = v20;
-			this.m21 = v21;
+			FP v01 = m10;
+			FP v02 = m20;
+			FP v10 = m01;
+			FP v12 = m21;
+			FP v20 = m02;
+			FP v21 = m12;
+			m01 = v01;
+			m02 = v02;
+			m10 = v10;
+			m12 = v12;
+			m20 = v20;
+			m21 = v21;
 			return this;
 		}
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public partial class GUIStyleUtil
+	public class GUIStyleUtil
 	{
 		public static GUIStyle Append(GUIStyle guiStyle, Action<GUIStyle> appendCallback)
 		{

@@ -78,26 +78,26 @@ namespace DG
 
 		void _OnSuccess()
 		{
-			this.onSuccessCallback?.Invoke();
+			onSuccessCallback?.Invoke();
 		}
 
 
 		void _OnFail()
 		{
-			this.onFailCallback?.Invoke();
+			onFailCallback?.Invoke();
 		}
 
 
 		void _OnDone()
 		{
-			this.onDoneCallback?.Invoke();
+			onDoneCallback?.Invoke();
 		}
 
 		public void Reset()
 		{
-			this._isSuccess = false;
-			this._isFail = false;
-			this._isDone = false;
+			_isSuccess = false;
+			_isFail = false;
+			_isDone = false;
 
 			onSuccessCallback = null;
 			onFailCallback = null;

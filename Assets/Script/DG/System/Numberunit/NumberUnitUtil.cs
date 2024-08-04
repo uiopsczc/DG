@@ -6,15 +6,15 @@ namespace DG
 {
 	public static class NumberUnitUtil
 	{
-		private const int Max_Integer_Count = 3; // 有单位时最多显示多少为整数
-		private const int Max_Decimals_Count = 1; // 最多显示多少位小数
-		private const int Init_Max_Integer_Count = 3; // 不使用单位时最多显示多少位
+		private const int MAX_INTEGER_COUNT = 3; // 有单位时最多显示多少为整数
+		private const int MAX_DECIMALS_COUNT = 1; // 最多显示多少位小数
+		private const int INIT_MAX_INTEGER_COUNT = 3; // 不使用单位时最多显示多少位
 
 		//根据num和number_unit获取数量
 		public static long GetNumber(float num, string numberUnit = null,
 			Dictionary<string, NumberUnitInfo> numberUnitDict = null)
 		{
-			numberUnitDict = numberUnitDict ?? NumberUnitConst.NumberUnitDict;
+			numberUnitDict ??= NumberUnitConst.NumberUnitDict;
 			var zhiShu = 0; // 指数
 			if (!numberUnit.IsNullOrWhiteSpace())
 			{
@@ -28,7 +28,7 @@ namespace DG
 		//获取zhi_shu指数对应的单位
 		public static string GetNumberUnitInfoByZhiShu(int zhiShu, List<NumberUnitInfo> numberUnitList = null)
 		{
-			numberUnitList = numberUnitList ?? NumberUnitConst.NumberUnitList;
+			numberUnitList ??= NumberUnitConst.NumberUnitList;
 			for (var i = 0; i < numberUnitList.Count; i++)
 			{
 				var numberUnitInfo = numberUnitList[i];
@@ -45,8 +45,7 @@ namespace DG
 		{
 			if (whenShowUnit.HasValue && num >= whenShowUnit)
 			{
-				long whenShowUnitValue = whenShowUnit.Value;
-				int maxDecimalsCountValue = maxDecimalsCount.GetValueOrDefault(NumberUnitUtil.Max_Decimals_Count);
+				int maxDecimalsCountValue = maxDecimalsCount.GetValueOrDefault(MAX_DECIMALS_COUNT);
 				var isFuShu = num < 0; // 是否是负数
 				num = Math.Abs(num);
 				var zhiShu = 0; // 指数
@@ -57,24 +56,24 @@ namespace DG
 					if (getNum < 10)
 						break;
 					getNum = (long)Mathf.Floor(getNum / 10f);
-					zhiShu = zhiShu + 1;
+					zhiShu += 1;
 				}
 
 				float showNum;
 				string showUnit;
-				if ((zhiShu + 1) <= NumberUnitUtil.Init_Max_Integer_Count)
+				if ((zhiShu + 1) <= INIT_MAX_INTEGER_COUNT)
 				{
 					showNum = num;
 					showUnit = StringConst.STRING_EMPTY;
 				}
 				else
 				{
-					var outZhiShu = zhiShu - NumberUnitUtil.Init_Max_Integer_Count;
-					var showWeiShu = outZhiShu % NumberUnitUtil.Max_Integer_Count;
+					var outZhiShu = zhiShu - INIT_MAX_INTEGER_COUNT;
+					var showWeiShu = outZhiShu % MAX_INTEGER_COUNT;
 					showNum = Mathf.Floor(num / (Mathf.Pow(10, (zhiShu - showWeiShu - maxDecimalsCountValue - 1))));
 					showNum = Mathf.Floor((showNum + 5) / 10);
-					showNum = showNum / (Mathf.Pow(10, maxDecimalsCountValue));
-					showUnit = NumberUnitUtil.GetNumberUnitInfoByZhiShu((int)(Mathf.Floor(zhiShu / 3f) * 3),
+					showNum /= (Mathf.Pow(10, maxDecimalsCountValue));
+					showUnit = GetNumberUnitInfoByZhiShu((int)(Mathf.Floor(zhiShu / 3f) * 3),
 						numberUnitList);
 				}
 

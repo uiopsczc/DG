@@ -4,8 +4,8 @@ namespace DG
 {
 	public static class DGLogConst
 	{
-		public static string LogBasePath = Application.persistentDataPath + "/Log/";
-		public static DGLogLevel GUI_Log_Level = DGLogLevel.Error; //正式版本的时候这里改成LogCatType.None
-		public static DGLogLevel Write_Log_Level = DGLogLevel.Error;
+		public static string LOG_BASE_PATH = Application.persistentDataPath + "/Log/";
+		public static EDGLogLevel GUI_LOG_LEVEL = EDGLogLevel.Error; //正式版本的时候这里改成LogCatType.None
+		public static EDGLogLevel WRITE_LOG_LEVEL = EDGLogLevel.Error;
 	}
 }

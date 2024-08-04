@@ -20,7 +20,7 @@ namespace DG
 
 		public bool Remove(TKey key, TValue value)
 		{
-			if (!this.ContainsKey(key))
+			if (!ContainsKey(key))
 				return false;
 			var result = this[key].Remove(value);
 			if (result)
@@ -30,13 +30,13 @@ namespace DG
 
 		public bool Contains(TKey key, TValue value)
 		{
-			return this.ContainsKey(key) && this[key].Contains(value);
+			return ContainsKey(key) && this[key].Contains(value);
 		}
 
 		public void Check(TKey key)
 		{
-			if (this.ContainsKey(key) && this[key].IsNullOrEmpty())
-				this.Remove(key);
+			if (ContainsKey(key) && this[key].IsNullOrEmpty())
+				Remove(key);
 		}
 
 		public void CheckAll()
@@ -52,7 +52,7 @@ namespace DG
 			for (var i = 0; i < toRemoveKeyList.Count; i++)
 			{
 				var toRemoveKey = toRemoveKeyList[i];
-				this.Remove(toRemoveKey);
+				Remove(toRemoveKey);
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace DG
 
 		public void Foreach(TKey key, Action<TValue> action, bool isIgnoreValueNull = true)
 		{
-			if (!this.ContainsKey(key))
+			if (!ContainsKey(key))
 				return;
 			List<TValue> valueList = this[key];
 			if (valueList == null)

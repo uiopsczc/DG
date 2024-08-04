@@ -46,8 +46,7 @@ namespace DG
 		{
 			if (!asset.IsMainAsset())
 				return AssetDatabase.GetAssetPath(asset) + StringConst.STRING_COLON + asset.name;
-			else
-				return AssetDatabase.GetAssetPath(asset);
+			return AssetDatabase.GetAssetPath(asset);
 		}
 
 		public static void CreateAssetAtPath(Object asset, string path)

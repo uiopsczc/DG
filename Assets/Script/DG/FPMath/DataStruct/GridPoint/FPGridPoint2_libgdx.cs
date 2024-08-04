@@ -11,7 +11,7 @@
 
 namespace DG
 {
-	public partial struct FPGridPoint2
+	public struct FPGridPoint2
 	{
 		public int x;
 		public int y;
@@ -32,8 +32,8 @@ namespace DG
 		 * @param point The 2D grid point to make a copy of. */
 		public FPGridPoint2(FPGridPoint2 point)
 		{
-			this.x = point.x;
-			this.y = point.y;
+			x = point.x;
+			y = point.y;
 		}
 
 		/** Sets the coordinates of this 2D grid point to that of another.
@@ -43,8 +43,8 @@ namespace DG
 		 * @return this 2D grid point for chaining. */
 		public FPGridPoint2 set(FPGridPoint2 point)
 		{
-			this.x = point.x;
-			this.y = point.y;
+			x = point.x;
+			y = point.y;
 			return this;
 		}
 
@@ -158,15 +158,15 @@ namespace DG
 		public override bool Equals(object o)
 		{
 			var other = (FPGridPoint2)o;
-			return this.x == other.x && this.y == other.y;
+			return x == other.x && y == other.y;
 		}
 
 		public override int GetHashCode()
 		{
 			int prime = 53;
 			int result = 1;
-			result = prime * result + this.x;
-			result = prime * result + this.y;
+			result = prime * result + x;
+			result = prime * result + y;
 			return result;
 		}
 

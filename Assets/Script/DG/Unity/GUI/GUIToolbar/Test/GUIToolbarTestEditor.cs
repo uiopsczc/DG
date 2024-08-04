@@ -10,7 +10,7 @@ namespace DG
 	{
 		private GUIToolbar _guiToolbar;
 
-		private readonly List<GUIContent> _buttonGUIContentList = new List<GUIContent>()
+		private readonly List<GUIContent> _buttonGUIContentList = new()
 		{
 			"A".ToGUIContent(),
 			"B".ToGUIContent(),

@@ -23,20 +23,20 @@ namespace DG.Tweening
 	public class DOTweenAnimation : ABSAnimationComponent
 	{
 		public bool targetIsSelf = true; // If FALSE allows to set the target manually
-		public GameObject targetGO = null; // Used in case targetIsSelf is FALSE
+		public GameObject targetGO; // Used in case targetIsSelf is FALSE
 										   // If TRUE always uses the GO containing this DOTweenAnimation (and not the one containing the target) as DOTween's SetTarget target
 		public bool tweenTargetIsTargetGO = true;
 
 		public float delay;
 		public float duration = 1;
 		public Ease easeType = Ease.OutQuad;
-		public AnimationCurve easeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
+		public AnimationCurve easeCurve = new(new Keyframe(0, 0), new Keyframe(1, 1));
 		public LoopType loopType = LoopType.Restart;
 		public int loops = 1;
 		public string id = "";
 		public bool isRelative;
 		public bool isFrom;
-		public bool isIndependentUpdate = false;
+		public bool isIndependentUpdate;
 		public bool autoKill = true;
 
 		public bool isActive = true;
@@ -51,9 +51,9 @@ namespace DG.Tweening
 		public float endValueFloat;
 		public Vector3 endValueV3;
 		public Vector2 endValueV2;
-		public Color endValueColor = new Color(1, 1, 1, 1);
+		public Color endValueColor = new(1, 1, 1, 1);
 		public string endValueString = "";
-		public Rect endValueRect = new Rect(0, 0, 0, 0);
+		public Rect endValueRect = new(0, 0, 0, 0);
 		public Transform endValueTransform;
 
 		public bool optionalBool0;
@@ -109,12 +109,12 @@ namespace DG.Tweening
 				if (targetIsSelf && target == null)
 				{
 					// Old error caused during upgrade from DOTween Pro 0.9.255
-					Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target is NULL, because the animation was created with a DOTween Pro version older than 0.9.255. To fix this, exit Play mode then simply select this object, and it will update automatically", this.gameObject.name), this.gameObject);
+					Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target is NULL, because the animation was created with a DOTween Pro version older than 0.9.255. To fix this, exit Play mode then simply select this object, and it will update automatically", gameObject.name), gameObject);
 				}
 				else
 				{
 					// Missing non-self target
-					Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", this.gameObject.name), this.gameObject);
+					Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", gameObject.name), gameObject);
 				}
 				return;
 			}
@@ -136,7 +136,7 @@ namespace DG.Tweening
 						isRelative = false;
 						if (endValueTransform == null)
 						{
-							Debug.LogWarning(string.Format("{0} :: This tween's TO target is NULL, a Vector3 of (0,0,0) will be used instead", this.gameObject.name), this.gameObject);
+							Debug.LogWarning(string.Format("{0} :: This tween's TO target is NULL, a Vector3 of (0,0,0) will be used instead", gameObject.name), gameObject);
 							endValueV3 = Vector3.zero;
 						}
 						else
@@ -147,7 +147,7 @@ namespace DG.Tweening
 								RectTransform endValueT = endValueTransform as RectTransform;
 								if (endValueT == null)
 								{
-									Debug.LogWarning(string.Format("{0} :: This tween's TO target should be a RectTransform, a Vector3 of (0,0,0) will be used instead", this.gameObject.name), this.gameObject);
+									Debug.LogWarning(string.Format("{0} :: This tween's TO target should be a RectTransform, a Vector3 of (0,0,0) will be used instead", gameObject.name), gameObject);
 									endValueV3 = Vector3.zero;
 								}
 								else
@@ -155,7 +155,7 @@ namespace DG.Tweening
 									RectTransform rTarget = target as RectTransform;
 									if (rTarget == null)
 									{
-										Debug.LogWarning(string.Format("{0} :: This tween's target and TO target are not of the same type. Please reassign the values", this.gameObject.name), this.gameObject);
+										Debug.LogWarning(string.Format("{0} :: This tween's target and TO target are not of the same type. Please reassign the values", gameObject.name), gameObject);
 									}
 									else
 									{
@@ -426,7 +426,7 @@ namespace DG.Tweening
 			{
 				tween.SetRelative(isRelative);
 			}
-			GameObject setTarget = targetIsSelf || !tweenTargetIsTargetGO ? this.gameObject : targetGO;
+			GameObject setTarget = targetIsSelf || !tweenTargetIsTargetGO ? gameObject : targetGO;
 			tween.SetTarget(setTarget).SetDelay(delay).SetLoops(loops, loopType).SetAutoKill(autoKill)
 				.OnKill(() => tween = null);
 			if (isSpeedBased) tween.SetSpeedBased();
@@ -480,34 +480,34 @@ namespace DG.Tweening
 
 		public override void DOPlay()
 		{
-			DOTween.Play(this.gameObject);
+			DOTween.Play(gameObject);
 		}
 
 		public override void DOPlayBackwards()
 		{
-			DOTween.PlayBackwards(this.gameObject);
+			DOTween.PlayBackwards(gameObject);
 		}
 
 		public override void DOPlayForward()
 		{
-			DOTween.PlayForward(this.gameObject);
+			DOTween.PlayForward(gameObject);
 		}
 
 		public override void DOPause()
 		{
-			DOTween.Pause(this.gameObject);
+			DOTween.Pause(gameObject);
 		}
 
 		public override void DOTogglePause()
 		{
-			DOTween.TogglePause(this.gameObject);
+			DOTween.TogglePause(gameObject);
 		}
 
 		public override void DORewind()
 		{
 			_playCount = -1;
 			// Rewind using Components order (in case there are multiple animations on the same property)
-			DOTweenAnimation[] anims = this.gameObject.GetComponents<DOTweenAnimation>();
+			DOTweenAnimation[] anims = gameObject.GetComponents<DOTweenAnimation>();
 			for (int i = anims.Length - 1; i > -1; --i)
 			{
 				Tween t = anims[i].tween;
@@ -529,17 +529,17 @@ namespace DG.Tweening
 				if (Debugger.logPriority > 1) Debugger.LogNullTween(tween); return;
 			}
 			if (fromHere && isRelative) ReEvaluateRelativeTween();
-			DOTween.Restart(this.gameObject);
+			DOTween.Restart(gameObject);
 		}
 
 		public override void DOComplete()
 		{
-			DOTween.Complete(this.gameObject);
+			DOTween.Complete(gameObject);
 		}
 
 		public override void DOKill()
 		{
-			DOTween.Kill(this.gameObject);
+			DOTween.Kill(gameObject);
 			tween = null;
 		}
 
@@ -547,7 +547,7 @@ namespace DG.Tweening
 
 		public void DOPlayById(string id)
 		{
-			DOTween.Play(this.gameObject, id);
+			DOTween.Play(gameObject, id);
 		}
 		public void DOPlayAllById(string id)
 		{
@@ -561,7 +561,7 @@ namespace DG.Tweening
 
 		public void DOPlayBackwardsById(string id)
 		{
-			DOTween.PlayBackwards(this.gameObject, id);
+			DOTween.PlayBackwards(gameObject, id);
 		}
 		public void DOPlayBackwardsAllById(string id)
 		{
@@ -570,7 +570,7 @@ namespace DG.Tweening
 
 		public void DOPlayForwardById(string id)
 		{
-			DOTween.PlayForward(this.gameObject, id);
+			DOTween.PlayForward(gameObject, id);
 		}
 		public void DOPlayForwardAllById(string id)
 		{
@@ -579,7 +579,7 @@ namespace DG.Tweening
 
 		public void DOPlayNext()
 		{
-			DOTweenAnimation[] anims = this.GetComponents<DOTweenAnimation>();
+			DOTweenAnimation[] anims = GetComponents<DOTweenAnimation>();
 			while (_playCount < anims.Length - 1)
 			{
 				_playCount++;
@@ -595,7 +595,7 @@ namespace DG.Tweening
 		public void DORewindAndPlayNext()
 		{
 			_playCount = -1;
-			DOTween.Rewind(this.gameObject);
+			DOTween.Rewind(gameObject);
 			DOPlayNext();
 		}
 
@@ -608,7 +608,7 @@ namespace DG.Tweening
 		public void DORestartById(string id)
 		{
 			_playCount = -1;
-			DOTween.Restart(this.gameObject, id);
+			DOTween.Restart(gameObject, id);
 		}
 		public void DORestartAllById(string id)
 		{
@@ -624,7 +624,7 @@ namespace DG.Tweening
 			//            return DOTween.TweensByTarget(this.gameObject);
 
 			List<Tween> result = new List<Tween>();
-			DOTweenAnimation[] anims = this.GetComponents<DOTweenAnimation>();
+			DOTweenAnimation[] anims = GetComponents<DOTweenAnimation>();
 			foreach (DOTweenAnimation anim in anims) result.Add(anim.tween);
 			return result;
 		}
@@ -672,7 +672,7 @@ namespace DG.Tweening
 		// Returns the gameObject whose target component should be animated
 		GameObject GetTweenGO()
 		{
-			return targetIsSelf ? this.gameObject : targetGO;
+			return targetIsSelf ? gameObject : targetGO;
 		}
 
 		// Re-evaluate relative position of path
@@ -681,7 +681,7 @@ namespace DG.Tweening
 			GameObject tweenGO = GetTweenGO();
 			if (tweenGO == null)
 			{
-				Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", this.gameObject.name), this.gameObject);
+				Debug.LogWarning(string.Format("{0} :: This DOTweenAnimation's target/GameObject is unset: the tween will not be created.", gameObject.name), gameObject);
 				return;
 			}
 			if (animationType == DOTweenAnimationType.Move)

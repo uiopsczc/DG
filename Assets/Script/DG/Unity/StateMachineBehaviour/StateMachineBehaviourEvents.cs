@@ -6,7 +6,7 @@ namespace DG
 	public class StateMachineBehaviourEvents : StateMachineBehaviour
 	{
 		[SerializeField]
-		public List<StateMachineBehaviourEventInfo> eventInfoList = new List<StateMachineBehaviourEventInfo>();
+		public List<StateMachineBehaviourEventInfo> eventInfoList = new();
 
 		public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 		{

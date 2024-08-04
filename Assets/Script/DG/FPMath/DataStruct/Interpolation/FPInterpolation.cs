@@ -1,11 +1,11 @@
 /*************************************************************************************
- * √Ë     ˆ:  
- * ¥¥ Ω® ’ﬂ:  czq
- * ¥¥Ω® ±º‰:  2023/5/12
+ * Êèè    Ëø∞:  
+ * Âàõ Âª∫ ËÄÖ:  czq
+ * ÂàõÂª∫Êó∂Èó¥:  2023/5/12
  * ======================================
- * ¿˙ ∑∏¸–¬º«¬º
- * ∞Ê±æ:V          –ﬁ∏ƒ ±º‰:         –ﬁ∏ƒ»À:
- * –ﬁ∏ƒƒ⁄»›:
+ * ÂéÜÂè≤Êõ¥Êñ∞ËÆ∞ÂΩï
+ * ÁâàÊú¨:V          ‰øÆÊîπÊó∂Èó¥:         ‰øÆÊîπ‰∫∫:
+ * ‰øÆÊîπÂÜÖÂÆπ:
  * ======================================
 *************************************************************************************/
 
@@ -27,61 +27,61 @@ namespace DG
 			return start + (end - start) * Apply(a);
 		}
 
-		public static FPInterpolationLinear Linear = new FPInterpolationLinear();
+		public static FPInterpolationLinear Linear = new();
 
 		/** Aka "smoothstep". */
-		public static FPInterpolationSmooth Smooth = new FPInterpolationSmooth();
+		public static FPInterpolationSmooth Smooth = new();
 
-		public static FPInterpolationSmooth2 Smooth2 = new FPInterpolationSmooth2();
+		public static FPInterpolationSmooth2 Smooth2 = new();
 
 		/** By Ken Perlin. */
-		public static FPInterpolationSmoother Smoother = new FPInterpolationSmoother();
+		public static FPInterpolationSmoother Smoother = new();
 		public static FPInterpolationSmoother Fade = Smoother;
 
-		public static FPInterpolationPow Pow2 = new FPInterpolationPow(2);
+		public static FPInterpolationPow Pow2 = new(2);
 
 		/** Slow, then fast. */
-		public static FPInterpolationPowIn Pow2In = new FPInterpolationPowIn(2);
+		public static FPInterpolationPowIn Pow2In = new(2);
 
 		public static FPInterpolationPowIn SlowFast = Pow2In;
 
 		/** Fast, then slow. */
-		public static FPInterpolationPowOut Pow2Out = new FPInterpolationPowOut(2);
+		public static FPInterpolationPowOut Pow2Out = new(2);
 		public static FPInterpolationPowOut FastSlow = Pow2Out;
-		public static FPInterpolationPow2InInverse Pow2InInverse = new FPInterpolationPow2InInverse();
-		public static FPInterpolationPow2OutInverse Pow2OutInverse = new FPInterpolationPow2OutInverse();
+		public static FPInterpolationPow2InInverse Pow2InInverse = new();
+		public static FPInterpolationPow2OutInverse Pow2OutInverse = new();
 
-		public static FPInterpolationPow Pow3 = new FPInterpolationPow(3);
-		public static FPInterpolationPowIn Pow3In = new FPInterpolationPowIn(3);
-		public static FPInterpolationPowOut Pow3Out = new FPInterpolationPowOut(3);
-		public static FPInterpolationPow3InInverse Pow3InInverse = new FPInterpolationPow3InInverse();
-		public static FPInterpolationPow3OutInverse pow3OutInverse = new FPInterpolationPow3OutInverse();
-		public static FPInterpolationPow Pow4 = new FPInterpolationPow(4);
-		public static FPInterpolationPowIn Pow4In = new FPInterpolationPowIn(4);
-		public static FPInterpolationPowOut Pow4Out = new FPInterpolationPowOut(4);
-		public static FPInterpolationPow Pow5 = new FPInterpolationPow(5);
-		public static FPInterpolationPowIn Pow5In = new FPInterpolationPowIn(5);
-		public static FPInterpolationPowOut Pow5Out = new FPInterpolationPowOut(5);
-		public static FPInterpolationSine Sine = new FPInterpolationSine();
-		public static FPInterpolationSineIn SineIn = new FPInterpolationSineIn();
-		public static FPInterpolationSineOut SineOut = new FPInterpolationSineOut();
-		public static FPInterpolationExp Exp10 = new FPInterpolationExp(2, 10);
-		public static FPInterpolationExpIn Exp10In = new FPInterpolationExpIn(2, 10);
-		public static FPInterpolationExpOut Exp10Out = new FPInterpolationExpOut(2, 10);
-		public static FPInterpolationExp Exp5 = new FPInterpolationExp(2, 5);
-		public static FPInterpolationExpIn Exp5In = new FPInterpolationExpIn(2, 5);
-		public static FPInterpolationExpOut Exp5Out = new FPInterpolationExpOut(2, 5);
-		public static FPInterpolationCircle Circle = new FPInterpolationCircle();
-		public static FPInterpolationCircleIn CircleIn = new FPInterpolationCircleIn();
-		public static FPInterpolationCircleOut CircleOut = new FPInterpolationCircleOut();
-		public static FPInterpolationElastic Elastic = new FPInterpolationElastic(2, 10, 7, 1);
-		public static FPInterpolationElasticIn ElasticIn = new FPInterpolationElasticIn(2, 10, 6, 1);
-		public static FPInterpolationElasticOut ElasticOut = new FPInterpolationElasticOut(2, 10, 7, 1);
-		public static FPInterpolationSwing Swing = new FPInterpolationSwing(1.5f);
-		public static FPInterpolationSwingIn SwingIn = new FPInterpolationSwingIn(2f);
-		public static FPInterpolationSwingOut SwingOut = new FPInterpolationSwingOut(2f);
-		public static FPInterpolationBounce Bounce = new FPInterpolationBounce(4);
-		public static FPInterpolationBounceIn BounceIn = new FPInterpolationBounceIn(4);
-		public static FPInterpolationBounceOut BounceOut = new FPInterpolationBounceOut(4);
+		public static FPInterpolationPow Pow3 = new(3);
+		public static FPInterpolationPowIn Pow3In = new(3);
+		public static FPInterpolationPowOut Pow3Out = new(3);
+		public static FPInterpolationPow3InInverse Pow3InInverse = new();
+		public static FPInterpolationPow3OutInverse pow3OutInverse = new();
+		public static FPInterpolationPow Pow4 = new(4);
+		public static FPInterpolationPowIn Pow4In = new(4);
+		public static FPInterpolationPowOut Pow4Out = new(4);
+		public static FPInterpolationPow Pow5 = new(5);
+		public static FPInterpolationPowIn Pow5In = new(5);
+		public static FPInterpolationPowOut Pow5Out = new(5);
+		public static FPInterpolationSine Sine = new();
+		public static FPInterpolationSineIn SineIn = new();
+		public static FPInterpolationSineOut SineOut = new();
+		public static FPInterpolationExp Exp10 = new(2, 10);
+		public static FPInterpolationExpIn Exp10In = new(2, 10);
+		public static FPInterpolationExpOut Exp10Out = new(2, 10);
+		public static FPInterpolationExp Exp5 = new(2, 5);
+		public static FPInterpolationExpIn Exp5In = new(2, 5);
+		public static FPInterpolationExpOut Exp5Out = new(2, 5);
+		public static FPInterpolationCircle Circle = new();
+		public static FPInterpolationCircleIn CircleIn = new();
+		public static FPInterpolationCircleOut CircleOut = new();
+		public static FPInterpolationElastic Elastic = new(2, 10, 7, 1);
+		public static FPInterpolationElasticIn ElasticIn = new(2, 10, 6, 1);
+		public static FPInterpolationElasticOut ElasticOut = new(2, 10, 7, 1);
+		public static FPInterpolationSwing Swing = new(1.5f);
+		public static FPInterpolationSwingIn SwingIn = new(2f);
+		public static FPInterpolationSwingOut SwingOut = new(2f);
+		public static FPInterpolationBounce Bounce = new(4);
+		public static FPInterpolationBounceIn BounceIn = new(4);
+		public static FPInterpolationBounceOut BounceOut = new(4);
 	}
 }

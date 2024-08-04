@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 
 namespace DG
 {
 	public static class ModuleBuilderUtil
 	{
-		private static Dictionary<AssemblyBuilder, ModuleBuilder> _moduleBuilderDict =
-			new Dictionary<AssemblyBuilder, ModuleBuilder>();
+		private static Dictionary<AssemblyBuilder, ModuleBuilder> _moduleBuilderDict = new();
 
 		public static ModuleBuilder GetModuleBuilder(AssemblyBuilder assemblyBuilder = null)
 		{

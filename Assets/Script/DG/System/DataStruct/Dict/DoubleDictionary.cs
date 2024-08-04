@@ -5,7 +5,7 @@ namespace DG
 {
 	public class DoubleDictionary<TKey, TValue> : Dictionary<TKey, TValue>
 	{
-		private readonly Dictionary<TValue, TKey> _valueKeyDict = new Dictionary<TValue, TKey>();
+		private readonly Dictionary<TValue, TKey> _valueKeyDict = new();
 
 		public new TValue this[TKey key]
 		{
@@ -25,7 +25,7 @@ namespace DG
 		public new void Clear()
 		{
 			base.Clear();
-			this._valueKeyDict.Clear();
+			_valueKeyDict.Clear();
 		}
 
 		public bool Remove(TKey key, TValue value)
@@ -35,34 +35,34 @@ namespace DG
 
 		public bool RemoveByKey(TKey key)
 		{
-			return this.Remove(key, this[key]);
+			return Remove(key, this[key]);
 		}
 
 		public bool RemoveByValue(TValue value)
 		{
-			return this.Remove(this._valueKeyDict[value], value);
+			return Remove(_valueKeyDict[value], value);
 		}
 
 		public bool Contains(TKey key, TValue value)
 		{
-			return this.ContainsKey(key) && this._valueKeyDict.ContainsKey(value);
+			return ContainsKey(key) && _valueKeyDict.ContainsKey(value);
 		}
 		public new bool ContainsValue(TValue value)
 		{
-			return this._valueKeyDict.ContainsKey(value);
+			return _valueKeyDict.ContainsKey(value);
 		}
 
 
 		public void ForeachKeyValue(Action<TKey, TValue> action)
 		{
-			foreach (var key in this.Keys)
+			foreach (var key in Keys)
 				action(key, this[key]);
 		}
 
 		public void ForeachValueKey(Action<TValue, TKey> action)
 		{
-			foreach (var key in this._valueKeyDict.Keys)
-				action(key, this._valueKeyDict[key]);
+			foreach (var key in _valueKeyDict.Keys)
+				action(key, _valueKeyDict[key]);
 		}
 
 		public TValue GetValueByKey(TKey key)
@@ -72,7 +72,7 @@ namespace DG
 
 		public TKey GetKeyByValue(TValue value)
 		{
-			return this._valueKeyDict[value];
+			return _valueKeyDict[value];
 		}
 	}
 }

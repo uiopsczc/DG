@@ -9,7 +9,7 @@ namespace DG
 
 		public DataInputStream(InputStream inputStream)
 		{
-			this._inputStream = inputStream;
+			_inputStream = inputStream;
 		}
 
 

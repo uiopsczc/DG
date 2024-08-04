@@ -50,8 +50,8 @@ namespace DG
 
 		public DGGenericMenuItemAttribute(string itemName, bool isValidate, int priority)
 		{
-			this.names = itemName.Split("/");
-			this.rootName = names[0];
+			names = itemName.Split("/");
+			rootName = names[0];
 			this.itemName = itemName;
 			this.isValidate = isValidate;
 			this.priority = priority;
@@ -59,8 +59,8 @@ namespace DG
 
 		public DGGenericMenuItemAttribute(string itemName, bool isValidate, int priority, object source)
 		{
-			this.names = itemName.Split("/");
-			this.rootName = names[0];
+			names = itemName.Split("/");
+			rootName = names[0];
 			this.isValidate = isValidate;
 			this.priority = priority;
 		}

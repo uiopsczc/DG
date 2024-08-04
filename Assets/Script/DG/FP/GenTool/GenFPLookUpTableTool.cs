@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  ³­×Ôhttps://github.com/asik/FixedMath.Net£¬ÀïÃæ»¹ÓÐfix16£¬fix8µÄÊµÏÖ
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/8
+ * æ    è¿°:  æŠ„è‡ªhttps://github.com/asik/FixedMath.Netï¼Œé‡Œé¢è¿˜æœ‰fix16ï¼Œfix8çš„å®žçŽ°
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/8
  * ======================================
- * ÀúÊ·¸üÐÂ¼ÇÂ¼
- * °æ±¾:V          ÐÞ¸ÄÊ±¼ä:         ÐÞ¸ÄÈË:
- * ÐÞ¸ÄÄÚÈÝ:
+ * åŽ†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 using System.IO;
@@ -37,7 +37,7 @@ namespace DG
 
 					FP sin = Math.Sin(angle);
 					var scaledValue = sin.scaledValue;
-					writer.Write(string.Format("0x{0:X}L, ", scaledValue));
+					writer.Write("0x{0:X}L, ", scaledValue);
 				}
 
 				writer.Write(
@@ -68,12 +68,12 @@ namespace DG
 
 					var tan = Math.Tan(angle);
 					if (tan > (double)FP.MAX_VALUE || tan < 0.0)
-						tan = (double)FP.MAX_VALUE;
+						tan = FP.MAX_VALUE;
 					FP scaledValue = (((decimal)tan > (decimal)FP.MAX_VALUE || tan < 0.0)
 							? FP.MAX_VALUE
 							: (FP)tan)
 						.scaledValue;
-					writer.Write(string.Format("0x{0:X}L, ", scaledValue));
+					writer.Write("0x{0:X}L, ", scaledValue);
 				}
 
 				writer.Write(

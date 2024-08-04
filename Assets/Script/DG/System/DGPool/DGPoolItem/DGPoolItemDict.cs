@@ -8,12 +8,12 @@ namespace DG
 		private readonly Dictionary<T, DGPoolItemIndex<T>> _poolItemIndexDict = new();
 		public DGPoolItemDict(DGPool<T> pool)
 		{
-			this._pool = pool;
+			_pool = pool;
 		}
 
 		public T Get()
 		{
-			var (poolItem, poolItemIndex) = this._pool.Spawn(null);
+			var (poolItem, poolItemIndex) = _pool.Spawn(null);
 			var value = poolItem.GetValue();
 			_poolItemIndexDict[value] = poolItemIndex;
 			return value;

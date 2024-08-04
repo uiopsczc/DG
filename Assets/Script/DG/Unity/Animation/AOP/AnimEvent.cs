@@ -12,13 +12,12 @@ namespace DG
 		/// <summary>
 		///   每个切片上的所有事件(key:该Animator上的ClipName)
 		/// </summary>
-		private readonly Dictionary<string, List<string>> _clipEventDict = new Dictionary<string, List<string>>();
+		private readonly Dictionary<string, List<string>> _clipEventDict = new();
 
 		/// <summary>
 		///   每个事件对应回调(key:clipName + percentage)
 		/// </summary>
-		private readonly Dictionary<string, List<DelegateStruct>> _eventCallbackDict =
-			new Dictionary<string, List<DelegateStruct>>();
+		private readonly Dictionary<string, List<DelegateStruct>> _eventCallbackDict = new();
 
 
 		private Animator _animator => GetComponent<Animator>();
@@ -98,8 +97,8 @@ namespace DG
 			params object[] callbackArgs)
 		{
 			var eventKey = GetEventKey(clipName, percentage);
-			if (_eventCallbackDict.ContainsKey(eventKey))
-				_eventCallbackDict[eventKey].Clear(); //确保只有一个
+			if (_eventCallbackDict.TryGetValue(eventKey, out var value))
+				value.Clear(); //确保只有一个
 			return AddEvents(callback, clipName, percentage, callbackArgs);
 		}
 

@@ -20,7 +20,7 @@ namespace DG
 
 		public Transform GetTransform()
 		{
-			return !socketName.IsNullOrWhiteSpace() ? this.transform.GetSocketTransform(socketName) : this.transform;
+			return !socketName.IsNullOrWhiteSpace() ? transform.GetSocketTransform(socketName) : transform;
 		}
 
 		public void SetSocketName(string socketName)
@@ -30,7 +30,7 @@ namespace DG
 
 		public bool IsValid()
 		{
-			return this.GetTransform() != null;
+			return GetTransform() != null;
 		}
 	}
 }

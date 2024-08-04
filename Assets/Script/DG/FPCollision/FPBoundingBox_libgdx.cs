@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/16
  * ======================================
@@ -7,15 +7,15 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System.Collections.Generic;
 
 namespace DG
 {
-	public partial class FPBoundingBox
+	public class FPBoundingBox
 	{
-		private static FPVector3 tmpVector = new FPVector3();
+		private static FPVector3 tmpVector;
 
 		/** Minimum vector. All XYZ components should be inferior to corresponding {@link #max} components. Call {@link #update()} if
 		 * you manually change this vector. */
@@ -212,7 +212,7 @@ namespace DG
 		/** Constructs a new bounding box with the minimum and maximum vector set to zeros. */
 		public FPBoundingBox()
 		{
-			this.clr();
+			clr();
 		}
 
 		/** Constructs a new bounding box from the given bounding box.
@@ -220,7 +220,7 @@ namespace DG
 		 * @param bounds The bounding box to copy */
 		public FPBoundingBox(FPBoundingBox bounds)
 		{
-			this.set(bounds);
+			set(bounds);
 		}
 
 		/** Constructs the new bounding box using the given minimum and maximum vector.
@@ -238,7 +238,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox set(FPBoundingBox bounds)
 		{
-			return this.set(bounds.min, bounds.max);
+			return set(bounds.min, bounds.max);
 		}
 
 		/** Sets the given minimum and maximum vector.
@@ -269,11 +269,11 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox set(FPVector3[] points)
 		{
-			this.inf();
+			inf();
 			for (int i = 0; i < points.Length; i++)
 			{
 				var l_point = points[i];
-				this.ext(l_point);
+				ext(l_point);
 			}
 
 			return this;
@@ -285,11 +285,11 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox set(List<FPVector3> points)
 		{
-			this.inf();
+			inf();
 			for (int i = 0; i < points.Count; i++)
 			{
 				var l_point = points[i];
-				this.ext(l_point);
+				ext(l_point);
 			}
 
 			return this;
@@ -312,7 +312,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox ext(FPVector3 point)
 		{
-			return this.set(min.set(FPMath.Min(min.x, point.x), FPMath.Min(min.y, point.y), FPMath.Min(min.z, point.z)),
+			return set(min.set(FPMath.Min(min.x, point.x), FPMath.Min(min.y, point.y), FPMath.Min(min.z, point.z)),
 				max.set(FPMath.Max(max.x, point.x), FPMath.Max(max.y, point.y), FPMath.Max(max.z, point.z)));
 		}
 
@@ -320,7 +320,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox clr()
 		{
-			return this.set(min.set(0, 0, 0),
+			return set(min.set(0, 0, 0),
 				max.set(0, 0, 0));
 		}
 
@@ -337,7 +337,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox ext(FPBoundingBox a_bounds)
 		{
-			return this.set(min.set(FPMath.Min(min.x, a_bounds.min.x), FPMath.Min(min.y, a_bounds.min.y), FPMath.Min(min.z, a_bounds.min.z)),
+			return set(min.set(FPMath.Min(min.x, a_bounds.min.x), FPMath.Min(min.y, a_bounds.min.y), FPMath.Min(min.z, a_bounds.min.z)),
 				max.set(FPMath.Max(max.x, a_bounds.max.x), FPMath.Max(max.y, a_bounds.max.y), FPMath.Max(max.z, a_bounds.max.z)));
 		}
 
@@ -348,7 +348,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox ext(FPVector3 center, FP radius)
 		{
-			return this.set(
+			return set(
 				min.set(FPMath.Min(min.x, center.x - radius), FPMath.Min(min.y, center.y - radius), FPMath.Min(min.z, center.z - radius)),
 				max.set(FPMath.Max(max.x, center.x + radius), FPMath.Max(max.y, center.y + radius), FPMath.Max(max.z, center.z + radius)));
 		}
@@ -424,14 +424,14 @@ namespace DG
 
 			// test using SAT (separating axis theorem)
 
-			FP lx = FPMath.Abs(this.cnt.x - b.cnt.x);
-			FP sumx = (this.dim.x / 2.0f) + (b.dim.x / 2.0f);
+			FP lx = FPMath.Abs(cnt.x - b.cnt.x);
+			FP sumx = (dim.x / 2.0f) + (b.dim.x / 2.0f);
 
-			FP ly = FPMath.Abs(this.cnt.y - b.cnt.y);
-			FP sumy = (this.dim.y / 2.0f) + (b.dim.y / 2.0f);
+			FP ly = FPMath.Abs(cnt.y - b.cnt.y);
+			FP sumy = (dim.y / 2.0f) + (b.dim.y / 2.0f);
 
-			FP lz = FPMath.Abs(this.cnt.z - b.cnt.z);
-			FP sumz = (this.dim.z / 2.0f) + (b.dim.z / 2.0f);
+			FP lz = FPMath.Abs(cnt.z - b.cnt.z);
+			FP sumz = (dim.z / 2.0f) + (b.dim.z / 2.0f);
 
 			return (lx <= sumx && ly <= sumy && lz <= sumz);
 		}
@@ -457,7 +457,7 @@ namespace DG
 		 * @return This bounding box for chaining. */
 		public FPBoundingBox ext(FP x, FP y, FP z)
 		{
-			return this.set(min.set(FPMath.Min(min.x, x), FPMath.Min(min.y, y), FPMath.Min(min.z, z)),
+			return set(min.set(FPMath.Min(min.x, x), FPMath.Min(min.y, y), FPMath.Min(min.z, z)),
 				max.set(FPMath.Max(max.x, x), FPMath.Max(max.y, y), FPMath.Max(max.z, z)));
 		}
 	}

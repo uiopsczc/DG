@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -31,7 +31,7 @@ namespace DG
 #endif
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Equals ToString
+		* æ¨¡å—æè¿°:Equals ToString
 		*************************************************************************************/
 		public override bool Equals(object obj)
 		{
@@ -50,13 +50,13 @@ namespace DG
 		{
 			int prime = 73;
 			int result = 1;
-			result = prime * result + this.direction.GetHashCode();
-			result = prime * result + this.origin.GetHashCode();
+			result = prime * result + direction.GetHashCode();
+			result = prime * result + origin.GetHashCode();
 			return result;
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Member Util
+		* æ¨¡å—æè¿°:Member Util
 		*************************************************************************************/
 		/// <summary>
 		///   <para>Returns a point at distance units along the ray.</para>
@@ -64,7 +64,7 @@ namespace DG
 		/// <param name="distance"></param>
 		public FPVector3 GetPoint(FP distance)
 		{
-			return this.origin + this.direction * distance;
+			return origin + direction * distance;
 		}
 	}
 }

@@ -3,13 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using DG.DemiEditor;
 using DG.DOTweenEditor.Core;
 using DG.DOTweenEditor.UI;
 using DG.Tweening;
 using DG.Tweening.Core;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 #if true // UI_MARKER
 using UnityEngine.UI;
@@ -35,7 +35,7 @@ namespace DG.DOTweenEditor
       BetweenCanvasGroupAndImage
     }
 
-    static readonly Dictionary<DOTweenAnimationType, Type[]> _AnimationTypeToComponent = new Dictionary<DOTweenAnimationType, Type[]>() {
+    static readonly Dictionary<DOTweenAnimationType, Type[]> _AnimationTypeToComponent = new() {
             { DOTweenAnimationType.Move, new[] {
 #if true // PHYSICS_MARKER
                 typeof(Rigidbody),
@@ -126,7 +126,7 @@ namespace DG.DOTweenEditor
         };
 #endif
 
-    static readonly string[] _AnimationType = new[] {
+    static readonly string[] _AnimationType = {
             "None",
             "Move", "LocalMove",
             "Rotate", "LocalRotate",
@@ -160,16 +160,16 @@ namespace DG.DOTweenEditor
     ChooseTargetMode _chooseTargetMode = ChooseTargetMode.None;
 #pragma warning restore 414
 
-    static readonly GUIContent _GuiC_selfTarget_true = new GUIContent(
+    static readonly GUIContent _GuiC_selfTarget_true = new(
         "SELF", "Will animate components on this gameObject"
     );
-    static readonly GUIContent _GuiC_selfTarget_false = new GUIContent(
+    static readonly GUIContent _GuiC_selfTarget_false = new(
         "OTHER", "Will animate components on the given gameObject instead than on this one"
     );
-    static readonly GUIContent _GuiC_tweenTargetIsTargetGO_true = new GUIContent(
+    static readonly GUIContent _GuiC_tweenTargetIsTargetGO_true = new(
         "Use As Tween Target", "Will set the tween target (via SetTarget, used to control a tween directly from a target) to the \"OTHER\" gameObject"
     );
-    static readonly GUIContent _GuiC_tweenTargetIsTargetGO_false = new GUIContent(
+    static readonly GUIContent _GuiC_tweenTargetIsTargetGO_false = new(
         "Use As Tween Target", "Will set the tween target (via SetTarget, used to control a tween directly from a target) to the gameObject containing this animation, not the \"OTHER\" one"
     );
 
@@ -179,13 +179,13 @@ namespace DG.DOTweenEditor
     {
       _src = target as DOTweenAnimation;
 
-      onStartProperty = base.serializedObject.FindProperty("onStart");
-      onPlayProperty = base.serializedObject.FindProperty("onPlay");
-      onUpdateProperty = base.serializedObject.FindProperty("onUpdate");
-      onStepCompleteProperty = base.serializedObject.FindProperty("onStepComplete");
-      onCompleteProperty = base.serializedObject.FindProperty("onComplete");
-      onRewindProperty = base.serializedObject.FindProperty("onRewind");
-      onTweenCreatedProperty = base.serializedObject.FindProperty("onTweenCreated");
+      onStartProperty = serializedObject.FindProperty("onStart");
+      onPlayProperty = serializedObject.FindProperty("onPlay");
+      onUpdateProperty = serializedObject.FindProperty("onUpdate");
+      onStepCompleteProperty = serializedObject.FindProperty("onStepComplete");
+      onCompleteProperty = serializedObject.FindProperty("onComplete");
+      onRewindProperty = serializedObject.FindProperty("onRewind");
+      onTweenCreatedProperty = serializedObject.FindProperty("onTweenCreated");
 
       // Convert _AnimationType to _animationTypeNoSlashes
       int len = _AnimationType.Length;
@@ -215,11 +215,11 @@ namespace DG.DOTweenEditor
 
       GUILayout.BeginHorizontal();
       EditorGUIUtils.InspectorLogo();
-      GUILayout.Label(_src.animationType.ToString() + (string.IsNullOrEmpty(_src.id) ? "" : " [" + _src.id + "]"), EditorGUIUtils.sideLogoIconBoldLabelStyle);
+      GUILayout.Label(_src.animationType + (string.IsNullOrEmpty(_src.id) ? "" : " [" + _src.id + "]"), EditorGUIUtils.sideLogoIconBoldLabelStyle);
       // Up-down buttons
       GUILayout.FlexibleSpace();
-      if (GUILayout.Button("▲", DeGUI.styles.button.toolIco)) UnityEditorInternal.ComponentUtility.MoveComponentUp(_src);
-      if (GUILayout.Button("▼", DeGUI.styles.button.toolIco)) UnityEditorInternal.ComponentUtility.MoveComponentDown(_src);
+      if (GUILayout.Button("▲", DeGUI.styles.button.toolIco)) ComponentUtility.MoveComponentUp(_src);
+      if (GUILayout.Button("▼", DeGUI.styles.button.toolIco)) ComponentUtility.MoveComponentDown(_src);
       GUILayout.EndHorizontal();
 
       if (playMode)
@@ -629,9 +629,9 @@ namespace DG.DOTweenEditor
             }
 #endif
       // Then check for regular stuff
-      if (_AnimationTypeToComponent.ContainsKey(_src.animationType))
+      if (_AnimationTypeToComponent.TryGetValue(_src.animationType, out var value))
       {
-        foreach (Type t in _AnimationTypeToComponent[_src.animationType])
+        foreach (Type t in value)
         {
           srcTarget = targetGO.GetComponent(t);
           if (srcTarget != null)

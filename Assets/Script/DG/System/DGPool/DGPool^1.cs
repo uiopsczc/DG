@@ -17,42 +17,42 @@ namespace DG
 
 		public DGPool(string poolName)
 		{
-			this._poolName = poolName;
+			_poolName = poolName;
 		}
 
 		public DGPool(string poolName, Func<T> spawnFunc)
 		{
-			this._poolName = poolName;
-			this._spawnFunc = spawnFunc;
+			_poolName = poolName;
+			_spawnFunc = spawnFunc;
 		}
 
 		public string GetPoolName()
 		{
-			return this._poolName;
+			return _poolName;
 		}
 
 		public void SetPoolManager(DGPoolManager poolManager)
 		{
-			this._poolManager = poolManager;
+			_poolManager = poolManager;
 		}
 
 		public DGPoolManager GetPoolManager()
 		{
-			return this._poolManager;
+			return _poolManager;
 		}
 
 		public void InitPool(int initCount = 1, Action<T> onSpawnCallback = null)
 		{
 			for (int i = 0; i < initCount; i++)
 			{
-				var (poolItem, poolItemIndex) = Spawn(onSpawnCallback);
+				var (poolItem, _) = Spawn(onSpawnCallback);
 				DeSpawn(poolItem);
 			}
 		}
 
 		public DGPoolItem<T> GetPoolItemAtIndex(int index)
 		{
-			return this._poolItemList[index];
+			return _poolItemList[index];
 		}
 	}
 }

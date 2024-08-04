@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using Luban;
 using SimpleJSON;
 
-
 namespace cfg.item
 {
-public partial class TbItem
+public class TbItem
 {
-    private readonly System.Collections.Generic.Dictionary<int, Item> _dataMap;
-    private readonly System.Collections.Generic.List<Item> _dataList;
+    private readonly Dictionary<int, Item> _dataMap;
+    private readonly List<Item> _dataList;
     
     public TbItem(JSONNode _buf)
     {
-        _dataMap = new System.Collections.Generic.Dictionary<int, Item>();
-        _dataList = new System.Collections.Generic.List<Item>();
+        _dataMap = new Dictionary<int, Item>();
+        _dataList = new List<Item>();
         
         foreach(JSONNode _ele in _buf.Children)
         {
@@ -32,8 +32,8 @@ public partial class TbItem
         }
     }
 
-    public System.Collections.Generic.Dictionary<int, Item> DataMap => _dataMap;
-    public System.Collections.Generic.List<Item> DataList => _dataList;
+    public Dictionary<int, Item> DataMap => _dataMap;
+    public List<Item> DataList => _dataList;
 
     public Item GetOrDefault(int key) => _dataMap.TryGetValue(key, out var v) ? v : null;
     public Item Get(int key) => _dataMap[key];

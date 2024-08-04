@@ -21,7 +21,7 @@ namespace DG
 		/// <param name="compareType">返回差别的类型（年，月，日，时，分，秒）</param>
 		/// <param name="isIngroed">是否忽略非比较类型部分</param>
 		/// <returns></returns>
-		public static float Diff(DateTime dateTime1, DateTime dateTime2, DateTimeType compareType,
+		public static float Diff(DateTime dateTime1, DateTime dateTime2, EDateTimeType compareType,
 			bool isIgnoredNotCompareType = true)
 		{
 			if (isIgnoredNotCompareType)
@@ -30,23 +30,23 @@ namespace DG
 				TimeSpan timeSpan2;
 				switch (compareType)
 				{
-					case DateTimeType.Year:
+					case EDateTimeType.Year:
 						return dateTime1.Year - dateTime2.Year;
-					case DateTimeType.Month:
+					case EDateTimeType.Month:
 						return dateTime1.Month - dateTime2.Month + (dateTime1.Year - dateTime2.Year) * 12;
-					case DateTimeType.Day:
+					case EDateTimeType.Day:
 						timeSpan1 = new TimeSpan(dateTime1.GetTime().Ticks);
 						timeSpan2 = new TimeSpan(dateTime2.GetTime().Ticks);
 						return (float) timeSpan1.Subtract(timeSpan2).TotalDays;
-					case DateTimeType.Hour:
+					case EDateTimeType.Hour:
 						timeSpan1 = new TimeSpan(dateTime1.GetTime(dateTime1.Hour).Ticks);
 						timeSpan2 = new TimeSpan(dateTime2.GetTime(dateTime2.Hour).Ticks);
 						return (float) timeSpan1.Subtract(timeSpan2).TotalHours;
-					case DateTimeType.Minute:
+					case EDateTimeType.Minute:
 						timeSpan1 = new TimeSpan(dateTime1.GetTime(dateTime1.Hour, dateTime1.Minute).Ticks);
 						timeSpan2 = new TimeSpan(dateTime2.GetTime(dateTime2.Hour, dateTime1.Minute).Ticks);
 						return (float) timeSpan1.Subtract(timeSpan2).TotalMinutes;
-					case DateTimeType.Second:
+					case EDateTimeType.Second:
 						timeSpan1 = new TimeSpan(dateTime1.Ticks);
 						timeSpan2 = new TimeSpan(dateTime2.Ticks);
 						return (float) timeSpan1.Subtract(timeSpan2).TotalSeconds;
@@ -58,17 +58,17 @@ namespace DG
 				TimeSpan timeSpan2 = new TimeSpan(dateTime2.Ticks);
 				switch (compareType)
 				{
-					case DateTimeType.Year:
+					case EDateTimeType.Year:
 						throw new Exception("不支持年比较");
-					case DateTimeType.Month:
+					case EDateTimeType.Month:
 						throw new Exception("不支持月比较");
-					case DateTimeType.Day:
+					case EDateTimeType.Day:
 						return (float) timeSpan1.Subtract(timeSpan2).TotalDays;
-					case DateTimeType.Hour:
+					case EDateTimeType.Hour:
 						return (float) timeSpan1.Subtract(timeSpan2).TotalHours;
-					case DateTimeType.Minute:
+					case EDateTimeType.Minute:
 						return (float) timeSpan1.Subtract(timeSpan2).TotalMinutes;
-					case DateTimeType.Second:
+					case EDateTimeType.Second:
 						return (float) timeSpan1.Subtract(timeSpan2).TotalSeconds;
 				}
 			}
@@ -189,7 +189,7 @@ namespace DG
 		/// <returns></returns>
 		public static long AddDay(int addDays)
 		{
-			return AddDay(DateTimeUtil.NowDateTime(), addDays);
+			return AddDay(NowDateTime(), addDays);
 		}
 
 		/// <summary>
@@ -249,7 +249,7 @@ namespace DG
 		/// <param name="pattern"></param>
 		/// <param name="defaultValue"></param>
 		/// <returns></returns>
-		public static DateTime ParseDateTime(string s, string pattern, DateTime defaultValue)
+		public static DateTime ParseDateTime(string s, string pattern = null, DateTime defaultValue = default)
 		{
 			try
 			{
@@ -275,7 +275,7 @@ namespace DG
 		/// <returns></returns>
 		public static DateTime ParseDateTime(string s, string pattern)
 		{
-			return ParseDateTime(s, pattern, new DateTime());
+			return ParseDateTime(s, pattern, defaultValue: new DateTime());
 		}
 
 		/// <summary>
@@ -286,17 +286,7 @@ namespace DG
 		/// <returns></returns>
 		public static DateTime ParseDateTime(string s, DateTime defaultValue)
 		{
-			return ParseDateTime(s, null, defaultValue);
-		}
-
-		/// <summary>
-		/// 将s转换为DateTime，转换失败时返回当前时间
-		/// </summary>
-		/// <param name="s"></param>
-		/// <returns></returns>
-		public static DateTime ParseDateTime(string s)
-		{
-			return ParseDateTime(s, null, new DateTime());
+			return ParseDateTime(s, null, defaultValue: defaultValue);
 		}
 
 		/// <summary>
@@ -315,7 +305,7 @@ namespace DG
 		/// <returns></returns>
 		public static bool IsFirstDayOfMonth()
 		{
-			return IsFirstDayOfMonth(DateTimeUtil.NowDateTime());
+			return IsFirstDayOfMonth(NowDateTime());
 		}
 
 		/// <summary>
@@ -336,7 +326,7 @@ namespace DG
 		/// <returns></returns>
 		public static bool IsLastDayOfMonth()
 		{
-			return IsLastDayOfMonth(DateTimeUtil.NowDateTime());
+			return IsLastDayOfMonth(NowDateTime());
 		}
 
 		/// <summary>

@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -22,10 +22,10 @@ namespace DG
 		 * @param ellipse Ellipse to construct a copy of. */
 		public FPEllipse(FPEllipse ellipse)
 		{
-			this.x = ellipse.x;
-			this.y = ellipse.y;
-			this.width = ellipse.width;
-			this.height = ellipse.height;
+			x = ellipse.x;
+			y = ellipse.y;
+			width = ellipse.width;
+			height = ellipse.height;
 		}
 
 		/** Constructs a new ellipse
@@ -49,18 +49,18 @@ namespace DG
 		 * @param height the height of the ellipse */
 		public FPEllipse(FPVector2 position, FP width, FP height)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 			this.width = width;
 			this.height = height;
 		}
 
 		public FPEllipse(FPVector2 position, FPVector2 size)
 		{
-			this.x = position.x;
-			this.y = position.y;
-			this.width = size.x;
-			this.height = size.y;
+			x = position.x;
+			y = position.y;
+			width = size.x;
+			height = size.y;
 		}
 
 		/** Constructs a new {@link Ellipse} from the position and radius of a {@link Circle} (since circles are special cases of
@@ -68,10 +68,10 @@ namespace DG
 		 * @param circle The circle to take the values of */
 		public FPEllipse(FPCircle circle)
 		{
-			this.x = circle.x;
-			this.y = circle.y;
-			this.width = circle.radius * 2f;
-			this.height = circle.radius * 2f;
+			x = circle.x;
+			y = circle.y;
+			width = circle.radius * 2f;
+			height = circle.radius * 2f;
 		}
 
 		/** Checks whether or not this ellipse contains the given point.
@@ -82,8 +82,8 @@ namespace DG
 		 * @return true if this ellipse contains the given point; false otherwise. */
 		public bool contains(FP x, FP y)
 		{
-			x = x - this.x;
-			y = y - this.y;
+			x -= this.x;
+			y -= this.y;
 
 			return (x * x) / (width * 0.5f * width * 0.5f) +
 				   (y * y) / (height * 0.5f * height * 0.5f) <= 1.0f;
@@ -126,18 +126,18 @@ namespace DG
 
 		public void set(FPCircle circle)
 		{
-			this.x = circle.x;
-			this.y = circle.y;
-			this.width = circle.radius * 2f;
-			this.height = circle.radius * 2f;
+			x = circle.x;
+			y = circle.y;
+			width = circle.radius * 2f;
+			height = circle.radius * 2f;
 		}
 
 		public void set(FPVector2 position, FPVector2 size)
 		{
-			this.x = position.x;
-			this.y = position.y;
-			this.width = size.x;
-			this.height = size.y;
+			x = position.x;
+			y = position.y;
+			width = size.x;
+			height = size.y;
 		}
 
 		/** Sets the x and y-coordinates of ellipse center from a {@link Vector2}.
@@ -145,8 +145,8 @@ namespace DG
 		 * @return this ellipse for chaining */
 		public FPEllipse setPosition(FPVector2 position)
 		{
-			this.x = position.x;
-			this.y = position.y;
+			x = position.x;
+			y = position.y;
 
 			return this;
 		}
@@ -178,7 +178,7 @@ namespace DG
 		/** @return The area of this {@link Ellipse} as {@link MathUtils#PI} * {@link Ellipse#width} * {@link Ellipse#height} */
 		public FP area()
 		{
-			return FPMath.PI * (this.width * this.height) / 4;
+			return FPMath.PI * (width * height) / 4;
 		}
 
 		/** Approximates the circumference of this {@link Ellipse}. Oddly enough, the circumference of an ellipse is actually difficult
@@ -187,8 +187,8 @@ namespace DG
 		 *         the other, else the simpler approximation */
 		public FP circumference()
 		{
-			FP a = this.width / 2;
-			FP b = this.height / 2;
+			FP a = width / 2;
+			FP b = height / 2;
 			if (a * 3 > b || b * 3 > a)
 			{
 				// If one dimension is three times as long as the other...
@@ -216,10 +216,10 @@ namespace DG
 		{
 			int prime = 53;
 			int result = 1;
-			result = prime * result + this.x.GetHashCode();
-			result = prime * result + this.y.GetHashCode();
-			result = prime * result + this.width.GetHashCode();
-			result = prime * result + this.height.GetHashCode();
+			result = prime * result + x.GetHashCode();
+			result = prime * result + y.GetHashCode();
+			result = prime * result + width.GetHashCode();
+			result = prime * result + height.GetHashCode();
 			return result;
 		}
 	}

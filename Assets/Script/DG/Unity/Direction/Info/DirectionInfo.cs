@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public class DirectionInfo
+	public struct DirectionInfo
 	{
 		public int x;
 		public int y;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Random = System.Random;
 
@@ -9,16 +8,12 @@ namespace DG
 	{
 		private int _seed;
 
-		private Random _randomObj = new Random(
+		private Random _randomObj = new(
 			(int)DateTimeUtil.NowTicks());
-
-		public RandomManager()
-		{
-		}
 
 		public void SetSeed(int seed)
 		{
-			this._seed = seed;
+			_seed = seed;
 			_randomObj = new Random(seed);
 		}
 
@@ -56,7 +51,7 @@ namespace DG
 		/// </summary>
 		public long RandomLong()
 		{
-			return _randomObj.RandomLong(DigitSign.Positive);
+			return _randomObj.RandomLong(EDigitSign.Positive);
 		}
 
 

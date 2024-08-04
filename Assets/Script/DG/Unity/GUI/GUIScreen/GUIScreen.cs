@@ -1,5 +1,4 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 
 namespace DG
@@ -37,7 +36,7 @@ namespace DG
 
 		void Awake()
 		{
-			DontDestroyOnLoad(this.gameObject);
+			DontDestroyOnLoad(gameObject);
 		}
 	}
 }

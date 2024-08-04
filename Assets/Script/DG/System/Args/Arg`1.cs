@@ -19,17 +19,17 @@ namespace DG
 
 		public void Init(params T[] args)
 		{
-			this._args = args;
+			_args = args;
 		}
 
 		public void Init(T args0, params T[] args)
 		{
 			int offset = 1;
-			T[] _args = new T[args?.Length + offset ?? 0];
-			_args[0] = args0;
+			T[] result = new T[args?.Length + offset ?? 0];
+			result[0] = args0;
 			if (args != null)
-				Array.Copy(args, 0, _args, 1, args.Length);
-			this._args = _args;
+				Array.Copy(args, 0, result, 1, args.Length);
+			_args = result;
 		}
 
 		public override bool Equals(object obj)
@@ -47,7 +47,7 @@ namespace DG
 		public override string ToString()
 		{
 			var result = new StringBuilder("(");
-			if (this._args == null)
+			if (_args == null)
 			{
 				result.Append(")");
 				return result.ToString();

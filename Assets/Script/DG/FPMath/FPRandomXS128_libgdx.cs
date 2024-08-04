@@ -1,5 +1,5 @@
 /*************************************************************************************
-// * 描    述:  
+// * 描    述:
 // * 创 建 者:  czq
 // * 创建时间:  2023/5/12
 // * ======================================
@@ -22,7 +22,7 @@ namespace DG
 	 * 
 	 * @author Inferno
 	 * @author davebaol */
-	public partial class FPRandomXS128
+	public class FPRandomXS128
 	{
 		/** Normalization constant for double. */
 		private const double NORM_DOUBLE = 1.0 / (1L << 53);
@@ -43,7 +43,7 @@ namespace DG
 		public FPRandomXS128()
 		{
 			var random = new Random();
-			setSeed(random.NextLong());
+			setSeed(random.Next());
 		}
 
 		/** Creates a new random number generator using a single {@code long} seed.
@@ -66,13 +66,13 @@ namespace DG
 		 * Subclasses should override this, as this is used by all other methods. */
 		public long nextLong()
 		{
-			long s1 = this.seed0;
-			long s0 = this.seed1;
-			this.seed0 = s0;
+			long s1 = seed0;
+			long s0 = seed1;
+			seed0 = s0;
 			s1 ^= s1 << 23;
 
 			//			return (this.seed1 = (s1 ^ s0 ^ (s1 >> > 17) ^ (s0 >> > 26))) + s0;
-			return (this.seed1 = (s1 ^ s0 ^ (s1.RightShift3(17)) ^ (s0.RightShift3(26)))) + s0;
+			return (seed1 = (s1 ^ s0 ^ (s1.RightShift3(17)) ^ (s0.RightShift3(26)))) + s0;
 		}
 
 		/** This protected method is final because, contrary to the superclass, it's not used anymore by the other methods. */

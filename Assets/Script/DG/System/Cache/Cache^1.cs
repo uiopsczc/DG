@@ -10,7 +10,7 @@ namespace DG
 	{
 		#region field
 
-		protected Dictionary<K, object> _dict = new Dictionary<K, object>();
+		protected readonly Dictionary<K, object> _dict = new();
 
 		#endregion
 
@@ -22,17 +22,17 @@ namespace DG
 
 		public void Remove(K key)
 		{
-			this._dict.Remove(key);
+			_dict.Remove(key);
 		}
 
 		public object Get(K key)
 		{
-			return this._dict[key];
+			return _dict[key];
 		}
 
 		public T Get<T>(K key)
 		{
-			return (T) this._dict[key];
+			return (T) _dict[key];
 		}
 
 		public bool TryGetValue<T>(K key, out T value)
@@ -44,17 +44,17 @@ namespace DG
 
 		public bool ContainsKey(K key)
 		{
-			return this._dict.ContainsKey(key);
+			return _dict.ContainsKey(key);
 		}
 
 		public bool ContainsKey<T>()
 		{
-			return this._dict.ContainsKey(typeof(T).FullName.To<K>());
+			return _dict.ContainsKey(typeof(T).FullName.To<K>());
 		}
 
 		public bool ContainsValue(object value)
 		{
-			return this._dict.ContainsValue(value);
+			return _dict.ContainsValue(value);
 		}
 
 
@@ -104,7 +104,7 @@ namespace DG
 
 		public T GetOrGetByNewFunc<T>(Func<T> newFunc) where T : new()
 		{
-			return GetOrGetByNewFunc<T>(typeof(T).FullName.To<K>(), newFunc);
+			return GetOrGetByNewFunc(typeof(T).FullName.To<K>(), newFunc);
 		}
 
 		public T GetOrAddDefault<T>(K key, T defaultValue = default)
@@ -117,7 +117,7 @@ namespace DG
 
 		public T GetOrAddDefault<T>(T defaultValue = default)
 		{
-			return GetOrAddDefault<T>(typeof(T).FullName.To<K>(), defaultValue);
+			return GetOrAddDefault(typeof(T).FullName.To<K>(), defaultValue);
 		}
 
 		public T GetOrAddByDefaultFunc<T>(K key, Func<T> defaultFunc)
@@ -131,7 +131,7 @@ namespace DG
 
 		public T GetOrAddByDefaultFunc<T>(Func<T> defaultFunc)
 		{
-			return GetOrAddByDefaultFunc<T>(typeof(T).FullName.To<K>(), defaultFunc);
+			return GetOrAddByDefaultFunc(typeof(T).FullName.To<K>(), defaultFunc);
 		}
 
 		public T GetOrAddNew<T>(K key) where T : new()
@@ -159,7 +159,7 @@ namespace DG
 
 		public T GetOrAddNew<T>(Func<T> newFunc) where T : new()
 		{
-			return GetOrAddByNewFunc<T>(typeof(T).FullName.To<K>(), newFunc);
+			return GetOrAddByNewFunc(typeof(T).FullName.To<K>(), newFunc);
 		}
 
 		public object Remove2(object key)

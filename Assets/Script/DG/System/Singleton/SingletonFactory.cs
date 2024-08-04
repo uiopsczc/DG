@@ -12,18 +12,18 @@ namespace DG
 		/// <summary>
 		/// 非mono类的单例集合
 		/// </summary>
-		private readonly Dictionary<Type, object> _dict = new Dictionary<Type, object>();
+		private readonly Dictionary<Type, object> _dict = new();
 
         /// <summary>
         /// Mono类的单例集合
         /// </summary>
-        private Dictionary<Type, GameObject> _monoDict = new Dictionary<Type, GameObject>();
+        private Dictionary<Type, GameObject> _monoDict = new();
 
 
 		private static SingletonFactory _instance;
 
 
-		public static SingletonFactory instance => _instance ?? (_instance = new SingletonFactory());
+		public static SingletonFactory instance => _instance ??= new SingletonFactory();
 
 
 		public void Init()

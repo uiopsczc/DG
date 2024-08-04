@@ -1,5 +1,3 @@
-using DG;
-
 namespace DG
 {
 	public static class NumberUnitTest

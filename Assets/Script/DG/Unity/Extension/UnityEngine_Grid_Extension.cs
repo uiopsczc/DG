@@ -1,8 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace DG
+﻿namespace DG
 {
 	public static partial class UnityEngine_Grid_Extension
 	{

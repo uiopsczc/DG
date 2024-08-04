@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace DG
@@ -15,18 +14,18 @@ namespace DG
 			if (!Monitor.TryEnter(obj))
 				return;
 
-			this.isHasLock = true;
-			this._lockObject = obj;
+			isHasLock = true;
+			_lockObject = obj;
 		}
 
 		public void Dispose()
 		{
-			if (!this.isHasLock)
+			if (!isHasLock)
 				return;
 
-			Monitor.Exit(this._lockObject);
-			this._lockObject = null;
-			this.isHasLock = false;
+			Monitor.Exit(_lockObject);
+			_lockObject = null;
+			isHasLock = false;
 		}
 	}
 }

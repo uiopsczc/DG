@@ -1,11 +1,11 @@
 /*************************************************************************************
- * √Ë     ˆ:  
- * ¥¥ Ω® ’ﬂ:  czq
- * ¥¥Ω® ±º‰:  2023/5/12
+ * Êèè    Ëø∞:  
+ * Âàõ Âª∫ ËÄÖ:  czq
+ * ÂàõÂª∫Êó∂Èó¥:  2023/5/12
  * ======================================
- * ¿˙ ∑∏¸–¬º«¬º
- * ∞Ê±æ:V          –ﬁ∏ƒ ±º‰:         –ﬁ∏ƒ»À:
- * –ﬁ∏ƒƒ⁄»›:
+ * ÂéÜÂè≤Êõ¥Êñ∞ËÆ∞ÂΩï
+ * ÁâàÊú¨:V          ‰øÆÊîπÊó∂Èó¥:         ‰øÆÊîπ‰∫∫:
+ * ‰øÆÊîπÂÜÖÂÆπ:
  * ======================================
 *************************************************************************************/
 
@@ -17,8 +17,8 @@ namespace DG
 	/// </summary>
 	public partial struct FPQuaternion
 	{
-		private static FPQuaternion tmp1 = new FPQuaternion(0, 0, 0, 0);
-		private static FPQuaternion tmp2 = new FPQuaternion(0, 0, 0, 0);
+		private static FPQuaternion tmp1 = new(0, 0, 0, 0);
+		private static FPQuaternion tmp2 = new(0, 0, 0, 0);
 
 		public FP x;
 		public FP y;
@@ -53,10 +53,10 @@ namespace DG
 		 * @param quaternion The quaternion to copy. */
 		public FPQuaternion(FPQuaternion quaternion)
 		{
-			this.x = quaternion.x;
-			this.y = quaternion.y;
-			this.z = quaternion.z;
-			this.w = quaternion.w;
+			x = quaternion.x;
+			y = quaternion.y;
+			z = quaternion.z;
+			w = quaternion.w;
 		}
 
 		/** Constructor, sets the quaternion from the given axis vector and the angle around that axis in degrees.
@@ -77,7 +77,7 @@ namespace DG
 				this.x = 0;
 				this.y = 0;
 				this.z = 0;
-				this.w = 1;
+				w = 1;
 			}
 			else
 			{
@@ -90,7 +90,7 @@ namespace DG
 				this.x = result.x;
 				this.y = result.y;
 				this.z = result.z;
-				this.w = result.w;
+				w = result.w;
 			}
 		}
 
@@ -114,7 +114,7 @@ namespace DG
 		 * @return This quaternion for chaining. */
 		public FPQuaternion set(FPQuaternion quaternion)
 		{
-			return this.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+			return set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 		}
 
 		/** Sets the quaternion components from the given axis and angle around that axis.
@@ -241,7 +241,7 @@ namespace DG
 		{
 			return getGimbalPole() == 0
 				? FPMath.Atan2(2f * (y * w + x * z), 1f - 2f * (y * y + x * x))
-				: (FP)0f;
+				: 0f;
 		}
 
 		/** Get the yaw euler angle in degrees, which is the rotation around the y axis. Requires that this quaternion is normalized.
@@ -266,7 +266,7 @@ namespace DG
 		 * @return the quaternion for chaining */
 		public FPQuaternion nor()
 		{
-			FP len = this.len2();
+			FP len = len2();
 			if (len != 0f && !FPMath.IsEqual(len, 1f))
 			{
 				len = FPMath.Sqrt(len);
@@ -312,14 +312,14 @@ namespace DG
 		 * @return This quaternion for chaining */
 		public FPQuaternion mul(FPQuaternion other)
 		{
-			FP newX = this.w * other.x + this.x * other.w + this.y * other.z - this.z * other.y;
-			FP newY = this.w * other.y + this.y * other.w + this.z * other.x - this.x * other.z;
-			FP newZ = this.w * other.z + this.z * other.w + this.x * other.y - this.y * other.x;
-			FP newW = this.w * other.w - this.x * other.x - this.y * other.y - this.z * other.z;
-			this.x = newX;
-			this.y = newY;
-			this.z = newZ;
-			this.w = newW;
+			FP newX = w * other.x + x * other.w + y * other.z - z * other.y;
+			FP newY = w * other.y + y * other.w + z * other.x - x * other.z;
+			FP newZ = w * other.z + z * other.w + x * other.y - y * other.x;
+			FP newW = w * other.w - x * other.x - y * other.y - z * other.z;
+			x = newX;
+			y = newY;
+			z = newZ;
+			w = newW;
 			return this;
 		}
 
@@ -349,14 +349,14 @@ namespace DG
 		 * @return This quaternion for chaining */
 		public FPQuaternion mulLeft(FPQuaternion other)
 		{
-			FP newX = other.w * this.x + other.x * this.w + other.y * this.z - other.z * this.y;
-			FP newY = other.w * this.y + other.y * this.w + other.z * this.x - other.x * this.z;
-			FP newZ = other.w * this.z + other.z * this.w + other.x * this.y - other.y * this.x;
-			FP newW = other.w * this.w - other.x * this.x - other.y * this.y - other.z * this.z;
-			this.x = newX;
-			this.y = newY;
-			this.z = newZ;
-			this.w = newW;
+			FP newX = other.w * x + other.x * w + other.y * z - other.z * y;
+			FP newY = other.w * y + other.y * w + other.z * x - other.x * z;
+			FP newZ = other.w * z + other.z * w + other.x * y - other.y * x;
+			FP newW = other.w * w - other.x * x - other.y * y - other.z * z;
+			x = newX;
+			y = newY;
+			z = newZ;
+			w = newW;
 			return this;
 		}
 
@@ -383,20 +383,20 @@ namespace DG
 		/** Add the x,y,z,w components of the passed in quaternion to the ones of this quaternion */
 		public FPQuaternion add(FPQuaternion quaternion)
 		{
-			this.x += quaternion.x;
-			this.y += quaternion.y;
-			this.z += quaternion.z;
-			this.w += quaternion.w;
+			x += quaternion.x;
+			y += quaternion.y;
+			z += quaternion.z;
+			w += quaternion.w;
 			return this;
 		}
 
 		/** Add the x,y,z,w components of the passed in quaternion to the ones of this quaternion */
 		public FPQuaternion add(FP qx, FP qy, FP qz, FP qw)
 		{
-			this.x += qx;
-			this.y += qy;
-			this.z += qz;
-			this.w += qw;
+			x += qx;
+			y += qy;
+			z += qz;
+			w += qw;
 			return this;
 		}
 
@@ -439,7 +439,7 @@ namespace DG
 		 * @return this quaternion for chaining */
 		public FPQuaternion idt()
 		{
-			return this.set(0, 0, 0, 1);
+			return set(0, 0, 0, 1);
 		}
 
 		/** @return If this quaternion is an identity Quaternion */
@@ -501,7 +501,7 @@ namespace DG
 			FP l_ang = radians < 0 ? FPMath.TWO_PI - (-radians % FPMath.TWO_PI) : radians % FPMath.TWO_PI;
 			FP l_sin = FPMath.Sin(l_ang / 2);
 			FP l_cos = FPMath.Cos(l_ang / 2);
-			return this.set(d * x * l_sin, d * y * l_sin, d * z * l_sin, l_cos).nor();
+			return set(d * x * l_sin, d * y * l_sin, d * z * l_sin, l_cos).nor();
 		}
 
 		/** Sets the Quaternion from the given matrix, optionally removing any scaling. */
@@ -681,7 +681,7 @@ namespace DG
 		 * @return this quaternion for chaining */
 		public FPQuaternion slerp(FPQuaternion end, FP alpha)
 		{
-			FP d = this.x * end.x + this.y * end.y + this.z * end.z + this.w * end.w;
+			FP d = x * end.x + y * end.y + z * end.z + w * end.w;
 			FP absDot = d < 0f ? -d : d;
 
 			// Set the first and second scale for the interpolation
@@ -803,7 +803,7 @@ namespace DG
 		 * @return the dot product of this and the other quaternion. */
 		public FP dot(FPQuaternion other)
 		{
-			return this.x * other.x + this.y * other.y + this.z * other.z + this.w * other.w;
+			return x * other.x + y * other.y + z * other.z + w * other.w;
 		}
 
 		/** Get the dot product between this and the other quaternion (commutative).
@@ -822,10 +822,10 @@ namespace DG
 		 * @return this quaternion for chaining. */
 		public FPQuaternion mul(FP scalar)
 		{
-			this.x *= scalar;
-			this.y *= scalar;
-			this.z *= scalar;
-			this.w *= scalar;
+			x *= scalar;
+			y *= scalar;
+			z *= scalar;
+			w *= scalar;
 			return this;
 		}
 
@@ -858,24 +858,24 @@ namespace DG
 		 * @see <a href="http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToAngle">calculation</a> */
 		public FP getAxisAngleRad(out FPVector3 axis)
 		{
-			if (this.w > 1)
-				this.nor(); // if w>1 acos and sqrt will produce errors, this cant happen if quaternion is normalised
-			FP angle = 2.0 * FPMath.Acos(this.w);
-			FP s = FPMath.Sqrt(1 - this.w *
-							   this.w); // assuming quaternion normalised then w is less than 1, so term always positive.
+			if (w > 1)
+				nor(); // if w>1 acos and sqrt will produce errors, this cant happen if quaternion is normalised
+			FP angle = 2.0 * FPMath.Acos(w);
+			FP s = FPMath.Sqrt(1 - w *
+							   w); // assuming quaternion normalised then w is less than 1, so term always positive.
 			if (s < FPMath.EPSILION)
 			{
 				// test to avoid divide by zero, s is always positive due to sqrt
 				// if s close to zero then direction of axis not important
-				axis.x = this.x; // if it is important that axis is normalised then replace with x=1; y=z=0;
-				axis.y = this.y;
-				axis.z = this.z;
+				axis.x = x; // if it is important that axis is normalised then replace with x=1; y=z=0;
+				axis.y = y;
+				axis.z = z;
 			}
 			else
 			{
-				axis.x = this.x / s; // normalise axis
-				axis.y = this.y / s;
-				axis.z = this.z / s;
+				axis.x = x / s; // normalise axis
+				axis.y = y / s;
+				axis.z = z / s;
 			}
 
 			return angle;
@@ -887,7 +887,7 @@ namespace DG
 		 * @return the angle in radians of the rotation */
 		public FP getAngleRad()
 		{
-			return 2.0 * FPMath.Acos((this.w > 1) ? (this.w / len()) : this.w);
+			return 2.0 * FPMath.Acos((w > 1) ? (w / len()) : w);
 		}
 
 		/** Get the angle in degrees of the rotation this quaternion represents. Use {@link #getAxisAngle(Vector3)} to get both the
@@ -913,8 +913,8 @@ namespace DG
 		public void getSwingTwist(FP axisX, FP axisY, FP axisZ, ref FPQuaternion swing,
 			ref FPQuaternion twist)
 		{
-			FP d = FPVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
-			twist = twist.set(axisX * d, axisY * d, axisZ * d, this.w).nor();
+			FP d = FPVector3.dot(x, y, z, axisX, axisY, axisZ);
+			twist = twist.set(axisX * d, axisY * d, axisZ * d, w).nor();
 			if (d < 0) twist = twist.mul((-1f));
 			swing = swing.set(twist).conjugate().mulLeft(this);
 		}
@@ -941,11 +941,11 @@ namespace DG
 		 * @return the angle in radians of the rotation around the specified axis */
 		public FP getAngleAroundRad(FP axisX, FP axisY, FP axisZ)
 		{
-			FP d = FPVector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
-			FP l2 = len2(axisX * d, axisY * d, axisZ * d, this.w);
+			FP d = FPVector3.dot(x, y, z, axisX, axisY, axisZ);
+			FP l2 = len2(axisX * d, axisY * d, axisZ * d, w);
 			return FPMath.IsZero(l2)
-				? (FP)0f
-				: 2.0 * FPMath.Acos(FPMath.Clamp((d < 0 ? -this.w : this.w) / FPMath.Sqrt(l2), -1f,
+				? 0f
+				: 2.0 * FPMath.Acos(FPMath.Clamp((d < 0 ? -w : w) / FPMath.Sqrt(l2), -1f,
 					  1f));
 		}
 

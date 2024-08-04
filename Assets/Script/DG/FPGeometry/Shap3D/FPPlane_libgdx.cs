@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/21
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/21
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -50,7 +50,7 @@ namespace DG
 		{
 			this.normal = default;
 			this.normal = this.normal.set(normal).nor();
-			this.d = -this.normal.dot(point);
+			d = -this.normal.dot(point);
 		}
 
 		/** Constructs a new plane out of the three given points that are considered to be on the plane. The normal is calculated via a
@@ -169,7 +169,7 @@ namespace DG
 		public void set(FP pointX, FP pointY, FP pointZ, FP norX, FP norY,
 			FP norZ)
 		{
-			this.normal.set(norX, norY, norZ);
+			normal.set(norX, norY, norZ);
 			d = -(pointX * norX + pointY * norY + pointZ * norZ);
 		}
 
@@ -178,8 +178,8 @@ namespace DG
 		 * @param plane the plane */
 		public void set(FPPlane plane)
 		{
-			this.normal.set(plane.normal);
-			this.d = plane.d;
+			normal.set(plane.normal);
+			d = plane.d;
 		}
 
 		public override string ToString()

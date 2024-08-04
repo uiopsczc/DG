@@ -38,10 +38,12 @@
 
 #endregion License and information
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
 namespace SimpleJSON
 {
-    using System.Globalization;
-    using System.Collections.Generic;
     public partial class JSONNode
     {
         #region Decimal
@@ -87,7 +89,7 @@ namespace SimpleJSON
                 if (IsString)
                     Value = value.ToString();
                 else if (IsNumber)
-                    AsInt = (int)value;
+                    AsInt = value;
             }
         }
 
@@ -221,13 +223,13 @@ namespace SimpleJSON
         #endregion UShort
 
         #region DateTime
-        public virtual System.DateTime AsDateTime
+        public virtual DateTime AsDateTime
         {
             get
             {
-                System.DateTime result;
-                if (!System.DateTime.TryParse(Value, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-                    result = new System.DateTime(0);
+                DateTime result;
+                if (!DateTime.TryParse(Value, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                    result = new DateTime(0);
                 return result;
             }
             set
@@ -236,24 +238,24 @@ namespace SimpleJSON
             }
         }
 
-        public static implicit operator JSONNode(System.DateTime aDateTime)
+        public static implicit operator JSONNode(DateTime aDateTime)
         {
             return new JSONString(aDateTime.ToString(CultureInfo.InvariantCulture));
         }
 
-        public static implicit operator System.DateTime(JSONNode aNode)
+        public static implicit operator DateTime(JSONNode aNode)
         {
             return aNode.AsDateTime;
         }
         #endregion DateTime
         #region TimeSpan
-        public virtual System.TimeSpan AsTimeSpan
+        public virtual TimeSpan AsTimeSpan
         {
             get
             {
-                System.TimeSpan result;
-                if (!System.TimeSpan.TryParse(Value, CultureInfo.InvariantCulture, out result))
-                    result = new System.TimeSpan(0);
+                TimeSpan result;
+                if (!TimeSpan.TryParse(Value, CultureInfo.InvariantCulture, out result))
+                    result = new TimeSpan(0);
                 return result;
             }
             set
@@ -262,24 +264,24 @@ namespace SimpleJSON
             }
         }
 
-        public static implicit operator JSONNode(System.TimeSpan aTimeSpan)
+        public static implicit operator JSONNode(TimeSpan aTimeSpan)
         {
             return new JSONString(aTimeSpan.ToString());
         }
 
-        public static implicit operator System.TimeSpan(JSONNode aNode)
+        public static implicit operator TimeSpan(JSONNode aNode)
         {
             return aNode.AsTimeSpan;
         }
         #endregion TimeSpan
 
         #region Guid
-        public virtual System.Guid AsGuid
+        public virtual Guid AsGuid
         {
             get
             {
-                System.Guid result;
-                System.Guid.TryParse(Value, out result);
+                Guid result;
+                Guid.TryParse(Value, out result);
                 return result;
             }
             set
@@ -288,12 +290,12 @@ namespace SimpleJSON
             }
         }
 
-        public static implicit operator JSONNode(System.Guid aGuid)
+        public static implicit operator JSONNode(Guid aGuid)
         {
             return new JSONString(aGuid.ToString());
         }
 
-        public static implicit operator System.Guid(JSONNode aNode)
+        public static implicit operator Guid(JSONNode aNode)
         {
             return aNode.AsGuid;
         }
@@ -304,7 +306,7 @@ namespace SimpleJSON
         {
             get
             {
-                if (this.IsNull || !this.IsArray)
+                if (IsNull || !IsArray)
                     return null;
                 int count = Count;
                 byte[] result = new byte[count];
@@ -337,7 +339,7 @@ namespace SimpleJSON
         {
             get
             {
-                if (this.IsNull || !this.IsArray)
+                if (IsNull || !IsArray)
                     return null;
                 int count = Count;
                 List<byte> result = new List<byte>(count);
@@ -371,7 +373,7 @@ namespace SimpleJSON
         {
             get
             {
-                if (this.IsNull || !this.IsArray)
+                if (IsNull || !IsArray)
                     return null;
                 int count = Count;
                 string[] result = new string[count];
@@ -404,7 +406,7 @@ namespace SimpleJSON
         {
             get
             {
-                if (this.IsNull || !this.IsArray)
+                if (IsNull || !IsArray)
                     return null;
                 int count = Count;
                 List<string> result = new List<string>(count);

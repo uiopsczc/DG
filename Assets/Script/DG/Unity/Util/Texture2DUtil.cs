@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public partial class Texture2DUtil
+	public class Texture2DUtil
 	{
 		public static Sprite CreateSprite(Texture2D texture2D, float? width = null, float? height = null)
 		{

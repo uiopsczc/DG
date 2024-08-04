@@ -25,7 +25,7 @@ namespace DG
 			return numberUnitList;
 		}
 
-		public static List<NumberUnitInfo> NumberUnitList = new List<NumberUnitInfo>()
+		public static List<NumberUnitInfo> NumberUnitList = new()
 		{
 			new NumberUnitInfo(0, 0, "", "n"),
 			new NumberUnitInfo(1, 3, "K", "K"),
@@ -51,7 +51,7 @@ namespace DG
 			new NumberUnitInfo(21, 63, "V", "V"),
 		};
 
-		private static Dictionary<string, NumberUnitInfo> _NumberUnitDict = new Dictionary<string, NumberUnitInfo>();
+		private static Dictionary<string, NumberUnitInfo> _NumberUnitDict = new();
 
 		public static Dictionary<string, NumberUnitInfo> NumberUnitDict
 		{
@@ -64,7 +64,7 @@ namespace DG
 		}
 
 
-		public static List<NumberUnitInfo> NumberUnitList2 = new List<NumberUnitInfo>()
+		public static List<NumberUnitInfo> NumberUnitList2 = new()
 		{
 			new NumberUnitInfo(0, 0, "", "n"),
 			new NumberUnitInfo(1, 3, "K", "K"),
@@ -90,7 +90,7 @@ namespace DG
 			new NumberUnitInfo(21, 63, "V", "V"),
 		};
 
-		private static Dictionary<string, NumberUnitInfo> _NumberUnitDict2 = new Dictionary<string, NumberUnitInfo>();
+		private static Dictionary<string, NumberUnitInfo> _NumberUnitDict2 = new();
 
 		public static Dictionary<string, NumberUnitInfo> NumberUnitDict2
 		{

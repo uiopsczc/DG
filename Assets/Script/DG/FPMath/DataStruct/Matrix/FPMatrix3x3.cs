@@ -1,11 +1,11 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:  
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
 *************************************************************************************/
 
@@ -22,8 +22,8 @@ namespace DG
 		/// </summary>
 		public FP sm11
 		{
-			get => this.m00;
-			set => this.m00 = value;
+			get => m00;
+			set => m00 = value;
 		}
 
 		/// <summary>
@@ -31,8 +31,8 @@ namespace DG
 		/// </summary>
 		public FP sm12
 		{
-			get => this.m01;
-			set => this.m01 = value;
+			get => m01;
+			set => m01 = value;
 		}
 
 		/// <summary>
@@ -40,8 +40,8 @@ namespace DG
 		/// </summary>
 		public FP sm13
 		{
-			get => this.m02;
-			set => this.m02 = value;
+			get => m02;
+			set => m02 = value;
 		}
 
 		/// <summary>
@@ -49,8 +49,8 @@ namespace DG
 		/// </summary>
 		public FP sm21
 		{
-			get => this.m10;
-			set => this.m10 = value;
+			get => m10;
+			set => m10 = value;
 		}
 
 		/// <summary>
@@ -58,8 +58,8 @@ namespace DG
 		/// </summary>
 		public FP sm22
 		{
-			get => this.m11;
-			set => this.m11 = value;
+			get => m11;
+			set => m11 = value;
 		}
 
 		/// <summary>
@@ -67,8 +67,8 @@ namespace DG
 		/// </summary>
 		public FP sm23
 		{
-			get => this.m12;
-			set => this.m12 = value;
+			get => m12;
+			set => m12 = value;
 		}
 
 		/// <summary>
@@ -76,8 +76,8 @@ namespace DG
 		/// </summary>
 		public FP sm31
 		{
-			get => this.m20;
-			set => this.m20 = value;
+			get => m20;
+			set => m20 = value;
 		}
 
 		/// <summary>
@@ -85,8 +85,8 @@ namespace DG
 		/// </summary>
 		public FP sm32
 		{
-			get => this.m21;
-			set => this.m21 = value;
+			get => m21;
+			set => m21 = value;
 		}
 
 		/// <summary>
@@ -94,15 +94,15 @@ namespace DG
 		/// </summary>
 		public FP sm33
 		{
-			get => this.m22;
-			set => this.m22 = value;
+			get => m22;
+			set => m22 = value;
 		}
 
 		/// <summary>
 		/// Gets the 3x3 identity matrix.
 		/// </summary>
 		public static FPMatrix3x3 Identity =>
-			new FPMatrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
+			new(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
 
 		/// <summary>
@@ -239,19 +239,19 @@ namespace DG
 		/// <param name="sm33">Value at row 3, column 3 of the matrix.</param>
 		public FPMatrix3x3(FP sm11, FP sm12, FP sm13, FP sm21, FP sm22, FP sm23, FP sm31, FP sm32, FP sm33)
 		{
-			this.m00 = sm11;
-			this.m01 = sm12;
-			this.m02 = sm13;
-			this.m10 = sm21;
-			this.m11 = sm22;
-			this.m12 = sm23;
-			this.m20 = sm31;
-			this.m21 = sm32;
-			this.m22 = sm33;
+			m00 = sm11;
+			m01 = sm12;
+			m02 = sm13;
+			m10 = sm21;
+			m11 = sm22;
+			m12 = sm23;
+			m20 = sm31;
+			m21 = sm32;
+			m22 = sm33;
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:ËãÊı²Ù×÷·û
+		* æ¨¡å—æè¿°:ç®—æ•°æ“ä½œç¬¦
 		*************************************************************************************/
 		/// <summary>
 		/// Multiplies the two matrices.
@@ -290,7 +290,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 		/// <summary>
 		/// Adds the two matrices together on a per-element basis.
@@ -300,7 +300,7 @@ namespace DG
 		/// <param name="result">Sum of the two matrices.</param>
 		public static FPMatrix3x3 Add(FPMatrix3x3 a, FPMatrix3x3 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = a.sm11 + b.sm11;
 			FP m12 = a.sm12 + b.sm12;
 			FP m13 = a.sm13 + b.sm13;
@@ -336,7 +336,7 @@ namespace DG
 		/// <param name="result">Sum of the two matrices.</param>
 		public static FPMatrix3x3 Add(FPMatrix4x4 a, FPMatrix3x3 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = a.sm11 + b.sm11;
 			FP m12 = a.sm12 + b.sm12;
 			FP m13 = a.sm13 + b.sm13;
@@ -372,7 +372,7 @@ namespace DG
 		/// <param name="result">Sum of the two matrices.</param>
 		public static FPMatrix3x3 Add(FPMatrix3x3 a, FPMatrix4x4 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = a.sm11 + b.sm11;
 			FP m12 = a.sm12 + b.sm12;
 			FP m13 = a.sm13 + b.sm13;
@@ -408,7 +408,7 @@ namespace DG
 		/// <param name="result">Sum of the two matrices.</param>
 		public static FPMatrix3x3 Add(FPMatrix4x4 a, FPMatrix4x4 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = a.sm11 + b.sm11;
 			FP m12 = a.sm12 + b.sm12;
 			FP m13 = a.sm13 + b.sm13;
@@ -443,7 +443,7 @@ namespace DG
 		/// <param name="result">Skew-symmetric matrix result.</param>
 		public static FPMatrix3x3 CreateCrossProduct(FPVector3 v)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = 0;
 			result.sm12 = -v.z;
 			result.sm13 = v.y;
@@ -464,7 +464,7 @@ namespace DG
 		/// <param name="matrix3X3">Upper 3x3 matrix extracted from the XNA matrix.</param>
 		public static FPMatrix3x3 CreateFromMatrix(FPMatrix4x4 matrix4x4)
 		{
-			FPMatrix3x3 matrix3X3 = FPMatrix3x3.default2;
+			FPMatrix3x3 matrix3X3 = default2;
 			matrix3X3.sm11 = matrix4x4.sm11;
 			matrix3X3.sm12 = matrix4x4.sm12;
 			matrix3X3.sm13 = matrix4x4.sm13;
@@ -535,7 +535,7 @@ namespace DG
 		/// <returns>Inverted matrix.</returns>
 		public static FPMatrix3x3 Invert(FPMatrix3x3 matrix)
 		{
-			FPMatrix3x3 toReturn = FPMatrix3x3.default2;
+			FPMatrix3x3 toReturn = default2;
 			Invert(matrix, out toReturn);
 			return toReturn;
 		}
@@ -547,7 +547,7 @@ namespace DG
 		/// <param name="result">Inverted matrix.</param>
 		public static FPMatrix3x3 AdaptiveInvert(FPMatrix3x3 matrix)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			// Perform full Gauss-invert and return if successful
 			if (Invert(matrix, out result))
 				return result;
@@ -686,7 +686,7 @@ namespace DG
 			//1) transpose(invert(M)) == invert(transpose(M)), and
 			//2) det(M) == det(transpose(M))
 			//This organization makes it clearer that the invert's usual division by determinant drops out.
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = (matrix.sm22 * matrix.sm33 - matrix.sm23 * matrix.sm32);
 			FP m12 = (matrix.sm13 * matrix.sm32 - matrix.sm33 * matrix.sm12);
 			FP m13 = (matrix.sm12 * matrix.sm23 - matrix.sm22 * matrix.sm13);
@@ -736,7 +736,7 @@ namespace DG
 			FP resultM32 = a.sm31 * b.sm12 + a.sm32 * b.sm22 + a.sm33 * b.sm32;
 			FP resultM33 = a.sm31 * b.sm13 + a.sm32 * b.sm23 + a.sm33 * b.sm33;
 
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = resultM11;
 			result.sm12 = resultM12;
 			result.sm13 = resultM13;
@@ -772,7 +772,7 @@ namespace DG
 			FP resultM32 = a.sm31 * b.sm12 + a.sm32 * b.sm22 + a.sm33 * b.sm32;
 			FP resultM33 = a.sm31 * b.sm13 + a.sm32 * b.sm23 + a.sm33 * b.sm33;
 
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = resultM11;
 			result.sm12 = resultM12;
 			result.sm13 = resultM13;
@@ -796,7 +796,7 @@ namespace DG
 		/// <param name="result">Product of the multiplication.</param>
 		public static FPMatrix3x3 Multiply(FPMatrix4x4 a, FPMatrix3x3 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP resultM11 = a.sm11 * b.sm11 + a.sm12 * b.sm21 + a.sm13 * b.sm31;
 			FP resultM12 = a.sm11 * b.sm12 + a.sm12 * b.sm22 + a.sm13 * b.sm32;
 			FP resultM13 = a.sm11 * b.sm13 + a.sm12 * b.sm23 + a.sm13 * b.sm33;
@@ -833,7 +833,7 @@ namespace DG
 		/// <param name="result">Product of the multiplication.</param>
 		public static FPMatrix3x3 MultiplyTransposed(FPMatrix3x3 transpose, FPMatrix3x3 matrix)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP resultM11 = transpose.sm11 * matrix.sm11 + transpose.sm21 * matrix.sm21 + transpose.sm31 * matrix.sm31;
 			FP resultM12 = transpose.sm11 * matrix.sm12 + transpose.sm21 * matrix.sm22 + transpose.sm31 * matrix.sm32;
 			FP resultM13 = transpose.sm11 * matrix.sm13 + transpose.sm21 * matrix.sm23 + transpose.sm31 * matrix.sm33;
@@ -869,7 +869,7 @@ namespace DG
 		/// <param name="result">Product of the multiplication.</param>
 		public static FPMatrix3x3 MultiplyByTransposed(FPMatrix3x3 matrix, FPMatrix3x3 transpose)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP resultM11 = matrix.sm11 * transpose.sm11 + matrix.sm12 * transpose.sm12 + matrix.sm13 * transpose.sm13;
 			FP resultM12 = matrix.sm11 * transpose.sm21 + matrix.sm12 * transpose.sm22 + matrix.sm13 * transpose.sm23;
 			FP resultM13 = matrix.sm11 * transpose.sm31 + matrix.sm12 * transpose.sm32 + matrix.sm13 * transpose.sm33;
@@ -905,7 +905,7 @@ namespace DG
 		/// <param name="result">Scaled matrix.</param>
 		public static FPMatrix3x3 Multiply(FPMatrix3x3 matrix, FP scale)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = matrix.sm11 * scale;
 			result.sm12 = matrix.sm12 * scale;
 			result.sm13 = matrix.sm13 * scale;
@@ -927,7 +927,7 @@ namespace DG
 		/// <param name="result">Negated matrix.</param>
 		public static FPMatrix3x3 Negate(FPMatrix3x3 matrix)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = -matrix.sm11;
 			result.sm12 = -matrix.sm12;
 			result.sm13 = -matrix.sm13;
@@ -951,7 +951,7 @@ namespace DG
 		/// <param name="result">Difference of the two matrices.</param>
 		public static FPMatrix3x3 Subtract(FPMatrix3x3 a, FPMatrix3x3 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m11 = a.sm11 - b.sm11;
 			FP m12 = a.sm12 - b.sm12;
 			FP m13 = a.sm13 - b.sm13;
@@ -1056,7 +1056,7 @@ namespace DG
 		/// <param name="result">Transposed matrix.</param>
 		public static FPMatrix3x3 Transpose(FPMatrix3x3 matrix)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP m21 = matrix.sm12;
 			FP m31 = matrix.sm13;
 			FP m12 = matrix.sm21;
@@ -1084,7 +1084,7 @@ namespace DG
 		/// <param name="result">Matrix representing the quaternion's orientation.</param>
 		public static FPMatrix3x3 CreateFromQuaternion(FPQuaternion quaternion)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP qX2 = quaternion.x + quaternion.x;
 			FP qY2 = quaternion.y + quaternion.y;
 			FP qZ2 = quaternion.z + quaternion.z;
@@ -1122,7 +1122,7 @@ namespace DG
 		/// <param name="result">Outer product result.</param>
 		public static FPMatrix3x3 CreateOuterProduct(FPVector3 a, FPVector3 b)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			result.sm11 = a.x * b.x;
 			result.sm12 = a.x * b.y;
 			result.sm13 = a.x * b.z;
@@ -1157,7 +1157,7 @@ namespace DG
 		/// <returns></returns>
 		public static FPMatrix3x3 CreateFromAxisAngleRad(FPVector3 axis, FP radians)
 		{
-			FPMatrix3x3 result = FPMatrix3x3.default2;
+			FPMatrix3x3 result = default2;
 			FP xx = axis.x * axis.x;
 			FP yy = axis.y * axis.y;
 			FP zz = axis.z * axis.z;
@@ -1187,7 +1187,7 @@ namespace DG
 
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Util
+		* æ¨¡å—æè¿°:Util
 		*************************************************************************************/
 
 

@@ -6,8 +6,8 @@ namespace DG
 	{
 		public bool isDoubleClick => _isDoubleClick;
 
-		float _lastClickTime = 0f;
-		bool _isDoubleClick = false;
+		float _lastClickTime;
+		bool _isDoubleClick;
 
 		public void Update()
 		{

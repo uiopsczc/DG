@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Reflection;
 using UnityEditorInternal;
 
@@ -31,7 +32,7 @@ namespace DG
 		// Get the sorting layer names
 		public static string[] GetNames()
 		{
-			System.Type internalEditorUtilityType = typeof(InternalEditorUtility);
+			Type internalEditorUtilityType = typeof(InternalEditorUtility);
 			PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetPropertyInfo(
 				"sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
 			return (string[]) sortingLayersProperty.GetValue(null, new object[0]);
@@ -40,7 +41,7 @@ namespace DG
 		// Get the sorting layer UniqueIds
 		public static int[] GetUniqueIDs()
 		{
-			System.Type internalEditorUtilityType = typeof(InternalEditorUtility);
+			Type internalEditorUtilityType = typeof(InternalEditorUtility);
 			PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetPropertyInfo(
 				"sortingLayerUniqueIDs", BindingFlags.Static | BindingFlags.NonPublic);
 			return (int[]) sortingLayersProperty.GetValue(null, new object[0]);

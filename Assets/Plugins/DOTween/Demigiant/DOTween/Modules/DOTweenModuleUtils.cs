@@ -1,10 +1,11 @@
 // Author: Daniele Giardini - http://www.demigiant.com
 // Created: 2018/07/13
 
-using UnityEngine;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Core.PathCore;
 using DG.Tweening.Plugins.Options;
+using UnityEditor;
+using UnityEngine;
 
 #pragma warning disable 1591
 namespace DG.Tweening
@@ -39,7 +40,7 @@ namespace DG.Tweening
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
             UnityEditor.EditorApplication.playmodeStateChanged += PlaymodeStateChanged;
 #else
-			UnityEditor.EditorApplication.playModeStateChanged += PlaymodeStateChanged;
+			EditorApplication.playModeStateChanged += PlaymodeStateChanged;
 #endif
 #endif
 		}
@@ -49,11 +50,11 @@ namespace DG.Tweening
 #if UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5
         static void PlaymodeStateChanged()
 #else
-		static void PlaymodeStateChanged(UnityEditor.PlayModeStateChange state)
+		static void PlaymodeStateChanged(PlayModeStateChange state)
 #endif
 		{
 			if (DOTween.instance == null) return;
-			DOTween.instance.OnApplicationPause(UnityEditor.EditorApplication.isPaused);
+			DOTween.instance.OnApplicationPause(EditorApplication.isPaused);
 		}
 #endif
 

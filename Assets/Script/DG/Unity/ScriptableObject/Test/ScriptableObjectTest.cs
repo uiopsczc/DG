@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 #if UNITY_EDITOR
 namespace DG
@@ -17,7 +15,7 @@ namespace DG
 			//        asset.indexes.Add(new TestScriptableObjectAA("cc", 6));
 			//      });
 
-			ScriptableObjectUtil.CreateAsset<TestScriptableObject2Impl>("Assets/ff.asset", (asset) =>
+			ScriptableObjectUtil.CreateAsset<TestScriptableObject2Impl>("Assets/ff.asset", asset =>
 			{
 				asset.name = "chen";
 				asset.indexes = new TestScriptableObjectBB<string, int>("aa", 6);

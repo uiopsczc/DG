@@ -6,16 +6,16 @@ namespace DG
 
 		public RandomSelectorNode(RandomManager randomManager = null)
 		{
-			this._randomManager = randomManager;
+			_randomManager = randomManager;
 		}
 
 		#region override method
 
-		public override BehaviourTreeNodeStatus Update()
+		public override EBehaviourTreeNodeStatus Update()
 		{
 			if (childList == null || childList.Count == 0)
 			{
-				status = BehaviourTreeNodeStatus.Success;
+				status = EBehaviourTreeNodeStatus.Success;
 				return status;
 			}
 

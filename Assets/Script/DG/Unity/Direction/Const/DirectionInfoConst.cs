@@ -30,7 +30,7 @@ namespace DG
 			DirectionInfoUtil.GetDirectionInfo(StringConst.STRING_RIGHT_BOTTOM);
 
 		public static readonly Dictionary<string, DirectionInfo> DirectionInfoDict =
-			new Dictionary<string, DirectionInfo>()
+			new()
 			{
 				{StringConst.STRING_LEFT_BOTTOM, new DirectionInfo(-1, -1, StringConst.STRING_LEFT_BOTTOM)},
 				{StringConst.STRING_BOTTOM, new DirectionInfo(0, -1, StringConst.STRING_BOTTOM)},

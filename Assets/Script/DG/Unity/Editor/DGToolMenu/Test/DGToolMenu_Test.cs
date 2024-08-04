@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace DG
 		}
 
 
-		[UnityEditor.MenuItem(DGToolConst.Menu_Root + "Test2")]
+		[MenuItem(DGToolConst.Menu_Root + "Test2")]
 		public static void Test2()
 		{
 //      LogCat.log(Application.dataPath);
@@ -54,7 +53,7 @@ namespace DG
 		}
 
 
-		[UnityEditor.MenuItem(DGToolConst.Menu_Root + "TestEditorWindow")]
+		[MenuItem(DGToolConst.Menu_Root + "TestEditorWindow")]
 		public static void TestEditor()
 		{
 			EditorWindow.GetWindow<TestEditorWindow>(false, "TestEditorWindow").minSize = new Vector2(720f, 480f);

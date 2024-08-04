@@ -1,15 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace DG
 {
     public class HotKeyManager:MonoBehaviour
     {
-        public HotKeyManager()
-        {
-        }
-
-
         void Update()
         {
             if (Input.GetKeyDown("f1"))

@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace DG
 {
 	public partial class LinkedDictionary<K, V> : Dictionary<K, V>, IGetLinkedHashtable
 	{
-		private readonly List<K> _keyList = new List<K>();
-		private readonly List<V> _valueList = new List<V>();
+		private readonly List<K> _keyList = new();
+		private readonly List<V> _valueList = new();
 		private DictionaryEnumerator<K, V> __enumerator;
-		LinkedHashtable _table = new LinkedHashtable();
+		LinkedHashtable _table = new();
 
 		private DictionaryEnumerator<K, V> _enumerator =>
-			__enumerator ?? (__enumerator = new DictionaryEnumerator<K, V>(_keyList, _valueList));
+			__enumerator ??= new DictionaryEnumerator<K, V>(_keyList, _valueList);
 
-		public new List<K> Keys => this._keyList;
-		public new List<V> Values => this._valueList;
+		public new List<K> Keys => _keyList;
+		public new List<V> Values => _valueList;
 
 		public new V this[K key]
 		{

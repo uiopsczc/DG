@@ -1,7 +1,8 @@
 using System;
 using System.Linq;
-using UnityEngine;
+using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
 /// <summary>
 /// New editor for the GameObject class drawing a little space
@@ -106,12 +107,12 @@ public class GOTagsEditor : Editor
   /// <summary>
   /// Unity GameObject class built-in editor.
   /// </summary>
-  private Editor defaultEditor = null;
+  private Editor defaultEditor;
 
   /// <summary>
   /// All editing game objects.
   /// </summary>
-  private GameObject[] targetGO = null;
+  private GameObject[] targetGO;
 
   /// <summary>
   /// Is the tag editor visible or not ?
@@ -121,19 +122,19 @@ public class GOTagsEditor : Editor
   /// <summary>
   /// Last Unity tag of the editing objects ; used to refresh tags on inspector.
   /// </summary>
-  private string[] lastTags = new string[] { };
+  private string[] lastTags = { };
 
   /// <summary>
   /// Indicates if editing targets do have different tags
   /// </summary>
-  private bool haveTargetsDifferentTags = false;
+  private bool haveTargetsDifferentTags;
   #endregion
 
   #region Target Script(s) Variables
   /// <summary>
   /// Alls tags of the editing object, or tags in common of editing objects if performing multi-editing.
   /// </summary>
-  private Tag[] editingTags = new Tag[] { };
+  private Tag[] editingTags = { };
   #endregion
 
   #endregion
@@ -173,8 +174,8 @@ public class GOTagsEditor : Editor
     if (isUnfolded)
     {
       // Draws a tags field, to edit tag from editing object(s)
-      Action<Tag> _addTagCallback = new Action<Tag>((Tag _tag) => MultiTagsUtility.AddTagToGameObjects(_tag, targetGO));
-      Action<Tag> _removeTagCallback = new Action<Tag>((Tag _tag) => MultiTagsUtility.RemoveTagFromGameObjects(_tag, targetGO));
+      Action<Tag> _addTagCallback = _tag => MultiTagsUtility.AddTagToGameObjects(_tag, targetGO);
+      Action<Tag> _removeTagCallback = _tag => MultiTagsUtility.RemoveTagFromGameObjects(_tag, targetGO);
 
       MultiTagsUtility.GUILayoutTagsField(editingTags, _addTagCallback, _removeTagCallback, true);
 
@@ -206,7 +207,7 @@ public class GOTagsEditor : Editor
       editingTags = MultiTagsUtil.GetTags(_tagsInCommon);
       lastTags = targetGO.Select(g => g.tag).ToArray();
 
-      haveTargetsDifferentTags = _objectTags.Any(t => !Enumerable.SequenceEqual(t, _tagsInCommon));
+      haveTargetsDifferentTags = _objectTags.Any(t => !t.SequenceEqual(_tagsInCommon));
     }
     // Else, just get tags of the first editing object
     else
@@ -227,7 +228,7 @@ public class GOTagsEditor : Editor
     //Debug.Log("Game Object Editor => Disable");
     if (defaultEditor)
     {
-      if (defaultEditor.GetType().GetField("m_PreviewCache", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(defaultEditor) == null)
+      if (defaultEditor.GetType().GetField("m_PreviewCache", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(defaultEditor) == null)
       {
         defaultEditor.GetType().GetMethod("OnEnable").Invoke(defaultEditor, null);
       }

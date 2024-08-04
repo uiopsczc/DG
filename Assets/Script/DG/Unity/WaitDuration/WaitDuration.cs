@@ -40,7 +40,7 @@ namespace CsCat
 
 		public WaitDuration(float duration, Action<WaitDuration> onUpdate)
 		{
-			this._duration = duration;
+			_duration = duration;
 			this.onUpdate = onUpdate;
 		}
 

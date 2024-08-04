@@ -7,8 +7,8 @@ namespace DG
 	[Serializable]
 	public class StateMachineBehaviourEventInfo
 	{
-		public List<ValueParse> argList = new List<ValueParse>();
-		public StateMachineBehaviourEventName eventName;
+		public List<ValueParse> argList = new();
+		public EStateMachineBehaviourEventName eventName;
 		[HideInInspector] public bool isTriggered;
 		public bool isTriggerOnExit;
 		[Range(0f, 1f)] public float normalizedTime;

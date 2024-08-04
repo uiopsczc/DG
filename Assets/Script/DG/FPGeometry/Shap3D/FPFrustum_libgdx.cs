@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************
- * 描    述:  
+ * 描    述:
  * 创 建 者:  czq
  * 创建时间:  2023/8/16
  * ======================================
@@ -7,20 +7,20 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 
 using System;
 
 namespace DG
 {
-	public partial class FPFrustum
+	public class FPFrustum
 	{
 		protected static FPVector3[] clipSpacePlanePoints =
 		{
-		new FPVector3(-1, -1, -1), new FPVector3(1, -1, -1),
-		new FPVector3(1, 1, -1), new FPVector3(-1, 1, -1), // near clip
-		new FPVector3(-1, -1, 1), new FPVector3(1, -1, 1), new FPVector3(1, 1, 1), new FPVector3(-1, 1, 1)
+		new(-1, -1, -1), new(1, -1, -1),
+		new(1, 1, -1), new(-1, 1, -1), // near clip
+		new(-1, -1, 1), new(1, -1, 1), new(1, 1, 1), new(-1, 1, 1)
 	}; // far clip
 
 		protected static FP[] _clipSpacePlanePointsArray;
@@ -46,7 +46,7 @@ namespace DG
 			}
 		}
 
-		private static FPVector3 tmpV = new FPVector3();
+		private static FPVector3 tmpV;
 
 		/** the six clipping planes, near, far, left, right, top, bottom **/
 		public FPPlane[] planes = new FPPlane[6];
@@ -54,8 +54,8 @@ namespace DG
 		/** eight points making up the near and far clipping "rectangles". order is counter clockwise, starting at bottom left **/
 		public FPVector3[] planePoints =
 		{
-		new FPVector3(), new FPVector3(), new FPVector3(), new FPVector3(), new FPVector3(), new FPVector3(),
-		new FPVector3(), new FPVector3()
+		new(), new(), new(), new(), new(), new(),
+		new(), new()
 	};
 
 		protected FP[] planePointsArray = new FP[8 * 3];

@@ -18,7 +18,7 @@ namespace DG
 		public void Reset(byte[] inBuffer, int length)
 		{
 			_buffer = inBuffer;
-			base._length = length;
+			_length = length;
 			_pos = 0;
 		}
 
@@ -42,7 +42,7 @@ namespace DG
 
 		public override void Peek(byte[] buffer, int offset, int length)
 		{
-			if (_pos + length > base._length)
+			if (_pos + length > _length)
 			{
 				var text = string.Concat(
 					"Peek out of stream,want -> mPos:",
@@ -52,7 +52,7 @@ namespace DG
 					",offset: ",
 					offset,
 					", but mLength:",
-					base._length,
+					_length,
 					",buf.Length: ",
 					buffer.Length
 				);
@@ -80,15 +80,15 @@ namespace DG
 
 		public override void Seek(int length)
 		{
-			if (_pos + length > base._length)
+			if (_pos + length > _length)
 			{
 				DGLog.Warn(string.Concat(
 					"Seek out of stream, wanted:",
 					_pos + length,
 					", but:",
-					base._length
+					_length
 				));
-				_pos = base._length;
+				_pos = _length;
 				return;
 			}
 
@@ -97,15 +97,15 @@ namespace DG
 
 		public override void Skip(int length)
 		{
-			if (_pos + length > base._length)
+			if (_pos + length > _length)
 			{
 				DGLog.Warn(string.Concat(
 					"Skip out of stream, wanted:",
 					_pos + length,
 					", but:",
-					base._length
+					_length
 				));
-				_pos = base._length;
+				_pos = _length;
 				return;
 			}
 

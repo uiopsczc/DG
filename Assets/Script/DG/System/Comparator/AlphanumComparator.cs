@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,7 +8,7 @@ namespace DG
 	//跟EditorUtility.NaturalCompare效果是一样的
 	public class AlphanumComparator : IComparer<string>
 	{
-		private enum ChunkType { Alphanumeric, Numeric };
+		private enum ChunkType { Alphanumeric, Numeric }
 		private bool InChunk(char ch, char otherCh)
 		{
 			ChunkType type = ChunkType.Alphanumeric;

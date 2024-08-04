@@ -16,10 +16,10 @@ namespace DG
 
 		public static bool IsSerializeType(Type type)
 		{
-			return type == UnitySerializeObjectType.Vector2Type || type == UnitySerializeObjectType.Vector3Type ||
-				   type == UnitySerializeObjectType.Vector4Type || type == UnitySerializeObjectType.QuaternionType ||
-				   type == UnitySerializeObjectType.BoundsType || type == UnitySerializeObjectType.ColorType ||
-				   type == UnitySerializeObjectType.RectType;
+			return type == Vector2Type || type == Vector3Type ||
+				   type == Vector4Type || type == QuaternionType ||
+				   type == BoundsType || type == ColorType ||
+				   type == RectType;
 		}
 	}
 }

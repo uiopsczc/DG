@@ -23,7 +23,7 @@ namespace DG
 
 		public void Init(params object[] args)
 		{
-			this._args = args;
+			_args = args;
 		}
 
 		public void Init(object args0, params object[] args)
@@ -51,7 +51,7 @@ namespace DG
 		public override string ToString()
 		{
 			var result = new StringBuilder("(");
-			if (this._args == null)
+			if (_args == null)
 			{
 				result.Append(")");
 				return result.ToString();

@@ -7,7 +7,7 @@
  * 版本:V          修改时间:         修改人:
  * 修改内容:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 
 namespace DG
 {
-	public partial struct FP : IEquatable<FP>, IComparable<FP>
+	public struct FP : IEquatable<FP>, IComparable<FP>
 	{
 		//不能修改Null的值
 		public static readonly FP NULL = FPConstInternal.MAX_VALUE;
@@ -42,7 +42,7 @@ namespace DG
 
 		static readonly FP LUT_INTERVAL = (FPConstInternal.LUT_SIZE - 1) / HALF_PI;
 
-		public static readonly Dictionary<int, FP> CACHE = new Dictionary<int, FP>
+		public static readonly Dictionary<int, FP> CACHE = new()
 		{
 			{0, ZERO},
 			{1, ONE},
@@ -309,7 +309,7 @@ namespace DG
 				bitPos -= shift;
 
 				var div = remainder / divider;
-				remainder = remainder % divider;
+				remainder %= divider;
 				quotient += div << bitPos;
 
 				// Detect overflow
@@ -660,7 +660,7 @@ namespace DG
 						result = (result >> 1) + bit;
 					}
 					else
-						result = result >> 1;
+						result >>= 1;
 
 					bit >>= 2;
 				}

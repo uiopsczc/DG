@@ -638,10 +638,10 @@ namespace DG
 
 		#region Random 随机
 
-//		public static T Random<T>(this T[] self)
-//		{
-//			return RandomUtil.Random(self);
-//		}
+		public static T Random<T>(this T[] self)
+		{
+			return RandomUtil.Random(self);
+		}
 
 		/// <summary>
 		/// 随机list里面的元素count次
@@ -652,15 +652,15 @@ namespace DG
 		/// <param name="isUnique">是否唯一</param>
 		/// <param name="weights">权重数组</param>
 		/// <returns></returns>
-//		public static List<T> RandomList<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
-//		{
-//			return RandomUtil.RandomList(self, count, isUnique, weights);
-//		}
-//
-//		public static T[] RandomArray<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
-//		{
-//			return RandomUtil.RandomArray(self, count, isUnique, weights);
-//		}
+		public static List<T> RandomList<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
+		{
+			return RandomUtil.RandomList(self, count, isUnique, weights);
+		}
+
+		public static T[] RandomArray<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
+		{
+			return RandomUtil.RandomArray(self, count, isUnique, weights);
+		}
 
 		#endregion
 

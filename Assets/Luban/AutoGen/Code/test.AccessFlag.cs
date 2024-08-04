@@ -8,10 +8,11 @@
 //------------------------------------------------------------------------------
 
 
+using System;
 
 namespace cfg.test
 { 
-    [System.Flags]
+    [Flags]
     public enum AccessFlag
     {
         WRITE = 1,

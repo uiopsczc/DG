@@ -2,13 +2,13 @@ namespace DG
 {
 	public static class AnimationNameConst
 	{
-		public static string Walk = "Walk";
-		public static string Idle = "Idle";
-		public static string Die = "Die";
-		public static string BeThrowed = "BeThrowed";
-		public static string BeHit = "BeHit";
-		public static string Attack = "Attack";
-		public static string Enter = "Enter";
-		public static string Quit = "Quit";
+		public static string WALK = "Walk";
+		public static string IDLE = "Idle";
+		public static string DIE = "Die";
+		public static string BE_THROWED = "BeThrowed";
+		public static string BE_HIT = "BeHit";
+		public static string ATTACK = "Attack";
+		public static string ENTER = "Enter";
+		public static string QUIT = "Quit";
 	}
 }

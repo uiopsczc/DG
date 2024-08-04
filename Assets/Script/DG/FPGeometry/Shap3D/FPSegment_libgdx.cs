@@ -11,7 +11,7 @@
 
 namespace DG
 {
-	public partial struct FPSegment
+	public struct FPSegment
 	{
 		public FPVector3 a;
 
@@ -37,8 +37,8 @@ namespace DG
 		 * @param bZ the z-coordinate of the second point */
 		public FPSegment(FP aX, FP aY, FP aZ, FP bX, FP bY, FP bZ)
 		{
-			this.a = new FPVector3(aX, aY, aZ);
-			this.b = new FPVector3(bX, bY, bZ);
+			a = new FPVector3(aX, aY, aZ);
+			b = new FPVector3(bX, bY, bZ);
 		}
 
 		public FP len()
@@ -55,15 +55,15 @@ namespace DG
 		{
 			int prime = 71;
 			int result = 1;
-			result = prime * result + this.a.GetHashCode();
-			result = prime * result + this.b.GetHashCode();
+			result = prime * result + a.GetHashCode();
+			result = prime * result + b.GetHashCode();
 			return result;
 		}
 
 		public override bool Equals(object o)
 		{
 			var other = (FPSegment)o;
-			return this.a == other.a && this.b == other.b;
+			return a == other.a && b == other.b;
 		}
 
 		public override string ToString()

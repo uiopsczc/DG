@@ -1,13 +1,13 @@
 /*************************************************************************************
- * Ãè    Êö:  
- * ´´ ½¨ Õß:  czq
- * ´´½¨Ê±¼ä:  2023/5/12
+ * æ    è¿°:
+ * åˆ› å»º è€…:  czq
+ * åˆ›å»ºæ—¶é—´:  2023/5/12
  * ======================================
- * ÀúÊ·¸üĞÂ¼ÇÂ¼
- * °æ±¾:V          ĞŞ¸ÄÊ±¼ä:         ĞŞ¸ÄÈË:
- * ĞŞ¸ÄÄÚÈİ:
+ * å†å²æ›´æ–°è®°å½•
+ * ç‰ˆæœ¬:V          ä¿®æ”¹æ—¶é—´:         ä¿®æ”¹äºº:
+ * ä¿®æ”¹å†…å®¹:
  * ======================================
-*************************************************************************************/
+ *************************************************************************************/
 
 using System;
 #if UNITY_STANDALONE
@@ -22,10 +22,10 @@ namespace DG
 		public static readonly FP kEpsilon = 0.00001F;
 		public static readonly FP kEpsilonNormalSqrt = 1e-15F;
 
-		public static FPVector4 zero => new FPVector4(0, 0, 0, 0);
-		public static FPVector4 one => new FPVector4(1, 1, 1, 1);
-		public static FPVector4 max => new FPVector4(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue);
-		public static FPVector4 min => new FPVector4(float.MinValue, float.MinValue, float.MinValue, float.MinValue);
+		public static FPVector4 zero => new(0, 0, 0, 0);
+		public static FPVector4 one => new(1, 1, 1, 1);
+		public static FPVector4 max => new(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue);
+		public static FPVector4 min => new(float.MinValue, float.MinValue, float.MinValue, float.MinValue);
 
 		public FP x;
 		public FP y;
@@ -77,14 +77,14 @@ namespace DG
 		public FPVector4 abs => Abs(this);
 
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public FP sqrMagnitude => x * x + y * y + z * z + w * w;
 
 		public FP magnitude => FPMath.Sqrt(sqrMagnitude);
 
 		/// <summary>
-		/// ·µ»Ø¸ÃÏòÁ¿µÄµ¥Î»ÏòÁ¿
+		/// è¿”å›è¯¥å‘é‡çš„å•ä½å‘é‡
 		/// </summary>
 		public FPVector4 normalized => Normalize(this);
 
@@ -115,15 +115,15 @@ namespace DG
 #if UNITY_STANDALONE
 		public FPVector4(Vector4 vector)
 		{
-			this.x = vector.x;
-			this.y = vector.y;
-			this.z = vector.z;
-			this.w = vector.w;
+			x = vector.x;
+			y = vector.y;
+			z = vector.z;
+			w = vector.w;
 		}
 #endif
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Equals ToString
+		* æ¨¡å—æè¿°:Equals ToString
 		*************************************************************************************/
 		public override bool Equals(object obj)
 		{
@@ -149,7 +149,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:×ª»»
+		* æ¨¡å—æè¿°:è½¬æ¢
 		*************************************************************************************/
 		public static implicit operator FPVector4(FPVector2 v)
 		{
@@ -161,7 +161,7 @@ namespace DG
 			return new FPVector4(v.x, v.y, v.z, 0);
 		}
 #if UNITY_STANDALONE
-		//×ª»»ÎªUnityµÄVector4
+		//è½¬æ¢ä¸ºUnityçš„Vector4
 		public static implicit operator Vector4(FPVector4 value)
 		{
 			return new Vector4(value.x, value.y, value.z, value.w);
@@ -174,7 +174,7 @@ namespace DG
 #endif
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:¹ØÏµÔËËã·û
+		* æ¨¡å—æè¿°:å…³ç³»è¿ç®—ç¬¦
 		*************************************************************************************/
 		public static bool operator ==(FPVector4 value1, FPVector4 value2)
 		{
@@ -193,7 +193,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:²Ù×÷ÔËËã
+		* æ¨¡å—æè¿°:æ“ä½œè¿ç®—
 		*************************************************************************************/
 		public static FPVector4 operator +(FPVector4 value1, FPVector4 value2)
 		{
@@ -259,7 +259,7 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:StaticUtil
+		* æ¨¡å—æè¿°:StaticUtil
 		*************************************************************************************/
 		public static bool IsUnit(FPVector4 vector)
 		{
@@ -268,7 +268,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ·µ»Øµ±Ç°ÏòÁ¿³¤¶ÈµÄÆ½·½
+		/// è¿”å›å½“å‰å‘é‡é•¿åº¦çš„å¹³æ–¹
 		/// </summary>
 		public static FP SqrMagnitude(FPVector4 v)
 		{
@@ -341,7 +341,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public static FPVector4 Normalize(FPVector4 value)
@@ -355,7 +355,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µã³Ë
+		/// ç‚¹ä¹˜
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>
@@ -448,10 +448,10 @@ namespace DG
 		}
 
 		/*************************************************************************************
-		* Ä£¿éÃèÊö:Util
+		* æ¨¡å—æè¿°:Util
 		*************************************************************************************/
 		/// <summary>
-		/// µ¥Î»»¯¸ÃÏòÁ¿
+		/// å•ä½åŒ–è¯¥å‘é‡
 		/// </summary>
 		/// <param name="v"></param>
 		public void Normalize()
@@ -474,10 +474,10 @@ namespace DG
 
 		public void Scale(FPVector4 scale)
 		{
-			this.x *= scale.x;
-			this.y *= scale.y;
-			this.z *= scale.z;
-			this.w *= scale.w;
+			x *= scale.x;
+			y *= scale.y;
+			z *= scale.z;
+			w *= scale.w;
 		}
 
 		public void Abs()

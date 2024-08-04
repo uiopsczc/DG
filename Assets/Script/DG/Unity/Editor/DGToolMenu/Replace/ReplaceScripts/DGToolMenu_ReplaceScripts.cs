@@ -24,21 +24,17 @@ namespace DG
 			}
 		}
 
-		private static ValueDictList<string, string> _scriptsToReplaceDictList = new ValueDictList<string, string>()
+		private static ValueDictList<string, string> _scriptsToReplaceDictList = new()
 		{
+			new Dictionary<string, string>
 			{
-				new Dictionary<string, string>()
-				{
-					{"old_guid", ""}, {"old_fileId", ""}, {"old_type", "type:0"}, {"new_guid:", ""},
-					{"new_fileId:", ""}, {"new_type", "type:3"}
-				}
+				{"old_guid", ""}, {"old_fileId", ""}, {"old_type", "type:0"}, {"new_guid:", ""},
+				{"new_fileId:", ""}, {"new_type", "type:3"}
 			},
+			new Dictionary<string, string>
 			{
-				new Dictionary<string, string>()
-				{
-					{"old_guid", ""}, {"old_fileId", ""}, {"old_type", "type:0"}, {"new_guid:", ""},
-					{"new_fileId:", ""}, {"new_type", "type:3"}
-				}
+				{"old_guid", ""}, {"old_fileId", ""}, {"old_type", "type:0"}, {"new_guid:", ""},
+				{"new_fileId:", ""}, {"new_type", "type:3"}
 			},
 		};
 
@@ -58,11 +54,11 @@ namespace DG
 					for (int i = 0; i < lines.Length; i++)
 					{
 						var line = lines[i];
-						string matchedLineContent = MetaConst.Sprite_Regex.Match(line).Value;
+						string matchedLineContent = MetaConst.SPRITE_REGEX.Match(line).Value;
 						if (!matchedLineContent.IsNullOrEmpty())
 						{
-							string oldFiledId = MetaConst.FileID_Regex.Match(matchedLineContent).Value;
-							string oldGUID = MetaConst.Guid_Regex.Match(matchedLineContent).Value;
+							string oldFiledId = MetaConst.FILE_ID_REGEX.Match(matchedLineContent).Value;
+							string oldGUID = MetaConst.GUID_REGEX.Match(matchedLineContent).Value;
 
 							if (scriptsToReplaceDict.ContainsKey(oldFiledId) &&
 							    oldGUID.Equals(scriptsToReplaceDict[oldFiledId]["old_guid"]))

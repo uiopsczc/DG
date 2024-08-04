@@ -22,8 +22,8 @@ namespace DG
 
 		public GUIToolbar(List<GUIContent> buttonGUIContentList)
 		{
-			this._buttonGUIContentList = new List<GUIContent>(buttonGUIContentList);
-			_isHighlighted = new bool[this._buttonGUIContentList.Count];
+			_buttonGUIContentList = new List<GUIContent>(buttonGUIContentList);
+			_isHighlighted = new bool[_buttonGUIContentList.Count];
 		}
 
 		public void SetHighlight(int index, bool isHighlight)

@@ -5,7 +5,7 @@ namespace DG
 {
 	public class DGLinkedBuffer : DGBuffer
 	{
-		private readonly List<byte[]> _bfs = new List<byte[]>();
+		private readonly List<byte[]> _bfs = new();
 		private readonly int _minBufferSize = 1024;
 		private int _capacity;
 		private int _firstOffset;
@@ -66,10 +66,10 @@ namespace DG
 		{
 			if (length < 0)
 				throw new ArgumentException();
-			if (length > this._length)
+			if (length > _length)
 				throw new IndexOutOfRangeException();
 			_firstOffset += length;
-			this._length -= length;
+			_length -= length;
 			CheckFreeBuffer();
 		}
 
@@ -82,9 +82,9 @@ namespace DG
 		{
 			if (length < 0)
 				throw new ArgumentException();
-			if (length > this._length)
+			if (length > _length)
 				throw new IndexOutOfRangeException();
-			this._length -= length;
+			_length -= length;
 			CheckFreeBuffer();
 		}
 
@@ -115,11 +115,11 @@ namespace DG
 				throw new IndexOutOfRangeException();
 
 
-			var need = length - (Capacity() - this._length);
+			var need = length - (Capacity() - _length);
 			if (need > 0)
 				ExtendBuffer(need);
-			Set(this._length, data, offset, length);
-			this._length += length;
+			Set(_length, data, offset, length);
+			_length += length;
 		}
 
 		/// <summary>
@@ -148,7 +148,7 @@ namespace DG
 		{
 			Get(0, buf, offset, length);
 			_firstOffset += length;
-			this._length -= length;
+			_length -= length;
 			CheckFreeBuffer();
 		}
 
@@ -281,7 +281,7 @@ namespace DG
 		{
 			if (length < 0)
 				throw new ArgumentException();
-			if (pos < 0 || offset < 0 || offset + length > data.Length || pos + length > this._length)
+			if (pos < 0 || offset < 0 || offset + length > data.Length || pos + length > _length)
 				throw new IndexOutOfRangeException();
 			if (length == 0)
 				return;

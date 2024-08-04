@@ -4,7 +4,7 @@ namespace DG
 {
 	public class RefCount
 	{
-		private readonly Counter _counter = new Counter();
+		private readonly Counter _counter = new();
 
 		public int count => _counter.count;
 

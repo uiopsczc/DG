@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,9 +6,9 @@ namespace DG
 	public static class EnumeratorUtil
 	{
 		/// <summary>
-		/// È¥µ½Ö¸¶¨index
+		/// åŽ»åˆ°æŒ‡å®šindex
 		/// </summary>
-		/// <param name="enumerator"></param>
+		/// <param name="self"></param>
 		/// <param name="index"></param>
 		/// <returns></returns>
 		public static IEnumerator GoToIndex(IEnumerator enumerator, int index)
@@ -29,8 +28,8 @@ namespace DG
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="enumerator"></param>
-		/// <param name="curIndex">´Ó-1¿ªÊ¼</param>
+		/// <param name="self"></param>
+		/// <param name="curIndex">ä»Ž-1å¼€å§‹</param>
 		/// <returns></returns>
 		public static bool MoveNext(IEnumerator enumerator, ref int curIndex)
 		{

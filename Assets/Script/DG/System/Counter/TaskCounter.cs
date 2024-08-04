@@ -27,13 +27,13 @@ namespace DG
 
 		public void CheckFinishCallback()
 		{
-			if (this._isFinishCallbackInvoked) //只执行一次
+			if (_isFinishCallbackInvoked) //只执行一次
 				return;
-			if (this._isCanFinishCallback) //能调用_finishCallback
+			if (_isCanFinishCallback) //能调用_finishCallback
 			{
-				if (this.IsAllTaskFinished()) //任务全部完成了
+				if (IsAllTaskFinished()) //任务全部完成了
 				{
-					this._isFinishCallbackInvoked = true;
+					_isFinishCallbackInvoked = true;
 					_finishCallback?.Invoke();
 				}
 			}
@@ -41,12 +41,12 @@ namespace DG
 
 		public void AddFinishTaskCount(int addValue)
 		{
-			this._curFinishTaskCount = this._curFinishTaskCount + addValue;
+			_curFinishTaskCount += addValue;
 		}
 
 		public bool IsAllTaskFinished()
 		{
-			return this._curFinishTaskCount >= this._maxTaskCount;
+			return _curFinishTaskCount >= _maxTaskCount;
 		}
 	}
 }
