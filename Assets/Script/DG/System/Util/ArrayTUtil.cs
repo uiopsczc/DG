@@ -7,9 +7,7 @@ namespace DG
 	{
 		public static void Swap<T>(T[] array1, int index1, T[] array2, int index2)
 		{
-			var c = array1[index1];
-			array1[index1] = array2[index2];
-			array2[index2] = c;
+			(array1[index1], array2[index2]) = (array2[index2], array1[index1]);
 		}
 
 		public static T[] GetArrayByIndexList<T>(T[] array, List<int> indexList)
@@ -107,7 +105,7 @@ namespace DG
 
 		public static void Swap<T>(T[] array, int index1, int index2)
 		{
-			ArrayTUtil.Swap(array, index1, array, index2);
+			Swap(array, index1, array, index2);
 		}
 
 		//超过index或者少于0的循环index表获得
@@ -176,7 +174,6 @@ namespace DG
 		/// 将多个数组合成一个数组
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-		/// <param name="source"></param>
 		/// <param name="arrs"></param>
 		/// <returns></returns>
 		public static T[] Combine<T>(T[] array, bool isUnique = false, params T[][] arrs)
@@ -324,7 +321,7 @@ namespace DG
 					addCount++;
 				}
 
-				return ArrayTUtil.AddRangeByIndexes(array, toAddArray, toAddIndexes, addCount);
+				return AddRangeByIndexes(array, toAddArray, toAddIndexes, addCount);
 			}
 
 			result = array.AddCapacity(toAddArray.Length);
@@ -349,7 +346,7 @@ namespace DG
 					addCount++;
 				}
 
-				result = ArrayTUtil.AddRangeByIndexList(array, toAddList, toAddIndexes, addCount);
+				result = AddRangeByIndexList(array, toAddList, toAddIndexes, addCount);
 				return result;
 			}
 

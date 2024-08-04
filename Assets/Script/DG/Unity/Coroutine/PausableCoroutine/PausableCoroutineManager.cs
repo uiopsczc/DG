@@ -81,15 +81,15 @@ namespace DG
 			MethodInfo methodInfo = thisReference.GetType()
 				.GetMethodInfo2(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 			if (methodInfo == null)
-				Debug.LogError("Coroutine '" + methodName + "' couldn't be started, the method doesn't exist!");
+				DGLog.Error("Coroutine '" + methodName + "' couldn't be started, the method doesn't exist!");
 
 			var returnValue = methodInfo.Invoke(thisReference, value == null ? null : new[] {value});
 
 			if (returnValue is IEnumerator enumerator)
 				return instance.GoStartCoroutine(enumerator, thisReference);
 
-			Debug.LogError("Coroutine '" + methodName +
-			               "' couldn't be started, the method doesn't return an IEnumerator!");
+			DGLog.Error("Coroutine '" + methodName +
+			            "' couldn't be started, the method doesn't return an IEnumerator!");
 
 			return null;
 		}
@@ -151,7 +151,7 @@ namespace DG
 		PausableCoroutine GoStartCoroutine(IEnumerator routine, object thisReference)
 		{
 			if (routine == null)
-				Debug.LogException(new Exception("IEnumerator is null!"), null);
+				DGLog.Error(new Exception("IEnumerator is null!"), null);
 
 			PausableCoroutine coroutine = CreateCoroutine(routine, thisReference);
 			GoStartCoroutine(coroutine);
@@ -295,7 +295,7 @@ namespace DG
 							coroutine.currentYield = new YieldNestedCoroutine(co);
 							break;
 						default:
-							Debug.LogException(
+							DGLog.Error(
 								new Exception("<" + coroutine.methodName +
 								              "> yielded an unknown or unsupported type! (" +
 								              current.GetType() +

@@ -1,6 +1,6 @@
 namespace DG
 {
-	public enum DGUpdateModeCat
+	public enum DGUpdateMode
 	{
 		Update,
 		LateUpdate,

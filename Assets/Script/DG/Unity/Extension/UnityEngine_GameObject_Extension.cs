@@ -98,10 +98,10 @@ namespace DG
 			return GameObjectUtil.GetSocketGameObject(self, socketName);
 		}
 
-		//		public static void SetPause(GameObject gameObject, object cause)
-		//		{
-		//			PauseUtil.SetPause(gameObject, cause);
-		//		}
+				public static void SetPause(GameObject gameObject, object cause)
+				{
+					PauseUtil.SetPause(gameObject, cause);
+				}
 
 		public static RectTransform RectTransform(this GameObject self)
 		{
@@ -113,10 +113,10 @@ namespace DG
 			return GameObjectUtil.IsSceneGameObject(self);
 		}
 
-		//		public static void DeSpawn(this GameObject self)
-		//		{
-		//			return GameObjectUtil.DeSpawn(self);
-		//		}
+				public static void DeSpawn(this GameObject self)
+				{
+					GameObjectUtil.DeSpawn(self);
+				}
 
 		public static void SetCache(this GameObject self, string key, object obj)
 		{

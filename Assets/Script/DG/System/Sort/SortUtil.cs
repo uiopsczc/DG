@@ -20,9 +20,7 @@ namespace DG
 				for (int j = 0; j < count - i - 1; j++)
 					if (!func(list[j], list[j + 1]))
 					{
-						var tmp = list[j];
-						list[j] = list[j + 1];
-						list[j + 1] = tmp;
+						(list[j], list[j + 1]) = (list[j + 1], list[j]);
 					}
 			}
 		}
@@ -41,9 +39,7 @@ namespace DG
 				for (int j = 0; j < count - i - 1; j++)
 					if (!func(list[j], list[j + 1]))
 					{
-						var tmp = list[j];
-						list[j] = list[j + 1];
-						list[j + 1] = tmp;
+						(list[j], list[j + 1]) = (list[j + 1], list[j]);
 					}
 			}
 		}

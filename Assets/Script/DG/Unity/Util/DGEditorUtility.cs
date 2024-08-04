@@ -9,7 +9,7 @@ namespace DG
 		public static void DisplayDialog(string message, string copyContent = null)
 		{
 			EditorUtility.DisplayDialog("", message, "确定");
-			Debug.Log(message);
+			DGLog.Info(message);
 			if (copyContent.IsNullOrWhiteSpace())
 				GUIUtility.systemCopyBuffer = copyContent;
 		}

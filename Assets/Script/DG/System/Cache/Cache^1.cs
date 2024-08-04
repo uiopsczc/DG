@@ -177,7 +177,7 @@ namespace DG
 			_dict.Clear();
 		}
 
-		public void DeSpawn()
+		public void OnDeSpawn()
 		{
 			Clear();
 		}

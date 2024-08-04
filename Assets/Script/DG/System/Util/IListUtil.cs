@@ -246,10 +246,10 @@ namespace DG
 		}
 
 #if UNITY_EDITOR
-//		public static void ToReorderableList(IList toReorderList, ref ReorderableList reorderableList)
-//		{
-//			ReorderableListUtil.ToReorderableList(toReorderList, ref reorderableList);
-//		}
+		public static void ToReorderableList(IList toReorderList, ref ReorderableList reorderableList)
+		{
+			ReorderableListUtil.ToReorderableList(toReorderList, ref reorderableList);
+		}
 #endif
 	}
 }

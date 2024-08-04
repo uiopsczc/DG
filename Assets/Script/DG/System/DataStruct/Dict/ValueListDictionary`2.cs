@@ -91,7 +91,7 @@ namespace DG
 				}
 				catch (Exception e)
 				{
-					UnityEngine.Debug.LogError(e);
+					DGLog.Error(e);
 				}
 			}
 

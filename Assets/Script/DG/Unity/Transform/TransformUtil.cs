@@ -887,13 +887,13 @@ namespace DG
 
 		public static Transform GetSocketTransform(Transform transform, string socketName = null)
 		{
-			socketName = socketName ?? StringConst.STRING_EMPTY;
+			socketName ??= StringConst.STRING_EMPTY;
 			Transform socketTransform = transform.gameObject.GetOrAddCache(StringConst.STRING_SOCKET, socketName, () =>
 			{
 				if (socketName.IsNullOrWhiteSpace())
 					return transform;
 				Transform result = transform.FindChildRecursive(socketName);
-				result = result ?? transform;
+				result ??= transform;
 				return result;
 			});
 			return socketTransform;

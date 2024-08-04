@@ -49,7 +49,7 @@ namespace DG
 				ignoreRight = ignoreLeft;
 			var resultList = new List<string>();
 			//https://blog.csdn.net/scrOUT/article/details/90517304
-			//    var regex = new Regex("(" + split + ")" + "(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"); //Ë«ÒıºÅÄÚµÄ¶ººÅ²»·Ö¸î  Ë«ÒıºÅÍâµÄ¶ººÅ½øĞĞ·Ö¸î
+			//    var regex = new Regex("(" + split + ")" + "(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)"); //åŒå¼•å·å†…çš„é€—å·ä¸åˆ†å‰²  åŒå¼•å·å¤–çš„é€—å·è¿›è¡Œåˆ†å‰²
 			string pattern = string.Format(StringConst.STRING_REGEX_FORMAT_SPLIT_IGNORE, split, ignoreLeft, ignoreLeft,
 				ignoreRight, ignoreRight, ignoreRight);
 			var regex = new Regex(pattern);
@@ -171,7 +171,7 @@ namespace DG
 		{
 			content = content.Trim(new[] {'\r', '\n'});
 			int insertLineIndex = lineList.IndexOf(content, startCheckInsertIndex);
-			//Èç¹ûlineListÖĞÃ»ÓĞcontentµÄÄÚÈİµÄĞĞ£¬ÔòÖ±½Ó²åÈë
+			//å¦‚æœlineListä¸­æ²¡æœ‰contentçš„å†…å®¹çš„è¡Œï¼Œåˆ™ç›´æ¥æ’å…¥
 			if (insertLineIndex < 0)
 			{
 				lineList.Insert(startCheckInsertIndex, content);
@@ -221,10 +221,10 @@ namespace DG
 		#endregion
 		
 
-		#region ÅĞ¶ÏÊÇ·ñÎªnull»òEmpty»òWhiteSpace
+		#region åˆ¤æ–­æ˜¯å¦ä¸ºnullæˆ–Emptyæˆ–WhiteSpace
 
 		/// <summary>
-		///   ÅĞ¶ÏÊÇ·ñÎªnull»òEmpty
+		///   åˆ¤æ–­æ˜¯å¦ä¸ºnullæˆ–Empty
 		/// </summary>
 		public static bool IsNullOrWhiteSpace(string content)
 		{
@@ -238,7 +238,7 @@ namespace DG
 
 		#endregion
 
-		#region ¼ÓÃÜ
+		#region åŠ å¯†
 
 		public static string Encrypt(string content)
 		{
@@ -248,7 +248,7 @@ namespace DG
 		#endregion
 
 		/// <summary>
-		///   ½«sÖØ¸´n´Î·µ»Ø
+		///   å°†sé‡å¤næ¬¡è¿”å›
 		/// </summary>
 		public static string Join(string content, int n)
 		{
@@ -285,7 +285,7 @@ namespace DG
 			return EditorUtility.NaturalCompare(content, other);
 		}
 #endif
-		//¸úÉÏÃæÕâ¸öEditorUtility.NaturalCompareĞ§¹ûÊÇÒ»ÑùµÄ
+		//è·Ÿä¸Šé¢è¿™ä¸ªEditorUtility.NaturalCompareæ•ˆæœæ˜¯ä¸€æ ·çš„
 		public static int AlphanumCompareTo(string content, string other)
 		{
 			return ComparatorConst.ALPHANUM_COMPARATOR.Compare(content, other);
@@ -456,10 +456,10 @@ namespace DG
 
 		#endregion
 
-		#region ±àÂë
+		#region ç¼–ç 
 
 		/// <summary>
-		///   ×Ö·û´®µÄbytes£¬Ä¬ÈÏ±àÂëÊÇµ±Ç°ÏµÍ³±àÂë
+		///   å­—ç¬¦ä¸²çš„bytesï¼Œé»˜è®¤ç¼–ç æ˜¯å½“å‰ç³»ç»Ÿç¼–ç 
 		/// </summary>
 		public static byte[] GetBytes(string content, Encoding encoding = null)
 		{
@@ -470,7 +470,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ´Ó×Ö·û´®µÄX½øÖÆ±àÂëµÄ×Ö·û´®×ªÎªÊ®½øÖÆµÄÊı×Ö£¨longÀàĞÍ£©
+		///   ä»å­—ç¬¦ä¸²çš„Xè¿›åˆ¶ç¼–ç çš„å­—ç¬¦ä¸²è½¬ä¸ºåè¿›åˆ¶çš„æ•°å­—ï¼ˆlongç±»å‹ï¼‰
 		/// </summary>
 		public static long ToLong(string content, int fromBase)
 		{
@@ -480,7 +480,7 @@ namespace DG
 		#endregion
 
 
-		#region ¸÷ÖÖ×ª»» ToXX
+		#region å„ç§è½¬æ¢ ToXX
 
 		public static Vector2 ToVector2(string content, string split = StringConst.STRING_COMMA,
 			string trimLeft = StringConst.STRING_LEFT_ROUND_BRACKETS,
@@ -594,7 +594,7 @@ namespace DG
 				var w = elementList[3].To<float>();
 				return new Quaternion(x, y, z, w);
 			}
-			else //Å·À­½Ç£¬Èı¸öÏµÊı
+			else //æ¬§æ‹‰è§’ï¼Œä¸‰ä¸ªç³»æ•°
 			{
 				var x = elementList[0].To<float>();
 				var y = elementList[1].To<float>();
@@ -650,7 +650,7 @@ namespace DG
 
 
 		/// <summary>
-		///   ½«sÓÃpatternÄ£Ê½×ª»»ÎªDateTime£¬×ª»»Ê§°ÜÊ±·µ»ØÄ¬ÈÏÖµdv
+		///   å°†sç”¨patternæ¨¡å¼è½¬æ¢ä¸ºDateTimeï¼Œè½¬æ¢å¤±è´¥æ—¶è¿”å›é»˜è®¤å€¼dv
 		/// </summary>
 		public static DateTime ToDateTime(string content, string pattern)
 		{
@@ -659,9 +659,9 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ĞÎÈç:
-		///   #FF00FF00»òÕßFF00FF00  º¬Alpha
-		///   »òÕß#FF00FF»òÕßFF00FF ²»º¬Alpha
+		///   å½¢å¦‚:
+		///   #FF00FF00æˆ–è€…FF00FF00  å«Alpha
+		///   æˆ–è€…#FF00FFæˆ–è€…FF00FF ä¸å«Alpha
 		/// </summary>
 		public static Color ToColor(string content, string trimLeft = StringConst.STRING_NUMBER_SIGN)
 		{
@@ -713,7 +713,7 @@ namespace DG
 		#region ToBytes
 
 		/// <summary>
-		///   ½«s×ª»»Îªbytes£¨bytes³¤¶ÈÎªlen[µ±len±Ès×ª»»³öÀ´µÄbytes¸üÉÙµÄÊ±ºò£¬ÓÃ¸üÉÙÄÇ¸ö]£©
+		///   å°†sè½¬æ¢ä¸ºbytesï¼ˆbytesé•¿åº¦ä¸ºlen[å½“lenæ¯”sè½¬æ¢å‡ºæ¥çš„bytesæ›´å°‘çš„æ—¶å€™ï¼Œç”¨æ›´å°‘é‚£ä¸ª]ï¼‰
 		/// </summary>
 		public static byte[] ToBytes(string self, int len, Encoding encoding = null)
 		{
@@ -739,7 +739,7 @@ namespace DG
 		#region Split
 
 		/// <summary>
-		///   ½«s°´sliceLen³¤¶È½øĞĞ·Ö¸î
+		///   å°†sæŒ‰sliceLené•¿åº¦è¿›è¡Œåˆ†å‰²
 		/// </summary>
 		public static string[] Split(string content, int sliceLength)
 		{
@@ -756,7 +756,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ½«s°´×Ö·û´®sep·Ö¸ô·û·Ö¸î
+		///   å°†sæŒ‰å­—ç¬¦ä¸²sepåˆ†éš”ç¬¦åˆ†å‰²
 		/// </summary>
 		public static string[] Split(string content, string sep)
 		{
@@ -787,7 +787,7 @@ namespace DG
 		#region Warp
 
 		/// <summary>
-		///   ½«¶ÔÏóÁĞ±íµÄÃ¿Ò»Ïî³ÉÔ±ÓÃ×óÓÒ×Ö·û´®À¨ÆğÀ´
+		///   å°†å¯¹è±¡åˆ—è¡¨çš„æ¯ä¸€é¡¹æˆå‘˜ç”¨å·¦å³å­—ç¬¦ä¸²æ‹¬èµ·æ¥
 		/// </summary>
 		public static string Wrap(string self, string leftWrap, string rightWrap)
 		{
@@ -799,12 +799,12 @@ namespace DG
 			return self.Wrap(wrap, wrap);
 		}
 
-		public static string WarpWithDoubleQuotes(string self) //Ë«ÒıºÅ
+		public static string WarpWithDoubleQuotes(string self) //åŒå¼•å·
 		{
 			return self.WarpBoth(StringConst.STRING_DOUBLE_QUOTES);
 		}
 
-		//posÔÚleftÖ®ºóµÚÒ»¸ö×ÖÄ¸µÄindex
+		//posåœ¨leftä¹‹åç¬¬ä¸€ä¸ªå­—æ¯çš„index
 		public static int WrapEndIndex(string s, string left, string right, int pos = 0)
 		{
 			int stack = 0;
@@ -834,7 +834,7 @@ namespace DG
 		#region Trim
 
 		/// <summary>
-		///   ÕûÀí×Ö·û´®,È¥µôÁ½±ßµÄÖ¸¶¨×Ö·û£¨trimLeftChars£¬trimRightChars£©
+		///   æ•´ç†å­—ç¬¦ä¸²,å»æ‰ä¸¤è¾¹çš„æŒ‡å®šå­—ç¬¦ï¼ˆtrimLeftCharsï¼ŒtrimRightCharsï¼‰
 		/// </summary>
 		public static string Trim(string content, string trimLeft, string trimRight,
 			bool isTrimAll = true)
@@ -871,7 +871,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÕûÀí×Ö·û´®,È¥µôÁ½±ßµÄÖ¸¶¨×Ö·ûtrimChars
+		///   æ•´ç†å­—ç¬¦ä¸²,å»æ‰ä¸¤è¾¹çš„æŒ‡å®šå­—ç¬¦trimChars
 		/// </summary>
 		public static string Trim(string content, string trimString)
 		{
@@ -879,7 +879,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÕûÀí×Ö·û´®,È¥µô×ó±ßµÄÖ¸¶¨×Ö·ûtrimChars
+		///   æ•´ç†å­—ç¬¦ä¸²,å»æ‰å·¦è¾¹çš„æŒ‡å®šå­—ç¬¦trimChars
 		/// </summary>
 		public static string TrimLeft(string content, string trimString)
 		{
@@ -887,7 +887,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÕûÀí×Ö·û´®,È¥µôÓÒ±ßµÄÖ¸¶¨×Ö·ûtrimChars
+		///   æ•´ç†å­—ç¬¦ä¸²,å»æ‰å³è¾¹çš„æŒ‡å®šå­—ç¬¦trimChars
 		/// </summary>
 		public static string TrimRight(string content, string trimString)
 		{
@@ -896,7 +896,7 @@ namespace DG
 
 		#endregion
 
-		#region ´óĞ¡Ğ´µÚÒ»¸ö×ÖÄ¸
+		#region å¤§å°å†™ç¬¬ä¸€ä¸ªå­—æ¯
 
 		public static string UpperFirstLetter(string content)
 		{
@@ -923,7 +923,7 @@ namespace DG
 		#region FillHead/FillEnd
 
 		/// <summary>
-		///   Ç°²¹Æë×Ö·û´®.Èôsrc³¤¶È²»×ãlen£¬ÔòÔÚsrcÇ°ÃæÓÃc²¹×ãlen³¤¶È£¬·ñÔòÖ±½Ó·µ»Øsrc
+		///   å‰è¡¥é½å­—ç¬¦ä¸².è‹¥srcé•¿åº¦ä¸è¶³lenï¼Œåˆ™åœ¨srcå‰é¢ç”¨cè¡¥è¶³lené•¿åº¦ï¼Œå¦åˆ™ç›´æ¥è¿”å›src
 		/// </summary>
 		public static string FillHead(string content, int len, char c)
 		{
@@ -937,7 +937,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ºó²¹Æë×Ö·û´®.Èôsrc³¤¶È²»×ãlen£¬ÔòÔÚsrcºóÃæÓÃc²¹×ãlen³¤¶È£¬·ñÔòÖ±½Ó·µ»Øsrc
+		///   åè¡¥é½å­—ç¬¦ä¸².è‹¥srcé•¿åº¦ä¸è¶³lenï¼Œåˆ™åœ¨srcåé¢ç”¨cè¡¥è¶³lené•¿åº¦ï¼Œå¦åˆ™ç›´æ¥è¿”å›src
 		/// </summary>
 		public static string FillEnd(string content, int len, char c)
 		{
@@ -955,8 +955,8 @@ namespace DG
 		#region GetDigit
 
 		/// <summary>
-		///   »ñÈ¡srcµÄµÚÒ»¸öÊı×Ö£¨¿ÉÄÜÓÉ¶à¸ö×Ö·û×é³É£©
-		///   Èç£º123df58f£¬Ôò·µ»Ø"123";abc123Ôò·µ»Ø""
+		///   è·å–srcçš„ç¬¬ä¸€ä¸ªæ•°å­—ï¼ˆå¯èƒ½ç”±å¤šä¸ªå­—ç¬¦ç»„æˆï¼‰
+		///   å¦‚ï¼š123df58fï¼Œåˆ™è¿”å›"123";abc123åˆ™è¿”å›""
 		/// </summary>
 		public static string GetDigitStart(string content)
 		{
@@ -974,8 +974,8 @@ namespace DG
 		}
 
 		/// <summary>
-		///   »ñÈ¡srcµÄµÚÒ»¸öÊı×Ö£¨¿ÉÄÜÓÉ¶à¸ö×Ö·û×é³É£©
-		///   Èç£º123df58f£¬Ôò·µ»Ø123;abc123Ôò·µ»Ødv
+		///   è·å–srcçš„ç¬¬ä¸€ä¸ªæ•°å­—ï¼ˆå¯èƒ½ç”±å¤šä¸ªå­—ç¬¦ç»„æˆï¼‰
+		///   å¦‚ï¼š123df58fï¼Œåˆ™è¿”å›123;abc123åˆ™è¿”å›dv
 		/// </summary>
 		public static long GetDigitStart(string content, long defaultValue)
 		{
@@ -983,8 +983,8 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÓÉÄ©Î²ÏòÇ°£¬»ñÈ¡srcµÄµÚÒ»¸öÊı×Ö£¨¿ÉÄÜÓÉ¶à¸ö×Ö·û×é³É£©
-		///   Èç£ºfg125abc456£¬ÔòµÃ³öÀ´ÊÇ"456";fg125abc456fd£¬ÔòµÃ³öÀ´ÊÇ""
+		///   ç”±æœ«å°¾å‘å‰ï¼Œè·å–srcçš„ç¬¬ä¸€ä¸ªæ•°å­—ï¼ˆå¯èƒ½ç”±å¤šä¸ªå­—ç¬¦ç»„æˆï¼‰
+		///   å¦‚ï¼šfg125abc456ï¼Œåˆ™å¾—å‡ºæ¥æ˜¯"456";fg125abc456fdï¼Œåˆ™å¾—å‡ºæ¥æ˜¯""
 		/// </summary>
 		public static string GetDigitEnd(string content)
 		{
@@ -1001,8 +1001,8 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÓÉÄ©Î²ÏòÇ°£¬»ñÈ¡srcµÄµÚÒ»¸öÊı×Ö£¨¿ÉÄÜÓÉ¶à¸ö×Ö·û×é³É£©
-		///   Èç£ºfg125abc456£¬ÔòµÃ³öÀ´ÊÇ456;fg125abc456fd£¬ÔòµÃ³öÀ´ÊÇdv
+		///   ç”±æœ«å°¾å‘å‰ï¼Œè·å–srcçš„ç¬¬ä¸€ä¸ªæ•°å­—ï¼ˆå¯èƒ½ç”±å¤šä¸ªå­—ç¬¦ç»„æˆï¼‰
+		///   å¦‚ï¼šfg125abc456ï¼Œåˆ™å¾—å‡ºæ¥æ˜¯456;fg125abc456fdï¼Œåˆ™å¾—å‡ºæ¥æ˜¯dv
 		/// </summary>
 		public static long GetDigitEnd(string content, long defaultValue)
 		{
@@ -1063,7 +1063,7 @@ namespace DG
 
 		#endregion
 
-		#region Ë½ÓĞº¯Êı
+		#region ç§æœ‰å‡½æ•°
 
 		private static long _X2H(string value, int fromBase)
 		{
@@ -1088,7 +1088,7 @@ namespace DG
 				}
 				catch
 				{
-					throw new OverflowException("ÔËËãÒç³ö.");
+					throw new OverflowException("è¿ç®—æº¢å‡º.");
 				}
 			}
 

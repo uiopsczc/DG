@@ -61,7 +61,7 @@ namespace DG
 		void Log(object msg)
 		{
 #if UNITY_STANDALONE
-			Debug.LogWarning(msg);
+			DGLog.Warn(msg);
 #endif
 		}
 
@@ -260,7 +260,7 @@ namespace DG
 			}
 
 			//		Console.WriteLine("{0} total, {1} per division", sw.ElapsedMilliseconds, (double)sw.Elapsed.Milliseconds / (m_testCases.Length * m_testCases.Length));
-			Debug.LogWarning(failures < 1);
+			DGLog.Warn(failures < 1);
 		}
 
 		public void Sign()

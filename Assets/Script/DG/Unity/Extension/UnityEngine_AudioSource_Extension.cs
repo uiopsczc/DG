@@ -7,7 +7,7 @@ namespace DG
 	{
 		public static bool SetAudioMixerOutput(this AudioSource self, string groupName, AudioMixer audioMixer = null)
 		{
-			audioMixer = audioMixer ?? SingletonMaster.instance.audioMixer;
+			audioMixer ??= SingletonMaster.instance.audioMixer;
 			AudioMixerGroup[] groups = audioMixer.FindMatchingGroups(AudioMixerConst.GROUP_DICT[groupName].groupPath);
 			if (groups.Length > 0)
 			{

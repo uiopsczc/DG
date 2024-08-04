@@ -1461,13 +1461,13 @@ namespace DG
 		//http://gsteph.blogspot.com/2012/05/world-view-and-projection-matrix.html
 		public FPMatrix4x4 setToWorld(FPVector3 position, FPVector3 forward, FPVector3 up)
 		{
-			//		UnityEngine.Debug.LogWarning($"forword:{forward.x}  {forward.y}  {forward.z} position:{position.x} {position.y} {position.z}");
+			//		DGLog.Warn($"forword:{forward.x}  {forward.y}  {forward.z} position:{position.x} {position.y} {position.z}");
 			tmpForward = tmpForward.set(forward).nor();
-			//		UnityEngine.Debug.LogWarning(tmpForward);
+			//		DGLog.Warn(tmpForward);
 			right = -right.set(tmpForward).crs(up).nor();
-			//		UnityEngine.Debug.LogWarning(right);
+			//		DGLog.Warn(right);
 			tmpUp = -tmpUp.set(right).crs(tmpForward).nor();
-			//		UnityEngine.Debug.LogWarning($"right:{right.x}  {right.y}  {right.z} tmpUp:{tmpUp.x}  {tmpUp.y}  {tmpUp.z} tmpForward:{tmpForward.x}  {tmpForward.y}  {tmpForward.z}");
+			//		DGLog.Warn($"right:{right.x}  {right.y}  {right.z} tmpUp:{tmpUp.x}  {tmpUp.y}  {tmpUp.z} tmpForward:{tmpForward.x}  {tmpForward.y}  {tmpForward.z}");
 			//		set(right, tmpUp, tmpForward.scl(-(DGFixedPoint) 1), position);
 			set(right, tmpUp, tmpForward, position);
 			return this;
@@ -1752,7 +1752,7 @@ namespace DG
 		/** @return the scale factor on the X axis (non-negative) */
 		public FP getScaleX()
 		{
-			//		UnityEngine.Debug.LogWarning((DGFixedPointMath.IsZero(val[M01]) && DGFixedPointMath.IsZero(val[M02]))
+			//		DGLog.Warn((DGFixedPointMath.IsZero(val[M01]) && DGFixedPointMath.IsZero(val[M02]))
 			//			? DGFixedPointMath.Abs(val[M00])
 			//			: DGFixedPointMath.Sqrt(getScaleXSquared()));
 			return (FPMath.IsZero(this.m10) && FPMath.IsZero(this.m20))

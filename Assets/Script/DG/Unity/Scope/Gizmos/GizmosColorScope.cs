@@ -5,7 +5,7 @@ namespace DG
 {
 	public class GizmosColorScope : IDisposable
 	{
-		[SerializeField] private Color _preColor { get; }
+		private Color _preColor { get; }
 
 		public GizmosColorScope(Color newColor)
 		{

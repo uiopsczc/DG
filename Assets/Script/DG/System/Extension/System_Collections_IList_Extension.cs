@@ -13,7 +13,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ±äÎª¶ÔÓ¦µÄArrayList
+		///   å˜ä¸ºå¯¹åº”çš„ArrayList
 		/// </summary>
 		/// <param name="self"></param>
 		/// <returns></returns>
@@ -54,47 +54,47 @@ namespace DG
 
 
 		//////////////////////////////////////////////////////////////////////
-		// DiffÏà¹Ø
+		// Diffç›¸å…³
 		//////////////////////////////////////////////////////////////////////
-		// ±ØĞëºÍApplyDiffÊ¹ÓÃ
-		// ÒÔnewÎª»ù×¼£¬»ñÈ¡newÏà¶ÔÓÚold²»Ò»ÑùµÄ²¿·Ö
+		// å¿…é¡»å’ŒApplyDiffä½¿ç”¨
+		// ä»¥newä¸ºåŸºå‡†ï¼Œè·å–newç›¸å¯¹äºoldä¸ä¸€æ ·çš„éƒ¨åˆ†
 		// local diff = table.GetDiff(old, new)
 		//  table.ApplyDiff(old, diff)
-		// ÕâÑùoldµÄ¾Í±ä³ÉºÍnewÒ»Ä£Ò»ÑùµÄÊı¾İ
+		// è¿™æ ·oldçš„å°±å˜æˆå’Œnewä¸€æ¨¡ä¸€æ ·çš„æ•°æ®
 		public static LinkedHashtable GetDiff(this IList oldList, IList newList)
 		{
 			return IListUtil.GetDiff(oldList, newList);
 		}
 
 		// table.ApplyDiff(old, diff)
-		// ½«diffÖĞµÄ¶«Î÷Ó¦ÓÃµ½oldÖĞ
-		// ÖØÒª£ºµ±ÎªArrayµÄÊ±ºò£¬ĞèÒªÖØĞÂ¸³Öµ£»ListµÄÊ±ºò£¬¿ÉÒÔ²»ĞèÒªÖØĞÂ¸³Öµ
+		// å°†diffä¸­çš„ä¸œè¥¿åº”ç”¨åˆ°oldä¸­
+		// é‡è¦ï¼šå½“ä¸ºArrayçš„æ—¶å€™ï¼Œéœ€è¦é‡æ–°èµ‹å€¼ï¼›Listçš„æ—¶å€™ï¼Œå¯ä»¥ä¸éœ€è¦é‡æ–°èµ‹å€¼
 		public static IList ApplyDiff(this IList oldList, LinkedHashtable diffDict)
 		{
 			return IListUtil.ApplyDiff(oldList, diffDict);
 		}
 
-		// ±ØĞëºÍApplyDiffÊ¹ÓÃ
-		// ÒÔnewÎª»ù×¼£¬»ñÈ¡newÖĞÓĞ£¬µ«oldÖĞÃ»ÓĞµÄ
+		// å¿…é¡»å’ŒApplyDiffä½¿ç”¨
+		// ä»¥newä¸ºåŸºå‡†ï¼Œè·å–newä¸­æœ‰ï¼Œä½†oldä¸­æ²¡æœ‰çš„
 		// local diff = table.GetNotExist(old, new)
 		// table.ApplyDiff(old, diff)
-		// ÕâÑùold¾ÍÓĞnewÖĞµÄ×Ö¶Î
+		// è¿™æ ·oldå°±æœ‰newä¸­çš„å­—æ®µ
 		public static LinkedHashtable GetNotExist(this IList oldList, IList newList)
 		{
 			return IListUtil.GetNotExist(oldList, newList);
 		}
 
-		//Á½¸ötableÊÇ·ñ²»Ò»Ñù
+		//ä¸¤ä¸ªtableæ˜¯å¦ä¸ä¸€æ ·
 		public static bool IsDiff(this IList oldList, IList newList)
 		{
 			return IListUtil.IsDiff(oldList, newList);
 		}
 
 #if UNITY_EDITOR
-//		public static void ToReorderableList(this IList toReorderList, ref ReorderableList reorderableList)
-//		{
-//			IListUtil.ToReorderableList(toReorderList, ref reorderableList);
-//		}
+		public static void ToReorderableList(this IList toReorderList, ref ReorderableList reorderableList)
+		{
+			IListUtil.ToReorderableList(toReorderList, ref reorderableList);
+		}
 #endif
 	}
 }

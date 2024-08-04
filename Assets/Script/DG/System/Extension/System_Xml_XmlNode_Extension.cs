@@ -9,62 +9,62 @@ namespace DG
 	{
 		public static string GetNodeValue(this XmlNode self, string defaultValue)
 		{
-			return XmlNodeUtil.GetNodeValue(self, defaultValue);
+			return XMLUtil.GetNodeValue(self, defaultValue);
 		}
 
 		public static bool SetNodeValue(this XmlNode self, string value)
 		{
-			return XmlNodeUtil.SetNodeValue(self, value);
+			return XMLUtil.SetNodeValue(self, value);
 		}
 
 		public static string GetNodeCDataValue(this XmlNode self, string defaultValue)
 		{
-			return XmlNodeUtil.GetNodeCDataValue(self, defaultValue);
+			return XMLUtil.GetNodeCDataValue(self, defaultValue);
 		}
 
 		public static bool SetNodeCDataValue(this XmlNode self, string value)
 		{
-			return XmlNodeUtil.SetNodeCDataValue(self, value);
+			return XMLUtil.SetNodeCDataValue(self, value);
 		}
 
 		public static XmlAttribute GetNodeAttr(this XmlNode self, string name)
 		{
-			return XmlNodeUtil.GetNodeAttr(self, name);
+			return XMLUtil.GetNodeAttr(self, name);
 		}
 
 		public static string GetNodeAttrValue(this XmlNode self, string name, string defaultValue)
 		{
-			return XmlNodeUtil.GetNodeAttrValue(self, name, defaultValue);
+			return XMLUtil.GetNodeAttrValue(self, name, defaultValue);
 		}
 
 		public static Dictionary<string, string> GetNodeAttrs(this XmlNode self)
 		{
-			return XmlNodeUtil.GetNodeAttrs(self);
+			return XMLUtil.GetNodeAttrs(self);
 		}
 
 		public static bool SetNodeAttrValue(this XmlNode self, string name, string value)
 		{
-			return XmlNodeUtil.SetNodeAttrValue(self, name, value);
+			return XMLUtil.SetNodeAttrValue(self, name, value);
 		}
 
 		public static XmlNode GetChildNode(this XmlNode self, string name)
 		{
-			return XmlNodeUtil.GetChildNode(self, name);
+			return XMLUtil.GetChildNode(self, name);
 		}
 
 		public static XmlNode GetChildNode(this XmlNode self, int pos)
 		{
-			return XmlNodeUtil.GetChildNode(self, pos);
+			return XMLUtil.GetChildNode(self, pos);
 		}
 
 		public static XmlNode AddChildNode(this XmlNode self, string name, string value)
 		{
-			return XmlNodeUtil.AddChildNode(self, name, value);
+			return XMLUtil.AddChildNode(self, name, value);
 		}
 
 		public static void AddChildNode(this XmlNode self, Hashtable hashtable)
 		{
-			XmlNodeUtil.AddChildNode(self, hashtable);
+			XMLUtil.AddChildNode(self, hashtable);
 		}
 	}
 }

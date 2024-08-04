@@ -16,7 +16,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«Êı×é×ª»¯ÎªList
+		/// å°†æ•°ç»„è½¬åŒ–ä¸ºList
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
@@ -41,13 +41,13 @@ namespace DG
 			ArrayTUtil.Swap(self, index1, index2);
 		}
 
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±í»ñµÃ
+		//è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è·å¾—
 		public static T GetByLoopIndex<T>(this T[] self, int index)
 		{
 			return ArrayTUtil.GetByLoopIndex(self, index);
 		}
 
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±íÉèÖÃ
+		//è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è®¾ç½®
 		public static void SetByLoopIndex<T>(this T[] self, int index, T value)
 		{
 			ArrayTUtil.SetByLoopIndex(self, index, value);
@@ -64,7 +64,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// Ê¹ÆäÄÚÔªËØµ¥Ò»
+		/// ä½¿å…¶å†…å…ƒç´ å•ä¸€
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="c"></param>
@@ -80,7 +80,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ½«¶à¸öÊı×éºÏ³ÉÒ»¸öÊı×é
+		/// å°†å¤šä¸ªæ•°ç»„åˆæˆä¸€ä¸ªæ•°ç»„
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="source"></param>
@@ -123,16 +123,16 @@ namespace DG
 		}
 
 		/// <summary>
-		///   ÔÚselfÖĞÕÒsubArrayµÄ¿ªÊ¼Î»ÖÃ
+		///   åœ¨selfä¸­æ‰¾subArrayçš„å¼€å§‹ä½ç½®
 		/// </summary>
-		/// <returns>-1±íÊ¾Ã»ÕÒµ½</returns>
+		/// <returns>-1è¡¨ç¤ºæ²¡æ‰¾åˆ°</returns>
 		public static int IndexOfSub<T>(this T[] self, T[] subArray)
 		{
 			return ArrayTUtil.IndexOfSub(self, subArray);
 		}
 
 		/// <summary>
-		///   ÔÚselfÖĞÖ»±£ÁôsubArrayÖĞµÄÔªËØ
+		///   åœ¨selfä¸­åªä¿ç•™subArrayä¸­çš„å…ƒç´ 
 		/// </summary>
 		public static T[] RetainElementsOfSub<T>(this T[] self, T[] subArray)
 		{
@@ -147,7 +147,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// °üº¬fromIndxµ½Ä©Î²
+		/// åŒ…å«fromIndxåˆ°æœ«å°¾
 		/// </summary>
 		public static T[] Sub<T>(this T[] self, int fromIndex)
 		{
@@ -155,7 +155,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// µ±setÀ´Ê¹ÓÃ£¬±£³ÖÖ»ÓĞÒ»¸ö
+		/// å½“setæ¥ä½¿ç”¨ï¼Œä¿æŒåªæœ‰ä¸€ä¸ª
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="c"></param>
@@ -164,7 +164,7 @@ namespace DG
 			return ArrayTUtil.Add(self, element, isUnique);
 		}
 
-		//µ±isUnique==trueµÄÇé¿öÏÂ,Ä¬ÈÏtoAddArrayÀïÃæµÄÔªËØÊÇ²»ÖØ¸´µÄ
+		//å½“isUnique==trueçš„æƒ…å†µä¸‹,é»˜è®¤toAddArrayé‡Œé¢çš„å…ƒç´ æ˜¯ä¸é‡å¤çš„
 		public static T[] AddRange<T>(this T[] self, T[] toAddArray, bool isUnique = false)
 		{
 			return ArrayTUtil.AddRange(self, toAddArray, isUnique);
@@ -222,22 +222,22 @@ namespace DG
 		}
 
 		/// <summary>
-		///   É¾³ılistÖĞµÄsubList£¨subList±ØĞëÒªÈ«²¿ÔÚlistÖĞ£©
+		///   åˆ é™¤listä¸­çš„subListï¼ˆsubListå¿…é¡»è¦å…¨éƒ¨åœ¨listä¸­ï¼‰
 		/// </summary>
 		public static T[] RemoveSub<T>(this T[] self, T[] subArray)
 		{
 			return ArrayTUtil.RemoveSub(self, subArray);
 		}
 
-		//elements:ÒÆ³ıµôµÄÔªËØ
-		//array:self±»ÒÆ³ıºóµÄÊı×é
+		//elements:ç§»é™¤æ‰çš„å…ƒç´ 
+		//array:selfè¢«ç§»é™¤åçš„æ•°ç»„
 		public static (T[] elements, T[] array) RemoveRange2<T>(this T[] self, int removeFromIndex)
 		{
 			return ArrayTUtil.RemoveRange2(self, removeFromIndex);
 		}
 
-		//elements:ÒÆ³ıµôµÄÔªËØ
-		//array:self±»ÒÆ³ıºóµÄÊı×é
+		//elements:ç§»é™¤æ‰çš„å…ƒç´ 
+		//array:selfè¢«ç§»é™¤åçš„æ•°ç»„
 		public static (T[] elements, T[] array) RemoveRange2<T>(this T[] self, int removeFromIndex, int length)
 		{
 			return ArrayTUtil.RemoveRange2(self, removeFromIndex, length);
@@ -254,7 +254,7 @@ namespace DG
 		}
 
 		/// <summary>
-		/// ÔÚlistÖĞÉ¾³ısubListÖĞ³öÏÖµÄÔªËØ
+		/// åœ¨listä¸­åˆ é™¤subListä¸­å‡ºç°çš„å…ƒç´ 
 		/// </summary>
 		public static T[] RemoveElements<T>(this T[] self, HashSet<T> hashSet)
 		{
@@ -279,7 +279,7 @@ namespace DG
 
 
 		/// <summary>
-		/// Êı×éÖĞtargetµÄIndex
+		/// æ•°ç»„ä¸­targetçš„Index
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
@@ -297,7 +297,7 @@ namespace DG
 		}
 
 		/// <summary>
-		///À©Õ¹Êı×é
+		///æ‰©å±•æ•°ç»„
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="self"></param>
@@ -328,7 +328,7 @@ namespace DG
 		}
 
 
-		#region Random Ëæ»ú
+		#region Random éšæœº
 
 //		public static T Random<T>(this T[] self)
 //		{
@@ -336,13 +336,13 @@ namespace DG
 //		}
 //
 //		/// <summary>
-//		/// Ëæ»úlistÀïÃæµÄÔªËØcount´Î
+//		/// éšæœºlisté‡Œé¢çš„å…ƒç´ countæ¬¡
 //		/// </summary>
 //		/// <typeparam name="T"></typeparam>
 //		/// <param name="list"></param>
-//		/// <param name="count">¸öÊı</param>
-//		/// <param name="isUnique">ÊÇ·ñÎ¨Ò»</param>
-//		/// <param name="weights">È¨ÖØÊı×é</param>
+//		/// <param name="count">ä¸ªæ•°</param>
+//		/// <param name="isUnique">æ˜¯å¦å”¯ä¸€</param>
+//		/// <param name="weights">æƒé‡æ•°ç»„</param>
 //		/// <returns></returns>
 //		public static List<T> RandomList<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
 //		{
@@ -357,13 +357,13 @@ namespace DG
 		#endregion
 
 
-		//½«self³õÊ¼»¯Îª[height][width]µÄÊı×é
+		//å°†selfåˆå§‹åŒ–ä¸º[height][width]çš„æ•°ç»„
 		public static T[][] InitArrays<T>(this T[][] self, int height, int width, T defaultValue = default)
 		{
 			return ArrayTUtil.InitArrays(self, height, width, defaultValue);
 		}
 
-		//×ªÎª×óÏÂÎªÔ­µãµÄ×ø±êÏµ£¬xÔö¼ÓÊÇÏòÓÒ£¬yÔö¼ÓÊÇÏòÉÏ£¨ÓëunityµÄ×ø±êÏµÒ»ÖÂ£©
+		//è½¬ä¸ºå·¦ä¸‹ä¸ºåŸç‚¹çš„åæ ‡ç³»ï¼Œxå¢åŠ æ˜¯å‘å³ï¼Œyå¢åŠ æ˜¯å‘ä¸Šï¼ˆä¸unityçš„åæ ‡ç³»ä¸€è‡´ï¼‰
 		public static T[][] ToLeftBottomBaseArrays<T>(this T[][] self)
 		{
 			return ArrayTUtil.ToLeftBottomBaseArrays(self);

@@ -180,10 +180,10 @@ namespace DG
 			return gameObject.transform.GetSocketTransform(socketName).gameObject;
 		}
 
-		//		public static void SetPause(GameObject gameObject, object cause)
-		//		{
-		//			PauseUtil.SetPause(gameObject, cause);
-		//		}
+				public static void SetPause(GameObject gameObject, object cause)
+				{
+					PauseUtil.SetPause(gameObject, cause);
+				}
 		
 		public static RectTransform RectTransform(GameObject gameObject)
 		{
@@ -195,16 +195,16 @@ namespace DG
 			return self.scene.IsValid();
 		}
 
-		//		public static void DeSpawn(GameObject gameObject)
-		//		{
-		//			if (gameObject == null)
-		//				return;
-		//			if (gameObject.IsCacheContainsKey(PoolCatConst.Pool_Item))
-		//			{
-		//				IPoolItem poolItem = gameObject.GetCache<IPoolItem>(PoolCatConst.Pool_Item);
-		//				poolItem.DeSpawn();
-		//			}
-		//		}
+				public static void DeSpawn(GameObject gameObject)
+				{
+					if (gameObject == null)
+						return;
+					if (gameObject.IsCacheContainsKey(DGPoolConst.POOL_ITEM))
+					{
+						DGPoolItem<GameObject> poolItem = gameObject.GetCache<DGPoolItem<GameObject>>(DGPoolConst.POOL_ITEM);
+						poolItem.DeSpawn();
+					}
+				}
 
 		public static void SetCache(GameObject gameObject, string key, object obj)
 		{
