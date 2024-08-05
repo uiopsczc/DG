@@ -4,153 +4,153 @@ using UnityEngine;
 
 namespace DG
 {
-	public class AnimEvent : MonoBehaviour
-	{
-		private static readonly AnimationEvent[] _emptyEvent = new AnimationEvent[0];
-		private static readonly string _onTriggerString = "OnTrigger";
+    public class AnimEvent : MonoBehaviour
+    {
+        private static readonly AnimationEvent[] _emptyEvent = new AnimationEvent[0];
+        private static readonly string _onTriggerString = "OnTrigger";
 
-		/// <summary>
-		///   每个切片上的所有事件(key:该Animator上的ClipName)
-		/// </summary>
-		private readonly Dictionary<string, List<string>> _clipEventDict = new();
+        /// <summary>
+        ///   每个切片上的所有事件(key:该Animator上的ClipName)
+        /// </summary>
+        private readonly Dictionary<string, List<string>> _clipName2ClipEventList = new();
 
-		/// <summary>
-		///   每个事件对应回调(key:clipName + percentage)
-		/// </summary>
-		private readonly Dictionary<string, List<DelegateStruct>> _eventCallbackDict = new();
-
-
-		private Animator _animator => GetComponent<Animator>();
-		private AnimationClip[] _clips => _animator.runtimeAnimatorController.animationClips;
+        /// <summary>
+        ///   每个事件对应回调(key:clipName + percentage)
+        /// </summary>
+        private readonly Dictionary<string, List<DelegateStruct>> _clipNamePct2eventCallbackList = new();
 
 
-		#region private method
+        private Animator _animator => GetComponent<Animator>();
+        private AnimationClip[] _clips => _animator.runtimeAnimatorController.animationClips;
 
-		private void _OnTrigger(string eventKey)
-		{
-			if (!_eventCallbackDict.ContainsKey(eventKey))
-			{
-				DGLog.WarnFormat("{0}:不存在eventCallbacks {1}", GetType().Name, eventKey);
-				return;
-			}
 
-			for (var i = 0; i < _eventCallbackDict[eventKey].Count; i++)
-			{
-				var callbackStruct = _eventCallbackDict[eventKey][i];
-				callbackStruct.Invoke();
-			}
-		}
+        #region private method
 
-		#endregion
+        private void _OnTrigger(string eventKey)
+        {
+            if (!_clipNamePct2eventCallbackList.ContainsKey(eventKey))
+            {
+                DGLog.WarnFormat("{0}:不存在eventCallbacks {1}", GetType().Name, eventKey);
+                return;
+            }
 
-		#region public method
+            for (var i = 0; i < _clipNamePct2eventCallbackList[eventKey].Count; i++)
+            {
+                var callbackStruct = _clipNamePct2eventCallbackList[eventKey][i];
+                callbackStruct.Invoke();
+            }
+        }
 
-		public string GetEventKey(string clipName, float percentage)
-		{
-			return string.Format("{0}_{1}", clipName, percentage);
-		}
+        #endregion
 
-		#region add
+        #region public method
 
-		//只添加一个AnimationEvent到AnimationClip指定时间的上，然后触发的时候，调用strOnComplete方法（里面会调用eventCallbacks对应的方法（key：clipName + percentage）触发callBackList)
-		//如何将Delegate作为参数   使用lamba表达式,()=>{} 作为参数要将该delegate设置为Callback等，如 (Action)((args)=>{LogCat.Log(args);})
-		//例子: AddEvents((Action<string, string>)((a, b) => { LogCat.LogWarning(a+b);}), "TestAnimationClip", 1f,"aabbcc","ddff");
-		public AnimEvent AddEvents(Delegate callback, string clipName, float percentage, params object[] callbackArgs)
-		{
-			_clipEventDict.GetOrAddByDefaultFunc(clipName, () => new List<string>());
+        public string GetEventKey(string clipName, float percentage)
+        {
+            return string.Format("{0}_{1}", clipName, percentage);
+        }
 
-			var eventKey = GetEventKey(clipName, percentage);
-			var hasEventCallback = _eventCallbackDict.ContainsKey(eventKey);
-			_eventCallbackDict.GetOrAddByDefaultFunc(eventKey, () => new List<DelegateStruct>());
-			_eventCallbackDict[eventKey].Add(new DelegateStruct(callback, callbackArgs));
-			if (_clipEventDict[clipName].FindIndex(a => a.Equals(eventKey)) == -1)
-				_clipEventDict[clipName].Add(eventKey);
+        #region add
 
-			DGLog.Warn(_clipEventDict[clipName].Count);
+        //只添加一个AnimationEvent到AnimationClip指定时间的上，然后触发的时候，调用strOnComplete方法（里面会调用eventCallbacks对应的方法（key：clipName + percentage）触发callBackList)
+        //如何将Delegate作为参数   使用lamba表达式,()=>{} 作为参数要将该delegate设置为Callback等，如 (Action)((args)=>{LogCat.Log(args);})
+        //例子: AddEvents((Action<string, string>)((a, b) => { LogCat.LogWarning(a+b);}), "TestAnimationClip", 1f,"aabbcc","ddff");
+        public AnimEvent AddEvents(Delegate callback, string clipName, float percentage, params object[] callbackArgs)
+        {
+            _clipName2ClipEventList.GetOrAddByDefaultFunc(clipName, () => new List<string>());
 
-			for (var i = 0; i < _clips.Length; i++)
-			{
-				var clip = _clips[i];
-				if (!clip.name.Equals(clipName)) continue;
-				if (hasEventCallback) continue;
-				var animationEvent = new AnimationEvent();
-				animationEvent.functionName = _onTriggerString;
-				animationEvent.messageOptions = SendMessageOptions.RequireReceiver;
-				animationEvent.time = clip.length * percentage;
-				animationEvent.stringParameter = eventKey;
-				clip.AddEvent(animationEvent);
-			}
+            var eventKey = GetEventKey(clipName, percentage);
+            var hasEventCallback = _clipNamePct2eventCallbackList.ContainsKey(eventKey);
+            _clipNamePct2eventCallbackList.GetOrAddByDefaultFunc(eventKey, () => new List<DelegateStruct>());
+            _clipNamePct2eventCallbackList[eventKey].Add(new DelegateStruct(callback, callbackArgs));
+            if (_clipName2ClipEventList[clipName].FindIndex(a => a.Equals(eventKey)) == -1)
+                _clipName2ClipEventList[clipName].Add(eventKey);
 
-			return this;
-		}
+            DGLog.Warn(_clipName2ClipEventList[clipName].Count);
 
-		public AnimEvent AddEvents(Action callback, string clipName, float percentage)
-		{
-			return AddEvents((Delegate) callback, clipName, percentage);
-		}
+            for (var i = 0; i < _clips.Length; i++)
+            {
+                var clip = _clips[i];
+                if (!clip.name.Equals(clipName)) continue;
+                if (hasEventCallback) continue;
+                var animationEvent = new AnimationEvent();
+                animationEvent.functionName = _onTriggerString;
+                animationEvent.messageOptions = SendMessageOptions.RequireReceiver;
+                animationEvent.time = clip.length * percentage;
+                animationEvent.stringParameter = eventKey;
+                clip.AddEvent(animationEvent);
+            }
 
-		#endregion
+            return this;
+        }
 
-		#region replace
+        public AnimEvent AddEvents(Action callback, string clipName, float percentage)
+        {
+            return AddEvents((Delegate)callback, clipName, percentage);
+        }
 
-		public AnimEvent ReplaceEvents(Delegate callback, string clipName, float percentage,
-			params object[] callbackArgs)
-		{
-			var eventKey = GetEventKey(clipName, percentage);
-			if (_eventCallbackDict.TryGetValue(eventKey, out var value))
-				value.Clear(); //确保只有一个
-			return AddEvents(callback, clipName, percentage, callbackArgs);
-		}
+        #endregion
 
-		public AnimEvent ReplaceEvents(Action callback, string clipName, float percentage)
-		{
-			return ReplaceEvents((Delegate) callback, clipName, percentage);
-		}
+        #region replace
 
-		#endregion
+        public AnimEvent ReplaceEvents(Delegate callback, string clipName, float percentage,
+            params object[] callbackArgs)
+        {
+            var eventKey = GetEventKey(clipName, percentage);
+            if (_clipNamePct2eventCallbackList.TryGetValue(eventKey, out var value))
+                value.Clear(); //确保只有一个
+            return AddEvents(callback, clipName, percentage, callbackArgs);
+        }
 
-		#region remove
+        public AnimEvent ReplaceEvents(Action callback, string clipName, float percentage)
+        {
+            return ReplaceEvents((Delegate)callback, clipName, percentage);
+        }
 
-		public AnimEvent RemoveClipEvents(string clipName)
-		{
-			if (_clips != null)
-				for (var i = 0; i < _clips.Length; i++)
-				{
-					var clip = _clips[i];
-					if (clip == null) continue;
-					if (!clip.name.Equals(clipName)) continue;
-					clip.events = _emptyEvent;
-				}
+        #endregion
 
-			List<string> eventList = null;
-			if (_clipEventDict.TryGetValue(clipName, out eventList))
-			{
-				for (var i = 0; i < eventList.Count; i++)
-				{
-					var eventName = eventList[i];
-					_eventCallbackDict.Remove(eventName);
-				}
+        #region remove
 
-				_clipEventDict.Remove(clipName);
-			}
+        public AnimEvent RemoveClipEvents(string clipName)
+        {
+            if (_clips != null)
+                for (var i = 0; i < _clips.Length; i++)
+                {
+                    var clip = _clips[i];
+                    if (clip == null) continue;
+                    if (!clip.name.Equals(clipName)) continue;
+                    clip.events = _emptyEvent;
+                }
 
-			return this;
-		}
+            List<string> eventList;
+            if (_clipName2ClipEventList.TryGetValue(clipName, out eventList))
+            {
+                for (var i = 0; i < eventList.Count; i++)
+                {
+                    var eventName = eventList[i];
+                    _clipNamePct2eventCallbackList.Remove(eventName);
+                }
 
-		public void RemoveAllEvent(bool destroy = false)
-		{
-			var clipEventKeys = new List<string>(_clipEventDict.Keys);
-			for (var i = 0; i < clipEventKeys.Count; i++)
-			{
-				var clipName = clipEventKeys[i];
-				RemoveClipEvents(clipName);
-			}
+                _clipName2ClipEventList.Remove(clipName);
+            }
 
-			if (destroy) this.Destroy();
-		}
+            return this;
+        }
 
-		#endregion
+        public void RemoveAllEvent(bool destroy = false)
+        {
+            var clipEventKeys = new List<string>(_clipName2ClipEventList.Keys);
+            for (var i = 0; i < clipEventKeys.Count; i++)
+            {
+                var clipName = clipEventKeys[i];
+                RemoveClipEvents(clipName);
+            }
 
-		#endregion
-	}
+            if (destroy) this.Destroy();
+        }
+
+        #endregion
+
+        #endregion
+    }
 }

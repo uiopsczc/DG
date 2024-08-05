@@ -2,22 +2,22 @@ using System;
 
 namespace DG
 {
-	public class DGRange
-	{
-		private readonly IComparable _min;
-		private readonly IComparable _max;
+    public class DGRange
+    {
+        private readonly IComparable _min;
+        private readonly IComparable _max;
 
-		public DGRange(IComparable min, IComparable max)
-		{
-			_min = min;
-			_max = max;
-		}
+        public DGRange(IComparable min, IComparable max)
+        {
+            _min = min;
+            _max = max;
+        }
 
-		public bool IsContains(IComparable value, bool isNotIncludeMin = false, bool isNotIncludeMax = false)
-		{
-			bool leftResult = !isNotIncludeMin ? value.CompareTo(_min) >= 0 : value.CompareTo(_min) > 0;
-			bool rightResult = !isNotIncludeMax ? value.CompareTo(_max) <= 0 : value.CompareTo(_min) < 0;
-			return leftResult && rightResult;
-		}
-	}
+        public bool IsContains(IComparable value, bool isNotIncludeMin = false, bool isNotIncludeMax = false)
+        {
+            bool leftResult = !isNotIncludeMin ? value.CompareTo(_min) >= 0 : value.CompareTo(_min) > 0;
+            bool rightResult = !isNotIncludeMax ? value.CompareTo(_max) <= 0 : value.CompareTo(_min) < 0;
+            return leftResult && rightResult;
+        }
+    }
 }

@@ -1,7 +1,6 @@
 namespace DG
 {
-	public partial class Rigidbody2DUtil
-	{
-		
-	}
+    public partial class Rigidbody2DUtil
+    {
+    }
 }

@@ -1,13 +1,13 @@
 namespace DG
 {
-	public interface IDGPoolItemIndex
-	{
-		int GetIndex();
+    public interface IDGPoolItemIndex
+    {
+        int GetIndex();
 
-		object GetValue();
+        object GetValue();
 
-		T2 GetValue<T2>() where T2 : class;
+        T2 GetValue<T2>() where T2 : class;
 
-		IDGPool GetIPool();
-	}
+        IDGPool GetIPool();
+    }
 }

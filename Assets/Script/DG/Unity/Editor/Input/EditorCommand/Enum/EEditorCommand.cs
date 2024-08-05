@@ -1,10 +1,10 @@
 namespace DG
 {
-	public enum EEditorCommand
-	{
-		Copy,
-		Paste,
-		Delete,
-		Save,
-	}
+    public enum EEditorCommand
+    {
+        Copy,
+        Paste,
+        Delete,
+        Save,
+    }
 }

@@ -1,7 +1,7 @@
 namespace DG
 {
-	public interface ICommand
-	{
-		void Execute(ICommandMessage commandMessage);
-	}
+    public interface ICommand
+    {
+        void Execute(ICommandMessage commandMessage);
+    }
 }

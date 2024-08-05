@@ -54,8 +54,8 @@ namespace DG
         private static string _ASSET_BUNDLES_PATH;
 
         public static string ASSET_BUNDLES_PATH = ASSET_BUNDLES_PATH ?? (ASSET_BUNDLES_PATH =
-                                                      STREAMING_ASSETS_PATH + BuildConst.ASSET_BUNDLE_FOLDER_NAME +
-                                                      StringConst.STRING_SLASH);
+            STREAMING_ASSETS_PATH + BuildConst.ASSET_BUNDLE_FOLDER_NAME +
+            StringConst.STRING_SLASH);
 
         #endregion
 

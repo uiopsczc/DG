@@ -1,6 +1,6 @@
 namespace DG
 {
-	public interface IDGPoolItem
-	{
-	}
+    public interface IDGPoolItem
+    {
+    }
 }

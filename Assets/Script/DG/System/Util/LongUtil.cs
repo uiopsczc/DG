@@ -2,93 +2,93 @@ using System;
 
 namespace DG
 {
-	public static class LongUtil
-	{
-		// >>>ÎŞ·ûºÅÓÒÒÆ
-		public static long RightShift3(long value, int shiftAmount)
-		{
-			//ÒÆ¶¯ 0 Î»Ê±Ö±½Ó·µ»ØÔ­Öµ
-			if (shiftAmount != 0)
-			{
-				// int.MaxValue = 0x7FFFFFFF ÕûÊı×î´óÖµ
-				long mask = long.MaxValue;
-				//ÎŞ·ûºÅÕûÊı×î¸ßÎ»²»±íÊ¾Õı¸ºµ«²Ù×÷Êı»¹ÊÇÓĞ·ûºÅµÄ£¬ÓĞ·ûºÅÊıÓÒÒÆ1Î»£¬ÕıÊıÊ±¸ßÎ»²¹0£¬¸ºÊıÊ±¸ßÎ»²¹1
-				value >>= 1;
-				//ºÍÕûÊı×î´óÖµ½øĞĞÂß¼­ÓëÔËËã£¬ÔËËãºóµÄ½á¹ûÎªºöÂÔ±íÊ¾Õı¸ºÖµµÄ×î¸ßÎ»
-				value &= mask;
-				//Âß¼­ÔËËãºóµÄÖµÎŞ·ûºÅ£¬¶ÔÎŞ·ûºÅµÄÖµÖ±½Ó×öÓÒÒÆÔËËã£¬¼ÆËãÊ£ÏÂµÄÎ»
-				value >>= shiftAmount - 1;
-			}
-			return value;
-		}
+    public static class LongUtil
+    {
+        // >>>æ— ç¬¦å·å³ç§»
+        public static long RightShift3(long value, int shiftAmount)
+        {
+            //ç§»åŠ¨ 0 ä½æ—¶ç›´æ¥è¿”å›åŸå€¼
+            if (shiftAmount != 0)
+            {
+                // int.MaxValue = 0x7FFFFFFF æ•´æ•°æœ€å¤§å€¼
+                long mask = long.MaxValue;
+                //æ— ç¬¦å·æ•´æ•°æœ€é«˜ä½ä¸è¡¨ç¤ºæ­£è´Ÿä½†æ“ä½œæ•°è¿˜æ˜¯æœ‰ç¬¦å·çš„ï¼Œæœ‰ç¬¦å·æ•°å³ç§»1ä½ï¼Œæ­£æ•°æ—¶é«˜ä½è¡¥0ï¼Œè´Ÿæ•°æ—¶é«˜ä½è¡¥1
+                value >>= 1;
+                //å’Œæ•´æ•°æœ€å¤§å€¼è¿›è¡Œé€»è¾‘ä¸è¿ç®—ï¼Œè¿ç®—åçš„ç»“æœä¸ºå¿½ç•¥è¡¨ç¤ºæ­£è´Ÿå€¼çš„æœ€é«˜ä½
+                value &= mask;
+                //é€»è¾‘è¿ç®—åçš„å€¼æ— ç¬¦å·ï¼Œå¯¹æ— ç¬¦å·çš„å€¼ç›´æ¥åšå³ç§»è¿ç®—ï¼Œè®¡ç®—å‰©ä¸‹çš„ä½
+                value >>= shiftAmount - 1;
+            }
 
-		/// <summary>
-		///   long×ª»¯ÎªÖ¸¶¨½øÖÆ£¨16½øÖÆ»òÕß8½øÖÆµÈ£©
-		/// </summary>
-		public static string ToString(long v, int xbase)
-		{
-			return _H2X(v, xbase);
-		}
+            return value;
+        }
+
+        /// <summary>
+        ///   longè½¬åŒ–ä¸ºæŒ‡å®šè¿›åˆ¶ï¼ˆ16è¿›åˆ¶æˆ–è€…8è¿›åˆ¶ç­‰ï¼‰
+        /// </summary>
+        public static string ToString(long v, int xbase)
+        {
+            return _H2X(v, xbase);
+        }
 
 //		public static string GetAssetPathByRefId(long refId)
 //		{
 //			return AssetPathRefManager.instance.GetAssetPathByRefId(refId);
 //		}
 
-		#region bytes
+        #region bytes
 
-		/// <summary>
-		///   ½«Êı×Ö×ª»¯Îªbytes
-		/// </summary>
-		public static byte[] ToBytes(long v, bool isNetOrder = false)
-		{
-			return ByteUtil.ToBytes(v, 8, isNetOrder);
-		}
+        /// <summary>
+        ///   å°†æ•°å­—è½¬åŒ–ä¸ºbytes
+        /// </summary>
+        public static byte[] ToBytes(long v, bool isNetOrder = false)
+        {
+            return ByteUtil.ToBytes(v, 8, isNetOrder);
+        }
 
-		#endregion
+        #endregion
 
 
-		public static long Minimum(long v, long minimum)
-		{
-			return Math.Max(v, minimum);
-		}
+        public static long Minimum(long v, long minimum)
+        {
+            return Math.Max(v, minimum);
+        }
 
-		public static long Maximum(long v, long maximum)
-		{
-			return Math.Min(v, maximum);
-		}
+        public static long Maximum(long v, long maximum)
+        {
+            return Math.Min(v, maximum);
+        }
 
-		public static string ToStringWithComma(long v)
-		{
-			return string.Format(StringConst.STRING_FORMAT_NUMBER_WITH_COMMA, v);
-		}
+        public static string ToStringWithComma(long v)
+        {
+            return string.Format(StringConst.STRING_FORMAT_NUMBER_WITH_COMMA, v);
+        }
 
-		#region Ë½ÓĞ·½·¨
+        #region ç§æœ‰æ–¹æ³•
 
-		/// <summary>
-		///   long×ª»¯ÎªtoBase½øÖÆ
-		/// </summary>
-		private static string _H2X(long value, int toBase)
-		{
-			int digitIndex;
-			var longPositive = Math.Abs(value);
-			var radix = toBase;
-			var outDigits = new char[63];
-			var constChars = CharConst.DIGITS_AND_CHARS_BIG;
+        /// <summary>
+        ///   longè½¬åŒ–ä¸ºtoBaseè¿›åˆ¶
+        /// </summary>
+        private static string _H2X(long value, int toBase)
+        {
+            int digitIndex;
+            var longPositive = Math.Abs(value);
+            var radix = toBase;
+            var outDigits = new char[63];
+            var constChars = CharConst.DIGITS_AND_CHARS_BIG;
 
-			for (digitIndex = 0; digitIndex <= 64; digitIndex++)
-			{
-				if (longPositive == 0) break;
+            for (digitIndex = 0; digitIndex <= 64; digitIndex++)
+            {
+                if (longPositive == 0) break;
 
-				outDigits[outDigits.Length - digitIndex - 1] =
-					constChars[longPositive % radix];
-				longPositive /= radix;
-			}
+                outDigits[outDigits.Length - digitIndex - 1] =
+                    constChars[longPositive % radix];
+                longPositive /= radix;
+            }
 
-			return new string(outDigits, outDigits.Length - digitIndex, digitIndex);
-		}
+            return new string(outDigits, outDigits.Length - digitIndex, digitIndex);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
-

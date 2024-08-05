@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace DG
 {
-	public class GUILabelAlignScope : IDisposable
-	{
-		private readonly TextAnchor _old;
+    public class GUILabelAlignScope : IDisposable
+    {
+        private readonly TextAnchor _old;
 
-		public GUILabelAlignScope(TextAnchor alignment)
-		{
-			_old = GUI.skin.label.alignment;
-			GUI.skin.label.alignment = alignment;
-		}
+        public GUILabelAlignScope(TextAnchor alignment)
+        {
+            _old = GUI.skin.label.alignment;
+            GUI.skin.label.alignment = alignment;
+        }
 
-		public void Dispose()
-		{
-			GUI.skin.label.alignment = _old;
-		}
-	}
+        public void Dispose()
+        {
+            GUI.skin.label.alignment = _old;
+        }
+    }
 }

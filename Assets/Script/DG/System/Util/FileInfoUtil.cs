@@ -3,137 +3,138 @@ using System.Text;
 
 namespace DG
 {
-	public static class FileInfoUtil
-	{
-		/// <summary>
-		///   ºó×º
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static string Suffix(FileInfo fileInfo)
-		{
-			return fileInfo.Extension;
-		}
+    public static class FileInfoUtil
+    {
+        /// <summary>
+        ///   åç¼€
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static string Suffix(FileInfo fileInfo)
+        {
+            return fileInfo.Extension;
+        }
 
-		/// <summary>
-		///   ²»´øºó×ºµÄname
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static string NameWithoutSuffix(FileInfo fileInfo)
-		{
-			return fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(CharConst.CHAR_DOT));
-		}
+        /// <summary>
+        ///   ä¸å¸¦åç¼€çš„name
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static string NameWithoutSuffix(FileInfo fileInfo)
+        {
+            return fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(CharConst.CHAR_DOT));
+        }
 
-		/// <summary>
-		///   ²»´øºó×ºµÄname£¨È«Â·¾¶£©
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static string FullNameWithoutSuffix(FileInfo fileInfo)
-		{
-			return fileInfo.FullName.Substring(0, fileInfo.FullName.LastIndexOf(CharConst.CHAR_DOT));
-		}
-
-
-		/// <summary>
-		///   ½«dataĞ´ÈëÎÄ¼şfileÖĞ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="data"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteFile(FileInfo fileInfo, byte[] data, bool isAppend)
-		{
-			var fos = new FileStream(fileInfo.FullName, isAppend ? FileMode.Append : FileMode.Truncate, FileAccess.Write);
-			try
-			{
-				fos.Write(data, 0, data.Length);
-			}
-			finally
-			{
-				fos.Close();
-			}
-		}
-
-		/// <summary>
-		///   ¶ÁÈ¡ÎÄ¼şfileµÄÄÚÈİ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static byte[] ReadBytes(FileInfo fileInfo)
-		{
-			var fis = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
-			try
-			{
-				var data = new byte[(int)fileInfo.Length];
-				fis.Read(data, 0, data.Length);
-				return data;
-			}
-			finally
-			{
-				fis.Close();
-			}
-		}
+        /// <summary>
+        ///   ä¸å¸¦åç¼€çš„nameï¼ˆå…¨è·¯å¾„ï¼‰
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static string FullNameWithoutSuffix(FileInfo fileInfo)
+        {
+            return fileInfo.FullName.Substring(0, fileInfo.FullName.LastIndexOf(CharConst.CHAR_DOT));
+        }
 
 
-		/// <summary>
-		///   ÏòÎÄ¼şfileĞ´ÈëcontentÄÚÈİ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="content"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteTextFile(FileInfo fileInfo, string content, bool isWriteLine, bool isAppend)
-		{
-			var fw = new StreamWriter(fileInfo.FullName, isAppend);
-			try
-			{
-				if (!isWriteLine)
-					fw.Write(content);
-				else
-					fw.WriteLine(content);
-			}
-			finally
-			{
-				fw.Close();
-			}
-		}
+        /// <summary>
+        ///   å°†dataå†™å…¥æ–‡ä»¶fileä¸­(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="data"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteFile(FileInfo fileInfo, byte[] data, bool isAppend)
+        {
+            var fos = new FileStream(fileInfo.FullName, isAppend ? FileMode.Append : FileMode.Truncate,
+                FileAccess.Write);
+            try
+            {
+                fos.Write(data, 0, data.Length);
+            }
+            finally
+            {
+                fos.Close();
+            }
+        }
+
+        /// <summary>
+        ///   è¯»å–æ–‡ä»¶fileçš„å†…å®¹
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static byte[] ReadBytes(FileInfo fileInfo)
+        {
+            var fis = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+            try
+            {
+                var data = new byte[(int)fileInfo.Length];
+                fis.Read(data, 0, data.Length);
+                return data;
+            }
+            finally
+            {
+                fis.Close();
+            }
+        }
 
 
-		/// <summary>
-		///   ¶ÁÈ¡ÎÄ¼şfile£¬·µ»Ø×Ö·û´®ÄÚÈİ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static string ReadTextFile(FileInfo fileInfo)
-		{
-			var fr = new StreamReader(fileInfo.FullName);
+        /// <summary>
+        ///   å‘æ–‡ä»¶fileå†™å…¥contentå†…å®¹(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="content"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteTextFile(FileInfo fileInfo, string content, bool isWriteLine, bool isAppend)
+        {
+            var fw = new StreamWriter(fileInfo.FullName, isAppend);
+            try
+            {
+                if (!isWriteLine)
+                    fw.Write(content);
+                else
+                    fw.WriteLine(content);
+            }
+            finally
+            {
+                fw.Close();
+            }
+        }
 
-			var stringBuilder = new StringBuilder();
-			var chars = new char[1024];
-			try
-			{
-				int n;
-				while ((n = fr.Read(chars, 0, chars.Length)) != 0)
-					stringBuilder.Append(chars, 0, n);
-				return stringBuilder.ToString();
-			}
-			finally
-			{
-				fr.Close();
-			}
-		}
 
-		/// <summary>
-		///   ½«dataĞ´ÈëÎÄ¼şfileÖĞ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="data"></param>
-		/// <returns></returns>
-		public static void WriteFile(FileInfo fileInfo, byte[] data)
-		{
-			fileInfo.WriteFile(data, false);
-		}
-	}
+        /// <summary>
+        ///   è¯»å–æ–‡ä»¶fileï¼Œè¿”å›å­—ç¬¦ä¸²å†…å®¹
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static string ReadTextFile(FileInfo fileInfo)
+        {
+            var fr = new StreamReader(fileInfo.FullName);
+
+            var stringBuilder = new StringBuilder();
+            var chars = new char[1024];
+            try
+            {
+                int n;
+                while ((n = fr.Read(chars, 0, chars.Length)) != 0)
+                    stringBuilder.Append(chars, 0, n);
+                return stringBuilder.ToString();
+            }
+            finally
+            {
+                fr.Close();
+            }
+        }
+
+        /// <summary>
+        ///   å°†dataå†™å…¥æ–‡ä»¶fileä¸­
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static void WriteFile(FileInfo fileInfo, byte[] data)
+        {
+            fileInfo.WriteFile(data, false);
+        }
+    }
 }

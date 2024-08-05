@@ -15,14 +15,14 @@ namespace DG
         {
             get
             {
-                var bytesIndex = (uint) (index / _BYTE_WIDTH);
+                var bytesIndex = (uint)(index / _BYTE_WIDTH);
                 var bitIndex = index % _BYTE_WIDTH;
                 var b = (_bytes[bytesIndex] >> bitIndex) & 1u;
                 return Convert.ToBoolean(b);
             }
             set
             {
-                var bytesIndex = (uint) (index / _BYTE_WIDTH);
+                var bytesIndex = (uint)(index / _BYTE_WIDTH);
                 var bitIndex = index % _BYTE_WIDTH;
                 var b = 1u << bitIndex;
                 if (value)

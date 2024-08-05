@@ -1,7 +1,7 @@
 namespace DG
 {
-	public interface IGetLinkedHashtable
-	{
-		LinkedHashtable GetLinkedHashtable();
-	}
+    public interface IGetLinkedHashtable
+    {
+        LinkedHashtable GetLinkedHashtable();
+    }
 }

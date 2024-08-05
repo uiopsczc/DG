@@ -1,8 +1,8 @@
 namespace DG
 {
-	public enum EDGPoolEnum
-	{
-		Normal,
-		UI,
-	}
+    public enum EDGPoolEnum
+    {
+        Normal,
+        UI,
+    }
 }

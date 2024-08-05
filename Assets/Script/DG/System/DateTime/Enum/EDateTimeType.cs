@@ -1,12 +1,12 @@
 namespace DG
 {
-	public enum EDateTimeType
-	{
-		Year,
-		Month,
-		Day,
-		Hour,
-		Minute,
-		Second
-	}
+    public enum EDateTimeType
+    {
+        Year,
+        Month,
+        Day,
+        Hour,
+        Minute,
+        Second
+    }
 }

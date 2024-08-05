@@ -1,7 +1,7 @@
 namespace DG
 {
-	public interface ICoroutineYield
-	{
-		bool IsDone(float deltaTime);
-	}
+    public interface ICoroutineYield
+    {
+        bool IsDone(float deltaTime);
+    }
 }

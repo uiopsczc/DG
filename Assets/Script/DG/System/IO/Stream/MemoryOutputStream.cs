@@ -3,79 +3,79 @@ using UnityEngine;
 
 namespace DG
 {
-	public class MemoryOutputStream : OutputStream
-	{
-		private byte[] _data;
-		private int _incLen;
+    public class MemoryOutputStream : OutputStream
+    {
+        private byte[] _data;
+        private int _incLen;
 
-		public void Reset(byte[] inBuffer, int length)
-		{
-			_data = inBuffer;
-			_length = length;
-			_pos = 0;
-		}
-
-
-		public MemoryOutputStream(int length, int incLen)
-		{
-			_incLen = incLen;
-			_data = new byte[length];
-			_length = length;
-			_pos = 0;
-		}
-
-		public MemoryOutputStream(byte[] buf, int incLen = 0)
-		{
-			_incLen = incLen;
-			_data = buf;
-			_length = buf.Length;
-			_pos = 0;
-		}
+        public void Reset(byte[] inBuffer, int length)
+        {
+            _data = inBuffer;
+            _length = length;
+            _pos = 0;
+        }
 
 
-		public override void Flush()
-		{
-		}
+        public MemoryOutputStream(int length, int incLen)
+        {
+            _incLen = incLen;
+            _data = new byte[length];
+            _length = length;
+            _pos = 0;
+        }
 
-		public override byte[] GetBuffer()
-		{
-			return _data;
-		}
+        public MemoryOutputStream(byte[] buf, int incLen = 0)
+        {
+            _incLen = incLen;
+            _data = buf;
+            _length = buf.Length;
+            _pos = 0;
+        }
 
-		public override void Seek(int length)
-		{
-			Debug.Assert(length <= _length, "out of output stream length");
-			_pos = length;
-		}
 
-		public override void Skip(int length)
-		{
-			Debug.Assert(_pos + length <= _length, "out of output stream length");
-			_pos += length;
-		}
+        public override void Flush()
+        {
+        }
 
-		public override bool Write(byte[] buffer, int offset, int length)
-		{
-			if (_pos + length > _length)
-			{
-				if (_incLen <= 0)
-				{
-					_incLen = 128;
-					DGLog.Error("KMemoryOutputStream write error with 0 increase length");
-				}
+        public override byte[] GetBuffer()
+        {
+            return _data;
+        }
 
-				var num = _incLen;
-				var num2 = _length + num;
-				while (_pos + length >= num2) num2 += num;
-				var dst = new byte[num2];
-				Buffer.BlockCopy(_data, 0, dst, 0, _length);
-				_data = dst;
-				_length = num2;
-			}
+        public override void Seek(int length)
+        {
+            Debug.Assert(length <= _length, "out of output stream length");
+            _pos = length;
+        }
 
-			Buffer.BlockCopy(buffer, offset, _data, _pos, length);
-			_pos += length;
-			return true;
-		}
-	}
+        public override void Skip(int length)
+        {
+            Debug.Assert(_pos + length <= _length, "out of output stream length");
+            _pos += length;
+        }
+
+        public override bool Write(byte[] buffer, int offset, int length)
+        {
+            if (_pos + length > _length)
+            {
+                if (_incLen <= 0)
+                {
+                    _incLen = 128;
+                    DGLog.Error("KMemoryOutputStream write error with 0 increase length");
+                }
+
+                var num = _incLen;
+                var num2 = _length + num;
+                while (_pos + length >= num2) num2 += num;
+                var dst = new byte[num2];
+                Buffer.BlockCopy(_data, 0, dst, 0, _length);
+                _data = dst;
+                _length = num2;
+            }
+
+            Buffer.BlockCopy(buffer, offset, _data, _pos, length);
+            _pos += length;
+            return true;
+        }
+    }
 }

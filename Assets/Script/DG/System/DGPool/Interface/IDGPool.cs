@@ -1,12 +1,12 @@
 namespace DG
 {
-	public interface IDGPool
-	{
-		void Destroy();
-		void DeSpawnAll();
+    public interface IDGPool
+    {
+        void Destroy();
+        void DeSpawnAll();
 
-		void SetPoolManager(DGPoolManager poolManager);
+        void SetPoolManager(DGPoolManager poolManager);
 
-		DGPoolManager GetPoolManager();
-	}
+        DGPoolManager GetPoolManager();
+    }
 }

@@ -1,9 +1,9 @@
 namespace DG
 {
-	public interface ICopyable
-	{
-		void CopyTo(object dest);
+    public interface ICopyable
+    {
+        void CopyTo(object dest);
 
-		void CopyFrom(object source);
-	}
+        void CopyFrom(object source);
+    }
 }

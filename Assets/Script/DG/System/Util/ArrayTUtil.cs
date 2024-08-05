@@ -3,714 +3,716 @@ using System.Collections.Generic;
 
 namespace DG
 {
-	public static class ArrayTUtil
-	{
-		public static void Swap<T>(T[] array1, int index1, T[] array2, int index2)
-		{
-			(array1[index1], array2[index2]) = (array2[index2], array1[index1]);
-		}
-
-		public static T[] GetArrayByIndexList<T>(T[] array, List<int> indexList)
-		{
-			int indexListCount = indexList.Count;
-			T[] result = new T[indexListCount];
-			for (int i = 0; i < indexListCount; i++)
-			{
-				int index = indexList[i];
-				result[i] = array[index];
-			}
-
-			return result;
-		}
-
-		public static T[] GetArrayByIndexes<T>(T[] array, int[] indexes, int? indexesLength)
-		{
-			int indexesLengthValue = indexesLength.GetValueOrDefault(indexes.Length);
-			T[] result = new T[indexesLengthValue];
-			for (int i = 0; i < indexesLengthValue; i++)
-			{
-				int index = indexes[i];
-				result[i] = array[index];
-			}
-
-			return result;
-		}
-
-		public static T[] AddRangeByIndexes<T>(T[] array1, T[] array2, int[] array2Indexes, int? indexes2Length)
-		{
-			int array1Length = array1.Length;
-			var indexesLengthValue = indexes2Length.GetValueOrDefault(array2Indexes.Length);
-			var result = array1.AddCapacity(indexesLengthValue);
-			for (int i = 0; i < indexesLengthValue; i++)
-			{
-				int index = array2Indexes[i];
-				result[array1Length + i] = array2[index];
-			}
-
-			return result;
-		}
-
-		public static T[] AddRangeByIndexList<T>(T[] array1, List<T> list2, int[] list2Indexes, int? indexesLength)
-		{
-			int array1Length = array1.Length;
-			var indexesLengthValue = indexesLength.GetValueOrDefault(list2Indexes.Length);
-			var result = array1.AddCapacity(indexesLengthValue);
-			for (int i = 0; i < indexesLengthValue; i++)
-			{
-				int index = list2Indexes[i];
-				result[array1Length + i] = list2[index];
-			}
-
-			return result;
-		}
-
-		
-
-		/// <summary>
-		/// ½«Êı×é×ª»¯ÎªList
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="array"></param>
-		/// <returns></returns>
-		public static List<T> ToList<T>(T[] array)
-		{
-			if (array == null)
-				return null;
-			if (array.Length == 0)
-				return new List<T>();
-			var list = new List<T>(array);
-			return list;
-		}
-
-		public static T[] EmptyIfNull<T>(T[] array)
-		{
-			return array ?? new T[0];
-		}
-
-		public static T[] RemoveEmpty<T>(T[] array)
-		{
-			int[] remainIndexes = new int[array.Length];
-			int remainCount = 0;
-			for (int i = 0; i < array.Length; i++)
-			{
-				if (array[i] == null || array[i].Equals(default(T)))
-				{
-					remainIndexes[remainCount] = i;
-					remainCount++;
-				}
-			}
-
-			return array.GetArrayByIndexes(remainIndexes, remainCount);
-		}
-
-		public static void Swap<T>(T[] array, int index1, int index2)
-		{
-			Swap(array, index1, array, index2);
-		}
-
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±í»ñµÃ
-		public static T GetByLoopIndex<T>(T[] array, int index)
-		{
-			if (index < 0)
-				index = array.Length - Math.Abs(index) % array.Length;
-			else if (index >= array.Length)
-				index %= array.Length;
-			return array[index];
-		}
-
-		//³¬¹ıindex»òÕßÉÙÓÚ0µÄÑ­»·index±íÉèÖÃ
-		public static void SetByLoopIndex<T>(T[] array, int index, T value)
-		{
-			if (index < 0)
-				index = array.Length - Math.Abs(index) % array.Length;
-			else if (index >= array.Length) index %= array.Length;
-			array[index] = value;
-		}
-
-		public static bool Contains<T>(T[] array, T target)
-		{
-			return array.IndexOf(target) != -1;
-		}
-
-		public static bool ContainsIndex<T>(T[] array, int index)
-		{
-			return index >= 0 && index < array.Length;
-		}
-
-		/// <summary>
-		/// Ê¹ÆäÄÚÔªËØµ¥Ò»
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="c"></param>
-		/// <returns></returns>
-		public static T[] Unique<T>(T[] array)
-		{
-			HashSet<T> hashSet = new HashSet<T>();
-			int[] addIndexes = new int[array.Length];
-			int addCount = 0;
-			for (int i = 0; i < array.Length; i++)
-			{
-				if (hashSet.Add(array[i]))
-				{
-					addIndexes[addCount] = i;
-					addCount++;
-				}
-			}
-
-			return array.GetArrayByIndexes(addIndexes, addCount);
-		}
-
-		public static T[] Combine<T>(T[] array, T[] another, bool isUnique = false)
-		{
-			T[] result = new T[array.Length + another.Length];
-			Array.Copy(array, result, array.Length);
-			Array.Copy(another, 0, result, array.Length, another.Length);
-			if(isUnique)
-				result = result.Unique();
-			return result;
-		}
-
-		/// <summary>
-		/// ½«¶à¸öÊı×éºÏ³ÉÒ»¸öÊı×é
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="arrs"></param>
-		/// <returns></returns>
-		public static T[] Combine<T>(T[] array, bool isUnique = false, params T[][] arrs)
-		{
-			var arrsCount = arrs.Length;
-			var totalElementCount = array.Length;
-			for (int i = 0; i < arrsCount; i++)
-				totalElementCount += arrs[i].Length;
-			T[] result = new T[totalElementCount];
-			Array.Copy(array, result, array.Length);
-			int curIndex = array.Length;
-			for (int i = 0; i < arrsCount; i++)
-			{
-				var arr = arrs[i];
-				Array.Copy(arr, 0, result, curIndex, arr.Length);
-				curIndex += arr.Length;
-			}
-			if(isUnique)
-				result = result.Unique();
-			return result;
-		}
-
-		public static T[] Combine<T>(T[] array, params T[][] arrs)
-		{
-			return Combine(array, false, arrs);
-		}
-
-
-		public static T[] Push<T>(T[] array, T t)
-		{
-			return array.Add(t);
-		}
-
-		public static T Peek<T>(T[] array)
-		{
-			return array.Last();
-		}
-
-		public static (T element, T[] array) Pop<T>(T[] array)
-		{
-			return array.RemoveLast2();
-		}
-
-		public static T First<T>(T[] array)
-		{
-			return array[0];
-		}
-
-		public static T Last<T>(T[] array)
-		{
-			return array[array.Length - 1];
-		}
-
-		/// <summary>
-		///   ÔÚselfÖĞÕÒsubArrayµÄ¿ªÊ¼Î»ÖÃ
-		/// </summary>
-		/// <returns>-1±íÊ¾Ã»ÕÒµ½</returns>
-		public static int IndexOfSub<T>(T[] array, T[] subArray)
-		{
-			var resultFromIndex = -1; //sublistÔÚlistÖĞµÄ¿ªÊ¼Î»ÖÃ
-			for (var i = 0; i < array.Length; i++)
-			{
-				object o = array[i];
-				if (!ObjectUtil.Equals(o, subArray[0])) continue;
-				var isEquals = true;
-				for (var j = 1; j < subArray.Length; j++)
-				{
-					var o1 = subArray[j];
-					var o2 = i + j > array.Length - 1 ? default : array[i + j];
-					if (ObjectUtil.Equals(o1, o2)) continue;
-					isEquals = false;
-					break;
-				}
-
-				if (!isEquals) continue;
-				resultFromIndex = i;
-				break;
-			}
-
-			return resultFromIndex;
-		}
-
-		/// <summary>
-		///   ÔÚselfÖĞÖ»±£ÁôsubArrayÖĞµÄÔªËØ
-		/// </summary>
-		public static T[] RetainElementsOfSub<T>(T[] array, T[] subArray)
-		{
-			int[] remainIndexes = new int[array.Length];
-			int remainCount = 0;
-			for (var i = 0; i < array.Length; i++)
-				if (subArray.Contains(array[i]))
-				{
-					remainIndexes[remainCount] = i;
-					remainCount++;
-				}
-
-			return array.GetArrayByIndexes(remainIndexes, remainCount);
-		}
-
-		/// <summary>
-		/// </summary>
-		public static T[] Sub<T>(T[] array, int fromIndex, int length)
-		{
-			length = Math.Min(length, array.Length - fromIndex + 1);
-			return array.Clone(fromIndex, length);
-		}
-
-		/// <summary>
-		/// °üº¬fromIndxµ½Ä©Î²
-		/// </summary>
-		public static T[] Sub<T>(T[] array, int fromIndex)
-		{
-			return array.Sub(fromIndex, array.Length - fromIndex + 1);
-		}
-
-		/// <summary>
-		/// µ±setÀ´Ê¹ÓÃ£¬±£³ÖÖ»ÓĞÒ»¸ö
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="c"></param>
-		public static T[] Add<T>(T[] array, T element, bool isUnique = false)
-		{
-			if (isUnique && array.Contains(element))
-				return array;
-			var result = array.AddCapacity(1);
-			result[result.Length - 1] = element;
-			return result;
-		}
-
-		//µ±isUnique==trueµÄÇé¿öÏÂ,Ä¬ÈÏtoAddArrayÀïÃæµÄÔªËØÊÇ²»ÖØ¸´µÄ
-		public static T[] AddRange<T>(T[] array, T[] toAddArray, bool isUnique = false)
-		{
-			var selfLength = array.Length;
-			T[] result;
-			if (isUnique)
-			{
-				int[] toAddIndexes = new int[toAddArray.Length];
-				int addCount = 0;
-				for (int i = 0; i < toAddArray.Length; i++)
-				{
-					var element = toAddArray[i];
-					if (array.Contains(element))
-						continue;
-					toAddIndexes[addCount] = i;
-					addCount++;
-				}
-
-				return AddRangeByIndexes(array, toAddArray, toAddIndexes, addCount);
-			}
-
-			result = array.AddCapacity(toAddArray.Length);
-			Array.Copy(toAddArray, 0, result, selfLength, toAddArray.Length);
-			return result;
-		}
-
-		public static T[] AddRange<T>(T[] array, List<T> toAddList, bool isUnique = false)
-		{
-			var selfLength = array.Length;
-			T[] result;
-			if (isUnique)
-			{
-				int[] toAddIndexes = new int[toAddList.Count];
-				int addCount = 0;
-				for (int i = 0; i < toAddList.Count; i++)
-				{
-					var element = toAddList[i];
-					if (array.Contains(element))
-						continue;
-					toAddIndexes[addCount] = i;
-					addCount++;
-				}
-
-				result = AddRangeByIndexList(array, toAddList, toAddIndexes, addCount);
-				return result;
-			}
-
-			result = array.AddCapacity(toAddList.Count);
-			var toAddArray = toAddList.ToArray();
-			Array.Copy(toAddArray, 0, result, selfLength, toAddArray.Length);
-			return result;
-		}
-
-
-		public static T[] AddFirst<T>(T[] array, T element, bool isUnique = false)
-		{
-			T[] result;
-			if (isUnique && array.Contains(element))
-			{
-				result = new T[array.Length];
-				Array.Copy(array, result, array.Length);
-				return result;
-			}
-
-			result = array.AddCapacity(1, false);
-			result[0] = element;
-			return result;
-		}
-
-		public static T[] AddLast<T>(T[] array, T element, bool isUnique = false)
-		{
-			T[] result;
-			if (isUnique && array.Contains(element))
-			{
-				result = new T[array.Length];
-				Array.Copy(array, result, array.Length);
-				return result;
-			}
-
-			result = array.AddCapacity(1);
-			result[result.Length - 1] = element;
-			return result;
-		}
-
-		public static T[] AddUnique<T>(T[] array, T o)
-		{
-			return AddLast(array, o, true);
-		}
-
-		public static T[] RemoveFirst<T>(T[] array)
-		{
-			return RemoveFirst2(array).array;
-		}
-
-		public static (T element, T[] array) RemoveFirst2<T>(T[] inArray)
-		{
-			var element = inArray[0];
-			var array = new T[inArray.Length - 1];
-			if (array.Length > 0)
-				Array.Copy(inArray, 1, array, 0, inArray.Length - 1);
-			return (element, array);
-		}
-
-		public static T[] RemoveLast<T>( T[] array)
-		{
-			return RemoveLast2(array).array;
-		}
-
-		public static (T element, T[] array) RemoveLast2<T>( T[] inArray)
-		{
-			var element = inArray[inArray.Length - 1];
-			var array = new T[inArray.Length - 1];
-			if (array.Length > 0)
-				Array.Copy(inArray, 0, array, 0, inArray.Length - 1);
-			return (element, array);
-		}
-
-		public static (T element, T[] array) RemoveAt2<T>(T[] inArray, int removeIndex)
-		{
-			var element = inArray[removeIndex];
-			var array = new T[inArray.Length - 1];
-			int removeIndexMinus1 = removeIndex - 1;
-			int removeIndexPlus1 = removeIndex + 1;
-			if (removeIndexMinus1 >= 0)
-				Array.Copy(inArray, 0, array, 0, removeIndexMinus1 + 1);
-			if (removeIndexPlus1 < inArray.Length)
-				Array.Copy(inArray, removeIndexPlus1, array, removeIndex, inArray.Length - removeIndex - 1);
-			return (element, array);
-		}
-
-		public static T[] RemoveAt<T>(T[] array, int removeIndex)
-		{
-			return array.RemoveAt2(removeIndex).array;
-		}
-
-		/// <summary>
-		///   É¾³ılistÖĞµÄsubList£¨subList±ØĞëÒªÈ«²¿ÔÚlistÖĞ£©
-		/// </summary>
-		public static T[] RemoveSub<T>(T[] array, T[] subArray)
-		{
-			var fromIndex = array.IndexOfSub(subArray);
-			T[] result;
-			if (fromIndex == -1)
-			{
-				result = new T[array.Length];
-				Array.Copy(array, result, array.Length);
-				return result;
-			}
-
-			result = array.RemoveRange(fromIndex, subArray.Length);
-			return result;
-		}
-
-		//elements:ÒÆ³ıµôµÄÔªËØ
-		//array:self±»ÒÆ³ıºóµÄÊı×é
-		public static (T[] elements, T[] array) RemoveRange2<T>(T[] array, int removeFromIndex)
-		{
-			var length = array.Length - removeFromIndex + 1;
-			return RemoveRange2(array, removeFromIndex, length);
-		}
-
-		//elements:ÒÆ³ıµôµÄÔªËØ
-		//array:self±»ÒÆ³ıºóµÄÊı×é
-		public static (T[] elements, T[] array) RemoveRange2<T>(T[] inArray, int removeFromIndex, int length)
-		{
-			length = Math.Min(inArray.Length - removeFromIndex + 1, length);
-			var elements = new T[length];
-			Array.Copy(inArray, removeFromIndex, elements, 0, elements.Length);
-			var array = new T[inArray.Length - length];
-			int removeFromIndexMinus1 = removeFromIndex - 1;
-			int removeEndIndexPlus1 = removeFromIndex + length;
-			if (removeFromIndexMinus1 >= 0)
-				Array.Copy(inArray, 0, array, 0, removeFromIndexMinus1 + 1);
-			if (removeEndIndexPlus1 < inArray.Length)
-				Array.Copy(inArray, removeEndIndexPlus1, array, removeFromIndex, inArray.Length - removeFromIndex - length);
-			return (elements, array);
-		}
-
-		public static T[] RemoveRange<T>(T[] array, int removeFromIndex)
-		{
-			var length = array.Length - removeFromIndex + 1;
-			return RemoveRange(array, removeFromIndex, length);
-		}
-
-		public static T[] RemoveRange<T>(T[] inArray, int removeFromIndex, int length)
-		{
-			length = Math.Min(inArray.Length - removeFromIndex + 1, length);
-			var array = new T[inArray.Length - length];
-			int removeFromIndexMinus1 = removeFromIndex - 1;
-			int removeEndIndexPlus1 = removeFromIndex + length;
-			if (removeFromIndexMinus1 >= 0)
-				Array.Copy(inArray, 0, array, 0, removeFromIndexMinus1 + 1);
-			if (removeEndIndexPlus1 < inArray.Length)
-				Array.Copy(inArray, removeEndIndexPlus1, array, removeFromIndex, inArray.Length - removeFromIndex - length);
-			return array;
-		}
-
-		/// <summary>
-		/// ÔÚlistÖĞÉ¾³ısubListÖĞ³öÏÖµÄÔªËØ
-		/// </summary>
-		public static T[] RemoveElements<T>(T[] array, HashSet<T> hashSet)
-		{
-			int[] remainIndexes = new int[array.Length];
-			int remainCount = 0;
-			for (int i = 0; i < array.Length; i++)
-			{
-				if (!hashSet.Contains(array[i]))
-				{
-					remainIndexes[remainCount] = i;
-					remainCount++;
-				}
-			}
-
-			return array.GetArrayByIndexes(remainIndexes, remainCount);
-		}
-
-
-		public static void Reverse<T>(T[] array)
-		{
-			Array.Reverse(array);
-		}
-
-		public static void Foreach<T>(T[] array, Action<T> action)
-		{
-			for (int i = 0; i < array.Length; i++)
-				action(array[i]);
-		}
-
-		public static T[] Clone<T>(T[] array)
-		{
-			T[] clone = new T[array.Length];
-			array.CopyTo(clone, 0);
-			return clone;
-		}
-
-
-		/// <summary>
-		/// Êı×éÖĞtargetµÄIndex
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="array"></param>
-		/// <param name="target"></param>
-		/// <returns></returns>
-		public static int IndexOf<T>(T[] array, T target)
-		{
-			for (int i = 0; i < array.Length; i++)
-			{
-				if (target.Equals(array[i]))
-					return i;
-			}
-
-			return -1;
-		}
-
-
-		public static T[] Clone<T>(T[] array, int startIndex, int len)
-		{
-			var length = Math.Min(len, array.Length - startIndex);
-			var target = new T[length];
-			Array.Copy(array, startIndex, target, 0, length);
-			return target;
-		}
-
-		/// <summary>
-		///À©Õ¹Êı×é
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="array"></param>
-		public static T[] EnlargeCapacity<T>(T[] array, float enlargeFactor = 2f)
-		{
-			int orgLength = array.Length;
-			int newLength = (int)(orgLength * enlargeFactor);
-			T[] newObjects = new T[newLength];
-			Array.Copy(array, newObjects, orgLength);
-			return newObjects;
-		}
-
-		public static T[] AddCapacity<T>(T[] array, int add, bool isAppend = true)
-		{
-			int selfLength = array.Length;
-			int newLength = selfLength + add;
-			T[] newObjects = new T[newLength];
-			if (isAppend) //ÔÚºóÃæÀ©³ä
-				Array.Copy(array, newObjects, selfLength);
-			else //ÔÚÇ°ÃæÀ©³ä
-				Array.Copy(array, 0, newObjects, add, selfLength);
-			return newObjects;
-		}
-
-
-		public static T[] Insert<T>(T[] array, int insertIndex, T element)
-		{
-			var result = new T[array.Length + 1];
-			result[insertIndex] = element;
-			int insertIndexMinus1 = insertIndex - 1;
-			int insertIndexPlus1 = insertIndex + 1;
-			if (insertIndexMinus1 >= 0)
-				Array.Copy(array, 0, result, 0, insertIndexMinus1 + 1);
-			if (insertIndexPlus1 < result.Length)
-				Array.Copy(array, insertIndex, result, insertIndexPlus1, array.Length - insertIndex);
-			return result;
-		}
-
-		public static T[] InsertRange<T>(T[] array, int insertIndex, T[] toAddArray)
-		{
-			var toAddLength = toAddArray.Length;
-			var result = new T[array.Length + toAddLength];
-			Array.Copy(toAddArray, 0, result, insertIndex, toAddLength);
-			int insertFromIndexMinus1 = insertIndex - 1;
-			int insertEndIndexPlus = insertIndex + toAddLength;
-			if (insertFromIndexMinus1 >= 0)
-				Array.Copy(array, 0, result, 0, insertFromIndexMinus1 + 1);
-			if (insertEndIndexPlus < result.Length)
-				Array.Copy(array, insertIndex, result, insertEndIndexPlus, array.Length - insertIndex);
-			return result;
-		}
-
-		public static T[] InsertRange<T>(T[] array, int insertIndex, List<T> toAddList)
-		{
-			var toAddLength = toAddList.Count;
-			var result = new T[array.Length + toAddLength];
-			for (int i = 0; i < toAddList.Count; i++)
-				result[insertIndex + i] = toAddList[i];
-			int insertFromIndexMinus1 = insertIndex - 1;
-			int insertEndIndexPlus1 = insertIndex + toAddLength;
-			if (insertFromIndexMinus1 >= 0)
-				Array.Copy(array, 0, result, 0, insertFromIndexMinus1 + 1);
-			if (insertEndIndexPlus1 < result.Length)
-				Array.Copy(array, insertIndex, result, insertEndIndexPlus1, array.Length - insertIndex);
-			return result;
-		}
-
-
-		#region Random Ëæ»ú
-
-		public static T Random<T>(this T[] self)
-		{
-			return RandomUtil.Random(self);
-		}
-
-		/// <summary>
-		/// Ëæ»úlistÀïÃæµÄÔªËØcount´Î
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list"></param>
-		/// <param name="count">¸öÊı</param>
-		/// <param name="isUnique">ÊÇ·ñÎ¨Ò»</param>
-		/// <param name="weights">È¨ÖØÊı×é</param>
-		/// <returns></returns>
-		public static List<T> RandomList<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
-		{
-			return RandomUtil.RandomList(self, count, isUnique, weights);
-		}
-
-		public static T[] RandomArray<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
-		{
-			return RandomUtil.RandomArray(self, count, isUnique, weights);
-		}
-
-		#endregion
-
-
-		//½«self³õÊ¼»¯Îª[height][width]µÄÊı×é
-		public static T[][] InitArrays<T>(T[][] array, int height, int width, T defaultValue = default)
-		{
-			array = new T[height][];
-			for (int i = 0; i < height; i++)
-				array[i] = new T[width];
-			if (ObjectUtil.Equals(defaultValue, default(T))) return array;
-			for (int i = 0; i < height; i++)
-				for (int j = 0; j < width; j++)
-					array[i][j] = defaultValue;
-
-			return array;
-		}
-
-		//×ªÎª×óÏÂÎªÔ­µãµÄ×ø±êÏµ£¬xÔö¼ÓÊÇÏòÓÒ£¬yÔö¼ÓÊÇÏòÉÏ£¨ÓëunityµÄ×ø±êÏµÒ»ÖÂ£©
-		public static T[][] ToLeftBottomBaseArrays<T>(T[][] array)
-		{
-			int selfHeight = array.Length;
-			int selfWidth = array[0].Length;
-			int resultHeight = selfWidth;
-			int resultWidth = selfHeight;
-			var result = InitArrays(array, resultHeight, resultWidth);
-			for (int i = 0; i < resultWidth; i++)
-				for (int j = 0; j < resultHeight; j++)
-					result[j][resultWidth - 1 - i] = array[i][j];
-			return result;
-		}
-
-		public static void SortWithCompareRules<T>(T[] array, IList<Comparison<T>> compareRules)
-		{
-			SortUtil.MergeSortWithCompareRules(array, compareRules);
-		}
-
-		public static Dictionary<T, ElementValueType> ToDictionary<T, ElementValueType>(T[] array, ElementValueType defaultElementValue = default)
-		{
-			Dictionary<T, ElementValueType> dict = new Dictionary<T, ElementValueType>();
-			if (array.IsNullOrEmpty())
-				return dict;
-			for (var i = 0; i < array.Length; i++)
-			{
-				var element = array[i];
-				dict[element] = defaultElementValue;
-			}
-			return dict;
-		}
-
-	}
+    public static class ArrayTUtil
+    {
+        public static void Swap<T>(T[] array1, int index1, T[] array2, int index2)
+        {
+            (array1[index1], array2[index2]) = (array2[index2], array1[index1]);
+        }
+
+        public static T[] GetArrayByIndexList<T>(T[] array, List<int> indexList)
+        {
+            int indexListCount = indexList.Count;
+            T[] result = new T[indexListCount];
+            for (int i = 0; i < indexListCount; i++)
+            {
+                int index = indexList[i];
+                result[i] = array[index];
+            }
+
+            return result;
+        }
+
+        public static T[] GetArrayByIndexes<T>(T[] array, int[] indexes, int? indexesLength)
+        {
+            int indexesLengthValue = indexesLength.GetValueOrDefault(indexes.Length);
+            T[] result = new T[indexesLengthValue];
+            for (int i = 0; i < indexesLengthValue; i++)
+            {
+                int index = indexes[i];
+                result[i] = array[index];
+            }
+
+            return result;
+        }
+
+        public static T[] AddRangeByIndexes<T>(T[] array1, T[] array2, int[] array2Indexes, int? indexes2Length)
+        {
+            int array1Length = array1.Length;
+            var indexesLengthValue = indexes2Length.GetValueOrDefault(array2Indexes.Length);
+            var result = array1.AddCapacity(indexesLengthValue);
+            for (int i = 0; i < indexesLengthValue; i++)
+            {
+                int index = array2Indexes[i];
+                result[array1Length + i] = array2[index];
+            }
+
+            return result;
+        }
+
+        public static T[] AddRangeByIndexList<T>(T[] array1, List<T> list2, int[] list2Indexes, int? indexesLength)
+        {
+            int array1Length = array1.Length;
+            var indexesLengthValue = indexesLength.GetValueOrDefault(list2Indexes.Length);
+            var result = array1.AddCapacity(indexesLengthValue);
+            for (int i = 0; i < indexesLengthValue; i++)
+            {
+                int index = list2Indexes[i];
+                result[array1Length + i] = list2[index];
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// å°†æ•°ç»„è½¬åŒ–ä¸ºList
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        public static List<T> ToList<T>(T[] array)
+        {
+            if (array == null)
+                return null;
+            if (array.Length == 0)
+                return new List<T>();
+            var list = new List<T>(array);
+            return list;
+        }
+
+        public static T[] EmptyIfNull<T>(T[] array)
+        {
+            return array ?? new T[0];
+        }
+
+        public static T[] RemoveEmpty<T>(T[] array)
+        {
+            int[] remainIndexes = new int[array.Length];
+            int remainCount = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == null || array[i].Equals(default(T)))
+                {
+                    remainIndexes[remainCount] = i;
+                    remainCount++;
+                }
+            }
+
+            return array.GetArrayByIndexes(remainIndexes, remainCount);
+        }
+
+        public static void Swap<T>(T[] array, int index1, int index2)
+        {
+            Swap(array, index1, array, index2);
+        }
+
+        //è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è·å¾—
+        public static T GetByLoopIndex<T>(T[] array, int index)
+        {
+            if (index < 0)
+                index = array.Length - Math.Abs(index) % array.Length;
+            else if (index >= array.Length)
+                index %= array.Length;
+            return array[index];
+        }
+
+        //è¶…è¿‡indexæˆ–è€…å°‘äº0çš„å¾ªç¯indexè¡¨è®¾ç½®
+        public static void SetByLoopIndex<T>(T[] array, int index, T value)
+        {
+            if (index < 0)
+                index = array.Length - Math.Abs(index) % array.Length;
+            else if (index >= array.Length) index %= array.Length;
+            array[index] = value;
+        }
+
+        public static bool Contains<T>(T[] array, T target)
+        {
+            return array.IndexOf(target) != -1;
+        }
+
+        public static bool ContainsIndex<T>(T[] array, int index)
+        {
+            return index >= 0 && index < array.Length;
+        }
+
+        /// <summary>
+        /// ä½¿å…¶å†…å…ƒç´ å•ä¸€
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static T[] Unique<T>(T[] array)
+        {
+            HashSet<T> hashSet = new HashSet<T>();
+            int[] addIndexes = new int[array.Length];
+            int addCount = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (hashSet.Add(array[i]))
+                {
+                    addIndexes[addCount] = i;
+                    addCount++;
+                }
+            }
+
+            return array.GetArrayByIndexes(addIndexes, addCount);
+        }
+
+        public static T[] Combine<T>(T[] array, T[] another, bool isUnique = false)
+        {
+            T[] result = new T[array.Length + another.Length];
+            Array.Copy(array, result, array.Length);
+            Array.Copy(another, 0, result, array.Length, another.Length);
+            if (isUnique)
+                result = result.Unique();
+            return result;
+        }
+
+        /// <summary>
+        /// å°†å¤šä¸ªæ•°ç»„åˆæˆä¸€ä¸ªæ•°ç»„
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="arrs"></param>
+        /// <returns></returns>
+        public static T[] Combine<T>(T[] array, bool isUnique = false, params T[][] arrs)
+        {
+            var arrsCount = arrs.Length;
+            var totalElementCount = array.Length;
+            for (int i = 0; i < arrsCount; i++)
+                totalElementCount += arrs[i].Length;
+            T[] result = new T[totalElementCount];
+            Array.Copy(array, result, array.Length);
+            int curIndex = array.Length;
+            for (int i = 0; i < arrsCount; i++)
+            {
+                var arr = arrs[i];
+                Array.Copy(arr, 0, result, curIndex, arr.Length);
+                curIndex += arr.Length;
+            }
+
+            if (isUnique)
+                result = result.Unique();
+            return result;
+        }
+
+        public static T[] Combine<T>(T[] array, params T[][] arrs)
+        {
+            return Combine(array, false, arrs);
+        }
+
+
+        public static T[] Push<T>(T[] array, T t)
+        {
+            return array.Add(t);
+        }
+
+        public static T Peek<T>(T[] array)
+        {
+            return array.Last();
+        }
+
+        public static (T element, T[] array) Pop<T>(T[] array)
+        {
+            return array.RemoveLast2();
+        }
+
+        public static T First<T>(T[] array)
+        {
+            return array[0];
+        }
+
+        public static T Last<T>(T[] array)
+        {
+            return array[array.Length - 1];
+        }
+
+        /// <summary>
+        ///   åœ¨selfä¸­æ‰¾subArrayçš„å¼€å§‹ä½ç½®
+        /// </summary>
+        /// <returns>-1è¡¨ç¤ºæ²¡æ‰¾åˆ°</returns>
+        public static int IndexOfSub<T>(T[] array, T[] subArray)
+        {
+            var resultFromIndex = -1; //subliståœ¨listä¸­çš„å¼€å§‹ä½ç½®
+            for (var i = 0; i < array.Length; i++)
+            {
+                object o = array[i];
+                if (!ObjectUtil.Equals(o, subArray[0])) continue;
+                var isEquals = true;
+                for (var j = 1; j < subArray.Length; j++)
+                {
+                    var o1 = subArray[j];
+                    var o2 = i + j > array.Length - 1 ? default : array[i + j];
+                    if (ObjectUtil.Equals(o1, o2)) continue;
+                    isEquals = false;
+                    break;
+                }
+
+                if (!isEquals) continue;
+                resultFromIndex = i;
+                break;
+            }
+
+            return resultFromIndex;
+        }
+
+        /// <summary>
+        ///   åœ¨selfä¸­åªä¿ç•™subArrayä¸­çš„å…ƒç´ 
+        /// </summary>
+        public static T[] RetainElementsOfSub<T>(T[] array, T[] subArray)
+        {
+            int[] remainIndexes = new int[array.Length];
+            int remainCount = 0;
+            for (var i = 0; i < array.Length; i++)
+                if (subArray.Contains(array[i]))
+                {
+                    remainIndexes[remainCount] = i;
+                    remainCount++;
+                }
+
+            return array.GetArrayByIndexes(remainIndexes, remainCount);
+        }
+
+        /// <summary>
+        /// </summary>
+        public static T[] Sub<T>(T[] array, int fromIndex, int length)
+        {
+            length = Math.Min(length, array.Length - fromIndex + 1);
+            return array.Clone(fromIndex, length);
+        }
+
+        /// <summary>
+        /// åŒ…å«fromIndxåˆ°æœ«å°¾
+        /// </summary>
+        public static T[] Sub<T>(T[] array, int fromIndex)
+        {
+            return array.Sub(fromIndex, array.Length - fromIndex + 1);
+        }
+
+        /// <summary>
+        /// å½“setæ¥ä½¿ç”¨ï¼Œä¿æŒåªæœ‰ä¸€ä¸ª
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="c"></param>
+        public static T[] Add<T>(T[] array, T element, bool isUnique = false)
+        {
+            if (isUnique && array.Contains(element))
+                return array;
+            var result = array.AddCapacity(1);
+            result[result.Length - 1] = element;
+            return result;
+        }
+
+        //å½“isUnique==trueçš„æƒ…å†µä¸‹,é»˜è®¤toAddArrayé‡Œé¢çš„å…ƒç´ æ˜¯ä¸é‡å¤çš„
+        public static T[] AddRange<T>(T[] array, T[] toAddArray, bool isUnique = false)
+        {
+            var selfLength = array.Length;
+            T[] result;
+            if (isUnique)
+            {
+                int[] toAddIndexes = new int[toAddArray.Length];
+                int addCount = 0;
+                for (int i = 0; i < toAddArray.Length; i++)
+                {
+                    var element = toAddArray[i];
+                    if (array.Contains(element))
+                        continue;
+                    toAddIndexes[addCount] = i;
+                    addCount++;
+                }
+
+                return AddRangeByIndexes(array, toAddArray, toAddIndexes, addCount);
+            }
+
+            result = array.AddCapacity(toAddArray.Length);
+            Array.Copy(toAddArray, 0, result, selfLength, toAddArray.Length);
+            return result;
+        }
+
+        public static T[] AddRange<T>(T[] array, List<T> toAddList, bool isUnique = false)
+        {
+            var selfLength = array.Length;
+            T[] result;
+            if (isUnique)
+            {
+                int[] toAddIndexes = new int[toAddList.Count];
+                int addCount = 0;
+                for (int i = 0; i < toAddList.Count; i++)
+                {
+                    var element = toAddList[i];
+                    if (array.Contains(element))
+                        continue;
+                    toAddIndexes[addCount] = i;
+                    addCount++;
+                }
+
+                result = AddRangeByIndexList(array, toAddList, toAddIndexes, addCount);
+                return result;
+            }
+
+            result = array.AddCapacity(toAddList.Count);
+            var toAddArray = toAddList.ToArray();
+            Array.Copy(toAddArray, 0, result, selfLength, toAddArray.Length);
+            return result;
+        }
+
+
+        public static T[] AddFirst<T>(T[] array, T element, bool isUnique = false)
+        {
+            T[] result;
+            if (isUnique && array.Contains(element))
+            {
+                result = new T[array.Length];
+                Array.Copy(array, result, array.Length);
+                return result;
+            }
+
+            result = array.AddCapacity(1, false);
+            result[0] = element;
+            return result;
+        }
+
+        public static T[] AddLast<T>(T[] array, T element, bool isUnique = false)
+        {
+            T[] result;
+            if (isUnique && array.Contains(element))
+            {
+                result = new T[array.Length];
+                Array.Copy(array, result, array.Length);
+                return result;
+            }
+
+            result = array.AddCapacity(1);
+            result[result.Length - 1] = element;
+            return result;
+        }
+
+        public static T[] AddUnique<T>(T[] array, T o)
+        {
+            return AddLast(array, o, true);
+        }
+
+        public static T[] RemoveFirst<T>(T[] array)
+        {
+            return RemoveFirst2(array).array;
+        }
+
+        public static (T element, T[] array) RemoveFirst2<T>(T[] inArray)
+        {
+            var element = inArray[0];
+            var array = new T[inArray.Length - 1];
+            if (array.Length > 0)
+                Array.Copy(inArray, 1, array, 0, inArray.Length - 1);
+            return (element, array);
+        }
+
+        public static T[] RemoveLast<T>(T[] array)
+        {
+            return RemoveLast2(array).array;
+        }
+
+        public static (T element, T[] array) RemoveLast2<T>(T[] inArray)
+        {
+            var element = inArray[inArray.Length - 1];
+            var array = new T[inArray.Length - 1];
+            if (array.Length > 0)
+                Array.Copy(inArray, 0, array, 0, inArray.Length - 1);
+            return (element, array);
+        }
+
+        public static (T element, T[] array) RemoveAt2<T>(T[] inArray, int removeIndex)
+        {
+            var element = inArray[removeIndex];
+            var array = new T[inArray.Length - 1];
+            int removeIndexMinus1 = removeIndex - 1;
+            int removeIndexPlus1 = removeIndex + 1;
+            if (removeIndexMinus1 >= 0)
+                Array.Copy(inArray, 0, array, 0, removeIndexMinus1 + 1);
+            if (removeIndexPlus1 < inArray.Length)
+                Array.Copy(inArray, removeIndexPlus1, array, removeIndex, inArray.Length - removeIndex - 1);
+            return (element, array);
+        }
+
+        public static T[] RemoveAt<T>(T[] array, int removeIndex)
+        {
+            return array.RemoveAt2(removeIndex).array;
+        }
+
+        /// <summary>
+        ///   åˆ é™¤listä¸­çš„subListï¼ˆsubListå¿…é¡»è¦å…¨éƒ¨åœ¨listä¸­ï¼‰
+        /// </summary>
+        public static T[] RemoveSub<T>(T[] array, T[] subArray)
+        {
+            var fromIndex = array.IndexOfSub(subArray);
+            T[] result;
+            if (fromIndex == -1)
+            {
+                result = new T[array.Length];
+                Array.Copy(array, result, array.Length);
+                return result;
+            }
+
+            result = array.RemoveRange(fromIndex, subArray.Length);
+            return result;
+        }
+
+        //elements:ç§»é™¤æ‰çš„å…ƒç´ 
+        //array:selfè¢«ç§»é™¤åçš„æ•°ç»„
+        public static (T[] elements, T[] array) RemoveRange2<T>(T[] array, int removeFromIndex)
+        {
+            var length = array.Length - removeFromIndex + 1;
+            return RemoveRange2(array, removeFromIndex, length);
+        }
+
+        //elements:ç§»é™¤æ‰çš„å…ƒç´ 
+        //array:selfè¢«ç§»é™¤åçš„æ•°ç»„
+        public static (T[] elements, T[] array) RemoveRange2<T>(T[] inArray, int removeFromIndex, int length)
+        {
+            length = Math.Min(inArray.Length - removeFromIndex + 1, length);
+            var elements = new T[length];
+            Array.Copy(inArray, removeFromIndex, elements, 0, elements.Length);
+            var array = new T[inArray.Length - length];
+            int removeFromIndexMinus1 = removeFromIndex - 1;
+            int removeEndIndexPlus1 = removeFromIndex + length;
+            if (removeFromIndexMinus1 >= 0)
+                Array.Copy(inArray, 0, array, 0, removeFromIndexMinus1 + 1);
+            if (removeEndIndexPlus1 < inArray.Length)
+                Array.Copy(inArray, removeEndIndexPlus1, array, removeFromIndex,
+                    inArray.Length - removeFromIndex - length);
+            return (elements, array);
+        }
+
+        public static T[] RemoveRange<T>(T[] array, int removeFromIndex)
+        {
+            var length = array.Length - removeFromIndex + 1;
+            return RemoveRange(array, removeFromIndex, length);
+        }
+
+        public static T[] RemoveRange<T>(T[] inArray, int removeFromIndex, int length)
+        {
+            length = Math.Min(inArray.Length - removeFromIndex + 1, length);
+            var array = new T[inArray.Length - length];
+            int removeFromIndexMinus1 = removeFromIndex - 1;
+            int removeEndIndexPlus1 = removeFromIndex + length;
+            if (removeFromIndexMinus1 >= 0)
+                Array.Copy(inArray, 0, array, 0, removeFromIndexMinus1 + 1);
+            if (removeEndIndexPlus1 < inArray.Length)
+                Array.Copy(inArray, removeEndIndexPlus1, array, removeFromIndex,
+                    inArray.Length - removeFromIndex - length);
+            return array;
+        }
+
+        /// <summary>
+        /// åœ¨listä¸­åˆ é™¤subListä¸­å‡ºç°çš„å…ƒç´ 
+        /// </summary>
+        public static T[] RemoveElements<T>(T[] array, HashSet<T> hashSet)
+        {
+            int[] remainIndexes = new int[array.Length];
+            int remainCount = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (!hashSet.Contains(array[i]))
+                {
+                    remainIndexes[remainCount] = i;
+                    remainCount++;
+                }
+            }
+
+            return array.GetArrayByIndexes(remainIndexes, remainCount);
+        }
+
+
+        public static void Reverse<T>(T[] array)
+        {
+            Array.Reverse(array);
+        }
+
+        public static void Foreach<T>(T[] array, Action<T> action)
+        {
+            for (int i = 0; i < array.Length; i++)
+                action(array[i]);
+        }
+
+        public static T[] Clone<T>(T[] array)
+        {
+            T[] clone = new T[array.Length];
+            array.CopyTo(clone, 0);
+            return clone;
+        }
+
+
+        /// <summary>
+        /// æ•°ç»„ä¸­targetçš„Index
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static int IndexOf<T>(T[] array, T target)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (target.Equals(array[i]))
+                    return i;
+            }
+
+            return -1;
+        }
+
+
+        public static T[] Clone<T>(T[] array, int startIndex, int len)
+        {
+            var length = Math.Min(len, array.Length - startIndex);
+            var target = new T[length];
+            Array.Copy(array, startIndex, target, 0, length);
+            return target;
+        }
+
+        /// <summary>
+        ///æ‰©å±•æ•°ç»„
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
+        public static T[] EnlargeCapacity<T>(T[] array, float enlargeFactor = 2f)
+        {
+            int orgLength = array.Length;
+            int newLength = (int)(orgLength * enlargeFactor);
+            T[] newObjects = new T[newLength];
+            Array.Copy(array, newObjects, orgLength);
+            return newObjects;
+        }
+
+        public static T[] AddCapacity<T>(T[] array, int add, bool isAppend = true)
+        {
+            int selfLength = array.Length;
+            int newLength = selfLength + add;
+            T[] newObjects = new T[newLength];
+            if (isAppend) //åœ¨åé¢æ‰©å……
+                Array.Copy(array, newObjects, selfLength);
+            else //åœ¨å‰é¢æ‰©å……
+                Array.Copy(array, 0, newObjects, add, selfLength);
+            return newObjects;
+        }
+
+
+        public static T[] Insert<T>(T[] array, int insertIndex, T element)
+        {
+            var result = new T[array.Length + 1];
+            result[insertIndex] = element;
+            int insertIndexMinus1 = insertIndex - 1;
+            int insertIndexPlus1 = insertIndex + 1;
+            if (insertIndexMinus1 >= 0)
+                Array.Copy(array, 0, result, 0, insertIndexMinus1 + 1);
+            if (insertIndexPlus1 < result.Length)
+                Array.Copy(array, insertIndex, result, insertIndexPlus1, array.Length - insertIndex);
+            return result;
+        }
+
+        public static T[] InsertRange<T>(T[] array, int insertIndex, T[] toAddArray)
+        {
+            var toAddLength = toAddArray.Length;
+            var result = new T[array.Length + toAddLength];
+            Array.Copy(toAddArray, 0, result, insertIndex, toAddLength);
+            int insertFromIndexMinus1 = insertIndex - 1;
+            int insertEndIndexPlus = insertIndex + toAddLength;
+            if (insertFromIndexMinus1 >= 0)
+                Array.Copy(array, 0, result, 0, insertFromIndexMinus1 + 1);
+            if (insertEndIndexPlus < result.Length)
+                Array.Copy(array, insertIndex, result, insertEndIndexPlus, array.Length - insertIndex);
+            return result;
+        }
+
+        public static T[] InsertRange<T>(T[] array, int insertIndex, List<T> toAddList)
+        {
+            var toAddLength = toAddList.Count;
+            var result = new T[array.Length + toAddLength];
+            for (int i = 0; i < toAddList.Count; i++)
+                result[insertIndex + i] = toAddList[i];
+            int insertFromIndexMinus1 = insertIndex - 1;
+            int insertEndIndexPlus1 = insertIndex + toAddLength;
+            if (insertFromIndexMinus1 >= 0)
+                Array.Copy(array, 0, result, 0, insertFromIndexMinus1 + 1);
+            if (insertEndIndexPlus1 < result.Length)
+                Array.Copy(array, insertIndex, result, insertEndIndexPlus1, array.Length - insertIndex);
+            return result;
+        }
+
+
+        #region Random éšæœº
+
+        public static T Random<T>(this T[] self)
+        {
+            return RandomUtil.Random(self);
+        }
+
+        /// <summary>
+        /// éšæœºlisté‡Œé¢çš„å…ƒç´ countæ¬¡
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="count">ä¸ªæ•°</param>
+        /// <param name="isUnique">æ˜¯å¦å”¯ä¸€</param>
+        /// <param name="weights">æƒé‡æ•°ç»„</param>
+        /// <returns></returns>
+        public static List<T> RandomList<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
+        {
+            return RandomUtil.RandomList(self, count, isUnique, weights);
+        }
+
+        public static T[] RandomArray<T>(this T[] self, int count, bool isUnique, IList<float> weights = null)
+        {
+            return RandomUtil.RandomArray(self, count, isUnique, weights);
+        }
+
+        #endregion
+
+
+        //å°†selfåˆå§‹åŒ–ä¸º[height][width]çš„æ•°ç»„
+        public static T[][] InitArrays<T>(T[][] array, int height, int width, T defaultValue = default)
+        {
+            array = new T[height][];
+            for (int i = 0; i < height; i++)
+                array[i] = new T[width];
+            if (ObjectUtil.Equals(defaultValue, default(T))) return array;
+            for (int i = 0; i < height; i++)
+            for (int j = 0; j < width; j++)
+                array[i][j] = defaultValue;
+
+            return array;
+        }
+
+        //è½¬ä¸ºå·¦ä¸‹ä¸ºåŸç‚¹çš„åæ ‡ç³»ï¼Œxå¢åŠ æ˜¯å‘å³ï¼Œyå¢åŠ æ˜¯å‘ä¸Šï¼ˆä¸unityçš„åæ ‡ç³»ä¸€è‡´ï¼‰
+        public static T[][] ToLeftBottomBaseArrays<T>(T[][] array)
+        {
+            int selfHeight = array.Length;
+            int selfWidth = array[0].Length;
+            int resultHeight = selfWidth;
+            int resultWidth = selfHeight;
+            var result = InitArrays(array, resultHeight, resultWidth);
+            for (int i = 0; i < resultWidth; i++)
+            for (int j = 0; j < resultHeight; j++)
+                result[j][resultWidth - 1 - i] = array[i][j];
+            return result;
+        }
+
+        public static void SortWithCompareRules<T>(T[] array, IList<Comparison<T>> compareRules)
+        {
+            SortUtil.MergeSortWithCompareRules(array, compareRules);
+        }
+
+        public static Dictionary<T, ElementValueType> ToDictionary<T, ElementValueType>(T[] array,
+            ElementValueType defaultElementValue = default)
+        {
+            Dictionary<T, ElementValueType> dict = new Dictionary<T, ElementValueType>();
+            if (array.IsNullOrEmpty())
+                return dict;
+            for (var i = 0; i < array.Length; i++)
+            {
+                var element = array[i];
+                dict[element] = defaultElementValue;
+            }
+
+            return dict;
+        }
+    }
 }
-

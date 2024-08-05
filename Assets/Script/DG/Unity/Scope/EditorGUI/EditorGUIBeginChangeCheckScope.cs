@@ -4,36 +4,36 @@ using UnityEditor;
 
 namespace DG
 {
-	public class EditorGUIBeginChangeCheckScope : IDisposable
-	{
-		private bool _isEndChangeCheck;
-		private bool _isChanged;
+    public class EditorGUIBeginChangeCheckScope : IDisposable
+    {
+        private bool _isEndChangeCheck;
+        private bool _isChanged;
 
 
-		public EditorGUIBeginChangeCheckScope()
-		{
-			EditorGUI.BeginChangeCheck();
-		}
+        public EditorGUIBeginChangeCheckScope()
+        {
+            EditorGUI.BeginChangeCheck();
+        }
 
-		public bool IsChanged
-		{
-			get
-			{
-				if (_isEndChangeCheck) return _isChanged;
-				_isChanged = EditorGUI.EndChangeCheck();
-				_isEndChangeCheck = true;
+        public bool IsChanged
+        {
+            get
+            {
+                if (_isEndChangeCheck) return _isChanged;
+                _isChanged = EditorGUI.EndChangeCheck();
+                _isEndChangeCheck = true;
 
-				return _isChanged;
-			}
-		}
+                return _isChanged;
+            }
+        }
 
-		public void Dispose()
-		{
-			if (_isEndChangeCheck)
-				return;
-			_isChanged = EditorGUI.EndChangeCheck();
-			_isEndChangeCheck = true;
-		}
-	}
+        public void Dispose()
+        {
+            if (_isEndChangeCheck)
+                return;
+            _isChanged = EditorGUI.EndChangeCheck();
+            _isEndChangeCheck = true;
+        }
+    }
 }
 #endif

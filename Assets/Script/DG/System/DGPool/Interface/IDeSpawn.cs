@@ -1,7 +1,7 @@
 namespace DG
 {
-	public interface IDeSpawn
-	{
-		void OnDeSpawn();
-	}
+    public interface IDeSpawn
+    {
+        void OnDeSpawn();
+    }
 }

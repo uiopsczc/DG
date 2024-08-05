@@ -5,137 +5,137 @@ using UnityEngine;
 
 namespace DG
 {
-	public class ResizableRectsBase
-	{
-		protected Func<Rect> totalRectFunc;
-		protected Rect[] splitLineRects;
-		protected Rect[] resizeSplitRects;
-		protected int resizingSplitLineRectIndex = ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
+    public class ResizableRectsBase
+    {
+        protected Func<Rect> totalRectFunc;
+        protected Rect[] splitLineRects;
+        protected Rect[] resizeSplitRects;
+        protected int resizingSplitLineRectIndex = ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
 
 
-		public Rect[] rects;
-		public Rect[] paddingRects;
+        public Rect[] rects;
+        public Rect[] paddingRects;
 
-		public Rect total_rect => totalRectFunc();
+        public Rect total_rect => totalRectFunc();
 
-		public bool isResizing => resizingSplitLineRectIndex != ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
+        public bool isResizing => resizingSplitLineRectIndex != ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
 
-		private bool isCanResizable = true;
+        private bool isCanResizable = true;
 
-		protected bool isUsingSplitPixels;
-		protected float[] splitPixels;
-		protected float[] splitPCTs;
+        protected bool isUsingSplitPixels;
+        protected float[] splitPixels;
+        protected float[] splitPCTs;
 
-		public string name;
+        public string name;
 
-		public ResizableRectsBase(Func<Rect> totalRectFunc, float[] splitPixels, float[] splitPcTs = null)
-		{
-			this.totalRectFunc = totalRectFunc;
-			this.splitPixels = splitPixels;
-			splitPCTs = splitPcTs;
-			isUsingSplitPixels = !splitPixels.IsNullOrEmpty();
-			if (!isUsingSplitPixels && splitPcTs.IsNullOrEmpty())
-				splitPCTs = new[] {0.3f};
+        public ResizableRectsBase(Func<Rect> totalRectFunc, float[] splitPixels, float[] splitPcTs = null)
+        {
+            this.totalRectFunc = totalRectFunc;
+            this.splitPixels = splitPixels;
+            splitPCTs = splitPcTs;
+            isUsingSplitPixels = !splitPixels.IsNullOrEmpty();
+            if (!isUsingSplitPixels && splitPcTs.IsNullOrEmpty())
+                splitPCTs = new[] { 0.3f };
 
-			int splitCount = isUsingSplitPixels ? this.splitPixels.Length : splitPCTs.Length;
-			resizeSplitRects = new Rect[splitCount];
-
-
-			splitLineRects = new Rect[splitCount];
-			UpdateSplitLineRects();
+            int splitCount = isUsingSplitPixels ? this.splitPixels.Length : splitPCTs.Length;
+            resizeSplitRects = new Rect[splitCount];
 
 
-			rects = new Rect[splitCount + 1];
-			paddingRects = new Rect[splitCount + 1];
-			SetRectListSize();
-		}
+            splitLineRects = new Rect[splitCount];
+            UpdateSplitLineRects();
 
-		public virtual void UpdateSplitLineSetting(int splitLineIndex, float delta)
-		{
-		}
 
-		public virtual void SetSplitLinePosition(int splitLineIndex, float position)
-		{
-		}
+            rects = new Rect[splitCount + 1];
+            paddingRects = new Rect[splitCount + 1];
+            SetRectListSize();
+        }
 
-		protected virtual void UpdateSplitLineRects()
-		{
-		}
+        public virtual void UpdateSplitLineSetting(int splitLineIndex, float delta)
+        {
+        }
 
-		protected virtual void SetRectListSize()
-		{
-		}
+        public virtual void SetSplitLinePosition(int splitLineIndex, float position)
+        {
+        }
 
-		public void SetCanResizable(bool isCanResizable)
-		{
-			this.isCanResizable = isCanResizable;
-		}
+        protected virtual void UpdateSplitLineRects()
+        {
+        }
 
-		public void OnGUI()
-		{
-			UpdateSplitLineRects();
-			foreach (var splitLineRect in splitLineRects)
-				EditorGUI.DrawRect(splitLineRect, Color.grey);
-			SetRectListSize();
-			Resizing();
-		}
+        protected virtual void SetRectListSize()
+        {
+        }
 
-		void Resizing()
-		{
-			ResizingSplitLineRects();
-			if (isCanResizable)
-			{
-				ResizingResizeSplitRects();
-				HandleMouseResizingEvent();
-			}
-		}
+        public void SetCanResizable(bool isCanResizable)
+        {
+            this.isCanResizable = isCanResizable;
+        }
 
-		protected virtual void ResizingSplitLineRects()
-		{
-		}
+        public void OnGUI()
+        {
+            UpdateSplitLineRects();
+            foreach (var splitLineRect in splitLineRects)
+                EditorGUI.DrawRect(splitLineRect, Color.grey);
+            SetRectListSize();
+            Resizing();
+        }
 
-		protected virtual void ResizingResizeSplitRects()
-		{
-		}
+        void Resizing()
+        {
+            ResizingSplitLineRects();
+            if (isCanResizable)
+            {
+                ResizingResizeSplitRects();
+                HandleMouseResizingEvent();
+            }
+        }
 
-		protected virtual void HandleMouseDragEvent()
-		{
-		}
+        protected virtual void ResizingSplitLineRects()
+        {
+        }
 
-		protected void HandleMouseResizingEvent()
-		{
-			if (Event.current.isMouse)
-			{
-				if (Event.current.type == EventType.MouseDown)
-				{
-					for (int i = 0; i < resizeSplitRects.Length; i++)
-					{
-						if (resizeSplitRects[i].Contains(Event.current.mousePosition))
-						{
-							resizingSplitLineRectIndex = i;
-							Event.current.Use();
-							break;
-						}
-					}
-				}
-				else if (Event.current.type == EventType.MouseDrag)
-				{
-					if (isResizing)
-					{
-						HandleMouseDragEvent();
-						Event.current.Use();
-					}
-				}
-				else if (Event.current.type == EventType.MouseUp)
-				{
-					if (isResizing)
-					{
-						resizingSplitLineRectIndex = ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
-						Event.current.Use();
-					}
-				}
-			}
-		}
-	}
+        protected virtual void ResizingResizeSplitRects()
+        {
+        }
+
+        protected virtual void HandleMouseDragEvent()
+        {
+        }
+
+        protected void HandleMouseResizingEvent()
+        {
+            if (Event.current.isMouse)
+            {
+                if (Event.current.type == EventType.MouseDown)
+                {
+                    for (int i = 0; i < resizeSplitRects.Length; i++)
+                    {
+                        if (resizeSplitRects[i].Contains(Event.current.mousePosition))
+                        {
+                            resizingSplitLineRectIndex = i;
+                            Event.current.Use();
+                            break;
+                        }
+                    }
+                }
+                else if (Event.current.type == EventType.MouseDrag)
+                {
+                    if (isResizing)
+                    {
+                        HandleMouseDragEvent();
+                        Event.current.Use();
+                    }
+                }
+                else if (Event.current.type == EventType.MouseUp)
+                {
+                    if (isResizing)
+                    {
+                        resizingSplitLineRectIndex = ResizableRectsConst.Not_Resizing_Split_Line_Rect_Index;
+                        Event.current.Use();
+                    }
+                }
+            }
+        }
+    }
 }
 #endif

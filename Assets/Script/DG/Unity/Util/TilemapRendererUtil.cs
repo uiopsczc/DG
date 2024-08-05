@@ -1,7 +1,6 @@
 namespace DG
 {
-	public partial class TilemapRendererUtil
-	{
-		
-	}
+    public partial class TilemapRendererUtil
+    {
+    }
 }

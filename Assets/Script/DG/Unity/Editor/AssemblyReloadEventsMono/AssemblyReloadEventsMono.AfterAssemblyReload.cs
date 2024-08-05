@@ -1,0 +1,22 @@
+// using CSObjectWrapEditor;
+
+namespace DG
+{
+    public partial class AssemblyReloadEventsMono
+    {
+        static void AfterAssemblyReload()
+        {
+            // GenericMenuCatUtil.Load();
+            // AssetPathRefManager.instance.LoadFromPath(
+            // 	AssetPathRefConst.SaveFilePath.WithRootPath(FilePathConst.PROJECT_PATH));
+            // if (EditorPrefs.GetBool("AfterAssemblyReload_OneTime_Callback"))
+            // 	AfterAssemblyReload_Once_Callback();
+        }
+
+        static void AfterAssemblyReload_Once_Callback()
+        {
+            // EditorPrefs.SetBool("AfterAssemblyReload_OneTime_Callback", false);
+            // Generator.GenAll(); // 生成xlua gen文件
+        }
+    }
+}

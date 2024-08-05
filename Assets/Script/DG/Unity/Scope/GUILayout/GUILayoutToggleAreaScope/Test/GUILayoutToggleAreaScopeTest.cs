@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace DG
 {
-	public static class GUILayoutToggleAreaScopeTest
-	{
-		private static readonly GUIToggleTween _toggleTween = new();
+    public static class GUILayoutToggleAreaScopeTest
+    {
+        private static readonly GUIToggleTween _toggleTween = new();
 
-		public static void Test()
-		{
-			using (new GUILayoutToggleAreaScope(_toggleTween, "Chen"))
-			{
-				for (int i = 0; i < 20; i++)
-					GUILayout.Label("cccc" + i);
-			}
+        public static void Test()
+        {
+            using (new GUILayoutToggleAreaScope(_toggleTween, "Chen"))
+            {
+                for (int i = 0; i < 20; i++)
+                    GUILayout.Label("cccc" + i);
+            }
 
-			GUILayout.Label("Good");
-		}
-	}
+            GUILayout.Label("Good");
+        }
+    }
 }
 #endif

@@ -1,22 +1,22 @@
 namespace DG
 {
-	public class GuidManager
-	{
-		private ulong _keyNumber;
+    public class GuidManager
+    {
+        private ulong _keyNumber;
 
-		public GuidManager(ulong currentKeyNumber)
-		{
-			_keyNumber = currentKeyNumber;
-		}
+        public GuidManager(ulong currentKeyNumber)
+        {
+            _keyNumber = currentKeyNumber;
+        }
 
-		public GuidManager()
-		{
-		}
+        public GuidManager()
+        {
+        }
 
-		public string NewGuid(string id = null)
-		{
-			_keyNumber++;
-			return (id.IsNullOrWhiteSpace() ? StringConst.STRING_EMPTY : id) + IdConst.RID_INFIX + _keyNumber;
-		}
-	}
+        public string NewGuid(string id = null)
+        {
+            _keyNumber++;
+            return (id.IsNullOrWhiteSpace() ? StringConst.STRING_EMPTY : id) + IdConst.RID_INFIX + _keyNumber;
+        }
+    }
 }

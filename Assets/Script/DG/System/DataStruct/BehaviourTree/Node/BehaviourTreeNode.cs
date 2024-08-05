@@ -2,67 +2,67 @@ using System;
 
 namespace DG
 {
-	public class BehaviourTreeNode
-	{
-		#region field
+    public class BehaviourTreeNode
+    {
+        #region field
 
-		public BehaviourTreeNode parent;
-		private EBehaviourTreeNodeStatus _status = BehaviourTreeNodeConst.DEFAULT_STATUS;
+        public BehaviourTreeNode parent;
+        private EBehaviourTreeNodeStatus _status = BehaviourTreeNodeConst.DEFAULT_STATUS;
 
-		#endregion
+        #endregion
 
-		#region delegate
+        #region delegate
 
-		public Action onSuccess;
-		public Action onFail;
+        public Action onSuccess;
+        public Action onFail;
 
-		#endregion
+        #endregion
 
-		#region property
+        #region property
 
-		public EBehaviourTreeNodeStatus status
-		{
-			get => _status;
-			set
-			{
-				_status = value;
-				switch (_status)
-				{
-					case EBehaviourTreeNodeStatus.Success when onSuccess != null:
-						onSuccess();
-						break;
-					case EBehaviourTreeNodeStatus.Fail:
-						onFail?.Invoke();
-						break;
-				}
-			}
-		}
+        public EBehaviourTreeNodeStatus status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                switch (_status)
+                {
+                    case EBehaviourTreeNodeStatus.Success when onSuccess != null:
+                        onSuccess();
+                        break;
+                    case EBehaviourTreeNodeStatus.Fail:
+                        onFail?.Invoke();
+                        break;
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region virtual method
+        #region virtual method
 
-		public virtual EBehaviourTreeNodeStatus Update()
-		{
-			return EBehaviourTreeNodeStatus.Fail;
-		}
+        public virtual EBehaviourTreeNodeStatus Update()
+        {
+            return EBehaviourTreeNodeStatus.Fail;
+        }
 
 
-		public virtual T GetChild<T>(bool loop = false) where T : BehaviourTreeNode
-		{
-			return null;
-		}
+        public virtual T GetChild<T>(bool loop = false) where T : BehaviourTreeNode
+        {
+            return null;
+        }
 
-		public virtual void RestStatus()
-		{
-			status = BehaviourTreeNodeConst.DEFAULT_STATUS;
-		}
+        public virtual void RestStatus()
+        {
+            status = BehaviourTreeNodeConst.DEFAULT_STATUS;
+        }
 
-		public virtual void Interrupt()
-		{
-			status = EBehaviourTreeNodeStatus.WaitingToRun;
-		}
+        public virtual void Interrupt()
+        {
+            status = EBehaviourTreeNodeStatus.WaitingToRun;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

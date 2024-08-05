@@ -1,7 +1,6 @@
 namespace DG
 {
-	public partial class GridUtil
-	{
-		
-	}
+    public partial class GridUtil
+    {
+    }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace DG
 {
-	public class TestScriptableObject1 : ScriptableObject
-	{
-		[NonSerialized] public List<TestScriptableObjectAA> indexes = new();
-		public new string name;
-	}
+    public class TestScriptableObject1 : ScriptableObject
+    {
+        [NonSerialized] public List<TestScriptableObjectAA> indexes = new();
+        public new string name;
+    }
 }

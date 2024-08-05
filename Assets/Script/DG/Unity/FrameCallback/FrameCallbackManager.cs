@@ -2,62 +2,61 @@ using System;
 
 namespace DG
 {
-	/// <summary>
-	///   用于每一帧的update，lateUpdate的回调
-	///   Func
-	///   <object, bool>
-	///     callback
-	///     callbackArg是传入到callback中参数
-	///     如果返回false表示下一帧不会再执行该callback
-	/// </summary>
-	public class FrameCallbackManager
-	{
-		#region field
+    /// <summary>
+    ///   用于每一帧的update，lateUpdate的回调
+    ///   Func
+    ///   <object, bool>
+    ///     callback
+    ///     callbackArg是传入到callback中参数
+    ///     如果返回false表示下一帧不会再执行该callback
+    /// </summary>
+    public class FrameCallbackManager
+    {
+        #region field
 
-		private readonly FrameCallbackList _updateCallbackList = new();
-		private readonly FrameCallbackList _lateUpdateCallbackList = new();
-		private readonly FrameCallbackList _fixedUpdateCallbackList = new();
+        private readonly FrameCallbackList _updateCallbackList = new();
+        private readonly FrameCallbackList _lateUpdateCallbackList = new();
+        private readonly FrameCallbackList _fixedUpdateCallbackList = new();
 
-		#endregion
+        #endregion
 
-		#region public method
+        #region public method
 
-		public void Init()
-		{
-		}
+        public void Init()
+        {
+        }
 
-		public void AddFrameUpdateCallback(Func<object, bool> callback, object callbackArg)
-		{
-			_updateCallbackList.Add(callback, callbackArg);
-		}
+        public void AddFrameUpdateCallback(Func<object, bool> callback, object callbackArg)
+        {
+            _updateCallbackList.Add(callback, callbackArg);
+        }
 
-		public void AddFrameLateUpdateCallback(Func<object, bool> callback, object callbackArg)
-		{
-			_lateUpdateCallbackList.Add(callback, callbackArg);
-		}
+        public void AddFrameLateUpdateCallback(Func<object, bool> callback, object callbackArg)
+        {
+            _lateUpdateCallbackList.Add(callback, callbackArg);
+        }
 
-		public void AddFrameFixedUpdateCallback(Func<object, bool> callback, object callbackArg)
-		{
-			_fixedUpdateCallbackList.Add(callback, callbackArg);
-		}
+        public void AddFrameFixedUpdateCallback(Func<object, bool> callback, object callbackArg)
+        {
+            _fixedUpdateCallbackList.Add(callback, callbackArg);
+        }
 
-		#endregion
+        #endregion
 
 
-		public void Update()
-		{
-			_updateCallbackList.Execute();
-		}
+        public void Update()
+        {
+            _updateCallbackList.Execute();
+        }
 
-		public void LateUpdate()
-		{
-			_lateUpdateCallbackList.Execute();
-		}
+        public void LateUpdate()
+        {
+            _lateUpdateCallbackList.Execute();
+        }
 
-		public void FixedUpdate()
-		{
-			_fixedUpdateCallbackList.Execute();
-		}
-
-	}
+        public void FixedUpdate()
+        {
+            _fixedUpdateCallbackList.Execute();
+        }
+    }
 }

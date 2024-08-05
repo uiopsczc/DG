@@ -1,10 +1,10 @@
 namespace DG
 {
-	public enum EBehaviourTreeNodeStatus
-	{
-		WaitingToRun,
-		Fail,
-		Success,
-		Running
-	}
+    public enum EBehaviourTreeNodeStatus
+    {
+        WaitingToRun,
+        Fail,
+        Success,
+        Running
+    }
 }

@@ -1,7 +1,6 @@
 namespace DG
 {
-	public static class IPositionUtil
-	{
-
-	}
+    public static class IPositionUtil
+    {
+    }
 }

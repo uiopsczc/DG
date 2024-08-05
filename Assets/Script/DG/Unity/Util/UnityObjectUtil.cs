@@ -5,29 +5,29 @@ using UnityEditor;
 
 namespace DG
 {
-	public partial class UnityObjectUtil
-	{
-		public static void Destroy(Object o)
-		{
+    public partial class UnityObjectUtil
+    {
+        public static void Destroy(Object o)
+        {
 #if UNITY_EDITOR
-			if (o.IsAsset())
-			{
-				AssetDatabase.DeleteAsset(o.GetAssetPath());
-				return;
-			}
+            if (o.IsAsset())
+            {
+                AssetDatabase.DeleteAsset(o.GetAssetPath());
+                return;
+            }
 #endif
 
-			if (Application.isPlaying)
-				Object.Destroy(o);
-			else
-			{
-				Object.DestroyImmediate(o);
-			}
-		}
+            if (Application.isPlaying)
+                Object.Destroy(o);
+            else
+            {
+                Object.DestroyImmediate(o);
+            }
+        }
 
-		public static bool IsNull(Object o)
-		{
-			return o == null;
-		}
-	}
+        public static bool IsNull(Object o)
+        {
+            return o == null;
+        }
+    }
 }

@@ -1,10 +1,10 @@
 namespace DG
 {
-	public interface ICommandManager
-	{
-		void RegisterCommand<CommandHandleType>(string commandName);
-		void ExecuteCommand(ICommandMessage commandMessage);
-		void RemoveCommand(string commandName);
-		bool HasCommand(string commandName);
-	}
+    public interface ICommandManager
+    {
+        void RegisterCommand<CommandHandleType>(string commandName);
+        void ExecuteCommand(ICommandMessage commandMessage);
+        void RemoveCommand(string commandName);
+        bool HasCommand(string commandName);
+    }
 }

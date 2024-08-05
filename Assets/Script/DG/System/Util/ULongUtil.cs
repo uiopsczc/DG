@@ -1,7 +1,6 @@
 namespace DG
 {
-	public static class ULongUtil
-	{
-	}
+    public static class ULongUtil
+    {
+    }
 }
-

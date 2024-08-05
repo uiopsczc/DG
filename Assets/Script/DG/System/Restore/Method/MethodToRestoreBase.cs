@@ -2,29 +2,29 @@ using System.Reflection;
 
 namespace DG
 {
-	public abstract class MethodToRestoreBase : MemberToRestoreBase
-	{
-		#region field
+    public abstract class MethodToRestoreBase : MemberToRestoreBase
+    {
+        #region field
 
-		protected MethodInfo _methodInfoToRestore;
+        protected MethodInfo _methodInfoToRestore;
 
-		#endregion
+        #endregion
 
 
-		#region ctor
+        #region ctor
 
-		/// <summary>
-		///   ctor
-		/// </summary>
-		/// <param name="cause">引起还原的对应的名称</param>
-		/// <param name="owner">需要还原的方法</param>
-		/// <param name="methodNameToRestore">需要还原的方法名</param>
-		public MethodToRestoreBase(object cause, object owner, string nameToRestore) : base(cause, owner,
-			nameToRestore)
-		{
-			_toRestoreBase = new ToRestoreBase(cause, owner, nameToRestore);
-		}
+        /// <summary>
+        ///   ctor
+        /// </summary>
+        /// <param name="cause">引起还原的对应的名称</param>
+        /// <param name="owner">需要还原的方法</param>
+        /// <param name="methodNameToRestore">需要还原的方法名</param>
+        public MethodToRestoreBase(object cause, object owner, string nameToRestore) : base(cause, owner,
+            nameToRestore)
+        {
+            _toRestoreBase = new ToRestoreBase(cause, owner, nameToRestore);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

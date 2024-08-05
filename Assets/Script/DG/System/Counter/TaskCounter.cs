@@ -2,51 +2,51 @@ using System;
 
 namespace DG
 {
-	//Ö»»áÖ´ÐÐÒ»´ÎµÄÈÎÎñcounter
-	//testÀý×Ó¿ÉÒÔ²Î¿¼F6µÄTaskCounterµÄÊ¹ÓÃ
-	public class TaskCounter
-	{
-		private int _maxTaskCount;
-		private int _curFinishTaskCount;
-		private readonly bool _isCanFinishCallback; //ÊÇ·ñÄÜµ÷ÓÃ_finishCallback
-		private bool _isFinishCallbackInvoked; //ÊÇ·ñ_finishCallbackµ÷ÓÃÁË
-		private Action _finishCallback;
+    //åªä¼šæ‰§è¡Œä¸€æ¬¡çš„ä»»åŠ¡counter
+    //testä¾‹å­å¯ä»¥å‚è€ƒF6çš„TaskCounterçš„ä½¿ç”¨
+    public class TaskCounter
+    {
+        private int _maxTaskCount;
+        private int _curFinishTaskCount;
+        private readonly bool _isCanFinishCallback; //æ˜¯å¦èƒ½è°ƒç”¨_finishCallback
+        private bool _isFinishCallbackInvoked; //æ˜¯å¦_finishCallbackè°ƒç”¨äº†
+        private Action _finishCallback;
 
-		public TaskCounter(int maxTaskCount, int curFinishTaskCount = 0)
-		{
-			_maxTaskCount = maxTaskCount;
-			_curFinishTaskCount = curFinishTaskCount;
-			_isCanFinishCallback = false;
-			_isFinishCallbackInvoked = false;
-		}
+        public TaskCounter(int maxTaskCount, int curFinishTaskCount = 0)
+        {
+            _maxTaskCount = maxTaskCount;
+            _curFinishTaskCount = curFinishTaskCount;
+            _isCanFinishCallback = false;
+            _isFinishCallbackInvoked = false;
+        }
 
-		public void SetFinishCallback(Action finishCallback)
-		{
-			_finishCallback = finishCallback;
-		}
+        public void SetFinishCallback(Action finishCallback)
+        {
+            _finishCallback = finishCallback;
+        }
 
-		public void CheckFinishCallback()
-		{
-			if (_isFinishCallbackInvoked) //Ö»Ö´ÐÐÒ»´Î
-				return;
-			if (_isCanFinishCallback) //ÄÜµ÷ÓÃ_finishCallback
-			{
-				if (IsAllTaskFinished()) //ÈÎÎñÈ«²¿Íê³ÉÁË
-				{
-					_isFinishCallbackInvoked = true;
-					_finishCallback?.Invoke();
-				}
-			}
-		}
+        public void CheckFinishCallback()
+        {
+            if (_isFinishCallbackInvoked) //åªæ‰§è¡Œä¸€æ¬¡
+                return;
+            if (_isCanFinishCallback) //èƒ½è°ƒç”¨_finishCallback
+            {
+                if (IsAllTaskFinished()) //ä»»åŠ¡å…¨éƒ¨å®Œæˆäº†
+                {
+                    _isFinishCallbackInvoked = true;
+                    _finishCallback?.Invoke();
+                }
+            }
+        }
 
-		public void AddFinishTaskCount(int addValue)
-		{
-			_curFinishTaskCount += addValue;
-		}
+        public void AddFinishTaskCount(int addValue)
+        {
+            _curFinishTaskCount += addValue;
+        }
 
-		public bool IsAllTaskFinished()
-		{
-			return _curFinishTaskCount >= _maxTaskCount;
-		}
-	}
+        public bool IsAllTaskFinished()
+        {
+            return _curFinishTaskCount >= _maxTaskCount;
+        }
+    }
 }

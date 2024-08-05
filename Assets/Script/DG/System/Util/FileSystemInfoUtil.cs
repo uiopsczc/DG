@@ -2,112 +2,113 @@ using System.IO;
 
 namespace DG
 {
-	public static class FileSystemInfoUtil
-	{
-		/// <summary>
-		///    «∑Ò «ƒø¬º
-		/// </summary>
-		public static bool IsDirectory( FileSystemInfo fileSystemInfo)
-		{
-			return (fileSystemInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
-		}
+    public static class FileSystemInfoUtil
+    {
+        /// <summary>
+        ///   ÊòØÂê¶ÊòØÁõÆÂΩï
+        /// </summary>
+        public static bool IsDirectory(FileSystemInfo fileSystemInfo)
+        {
+            return (fileSystemInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory;
+        }
 
-		/// <summary>
-		///    «∑Ò «Œƒº˛
-		/// </summary>
-		public static bool IsFile( FileSystemInfo fileSystemInfo)
-		{
-			return !fileSystemInfo.IsDirectory();
-		}
+        /// <summary>
+        ///   ÊòØÂê¶ÊòØÊñá‰ª∂
+        /// </summary>
+        public static bool IsFile(FileSystemInfo fileSystemInfo)
+        {
+            return !fileSystemInfo.IsDirectory();
+        }
 
-		/// <summary>
-		///   ∏∏ƒø¬º
-		/// </summary>
-		public static DirectoryInfo Parent( FileSystemInfo fileSystemInfo)
-		{
-			return fileSystemInfo.IsFile() ? ((FileInfo)fileSystemInfo).Directory : ((DirectoryInfo)fileSystemInfo).Parent;
-		}
+        /// <summary>
+        ///   Áà∂ÁõÆÂΩï
+        /// </summary>
+        public static DirectoryInfo Parent(FileSystemInfo fileSystemInfo)
+        {
+            return fileSystemInfo.IsFile()
+                ? ((FileInfo)fileSystemInfo).Directory
+                : ((DirectoryInfo)fileSystemInfo).Parent;
+        }
 
-		/// <summary>
-		///   Ω´srcµƒƒ⁄»›∏¥÷∆µΩdst÷–£®srcø…“‘ «Œƒº˛º–£©
-		/// </summary>
-		/// <param name="fileSystemInfo"></param>
-		/// <param name="dst"></param>
-		/// <returns></returns>
-		public static void CopyFileTo( FileSystemInfo fileSystemInfo, FileSystemInfo dst)
-		{
-			if (fileSystemInfo.IsDirectory())
-			{
-				var str1 = fileSystemInfo.FullName.ToLower();
-				var str2 = dst.FullName.ToLower();
-				if (str2.StartsWith(str1)) throw new IOException("÷ÿµ˛µ›πÈ∏¥÷∆" + str1 + "->" + str2);
-				var dir2 = new DirectoryInfo(dst.FullName + Path.DirectorySeparatorChar + fileSystemInfo.Name);
-				dir2.Create();
-				if (!dir2.IsDirectory())
-					throw new IOException("Œﬁ∑®¥¥Ω®ƒø¬º" + dir2);
+        /// <summary>
+        ///   Â∞ÜsrcÁöÑÂÜÖÂÆπÂ§çÂà∂Âà∞dst‰∏≠ÔºàsrcÂèØ‰ª•ÊòØÊñá‰ª∂Â§πÔºâ
+        /// </summary>
+        /// <param name="fileSystemInfo"></param>
+        /// <param name="dst"></param>
+        /// <returns></returns>
+        public static void CopyFileTo(FileSystemInfo fileSystemInfo, FileSystemInfo dst)
+        {
+            if (fileSystemInfo.IsDirectory())
+            {
+                var str1 = fileSystemInfo.FullName.ToLower();
+                var str2 = dst.FullName.ToLower();
+                if (str2.StartsWith(str1)) throw new IOException("ÈáçÂè†ÈÄíÂΩíÂ§çÂà∂" + str1 + "->" + str2);
+                var dir2 = new DirectoryInfo(dst.FullName + Path.DirectorySeparatorChar + fileSystemInfo.Name);
+                dir2.Create();
+                if (!dir2.IsDirectory())
+                    throw new IOException("Êó†Ê≥ïÂàõÂª∫ÁõÆÂΩï" + dir2);
 
-				var srcs = ((DirectoryInfo)fileSystemInfo).GetFileSystemInfos();
-				foreach (var t in srcs)
-					CopyFileTo(t, dir2);
-			}
-			else
-			{
-				var fis = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read);
-				try
-				{
-					FileInfo dstInfo;
-					if (dst.IsDirectory())
-					{
-						dstInfo = new FileInfo(((DirectoryInfo)dst).SubPath(fileSystemInfo.Name));
-						dstInfo.Create().Close();
-					}
-					else
-					{
-						var pdir2 = ((FileInfo)dst).Directory; // ƒø±ÍŒƒº˛dstµƒ∏∏º∂ƒø¬º
-						pdir2?.Create();
-						if (pdir2 == null || !pdir2.Exists)
-							throw new IOException("Œﬁ∑®¥¥Ω®ƒø¬º:" + pdir2);
-						dstInfo = (FileInfo)dst;
-						dstInfo.Create().Close();
-					}
+                var srcs = ((DirectoryInfo)fileSystemInfo).GetFileSystemInfos();
+                foreach (var t in srcs)
+                    CopyFileTo(t, dir2);
+            }
+            else
+            {
+                var fis = new FileStream(fileSystemInfo.FullName, FileMode.Open, FileAccess.Read);
+                try
+                {
+                    FileInfo dstInfo;
+                    if (dst.IsDirectory())
+                    {
+                        dstInfo = new FileInfo(((DirectoryInfo)dst).SubPath(fileSystemInfo.Name));
+                        dstInfo.Create().Close();
+                    }
+                    else
+                    {
+                        var pdir2 = ((FileInfo)dst).Directory; // ÁõÆÊ†áÊñá‰ª∂dstÁöÑÁà∂Á∫ßÁõÆÂΩï
+                        pdir2?.Create();
+                        if (pdir2 == null || !pdir2.Exists)
+                            throw new IOException("Êó†Ê≥ïÂàõÂª∫ÁõÆÂΩï:" + pdir2);
+                        dstInfo = (FileInfo)dst;
+                        dstInfo.Create().Close();
+                    }
 
-					if (!fileSystemInfo.Equals(dstInfo))
-					{
-						var fos = new FileStream(dst.FullName, FileMode.Truncate, FileAccess.Write);
-						try
-						{
-							fis.CopyToStream(fos);
-						}
-						finally
-						{
-							fos.Close();
-						}
-					}
-				}
-				finally
-				{
-					fis.Close();
-				}
-			}
-		}
+                    if (!fileSystemInfo.Equals(dstInfo))
+                    {
+                        var fos = new FileStream(dst.FullName, FileMode.Truncate, FileAccess.Write);
+                        try
+                        {
+                            fis.CopyToStream(fos);
+                        }
+                        finally
+                        {
+                            fos.Close();
+                        }
+                    }
+                }
+                finally
+                {
+                    fis.Close();
+                }
+            }
+        }
 
 
-		/// <summary>
-		///   “∆≥˝Œƒº˛file£®fileø…“‘ «Œƒº˛º–£©
-		/// </summary>
-		/// <param name="fileSystemInfo"></param>
-		/// <returns></returns>
-		public static void RemoveFiles(FileSystemInfo fileSystemInfo)
-		{
-			if (fileSystemInfo.IsDirectory())
-				((DirectoryInfo)fileSystemInfo).ClearDir();
-			fileSystemInfo.Delete();
-		}
+        /// <summary>
+        ///   ÁßªÈô§Êñá‰ª∂fileÔºàfileÂèØ‰ª•ÊòØÊñá‰ª∂Â§πÔºâ
+        /// </summary>
+        /// <param name="fileSystemInfo"></param>
+        /// <returns></returns>
+        public static void RemoveFiles(FileSystemInfo fileSystemInfo)
+        {
+            if (fileSystemInfo.IsDirectory())
+                ((DirectoryInfo)fileSystemInfo).ClearDir();
+            fileSystemInfo.Delete();
+        }
 
-		public static string FullName(FileSystemInfo fileSystemInfo, char separator = CharConst.CHAR_SLASH)
-		{
-			return fileSystemInfo.FullName.ReplaceDirectorySeparatorChar(separator);
-		}
-	}
+        public static string FullName(FileSystemInfo fileSystemInfo, char separator = CharConst.CHAR_SLASH)
+        {
+            return fileSystemInfo.FullName.ReplaceDirectorySeparatorChar(separator);
+        }
+    }
 }
-

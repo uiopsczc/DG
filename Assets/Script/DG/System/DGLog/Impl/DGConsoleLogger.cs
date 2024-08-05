@@ -13,50 +13,50 @@ using System;
 
 namespace DG
 {
-	public class DGConsoleLogger : IDGLogger
-	{
-		public void Info(string msg, EDGLogColor? logColor = default)
-		{
-			WriteConsoleLog(msg, logColor);
-		}
+    public class DGConsoleLogger : IDGLogger
+    {
+        public void Info(string msg, EDGLogColor? logColor = default)
+        {
+            WriteConsoleLog(msg, logColor);
+        }
 
-		public void Warn(string msg, EDGLogColor? logColor = default)
-		{
-			WriteConsoleLog(msg, logColor);
-		}
+        public void Warn(string msg, EDGLogColor? logColor = default)
+        {
+            WriteConsoleLog(msg, logColor);
+        }
 
-		public void Error(string msg, EDGLogColor? logColor = default)
-		{
-			WriteConsoleLog(msg, logColor);
-		}
+        public void Error(string msg, EDGLogColor? logColor = default)
+        {
+            WriteConsoleLog(msg, logColor);
+        }
 
-		public void WriteConsoleLog(string msg, EDGLogColor? logColor = default)
-		{
-			var orgColor = Console.ForegroundColor;
-			switch (logColor.GetValueOrDefault(EDGLogColor.None))
-			{
-				case EDGLogColor.Red:
-					Console.ForegroundColor = ConsoleColor.Red;
-					break;
-				case EDGLogColor.Green:
-					Console.ForegroundColor = ConsoleColor.Green;
-					break;
-				case EDGLogColor.Blue:
-					Console.ForegroundColor = ConsoleColor.Blue;
-					break;
-				case EDGLogColor.Cyan:
-					Console.ForegroundColor = ConsoleColor.Cyan;
-					break;
-				case EDGLogColor.Magenta:
-					Console.ForegroundColor = ConsoleColor.Magenta;
-					break;
-				case EDGLogColor.Yellow:
-					Console.ForegroundColor = ConsoleColor.Yellow;
-					break;
-			}
-			Console.WriteLine(msg);
-			Console.ForegroundColor = orgColor;
-		}
-	}
+        public void WriteConsoleLog(string msg, EDGLogColor? logColor = default)
+        {
+            var orgColor = Console.ForegroundColor;
+            switch (logColor.GetValueOrDefault(EDGLogColor.None))
+            {
+                case EDGLogColor.Red:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case EDGLogColor.Green:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case EDGLogColor.Blue:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case EDGLogColor.Cyan:
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                case EDGLogColor.Magenta:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case EDGLogColor.Yellow:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+            }
+
+            Console.WriteLine(msg);
+            Console.ForegroundColor = orgColor;
+        }
+    }
 }
-

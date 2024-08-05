@@ -1,9 +1,9 @@
 namespace DG
 {
-	public enum EDGUpdateMode
-	{
-		Update,
-		LateUpdate,
-		FixedUpdate
-	}
+    public enum EDGUpdateMode
+    {
+        Update,
+        LateUpdate,
+        FixedUpdate
+    }
 }

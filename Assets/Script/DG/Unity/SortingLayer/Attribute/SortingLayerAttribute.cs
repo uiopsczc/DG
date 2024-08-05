@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public class SortingLayerAttribute : PropertyAttribute
-	{
-	}
+    public class SortingLayerAttribute : PropertyAttribute
+    {
+    }
 }

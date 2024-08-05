@@ -1,7 +1,6 @@
 namespace DG
 {
-	public partial class TilemapCollider2DUtil
-	{
-		
-	}
+    public partial class TilemapCollider2DUtil
+    {
+    }
 }

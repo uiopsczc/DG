@@ -1,6 +1,6 @@
 ﻿namespace DG
 {
-	public static class ULong_Extension
-	{
-	}
+    public static class ULong_Extension
+    {
+    }
 }

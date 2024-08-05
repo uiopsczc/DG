@@ -2,67 +2,66 @@ using System;
 
 namespace DG
 {
-	public static class DoubleUtil
-	{
-		public static byte[] ToBytes(double v, bool isNetOrder = false)
-		{
-			byte[] data = BitConverter.GetBytes(v);
-			if (isNetOrder)
-				Array.Reverse(data);
-			return data;
-		}
+    public static class DoubleUtil
+    {
+        public static byte[] ToBytes(double v, bool isNetOrder = false)
+        {
+            byte[] data = BitConverter.GetBytes(v);
+            if (isNetOrder)
+                Array.Reverse(data);
+            return data;
+        }
 
 
-		//ÊÇ·ñÊÇdefalut, Ä¬ÈÏÊÇÓëfloat.MaxValue±È½Ï
-		public static bool IsDefault(double v, bool isMin = false)
-		{
-			return isMin ? v == double.MinValue : v == double.MaxValue;
-		}
+        //æ˜¯å¦æ˜¯defalut, é»˜è®¤æ˜¯ä¸float.MaxValueæ¯”è¾ƒ
+        public static bool IsDefault(double v, bool isMin = false)
+        {
+            return isMin ? v == double.MinValue : v == double.MaxValue;
+        }
 
-		//µÃµ½°Ù·Ö±È
-		public static double GetPercent(double v, double minValue, double maxValue, bool isClamp = true)
-		{
-			if (isClamp)
-			{
-				if (v < minValue)
-					v = minValue;
-				else if (v > maxValue)
-					v = maxValue;
-			}
+        //å¾—åˆ°ç™¾åˆ†æ¯”
+        public static double GetPercent(double v, double minValue, double maxValue, bool isClamp = true)
+        {
+            if (isClamp)
+            {
+                if (v < minValue)
+                    v = minValue;
+                else if (v > maxValue)
+                    v = maxValue;
+            }
 
-			double offset = v - minValue;
-			return offset / (maxValue - minValue);
-		}
+            double offset = v - minValue;
+            return offset / (maxValue - minValue);
+        }
 
-		public static bool IsInRange(double v, double minValue, double maxValue,
-			bool isMinValueIncluded = false,
-			bool isMaxValueIncluded = false)
-		{
-			return !(v < minValue) && !(v > maxValue) &&
-			       ((v != minValue || isMinValueIncluded) && (v != maxValue || isMaxValueIncluded));
-		}
+        public static bool IsInRange(double v, double minValue, double maxValue,
+            bool isMinValueIncluded = false,
+            bool isMaxValueIncluded = false)
+        {
+            return !(v < minValue) && !(v > maxValue) &&
+                   ((v != minValue || isMinValueIncluded) && (v != maxValue || isMaxValueIncluded));
+        }
 
-		//½«v RoundËÄÉáÎåÈësnap_sozeµÄ±¶ÊıµÄÖµ
-		//Rounds value to the closest multiple of snap_soze.
-		public static double Snap(double v, double snapSize)
-		{
-			return Math.Round(v / snapSize) * snapSize;
-		}
+        //å°†v Roundå››èˆäº”å…¥snap_sozeçš„å€æ•°çš„å€¼
+        //Rounds value to the closest multiple of snap_soze.
+        public static double Snap(double v, double snapSize)
+        {
+            return Math.Round(v / snapSize) * snapSize;
+        }
 
-		public static double Snap2(double v, double snapSize)
-		{
-			return Math.Round(v * snapSize) / snapSize;
-		}
+        public static double Snap2(double v, double snapSize)
+        {
+            return Math.Round(v * snapSize) / snapSize;
+        }
 
-		public static double Minimum(double v, double minimum)
-		{
-			return Math.Max(v, minimum);
-		}
+        public static double Minimum(double v, double minimum)
+        {
+            return Math.Max(v, minimum);
+        }
 
-		public static double Maximum(double v, double maximum)
-		{
-			return Math.Min(v, maximum);
-		}
-	}
+        public static double Maximum(double v, double maximum)
+        {
+            return Math.Min(v, maximum);
+        }
+    }
 }
-

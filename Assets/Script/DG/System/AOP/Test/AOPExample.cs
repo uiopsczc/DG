@@ -1,11 +1,6 @@
 namespace DG
 {
-	public class AOPExample
-	{
-
-
-
-
-
-	}
+    public class AOPExample
+    {
+    }
 }

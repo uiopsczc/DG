@@ -1,20 +1,20 @@
 namespace DG
 {
-	public class YieldNestedCoroutine : YieldBase
-	{
-		public PausableCoroutine coroutine;
+    public class YieldNestedCoroutine : YieldBase
+    {
+        public PausableCoroutine coroutine;
 
-		public YieldNestedCoroutine(PausableCoroutine coroutine)
-		{
-			this.coroutine = coroutine;
-		}
+        public YieldNestedCoroutine(PausableCoroutine coroutine)
+        {
+            this.coroutine = coroutine;
+        }
 
-		public override bool IsDone(float deltaTime)
-		{
-			if (!_CheckIsStarted())
-				return false;
+        public override bool IsDone(float deltaTime)
+        {
+            if (!_CheckIsStarted())
+                return false;
 
-			return coroutine.isFinished;
-		}
-	}
+            return coroutine.isFinished;
+        }
+    }
 }

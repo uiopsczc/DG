@@ -4,55 +4,55 @@ using System.IO;
 
 namespace DG
 {
-	public static class DirectoryInfoUtil
-	{
-		// <summary>
-		/// »ñÈ¡DirectoryInfoÄ¿Â¼ÏÂµÄfileNameµÄÂ·¾¶
-		/// </summary>
-		public static string SubPath(DirectoryInfo directoryInfo, string fileName)
-		{
-			return directoryInfo.FullName + Path.DirectorySeparatorChar + fileName;
-		}
+    public static class DirectoryInfoUtil
+    {
+        // <summary>
+        /// è·å–DirectoryInfoç›®å½•ä¸‹çš„fileNameçš„è·¯å¾„
+        /// </summary>
+        public static string SubPath(DirectoryInfo directoryInfo, string fileName)
+        {
+            return directoryInfo.FullName + Path.DirectorySeparatorChar + fileName;
+        }
 
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼ş¼Ğdir
-		/// </summary>
-		/// <param name="directoryInfo"></param>
-		/// <returns></returns>
-		public static void ClearDir(DirectoryInfo directoryInfo)
-		{
-			if (!directoryInfo.IsDirectory()) return;
-			FileSystemInfo[] fileSystemInfos = directoryInfo.GetFileSystemInfos();
-			for (var i = 0; i < fileSystemInfos.Length; i++)
-			{
-				FileSystemInfo fileSystemInfo = fileSystemInfos[i];
-				fileSystemInfo.RemoveFiles();
-			}
-		}
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶å¤¹dir
+        /// </summary>
+        /// <param name="directoryInfo"></param>
+        /// <returns></returns>
+        public static void ClearDir(DirectoryInfo directoryInfo)
+        {
+            if (!directoryInfo.IsDirectory()) return;
+            FileSystemInfo[] fileSystemInfos = directoryInfo.GetFileSystemInfos();
+            for (var i = 0; i < fileSystemInfos.Length; i++)
+            {
+                FileSystemInfo fileSystemInfo = fileSystemInfos[i];
+                fileSystemInfo.RemoveFiles();
+            }
+        }
 
-		/// <summary>
-		/// ËÑË÷ÎÄ¼ş¼ĞdirÏÂ·ûºÏ¹ıÂËÌõ¼şfilterÖĞµÄÎÄ¼ş£¬½«ÎÄ¼şÌí¼Óµ½resultsÖĞ
-		/// </summary>
-		/// <param name="directoryInfo"></param>
-		/// <param name="filter"></param>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static List<FileSystemInfo> SearchFiles(DirectoryInfo directoryInfo, Func<FileSystemInfo, bool> filter)
-		{
-			FileSystemInfo[] fileSystemInfos = directoryInfo.GetFileSystemInfos();
-			List<FileSystemInfo> result = new List<FileSystemInfo>();
-			for (var i = 0; i < fileSystemInfos.Length; i++)
-			{
-				FileSystemInfo fileSystemInfo = fileSystemInfos[i];
-				if (filter(fileSystemInfo))
-					result.Add(fileSystemInfo);
-				if (!fileSystemInfo.IsDirectory()) continue;
-				var subResultList = SearchFiles((DirectoryInfo)fileSystemInfo, filter);
-				if (subResultList.Count > 0)
-					result.AddRange(subResultList);
-			}
+        /// <summary>
+        /// æœç´¢æ–‡ä»¶å¤¹dirä¸‹ç¬¦åˆè¿‡æ»¤æ¡ä»¶filterä¸­çš„æ–‡ä»¶ï¼Œå°†æ–‡ä»¶æ·»åŠ åˆ°resultsä¸­
+        /// </summary>
+        /// <param name="directoryInfo"></param>
+        /// <param name="filter"></param>
+        /// <param name="results"></param>
+        /// <returns></returns>
+        public static List<FileSystemInfo> SearchFiles(DirectoryInfo directoryInfo, Func<FileSystemInfo, bool> filter)
+        {
+            FileSystemInfo[] fileSystemInfos = directoryInfo.GetFileSystemInfos();
+            List<FileSystemInfo> result = new List<FileSystemInfo>();
+            for (var i = 0; i < fileSystemInfos.Length; i++)
+            {
+                FileSystemInfo fileSystemInfo = fileSystemInfos[i];
+                if (filter(fileSystemInfo))
+                    result.Add(fileSystemInfo);
+                if (!fileSystemInfo.IsDirectory()) continue;
+                var subResultList = SearchFiles((DirectoryInfo)fileSystemInfo, filter);
+                if (subResultList.Count > 0)
+                    result.AddRange(subResultList);
+            }
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

@@ -7,674 +7,674 @@ using System.Threading;
 
 namespace DG
 {
-	public static class StdioUtil
-	{
-		public static readonly IFileSystemInfoFilter DIR_FILTER = new DirFilter();
+    public static class StdioUtil
+    {
+        public static readonly IFileSystemInfoFilter DIR_FILTER = new DirFilter();
 
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyy+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="prefix"></param>
-		/// <param name="suffix"></param>
-		/// <param name="len"></param>
-		/// <returns></returns>
-		public static FileInfo CreateYearlyFile(DirectoryInfo dir, string prefix, string suffix,
-			RandomManager randomManager)
-		{
-			return CreateTimelyFile(dir, prefix, suffix, 4, randomManager);
-		}
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyy+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static FileInfo CreateYearlyFile(DirectoryInfo dir, string prefix, string suffix,
+            RandomManager randomManager)
+        {
+            return CreateTimelyFile(dir, prefix, suffix, 4, randomManager);
+        }
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyyMM+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="prefix"></param>
-		/// <param name="suffix"></param>
-		/// <param name="len"></param>
-		/// <returns></returns>
-		public static FileInfo CreateMonthlyFile(DirectoryInfo dir, string prefix, string suffix,
-			RandomManager randomManager)
-		{
-			return CreateTimelyFile(dir, prefix, suffix, 6, randomManager);
-		}
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyyMM+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static FileInfo CreateMonthlyFile(DirectoryInfo dir, string prefix, string suffix,
+            RandomManager randomManager)
+        {
+            return CreateTimelyFile(dir, prefix, suffix, 6, randomManager);
+        }
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyyMMdd+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="prefix"></param>
-		/// <param name="suffix"></param>
-		/// <param name="len"></param>
-		/// <returns></returns>
-		public static FileInfo CreateDailyFile(DirectoryInfo dir, string prefix, string suffix,
-			RandomManager randomManager)
-		{
-			return CreateTimelyFile(dir, prefix, suffix, 8, randomManager);
-		}
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyyMMdd+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static FileInfo CreateDailyFile(DirectoryInfo dir, string prefix, string suffix,
+            RandomManager randomManager)
+        {
+            return CreateTimelyFile(dir, prefix, suffix, 8, randomManager);
+        }
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyyMMddHH+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="prefix"></param>
-		/// <param name="suffix"></param>
-		/// <param name="len"></param>
-		/// <returns></returns>
-		public static FileInfo CreateHourlyFile(DirectoryInfo dir, string prefix, string suffix,
-			RandomManager randomManager)
-		{
-			return CreateTimelyFile(dir, prefix, suffix, 10, randomManager);
-		}
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyyMMddHH+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="len"></param>
+        /// <returns></returns>
+        public static FileInfo CreateHourlyFile(DirectoryInfo dir, string prefix, string suffix,
+            RandomManager randomManager)
+        {
+            return CreateTimelyFile(dir, prefix, suffix, 10, randomManager);
+        }
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyyMMddHHmmss+(Ëæ»úÊı3Î»)+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="prefix"></param>
-		/// <param name="suffix"></param>
-		/// <returns></returns>
-		public static FileInfo CreateTimeSliceFile(DirectoryInfo dir, string prefix, string suffix,
-			RandomManager randomManager)
-		{
-			int i = 0;
-			do
-			{
-				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
-				string rand = new StringBuilder(randomManager.RandomInt(0, 1000) + "").ToString();
-				string stem = dateTime
-							  + rand.FillHead(3, CharConst.CHAR_c);
-				string fileName = prefix + stem + suffix;
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyyMMddHHmmss+(éšæœºæ•°3ä½)+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <returns></returns>
+        public static FileInfo CreateTimeSliceFile(DirectoryInfo dir, string prefix, string suffix,
+            RandomManager randomManager)
+        {
+            int i = 0;
+            do
+            {
+                string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
+                string rand = new StringBuilder(randomManager.RandomInt(0, 1000) + "").ToString();
+                string stem = dateTime
+                              + rand.FillHead(3, CharConst.CHAR_c);
+                string fileName = prefix + stem + suffix;
 
-				var file = new FileInfo(dir.SubPath(fileName));
-				if (file.Exists)
-					continue;
-				file.Create().Close();
-				return file;
-			} while (i++ < 10000);
+                var file = new FileInfo(dir.SubPath(fileName));
+                if (file.Exists)
+                    continue;
+                file.Create().Close();
+                return file;
+            } while (i++ < 10000);
 
-			throw new IOException(dir.FullName + "ÖĞÎŞ·¨´´½¨Î¨Ò»ÎÄ¼ş");
-		}
+            throw new IOException(dir.FullName + "ä¸­æ— æ³•åˆ›å»ºå”¯ä¸€æ–‡ä»¶");
+        }
 
-		/// <summary>
-		/// »ñµÃÎÄ¼şÃû³ÆµÄºó×ºÃû
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public static string GetExtName(string name)
-		{
-			string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
-			int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
-			int pos = s.LastIndexOf(CharConst.CHAR_DOT);
-			if (pos == -1 || pos < pos1)
-				return StringConst.STRING_EMPTY;
-			return name.Substring(pos);
-		}
+        /// <summary>
+        /// è·å¾—æ–‡ä»¶åç§°çš„åç¼€å
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string GetExtName(string name)
+        {
+            string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
+            int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
+            int pos = s.LastIndexOf(CharConst.CHAR_DOT);
+            if (pos == -1 || pos < pos1)
+                return StringConst.STRING_EMPTY;
+            return name.Substring(pos);
+        }
 
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼şºó×ºÃû
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public static string RemoveExtName(string name)
-		{
-			string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
-			int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
-			int pos = s.LastIndexOf(CharConst.CHAR_DOT);
-			if (pos == -1 || pos < pos1)
-				return name;
-			return name.Substring(0, pos);
-		}
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶åç¼€å
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string RemoveExtName(string name)
+        {
+            string s = name.Replace(CharConst.CHAR_BACK_SLASH, CharConst.CHAR_SLASH);
+            int pos1 = s.LastIndexOf(CharConst.CHAR_SLASH);
+            int pos = s.LastIndexOf(CharConst.CHAR_DOT);
+            if (pos == -1 || pos < pos1)
+                return name;
+            return name.Substring(0, pos);
+        }
 
-		/// <summary>
-		/// ¸ü¸ÄÎÄ¼şºó×ºÃû
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="extName"></param>
-		/// <returns></returns>
-		public static string ChangeExtName(string name, string extName)
-		{
-			if (!extName.StartsWith(StringConst.STRING_DOT))
-				extName = StringConst.STRING_DOT + extName;
-			return RemoveExtName(name) + extName;
-		}
+        /// <summary>
+        /// æ›´æ”¹æ–‡ä»¶åç¼€å
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="extName"></param>
+        /// <returns></returns>
+        public static string ChangeExtName(string name, string extName)
+        {
+            if (!extName.StartsWith(StringConst.STRING_DOT))
+                extName = StringConst.STRING_DOT + extName;
+            return RemoveExtName(name) + extName;
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡insµ½bufÖĞ
-		/// </summary>
-		/// <param name="inStream"></param>
-		/// <param name="buffer"></param>
-		/// <returns></returns>
-		public static int ReadStream(Stream inStream, byte[] buffer)
-		{
-			return ReadStream(inStream, buffer, 0, buffer.Length);
-		}
+        /// <summary>
+        /// è¯»å–insåˆ°bufä¸­
+        /// </summary>
+        /// <param name="inStream"></param>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public static int ReadStream(Stream inStream, byte[] buffer)
+        {
+            return ReadStream(inStream, buffer, 0, buffer.Length);
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡ÊäÈëÁ÷ÖĞµÄÊı¾İ,Ö±µ½»º³åÇøÂú
-		/// </summary>
-		/// <param name="inStream"></param>
-		/// <param name="buffer"></param>
-		/// <param name="offset"></param>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		public static int ReadStream(Stream inStream, byte[] buffer, int offset, int length)
-		{
-			int k = 0;
-			do
-			{
-				int j = inStream.Read(buffer, offset + k, length - k);
-				if (j > 0)
-				{
-					k += j;
-					if (k >= length)
-						break;
-					continue;
-				}
+        /// <summary>
+        /// è¯»å–è¾“å…¥æµä¸­çš„æ•°æ®,ç›´åˆ°ç¼“å†²åŒºæ»¡
+        /// </summary>
+        /// <param name="inStream"></param>
+        /// <param name="buffer"></param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static int ReadStream(Stream inStream, byte[] buffer, int offset, int length)
+        {
+            int k = 0;
+            do
+            {
+                int j = inStream.Read(buffer, offset + k, length - k);
+                if (j > 0)
+                {
+                    k += j;
+                    if (k >= length)
+                        break;
+                    continue;
+                }
 
-				break;
-			} while (true);
+                break;
+            } while (true);
 
-			return k;
-		}
+            return k;
+        }
 
-		/// <summary>
-		/// ÔÚStream¶ÁÈ¡len³¤¶ÈµÄÊı¾İ
-		/// </summary>
-		/// <param name="inStream"></param>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		public static byte[] ReadStream(Stream inStream, int length)
-		{
-			var buffer = new byte[length];
-			length = ReadStream(inStream, buffer);
-			if (length < buffer.Length)
-				return ByteUtil.SubBytes(buffer, 0, length);
-			return buffer;
-		}
+        /// <summary>
+        /// åœ¨Streamè¯»å–lené•¿åº¦çš„æ•°æ®
+        /// </summary>
+        /// <param name="inStream"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static byte[] ReadStream(Stream inStream, int length)
+        {
+            var buffer = new byte[length];
+            length = ReadStream(inStream, buffer);
+            if (length < buffer.Length)
+                return ByteUtil.SubBytes(buffer, 0, length);
+            return buffer;
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡insµÄÈ«²¿Êı¾İ
-		/// </summary>
-		/// <param name="inStream"></param>
-		/// <returns></returns>
-		public static byte[] ReadStream(Stream inStream)
-		{
-			var outStream = new MemoryStream();
-			CopyStream(inStream, outStream);
-			return outStream.ToArray();
-		}
+        /// <summary>
+        /// è¯»å–insçš„å…¨éƒ¨æ•°æ®
+        /// </summary>
+        /// <param name="inStream"></param>
+        /// <returns></returns>
+        public static byte[] ReadStream(Stream inStream)
+        {
+            var outStream = new MemoryStream();
+            CopyStream(inStream, outStream);
+            return outStream.ToArray();
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡insµÄÈ«²¿Êı¾İµ½outsÖĞ
-		/// </summary>
-		/// <param name="inStream"></param>
-		/// <param name="outStream"></param>
-		/// <returns></returns>
-		public static void CopyStream(Stream inStream, Stream outStream)
-		{
-			var data = new byte[4096];
-			int len;
-			do
-			{
-				len = ReadStream(inStream, data);
-				if (len > 0)
-					outStream.Write(data, 0, len);
-			} while (len >= data.Length); //Ò»°ãÇé¿öÏÂÊÇµÈÓÚ£¬¶ÁÍêµÄÊ±ºòÊÇÉÙÓÚ
-		}
+        /// <summary>
+        /// è¯»å–insçš„å…¨éƒ¨æ•°æ®åˆ°outsä¸­
+        /// </summary>
+        /// <param name="inStream"></param>
+        /// <param name="outStream"></param>
+        /// <returns></returns>
+        public static void CopyStream(Stream inStream, Stream outStream)
+        {
+            var data = new byte[4096];
+            int len;
+            do
+            {
+                len = ReadStream(inStream, data);
+                if (len > 0)
+                    outStream.Write(data, 0, len);
+            } while (len >= data.Length); //ä¸€èˆ¬æƒ…å†µä¸‹æ˜¯ç­‰äºï¼Œè¯»å®Œçš„æ—¶å€™æ˜¯å°‘äº
+        }
 
-		/// <summary>
-		/// ½«dataĞ´ÈëÎÄ¼şfileNameÖĞ
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <param name="data"></param>
-		/// <returns></returns>
-		public static void WriteFile(string fileName, byte[] data)
-		{
-			WriteFile(new FileInfo(fileName), data);
-		}
+        /// <summary>
+        /// å°†dataå†™å…¥æ–‡ä»¶fileNameä¸­
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static void WriteFile(string fileName, byte[] data)
+        {
+            WriteFile(new FileInfo(fileName), data);
+        }
 
-		/// <summary>
-		///  ½«dataĞ´ÈëÎÄ¼şfileÖĞ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="data"></param>
-		/// <returns></returns>
-		public static void WriteFile(FileInfo fileInfo, byte[] data)
-		{
-			WriteFile(fileInfo, data, false);
-		}
+        /// <summary>
+        ///  å°†dataå†™å…¥æ–‡ä»¶fileä¸­
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static void WriteFile(FileInfo fileInfo, byte[] data)
+        {
+            WriteFile(fileInfo, data, false);
+        }
 
-		/// <summary>
-		/// ½«dataĞ´ÈëÎÄ¼şfileNameÖĞ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <param name="data"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteFile(string fileName, byte[] data, bool isAppend)
-		{
-			WriteFile(new FileInfo(fileName), data, isAppend);
-		}
+        /// <summary>
+        /// å°†dataå†™å…¥æ–‡ä»¶fileNameä¸­(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="data"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteFile(string fileName, byte[] data, bool isAppend)
+        {
+            WriteFile(new FileInfo(fileName), data, isAppend);
+        }
 
-		/// <summary>
-		///  ½«dataĞ´ÈëÎÄ¼şfileÖĞ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="data"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteFile(FileInfo fileInfo, byte[] data, bool isAppend)
-		{
-			CreateFileIfNotExist(fileInfo.FullName);
-			var fos = new FileStream(fileInfo.FullName, isAppend ? FileMode.Append : FileMode.Truncate,
-				FileAccess.Write);
-			try
-			{
-				fos.Write(data, 0, data.Length);
-			}
-			finally
-			{
-				fos.Close();
-			}
-		}
+        /// <summary>
+        ///  å°†dataå†™å…¥æ–‡ä»¶fileä¸­(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="data"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteFile(FileInfo fileInfo, byte[] data, bool isAppend)
+        {
+            CreateFileIfNotExist(fileInfo.FullName);
+            var fos = new FileStream(fileInfo.FullName, isAppend ? FileMode.Append : FileMode.Truncate,
+                FileAccess.Write);
+            try
+            {
+                fos.Write(data, 0, data.Length);
+            }
+            finally
+            {
+                fos.Close();
+            }
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡ÎÄ¼şfileNameµÄÄÚÈİ
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <returns></returns>
-		public static byte[] ReadFile(string fileName)
-		{
-			return ReadFile(new FileInfo(fileName));
-		}
+        /// <summary>
+        /// è¯»å–æ–‡ä»¶fileNameçš„å†…å®¹
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static byte[] ReadFile(string fileName)
+        {
+            return ReadFile(new FileInfo(fileName));
+        }
 
-		/// <summary>
-		/// ¶ÁÈ¡ÎÄ¼şfileµÄÄÚÈİ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static byte[] ReadFile(FileInfo fileInfo)
-		{
-			var inFileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
-			try
-			{
-				var data = new byte[(int)fileInfo.Length];
-				inFileStream.Read(data, 0, data.Length);
-				return data;
-			}
-			finally
-			{
-				inFileStream.Close();
-			}
-		}
+        /// <summary>
+        /// è¯»å–æ–‡ä»¶fileçš„å†…å®¹
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static byte[] ReadFile(FileInfo fileInfo)
+        {
+            var inFileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+            try
+            {
+                var data = new byte[(int)fileInfo.Length];
+                inFileStream.Read(data, 0, data.Length);
+                return data;
+            }
+            finally
+            {
+                inFileStream.Close();
+            }
+        }
 
-		/// <summary>
-		/// ÏòÎÄ¼şfileNameĞ´ÈëcontentÄÚÈİ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <param name="content"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteTextFile(string fileName, string content, bool isWriteLine = false,
-			bool isAppend = false)
-		{
-			WriteTextFile(new FileInfo(fileName), content, isWriteLine, isAppend);
-		}
+        /// <summary>
+        /// å‘æ–‡ä»¶fileNameå†™å…¥contentå†…å®¹(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="content"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteTextFile(string fileName, string content, bool isWriteLine = false,
+            bool isAppend = false)
+        {
+            WriteTextFile(new FileInfo(fileName), content, isWriteLine, isAppend);
+        }
 
-		public static void WriteTextFile(string fileName, List<string> contentList, bool isAppend = false)
-		{
-			WriteTextFile(new FileInfo(fileName), contentList, isAppend);
-		}
+        public static void WriteTextFile(string fileName, List<string> contentList, bool isAppend = false)
+        {
+            WriteTextFile(new FileInfo(fileName), contentList, isAppend);
+        }
 
-		/// <summary>
-		/// ÏòÎÄ¼şfileĞ´ÈëcontentÄÚÈİ(append:ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²)
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <param name="content"></param>
-		/// <param name="isAppend">ÊÇ·ñ×·¼Óµ½ÎÄ¼şÄ©Î²</param>
-		/// <returns></returns>
-		public static void WriteTextFile(FileInfo fileInfo, string content, bool isWriteLine, bool isAppend)
-		{
-			CreateFileIfNotExist(fileInfo.FullName);
-			var streamWriter = new StreamWriter(fileInfo.FullName, isAppend);
-			try
-			{
-				if (!isWriteLine)
-					streamWriter.Write(content);
-				else
-					streamWriter.WriteLine(content);
-				streamWriter.Flush();
-			}
-			finally
-			{
-				streamWriter.Close();
-			}
-		}
+        /// <summary>
+        /// å‘æ–‡ä»¶fileå†™å…¥contentå†…å®¹(append:æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾)
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="content"></param>
+        /// <param name="isAppend">æ˜¯å¦è¿½åŠ åˆ°æ–‡ä»¶æœ«å°¾</param>
+        /// <returns></returns>
+        public static void WriteTextFile(FileInfo fileInfo, string content, bool isWriteLine, bool isAppend)
+        {
+            CreateFileIfNotExist(fileInfo.FullName);
+            var streamWriter = new StreamWriter(fileInfo.FullName, isAppend);
+            try
+            {
+                if (!isWriteLine)
+                    streamWriter.Write(content);
+                else
+                    streamWriter.WriteLine(content);
+                streamWriter.Flush();
+            }
+            finally
+            {
+                streamWriter.Close();
+            }
+        }
 
-		public static void WriteTextFile(FileInfo fileInfo, List<string> contentList, bool isAppend)
-		{
-			CreateFileIfNotExist(fileInfo.FullName);
-			var streamWriter = new StreamWriter(fileInfo.FullName, isAppend);
-			try
-			{
-				for (var i = 0; i < contentList.Count; i++)
-				{
-					var content = contentList[i];
-					streamWriter.WriteLine(content);
-				}
+        public static void WriteTextFile(FileInfo fileInfo, List<string> contentList, bool isAppend)
+        {
+            CreateFileIfNotExist(fileInfo.FullName);
+            var streamWriter = new StreamWriter(fileInfo.FullName, isAppend);
+            try
+            {
+                for (var i = 0; i < contentList.Count; i++)
+                {
+                    var content = contentList[i];
+                    streamWriter.WriteLine(content);
+                }
 
-				streamWriter.Flush();
-			}
-			finally
-			{
-				streamWriter.Close();
-			}
-		}
-
-
-		/// <summary>
-		/// ¶ÁÈ¡ÎÄ¼şfileName£¬·µ»Ø×Ö·û´®ÄÚÈİ
-		/// </summary>
-		/// <param name="fileName"></param>
-		/// <returns></returns>
-		public static string ReadTextFile(string fileName)
-		{
-			return ReadTextFile(new FileInfo(fileName));
-		}
-
-		public static List<string> ReadAsLineList(string fileName)
-		{
-			FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None);
-			StreamReader reader = new StreamReader(fileStream);
-			List<string> lineList = new List<string>();
-			string line = reader.ReadLine();
-			while (line != null)
-			{
-				lineList.Add(line);
-				line = reader.ReadLine();
-			}
-			reader.Close();
-			fileStream.Close();
-			return lineList;
-		}
-
-		/// <summary>
-		/// ¶ÁÈ¡ÎÄ¼şfile£¬·µ»Ø×Ö·û´®ÄÚÈİ
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		/// <returns></returns>
-		public static string ReadTextFile(FileInfo fileInfo)
-		{
-			var streamReader = new StreamReader(fileInfo.FullName);
-			var stringBuilder = new StringBuilder();
-			var chars = new char[1024];
-			try
-			{
-				int n;
-				while ((n = streamReader.Read(chars, 0, chars.Length)) != 0)
-					stringBuilder.Append(chars, 0, n);
-				return stringBuilder.ToString();
-			}
-			finally
-			{
-				streamReader.Close();
-			}
-		}
-
-		/// <summary>
-		/// ¶ÁÈ¡urlµÄÄÚÈİ
-		/// </summary>
-		/// <param name="url"></param>
-		/// <param name="retryCount">Á¬½ÓÊ§°Ü×î´óÖØÁ¬´ÎÊı</param>
-		/// <param name="errWaitDuration">Á¬½ÓÊ§°ÜºóµÈ´ıÊ±¼ä</param>
-		/// <returns></returns>
-		public static byte[] ReadUrl(string url, int retryCount, int errWaitDuration)
-		{
-			int i = 0;
-			WebRequest request = WebRequest.Create(url);
-			while (true)
-			{
-				try
-				{
-					Stream inStream = request.GetResponse().GetResponseStream();
-					try
-					{
-						byte[] data = ReadStream(inStream);
-						return data;
-					}
-					finally
-					{
-						inStream?.Close();
-					}
-				}
-				catch
-				{
-					i++;
-					if (i > retryCount)
-						throw new IOException(string.Format("ÖØĞÂ¶ÁÈ¡³¬¹ı{0}´Î", retryCount));
-					try
-					{
-						if (errWaitDuration > 0L)
-							Thread.Sleep(errWaitDuration);
-					}
-					catch
-					{
-						// ignored
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// ½«srcµÄÄÚÈİ¸´ÖÆµ½dstÖĞ£¨src¿ÉÒÔÊÇÎÄ¼ş¼Ğ£©
-		/// </summary>
-		/// <param name="srcFileSystemInfo"></param>
-		/// <param name="dstFileSystemInfo"></param>
-		/// <returns></returns>
-		public static void CopyFile(FileSystemInfo srcFileSystemInfo, FileSystemInfo dstFileSystemInfo)
-		{
-			if (srcFileSystemInfo.IsDirectory())
-			{
-				string srcFileFullName = srcFileSystemInfo.FullName.ToLower();
-				string dstFileFullName = dstFileSystemInfo.FullName.ToLower();
-				if (dstFileFullName.StartsWith(srcFileFullName))
-					throw new IOException(string.Format("ÖØµşµİ¹é¸´ÖÆ{0}->{1}", srcFileFullName, dstFileFullName));
-
-				var dstDirectoryInfo = new DirectoryInfo(
-					KeyUtil.GetCombinedKey(Path.DirectorySeparatorChar, dstFileSystemInfo.FullName,
-						srcFileSystemInfo.Name));
-				dstDirectoryInfo.Create();
-				if (!dstDirectoryInfo.IsDirectory())
-					throw new IOException(string.Format("ÎŞ·¨´´½¨Ä¿Â¼{0}", dstDirectoryInfo));
-
-				FileSystemInfo[] srcFileSystemInfos = ((DirectoryInfo)srcFileSystemInfo).GetFileSystemInfos();
-				foreach (FileSystemInfo fileSystemInfo in srcFileSystemInfos)
-					CopyFile(fileSystemInfo, dstDirectoryInfo);
-			}
-			else
-			{
-				var srcFileStream = new FileStream(srcFileSystemInfo.FullName, FileMode.Open, FileAccess.Read);
-				try
-				{
-					FileInfo dstFileInfo;
-					if (dstFileSystemInfo.IsDirectory())
-					{
-						dstFileInfo = new FileInfo(((DirectoryInfo)dstFileSystemInfo).SubPath(srcFileSystemInfo.Name));
-						dstFileInfo.Create().Close();
-					}
-					else
-					{
-						DirectoryInfo dstParentDirectoryInfo = ((FileInfo)dstFileSystemInfo).Directory; // Ä¿±êÎÄ¼şdstµÄ¸¸¼¶Ä¿Â¼
-						dstParentDirectoryInfo?.Create();
-						if (dstParentDirectoryInfo == null || !dstParentDirectoryInfo.Exists)
-							throw new IOException(string.Format("ÎŞ·¨´´½¨Ä¿Â¼:{0}", dstParentDirectoryInfo));
-						dstFileInfo = (FileInfo)dstFileSystemInfo;
-						dstFileInfo.Create().Close();
-					}
-
-					if (!(srcFileSystemInfo).Equals(dstFileInfo))
-					{
-						var dstFileStream = new FileStream(dstFileSystemInfo.FullName, FileMode.Truncate,
-							FileAccess.Write);
-						try
-						{
-							CopyStream(srcFileStream, dstFileStream);
-						}
-						finally
-						{
-							dstFileStream.Close();
-						}
-					}
-				}
-				finally
-				{
-					srcFileStream.Close();
-				}
-			}
-		}
-
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼şpath£¨path¿ÉÒÔÊÇÎÄ¼ş¼Ğ£©
-		/// </summary>
-		/// <param name="filePath"></param>
-		/// <returns></returns>
-		public static void RemoveFiles(string filePath)
-		{
-			var directoryInfo = new DirectoryInfo(filePath);
-			var fileInfo = new FileInfo(filePath);
-			if (directoryInfo.Exists)
-				RemoveFile(directoryInfo);
-			else
-				RemoveFile(fileInfo);
-		}
-
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼şfile£¨file¿ÉÒÔÊÇÎÄ¼ş¼Ğ£©
-		/// </summary>
-		/// <param name="fileSystemInfo"></param>
-		/// <returns></returns>
-		public static void RemoveFile(FileSystemInfo fileSystemInfo)
-		{
-			if (!fileSystemInfo.Exists)
-				return;
-			if (fileSystemInfo.IsDirectory())
-				ClearDir((DirectoryInfo)fileSystemInfo);
-			fileSystemInfo.Delete();
-		}
-
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼ş¼Ğdir
-		/// </summary>
-		/// <param name="dirPath"></param>
-		/// <returns></returns>
-		public static void ClearDir(string dirPath)
-		{
-			ClearDir(new DirectoryInfo(dirPath));
-		}
-
-		/// <summary>
-		/// ÒÆ³ıÎÄ¼ş¼Ğdir
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <returns></returns>
-		public static void ClearDir(DirectoryInfo dir)
-		{
-			if (dir.Exists && dir.IsDirectory())
-			{
-				FileSystemInfo[] fileSystemInfos = dir.GetFileSystemInfos();
-				for (var i = 0; i < fileSystemInfos.Length; i++)
-				{
-					FileSystemInfo fileSystemInfo = fileSystemInfos[i];
-					RemoveFile(fileSystemInfo);
-				}
-			}
-		}
-
-		/// <summary>
-		/// ËÑË÷ÎÄ¼ş¼ĞdirÏÂ·ûºÏ¹ıÂËÌõ¼şfilterÖĞµÄÎÄ¼ş£¬½«ÎÄ¼şÌí¼Óµ½resultsÖĞ
-		/// </summary>
-		/// <param name="dir"></param>
-		/// <param name="filter"></param>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static void SearchFiles(DirectoryInfo dir, IFileSystemInfoFilter filter, IList results)
-		{
-			FileSystemInfo[] fileSystemInfos = dir.GetFileSystemInfos();
-			var list = new ArrayList();
-			for (var i = 0; i < fileSystemInfos.Length; i++)
-			{
-				FileSystemInfo fileSystemInfo = fileSystemInfos[i];
-				if (filter.Accept(fileSystemInfo))
-					list.Add(fileSystemInfo);
-			}
-
-			fileSystemInfos = new FileSystemInfo[list.Count];
-			list.CopyTo(fileSystemInfos);
-			for (var i = 0; i < fileSystemInfos.Length; i++)
-			{
-				FileSystemInfo fileSystemInfo = fileSystemInfos[i];
-				if (fileSystemInfo.IsDirectory())
-					SearchFiles((DirectoryInfo)fileSystemInfo, filter, results);
-				else
-					results.Add(fileSystemInfo);
-			}
-		}
-
-		public static void CreateDirectoryIfNotExist(string path)
-		{
-			if (!Directory.Exists(path))
-				Directory.CreateDirectory(path);
-		}
-
-		public static void CreateFileIfNotExist(string filePath)
-		{
-			if (!File.Exists(filePath))
-			{
-				string dirPath = Path.GetDirectoryName(filePath);
-				CreateDirectoryIfNotExist(dirPath);
-				File.Create(filePath).Dispose();
-			}
-		}
+                streamWriter.Flush();
+            }
+            finally
+            {
+                streamWriter.Close();
+            }
+        }
 
 
-		/// <summary>
-		/// dirÄ¿Â¼ÏÂ´´½¨prefix+yyyyMMddHHmmssSSS(len¾ö¶¨È¡yyyyMMddHHmmssSSSµÄ¶àÉÙÎ»)+suffixÎÄ¼ş
-		/// </summary>
-		/// <param name="dir">Ä¿Â¼</param>
-		/// <param name="prefix">Ç°×º</param>
-		/// <param name="suffix">ºó×º</param>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		private static FileInfo CreateTimelyFile(DirectoryInfo dir, string prefix, string suffix, int length,
-			RandomManager randomManager)
-		{
-			int i = 0;
-			do
-			{
-				string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
-				string rand = new StringBuilder(randomManager.RandomInt(0, 1000).ToString()).ToString();
-				string stem = (dateTime + rand.FillHead(3, CharConst.CHAR_0))
-					.Substring(0, length);
+        /// <summary>
+        /// è¯»å–æ–‡ä»¶fileNameï¼Œè¿”å›å­—ç¬¦ä¸²å†…å®¹
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static string ReadTextFile(string fileName)
+        {
+            return ReadTextFile(new FileInfo(fileName));
+        }
 
-				DirectoryInfo timelyDirectoryInfo = dir.CreateSubdirectory(stem);
-				timelyDirectoryInfo.Create();
-				if (timelyDirectoryInfo.Exists)
-				{
-					string fileName = prefix + stem + suffix;
-					var fileInfo = new FileInfo(timelyDirectoryInfo.SubPath(fileName));
-					if (fileInfo.Exists)
-						continue;
-					fileInfo.Create().Close();
-					return fileInfo;
-				}
+        public static List<string> ReadAsLineList(string fileName)
+        {
+            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.None);
+            StreamReader reader = new StreamReader(fileStream);
+            List<string> lineList = new List<string>();
+            string line = reader.ReadLine();
+            while (line != null)
+            {
+                lineList.Add(line);
+                line = reader.ReadLine();
+            }
 
-				throw new IOException(string.Format("ÎŞ·¨´´½¨Ä¿Â¼:", timelyDirectoryInfo.FullName));
-			} while (i++ < 10000);
+            reader.Close();
+            fileStream.Close();
+            return lineList;
+        }
 
-			throw new IOException(string.Format("{0}ÖĞÎŞ·¨´´½¨Î¨Ò»ÎÄ¼ş", dir.FullName));
-		}
-	}
+        /// <summary>
+        /// è¯»å–æ–‡ä»¶fileï¼Œè¿”å›å­—ç¬¦ä¸²å†…å®¹
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <returns></returns>
+        public static string ReadTextFile(FileInfo fileInfo)
+        {
+            var streamReader = new StreamReader(fileInfo.FullName);
+            var stringBuilder = new StringBuilder();
+            var chars = new char[1024];
+            try
+            {
+                int n;
+                while ((n = streamReader.Read(chars, 0, chars.Length)) != 0)
+                    stringBuilder.Append(chars, 0, n);
+                return stringBuilder.ToString();
+            }
+            finally
+            {
+                streamReader.Close();
+            }
+        }
+
+        /// <summary>
+        /// è¯»å–urlçš„å†…å®¹
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="retryCount">è¿æ¥å¤±è´¥æœ€å¤§é‡è¿æ¬¡æ•°</param>
+        /// <param name="errWaitDuration">è¿æ¥å¤±è´¥åç­‰å¾…æ—¶é—´</param>
+        /// <returns></returns>
+        public static byte[] ReadUrl(string url, int retryCount, int errWaitDuration)
+        {
+            int i = 0;
+            WebRequest request = WebRequest.Create(url);
+            while (true)
+            {
+                try
+                {
+                    Stream inStream = request.GetResponse().GetResponseStream();
+                    try
+                    {
+                        byte[] data = ReadStream(inStream);
+                        return data;
+                    }
+                    finally
+                    {
+                        inStream?.Close();
+                    }
+                }
+                catch
+                {
+                    i++;
+                    if (i > retryCount)
+                        throw new IOException(string.Format("é‡æ–°è¯»å–è¶…è¿‡{0}æ¬¡", retryCount));
+                    try
+                    {
+                        if (errWaitDuration > 0L)
+                            Thread.Sleep(errWaitDuration);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// å°†srcçš„å†…å®¹å¤åˆ¶åˆ°dstä¸­ï¼ˆsrcå¯ä»¥æ˜¯æ–‡ä»¶å¤¹ï¼‰
+        /// </summary>
+        /// <param name="srcFileSystemInfo"></param>
+        /// <param name="dstFileSystemInfo"></param>
+        /// <returns></returns>
+        public static void CopyFile(FileSystemInfo srcFileSystemInfo, FileSystemInfo dstFileSystemInfo)
+        {
+            if (srcFileSystemInfo.IsDirectory())
+            {
+                string srcFileFullName = srcFileSystemInfo.FullName.ToLower();
+                string dstFileFullName = dstFileSystemInfo.FullName.ToLower();
+                if (dstFileFullName.StartsWith(srcFileFullName))
+                    throw new IOException(string.Format("é‡å é€’å½’å¤åˆ¶{0}->{1}", srcFileFullName, dstFileFullName));
+
+                var dstDirectoryInfo = new DirectoryInfo(
+                    KeyUtil.GetCombinedKey(Path.DirectorySeparatorChar, dstFileSystemInfo.FullName,
+                        srcFileSystemInfo.Name));
+                dstDirectoryInfo.Create();
+                if (!dstDirectoryInfo.IsDirectory())
+                    throw new IOException(string.Format("æ— æ³•åˆ›å»ºç›®å½•{0}", dstDirectoryInfo));
+
+                FileSystemInfo[] srcFileSystemInfos = ((DirectoryInfo)srcFileSystemInfo).GetFileSystemInfos();
+                foreach (FileSystemInfo fileSystemInfo in srcFileSystemInfos)
+                    CopyFile(fileSystemInfo, dstDirectoryInfo);
+            }
+            else
+            {
+                var srcFileStream = new FileStream(srcFileSystemInfo.FullName, FileMode.Open, FileAccess.Read);
+                try
+                {
+                    FileInfo dstFileInfo;
+                    if (dstFileSystemInfo.IsDirectory())
+                    {
+                        dstFileInfo = new FileInfo(((DirectoryInfo)dstFileSystemInfo).SubPath(srcFileSystemInfo.Name));
+                        dstFileInfo.Create().Close();
+                    }
+                    else
+                    {
+                        DirectoryInfo dstParentDirectoryInfo = ((FileInfo)dstFileSystemInfo).Directory; // ç›®æ ‡æ–‡ä»¶dstçš„çˆ¶çº§ç›®å½•
+                        dstParentDirectoryInfo?.Create();
+                        if (dstParentDirectoryInfo == null || !dstParentDirectoryInfo.Exists)
+                            throw new IOException(string.Format("æ— æ³•åˆ›å»ºç›®å½•:{0}", dstParentDirectoryInfo));
+                        dstFileInfo = (FileInfo)dstFileSystemInfo;
+                        dstFileInfo.Create().Close();
+                    }
+
+                    if (!(srcFileSystemInfo).Equals(dstFileInfo))
+                    {
+                        var dstFileStream = new FileStream(dstFileSystemInfo.FullName, FileMode.Truncate,
+                            FileAccess.Write);
+                        try
+                        {
+                            CopyStream(srcFileStream, dstFileStream);
+                        }
+                        finally
+                        {
+                            dstFileStream.Close();
+                        }
+                    }
+                }
+                finally
+                {
+                    srcFileStream.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶pathï¼ˆpathå¯ä»¥æ˜¯æ–‡ä»¶å¤¹ï¼‰
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void RemoveFiles(string filePath)
+        {
+            var directoryInfo = new DirectoryInfo(filePath);
+            var fileInfo = new FileInfo(filePath);
+            if (directoryInfo.Exists)
+                RemoveFile(directoryInfo);
+            else
+                RemoveFile(fileInfo);
+        }
+
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶fileï¼ˆfileå¯ä»¥æ˜¯æ–‡ä»¶å¤¹ï¼‰
+        /// </summary>
+        /// <param name="fileSystemInfo"></param>
+        /// <returns></returns>
+        public static void RemoveFile(FileSystemInfo fileSystemInfo)
+        {
+            if (!fileSystemInfo.Exists)
+                return;
+            if (fileSystemInfo.IsDirectory())
+                ClearDir((DirectoryInfo)fileSystemInfo);
+            fileSystemInfo.Delete();
+        }
+
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶å¤¹dir
+        /// </summary>
+        /// <param name="dirPath"></param>
+        /// <returns></returns>
+        public static void ClearDir(string dirPath)
+        {
+            ClearDir(new DirectoryInfo(dirPath));
+        }
+
+        /// <summary>
+        /// ç§»é™¤æ–‡ä»¶å¤¹dir
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static void ClearDir(DirectoryInfo dir)
+        {
+            if (dir.Exists && dir.IsDirectory())
+            {
+                FileSystemInfo[] fileSystemInfos = dir.GetFileSystemInfos();
+                for (var i = 0; i < fileSystemInfos.Length; i++)
+                {
+                    FileSystemInfo fileSystemInfo = fileSystemInfos[i];
+                    RemoveFile(fileSystemInfo);
+                }
+            }
+        }
+
+        /// <summary>
+        /// æœç´¢æ–‡ä»¶å¤¹dirä¸‹ç¬¦åˆè¿‡æ»¤æ¡ä»¶filterä¸­çš„æ–‡ä»¶ï¼Œå°†æ–‡ä»¶æ·»åŠ åˆ°resultsä¸­
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="filter"></param>
+        /// <param name="results"></param>
+        /// <returns></returns>
+        public static void SearchFiles(DirectoryInfo dir, IFileSystemInfoFilter filter, IList results)
+        {
+            FileSystemInfo[] fileSystemInfos = dir.GetFileSystemInfos();
+            var list = new ArrayList();
+            for (var i = 0; i < fileSystemInfos.Length; i++)
+            {
+                FileSystemInfo fileSystemInfo = fileSystemInfos[i];
+                if (filter.Accept(fileSystemInfo))
+                    list.Add(fileSystemInfo);
+            }
+
+            fileSystemInfos = new FileSystemInfo[list.Count];
+            list.CopyTo(fileSystemInfos);
+            for (var i = 0; i < fileSystemInfos.Length; i++)
+            {
+                FileSystemInfo fileSystemInfo = fileSystemInfos[i];
+                if (fileSystemInfo.IsDirectory())
+                    SearchFiles((DirectoryInfo)fileSystemInfo, filter, results);
+                else
+                    results.Add(fileSystemInfo);
+            }
+        }
+
+        public static void CreateDirectoryIfNotExist(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+        }
+
+        public static void CreateFileIfNotExist(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                string dirPath = Path.GetDirectoryName(filePath);
+                CreateDirectoryIfNotExist(dirPath);
+                File.Create(filePath).Dispose();
+            }
+        }
+
+
+        /// <summary>
+        /// dirç›®å½•ä¸‹åˆ›å»ºprefix+yyyyMMddHHmmssSSS(lenå†³å®šå–yyyyMMddHHmmssSSSçš„å¤šå°‘ä½)+suffixæ–‡ä»¶
+        /// </summary>
+        /// <param name="dir">ç›®å½•</param>
+        /// <param name="prefix">å‰ç¼€</param>
+        /// <param name="suffix">åç¼€</param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        private static FileInfo CreateTimelyFile(DirectoryInfo dir, string prefix, string suffix, int length,
+            RandomManager randomManager)
+        {
+            int i = 0;
+            do
+            {
+                string dateTime = DateTimeUtil.NowDateTime().ToString(StringConst.STRING_yyyyMMddHHmmssSSS);
+                string rand = new StringBuilder(randomManager.RandomInt(0, 1000).ToString()).ToString();
+                string stem = (dateTime + rand.FillHead(3, CharConst.CHAR_0))
+                    .Substring(0, length);
+
+                DirectoryInfo timelyDirectoryInfo = dir.CreateSubdirectory(stem);
+                timelyDirectoryInfo.Create();
+                if (timelyDirectoryInfo.Exists)
+                {
+                    string fileName = prefix + stem + suffix;
+                    var fileInfo = new FileInfo(timelyDirectoryInfo.SubPath(fileName));
+                    if (fileInfo.Exists)
+                        continue;
+                    fileInfo.Create().Close();
+                    return fileInfo;
+                }
+
+                throw new IOException(string.Format("æ— æ³•åˆ›å»ºç›®å½•:", timelyDirectoryInfo.FullName));
+            } while (i++ < 10000);
+
+            throw new IOException(string.Format("{0}ä¸­æ— æ³•åˆ›å»ºå”¯ä¸€æ–‡ä»¶", dir.FullName));
+        }
+    }
 }
-

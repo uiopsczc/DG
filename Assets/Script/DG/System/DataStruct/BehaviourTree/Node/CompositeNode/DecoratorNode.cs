@@ -1,69 +1,67 @@
 namespace DG
 {
-	public class DecoratorNode : BehaviourTreeCompositeNode
-	{
-		#region field
+    public class DecoratorNode : BehaviourTreeCompositeNode
+    {
+        #region field
 
-		public EBehaviourTreeNodeStatus untilStatus;
-		public int countLimit;
-		public int curCount;
+        public EBehaviourTreeNodeStatus untilStatus;
+        public int countLimit;
+        public int curCount;
 
-		#endregion
-		
-		#region ctor
+        #endregion
 
-		public DecoratorNode(EBehaviourTreeNodeStatus untilStatus, int countLimit = -1)
-		{
-			this.untilStatus = untilStatus;
-			this.countLimit = countLimit;
-		}
+        #region ctor
 
-		#endregion
+        public DecoratorNode(EBehaviourTreeNodeStatus untilStatus, int countLimit = -1)
+        {
+            this.untilStatus = untilStatus;
+            this.countLimit = countLimit;
+        }
 
-		#region override method
+        #endregion
 
-		/// <summary>
-		///   只包含一个子节点
-		/// </summary>
-		/// <returns></returns>
-		public override EBehaviourTreeNodeStatus Update()
-		{
-			if (childList == null || childList.Count == 0)
-			{
-				curCount = 0;
-				status = EBehaviourTreeNodeStatus.Success;
-				return status;
-			}
+        #region override method
 
-			var child = childList[0];
-			var childStatus = child.Update();
-			if (childStatus == untilStatus)
-			{
-				status = EBehaviourTreeNodeStatus.Success;
-				return status;
-			}
+        /// <summary>
+        ///   只包含一个子节点
+        /// </summary>
+        /// <returns></returns>
+        public override EBehaviourTreeNodeStatus Update()
+        {
+            if (childList == null || childList.Count == 0)
+            {
+                curCount = 0;
+                status = EBehaviourTreeNodeStatus.Success;
+                return status;
+            }
 
-			if (curCount == -1)
-			{
-				curCount = 0;
-				status = EBehaviourTreeNodeStatus.Running;
-				return status;
-			}
+            var child = childList[0];
+            var childStatus = child.Update();
+            if (childStatus == untilStatus)
+            {
+                status = EBehaviourTreeNodeStatus.Success;
+                return status;
+            }
 
-			curCount++;
-			if (curCount >= countLimit)
-			{
-				curCount = 0;
-				status = EBehaviourTreeNodeStatus.Fail;
-				return status;
-			}
+            if (curCount == -1)
+            {
+                curCount = 0;
+                status = EBehaviourTreeNodeStatus.Running;
+                return status;
+            }
 
-			status = EBehaviourTreeNodeStatus.Running;
-			return status;
-		}
+            curCount++;
+            if (curCount >= countLimit)
+            {
+                curCount = 0;
+                status = EBehaviourTreeNodeStatus.Fail;
+                return status;
+            }
 
-		#endregion
+            status = EBehaviourTreeNodeStatus.Running;
+            return status;
+        }
 
-		
-	}
+        #endregion
+    }
 }

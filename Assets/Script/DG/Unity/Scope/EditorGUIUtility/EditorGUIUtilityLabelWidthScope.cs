@@ -4,20 +4,20 @@ using UnityEditor;
 
 namespace DG
 {
-	public class EditorGUIUtilityLabelWidthScope : IDisposable
-	{
-		private readonly float _orgLabelWidth;
+    public class EditorGUIUtilityLabelWidthScope : IDisposable
+    {
+        private readonly float _orgLabelWidth;
 
-		public EditorGUIUtilityLabelWidthScope(float newLabelWidth)
-		{
-			_orgLabelWidth = EditorGUIUtility.labelWidth;
-			EditorGUIUtility.labelWidth = newLabelWidth;
-		}
+        public EditorGUIUtilityLabelWidthScope(float newLabelWidth)
+        {
+            _orgLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = newLabelWidth;
+        }
 
-		public void Dispose()
-		{
-			EditorGUIUtility.labelWidth = _orgLabelWidth;
-		}
-	}
+        public void Dispose()
+        {
+            EditorGUIUtility.labelWidth = _orgLabelWidth;
+        }
+    }
 }
 #endif

@@ -3,99 +3,98 @@ using System.Collections.Generic;
 
 namespace DG
 {
-	public partial class LinkedDictionary<K, V> : Dictionary<K, V>, IGetLinkedHashtable
-	{
-		private readonly List<K> _keyList = new();
-		private readonly List<V> _valueList = new();
-		private DictionaryEnumerator<K, V> __enumerator;
-		LinkedHashtable _table = new();
+    public partial class LinkedDictionary<K, V> : Dictionary<K, V>, IGetLinkedHashtable
+    {
+        private readonly List<K> _keyList = new();
+        private readonly List<V> _valueList = new();
+        private DictionaryEnumerator<K, V> __enumerator;
+        LinkedHashtable _table = new();
 
-		private DictionaryEnumerator<K, V> _enumerator =>
-			__enumerator ??= new DictionaryEnumerator<K, V>(_keyList, _valueList);
+        private DictionaryEnumerator<K, V> _enumerator =>
+            __enumerator ??= new DictionaryEnumerator<K, V>(_keyList, _valueList);
 
-		public new List<K> Keys => _keyList;
-		public new List<V> Values => _valueList;
+        public new List<K> Keys => _keyList;
+        public new List<V> Values => _valueList;
 
-		public new V this[K key]
-		{
-			get => base[key];
-			set => Put(key, value);
-		}
-
-
-		#region override method
-
-		public new void Add(K key, V value)
-		{
-			_keyList.Add(key);
-			_valueList.Add(value);
-			base.Add(key, value);
-		}
-
-		public new void Clear()
-		{
-			_keyList.Clear();
-			_valueList.Clear();
-			base.Clear();
-		}
-
-		public new void Remove(K key)
-		{
-			int index = _keyList.IndexOf(key);
-			if (index == -1) return;
-			_keyList.RemoveAt(index);
-			_valueList.RemoveAt(index);
-			base.Remove(key);
-		}
-
-		public new DictionaryEnumerator<K, V> GetEnumerator()
-		{
-			_enumerator.Reset();
-			return _enumerator;
-		}
-
-		#endregion
+        public new V this[K key]
+        {
+            get => base[key];
+            set => Put(key, value);
+        }
 
 
-		public void Put(K key, V value)
-		{
-			int index = _keyList.IndexOf(key);
-			//É¾³ýÔ­À´µÄ
-			if (index != -1)
-			{
-				_keyList.RemoveAt(index);
-				_valueList.RemoveAt(index);
-			}
+        #region override method
 
-			_keyList.Add(key);
-			_valueList.Add(value);
-			//È»ºó·Åµ½×îºó
-			base[key] = value;
-		}
+        public new void Add(K key, V value)
+        {
+            _keyList.Add(key);
+            _valueList.Add(value);
+            base.Add(key, value);
+        }
 
-		public void Sort(Func<K, K, bool> compareFunc)
-		{
-			_keyList.QuickSort(compareFunc);
-			_valueList.Clear();
-			for (var i = 0; i < _keyList.Count; i++)
-			{
-				var key = _keyList[i];
-				_valueList.Add(this[key]);
-			}
-		}
+        public new void Clear()
+        {
+            _keyList.Clear();
+            _valueList.Clear();
+            base.Clear();
+        }
+
+        public new void Remove(K key)
+        {
+            int index = _keyList.IndexOf(key);
+            if (index == -1) return;
+            _keyList.RemoveAt(index);
+            _valueList.RemoveAt(index);
+            base.Remove(key);
+        }
+
+        public new DictionaryEnumerator<K, V> GetEnumerator()
+        {
+            _enumerator.Reset();
+            return _enumerator;
+        }
+
+        #endregion
 
 
-		public LinkedHashtable GetLinkedHashtable()
-		{
-			_table.Clear();
-			for (var i = 0; i < Keys.Count; i++)
-			{
-				var key = Keys[i];
-				_table[key] = this[key];
-			}
+        public void Put(K key, V value)
+        {
+            int index = _keyList.IndexOf(key);
+            //åˆ é™¤åŽŸæ¥çš„
+            if (index != -1)
+            {
+                _keyList.RemoveAt(index);
+                _valueList.RemoveAt(index);
+            }
 
-			return _table;
-		}
-	}
+            _keyList.Add(key);
+            _valueList.Add(value);
+            //ç„¶åŽæ”¾åˆ°æœ€åŽ
+            base[key] = value;
+        }
 
+        public void Sort(Func<K, K, bool> compareFunc)
+        {
+            _keyList.QuickSort(compareFunc);
+            _valueList.Clear();
+            for (var i = 0; i < _keyList.Count; i++)
+            {
+                var key = _keyList[i];
+                _valueList.Add(this[key]);
+            }
+        }
+
+
+        public LinkedHashtable GetLinkedHashtable()
+        {
+            _table.Clear();
+            for (var i = 0; i < Keys.Count; i++)
+            {
+                var key = Keys[i];
+                _table[key] = this[key];
+            }
+
+            return _table;
+        }
+    }
 }

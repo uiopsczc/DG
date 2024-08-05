@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DG
 {
-	public class GUIToolbarTest : MonoBehaviour
-	{
-	}
+    public class GUIToolbarTest : MonoBehaviour
+    {
+    }
 }

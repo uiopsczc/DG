@@ -2,94 +2,93 @@ using System;
 
 namespace DG
 {
-	public static class FloatUtil
-	{
-		/// <summary>
-		///   ±È½ÏÁ½¸öfloatÊÇ·ñÏàµÈ£¬Á½ÕßÏà²îFloatConst.EPSILONÔòÅĞ¶ÏÎªÏàµÈ£¬·ñÔòÅĞ¶ÏÎª²»ÏàµÈ
-		/// </summary>
-		/// <param name="v"></param>
-		/// <param name="float2"></param>
-		/// <param name="epsilon"></param>
-		/// <returns></returns>
-		public static bool EqualsEpsilon(float v, float float2, float epsilon = float.Epsilon)
-		{
-			return Math.Abs(v - float2) < epsilon;
-		}
+    public static class FloatUtil
+    {
+        /// <summary>
+        ///   æ¯”è¾ƒä¸¤ä¸ªfloatæ˜¯å¦ç›¸ç­‰ï¼Œä¸¤è€…ç›¸å·®FloatConst.EPSILONåˆ™åˆ¤æ–­ä¸ºç›¸ç­‰ï¼Œå¦åˆ™åˆ¤æ–­ä¸ºä¸ç›¸ç­‰
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="float2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        public static bool EqualsEpsilon(float v, float float2, float epsilon = float.Epsilon)
+        {
+            return Math.Abs(v - float2) < epsilon;
+        }
 
-		/// <summary>
-		///   ×ªÎªbytes
-		/// </summary>
-		/// <param name="v"></param>
-		/// <param name="isNetOrder">ÊÇ·ñÊÇÍøÂçË³Ğò£¬ÍøÂçË³ĞòÊÇÏà·´µÄ</param>
-		/// <returns></returns>
-		public static byte[] ToBytes(float v, bool isNetOrder = false)
-		{
-			var data = BitConverter.GetBytes(v);
-			if (isNetOrder)
-				Array.Reverse(data);
-			return data;
-		}
+        /// <summary>
+        ///   è½¬ä¸ºbytes
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="isNetOrder">æ˜¯å¦æ˜¯ç½‘ç»œé¡ºåºï¼Œç½‘ç»œé¡ºåºæ˜¯ç›¸åçš„</param>
+        /// <returns></returns>
+        public static byte[] ToBytes(float v, bool isNetOrder = false)
+        {
+            var data = BitConverter.GetBytes(v);
+            if (isNetOrder)
+                Array.Reverse(data);
+            return data;
+        }
 
 
-		//ÊÇ·ñÊÇdefalut, Ä¬ÈÏÊÇÓëfloat.MaxValue±È½Ï
-		public static bool IsDefault(float v, bool isMin = false)
-		{
-			return isMin ? v == float.MinValue : v == float.MaxValue;
-		}
+        //æ˜¯å¦æ˜¯defalut, é»˜è®¤æ˜¯ä¸float.MaxValueæ¯”è¾ƒ
+        public static bool IsDefault(float v, bool isMin = false)
+        {
+            return isMin ? v == float.MinValue : v == float.MaxValue;
+        }
 
-		//µÃµ½°Ù·Ö±È
-		public static float GetPercent(float value, float minValue, float maxValue, bool isClamp = true)
-		{
-			if (isClamp)
-			{
-				if (value < minValue)
-					value = minValue;
-				else if (value > maxValue)
-					value = maxValue;
-			}
+        //å¾—åˆ°ç™¾åˆ†æ¯”
+        public static float GetPercent(float value, float minValue, float maxValue, bool isClamp = true)
+        {
+            if (isClamp)
+            {
+                if (value < minValue)
+                    value = minValue;
+                else if (value > maxValue)
+                    value = maxValue;
+            }
 
-			float offset = value - minValue;
-			return offset / (maxValue - minValue);
-		}
+            float offset = value - minValue;
+            return offset / (maxValue - minValue);
+        }
 
-		public static bool IsInRange(float value, float minValue, float maxValue, bool isMinValueInclude = false,
-			bool isMaxValueInclude = false)
-		{
-			return !(value < minValue) && !(value > maxValue) &&
-				   ((value != minValue || isMinValueInclude) && (value != maxValue || isMaxValueInclude));
-		}
+        public static bool IsInRange(float value, float minValue, float maxValue, bool isMinValueInclude = false,
+            bool isMaxValueInclude = false)
+        {
+            return !(value < minValue) && !(value > maxValue) &&
+                   ((value != minValue || isMinValueInclude) && (value != maxValue || isMaxValueInclude));
+        }
 
-		/// <summary>
-		/// °Ù·Ö±È  ÊäÈë0.1,Êä³ö10%
-		/// </summary>
-		/// <param name="pct"></param>
-		/// <returns></returns>
-		public static string ToPctString(float pct)
-		{
-			return string.Format(StringConst.STRING_FORMAT_PCT, pct * 100);
-		}
+        /// <summary>
+        /// ç™¾åˆ†æ¯”  è¾“å…¥0.1,è¾“å‡º10%
+        /// </summary>
+        /// <param name="pct"></param>
+        /// <returns></returns>
+        public static string ToPctString(float pct)
+        {
+            return string.Format(StringConst.STRING_FORMAT_PCT, pct * 100);
+        }
 
-		//½«v RoundËÄÉáÎåÈësnap_sozeµÄ±¶ÊıµÄÖµ
-		//Rounds value to the closest multiple of snap_size.
-		public static float Snap(float self, float snapSize)
-		{
-			return (float)(Math.Round(self / snapSize) * snapSize);
-		}
+        //å°†v Roundå››èˆäº”å…¥snap_sozeçš„å€æ•°çš„å€¼
+        //Rounds value to the closest multiple of snap_size.
+        public static float Snap(float self, float snapSize)
+        {
+            return (float)(Math.Round(self / snapSize) * snapSize);
+        }
 
-		public static float Snap2(float self, float snapSize)
-		{
-			return (float)(Math.Round(self * snapSize) / snapSize);
-		}
+        public static float Snap2(float self, float snapSize)
+        {
+            return (float)(Math.Round(self * snapSize) / snapSize);
+        }
 
-		public static float Minimum(float v, float minimum)
-		{
-			return Math.Max(v, minimum);
-		}
+        public static float Minimum(float v, float minimum)
+        {
+            return Math.Max(v, minimum);
+        }
 
-		public static float Maximum(float v, float maximum)
-		{
-			return Math.Min(v, maximum);
-		}
-	}
+        public static float Maximum(float v, float maximum)
+        {
+            return Math.Min(v, maximum);
+        }
+    }
 }
-

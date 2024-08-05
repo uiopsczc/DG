@@ -1,7 +1,6 @@
 namespace DG
 {
-	public static class UShortUtil
-	{
-	}
+    public static class UShortUtil
+    {
+    }
 }
-
